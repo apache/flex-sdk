@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/FCK/states/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FCKStates.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+			import mx.controls.Button;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+
+
+<!-- states -->
+	
+	<TestCase testID="FCK_states_includeIn" keywords="[FCK, states]" description="only first two should show and they should be in state2">
+		<setup>
+			<ResetComponent target="statesGroup" className="comps.StatesGroup" waitTarget="statesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.statesGroup.currentState='state2'" waitTarget="statesGroup.statesContainer" waitEvent="transitionComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../states/baselines/FCK_states_includeIn.png" target="statesGroup" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_excludeFrom" keywords="[FCK, states]" description="only last two should show and they should be in state3">
+		<setup>
+			<ResetComponent target="statesGroup" className="comps.StatesGroup" waitTarget="statesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.statesGroup.currentState='state3'" waitTarget="statesGroup.staticStateContainer" waitEvent="transitionComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../states/baselines/FCK_states_excludeFrom.png" target="statesGroup" />
+	    </body>
+	</TestCase>	
+		
+	<TestCase testID="FCK_states_changingStates" keywords="[FCK, states]" description="changing states in the StatesGroup should change the Flash component/container state">
+		<setup>
+			<ResetComponent target="statesGroup" className="comps.StatesGroup" waitTarget="statesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.statesGroup.currentState='state1'" waitTarget="statesGroup.statesComponent" waitEvent="transitionComplete" />
+			<RunCode code="application.statesGroup.currentState='state2'" waitTarget="statesGroup.statesComponent" waitEvent="transitionComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../states/baselines/FCK_states_changingStates.png" target="statesGroup" />
+	    </body>
+	</TestCase>	
+
+	
+<!-- 
+
+	Transitions Tests 
+	
+	- The TransitionsComponent and TransitionsContainer symbols in FlashSource.fla are used for testing transtitions
+	- These Flash movieclips send off a custom "transitionComplete" event from the timeline at each frame that corresponds to a state.
+	  This allows Mustella to key off of these events instead of currentStateChange because the transition animation takes some time.
+	  
+	- A string is appended to as different frames are hit which can be accessed via getTransitionTestResults()
+	- Make sure to call resetTransitionTest() to clear this string before performing a test
+	
+	- Possible additions to the string where XX,YY are statenames or wildcards (*) include
+	  - XX-YY:start
+	  - XX-YY:startInside
+	  - XX-YY:endInside
+	  - XX-YY:end
+	  - YY (ending state)
+	  
+	  (See the FlashSource.fla file and examine the timeline of these symbols to see where they fit)
+
+	- This is the lookup order of transtions that we are checking happens correctly:
+		- from-to
+		- to-from (reversed)
+		- *-to
+		- to-* (reversed)
+		- from-*
+		- *-from (reversed)
+		- *-*
+	
+-->
+
+	
+<!-- transitions (flash component) -->	
+
+	<TestCase testID="FCK_states_transitions_component_fromTo" keywords="[FCK, states, transitions]" description="check that from-to transition is played when going from state 1 to state2">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state1'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state2'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[state1-state2:start][state1-state2:startInside][state1-state2:endInside][state2]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_fromTo.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_states_transitions_component_toFrom" keywords="[FCK, states, transitions]" description="check that to-from (reversed) transition is played when going from state2 to state1">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state2'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state1'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[state1-state2:end][state1-state2:endInside][state1-state2:startInside][state1]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_toFrom.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_states_transitions_component_starTo" keywords="[FCK, states, transitions]" description="check that *-to transition is played when going from state2 to state4">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state2'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state4'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[*-state4:start][*-state4:startInside][*-state4:endInside][state4]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_starTo.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_component_toStar" keywords="[FCK, states, transitions]" description="check that to-* (reversed) transition is played when going from state4 to state3">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state4'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state3'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[*-state4:end][*-state4:endInside][*-state4:startInside][state3]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_toStar.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_component_fromStar" keywords="[FCK, states, transitions]" description="check that from-* transition is played when going from state1 to state5">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state1'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state5'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[state1-*:start][state1-*:startInside][state1-*:endInside][state5]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_fromStar.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_component_starFrom" keywords="[FCK, states, transitions]" description="check that *-from (reversed) transition is played when going from state5 to state1">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state5'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state1'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[state1-*:end][state1-*:endInside][state1-*:startInside][state1]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_starFrom.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_component_starStar" keywords="[FCK, states, transitions]" description="check that *-* transition is played when going from state5 to state3">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state5'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsComponent.currentState='state3'" waitTarget="transitionsGroup.transitionsComponent" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsComponent.getTransitionTestResults()" valueExpression="value='[*-*:start][*-*:startInside][*-*:endInside][state3]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_component_starStar.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	
+	
+	
+<!-- transitions (flash container) -->	
+
+	<TestCase testID="FCK_states_transitions_container_fromTo" keywords="[FCK, states, transitions]" description="check that from-to transition is played when going from state 1 to state2">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state1'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state2'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[state1-state2:start][state1-state2:startInside][state1-state2:endInside][state2]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_fromTo.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_states_transitions_container_toFrom" keywords="[FCK, states, transitions]" description="check that to-from (reversed) transition is played when going from state2 to state1">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state2'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state1'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[state1-state2:end][state1-state2:endInside][state1-state2:startInside][state1]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_toFrom.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_states_transitions_container_starTo" keywords="[FCK, states, transitions]" description="check that *-to transition is played when going from state2 to state4">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state2'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state4'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[*-state4:start][*-state4:startInside][*-state4:endInside][state4]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_starTo.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_container_toStar" keywords="[FCK, states, transitions]" description="check that to-* (reversed) transition is played when going from state4 to state3">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state4'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state3'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[*-state4:end][*-state4:endInside][*-state4:startInside][state3]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_toStar.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_container_fromStar" keywords="[FCK, states, transitions]" description="check that from-* transition is played when going from state1 to state5">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state1'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state5'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[state1-*:start][state1-*:startInside][state1-*:endInside][state5]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_fromStar.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_container_starFrom" keywords="[FCK, states, transitions]" description="check that *-from (reversed) transition is played when going from state5 to state1">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state5'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state1'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[state1-*:end][state1-*:endInside][state1-*:startInside][state1]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_starFrom.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_states_transitions_container_starStar" keywords="[FCK, states, transitions]" description="check that *-* transition is played when going from state5 to state3">
+		<setup>
+			<ResetComponent target="transitionsGroup" className="comps.TransitionsGroup" waitTarget="transitionsGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state5'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.resetTransitionTest()" value="true" />		
+		</setup>
+		<body>
+			<RunCode code="application.transitionsGroup.transitionsContainer.currentState='state3'" waitTarget="transitionsGroup.transitionsContainer" waitEvent="transitionComplete" />
+			<AssertMethodValue method="value=application.transitionsGroup.transitionsContainer.getTransitionTestResults()" valueExpression="value='[*-*:start][*-*:startInside][*-*:endInside][state3]'" />
+			<CompareBitmap url="../states/baselines/FCK_states_transitions_container_starStar.png" target="transitionsGroup" />			
+	    </body>
+	</TestCase>	
+		
+		
+		
+		
+	
+	
+		
+	</testCases>
+</UnitTester>

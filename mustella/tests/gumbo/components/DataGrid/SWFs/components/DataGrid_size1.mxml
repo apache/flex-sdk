@@ -1,0 +1,122 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" dataProvider="{dp1}"
+   >
+   <fx:Declarations>
+   		<mx:ArrayCollection id="gridDataCollection"/>
+   		
+		<fx:int id="rowCount">100</fx:int>
+   		<s:ArrayCollection id="dp1">
+   			<s:DataItem country="USA" firstName="Jozy Jozy Jozy" lastName="AltFN" position="FW" club="VilCB" number="17"/>
+   			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN" position="DF" club="RenCB" number="3"/>
+   			<s:DataItem country="USA" firstName="TimFN" lastName="HowFN" position="GK" club="EveCB" number="1"/>
+   			<s:DataItem country="USA" firstName="CliFN" lastName="DemFN" position="MF" club="FulCB" number="8"/>
+   			<s:DataItem country="USA" firstName="RobFN" lastName="Findley Findley Findley Findley" position="FW" club="RslCB" number="20"/>
+   			<s:DataItem country="USA" firstName="H" lastName="G" position="FW" club="PacCB" number="9"/>
+   			<s:DataItem country="USA" firstName="Landon Jack London" lastName="DonFN" position="MF" club="LA Galaxy" number="10"/>
+   			<s:DataItem country="USA" firstName="OguFN" lastName="OnyFN" position="DF" club="MilCB" number="5"/>
+   			<s:DataItem country="USA" firstName="BenFN" lastName="FeiFN" position="MF" club="AGF" number="22"/>
+   			<s:DataItem country="USA" firstName="EdsFN" lastName="BudFN" position="FW" club="LagCB" number="14"/>
+   			<s:DataItem country="USA" firstName="MicFN" lastName="BraFN" position="MF" club="BmbCB" number="4"/>
+   			<s:DataItem country="USA" firstName="SteFN" lastName="CheFN" position="DF" club="HanCB" number="6"/>
+   			<s:DataItem country="USA" firstName="JayFN" lastName="DeMerit" position="DF" club="WatCB" number="15"/>
+   			<s:DataItem country="USA" firstName="JozFN" lastName="AltFN" position="FW" club="VilCB" number="17"/>
+   			<s:DataItem country="ENG" firstName="LedFN" lastName="KinFN" position="DF" club="ThsCB" number="20"/>			
+   		</s:ArrayCollection>
+   				
+   		<s:ArrayCollection id="columns1">					 
+   			<s:GridColumn id="c1_1" dataField="country" width="50"/>
+   			<s:GridColumn id="c1_2" dataField="firstName" />
+   			<s:GridColumn id="c1_3" dataField="lastName" width="100"/>
+   			<s:GridColumn id="c1_4" dataField="position"/>
+   			<s:GridColumn id="c1_5" dataField="club"/>
+   			<s:GridColumn id="c1_6" dataField="number"/>
+   		</s:ArrayCollection>
+   		
+   		<s:ArrayCollection id="columns2">
+   			<s:GridColumn id="c2_1" dataField="number"/>
+   			<s:GridColumn id="c2_2" dataField="lastName" width="150"/>
+   			<s:GridColumn id="c2_3" dataField="firstName"/>											
+   		</s:ArrayCollection>
+   		
+   		<s:ArrayCollection id="columns3">
+   			<s:GridColumn id="c3_1" dataField="firstName"/>
+   			<s:GridColumn id="c3_2" dataField="lastName"/>
+   		</s:ArrayCollection>		
+		<s:DataItem id="typicalItem1" country="ABCDEFGHIJKL0123456789" firstName="MNOPQRSTUVW" lastName="XYZ" />
+		<s:DataItem id="typicalItem2" country="56789" firstName="MNOPQ" lastName="XYZTW" />
+		
+	</fx:Declarations>
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			 
+			 
+			public function createItem(index:int):Object
+			{
+				var t:int=index;
+				var rowCount:int=dp1.length;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = dp1[index].firstName;
+				const lastName:String = dp1[index].lastName;
+				const country:String = dp1[index].country;
+				const position:String= dp1[index].position;
+				const club:String= dp1[index].club;
+				const number:int= dp1[index].number;
+				
+				return {country:country, firstName: firstName, lastName: lastName, club: club,position:position,number:number};
+			}
+			public function addItem(index:int):void
+			{
+				var n:int;
+				if (this.dataProvider==null) n=0;
+				else n=this.dataProvider.length;
+				
+				
+				if (index<0)
+					this.dataProvider.addItem(createItem(n+1));
+				else 
+				{
+					trace("create an object="+createItem(1000+n+1));
+					this.dataProvider.addItemAt(createItem(1000+n+1),index);
+				}
+			}
+    			
+			public function resetDP():void
+			{
+				gridDataCollection.removeAll();
+				var t:ArrayCollection=new ArrayCollection();
+				for (var i:int = 100; i < rowCount+100; i++)
+					gridDataCollection.addItem(createItem(i));
+				this.dataProvider=gridDataCollection;
+
+			}
+			public function resetDP2():void
+			{
+
+				var t:ArrayCollection=new ArrayCollection();
+				for (var i:int = 100; i < rowCount+100; i++)
+					t.addItem(createItem(i));
+				this.dataProvider=t;
+
+			}
+			public function resetEmptyDP():void
+			{
+				var t:ArrayCollection=new ArrayCollection();
+				gridDataCollection.source=t.source;
+				this.dataProvider=gridDataCollection;
+								
+			}
+    		]]>
+    </fx:Script>
+	<s:columns>
+		<s:ArrayList>					 
+			<s:GridColumn id="c_1" dataField="country" />
+			<s:GridColumn id="c_2" dataField="firstName" />
+			<s:GridColumn id="c_3" dataField="lastName" />
+			<s:GridColumn id="c_4" dataField="position"/>
+			<s:GridColumn id="c_5" dataField="club"/>
+			<s:GridColumn id="c_6" dataField="number"/>
+		</s:ArrayList>	
+	</s:columns>
+	
+</s:DataGrid>

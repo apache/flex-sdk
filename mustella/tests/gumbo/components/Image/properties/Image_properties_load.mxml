@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/properties/"
+			testSWF="ImageMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    <fx:Script>
+        <![CDATA[
+            import skins.*;
+            public var imageBytes:Array = [ 71, 73, 70, 56, 57, 97, 50, 0, 30, 0, 230, 0, 0, 0, 0, 0, 173, 169, 206, 82, 73, 153, 74, 74, 74, 115, 109, 155, 248, 247, 251, 102, 102, 102, 26, 24, 35, 181, 181, 181, 70, 61, 145, 222, 222, 222, 153, 153, 153, 204, 204, 204, 58, 58, 58, 132, 132, 132, 231, 231, 231, 8, 7, 14, 90, 90, 90, 89, 81, 163, 153, 153, 153, 191, 188, 217, 165, 165, 165, 190, 190, 190, 237, 237, 233, 51, 51, 51, 214, 214, 214, 90, 82, 156, 156, 152, 190, 123, 123, 123, 140, 140, 140, 140, 135, 187, 103, 96, 165, 78, 70, 150, 173, 173, 173, 127, 121, 179, 82, 82, 82, 206, 204, 226, 195, 195, 193, 102, 102, 102, 247, 247, 247, 41, 41, 41, 66, 66, 66, 183, 179, 212, 146, 141, 190, 21, 21, 20, 227, 226, 238, 119, 111, 181, 198, 195, 221, 99, 91, 162, 255, 255, 255, 218, 216, 233, 114, 114, 114, 16, 15, 27, 114, 107, 171, 210, 208, 228, 8, 8, 8, 179, 175, 209, 240, 239, 246, 153, 153, 153, 234, 233, 243, 95, 88, 160, 90, 74, 156, 33, 33, 33, 16, 16, 16, 163, 159, 200, 142, 137, 188, 197, 189, 222, 134, 129, 183, 151, 147, 193, 202, 199, 223, 222, 221, 235, 122, 115, 176, 215, 213, 231, 74, 66, 147, 82, 75, 146, 197, 197, 197, 106, 99, 166, 231, 230, 240, 175, 171, 207, 239, 239, 239, 209, 207, 227, 25, 25, 22, 119, 112, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 249, 4, 0, 7, 0, 255, 0, 44, 0, 0, 0, 0, 50, 0, 30, 0, 0, 7, 255, 128, 49, 130, 131, 132, 132, 8, 24, 0, 16, 6, 15, 133, 141, 5, 54, 69, 77, 141, 147, 148, 147, 51, 63, 0, 153, 0, 40, 8, 148, 5, 1, 53, 48, 48, 31, 30, 50, 149, 167, 133, 5, 41, 154, 172, 0, 33, 141, 59, 76, 9, 2, 26, 181, 32, 32, 42, 168, 168, 170, 173, 172, 63, 23, 132, 59, 31, 32, 181, 197, 181, 73, 185, 186, 147, 5, 3, 189, 173, 29, 131, 194, 196, 198, 198, 184, 202, 141, 205, 206, 172, 35, 130, 77, 195, 212, 224, 73, 56, 215, 131, 217, 218, 154, 41, 49, 222, 211, 224, 212, 226, 228, 230, 231, 153, 6, 5, 223, 237, 237, 239, 186, 241, 242, 0, 11, 46, 236, 247, 194, 5, 64, 181, 79, 222, 129, 15, 180, 2, 6, 76, 226, 164, 82, 193, 115, 52, 148, 72, 80, 72, 145, 225, 164, 135, 218, 34, 242, 160, 200, 145, 225, 133, 12, 229, 248, 177, 210, 200, 177, 36, 136, 13, 140, 98, 112, 16, 169, 9, 130, 146, 141, 37, 75, 38, 121, 17, 195, 2, 38, 150, 81, 8, 76, 228, 40, 160, 39, 79, 38, 77, 26, 176, 4, 192, 130, 129, 148, 132, 10, 147, 0, 65, 162, 1, 169, 194, 32, 67, 127, 100, 40, 224, 244, 94, 18, 34, 130, 108, 248, 228, 200, 242, 7, 131, 24, 70, 170, 134, 91, 65, 8, 202, 86, 133, 17, 248, 121, 21, 148, 131, 135, 216, 98, 73, 255, 130, 52, 42, 114, 182, 157, 8, 5, 62, 206, 173, 29, 228, 33, 137, 85, 15, 148, 232, 190, 213, 0, 195, 84, 5, 109, 123, 7, 181, 104, 26, 110, 200, 169, 23, 32, 196, 38, 24, 40, 168, 195, 141, 86, 40, 190, 54, 34, 161, 33, 73, 207, 158, 73, 0, 163, 122, 33, 192, 115, 79, 16, 87, 11, 101, 152, 209, 0, 195, 128, 5, 39, 42, 237, 32, 194, 132, 7, 143, 35, 20, 174, 181, 88, 241, 193, 182, 8, 154, 228, 42, 229, 200, 17, 188, 184, 241, 224, 29, 150, 148, 0, 25, 35, 67, 133, 24, 39, 20, 44, 89, 18, 3, 1, 243, 37, 8, 136, 215, 68, 112, 34, 250, 146, 39, 5, 16, 88, 16, 36, 125, 73, 120, 230, 25, 16, 164, 44, 81, 194, 0, 2, 235, 5, 44, 116, 232, 244, 0, 67, 135, 8, 41, 58, 52, 200, 80, 194, 129, 131, 1, 49, 204, 48, 195, 2, 6, 224, 197, 65, 6, 35, 44, 192, 193, 12, 57, 160, 112, 95, 126, 13, 40, 16, 130, 1, 21, 140, 144, 129, 3, 51, 84, 128, 194, 18, 28, 148, 32, 31, 7, 6, 196, 160, 64, 4, 49, 44, 65, 162, 3, 11, 88, 128, 98, 10, 10, 164, 35, 72, 6, 0, 46, 48, 131, 32, 3, 88, 64, 98, 123, 42, 85, 136, 226, 12, 29, 112, 163, 146, 5, 28, 88, 16, 66, 7, 11, 0, 56, 98, 77, 33, 162, 56, 194, 88, 18, 10, 52, 240, 64, 4, 22, 40, 208, 1, 3, 36, 50, 48, 130, 116, 17, 28, 9, 100, 12, 14, 132, 224, 64, 7, 82, 142, 168, 94, 10, 37, 112, 16, 66, 10, 25, 48, 144, 194, 5, 90, 38, 89, 193, 2, 40, 140, 128, 65, 5, 12, 248, 224, 3, 7, 79, 10, 226, 128, 157, 37, 156, 192, 141, 5, 51, 114, 80, 193, 19, 24, 196, 121, 66, 157, 173, 49, 208, 161, 3, 40, 68, 208, 0, 7, 129, 0, 0, 59 ];
+            public var imageBytesByteArray:ByteArray = new ByteArray();
+            public function loadArray():void
+            {
+                for(var i:uint=0; i<imageBytes.length; i++)
+                {
+                    imageBytesByteArray.writeByte(imageBytes[i]);
+                }
+                application.pr.im.source=imageBytesByteArray;
+            }
+        ]]>
+    </fx:Script>
+	<testCases>
+		<TestCase testID="Image_prop_defaults" keywords="[Image, property, default]" description="Assert default values">
+			<setup>
+				<ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="pr.im" propertyName="fillMode" value="scale" />
+				<AssertPropertyValue target="pr.im" propertyName="preliminaryHeight" value="NaN" />
+				<AssertPropertyValue target="pr.im" propertyName="preliminaryWidth" value="NaN" />
+				<AssertPropertyValue target="pr.im" propertyName="scaleMode" value="letterbox" />
+				<AssertPropertyValue target="pr.im" propertyName="smooth" value="false" />
+				<AssertPropertyValue target="pr.im" propertyName="verticalAlign" value="middle" />
+                <AssertPropertyValue target="pr.im" propertyName="horizontalAlign" value="center" />
+                <AssertStyleValue target="pr.im" styleName="smoothingQuality" value="default" />
+                <AssertStyleValue target="pr.im" styleName="enableLoadingState" value="false" />
+                <AssertPropertyValue target="pr.im" propertyName="clearOnLoad" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="bitmapData" value="{null}" />
+			</body>
+		</TestCase>
+		<TestCase testID="Image_prop_set_properties_null source" keywords="[Image, property, null" description="Set properties on empty image">
+			<setup>
+				<ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="pr.im" propertyName="fillMode" value="clip" />
+				<SetProperty target="pr.im" propertyName="preliminaryHeight" value="50" />
+				<SetProperty target="pr.im" propertyName="preliminaryWidth" value="50" />
+				<SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+				<SetProperty target="pr.im" propertyName="smooth" value="true" />
+				<SetProperty target="pr.im" propertyName="verticalAlign" value="top" />
+                		<SetProperty target="pr.im" propertyName="horizontalAlign" value="left" />
+                		<SetProperty target="pr.im" propertyName="clearOnLoad" value="false" />
+
+				<AssertPropertyValue target="pr.im" propertyName="fillMode" value="clip" />
+				<AssertPropertyValue target="pr.im" propertyName="preliminaryHeight" value="50" />
+				<AssertPropertyValue target="pr.im" propertyName="preliminaryWidth" value="50" />
+				<AssertPropertyValue target="pr.im" propertyName="scaleMode" value="stretch" />
+				<AssertPropertyValue target="pr.im" propertyName="smooth" value="true" />
+				<AssertPropertyValue target="pr.im" propertyName="verticalAlign" value="top" />
+                		<AssertPropertyValue target="pr.im" propertyName="horizontalAlign" value="left" />
+				<AssertPropertyValue target="pr.im" propertyName="clearOnLoad" value="false" />
+			</body>
+		</TestCase>
+        <TestCase testID="Image_Load_trusted" keywords="[Image, load, trusted]" description="Load trusted source">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_trusted_twice" keywords="[Image, load, trusted]" description="Load trusted source twice">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="complete" waitTarget="pr.im" />
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_trusted_twice_resize" keywords="[Image, load, trusted]" description="Load trusted source twice, change size">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="125"/>
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="complete" waitTarget="pr.im" />
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="20"/>
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr.im" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_disable_twice_resize" keywords="[Image, load, trusted]" description="Load source twice, change size, enable=false">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <SetProperty target="pr.im" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+                <AssertPropertyValue target="pr.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="pr.im" propertyName="width" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="bytesLoaded" value="737"/>
+                <AssertPropertyValue target="pr.im" propertyName="bytesTotal" value="737"/>
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr.im" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <!--TestCase testID="Image_Load_invalid" keywords="[Image, load, trusted]" description="Load trusted source">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="http://flexqa01.labs.corp.adobe.com/images/cf100.jpg" waitEvent="ioError" waitTarget="pr.im" />
+            </setup>
+            <body>
+            	 <Pause timeout="100"/>
+                 <AssertPropertyValue target="pr.im" propertyName="width" value="14"/>
+				<CompareBitmap target="pr.im" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase-->
+        <!--TestCase testID="Image_Load_invalid_twice" keywords="[Image, load, trusted]" description="Load invalid image twice">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="http://flexqa01.labs.corp.adobe.com/images/cf100.jpg" waitEvent="ioError" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="14"/>
+                <SetProperty target="pr.im" propertyName="source" value="http://flexqa01.labs.corp.adobe.com/images/ee.jpg"  waitEvent="ioError" waitTarget="pr.im"/>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="14"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="NaN"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="NaN"/>
+
+                 <Pause timeout="100"/>
+				<CompareBitmap target="pr.im" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase-->
+        <TestCase testID="Image_Load_null" keywords="[Image, load, trusted, null]" description="Load trusted source, set source to null">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <SetProperty target="pr.im" propertyName="source" value="{null}"  waitEvent="resize" waitTarget="pr.im"/>
+
+                <AssertPropertyValue target="pr.im" propertyName="width" value="0"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="0"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="NaN"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="NaN"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_null_preliminary" keywords="[Image, load, trusted, null]" description="Load trusted source, set source to null, preliminarySize reset">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="preliminaryWidth"  value="50" />
+                <SetProperty target="pr.im" propertyName="preliminaryHeight"  value="50" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <SetProperty target="pr.im" propertyName="source" value="{null}"  waitEvent="resize" waitTarget="pr.im"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="50"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="50"/>
+                <AssertPropertyValue target="pr.im" propertyName="preliminaryWidth" value="50"/>
+                <AssertPropertyValue target="pr.im" propertyName="preliminaryHeight" value="50"/>
+            </body>
+        </TestCase>
+
+        <!--TestCase testID="Image_Load_invalid_noInvalidSkinPart" keywords="[Image, load, noInvalidSkinPart]" description="Load invalid image, custom skin">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetStyle target="pr.im" styleName="skinClass" valueExpression="value=skins.NoInvalidSkinPartSkin" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="http://flexqa01.labs.corp.adobe.com/images/cf100.jpg" waitEvent="ioError" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="0"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="0"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceWidth" value="NaN"/>
+                <AssertPropertyValue target="pr.im" propertyName="sourceHeight" value="NaN"/>
+            </body>
+        </TestCase-->
+        <TestCase testID="Image_Load_valid_noInvalidSkinPart" keywords="[Image, load, noInvalidSkinPart]" description="Load image, custom skin">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetStyle target="pr.im" styleName="skinClass" valueExpression="value=skins.NoInvalidSkinPartSkin" waitEvent="updateComplete" />
+
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+                <CompareBitmap target="pr.im" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_showProgressBarSkinPart" keywords="[Image, load, ProgressBar]" description="Load image, show ProgressBar">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="preliminaryWidth"  value="100" />
+                <SetProperty target="pr.im" propertyName="preliminaryHeight"  value="100" />
+                <SetStyle target="pr.im" styleName="enableLoadingState" value="true"/>
+                <SetProperty target="pr.im.skin" propertyName="currentState" value="loading"  waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="progress" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im.progressIndicator" propertyName="value" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
+                <AssertPropertyValue target="pr.im.progressIndicator" propertyName="value" value="20"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="100"/>
+             </body>
+        </TestCase>
+        <TestCase testID="Image_Load_noProgressBarSkinPart" keywords="[Image, load, NoProgressIndicatorSkinPartSkin]" description="Load image, custom skin, no ProgressBar">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="preliminaryWidth"  value="50" />
+                <SetProperty target="pr.im" propertyName="preliminaryHeight"  value="50" />
+                <SetStyle target="pr.im" styleName="enableLoadingState" value="true"/>
+                <SetStyle target="pr.im" styleName="skinClass" valueExpression= "value=skins.NoProgressIndicatorSkinPartSkin" waitEvent="updateComplete"/>
+                <SetProperty target="pr.im.skin" propertyName="currentState" value="loading"  waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="progress" waitTarget="pr.im" />
+             </setup>
+            <body>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="pr.im" propertyName="progressIndicator" value="{null}"/>
+                <AssertPropertyValue target="pr.im" propertyName="width" value="125"/>
+                <AssertPropertyValue target="pr.im" propertyName="height" value="125"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_ByteArray" keywords="[Image, load, ByteArray]" description="Load image from ByteArray">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" waitTarget="pr"/>
+             </setup>
+            <body>
+                <RunCode code="loadArray()" waitEvent="updateComplete" waitTarget="pr"/>
+                <Pause timeout="100"/>
+                <CompareBitmap target="pr.im" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Load_SDK_26657" keywords="[Image, load, SDK-26657]" description="Spark Image preloader stops working after changing skin">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg"  />
+                <SetStyle target="pr.im" styleName="skinClass" valueExpression="value=skins.NoInvalidSkinPartSkin" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+                <SetProperty target="pr.im" propertyName="width" value="350" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="height" value="250" waitEvent="updateComplete"  />
+                <CompareBitmap target="pr" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <!--TestCase testID="Image_Load_URL" keywords="[Image, load, URL]" description="Spark Image load URL">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.pr.im.source=application.createURLRequest('../../../../../Assets/Images/redrect.jpg') " />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+                <SetProperty target="pr.im" propertyName="width" value="250" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="height" value="250" waitEvent="updateComplete"  />
+                <CompareBitmap target="pr" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase-->
+        <TestCase testID="Image_Load_BitmapData" keywords="[Image, load, BitmapData]" description="Spark Image load BitmapData">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.pr.im.source=new Bitmap(new BitmapData(90,120,false, 0xFF0000) ) " />
+                <SetProperty target="pr.im" propertyName="fillMode" value="clip" />
+                <SetProperty target="pr.im" propertyName="width" value="150" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="height" value="150" waitEvent="updateComplete"  />
+                <CompareBitmap target="pr.im" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

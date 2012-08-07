@@ -1,0 +1,32 @@
+<s:Scroller xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+height="100%" width="100%" >
+		<s:DataGroup id="dg">
+			<s:layout>
+				<s:VerticalLayout useVirtualLayout="true" horizontalAlign="justify"/>
+			</s:layout>
+			<s:itemRenderer>
+				<fx:Component>
+					<s:ItemRenderer>
+						<s:states>
+							<s:State name="normal"/>
+							<s:State name="hovered"/>
+							<s:State name="selected"/>
+						</s:states>
+						<s:Label id="labelDisplay" left="5" right="5" top="5" bottom="5"/>
+					</s:ItemRenderer>
+				</fx:Component>
+			</s:itemRenderer>
+
+			<s:dataProvider>
+				<mx:ArrayCollection>
+					<fx:String>Hello</fx:String>
+					<fx:String>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis purus felis, tempus vitae, accumsan id, fermentum et, tellus. Nulla malesuada nisl quis magna. Etiam non tellus vel tellus vulputate mattis. Phasellus pulvinar, tellus eu mollis sagittis, arcu sapien sollicitudin lectus, a ullamcorper leo tortor sed tortor. Etiam in felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla odio felis, placerat tincidunt, placerat non, bibendum sed, lacus. Morbi felis risus, vulputate vitae, commodo non, bibendum eu, velit. Pellentesque mattis. Morbi dui lectus, posuere ut, bibendum vel, volutpat sit amet, purus. Donec interdum velit at tortor. Aenean egestas rutrum eros. Pellentesque in ante.</fx:String>
+					<fx:String>
+						This line has a
+						lineBreak
+					</fx:String>
+				</mx:ArrayCollection>
+			</s:dataProvider>
+
+		</s:DataGroup>
+ </s:Scroller>

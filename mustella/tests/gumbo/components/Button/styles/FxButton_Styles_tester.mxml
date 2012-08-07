@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Button/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Flex4_Button_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+			import Assets.*;
+			
+			[Bindable]
+			[Embed(source="../../../../../Assets/Images/ButtonImages/smallUpSkin.jpg")]
+			public var RedU:Class;
+
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+		
+		@font-face {
+		    src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		    fontFamily: "ArnoProRegEmbedded";
+		    embedAsCFF: true;
+		}
+		
+		@font-face {
+		    src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+		    fontFamily: "Helvetica";
+		    embedAsCFF: true;
+		}
+	    .myStyle{
+	        color: #FF0000
+	    }
+	
+	    .myStyle2{
+	        color: #0000FF
+	    }
+	</fx:Style>
+
+	<testCases>
+		
+		<!-- Other styles -->
+		
+		<TestCase testID="baseline_default_Button" description="baseColor default FxButton" keywords="[FxButton, baseColor, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="baseline" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusSkin_MyFocusSkin_Button" description="focusSkin default FxButton" keywords="[FxButton, focusSkin, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="horizontalCenter" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+				<SetStyle styleName="verticalCenter" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+				<SetStyle styleName="focusSkin" valueExpression="value=Assets.MyFocusSkin" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusSkin_default_Button" description="focusSkin default FxButton" keywords="[FxButton, focusSkin, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="myButton" method="value=getQualifiedClassName(application.myButton.getStyle('focusSkin'))" value="spark.skins.spark::FocusSkin"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="horizontalCenter_default_Button" description="horizontalCenter default FxButton" keywords="[FxButton, horizontalCenter, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="horizontalCenter" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="horizontalCenter_20_Button" description="horizontalCenter 20 FxButton" keywords="[FxButton, horizontalCenter, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="horizontalCenter" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="horizontalCenter" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="horizontalCenter_50_Button" description="horizontalCenter 50 FxButton" keywords="[FxButton, horizontalCenter, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="horizontalCenter" value="50" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="horizontalCenter" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="verticalCenter_default_Button" description="verticalCenter default FxButton" keywords="[FxButton, verticalCenter, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="verticalCenter" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="verticalCenter_20_Button" description="verticalCenter 20 FxButton" keywords="[FxButton, verticalCenter, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="verticalCenter" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="verticalCenter" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="verticalCenter_50_Button" description="verticalCenter 50 FxButton" keywords="[FxButton, verticalCenter, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="verticalCenter" value="50" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="verticalCenter" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		
+		<!--repeatDelay & repeatInterval other values tested manually-->
+		<TestCase testID="repeatDelay_default_Button" description="repeatDelay of buttonDown events default 500" keywords="[FxButton, autoRepeat, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="repeatDelay" value="500"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="repeatInterval_default_Button" description="repeatInterval default 35" keywords="[FxButton, autoRepeat, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="repeatInterval" value="35"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_default_Button" description="left default FxButton" keywords="[FxButton, left, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="left" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_20_Button" description="left 20 FxButton" keywords="[FxButton, left, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="left" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="left" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_50_Button" description="left 50 FxButton" keywords="[FxButton, left, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="left" value="50" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="left" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="right_default_Button" description="right default FxButton" keywords="[FxButton, right, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="right" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="right_20_Button" description="right 20 FxButton" keywords="[FxButton, right, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="right" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="right" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="right_50_Button" description="right 50 FxButton" keywords="[FxButton, right, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="right" value="50" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="right" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top_default_Button" description="top default FxButton" keywords="[FxButton, top, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="top" value="null"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top_20_Button" description="top 20 FxButton" keywords="[FxButton, top, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="top" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="top" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="top_50_Button" description="top 50 FxButton" keywords="[FxButton, top, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="top" value="50" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="top" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="bottom_default_Button" description="bottom default FxButton" keywords="[FxButton, bottom, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="bottom" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="bottom_20_Button" description="bottom 20 FxButton" keywords="[FxButton, bottom, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="bottom" value="20" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="bottom" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="bottom_50_Button" description="bottom 50 FxButton" keywords="[FxButton, bottom, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="bottom" value="50" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButton" styleName="bottom" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="panel1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="skinClass_default_Button" description="skinClass default FxButton" keywords="[FxButton, skinClass, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="myButton" method="value=getQualifiedClassName(application.myButton.getStyle('skinClass'))" value="spark.skins.spark::ButtonSkin"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="skinClass_MyButtonSkin_Button" description="skinClass default FxButton" keywords="[FxButton, skinClass, property]">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="skinClass" valueExpression="value=Assets.MyButtonSkin" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myButton"/>
+			</body>
+		</TestCase>
+		
+		<!--
+		COVERED BY JOAN baseColor
+		baseline
+		COVERED BY JOAN focusColor
+		DONE focusSkin
+		DONE horizontalCenter
+		DONE verticalCenter
+		DONE repeatDelay
+		DONE repeatInterval
+		DONE left
+		DONE right
+		COVERED BY JOAN rollOverColor
+		DONE top
+		DONE bottom
+		DONE skinClass
+		-->
+
+	</testCases>
+</UnitTester>

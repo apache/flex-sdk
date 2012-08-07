@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:custom="Assets.*"
+             backgroundColor="0xffffff"
+	         width="800" height="600" >
+
+<fx:Script>
+<![CDATA[
+
+    import mx.controls.*;
+    import mx.containers.*;
+    import mx.core.FlexGlobals;
+    import mx.graphics.*;
+    import mx.managers.PopUpManager;
+    import spark.components.*;
+    import spark.primitives.*;
+
+    /**
+    * We have to do our own resetting.
+    **/
+    public function doManualReset(curAlert:mx.controls.Alert = null):void{
+        if(
+          curAlert == null &&
+          FlexGlobals.topLevelApplication.numElements == 0 &&
+          FlexGlobals.topLevelApplication.width == 800 &&
+          FlexGlobals.topLevelApplication.height == 600){
+          
+          FlexGlobals.topLevelApplication.dispatchEvent(new Event("manualResetComplete"));
+          
+        }else{
+            if(curAlert != null){
+                PopUpManager.removePopUp(curAlert)
+            }
+                    
+            FlexGlobals.topLevelApplication.addEventListener("updateComplete", doUpdateComplete);
+            FlexGlobals.topLevelApplication.width = 800;
+            FlexGlobals.topLevelApplication.height = 600;
+            FlexGlobals.topLevelApplication.removeAllElements();
+        }
+    }
+    
+    private function doUpdateComplete(e:Event):void{
+          FlexGlobals.topLevelApplication.dispatchEvent(new Event("manualResetComplete"));    
+    }
+
+    /**
+    * Add a mix of spark and halo components.
+    * A lot of things are already being tested in the Spark Application
+    * class, so this test case's worth is...debatable.  But in the name
+    * of being thorough...
+    **/
+    public function addMixedComponents():void{
+        var acc:mx.containers.Accordion = new mx.containers.Accordion();
+        var bx:mx.containers.Box = new mx.containers.Box();
+        var ck:mx.controls.CheckBox = new mx.controls.CheckBox();
+        var grp:spark.components.Group = new spark.components.Group();
+        var ck2:spark.components.CheckBox = new spark.components.CheckBox();
+        
+        bx.addChild(ck);
+        acc.addChild(bx);
+        acc.x = 0;
+        acc.y = 0;
+        addElement(acc);
+        
+        grp.addElement(ck2);
+        grp.x = 0;
+        grp.y = 50;
+        addElement(grp);        
+    }
+    
+    /**
+    * Add rects at the four corners.
+    **/
+    public function addRectsAtCorners():void{
+        var r:Rect = new Rect();
+        var s:SolidColorStroke = new SolidColorStroke();
+                
+        r.width = 25;
+        r.height = 25;
+        r.left = 0;
+        r.top = 0;
+        s.weight = 1;
+        s.color = 0x00ff00;
+        r.stroke = s;
+        addElement(r);
+
+        r = new Rect();
+        s = new SolidColorStroke();
+        r.width = 25;
+        r.height = 25;
+        r.right = 0;
+        r.top = 0;
+        s.weight = 1;
+        s.color = 0x00ff00;
+        r.stroke = s;
+        addElement(r);
+
+        r = new Rect();
+        s = new SolidColorStroke();        
+        r.width = 25;
+        r.height = 25;
+        r.left = 0;
+        r.bottom = 0;
+        s.weight = 1;
+        s.color = 0x00ff00;
+        r.stroke = s;
+        addElement(r);
+        
+        r = new Rect();
+        s = new SolidColorStroke();
+        r.width = 25;
+        r.height = 25;
+        r.right = 0;
+        r.bottom = 0;
+        s.weight = 1;
+        s.color = 0x00ff00;
+        r.stroke = s;
+        addElement(r);
+    }    
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    mx|Button{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+
+</fx:Style>
+
+</s:Application>

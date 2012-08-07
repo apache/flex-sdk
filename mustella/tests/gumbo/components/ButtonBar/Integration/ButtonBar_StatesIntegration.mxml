@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import mx.collections.*;
+        import spark.components.*;
+        import mx.core.Application;
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=============
+States
+=============
+-->
+
+<TestCase testID="statesIntegration_selectedItem_test1" keywords="[ButtonBar,dataProvider]" description="selectedItem.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="bb4" className="Assets::CustomFxButtonBar3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb4" propertyName="selectedIndex" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test2" keywords="[ButtonBar,dataProvider]" description="selectedItem.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="bb4" className="Assets::CustomFxButtonBar3" waitEvent="updateComplete" />
+        <SetProperty target="bb4" propertyName="currentState" value="state2" waitTarget="bb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb4" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb4" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test3" keywords="[ButtonBar,dataProvider]" description="selectedItem.state2 is second item.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="bb4" className="Assets::CustomFxButtonBar3" waitEvent="updateComplete" />
+        <SetProperty target="bb4" propertyName="currentState" value="state2" waitTarget="bb4" waitEvent="currentStateChange" />
+        <SetProperty target="bb4" propertyName="currentState" value="state1" waitTarget="bb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb4" propertyName="selectedIndex" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test4" keywords="[ButtonBar,dataProvider]" description="selectedItem.state2 is second item.  Select first button.  Go to state2." >
+    <setup>
+        <ResetComponent target="bb4" className="Assets::CustomFxButtonBar3" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="bb4.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="bb4" propertyName="currentState" value="state2" waitTarget="bb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb4" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb4" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test5" keywords="[ButtonBar,dataProvider]" description="selectedItem.state2 is second item.  Select first button.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="bb4" className="Assets::CustomFxButtonBar3" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="bb4.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="bb4" propertyName="currentState" value="state2" waitTarget="bb4" waitEvent="currentStateChange" />
+        <SetProperty target="bb4" propertyName="currentState" value="state1" waitTarget="bb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb4.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb4" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb4" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test6" keywords="[ButtonBar,dataProvider]" description="selectedItem.state1 is first item.  selectedItem.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="bb5" className="Assets::CustomFxButtonBar4" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb5.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb5.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb5" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="bb5" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test7" keywords="[ButtonBar,dataProvider]" description="selectedItem.state1 is first item.  selectedItem.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="bb5" className="Assets::CustomFxButtonBar4" waitEvent="updateComplete" />
+        <SetProperty target="bb5" propertyName="currentState" value="state2" waitTarget="bb5" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb5.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb5.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb5" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb5" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test8" keywords="[ButtonBar,dataProvider]" description="selectedItem.state1 is first item.  selectedItem.state2 is second item.  Go to state2, then state1" >
+    <setup>
+        <ResetComponent target="bb5" className="Assets::CustomFxButtonBar4" waitEvent="updateComplete" />
+        <SetProperty target="bb5" propertyName="currentState" value="state2" waitTarget="bb5" waitEvent="currentStateChange" />
+        <SetProperty target="bb5" propertyName="currentState" value="state1" waitTarget="bb5" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb5.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb5.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb5" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="bb5" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test1" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="bb6" className="Assets::CustomFxButtonBar5" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb6" propertyName="selectedIndex" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test2" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="bb6" className="Assets::CustomFxButtonBar5" waitEvent="updateComplete" />
+        <SetProperty target="bb6" propertyName="currentState" value="state2" waitTarget="bb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb6" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb6" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test3" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state2 is second item.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="bb6" className="Assets::CustomFxButtonBar5" waitEvent="updateComplete" />
+        <SetProperty target="bb6" propertyName="currentState" value="state2" waitTarget="bb6" waitEvent="currentStateChange" />
+        <SetProperty target="bb6" propertyName="currentState" value="state1" waitTarget="bb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb6" propertyName="selectedIndex" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test4" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state2 is second item.  Select first button.  Go to state2." >
+    <setup>
+        <ResetComponent target="bb6" className="Assets::CustomFxButtonBar5" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="bb6.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="bb6" propertyName="currentState" value="state2" waitTarget="bb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb6" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb6" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test5" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state2 is second item.  Select first button.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="bb6" className="Assets::CustomFxButtonBar5" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="bb6.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="bb6" propertyName="currentState" value="state2" waitTarget="bb6" waitEvent="currentStateChange" />
+        <SetProperty target="bb6" propertyName="currentState" value="state1" waitTarget="bb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb6.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb6" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb6" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test6" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state1 is first item.  selectedIndex.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="bb7" className="Assets::CustomFxButtonBar6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb7.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb7.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb7" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="bb7" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test7" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state1 is first item.  selectedIndex.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="bb7" className="Assets::CustomFxButtonBar6" waitEvent="updateComplete" />
+        <SetProperty target="bb7" propertyName="currentState" value="state2" waitTarget="bb7" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb7.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb7.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb7" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb7" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test8" keywords="[ButtonBar,dataProvider]" description="selectedIndex.state1 is first item.  selectedIndex.state2 is second item.  Go to state2, then state1" >
+    <setup>
+        <ResetComponent target="bb7" className="Assets::CustomFxButtonBar6" waitEvent="updateComplete" />
+        <SetProperty target="bb7" propertyName="currentState" value="state2" waitTarget="bb7" waitEvent="currentStateChange" />
+        <SetProperty target="bb7" propertyName="currentState" value="state1" waitTarget="bb7" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb7.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb7.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb7" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="bb7" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_dataProvider_test1" keywords="[ButtonBar,dataProvider]" description="dataProvider.state1 and dataProvider.state2 are set.  Initial state." >
+    <setup>
+        <ResetComponent target="bb8" className="Assets::CustomFxButtonBar7" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="bb8" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb8" propertyName="selectedIndex" value="-1" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(2)" propertyName="label" value="three" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_dataProvider_test2" keywords="[ButtonBar,dataProvider]" description="dataProvider.state1 and dataProvider.state2 are set.  Switch to state2." >
+    <setup>
+        <ResetComponent target="bb8" className="Assets::CustomFxButtonBar7" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb8" propertyName="currentState" value="state2" waitTarget="bb8" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="bb8" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb8" propertyName="selectedIndex" value="-1" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(0)" propertyName="label" value="four" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(1)" propertyName="label" value="five" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(2)" propertyName="label" value="six" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_dataProvider_test3" keywords="[ButtonBar,dataProvider]" description="dataProvider.state1 and dataProvider.state2 are set.  Switch to state2 and back to state1." >
+    <setup>
+        <ResetComponent target="bb8" className="Assets::CustomFxButtonBar7" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb8" propertyName="currentState" value="state2" waitTarget="bb8" waitEvent="currentStateChange" />
+        <SetProperty target="bb8" propertyName="currentState" value="state1" waitTarget="bb8" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="bb8" propertyName="selectedItem" value="null" />
+        <AssertPropertyValue target="bb8" propertyName="selectedIndex" value="-1" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <AssertPropertyValue target="bb8.dataGroup.getElementAt(2)" propertyName="label" value="three" />
+    </body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

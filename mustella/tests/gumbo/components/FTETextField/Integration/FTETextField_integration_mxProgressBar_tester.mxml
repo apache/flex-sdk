@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script source="../SWFs/global.as" />
+
+
+	<testCases>
+
+		<!-- ########## PROPERTIES ########## -->
+		<TestCase testID="FTE_mxProgressBar_disabled" description="Test label property on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.prgBar" propertyName="enabled" value="false" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxProgressBar_label" description="Test label property on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_label_truncation" description="Test truncating label property on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="50" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_label_truncation_direction" description="Test truncating label property on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="50" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="direction" value="rtl" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## STYLES ########## -->
+		<TestCase testID="FTE_mxProgressBar_color_red" description="Test color style on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="color" value="red" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_color_red_truncating" description="Test color style on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="50" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="color" value="red" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_disabledColor_green" description="Test color style on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.prgBar" propertyName="enabled" value="false" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="disabledColor" value="green" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_fontStyle_italic" description="Test font style on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, fontStyle, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="fontStyle" value="italic" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_fontSize" description="Test font size on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, fontSize, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="fontSize" value="18" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_fontWeight" description="Test font size on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, fontWeight, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="fontWeight" value="normal" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxProgressBar_kerning_true" description="Test kerning on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="kerning" value="true" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_kerning_false" description="Test kerning on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="kerning" value="false" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxProgressBar_leading" description="Test leading on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, leading, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="leading" value="20" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_letterSpacing" description="Test letterSpacing on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, letterSpacing, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="letterSpacing" value="10" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_left" description="Test textAlign=left on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="left" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_center" description="Test textAlign=center on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="center" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_right" description="Test textAlign=left on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="right" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_start" description="Test textAlign=start on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="center" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="start" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.prgBar" styleName="textAlign" value="start" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_start2" description="Test textAlign=start on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="center" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="start" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="direction" value="rtl" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.prgBar" styleName="textAlign" value="start" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_end" description="Test textAlign=end on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="end" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.prgBar" styleName="textAlign" value="end" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxProgressBar_textAlign_end2" description="Test textAlign=end on a mx:ProgressBar" keywords="[FTETextField, ProgressBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.prgBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.prgBar" styleName="labelWidth" value="150" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="textAlign" value="end" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.prgBar" styleName="direction" value="rtl" waitTarget="can2.prgBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.prgBar" styleName="textAlign" value="end" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

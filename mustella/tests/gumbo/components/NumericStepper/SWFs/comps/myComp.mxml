@@ -1,0 +1,39 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+        
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+                       
+    <s:states>
+    	<s:State name="state1"/>
+    	<s:State name="state2"/>
+    </s:states>
+    
+    <s:Button 
+        id="state1Button" 
+        label="Goto State 1" 
+        click="currentState='state1'"
+        includeIn="state2"/>
+        
+    <s:Button 
+        id="state2Button" 
+        label="Goto State 2" 
+        click="currentState='state2'"
+        includeIn="state1"/>
+    	
+    <s:NumericStepper 
+        id="myNS1" 
+        height="23"
+        includeIn="state1"/>
+        
+    <s:NumericStepper 
+       id="myNS2" 
+       height="23"
+       includeIn="state2"/>
+    
+    <mx:Label 
+        text="Current state = {currentState}" 
+        fontSize="16" />
+        
+</s:SkinnableContainer>

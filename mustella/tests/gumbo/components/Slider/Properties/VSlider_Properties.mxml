@@ -1,0 +1,996 @@
+<UnitTester testDir="gumbo/components/Slider/Properties/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="VSlider_Basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+		<TestCase testID="VSlider_thumbDrag" keywords="[VSlider]" description="Test dragging thumb on VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		    </setup>
+		    <body>				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+	              
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />					
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />	
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />						
+            </body>
+    	</TestCase>      
+
+		<TestCase testID="VSlider_liveDraggging_default" keywords="[VSlider, liveDragging]" description="Test Default liveDragging Mode for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		    </setup>
+		    <body>
+				<AssertStyleValue target="myVSlider" styleName="liveDragging" value="true" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	              
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myVSlider" />		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />	
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />				
+            </body>
+    	</TestCase>    	
+   		
+		<TestCase testID="VSlider_liveDragging_Disabled" keywords="[VSlider, liveDragging]" description="Test liveDragging enabled mode for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetStyle target="myVSlider" styleName="liveDragging" value="false" />
+		    </setup>
+		    <body>	      
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		        <AssertStyleValue target="myVSlider" styleName="liveDragging" value="false" />	        
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />				
+ 				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />				
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />				
+		    </body>
+    	</TestCase>
+    
+        <TestCase testID="VSlider_liveDragging_Enabled" keywords="[VSlider, liveDragging]" description="Test liveDragging mode is enabled for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>				
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		        <AssertStyleValue target="myVSlider" styleName="liveDragging" value="true" />
+	        
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+			    <DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="100" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+	
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+	
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+			    <DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+			    <DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+			    <DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="VSlider_liveDragging_Disabled2" keywords="[VSlider, liveDragging]" description="Test liveDragging disabled mode for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetStyle target="myVSlider" styleName="liveDragging" value="false" />
+		    </setup>
+		    <body>
+		        <SetStyle target="myVSlider" styleName="liveDragging" value="false" />
+		        <AssertStyleValue target="myVSlider" styleName="liveDragging" value="false" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+	        
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="4" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />				
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		    </body>
+    	</TestCase>                   
+    
+		<TestCase testID="VSlider_track_click" keywords="[VSlider, Track]" description="Test clicking in the track for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	  
+		        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="77" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="20" />	  
+		        <CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_1.png"/>
+	        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="59" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="41" waitTarget="myVSlider" waitEvent="change" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />			     
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_2.png"/>
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="23" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="4" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="100" />
+		        <CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_3.png"/>
+	        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="23" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="80" />	       	        
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="41" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="60" />	        
+	        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="59" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="40" />	        
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="77" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="20" />	        
+		        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="95" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	        
+		    </body>
+    	</TestCase>    	  
+ 
+		<TestCase testID="VSlider_track_click_hitArea" keywords="[VSlider, Track, hitArea]" description="Test clicking in the hit area for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	  
+		        
+		        <DispatchMouseClickEvent target="stage" stageX="5" stageY="110" waitTarget="stage" waitEvent="click" />
+		        <Pause timeout="400"/>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	  
+		        
+		        <DispatchMouseClickEvent target="myVSlider" stageX="6" stageY="166" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="20" />	  
+	        
+		        <DispatchMouseClickEvent target="myVSlider" stageX="7" stageY="148" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myVSlider" stageX="8" stageY="130" waitTarget="myVSlider" waitEvent="change" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />			     
+
+				<DispatchMouseClickEvent target="myVSlider" stageX="9" stageY="112" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myVSlider" stageX="10" stageY="94" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="100" />  
+       
+		        <DispatchMouseClickEvent target="myVSlider" stageX="11" stageY="112" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="80" />
+		        
+		        <DispatchMouseClickEvent target="myVSlider" stageX="12" stageY="130" waitTarget="myVSlider" waitEvent="change" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />
+				
+				<DispatchMouseClickEvent target="myVSlider" stageX="13" stageY="148" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="40" />
+		        
+				<DispatchMouseClickEvent target="myVSlider" stageX="14" stageY="166" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="20" />	
+		        
+		        <DispatchMouseClickEvent target="myVSlider" stageX="15" stageY="148" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="40" />
+		        
+		        <DispatchMouseClickEvent target="myVSlider" stageX="16" stageY="130" waitTarget="myVSlider" waitEvent="change" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />
+				
+				<DispatchMouseClickEvent target="stage" stageX="17" stageY="130" waitTarget="stage" waitEvent="click" />
+				<Pause timeout="400"/>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="60" />		     
+		    </body>
+    	</TestCase>     	
+
+ 		<TestCase testID="VSlider_default_min_max_values" keywords="[VSlider, Default]" description="Test Default Min and Max for VSlider">
+    		<setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+    	    </setup>
+            <body>
+            	<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            	<AssertPropertyValue target="myVSlider" propertyName="minimum" value="0" />
+            	<AssertPropertyValue target="myVSlider" propertyName="maximum" value="10" />            	
+            	
+            	<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+			
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>        
+    
+ 		<TestCase testID="VSlider_custom_max_1" keywords="[VSlider, Maximum]" description="Test Custom Positive Maximum for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            	
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="300" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="VSlider_custom_max_2" keywords="[VSlider, Maximum]" description="Test Custom Positive Decimal Maximum for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="maximum" value="125.5" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="125.5" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>
+    	
+		<TestCase testID="VSlider_custom_max_3" keywords="[VSlider, Maximum]" description="Test setting the value greater than the default maximum on VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="value" value="20" waitEvent="updateComplete" waitTarget="myVSlider"/>		        
+            </setup>
+            <body>            	
+            	<AssertPropertyValue target="myVSlider" propertyName="maximum" value="10" />	
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />	
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="VSlider_custom_max_4" keywords="[VSlider, Maximum]" description="Test setting the value greater than a custom maximum on VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="maximum" value="120" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="value" value="220" waitEvent="updateComplete" waitTarget="myVSlider"/>
+            </setup>
+            <body>            	
+                <AssertPropertyValue target="myVSlider" propertyName="maximum" value="120" />	
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="120" />	
+            </body>
+    	</TestCase>     	    	
+    	                      	    	                	                      	
+ 		<TestCase testID="VSlider_custom_min_1" keywords="[VSlider, Minimum]" description="Test Custom Positive Minimum for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="minimum" value="8" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="8" />
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="VSlider_custom_min_2" keywords="[VSlider, Minimum]" description="Test Custom Positive Decimal Minimum for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="minimum" value="1.5" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="1.5" />
+            </body>
+    	</TestCase> 
+    	   	    	
+		<TestCase testID="VSlider_custom_min_3" keywords="[VSlider, Minimum]" description="Test Custom Negative Decimal Minimum for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="minimum" value="-5.4" />
+		        <SetProperty target="myVSlider" propertyName="value" value="-5.4" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="-5.4" />
+            </body>
+    	</TestCase>
+    	
+ 		<TestCase testID="VSlider_custom_min_4" keywords="[VSlider, Minimum]" description="Test setting the value less than the default minimum on VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="value" value="-2" waitEvent="updateComplete" waitTarget="myVSlider"/>
+            </setup>
+            <body>            	
+            	<AssertPropertyValue target="myVSlider" propertyName="minimum" value="0"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="VSlider_custom_min_5" keywords="[VSlider, Minimum]" description="Test setting the value less than a custom minimum on VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="minimum" value="-10" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="value" value="-20" waitEvent="updateComplete" waitTarget="myVSlider"/>
+            </setup>
+            <body>            	
+            	<AssertPropertyValue target="myVSlider" propertyName="minimum" value="-10"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="-10" />	
+            </body>
+    	</TestCase>     	
+    	    	  	
+		<TestCase testID="VSlider_snapInterval_1" keywords="[VSlider, snapInterval]" description="Test Custom snapInterval for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="snapInterval" value="25" />		        
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="myVSlider" localX="5" localY="90" waitEvent="click" waitTarget="myVSlider" />
+            	<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseClickEvent target="myVSlider" localX="5" localY="80" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="25" />
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_1.png"/>
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="65" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="25" />
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_2.png"/>
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="60" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="50" />
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_3.png"/>
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="42" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="34" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="75" />
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_4.png"/>
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="19" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="75" />		
+			
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="10" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="100" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="25" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="75" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="50" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="75" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="25" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="85" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	
+            </body>
+    	</TestCase>
+
+		<TestCase testID="VSlider_snapInterval_2" keywords="[VSlider, snapInterval]" description="Test Custom snapInterval for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="snapInterval" value="30" />		        
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="myVSlider" localX="5" localY="85" waitEvent="click" waitTarget="myVSlider" />
+            	<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="75" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="60" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="50" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="60" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="25" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="90" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="5" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="100" />		
+            </body>
+    	</TestCase>    
+	
+		<TestCase testID="VSlider_snapInterval_3" keywords="[VSlider, snapInterval]" description="Test Custom snapInterval with custom min and max for VSlider">
+		    <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="snapInterval" value="30" />		        
+		        <SetProperty target="myVSlider" propertyName="maximum" value="500" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="minimum" value="400" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="myVSlider" localX="5" localY="87" waitEvent="click" waitTarget="myVSlider" />
+            	<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="400" />
+			
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="75" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="430" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="65" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="430" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="50" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="460" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="25" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="490" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="5" localY="5" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="500" />		
+            </body>            
+    	</TestCase> 
+   	
+		<TestCase testID="VSlider_snapInterval_4" keywords="[VSlider, snapInterval]" description="Test Custom snapInterval with custom min and max for VSlider">
+            <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="snapInterval" value="30" />
+		        <SetProperty target="myVSlider" propertyName="maximum" value="300" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="minimum" value="120" waitEvent="updateComplete" waitTarget="myVSlider"/>		        
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="90" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="120" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="85" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="150" />		
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="75" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="150" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="70" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="180" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="60" waitEvent="click" waitTarget="myVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="180" />
+		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="55" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="210" />
+				
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="40" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="240" />
+						
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="25" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="270" />
+						
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="5" waitEvent="change" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="300" />
+            </body>
+    	</TestCase>     
+
+		<TestCase testID="VSlider_snapInterval_5" keywords="[VSlider, snapInterval]" description="Test a decimal snapInterval for VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="0.5" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		        <AssertPropertyValue target="myVSlider" propertyName="snapInterval" value="0.5" />
+	        
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="70" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />				
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="70" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="22.5" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="70" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="70" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="60" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />				
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="60" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="33.5" />
+		
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="60" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+			    <DispatchMouseEvent target="myVSlider" localX="7" localY="60" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="52" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />				
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="52" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="42.5" />
+		    </body>
+    	</TestCase>    	
+
+		<TestCase testID="VSlider_default_liveDragging_inGroup" keywords="[VSlider, liveDragging, Group]" description="Test Default liveDragging Mode for VSlider in Group">
+		    <setup>
+				<ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+		    </setup>
+		    <body>
+		        <AssertStyleValue target="myGroupVSlider" styleName="liveDragging" value="true" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />
+	        
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupVSlider" />
+		<AssertEvent target="myGroupVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" numExpectedEvents="1" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="10" />						
+												
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupVSlider" />					
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="10" />											
+		    </body>
+    	</TestCase>
+
+        <TestCase testID="VSlider_liveDragging_Enabled_inGroup" keywords="[VSlider, liveDragging, Group]" description="Test liveDragging mode is enabled for VSlider in Group">
+		    <setup>
+				<ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+				<SetProperty target="myGroupVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myGroupVSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />
+		        <AssertStyleValue target="myGroupVSlider" styleName="liveDragging" value="true" />
+	        
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="72" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="72" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	  			<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="72" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="54" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="54" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="54" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="37" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="37" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="37" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="19" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="19" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="19" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="100" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+	
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="19" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="19" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+	
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="19" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="19" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="37" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="37" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="37" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="37" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="54" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="54" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="54" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="54" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="72" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="72" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="72" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+	    	    <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="72" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />	
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+	    	</body>
+    	</TestCase>
+
+ 		<TestCase testID="VSlider_custom_max_inGroup" keywords="[VSlider, Maximum, Group]" description="Test Custom Positive Maximum for VSlider in Group">
+            <setup>
+		        <ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+		        <SetProperty target="myGroupVSlider" propertyName="maximum" value="125.5" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />
+            	
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupVSlider" />
+		
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="125.5" />
+				
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupVSlider" />
+		
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase> 
+
+ 		<TestCase testID="VSlider_custom_min_inGroup" keywords="[VSlider, Minimum, Group]" description="Test Custom Positive Minimum for VSlider in Group">
+            <setup>
+		        <ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+		        <SetProperty target="myGroupVSlider" propertyName="minimum" value="8" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupVSlider" />
+		
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myGroupVSlider" />
+		        <DispatchMouseEvent target="myGroupVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupVSlider" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myGroupVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myGroupVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupVSlider" />
+		
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="8" />
+            </body>
+    	</TestCase>  
+
+		<TestCase testID="VSlider_snapInterval_inGroup" keywords="[VSlider, snapInterval, Group]" description="Test Custom snapInterval for VSlider in Group">
+            <setup>
+		        <ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+				<SetProperty target="myGroupVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myGroupVSlider"/>
+		        <SetProperty target="myGroupVSlider" propertyName="snapInterval" value="30" />
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="85" waitEvent="click" waitTarget="myGroupVSlider" />
+            	<Pause timeout="400"/>
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="75" waitEvent="change" waitTarget="myGroupVSlider" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="60" waitEvent="click" waitTarget="myGroupVSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="50" waitEvent="change" waitTarget="myGroupVSlider" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="60" />
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="25" waitEvent="change" waitTarget="myGroupVSlider" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="90" />
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="5" waitEvent="change" waitTarget="myGroupVSlider" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="100" />		
+            </body>
+    	</TestCase>
+
+		<TestCase testID="VSlider_track_click_inGroup" keywords="[VSlider, Track, Group]" description="Test clicking in the track for VSlider in Group">
+		    <setup>
+				<ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+				<SetProperty target="myGroupVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myGroupVSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />	  
+	        
+		        <DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="77" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="20" />	  	      
+	        
+		        <DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="59" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="41" waitTarget="myGroupVSlider" waitEvent="change" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="60" />			     
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="23" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="4" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="100" />
+	        
+		        <DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="23" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="80" />	       	        
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="41" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="60" />	        
+	        
+		        <DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="59" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="40" />	        
+		
+				<DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="77" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="20" />	        
+	        
+		        <DispatchMouseClickEvent target="myGroupVSlider" localX="5" localY="95" waitTarget="myGroupVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="0" />	        
+		    </body>
+    	</TestCase>   	
+	
+		<TestCase testID="VSlider_disabled" keywords="[VSlider, Disabled]" description="Test VSlider when disabled">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetProperty target="myVSlider" propertyName="enabled" value="false" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="enabled" value="false" />
+	        
+		        <DispatchMouseClickEvent target="myVSlider" localX="7" localY="77" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myVSlider" />				
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />	        
+	        
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+	        	        	        	    				
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_1.png"/>
+		
+				<SetProperty target="myVSlider" propertyName="enabled" value="true" />
+		    </body>
+    	</TestCase>	
+    	
+		<TestCase testID="VSlider_thumbPos1" keywords="[VSlider, Thumb]" description="Test VSlider thumb positioning">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetProperty target="myVSlider" propertyName="value" value="150" waitEvent="updateComplete" waitTarget="myVSlider" />				
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="10"/>
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_1.png"/>
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="VSlider_thumbPos2" keywords="[VSlider, Thumb]" description="Test VSlider thumb positioning">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetProperty target="myVSlider" propertyName="value" value="4" waitEvent="updateComplete" waitTarget="myVSlider" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="4"/>
+				<CompareBitmap target="myVSlider" url="../Properties/Baselines/$testID_1.png"/>
+		    </body>
+    	</TestCase>    	
+		
+		<TestCase testID="VSlider_step1" keywords="[VSlider, Step]" description="Test VSlider step function">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 				
+		    </setup>
+		    <body>
+		        <RunCode code="application.myVSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="1" />
+		        <RunCode code="application.myVSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="VSlider_step2" keywords="[VSlider, Step]" description="Test VSlider step function">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 			
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myVSlider" />
+		    </setup>
+		    <body>
+		        <RunCode code="application.myVSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		        <RunCode code="application.myVSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase> 
+    	
+		<TestCase testID="VSlider_step3" keywords="[VSlider, Step]" description="Test VSlider step function">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 			
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myVSlider" />
+		    </setup>
+		    <body>
+		        <RunCode code="application.myVSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="20" />
+		        <RunCode code="application.myVSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		        <RunCode code="application.myVSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase> 
+    	
+		<TestCase testID="VSlider_step4" keywords="[VSlider, Step]" description="Test VSlider step function">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 			
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myVSlider" />				
+				<SetProperty target="myVSlider" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="minimum" value="-3" waitEvent="updateComplete" waitTarget="myVSlider" />
+		    </setup>
+		    <body>		   
+		    	<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />		        
+		        <RunCode code="application.myVSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="-3" />
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="VSlider_step5" keywords="[VSlider, Step]" description="Test VSlider step function">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myVSlider" />				
+				<SetProperty target="myVSlider" propertyName="value" value="85" waitEvent="updateComplete" waitTarget="myVSlider" />
+				<SetProperty target="myVSlider" propertyName="maximum" value="103" waitEvent="updateComplete" waitTarget="myVSlider" />
+		    </setup>
+		    <body>		   
+		        <RunCode code="application.myVSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="100" />
+		        <RunCode code="application.myVSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myVSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="103" />
+		    </body>
+    	</TestCase>    	
+    	
+		<TestCase testID="SkinVSlider_thumbDrag" keywords="[VSlider, Skin]" description="Test track click on a VSlider with a skin">
+		    <setup>
+				<ResetComponent target="mySkinVSlider" className="mySkinVSliderComp" waitEvent="updateComplete" waitTarget="mySkinVSlider"/>
+				<SetProperty target="mySkinVSlider.mySkinVS" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="mySkinVSlider.mySkinVS"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="mySkinVSlider.mySkinVS" propertyName="value" value="0" />	        
+		    	<DispatchMouseClickEvent target="mySkinVSlider.mySkinVS" localX="5" localY="50" waitEvent="change" waitTarget="mySkinVSlider.mySkinVS" />    				
+				<AssertPropertyValue target="mySkinVSlider.mySkinVS" propertyName="value" value="50" />								
+		    </body>
+    	</TestCase>    	
+
+		<TestCase testID="VSlider_width" keywords="[VSlider, width]" description="Test VSlider width">
+	    	<setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetProperty target="myVSlider" propertyName="width" value="100" waitTarget="myVSlider" waitEvent="updateComplete"/>				
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myVSlider" propertyName="width" value="100"/>	    	    
+				<CompareBitmap target="VSbox" url="../Properties/Baselines/$testID.png"/>
+			</body>
+    	</TestCase>     	
+    	
+		<TestCase testID="VSlider_dataTipPrecision" keywords="[VSlider, dataTipPrecission]" description="Test VSlider dataTipPrecission">
+	    	<setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+				<SetProperty target="myVSlider" propertyName="dataTipPrecision" value="5"/>
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myVSlider" propertyName="dataTipPrecision" value="5"/>
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="77" waitTarget="myVSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="77" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="77" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<CompareBitmap target="VSbox" url="../Properties/Baselines/$testID.png"/>
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="77" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+			</body>
+    	</TestCase>    	    	      	
+
+    </testCases>
+    
+</UnitTester>

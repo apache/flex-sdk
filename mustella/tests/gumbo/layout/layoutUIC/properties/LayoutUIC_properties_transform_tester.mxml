@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/layoutUIC/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutUIC_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+        <fx:Script>
+            <![CDATA[
+		import mx.core.ILayoutElement;
+                
+                private var m:Matrix;
+                
+                private function transformButton(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number):Matrix{
+			var m1:Matrix = new Matrix();
+			m1.a = a;
+			m1.b = b;
+			m1.c = c;
+			m1.d = d;
+			m1.tx = tx;
+			m1.ty = ty;
+			return m1;
+                }
+            ]]>
+        </fx:Script>
+
+	<testCases>
+
+	<!--*****************-->
+	<!--Transform testing-->
+	<!--*****************-->
+	
+	<!--**************-->
+	<!--actualPosition-->
+	<!--**************-->
+	
+	<TestCase testID="transform_translation_actualPosition" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after setting x and y via transform matrix">
+        	<setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<RunCode code="application.b1.transform.matrix = transformButton(1, 0, 0, 1, 5, 10);"/>
+          		
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="5" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="10" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="5" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="10" />
+            	</body>
+        </TestCase>
+        
+	<TestCase testID="transform_scaling_actualPosition" keywords="[transform, properties, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(3, 0, 0, 3, 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+		</body>
+        </TestCase>
+
+	<TestCase testID="transform_rotating_actualPosition_90degrees" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(90*Math.PI/180), Math.sin(90*Math.PI/180), -Math.sin(90*Math.PI/180), Math.cos(90*Math.PI/180), 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-22" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+		</body>
+        </TestCase>
+
+	<TestCase testID="transform_skewing_actualPosition" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="transform_rotating_actualPosition_45degrees" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after rotating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(45*Math.PI/180), Math.sin(45*Math.PI/180), -Math.sin(45*Math.PI/180), Math.cos(45*Math.PI/180), 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-15.556349" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="transform_rotating_actualPosition_45degrees_scale2x" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-31.112698" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+		</body>
+        </TestCase>
+        
+         <TestCase testID="transform_rotating_actualPosition_45degrees_scale2y" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2); application.b1.transform.matrix = m;"/>
+
+		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-15.556349" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+		</body>
+        </TestCase>
+
+        
+
+        <TestCase testID="transform_rotating_actualPosition_45degrees_scale2x_translatex5" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after scaling and translating the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); m.translate(5,0); application.b1.transform.matrix = m;"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-26.112698" />
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="5" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0" />
+
+		</body>
+
+	</TestCase>
+
+
+
+	 <TestCase testID="transform_rotating_actualPosition_45degrees_scale2y_translatey5" keywords="[transform, actualPosition, properties, layoutUIC]" description="Call actualPosition after rotating the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2);m.translate(0,5); application.b1.transform.matrix = m;"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-15.556349" />
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="5" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="5" />
+
+		</body>
+
+	</TestCase>
+
+	
+
+        
+
+        
+
+        <!--*************-->
+
+        <!--preferredSize-->
+
+        <!--*************-->
+
+        <TestCase testID="transform_translation_preferredSize" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after setting x and y via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="application.b1.transform.matrix = transformButton(1, 0, 0, 1, 5, 10);"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="transform_scaling_preferredSize" keywords="[transform, properties, layoutUIC]" description="Call preferredSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(3, 0, 0, 3, 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="120" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="66" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_preferredSize_90degrees" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after scaling the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(90*Math.PI/180), Math.sin(90*Math.PI/180), -Math.sin(90*Math.PI/180), Math.cos(90*Math.PI/180), 0, 0);"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth().toFixed(0)" value="22" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight().toFixed(0)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="transform_skewing_preferredSize" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="78.105117" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_preferredSize_45degrees" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after rotating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(45*Math.PI/180), Math.sin(45*Math.PI/180), -Math.sin(45*Math.PI/180), Math.cos(45*Math.PI/180), 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="transform_rotating_preferredSize_45degrees_scale2x" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+
+
+	 <TestCase testID="transform_rotating_preferredSize_45degrees_scale2y" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_preferredSize_45degrees_scale2x_translatex5" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after scaling and translating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); m.translate(5,0); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+
+
+	 <TestCase testID="transform_rotating_preferredSize_45degrees_scale2y_translatey5" keywords="[transform, preferredSize, properties, layoutUIC]" description="Call preferredSize after rotating the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2);m.translate(0,5); application.b1.transform.matrix = m;"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight(false)" value="22" />
+		</body>
+
+	</TestCase>
+
+        
+
+        <!--*******-->
+
+	<!--minSize-->
+
+	<!--*******-->
+
+	
+
+        <TestCase testID="transform_translation_minSize" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after setting x and y via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="application.b1.transform.matrix = transformButton(1, 0, 0, 1, 5, 10);"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="transform_scaling_minSize" keywords="[transform, properties, layoutUIC]" description="Call minSize after scaling the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="application.b1.transform.matrix = transformButton(3, 0, 0, 3, 0, 0);"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="120" />
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="66" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="transform_rotating_minSize_90degrees" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after scaling the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(90*Math.PI/180), Math.sin(90*Math.PI/180), -Math.sin(90*Math.PI/180), Math.cos(90*Math.PI/180), 0, 0);"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth().toFixed(0)" value="22" />
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight().toFixed(0)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="transform_skewing_minSize" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after scaling the button via transform matrix">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="78.105117" />
+
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="transform_rotating_minSize_45degrees" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after rotating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(45*Math.PI/180), Math.sin(45*Math.PI/180), -Math.sin(45*Math.PI/180), Math.cos(45*Math.PI/180), 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_minSize_45degrees_scale2x" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	 <TestCase testID="transform_rotating_minSize_45degrees_scale2y" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_minSize_45degrees_scale2x_translatex5" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after scaling and translating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); m.translate(5,0); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	 <TestCase testID="transform_rotating_minSize_45degrees_scale2y_translatey5" keywords="[transform, minSize, properties, layoutUIC]" description="Call minSize after rotating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2);m.translate(0,5); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="43.840620" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="87.681239" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+<!--Transforms for testing:
+
+rotation
+
+scaleX
+
+scaleY
+
+transform
+
+-->
+
+
+
+    </testCases>
+
+</UnitTester>    

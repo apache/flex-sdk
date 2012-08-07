@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Styles/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_basic0.mxml">
+
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</mx:Metadata>
+
+	<!-- ################################################################## -->
+
+
+	<mx:Script>
+		<![CDATA[
+			import comps.LabelBasic;
+			import comps.RichTextBasic;
+            		import spark.components.RichText;
+            		import mx.core.FlexGlobals;
+
+			import flash.text.engine.BreakOpportunity;
+			import flash.text.engine.CFFHinting;
+			import flash.text.engine.DigitCase;
+			import flash.text.engine.DigitWidth;
+			import flash.text.engine.FontPosture;
+			import flash.text.engine.FontWeight;
+			import flash.text.engine.JustificationStyle;
+			import flash.text.engine.Kerning;
+			import flash.text.engine.LigatureLevel;
+			import flash.text.engine.RenderingMode;
+			import flash.text.engine.TextBaseline;
+
+			import flashx.textLayout.formats.VerticalAlign;
+			import flashx.textLayout.formats.BaselineShift;
+			import flashx.textLayout.formats.Direction;
+			import flashx.textLayout.formats.JustificationRule;
+			import flashx.textLayout.formats.LineBreak;
+
+			public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+			public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+			public var singleLineNumbers:String = "The quick brown fox jumps over the lazy dog. 1234567890";
+			public var longLine:String="Spark DropDownList long long long long long Spark Drop Down List long long long long long   long long long long long Spark Drop Down List l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l  long long long long long Spark DropDownList l";
+			public var ligatureLevelText:String = "fi fj fl ft ffi ffj ffl ct st Th";
+			public var kerningText:String = "YMMVAWAWAWAWA";
+
+		]]>
+	</mx:Script>
+
+	<testCases>
+
+		<!-- style: alignmentBaseline -->
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_default" description="Check default value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="useDominantBaseline" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ascent" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.ASCENT;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="ascent" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_descent" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.DESCENT;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="descent" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ideographicBottom" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_BOTTOM;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="ideographicBottom" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ideographicCenter" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_CENTER;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="ideographicCenter" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_ideographicTop" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_TOP;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="ideographicTop" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_alignmentBaseline_roman" description="Check value of alignmentBaseline style" keywords="[Spark Label, RichText, alignmentBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="alignmentBaseline" valueExpression="value=TextBaseline.ROMAN;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="alignmentBaseline" value="roman" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		
+
+		<!-- style: breakOpportunity -->
+		<TestCase testID="Compare_Label_RichText_breakOpportunity_default" description="Check default value of breakOpportunity style" keywords="[Spark Label, RichText, breakOpportunity, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="breakOpportunity" value="auto" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+		<!-- style: cffHinting -->
+		<TestCase testID="Compare_Label_RichText_cffHinting_default" description="Check default value of cffHinting style" keywords="[Spark Label, RichText, cffHinting, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="cffHinting" value="horizontalStem" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: color -->
+		<TestCase testID="Compare_Label_RichText_color_default" description="Check default value of color style" keywords="[Spark Label, RichText, color, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="color" value="0x000000" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: digitCase -->
+		<TestCase testID="Compare_Label_RichText_digitCase_default" description="Check default value of digitCase style" keywords="[Spark Label, RichText, digitCase, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontSize" value="16" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineNumbers;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="digitCase" value="default" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+
+		<!-- style: digitWidth -->
+		<TestCase testID="Compare_Label_RichText_digitWidth_default" description="Check default value of digitWidth style" keywords="[Spark Label, RichText, digitWidth, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontSize" value="16" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineNumbers;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="digitWidth" value="default" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: direction -->
+		<TestCase testID="Compare_Label_RichText_direction_default" description="Check default value of direction style" keywords="[Spark Label, RichText, direction, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="direction" value="ltr" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Compare_Label_RichText_direction_rtl" description="Check 'rtk' value of direction style" keywords="[Spark Label, RichText, direction, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="direction" valueExpression="value=Direction.RTL" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="direction" value="rtl" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: dominantBaseline -->
+		<TestCase testID="Compare_Label_RichText_dominantBaseline_default" description="Check default value of dominantBaseline style" keywords="[Spark Label, RichText, dominantBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="dominantBaseline" value="auto" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_dominantBaseline_ascent" description="Check 'ascent' value of dominantBaseline style" keywords="[Spark Label, RichText, dominantBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="dominantBaseline" valueExpression="value=TextBaseline.ASCENT;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="dominantBaseline" value="ascent" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Compare_Label_RichText_dominantBaseline_ideographicTop" description="Check 'ideographicTop' value of dominantBaseline style" keywords="[Spark Label, RichText, dominantBaseline, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="dominantBaseline" valueExpression="value=TextBaseline.IDEOGRAPHIC_TOP;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="dominantBaseline" value="ideographicTop" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: fontFamily -->
+		<TestCase testID="Compare_Label_RichText_fontFamily_default" description="Check default value of fontFamily style" keywords="[Spark Label, RichText, fontFamily, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="fontFamily" value="ArialEmbedded" />
+
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: fontLookup -->
+		<TestCase testID="Compare_Label_RichText_fontLookup_default" description="Check default value of fontFamily style" keywords="[Spark Label, RichText, fontLookup, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+
+				<AssertStyleValue target="textBoxComp.textBox" styleName="fontLookup" value="embeddedCFF" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: fontSize -->
+		<TestCase testID="Compare_Label_RichText_fontSize_default" description="Check default value of fontSize style" keywords="[Spark Label, RichText, fontSize, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+
+				<AssertStyleValue target="textBoxComp.textBox" styleName="fontSize" value="12" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: fontStyle -->
+
+		<TestCase testID="Compare_Label_RichText_fontStyle_italic" description="Check 'italic' value of fontStyle style" keywords="[Spark Label, RichText, fontStyle, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="fontStyle" valueExpression="value=FontPosture.ITALIC" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="fontStyle" value="italic" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/$testID_1.png" target="container" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_justificationRule_eastAsian" description="Check 'eastAsian' value of justificationRule style" keywords="[Spark Label, RichText, justificationRule, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="justificationRule" valueExpression="value=JustificationRule.EAST_ASIAN" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="justificationRule" value="eastAsian" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<!-- style: justificationStyle -->
+
+		<TestCase testID="Compare_Label_RichText_justificationStyle_pushInKinsoku1" description="Check 'pushInKinsoku' value of justificationStyle style" keywords="[Spark Label, RichText, justificationStyle, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="justificationStyle" valueExpression="value=JustificationStyle.PRIORITIZE_LEAST_ADJUSTMENT" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="justificationStyle" valueExpression="value=JustificationStyle.PUSH_IN_KINSOKU" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="justificationStyle" value="pushInKinsoku" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<!-- style: kerning -->
+		<TestCase testID="Compare_Label_RichText_kerning_default" description="Check default value of kerning style" keywords="[Spark Label, RichText, kerning, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontSize" value="16" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=kerningText" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="kerning" value="default" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_kerning_auto" description="Check 'auto' value of kerning style" keywords="[Spark Label, RichText, kerning, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontSize" value="16" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=kerningText" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="kerning" valueExpression="value=Kerning.AUTO" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="kerning" value="auto" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_kerning_off" description="Check 'off' value of kerning style" keywords="[Spark Label, RichText, kerning, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontSize" value="16" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=kerningText" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="kerning" valueExpression="value=Kerning.OFF"  />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="kerning" value="off" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: ligatureLevel -->
+		<TestCase testID="Compare_Label_RichText_ligatureLevel_default" description="Check default value of ligatureLevel style" keywords="[Spark Label, RichText, ligatureLevel, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontFamily" value="ArnoEmbedded" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="fontSize" value="16" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=ligatureLevelText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="ligatureLevel" value="common" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+
+		<!-- style: lineBreak -->
+		<TestCase testID="Compare_Label_RichText_lineBreak_default" description="Check default value of lineBreak style" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="lineBreak" value="toFit" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Compare_Label_RichText_lineBreak_explicit" description="Check 'explicit' value of lineBreak style" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetStyle target="textBoxComp.textBox" styleName="lineBreak" valueExpression="value=LineBreak.EXPLICIT;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="lineBreak" value="explicit" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_truncation_lineBreak_explicit" description="Check 'explicit' value of lineBreak style, line should be truncated" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+
+				<ResetComponent target="label2" className="spark.components.Label" waitTarget="label2" waitEvent="updateComplete" />
+				<SetProperty target="label2" propertyName="text" valueExpression="value=longLine;" waitTarget="label2" waitEvent="updateComplete" />
+				<Pause timeout="40"/>
+				<RunCode code="FlexGlobals.topLevelApplication.label2.setStyle('lineBreak',LineBreak.EXPLICIT);" waitTarget="label2" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<Pause timeout="40"/>
+				<AssertStyleValue target="label2" styleName="lineBreak" value="explicit" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/$testID.png" target="panel1" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="Label_truncation_lineBreak_tofit" description="Check 'tofit' value of lineBreak style, line should be truncated" keywords="[Spark Label, RichText, lineBreak, Graphic]">
+			<setup>
+
+				<ResetComponent target="label2" className="spark.components.Label" waitTarget="label2" waitEvent="updateComplete" />
+				<SetProperty target="label2" propertyName="text" valueExpression="value=longLine;" waitTarget="label2" waitEvent="updateComplete" />
+
+				<SetStyle target="label2" styleName="lineBreak" valueExpression="value=LineBreak.TO_FIT;" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="label2" styleName="lineBreak" valueExpression="value=LineBreak.TO_FIT" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="20" url="../Styles/baselines/$testID.png" target="panel1" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: lineHeight -->
+		<TestCase testID="Compare_Label_RichText_lineHeight_default" description="Check default value of lineHeight style" keywords="[Spark Label, RichText, lineHeight, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="width" value="150" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="lineHeight" value="120%" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Compare_Label_RichText_lineHeight_40" description="Check lineHeight 40px" keywords="[Spark Label, RichText, lineHeight, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="width" value="150" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetStyle target="textBoxComp.textBox" styleName="lineHeight" value="40" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="lineHeight" value="40" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: paddingBottom -->
+
+		<TestCase testID="Compare_Label_RichText_paddingBottom_20" description="Check value of 20 for paddingBottom style" keywords="[Spark Label, RichText, paddingBottom, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetProperty target="textBoxComp.textBox" propertyName="height" value="100" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetStyle target="textBoxComp.textBox" styleName="verticalAlign" value="middle" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="paddingBottom" value="20" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="paddingBottom" value="20" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="container" numColorVariances="2" maxColorVariance="10" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: paddingLeft -->
+		<TestCase testID="Compare_Label_RichText_paddingLeft_default" description="Check default value of paddingBottom style" keywords="[Spark Label, RichText, paddingLeft, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="width" value="150" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="paddingLeft" value="0" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+		<!-- style: paddingRight -->
+
+		<TestCase testID="Compare_Label_RichText_paddingRight_20" description="Check value of 20 for paddingRight style" keywords="[Spark Label, RichText, paddingRight, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetProperty target="textBoxComp.textBox" propertyName="height" value="100" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetStyle target="textBoxComp.textBox" styleName="verticalAlign" value="middle" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="paddingRight" value="20" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="paddingRight" value="20" />
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Styles/baselines/$testID.png" target="container" />
+
+			</body>
+		</TestCase>
+
+
+
+
+		<!-- style: paddingTop -->
+
+		<TestCase testID="Compare_Label_RichText_paddingTop_70" description="Check value of 70 for paddingTop style" keywords="[Spark Label, RichText, paddingTop, Graphic]">
+			<setup>
+
+				<ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+				<SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+				<SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetProperty target="textBoxComp.textBox" propertyName="height" value="100" waitTarget="textBoxComp.textBox" waitEvent="resize" />
+				<SetStyle target="textBoxComp.textBox" styleName="verticalAlign" value="middle" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+				<SetStyle target="textBoxComp.textBox" styleName="paddingTop" value="70" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp.textBox" styleName="paddingTop" value="70" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="container" numColorVariances="2" maxColorVariance="10" />
+
+			</body>
+		</TestCase>
+
+<!-- verticalAlign -->
+        <TestCase testID="Compare_Label_RichText_verticalAlign_bottom" description="Check bottom value of verticalAlign style" keywords="[TextGraphic, typographicCase, Graphic]">
+            <setup>
+
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetStyle target="textBoxComp.textBox" styleName="verticalAlign" valueExpression="value=VerticalAlign.BOTTOM" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineNumbers;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/$testID.png" target="container" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Compare_Label_RichText_verticalAlign_justify" description="Check justify value of verticalAlign style" keywords="[TextGraphic, typographicCase, Graphic]">
+            <setup>
+
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+
+
+                <SetStyle target="textBoxComp.textBox" styleName="verticalAlign" valueExpression="value=VerticalAlign.JUSTIFY" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineNumbers;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../Styles/baselines/$testID.png" target="container" />
+
+            </body>
+        </TestCase>
+
+	</testCases>
+
+</UnitTester>
+
+
+<!--
+tabStops
+textAlign
+textAlignLast
+textAlpha
+textDecoration
+textJustify
+textRotation
+tracking
+trackingLeft
+trackingRight
+typographicCase
+verticalAlign
+-->

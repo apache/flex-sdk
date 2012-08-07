@@ -1,0 +1,10 @@
+<s:Application backgroundColor="0xFFFFFF" height="400" width="650"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="*">
+    <s:layout><s:BasicLayout/></s:layout>
+
+    <fx:Style source="assets/myStyles.css" />
+
+  <s:VGroup id="vg">
+    <local:WheelComp id="wc" />
+  </s:VGroup>
+</s:Application>

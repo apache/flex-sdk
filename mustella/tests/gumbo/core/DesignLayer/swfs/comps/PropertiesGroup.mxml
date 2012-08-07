@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+	xmlns:local="*">
+	
+	<fx:Declarations>		 
+		<fx:DesignLayer id="defaultDesignLayer"></fx:DesignLayer>
+		
+		<comps:TypeFXG  id="defaultTypeA" />
+		<comps:TypeFCK  id="defaultTypeB" />
+		<comps:TypeFCK2 id="defaultTypeC" />
+		<comps:TypeUICS id="defaultTypeD" />
+		<comps:TypeUICH id="defaultTypeE" />
+		<comps:TypeIGE  id="defaultTypeF" />
+	</fx:Declarations>
+		
+	<s:layout><s:HorizontalLayout /></s:layout>
+		
+	<!-- for testing the alpha property -->
+	
+	<s:Group id="screen1">
+		<fx:DesignLayer id="dlAlpha">
+			<comps:TypeFXG  id="dlAlphaVetA" />
+			<comps:TypeFCK  id="dlAlphaVetB" />
+			<comps:TypeFCK2 id="dlAlphaVetC" />
+			<comps:TypeUICS id="dlAlphaVetD" />
+			<comps:TypeUICH id="dlAlphaVetE" />
+			<comps:TypeIGE  id="dlAlphaVetF" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen2">
+		<fx:DesignLayer id="dlAlphaMXML" alpha="0.5">
+			<!--<comps:VisualElementTypes id="dlAlphaMXMLVet" />-->
+			<comps:TypeFXG  id="dlAlphaMXMLVetA" />
+			<comps:TypeFCK  id="dlAlphaMXMLVetB" />
+			<comps:TypeFCK2 id="dlAlphaMXMLVetC" />
+			<comps:TypeUICS id="dlAlphaMXMLVetD" />
+			<comps:TypeUICH id="dlAlphaMXMLVetE" />
+			<comps:TypeIGE  id="dlAlphaMXMLVetF" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen3">
+		<fx:DesignLayer id="dlAlphaNested1">
+			<fx:DesignLayer id="dlAlphaNested2">
+				<!--<comps:VisualElementTypes id="dlAlphaNestedVet" />-->
+				<comps:TypeFXG  id="dlAlphaNestedVetA" />
+				<comps:TypeFCK  id="dlAlphaNestedVetB" />
+				<comps:TypeFCK2 id="dlAlphaNestedVetC" />
+				<comps:TypeUICS id="dlAlphaNestedVetD" />
+				<comps:TypeUICH id="dlAlphaNestedVetE" />
+				<comps:TypeIGE  id="dlAlphaNestedVetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen4">
+		<fx:DesignLayer id="dlAlphaNestedMXML1" alpha="0.5">
+			<fx:DesignLayer id="dlAlphaNestedMXML2" alpha="0.5">
+				<comps:TypeFXG  id="dlAlphaNestedMXMLVetA" />
+				<comps:TypeFCK  id="dlAlphaNestedMXMLVetB" />
+				<comps:TypeFCK2 id="dlAlphaNestedMXMLVetC" />
+				<comps:TypeUICS id="dlAlphaNestedMXMLVetD" />
+				<comps:TypeUICH id="dlAlphaNestedMXMLVetE" />
+				<comps:TypeIGE  id="dlAlphaNestedMXMLVetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	
+	<!-- for testing the visible property -->
+	
+	
+	<s:Group id="screen5">
+		<fx:DesignLayer id="dlVisible">
+			<comps:TypeFXG  id="dlVisibleVetA" />
+			<comps:TypeFCK  id="dlVisibleVetB" />
+			<comps:TypeFCK2 id="dlVisibleVetC" />
+			<comps:TypeUICS id="dlVisibleVetD" />
+			<comps:TypeUICH id="dlVisibleVetE" />
+			<comps:TypeIGE  id="dlVisibleVetF" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen6">
+		<fx:DesignLayer id="dlVisibleMXML" visible="false">
+			<comps:TypeFXG  id="dlVisibleMXMLVetA" />
+			<comps:TypeFCK  id="dlVisibleMXMLVetB" />
+			<comps:TypeFCK2 id="dlVisibleMXMLVetC" />
+			<comps:TypeUICS id="dlVisibleMXMLVetD" />
+			<comps:TypeUICH id="dlVisibleMXMLVetE" />
+			<comps:TypeIGE  id="dlVisibleMXMLVetF" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen7">
+		<fx:DesignLayer id="dlVisibleNested1">
+			<fx:DesignLayer id="dlVisibleNested2">
+				<comps:TypeFXG  id="dlVisibleNestedVetA" />
+				<comps:TypeFCK  id="dlVisibleNestedVetB" />
+				<comps:TypeFCK2 id="dlVisibleNestedVetC" />
+				<comps:TypeUICS id="dlVisibleNestedVetD" />
+				<comps:TypeUICH id="dlVisibleNestedVetE" />
+				<comps:TypeIGE  id="dlVisibleNestedVetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen8">
+		<fx:DesignLayer id="dlVisibleNestedMXML1" visible="false">
+			<fx:DesignLayer id="dlVisibleNestedMXML2" visible="true">
+				<comps:TypeFXG  id="dlVisibleNestedMXMLVetA" />
+				<comps:TypeFCK  id="dlVisibleNestedMXMLVetB" />
+				<comps:TypeFCK2 id="dlVisibleNestedMXMLVetC" />
+				<comps:TypeUICS id="dlVisibleNestedMXMLVetD" />
+				<comps:TypeUICH id="dlVisibleNestedMXMLVetE" />
+				<comps:TypeIGE  id="dlVisibleNestedMXMLVetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	
+	<!-- for testing the numLayers (readonly) property -->
+	
+	
+	<fx:DesignLayer id="dlNumLayers0">
+
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlNumLayers0Group">
+		<s:Group>
+			<fx:DesignLayer id="inner">
+
+			</fx:DesignLayer>
+		</s:Group>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlNumLayers1">
+		<fx:DesignLayer alpha="0.5">
+			<s:Rect />
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlNumLayers2">
+		<fx:DesignLayer alpha="0.5">
+			<s:Rect />
+		</fx:DesignLayer>
+		<fx:DesignLayer alpha="0.5">
+			<s:Rect />
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	
+	<!-- for testing the effectiveAlpha property -->
+	
+	
+	<fx:DesignLayer id="dlEffectiveAlpha1" alpha="0.5">
+		<fx:DesignLayer id="dlEffectiveAlpha2" alpha="0.2">
+			<s:Group>
+				<fx:DesignLayer id="dlEffectiveAlpha3" alpha="0.1">
+					<fx:DesignLayer id="dlEffectiveAlpha4" alpha="0">
+					
+					</fx:DesignLayer>
+				</fx:DesignLayer>
+			</s:Group>
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlEffectiveAlpha5" alpha="0">
+		<fx:DesignLayer id="dlEffectiveAlpha6" alpha="1">
+			<fx:DesignLayer id="dlEffectiveAlpha7" alpha="0.5">
+				<fx:DesignLayer id="dlEffectiveAlpha8" alpha="1">
+					<s:Rect />
+				</fx:DesignLayer>
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlEffectiveAlpha9" alpha="0.5">
+		<fx:DesignLayer id="dlEffectiveAlpha10" alpha="0.5">
+			<fx:DesignLayer id="dlEffectiveAlpha11" alpha="0.5">
+				<fx:DesignLayer id="dlEffectiveAlpha12" alpha="0.5">
+				
+				</fx:DesignLayer>
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	
+	<!-- for testing the effectiveVisibility property -->
+	
+	
+	<fx:DesignLayer id="dlEffectiveVisibility1" visible="false">
+		<fx:DesignLayer id="dlEffectiveVisibility2" visible="true">
+			<s:Group>
+				<fx:DesignLayer id="dlEffectiveVisibility3" visible="true">
+					<fx:DesignLayer id="dlEffectiveVisibility4" visible="false">
+					
+					</fx:DesignLayer>
+				</fx:DesignLayer>
+			</s:Group>
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlEffectiveVisibility5" visible="true">
+		<fx:DesignLayer id="dlEffectiveVisibility6" visible="false">
+			<fx:DesignLayer id="dlEffectiveVisibility7" visible="true">
+				<fx:DesignLayer id="dlEffectiveVisibility8" visible="true">
+				
+				</fx:DesignLayer>
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	<fx:DesignLayer id="dlEffectiveVisibility9" visible="true">
+		<fx:DesignLayer visible="false">
+			<fx:DesignLayer id="dlEffectiveVisibility10" visible="true">
+				<fx:DesignLayer id="dlEffectiveVisibility11" visible="true">
+					<fx:DesignLayer id="dlEffectiveVisibility12" visible="true">
+					
+					</fx:DesignLayer>
+				</fx:DesignLayer>
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	
+	<!-- for testing dataBinding -->
+	
+	
+	<s:Group id="screen9">
+		<fx:DesignLayer id="dlDataBinding" alpha="{alphaSlider.value}" visible="{visibleToggleButton.selected}">
+			<s:Rect width="50" height="50">
+				<s:fill><s:SolidColor color="0xFF0000" /></s:fill>
+			</s:Rect>
+		
+			<s:HSlider id="alphaSlider" x="52" minimum="0" maximum="1" stepSize="0.1" snapInterval="0.1"  value="1" />
+			<s:ToggleButton id="visibleToggleButton" selected="true" x="52" y="22" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	
+	<!-- for testing designLayer property of IVisualElement -->
+	
+	
+	<s:Group id="screen10">
+		<fx:DesignLayer id="dlDesignLayer1" alpha="1">
+			<fx:DesignLayer id="dlDesignLayer2" alpha="0.5">
+				<comps:TypeFXG  id="dlDesignLayer1VetA" />
+				<comps:TypeFCK  id="dlDesignLayer1VetB" />
+				<comps:TypeFCK2 id="dlDesignLayer1VetC" />
+				<comps:TypeUICS id="dlDesignLayer1VetD" />
+				<comps:TypeUICH id="dlDesignLayer1VetE" />
+				<comps:TypeIGE  id="dlDesignLayer1VetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group>
+		<fx:DesignLayer id="dlDesignLayer3">
+			<fx:DesignLayer>
+				<comps:TypeFXG  id="dlDesignLayer2VetA" />
+				<comps:TypeFCK  id="dlDesignLayer2VetB" />
+				<comps:TypeFCK2 id="dlDesignLayer2VetC" />
+				<comps:TypeUICS id="dlDesignLayer2VetD" />
+				<comps:TypeUICH id="dlDesignLayer2VetE" />
+				<comps:TypeIGE  id="dlDesignLayer2VetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	
+</s:Group>

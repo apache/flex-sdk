@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/TextInput/Events/"
+
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+
+		xmlns="*"
+
+		testSWF="Flex4_TextInput_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<fx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</fx:Script>
+
+
+
+	<fx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</fx:Metadata>
+
+
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<fx:Script>
+
+		<![CDATA[
+
+import spark.components.TextInput;
+
+
+
+			private var actionScriptTextInput:TextInput = new TextInput();
+
+
+			private function dispatchDown(actualTarget:Object):void{
+				var event:KeyboardEvent; // all keyboard events bubble
+				event = new KeyboardEvent("keyDown", true);
+				event.keyCode = 13; //enter
+				actualTarget.dispatchEvent(event);
+			}
+			
+			private function dispatchUp(actualTarget:Object):void{
+				var event:KeyboardEvent; // all keyboard events bubble
+				event = new KeyboardEvent("keyUp", true);
+				event.keyCode = 13; //enter
+				actualTarget.dispatchEvent(event);
+			}
+
+		]]>
+
+	</fx:Script>
+
+
+
+
+
+	<testCases>
+
+		<!-- ******************** **************** ******************** -->
+
+		<!-- ******************** TEXTINPUT EVENTS ******************** -->
+
+		<!-- ******************** **************** ******************** -->
+
+
+
+
+
+		<!-- ******************** change ******************** -->
+
+		<!--
+
+		<TestCase testID="Gumbo_TextInput_change_event" description="Checks the change event is dispatched on a TextInput control" keywords="[TextInput, change, event]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+				<SetProperty target="textInput" propertyName="text" value="The quick" waitEvent="updateComplete" waitTarget="textInput"/>
+
+			</setup>
+
+			<body>
+
+                <DispatchMouseClickEvent target="textInput" localX="10" localY="7" />
+
+                <DispatchKeyEvent char="111111" waitTarget="textInput" waitEvent="change" />
+
+			</body>
+
+		</TestCase>
+
+		-->
+
+
+
+
+
+		<!-- ******************** enter ******************** -->
+
+		<!--
+
+		<TestCase testID="Gumbo_TextInput_enter_event" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, change, event]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+				<SetProperty target="textInput" propertyName="text" value="The quick" waitEvent="updateComplete" waitTarget="textInput"/>
+
+			</setup>
+
+			<body>
+
+                <DispatchMouseClickEvent target="textInput" localX="10" localY="7" />
+
+				<DispatchKeyEvent keys="['ENTER']" />
+
+				<AssertEvent eventName="enter" eventClass="flash.events::Event" target="textInput" />
+
+			</body>
+
+		</TestCase>
+
+		-->
+		
+		<!-- ******************** enter ******************** -->
+		<TestCase testID="Gumbo_TextInput_enter_event_sdk18945" description="runs test for 'enter key' bug SDK-18945 and to increase code coverage" keywords="[TextInput, change, event, SDK-18945]">
+			
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick" waitEvent="updateComplete" waitTarget="textInput"/>
+				<RunCode code="application.textInput.setFocus()" waitEvent="focusIn" waitTarget="textInput" />
+			</setup>
+			
+			<body>
+				
+				<DispatchKeyEvent keys="['ENTER']" />
+				
+				<AssertEvent eventName="enter" eventClass="mx.events::FlexEvent" target="textInput" />
+			</body>
+			
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** selectionChange ******************** -->
+
+		<TestCase testID="Gumbo_TextInput_selectionChange_event_MouseEvent" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+			</setup>
+
+			<body>
+
+				<!--<DispatchMouseEvent target="textInput" type="rollOver" localX="10" localY="4" waitTarget="textInput" waitEvent="rollOver" />
+				<DispatchMouseEvent target="textInput" type="mouseDown" localX="10" localY="4" waitTarget="textInput" waitEvent="mouseDown" />
+				<DispatchMouseEvent target="textInput" type="mouseUp" waitTarget="textInput" waitEvent="mouseUp" />
+-->
+
+				<DispatchMouseClickEvent target="textInput" localX="5" localY="10" waitEvent="focusIn"/>
+				<Pause timeout="5000"/>
+
+<!---
+				<DispatchMouseEvent target="textInput" type="rollOver" localX="65" localY="4" waitTarget="textInput" waitEvent="rollOver" />
+				<DispatchMouseEvent target="textInput" type="mouseDown" localX="65" localY="4" waitEvent="mouseDown" waitTarget="textInput" />
+				<DispatchMouseEvent target="textInput" type="mouseMove" localX="65" localY="3" waitEvent="mouseMove" waitTarget="textInput" />
+				<DispatchMouseEvent target="textInput" type="mouseUp" localX="65" localY="4" waitEvent="mouseUp" waitTarget="textInput" />
+-->
+<!--
+				<Pause timeout="4000" />
+
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseUp" waitEvent="updateComplete" waitTarget="myHSlider.thumb" />
+-->
+
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="0" />
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="44" />
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="Gumbo_TextInput_selectionChange_event_MouseEvent_drag" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="textInput" type="rollOver" localX="10" localY="5" />
+				<DispatchMouseEvent target="textInput" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+				<DispatchMouseEvent target="textInput" type="mouseUp" waitEvent="enterFrame" />
+
+				<DispatchMouseEvent type="mouseDown" localX="65" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="10" />
+
+				<DispatchMouseEvent type="mouseMove" localX="20" localY="10" buttonDown="true" target="textInput" />
+
+				<DispatchMouseEvent type="mouseUp" localX="65" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="2" />
+
+			</body>
+
+		</TestCase>
+
+
+
+<!--
+
+		<TestCase testID="Gumbo_TextInput_selectionChange_event_KeyEvent" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent type="mouseDown" localX="65" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+				<DispatchMouseEvent type="mouseUp" localX="65" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+				<DispatchKeyEvent keys="['LEFT','LEFT','LEFT']" shiftKey="true" ctrlKey="true" waitTarget="textInput" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="4" />
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<TestCase testID="Gumbo_TextInput_selectionChange_event_KeyEvent2" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseClickEvent localX="65" localY="5" target="textInput" />
+
+				<DispatchKeyEvent char="A" ctrlKey="true" waitTarget="textInput" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="0" />
+
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="44" />
+
+			</body>
+
+		</TestCase>
+
+-->
+
+
+
+
+
+		<!-- ******************** **************** ******************** -->
+
+		<!-- ******************** INHERITED EVENTS ******************** -->
+
+		<!-- ******************** **************** ******************** -->
+
+
+
+
+
+		<!-- ******************** added ******************** -->
+
+		<TestCase testID="Gumbo_TextInput_added_event" description="Checks whether the added event is dispatched when the cursor is moved over the TextInput control" keywords="[TextInput, added, event]">
+
+			<body>
+
+				<RunCode code="application.addElement(actionScriptTextInput);" waitTarget="" waitEvent="added" />
+
+			</body>
+
+			<cleanup>
+
+				<RunCode code="application.removeElement(actionScriptTextInput);" />
+
+			</cleanup>
+
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** click ******************** -->
+
+		<TestCase testID="Gumbo_TextInput_click_event" description="Checks whether the click event is dispatched when the TextInput control is clicked" keywords="[TextInput, click, event]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+			</setup>
+
+			<body>
+
+                <DispatchMouseEvent target="textInput" type="click" localX="5" localY="5" />
+
+                <AssertEvent eventName="click" eventClass="flash.events::MouseEvent" target="textInput" />
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** doubleClick ******************** -->
+
+		<TestCase testID="Gumbo_TextInput_doubleClick_event" description="Checks whether the doubleClick event is dispatched when the TextInput control is clicked twice" keywords="[TextInput, doubleClick, event]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+				<SetProperty target="textInput" propertyName="doubleClickEnabled" value="true" />
+
+			</setup>
+
+			<body>
+
+                <DispatchMouseEvent target="textInput" type="doubleClick" localX="5" localY="5" />
+
+                <AssertEvent eventName="doubleClick" eventClass="flash.events::MouseEvent" target="textInput" />
+
+			</body>
+
+		</TestCase>
+
+
+
+	</testCases>
+
+</UnitTester>
+
+
+

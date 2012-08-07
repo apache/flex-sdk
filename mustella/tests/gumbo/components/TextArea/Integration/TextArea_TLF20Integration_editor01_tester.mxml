@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextArea/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="TextArea_TLF20Integration.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.elements.IConfiguration;
+			import flashx.textLayout.formats.LineBreak;
+			import spark.utils.TextFlowUtil;
+			import mx.core.FlexGlobals;
+
+			
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		
+		<!-- ******************** ******************* ******************** -->
+		<!-- ******************** TextArea INTEGRATION LISTS  ******************** -->
+		<!-- ******************** ******************* ******************** -->
+		
+		
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		
+		
+		<TestCase testID="TA_01_LSP_OUTSIDE_pos_outside_default_padding_true" keywords="[TextArea, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_LSP_OUTSIDE_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor" propertyName="testID" value="TA_01_LSP_OUTSIDE_last_position"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_LSP_OUTSIDE_add_empty_items" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_LSP_OUTSIDE_edit_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="TA_01_LSP_OUTSIDE_list_in_list_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00 (kilo)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=inside  ******************** -->
+		<TestCase testID="TA_01_LSP_INSIDE_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="TA_01_LSP_INSIDE_embedded_font_fallback_LSTOrdered" keywords="[TextArea,embedded, font, fallback listStyleType]" 
+				  description="Ensure that bullets are displayed in appropriate fallback font when embedded font specified is unavailable or restricted.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedAlphaGreekLatinRomanFontFallback.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
+				    <ConditionalValue os="mac" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_LSP_INSIDE_pos_outside_default_padding_true" keywords="[TextArea, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_LSP_INSIDE_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_LSP_INSIDE_add_empty_items" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[ENTER,ENTER]" waitTarget="customTAEditor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_LSP_INSIDE_edit_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_LSP_INSIDE_list_in_list_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00 (kilo)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_LSP_INSIDE_edit_multiple_nested_ordered_list" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Ensure that TextFlow with multiple ordered lists numbering regenerates correctly">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.MultipleNestedOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+			
+		
+		<!-- -->
+		<!-- ******************** LIST - cc=3 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_embedded_font_fallback_LSTOrdered" keywords="[TextArea,embedded, font, fallback listStyleType]" 
+				  description="Ensure that bullets are displayed in appropriate fallback font when embedded font specified is unavailable or restricted.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedAlphaGreekLatinRomanFontFallback.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
+				    <ConditionalValue os="mac" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_pos_outside_default_padding_true" keywords="[TextArea, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="170"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor"  waitEvent="textInput"/>
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput"/>
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_add_empty_items" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor"/>
+				<WaitForEvent numExpectedEvents="1" eventName="updateComplete" target="customTAEditor" timeout="2000" />
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor"  />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_edit_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+	
+		
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="TA_01_CC_3_LSP_OUTSIDE_list_in_list_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00 (kilo)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<!-- ******************** LIST - cc=3 cw=140 cg=0 lst=none lsp=inside  ******************** -->
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+	<TestCase testID="TA_01_CC_3_LSP_INSIDE_embedded_font_fallback_LSTOrdered" keywords="[TextArea,embedded, font, fallback listStyleType]" 
+				  description="Ensure that bullets are displayed in appropriate fallback font when embedded font specified is unavailable or restricted.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedAlphaGreekLatinRomanFontFallback.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" >
+				    <ConditionalValue os="mac" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_pos_outside_default_padding_true" keywords="[TextArea, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_add_empty_items" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[ENTER,ENTER]" waitTarget="customTAEditor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_edit_ordered_list" keywords="[TextArea, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 03" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 04" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 05" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END, ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 06" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 07" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_list_in_list_last_position" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00 (kilo)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01 (lime)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02 (quebec)" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_01_CC_3_LSP_INSIDE_edit_multiple_nested_ordered_list" keywords="[TextArea, ordered, list, last item, listStyleType]" 
+				  description="Ensure that TextFlow with multiple ordered lists numbering regenerates correctly">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customTAEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customTAEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customTAEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customTAEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="700" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.MultipleNestedOrderedList.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 00" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 01" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				
+				<DispatchKeyEvent char="NEW ITEM 02" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<DispatchKeyEvent keys="[END,DOWN,DOWN,DOWN,END,ENTER]" waitTarget="customTAEditor.editor" waitEvent="textInput" />
+				<RunCode code="FlexGlobals.topLevelApplication.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>
+		
+	</testCases>
+	
+</UnitTester>		
+

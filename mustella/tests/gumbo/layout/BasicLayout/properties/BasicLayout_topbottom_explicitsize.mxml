@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_basic1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+<!--
+========================================================
+Top
+========================================================
+-->
+<TestCase testID="top_over_y1" keywords="[BasicLayout,properties,top]" description="verify constraint top is over y, when both set, y will be ignored" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="top" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="y" value="150" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+ 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="50" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="top_over_y2" keywords="[BasicLayout,properties,top]" description="verify constraint top is over y, when both set, y will be ignored" >
+    <setup>
+     	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="top" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="y" value="150" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+ 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="50" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="top_negative_test1" keywords="[BasicLayout,properties,top,negative]" description="verify constraint top great than parent.height, verify position is set up correctly" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+        <SetProperty propertyName="top" value="350"  target="parentGroup.childBtn" 
+	waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="350" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="top_negative_test2" keywords="[BasicLayout,properties,top,negative]" description="verify constraint top less than 0, verify element is placed correctly" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+        <SetProperty propertyName="top" value="-50"  target="parentGroup.childBtn" 
+	waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="-50" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+
+
+<!--
+========================================================
+Bottom
+========================================================
+-->
+
+<TestCase testID="bottom_over_y1" keywords="[BasicLayout,properties,bottom]" description="verify constraint bottom is over y, when both set, y will be ignored" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="y" value="150" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+ 
+   </setup>
+    <body>
+    	<!-- y=parent.height-bottom-element.height when parent.height-bottom>default height -->
+        <AssertPropertyValue propertyName="y" value="229" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_over_y2" keywords="[BasicLayout,properties,bottom]" description="verify constraint bottom is over y" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="bottom" value="280" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="y" value="150" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+ 
+   </setup>
+    <body>
+    	<!-- y=parent.height-bottom-element.height -->
+        <AssertPropertyValue propertyName="y" value="-1" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_negative_test1" keywords="[BasicLayout,properties,bottom,negative]" description="verify constraint bottom great than parent.height, verify position is set up correctly" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+        <SetProperty propertyName="bottom" value="350"  target="parentGroup.childBtn" 
+	waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+    	<!-- y=parent.height-bottom-element.height -->
+        <AssertPropertyValue propertyName="y" value="-71" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_negative_test2" keywords="[BasicLayout,properties,bottom,negative]" description="verify constraint bottom less than 0, verify element is placed correctly" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+        <SetProperty propertyName="bottom" value="-50"  target="parentGroup.childBtn" 
+	waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+    	<!-- y=parent.height-bottom-element.height -->
+        <AssertPropertyValue propertyName="y" value="329" target="parentGroup.childBtn"/>
+               
+    </body>
+</TestCase>
+
+
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

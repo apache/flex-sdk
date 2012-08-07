@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:MXTreeItemRenderer 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" contentBackgroundColor="0xAADEB1">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.treeClasses.*;
+            
+            override public function set data(value:Object):void {      
+                if(value != null)  {
+                    super.data = value;
+                    
+                    edt.text = TreeListData(listData).label;
+                }   
+            } 
+            
+            /**
+             * Update the value
+             */
+            public function get updatedValue():* {
+                return edt.text;
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="hovered" />
+        <s:State name="selected" />
+    </s:states>
+    
+    <s:layout>
+        <s:HorizontalLayout verticalAlign="middle" />
+    </s:layout>
+    
+    <s:Rect id="indentationSpacer" width="{treeListData.indent}" height="22" alpha="0">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Group id="disclosureGroup">
+        <s:BitmapImage source="{treeListData.disclosureIcon}" width="16" height="16" visible="{treeListData.hasChildren}" />
+    </s:Group>
+    
+    <s:BitmapImage source="{treeListData.icon}" width="16" height="16"/>
+    
+    <s:TextInput id="edt" color="green" width="100%"  height="21"/>
+    
+    <s:Button width="16" height="16" />
+    
+</s:MXTreeItemRenderer>

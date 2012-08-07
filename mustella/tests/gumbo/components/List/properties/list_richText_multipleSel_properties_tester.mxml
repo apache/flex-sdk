@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="ListBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import comps.*;
+        import mx.collections.*;
+        import spark.layouts.*;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="RT_List_ms_property_arrayCollection__selectedIndex_dup0" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="7" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection__selectedIndex_dup1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="37" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection__selectedIndex_dup2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection__selectedIndex_dup_addItem0" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="5" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection__selectedIndex_dup_addItem1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="31" />
+                <RunCode code="application.list1.dataProvider.addItem('Z')" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="31" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection__selectedIndex_dup_addItem2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" />
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="change"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_default_size" keywords="[List, property, default]" description="">
+                <setup>
+                    <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                    <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                    <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                    <SetProperty target="list1" propertyName="requireSelection" value="true" />
+                	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+                <body>
+                    <AssertPropertyValue target = "list1" propertyName="width" value="112" />
+                    <AssertPropertyValue target = "list2" propertyName="height" value="112" />
+
+                </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_selectedIndex_simple_array" keywords="[List, property, selectedIndex, array]" description="">
+                <setup>
+                    <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                    <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                    <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                    <SetProperty target="list1" propertyName="requireSelection" value="true" />
+                    <SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+                    <SetProperty target="list2" propertyName="requireSelection" value="true" />
+                	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+                <body>
+                    <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['1','2','3'])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                    <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['john','tim','david'])" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                    <SetProperty target="list2" propertyName="selectedIndex"  value="2" waitEvent="valueCommit" waitTarget="list2"/>
+                    <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="3" />
+                    <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="3" />
+                    <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(0).toString()" value="1" />
+                    <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(2).toString()" value="DaName" />
+                    <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
+                    <AssertPixelValue    target="list2" x="2"  y="48"  value="0xA8C6EE" />
+
+                </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_selectedItem_simple_array" keywords="[List, property, selectedItem, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+                <SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list2" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['1','2','3'])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['john','tim','david'])" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list1" propertyName="selectedItem"  valueExpression="value=application.list1.dataProvider.getItemAt(0)"  />
+                <SetProperty target="list2" propertyName="selectedItem"  valueExpression="value=application.list2.dataProvider.getItemAt(2)" waitEvent="updateComplete" />
+                <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+                <AssertPropertyValue target="list2" propertyName="selectedIndex" value="2" />
+                <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="2"  y="48"  value="0xA8C6EE" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="72"  y="1"  value="0xA8C6EE" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_List_ms_property_selectedIndex_custom_array" keywords="[List, property, selectedIndex, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+                <SetProperty target="list1" propertyName="width"  value="500" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list2" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="list2"/>
+                <SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.abcArr)" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.abcArr)" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <RunCode code="application.list1.selectedIndex=13" waitEvent="valueCommit" waitTarget="list1" />
+                <RunCode code="application.list2.selectedIndex=0"  />
+                <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="14" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="14" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(0)" value=" " />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(13)" value="L" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list2" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_selectedIndex_custom_array_click" keywords="[List, property, selectedIndex, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete"  waitTarget="list1.dataGroup"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.abcArr)" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.abcArr)" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <DispatchMouseClickEvent target="list1" localX="3"  localY="3"  />
+                <DispatchMouseClickEvent target="list2" localX="8"    localY="8"  />
+                <SetProperty target="list1" propertyName="width"  value="280" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="list1"/>
+
+                <CompareBitmap  numColorVariances="15" maxColorVariance="5" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_selectedIndex_simple_array_swap_layout" keywords="[List, property, selectedIndex, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+                <SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list2" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['1','2','3'])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['john','tim','david'])" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list1" propertyName="selectedIndex"  value="0"  />
+                <SetProperty target="list2" propertyName="selectedIndex"  value="2" waitEvent="valueCommit" />
+                <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="3" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="3" />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(0)" value="1" />
+                <AssertMethodValue   method="value=application.list2.dataProvider.getItemAt(2)" value="DaName" />
+                <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="2"  y="48"  value="0xA8C6EE" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <AssertPixelValue    target="list1" x="2"  y="9"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="72"  y="1"  value="0xA8C6EE" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_selectedIndex_simple_array_click" keywords="[List, property, selectedIndex, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                 <SetProperty target="list1" propertyName="requireSelection" value="true" />
+                <SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list2" propertyName="requireSelection" value="true" />
+
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['1','2','3'])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['john','tim','david'])" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="10"  />
+                <DispatchMouseClickEvent target="list2" localX="12"  localY="51" waitEvent="change" />
+
+                <AssertPropertyValue target="list1"  propertyName="selectedIndex" value="0" />
+                <AssertPropertyValue target="list2" propertyName="selectedIndex" value="2" />
+                <AssertPixelValue    target="list1" x="10"  y="10"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="12"  y="51"  value="0xA8C6EE" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <AssertPixelValue    target="list1" x="10"  y="10"  value="0xA8C6EE" />
+                <AssertPixelValue    target="list2" x="72"  y="1"  value="0xA8C6EE" />
+                <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+                <AssertPropertyValue target="list2"  propertyName="selectedIndex" value="2" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_labelField_labelFunction" keywords="[List, property,arrayCollection,binding, labelFunction]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="labelFunction" valueExpression="value=application.jerseyNumberLabelFunction" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="3" waitEvent="valueCommit" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_labelField_labelFunction_reset" keywords="[List, property,arrayCollection,binding, labelFunction]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="labelFunction" valueExpression="value=application.jerseyNumberLabelFunction" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="3" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="labelFunction" valueExpression="value=application.teamLabelFunction" />
+                <SetProperty target="list1" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="10" maxColorVariance="20" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_labelField_labelFunction_null" keywords="[List, property,arrayCollection,binding, labelFunction]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list1" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="labelFunction" valueExpression="value=application.jerseyNumberLabelFunction" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="3" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="labelFunction" valueExpression="value=null" />
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_selectedIndices_dup0" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+             	<DispatchKeyEvent key="DOWN"  shiftKey="true" waitTarget="list1" waitEvent="change" />
+		<DispatchKeyEvent key="DOWN"  shiftKey="true" waitTarget="list1" waitEvent="change" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="6" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" value="[6,5,4]" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" value="['a','a','a']" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_selectedIndices_dup1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="37" />
+                <DispatchKeyEvent key="UP"  shiftKey="true" waitTarget="list1" waitEvent="change" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="36" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" value="[36,37]" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" value="[null,null]" />
+            </body>
+        </TestCase>
+       <TestCase testID="RT_List_ms_property_arrayCollection_selectedIndices_dup2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  shiftKey="true" waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"   waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="A" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_selectedIndices_dup_addItem0" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndices" valueExpression="value=new &lt;int&gt;[1,2,3,4,5]" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" value="['A',null,'A','a','a']" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" value="['A',null,'A','a','a']" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_ms_property_arrayCollection_selectedIndices_dup_addItem1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItems" valueExpression="value=new  &lt;Object&gt;['X','Y','Z']" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" value="[31,30,29]" />
+                <RunCode code="application.list1.dataProvider.addItem('Z')" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" value="[31,30,29]" />
+            </body>
+        </TestCase>
+       <TestCase testID="RT_List_ms_property_arrayCollection_selectedIndices_dup_addItem2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndices" valueExpression="value=new  &lt;int&gt;[0,2,4,6,8]" waitEvent="valueCommit" waitTarget="list1"/>
+
+                <SetProperty target="list1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+
+                <DispatchKeyEvent keys="[DOWN]" shiftKey="true" waitTarget="list1" waitEvent="changing"/>
+
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" value="[2,3,4,5,6,7,8,9]" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_List_mouseClick_property_arrayCollection__selectedIndex_dup0" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+ 		<DispatchMouseClickEvent target="list1" localX="10"  localY="10" shiftKey="true" waitEvent="change"  />
+ 		<SetProperty target="list1" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="list1"/>
+		<CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_mouseClick_property_arrayCollection__selectedIndex_dup1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="10" ctrlKey="true" waitEvent="change"  />
+                <SetProperty target="list1" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="list1"/>
+		<CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_mouseClick_property_arrayCollection__selectedIndex_dup2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="100" ctrlKey="true" waitEvent="change"  />
+		<SetProperty target="list1" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="list1"/>
+		<CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_mouseClick_property_arrayCollection__selectedIndex_dup_addItem0" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="10"  shiftKey="true" waitEvent="change"  />
+		<SetProperty target="list1" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_mouseClick_property_arrayCollection__selectedIndex_dup_addItem1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="31" />
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="10" shiftKey="true" waitEvent="change"  />
+                <RunCode code="application.list1.dataProvider.addItem('Z')" />
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_List_mouseClick_property_arrayCollection__selectedIndex_dup_addItem2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchMouseClickEvent target="list1" localX="5"  localY="10" shiftKey="true"   />
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" />
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_List_mouseClick_property_selectedIndex_simple_array_swap_layout" keywords="[List, property, selectedIndex, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="requireSelection" value="true" />
+
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RichTextItemRenderer);"  />
+
+		</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['1','2','3'])" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+
+                <SetProperty target="list1" propertyName="selectedIndex"  value="0"  />
+                <AssertPropertyValue target = "list1.dataProvider" propertyName="length" value="3" />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(0)" value="1" />
+                <DispatchMouseClickEvent target="list1" localX="10"  localY="10"   />
+                <DispatchMouseClickEvent target="list1" localX="100"  localY="10" shiftKey="true"  />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"   waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list1" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+
+     </testCases>
+</UnitTester>

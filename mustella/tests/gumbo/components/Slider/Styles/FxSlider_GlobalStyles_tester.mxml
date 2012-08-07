@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Slider/Styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Slider_Basic.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.HSlider;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="FxHSlider_Style_baseColor_mxml" keywords="[FxHSlider, baseColor]" description="Ensure that baseColor works in mxml.">
+			<body>
+				<AssertStyleValue target="baseColor_hslider" styleName="chromeColor" value="0xFFFF00"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_hslider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxHSlider_Style_focusColor_mxml" keywords="[FxHSlider, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+			    <DispatchMouseClickEvent target="mySkinVSlider" localX="5" localY="5" waitEvent="click"
+			        waitTarget="mySkinVSlider" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_hslider" />
+			</setup>
+			<body>
+				<AssertStyleValue target="focusColor_hslider" styleName="focusColor" value="0xCC0033"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="focusColor_hslider_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxHSlider_Style_baseColor_as" keywords="[FxHSlider, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_hslider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+		        <SetProperty target="baseColor_hslider" propertyName="x" value="273" waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_hslider" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+				<CompareBitmap url="../styles/baselines/FxHSlider_Style_baseColor_mxml.png" target="baseColor_hslider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxHSlider_Style_baseColor_disabled" keywords="[FxHSlider, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_hslider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+		        <SetProperty target="baseColor_hslider" propertyName="x" value="273" waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_hslider" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+				<SetProperty target="baseColor_hslider" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_hslider"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_hslider"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxHSlider_Style_focusColor_as" keywords="[FxHSlider, focusColor]" description="Ensure that focusColor works at runtime.">
+			<setup>
+			    <ResetComponent target="focusColor_hslider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="focusColor_hslider"/>
+		        <DispatchMouseClickEvent target="mySkinVSlider" localX="5" localY="5" waitEvent="click"
+			        waitTarget="mySkinVSlider" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_hslider" />
+			    <SetProperty target="focusColor_hslider" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="focusColor_hslider"/>
+			</setup>
+			<body>
+				<SetStyle target="focusColor_hslider" styleName="focusColor" value="0xCC0033" waitTarget="focusColor_hslider" waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/$testID.png" target="focusColor_hslider_box"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

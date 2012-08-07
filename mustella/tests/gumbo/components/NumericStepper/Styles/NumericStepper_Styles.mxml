@@ -1,0 +1,451 @@
+<UnitTester testDir="gumbo/components/NumericStepper/Styles/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="NumericStepper_styles_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{} 
+                
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+	<fx:Script>
+        <![CDATA[
+        	import mx.core.FlexGlobals;               
+        ]]>
+    </fx:Script>    
+       
+    <testCases>
+
+		<TestCase testID="NumericStepper_styles_baseline" keywords="[NumericStepper, Styles, baseline]" description="Test baseline style on Spark NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>				        				
+		        <SetProperty target="myNS3" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+		    </setup>
+		    <body>	
+				<SetProperty value="30" target="myNS3" propertyName="height" waitEvent="updateComplete" waitTarget="myNS3"/>
+				<AssertPropertyValue target="myNS3" propertyName="y" value="0" />        					
+				<!--CompareBitmap target="myPanel" url="../Styles/Baselines/$testID_1.png"/-->
+				<SetStyle target="myNS3" styleName="baseline" value="50" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<!--CompareBitmap numColorVariances="4" maxColorVariance="7" target="myPanel" url="../Styles/Baselines/$testID_2.png"/-->
+				<AssertPropertyValue target="myNS3" propertyName="y" value="35" />
+		    </body>
+        </TestCase>  
+		<TestCase testID="NumericStepper_styles_baseline_Mac" keywords="[NumericStepper, Styles, baseline]" description="Test baseline style on Spark NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>				        				
+		        <SetProperty target="myNS3" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+		    </setup>
+		    <body>	
+				<SetProperty value="30" target="myNS3" propertyName="height" waitEvent="updateComplete" waitTarget="myNS3"/>
+				<AssertPropertyValue target="myNS3" propertyName="y" value="0" />        	
+				<SetStyle target="myNS3" styleName="baseline" value="50" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myNS3" propertyName="y" value="35" />
+		    </body>
+        </TestCase>
+		<TestCase testID="NumericStepper_styles_baseColor" keywords="[NumericStepper, Styles, baseColor]" description="Test NumericStepper baseColor Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	      
+		    	<AssertStyleValue target="myNS2" styleName="chromeColor" value="0x00FF00"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="NumericStepper_styles_baseColor_disabled" keywords="[NumericStepper, Styles, baseColor]" description="Test baseColor Style with disabled NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myNS2"/>
+		        <SetProperty target="myNS2" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	      
+		    	<AssertStyleValue target="myNS2" styleName="chromeColor" value="0x00FF00"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase>  
+        
+		<TestCase testID="NumericStepper_styles_baseColor_mxml" keywords="[NumericStepper, Styles, baseColor]" description="Test NumericStepper baseColor Style">
+		    <setup>
+		        <ResetComponent target="myNS_baseColor" className="comps.myNsComp_baseColor" waitEvent="updateComplete" waitTarget="myNS_baseColor"/>		
+		    </setup>
+		    <body>	      
+		    	<AssertStyleValue target="myNS_baseColor" styleName="chromeColor" value="0x00FF00"/>
+				<CompareBitmap target="myNS_baseColor" url="../Styles/Baselines/NumericStepper_styles_baseColor.png"/>				
+		    </body>
+        </TestCase>          
+        
+		<TestCase testID="NumericStepper_styles_baseColor_disabled_mxml" keywords="[NumericStepper, Styles, baseColor]" description="Test baseColor Style with disabled NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS_baseColor" className="comps.myNsComp_baseColor" waitEvent="updateComplete" waitTarget="myNS_baseColor"/>				       
+		        <SetProperty target="myNS_baseColor" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNS_baseColor"/>
+		    </setup>
+		    <body>	      
+		    	<AssertStyleValue target="myNS_baseColor" styleName="chromeColor" value="0x00FF00"/>
+		    	<AssertPropertyValue target="myNS_baseColor" propertyName="enabled" value="false"/>
+				<CompareBitmap target="myNS_baseColor" url="../Styles/Baselines/NumericStepper_styles_baseColor_disabled.png"/>				
+		    </body>
+        </TestCase>        
+               
+		<TestCase testID="NumericStepper_styles_center" keywords="[NumericStepper, Styles, horizontalCenter, verticalCenter]" description="Test NumericStepper horizontalCenter verticalCenter Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>				        
+				<SetStyle target="myNS3" styleName="horizontalCenter" value="0" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetStyle target="myNS3" styleName="verticalCenter" value="0" waitTarget="myNS3" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>							
+		    </body>
+        </TestCase>       
+                             
+		<TestCase testID="NumericStepper_styles_color" keywords="[NumericStepper, Styles, color]" description="Test NumericStepper color Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	   
+		    	<AssertStyleValue target="myNS2" styleName="color" value="0xFF0000"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase>  
+
+		<TestCase testID="NumericStepper_styles_color_disabled" keywords="[NumericStepper, color]" description="Ensure that color still works when a NumericStepper is disabled.">
+			<setup>
+				<ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>
+		        <SetStyle target="myNS2" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="myNS2"/>
+				<SetProperty target="myNS2" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNS2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myNS2" styleName="color" value="0xFF0000"/>
+				<AssertPropertyValue target="myNS2" propertyName="enabled" value="false"/>
+			    <CompareBitmap target="myNS2" url="../styles/baselines/$testID.png"/>
+			</body>
+		</TestCase>		
+                   
+		<TestCase testID="NumericStepper_styles_color_mxml" keywords="[NumericStepper, Styles, color]" description="Test NumericStepper color Style">
+		    <setup>
+		        <ResetComponent target="myNS_color" className="comps.myNsComp_color" waitEvent="updateComplete" waitTarget="myNS_color"/>		
+		    </setup>
+		    <body>	   
+		    	<AssertStyleValue target="myNS_color" styleName="color" value="0xFF0000"/>
+				<CompareBitmap target="myNS_color" url="../Styles/Baselines/NumericStepper_styles_color.png"/>				
+		    </body>
+        </TestCase>  
+
+		<TestCase testID="NumericStepper_styles_color_disabled_mxml" keywords="[NumericStepper, color]" description="Ensure that color still works when a NumericStepper is disabled.">
+			<setup>
+				<ResetComponent target="myNS_color" className="comps.myNsComp_color" waitEvent="updateComplete" waitTarget="myNS_color"/>
+				<SetProperty target="myNS_color" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myNS_color"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myNS_color" styleName="color" value="0xFF0000"/>
+				<AssertPropertyValue target="myNS_color" propertyName="enabled" value="false"/>
+			    <CompareBitmap target="myNS_color" url="../styles/baselines/NumericStepper_styles_color_disabled.png"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="NumericStepper_styles_contentBackgroundColor" keywords="[NumericStepper, Styles, contentBackgroundColor]" description="Test NumericStepper contentBackgroundColor Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	
+		    	<AssertStyleValue target="myNS2" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase>  
+     
+		<TestCase testID="NumericStepper_styles_contentBackgroundColor_mxml" keywords="[NumericStepper, Styles, contentBackgroundColor]" description="Test NumericStepper contentBackgroundColor Style">
+		    <setup>
+		        <ResetComponent target="myNS_contentBackgroundColor" className="comps.myNsComp_contentBackgroundColor" waitEvent="updateComplete" waitTarget="myNS_contentBackgroundColor"/>		
+		    </setup>
+		    <body>	
+		    	<AssertStyleValue target="myNS_contentBackgroundColor" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<CompareBitmap target="myNS_contentBackgroundColor" url="../Styles/Baselines/NumericStepper_styles_contentBackgroundColor.png"/>				
+		    </body>
+        </TestCase>      
+
+		<TestCase testID="NumericStepper_styles_digitCase" keywords="[NumericStepper, Styles, digitCase]" description="Test NumericStepper digitCase Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>
+		        <SetStyle target="myNS3" styleName="fontFamily" value="ArnoEmb" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetProperty target="myNS3" propertyName="width" value="100" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetProperty target="myNS3" propertyName="maximum" value="1234567891" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetProperty target="myNS3" propertyName="value" value="1234567890" waitTarget="myNS3" waitEvent="updateComplete"/>				
+				<SetStyle target="myNS3" styleName="digitCase" value="oldStyle" waitTarget="myNS3" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID_1.png"/>	
+				<SetStyle target="myNS3" styleName="digitCase" value="lining" waitTarget="myNS3" waitEvent="updateComplete"/>
+			    <CompareBitmap numColorVariances="4" maxColorVariance="7" target="myNS3" url="../Styles/Baselines/$testID_2.png"/>	
+		    </body>
+        </TestCase> 
+
+		<TestCase testID="NumericStepper_styles_digitWidth" keywords="[NumericStepper, Styles, digitWidth]" description="Test NumericStepper digitWidth Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>				        				
+		        <SetStyle target="myNS3" styleName="fontFamily" value="ArnoEmb" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetStyle target="myNS3" styleName="kerning" value="on" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetProperty target="myNS3" propertyName="width" value="100" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetProperty target="myNS3" propertyName="maximum" value="1234567891" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<SetProperty target="myNS3" propertyName="value" value="1114567890" waitTarget="myNS3" waitEvent="updateComplete"/>				
+				<SetStyle target="myNS3" styleName="digitWidth" value="proportional" waitTarget="myNS3" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID_1.png"/>	
+				<SetStyle target="myNS3" styleName="digitWidth" value="tabular" waitTarget="myNS3" waitEvent="updateComplete"/>		        
+				<CompareBitmap numColorVariances="4" maxColorVariance="7" target="myNS3" url="../Styles/Baselines/$testID_2.png"/>	
+		    </body>
+        </TestCase>  
+
+		<TestCase testID="NumericStepper_styles_focusColor" keywords="[NumericStepper, Styles, focusColor]" description="Test NumericStepper focusColor Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="focusColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	        					
+		    	<AssertStyleValue target="myNS2" styleName="focusColor" value="0xFF0000"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS2" />
+				<CompareBitmap target="focusColor_ns_box" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase> 
+           
+		<TestCase testID="NumericStepper_styles_focusColor_mxml" keywords="[NumericStepper, Styles, focusColor]" description="Test NumericStepper focusColor Style">
+		    <setup>
+		        <ResetComponent target="myNS_focusColor" className="comps.myNsComp_focusColor" waitEvent="updateComplete" waitTarget="myNS_focusColor"/>		
+		    </setup>
+		    <body>	        					
+		    	<AssertStyleValue target="myNS_focusColor" styleName="focusColor" value="0xFF0000"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myNS_focusColor.setFocus()" waitEvent="focusIn" waitTarget="myNS_focusColor" />
+				<CompareBitmap target="focusColor_ns_box2" url="../Styles/Baselines/NumericStepper_styles_focusColor.png"/>				
+		    </body>
+        </TestCase>  
+                      
+		<TestCase testID="NumericStepper_styles_fontSize_small" keywords="[NumericStepper, Styles, fontSize]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>
+		        <SetStyle target="myNS2" styleName="fontSize" value="8" waitTarget="myNS2" waitEvent="updateComplete"/>		        		        
+		    </setup>
+		    <body>	        									
+		    	<AssertStyleValue target="myNS2" styleName="fontSize" value="8"/>		    
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="NumericStepper_styles_fontSize_large" keywords="[NumericStepper, Styles, fontSize]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS_fontSize" className="comps.myNsComp_fontSize" waitEvent="updateComplete" waitTarget="myNS_fontSize"/>
+		        <SetStyle target="myNS_fontSize" styleName="fontSize" value="60" waitTarget="myNS_fontSize" waitEvent="updateComplete"/>		        		        
+		    </setup>
+		    <body>	        									
+		    	<AssertStyleValue target="myNS_fontSize" styleName="fontSize" value="60"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="7" target="myNS_fontSize" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>    
+        
+		<TestCase testID="NumericStepper_styles_fontSize_mxml" keywords="[NumericStepper, Styles, fontSize]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS_fontSize" className="comps.myNsComp_fontSize" waitEvent="updateComplete" waitTarget="myNS_fontSize"/>		         		       
+		    </setup>
+		    <body>	        									
+		    	<AssertStyleValue target="myNS_fontSize" styleName="fontSize" value="40"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="7" target="myNS_fontSize" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>          
+                
+		<TestCase testID="NumericStepper_styles_fontStyle" keywords="[NumericStepper, Styles, fontStyle]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		        
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="myNS2" styleName="fontStyle" value="italic" waitTarget="myNS2" waitEvent="updateComplete"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID_2.png"/>
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="NumericStepper_styles_fontStyle_mxml" keywords="[NumericStepper, Styles, fontStyle]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS_fontStyle" className="comps.myNsComp_fontStyle" waitEvent="updateComplete" waitTarget="myNS_fontStyle"/>		         		       
+		    </setup>
+		    <body>	        									
+		    	<AssertStyleValue target="myNS_fontStyle" styleName="fontStyle" value="italic"/>
+				<CompareBitmap target="myNS_fontStyle" url="../Styles/Baselines/NumericStepper_styles_fontStyle_2.png"/>
+		    </body>
+        </TestCase>         
+        
+		<TestCase testID="NumericStepper_styles_fontWeight" keywords="[NumericStepper, Styles, fontWeight]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		        		        		      
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="myNS2" styleName="fontWeight" value="bold" waitTarget="myNS2" waitEvent="updateComplete"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID_2.png"/>
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="NumericStepper_styles_fontWeight_mxml" keywords="[NumericStepper, Styles, fontWeight]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS_fontWeight" className="comps.myNsComp_fontWeight" waitEvent="updateComplete" waitTarget="myNS_fontWeight"/>		         		       
+		    </setup>
+		    <body>	        									
+		    	<AssertStyleValue target="myNS_fontWeight" styleName="fontWeight" value="bold"/>
+				<CompareBitmap target="myNS_fontWeight" url="../Styles/Baselines/NumericStepper_styles_fontWeight_2.png"/>
+		    </body>
+        </TestCase>                         
+
+		<TestCase testID="NumericStepper_styles_lineThrough" keywords="[NumericStepper, Styles, lineThrough]" description="Test NumericStepper lineThrough Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="lineThrough" value="true" waitTarget="myNS2" waitEvent="updateComplete"/>		        		        		        
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>  
+
+		<TestCase testID="NumericStepper_styles_multiple" keywords="[NumericStepper, Styles, multiple]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>
+		        <SetStyle target="myNS2" styleName="color" value="0xFF0000" waitTarget="myNS2" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS2" styleName="symbolColor" value="0xFF0000" waitTarget="myNS2" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS2" styleName="chromeColor" value="0x0000FF" waitTarget="myNS2" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS2" styleName="contentBackgroundColor" value="0x00FF00" waitTarget="myNS2" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS2" styleName="fontSize" value="8" waitTarget="myNS2" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS2" styleName="fontWeight" value="bold" waitTarget="myNS2" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        											    	
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="NumericStepper_styles_multiple_mxml" keywords="[NumericStepper, Styles, multiple]" description="Test NumericStepper font Styles">
+		    <setup>
+		        <ResetComponent target="myNS_multiple" className="comps.myNsComp_multiple" waitEvent="updateComplete" waitTarget="myNS_multiple"/>		         		       
+		    </setup>
+		    <body>	        											    	
+				<CompareBitmap target="myNS_multiple" url="../Styles/Baselines/NumericStepper_styles_multiple.png"/>
+		    </body>
+        </TestCase>        
+
+		<TestCase testID="NumericStepper_styles_positions1" keywords="[NumericStepper, Styles, Left, Top]" description="Test NumericStepper left and top Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>		
+				<SetProperty target="myNS3" propertyName="value" value="1" waitEvent="updateComplete" waitTarget="myNS3"/>
+				<SetStyle target="myNS3" styleName="chromeColor" value="0xFF0000" waitTarget="myNS3" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS3" styleName="left" value="80" waitTarget="myNS3" waitEvent="updateComplete"/>		        		        		        
+		        <SetStyle target="myNS3" styleName="top" value="120" waitTarget="myNS3" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>     
+
+		<TestCase testID="NumericStepper_styles_positions2" keywords="[NumericStepper, Styles, Right, Bottom]" description="Test NumericStepper right and bottom Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>		
+		        <SetProperty target="myNS3" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="myNS3"/>
+		        <SetStyle target="myNS3" styleName="chromeColor" value="0x0000FF" waitTarget="myNS3" waitEvent="updateComplete"/>
+		        <SetStyle target="myNS3" styleName="right" value="75" waitTarget="myNS3" waitEvent="updateComplete"/>		        		        		        
+		        <SetStyle target="myNS3" styleName="bottom" value="60" waitTarget="myNS3" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="NumericStepper_styles_focusedTextSelectionColor" keywords="[NumericStepper, Styles, focusedTextSelectionColor ]" description="Test NumericStepper focusedTextSelectionColor  Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="focusedTextSelectionColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	    
+		    	<AssertStyleValue target="myNS2" styleName="focusedTextSelectionColor" value="0xFF0000"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS2" />
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_styles_focusedTextSelectionColor_mxml" keywords="[NumericStepper, Styles, focusedTextSelectionColor ]" description="Test NumericStepper focusedTextSelectionColor  Style">
+		    <setup>
+		        <ResetComponent target="myNS_focusedTextSelectionColor" className="comps.myNsComp_focusedTextSelectionColor" waitEvent="updateComplete" waitTarget="myNS_focusedTextSelectionColor"/>		
+		    </setup>
+		    <body>	    
+				<RunCode code="FlexGlobals.topLevelApplication.myNS_focusedTextSelectionColor .setFocus()" waitEvent="focusIn" waitTarget="myNS_focusedTextSelectionColor" />
+				<CompareBitmap target="myNS_focusedTextSelectionColor" url="../Styles/Baselines/NumericStepper_styles_focusedTextSelectionColor.png"/>				
+		    </body>
+        </TestCase>        
+                        
+ 		<TestCase testID="NumericStepper_styles_symbolColor" keywords="[NumericStepper, Styles, symbolColor]" description="Test NumericStepper symbolColor Style">
+		    <setup>
+		        <ResetComponent target="myNS2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS2"/>		
+		        <SetStyle target="myNS2" styleName="symbolColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myNS2"/>
+		    </setup>
+		    <body>	        	
+		    	<AssertStyleValue target="myNS2" styleName="symbolColor" value="0x0000FF"/>
+				<CompareBitmap target="myNS2" url="../Styles/Baselines/$testID.png"/>				
+		    </body>
+        </TestCase>        
+        
+ 		<TestCase testID="NumericStepper_styles_symbolColor_mxml" keywords="[NumericStepper, Styles, symbolColor]" description="Test NumericStepper symbolColor Style">
+		    <setup>
+		        <ResetComponent target="myNS_symbolColor" className="comps.myNsComp_symbolColor" waitEvent="updateComplete" waitTarget="myNS_symbolColor"/>		
+		    </setup>
+		    <body>	        	
+		    	<AssertStyleValue target="myNS_symbolColor" styleName="symbolColor" value="0x0000FF"/>
+				<CompareBitmap target="myNS_symbolColor" url="../Styles/Baselines/NumericStepper_styles_symbolColor.png"/>				
+		    </body>
+        </TestCase>                  
+
+		<TestCase testID="NumericStepper_styles_textAlignRight" keywords="[NumericStepper, Styles, digitWidth]" description="Test NumericStepper textAlign Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>
+		        <SetProperty target="myNS3" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+		        <SetProperty target="myNS3" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+				<SetStyle target="myNS3" styleName="textAlign" value="right" waitTarget="myNS3" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID.png"/>							
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="NumericStepper_styles_textAlignCenter" keywords="[NumericStepper, Styles, digitWidth]" description="Test NumericStepper textAlign Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>
+		        <SetProperty target="myNS3" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+		        <SetProperty target="myNS3" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+				<SetStyle target="myNS3" styleName="textAlign" value="center" waitTarget="myNS3" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID.png"/>							
+		    </body>
+        </TestCase> 
+
+		<TestCase testID="NumericStepper_styles_textAlpha" keywords="[NumericStepper, Styles, textAlpha]" description="Test NumericStepper textAlpha Style">
+		    <setup>
+		        <ResetComponent target="myNS3" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS3"/>		
+		        <SetProperty target="myNS3" propertyName="x" value="100" waitEvent="updateComplete" waitTarget="myNS3"/>
+		    </setup>
+		    <body>	        					
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="myNS3" styleName="textAlpha" value="0.5" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID_2.png"/>
+				<SetStyle target="myNS3" styleName="textAlpha" value="0" waitTarget="myNS3" waitEvent="updateComplete"/>
+				<CompareBitmap target="myNS3" url="../Styles/Baselines/$testID_3.png"/>				
+		    </body>
+        </TestCase>        
+
+    </testCases>
+</UnitTester>

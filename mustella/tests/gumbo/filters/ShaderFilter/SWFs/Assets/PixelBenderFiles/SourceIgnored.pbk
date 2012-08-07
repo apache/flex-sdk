@@ -1,0 +1,30 @@
+<languageVersion : 1.0;>
+
+kernel SourceIgnored
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This simply turns things green. It does not sample the source at all.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void
+
+    evaluatePixel()
+
+    {
+
+        float4 inputColor = sampleNearest(src, outCoord());
+
+        dst.r = 0.0;
+
+        dst.g = 0.5;
+
+        dst.b = 0.0;
+
+        dst.a = 0.5;
+
+    }
+}

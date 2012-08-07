@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+        width="100" height="200"
+        backgroundColor="0xFFFFFF"
+        title="DataGroup">
+
+    <fx:Script>
+    <![CDATA[
+		import flash.filters.*;
+		import mx.collections.*;
+		import mx.graphics.SolidColorStroke;
+		import mx.graphics.SolidColor;
+		import mx.graphics.GradientEntry;
+		import mx.graphics.LinearGradient;
+		import spark.components.DataGroup;
+		import spark.primitives.*;
+		import spark.primitives.supportClasses.*;
+		import comps.*;
+		import spark.skins.spark.*;
+
+		[Bindable]
+		public var labelArr:Array=[{label: "top"},{label: "file"},{label:"I am a Menu"},{label:"here goes Nothing"},{label:"aw, don't sell yourself short"},{label:"can you check me?"}];
+		
+		[Bindable]
+		public var abcArr:Array=[' ', ' ', 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+		
+		[Bindable]
+		public var emptyArr:Array=[];
+		
+		public var mixArr:Array= [	{type: "color", label: "Green string", color: 0x00FF00},
+									{type: "text", label: "This is a string"},
+									{type:"checkBox", label: "Checked", value:true},
+									{type:"checkBox", label: "Unchecked", value:false},
+									{type: "text", label: "Second string"},
+									{type: "color", label: "Red string", color: 0xFF0000}];
+		
+		public var myRect:Rect;
+		
+		
+		public function dataGroupItemRendererFunction(item:*):IFactory
+		{
+			if (item is DisplayObject || item is GraphicElement)
+				return new ClassFactory(DataGroupDefaultItemRendererComplex);
+			else
+				return new ClassFactory(DataGroupDefaultItemRenderer);
+		}
+
+    ]]>
+    </fx:Script>
+
+    <s:DataGroup itemRendererFunction="dataGroupItemRendererFunction">
+    	<s:layout><s:VerticalLayout/></s:layout>
+
+        <s:dataProvider>
+            <mx:ArrayCollection>
+
+                <fx:String>start group</fx:String>
+
+                <s:Graphic id="graphic1">
+                    <s:Rect x="0" y="0" width="30" height="30" >
+                        <s:fill>
+                            <mx:SolidColor color="0xF10EF9" />
+                        </s:fill>
+                    </s:Rect>
+                </s:Graphic>
+
+                <s:Group>
+                    <mx:Label text="subgroup" />
+                </s:Group>
+				
+                <fx:String>end group</fx:String>
+            </mx:ArrayCollection>
+        </s:dataProvider>
+		
+    </s:DataGroup>
+
+</mx:TitleWindow>

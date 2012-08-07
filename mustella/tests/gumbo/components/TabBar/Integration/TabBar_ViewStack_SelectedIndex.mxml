@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_ViewStack.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+	import mx.core.FlexGlobals;
+        import spark.components.*;
+        import mx.core.*;
+        import mx.collections.IList;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+selectedIndex
+Verify that the selectedIndex is correct for TabBar
+and ViewStack when setting property on ViewStack or TabBar
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="selectedIndex_SetVSSelectedIndexFirst" keywords="[TabBar,ViewStack,selectedIndex]" description="Set selectedIndex of VS before attaching to TabBar" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<!-- HALO COMPONENTS IN VIEWSTACK -->
+
+<TestCase testID="selectedIndex_vs1DP_test0" keywords="[TabBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test1" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="1" waitTarget="TC.vs1" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="0" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test2" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="1" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test3" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test4" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test5" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the TabBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.tb" propertyName="selectedIndex" value="1" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<!-- END HALO COMPONENTS IN VIEWSTACK -->
+
+
+
+<!-- SPARK COMPONENTS IN VIEWSTACK -->
+<TestCase testID="selectedIndex_vs2DP_test0" keywords="[TabBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test1" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="1" waitTarget="TC.vs2" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="0" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test2" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="1" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test3" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="2" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test4" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="2" waitTarget="TC.vs2" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test5" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the first item in the TabBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.tb" propertyName="selectedIndex" value="1" waitTarget="TC.tb" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="selectedIndex" value="0" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<!-- END SPARK COMPONENTS IN VIEWSTACK -->
+
+
+
+
+
+<!-- SPARK AND HALO COMPONENTS IN VIEWSTACK -->
+<TestCase testID="selectedIndex_vs3DP_test0" keywords="[TabBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test1" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="1" waitTarget="TC.vs3" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="0" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test2" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="1" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test3" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test4" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" waitTarget="TC.vs3" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test5" keywords="[TabBar,ViewStack,selectedIndex]" description="Use it to select the last item in the TabBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.tb" propertyName="selectedIndex" value="2" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+<!-- END SPARK AND HALO COMPONENTS IN VIEWSTACK -->
+
+
+<!-- EMPTY VIEWSTACK -->
+<TestCase testID="selectedIndex_VSEmpty" keywords="[TabBar,ViewStack,selectedIndex]" description="Set to empty viewstack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs4 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs4" propertyName="selectedIndex" value="-1" />
+	<AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="-1" />
+    </body>
+</TestCase>
+<!-- EMPTY VIEWSTACK -->
+	</testCases>
+</UnitTester>

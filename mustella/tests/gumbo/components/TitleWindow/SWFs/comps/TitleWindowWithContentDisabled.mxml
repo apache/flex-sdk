@@ -1,0 +1,34 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    enabled="false" width="300" height="400">
+
+    <fx:Script>
+    	<![CDATA[
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+
+   	<mx:HBox height="21">
+   		<mx:Button id="myButton" label="Halo Button"/>
+   		<s:Button id="mySparkButton" label="Spark Button"/>
+   	</mx:HBox>
+	<mx:VBox height="250">
+   		<mx:Label text="Halo Label"/>
+   		<s:Label text="Spark Label"/>
+		<mx:TextArea id="ta1" text="Halo TextArea" height="40"/>
+		<s:TextArea id="ta2" text="Spark TextArea" height="150"/>
+	</mx:VBox>
+	<mx:HBox height="25">
+		<s:NumericStepper id="mySparkNS" height="23" />
+		<mx:NumericStepper id="myHaloNS" height="23"/>
+	</mx:HBox>
+	<mx:VBox height="40">
+		<mx:HSlider id="myHaloHSlider"/>
+		<s:HSlider id="myFSparkHSlider"/>
+   	</mx:VBox>
+
+   	
+</s:TitleWindow>

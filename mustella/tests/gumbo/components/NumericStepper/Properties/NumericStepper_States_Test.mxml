@@ -1,0 +1,99 @@
+<UnitTester testDir="gumbo/components/NumericStepper/Properties/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="NumericStepper_states.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        	public static function init(o:DisplayObject):void{}                 
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    	<![CDATA[
+    	    [Mixin]
+    	]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+		<TestCase testID="NumericStepper_states_defaultValue" keywords="[NumericStepper, States, Default]" description="Test Default Values for Spark NumericSteppers in States">
+		    <setup>
+				<ResetComponent target="myCustomComp" className="comps.myComp" waitEvent="updateComplete" waitTarget="myCustomComp"/> 
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="value" value="0" />
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="stepSize" value="1" />
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="snapInterval" value="1" />
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="allowValueWrap" value="false" />
+	        
+				<DispatchMouseClickEvent target="myCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="myCustomComp.state2Button"/>
+										
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="value" value="0" />
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="stepSize" value="1" />
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="snapInterval" value="1" />
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="allowValueWrap" value="false" />						              									
+		    </body>
+		</TestCase>
+
+		<TestCase testID="NumericStepper_states_value_change" keywords="[NumericStepper, States, Default]" description="Test NumericSteppers values when states change">
+		    <setup>
+				<ResetComponent target="myCustomComp" className="comps.myComp" waitEvent="updateComplete" waitTarget="myCustomComp"/> 
+		    </setup>
+		    <body>									    
+				<DispatchMouseEvent type="rollOver" target="myCustomComp.myNS1.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myCustomComp.myNS1.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myCustomComp.myNS1.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myCustomComp.myNS1.incrementButton"/>
+				<DispatchMouseEvent type="mouseUp" target="myCustomComp.myNS1.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myCustomComp.myNS1.incrementButton"/>				
+			
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="value" value="1" />
+	        
+				<DispatchMouseClickEvent target="myCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="myCustomComp.state2Button"/>
+				
+				<DispatchMouseEvent type="rollOver" target="myCustomComp.myNS2.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myCustomComp.myNS2.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myCustomComp.myNS2.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myCustomComp.myNS2.incrementButton"/>
+				<DispatchMouseEvent type="mouseUp" target="myCustomComp.myNS2.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myCustomComp.myNS2.incrementButton"/>				
+				
+				<DispatchMouseEvent type="rollOver" target="myCustomComp.myNS2.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myCustomComp.myNS2.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myCustomComp.myNS2.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myCustomComp.myNS2.incrementButton"/>
+				<DispatchMouseEvent type="mouseUp" target="myCustomComp.myNS2.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myCustomComp.myNS2.incrementButton"/>				
+				
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="value" value="2" />
+				
+				<DispatchMouseClickEvent target="myCustomComp.state1Button" localX="40" localY="8" waitEvent="click" waitTarget="myCustomComp.state1Button"/>
+			
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myCustomComp.myNS1.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myCustomComp.myNS1.decrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myCustomComp.myNS1.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myCustomComp.myNS1.decrementButton"/>
+				<DispatchMouseEvent type="mouseUp" target="myCustomComp.myNS1.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myCustomComp.myNS1.decrementButton"/>												
+				
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="value" value="0" />
+				
+				<DispatchMouseClickEvent target="myCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="myCustomComp.state2Button"/>
+				
+				<DispatchMouseEvent type="rollOver" target="myCustomComp.myNS2.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myCustomComp.myNS2.decrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myCustomComp.myNS2.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myCustomComp.myNS2.decrementButton"/>
+				<DispatchMouseEvent type="mouseUp" target="myCustomComp.myNS2.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myCustomComp.myNS2.decrementButton"/>								
+				
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="value" value="1" />
+				
+				<DispatchMouseClickEvent target="myCustomComp.state1Button" localX="40" localY="8" waitEvent="click" waitTarget="myCustomComp.state1Button"/>
+			
+				<AssertPropertyValue target="myCustomComp.myNS1" propertyName="value" value="0" />				
+				
+				<DispatchMouseClickEvent target="myCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="myCustomComp.state2Button"/>
+				
+				<AssertPropertyValue target="myCustomComp.myNS2" propertyName="value" value="1" />				
+		    </body>
+		</TestCase>		
+									
+    </testCases>
+    
+</UnitTester>

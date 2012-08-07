@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/properties/"
+			testSWF="ImageMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<TestCase testID="BimapImage_prop_defaults" keywords="[BitmapImage, property, default]" description="Assert default values">
+			<setup>
+				<ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="bitmapImage.im" propertyName="fillMode" value="scale" />
+				<AssertPropertyValue target="bitmapImage.im" propertyName="preliminaryHeight" value="NaN" />
+				<AssertPropertyValue target="bitmapImage.im" propertyName="preliminaryWidth" value="NaN" />
+				<AssertPropertyValue target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+				<AssertPropertyValue target="bitmapImage.im" propertyName="smooth" value="false" />
+				<AssertPropertyValue target="bitmapImage.im" propertyName="verticalAlign" value="middle" />
+                		<AssertPropertyValue target="bitmapImage.im" propertyName="horizontalAlign" value="center" />
+
+			</body>
+		</TestCase>
+        <TestCase testID="BimapImage_Load_trusted" keywords="[BitmapImage, load, trusted]" description="Load trusted source">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="100"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="BimapImage_Load_trusted_twice_resize" keywords="[BitmapImage, load, trusted]" description="Load trusted source twice, change size">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            </setup>
+            <body>
+            	<Pause timeout="100"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="trustedSource" value="true" />
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="100"/>
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <AssertPropertyValue target="bitmapImage.im" propertyName="trustedSource" value="true" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="height" value="100"/>
+
+            </body>
+        </TestCase>
+
+
+        <!--TestCase testID="BimapImage_Load_invalid_twice" keywords="[BitmapImage, load, trusted]" description="Load invalid image twice">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="http://flexqa01.labs.corp.adobe.com/images/cf100.jpg" waitEvent="ioError" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="0"/>
+
+            </body>
+        </TestCase-->
+        <TestCase testID="BimapImage_Load_null" keywords="[BitmapImage, load, trusted, null]" description="Load trusted source, set source to null">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="height" value="100"/>
+                <SetProperty target="bitmapImage.im" propertyName="source" value="{null}"  waitEvent="updateComplete" waitTarget="bitmapImage"/>
+
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="0"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="height" value="0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Load_null_preliminary" keywords="[BitmapImage, load, trusted, null]" description="Load trusted source, set source to null, preliminarySize reset">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="preliminaryWidth"  value="50" />
+                <SetProperty target="bitmapImage.im" propertyName="preliminaryHeight"  value="50" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="100"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="height" value="100"/>
+                <SetProperty target="bitmapImage.im" propertyName="source" value="{null}"  waitEvent="updateComplete" waitTarget="bitmapImage"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="width" value="50"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="height" value="50"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="preliminaryWidth" value="50"/>
+                <AssertPropertyValue target="bitmapImage.im" propertyName="preliminaryHeight" value="50"/>
+            </body>
+        </TestCase>
+        <!--TestCase testID="BimapImage_Load_URL" keywords="[BimapImage, load, URL]" description="Spark BimapImage load URL">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.bitmapImage.im.source=application.createURLRequest('../../../../../Assets/Images/redrect.jpg') " />
+
+                <SetProperty target="bitmapImage.im" propertyName="width" value="250" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="height" value="250" waitEvent="updateComplete"  />
+                <CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase-->
+        <TestCase testID="BimapImage_Load_BitmapData" keywords="[BimapImage, load, BitmapData]" description="Spark BimapImage load BitmapData">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.bitmapImage.im.source=new Bitmap(new BitmapData(90,120,false, 0xFFFF00) ) " />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="bitmapImage.im" propertyName="width" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="height" value="100" waitEvent="updateComplete"  />
+                <CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>

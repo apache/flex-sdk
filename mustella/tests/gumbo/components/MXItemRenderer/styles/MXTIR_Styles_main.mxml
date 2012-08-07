@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx " xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/components/MXItemRenderer/styles/"  testSWF="TreeBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import comps.*
+    	import spark.skins.spark.*;
+    	import mx.core.FlexGlobals;
+    ]]>
+  </fx:Script>
+ 
+
+
+
+<!--
+
+MXItemRenderer Testing - Tree - Properties related tests
+=====================================================
+
+-->
+	<testCases>
+
+		<!--******************************alternatingItemColors*******************************-->
+
+		<TestCase testID="MXTIR_alternatingItemColors01" description="alternatingItemColors with red and blue, top level nodes showing, hex" keywords="[Tree,alternatingItemColors" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <Pause timeout="40"/>
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="alternatingItemColors" valueExpression="value=[0xFF0000, 0x0000FF]" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+				
+			</body>
+		</TestCase>
+		<TestCase testID="MXTIR_alternatingItemColors02" description="alternatingItemColors with red and blue, depth 2 nodes showing, hex" keywords="[Tree, alternatingItemColors" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="alternatingItemColors" valueExpression="value=[0xFF0000, 0x0000FF, 0x00FF000]" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		 	
+		<TestCase testID="MXTIR_alternatingItemColors_String" description="alternatingItemColors with red and blue string" keywords="[Tree, alternatingItemColors" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="alternatingItemColors" valueExpression="value=['red','blue']" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<!-- alternatingItemColors set inside render -->
+
+		<TestCase testID="MXTIR_alternatingItemColors_render1" description="alternatingItemColors with 0xFF0000, 0x0000FF, 0x00FF000 inside render, tree has no such style set" keywords="[Tree,alternatingItemColors" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles_AlternatingItemColors1)}"  />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<!-- alternatingItemColors set inside render, tree also set it -->
+
+		<TestCase testID="MXTIR_alternatingItemColors_render2" description="alternatingItemColors with 0xFF0000, 0x0000FF, 0x00FF000 inside render, tree has such style set, verify one from render wins" keywords="[Tree,alternatingItemColors" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles_AlternatingItemColors1)}"  />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="alternatingItemColors" valueExpression="value=[0x0000FF, 0x00FF00,0x0000FF]" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		
+		<!-- contentBackGroundColor set in tree, render has no such style set -->
+
+		<TestCase testID="MXTIR_contentBackGroundColor_render1" description="contentBackGroundColor is set on tree, render has no such style set,verify render has no backgroundColor" keywords="[Tree,contentBackGroundColor]" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="contentBackGroundColor" value="0xD3F4F6" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<AssertStyleValue target="treeRoot.tree1" styleName="contentBackGroundColor" value="0xD3F4F6"/>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		<!-- contentBackGroundColor set in render,tree has no such style set -->
+
+		<TestCase testID="MXTIR_contentBackGroundColor_render2" description="contentBackGroundColor is set on render,tree has no such style set,verify render has no backgroundColor" keywords="[Tree,contentBackGroundColor]" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<AssertStyleValue target="treeRoot.tree1" styleName="contentBackGroundColor" valueExpression="value=null" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		
+		
+		
+		<!-- color set in render,tree has color set as well-->
+
+		<TestCase testID="MXTIR_color_render1" description="Color is set on render,tree has no such style set,verify color is from render" keywords="[Tree,Color]" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles_Color1)}"  />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="MXTIR_color_render2" description="Color is set on render,tree color style set,verify color is from render" keywords="[Tree,Color]" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles_Color1)}"  />
+			        <SetStyle target="treeRoot.tree1" styleName="color" value="0x1FB940" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/MXTIR_color_render1.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="MXTIR_color_render3" description="Color is set on tree, render and component has no color style set,verify color is from tree" keywords="[Tree,Color]" >
+			<setup>
+			        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+			        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			        <SetStyle target="treeRoot.tree1" styleName="color" value="0xB01FB9" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			        <SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		
+		
+		
+
+		<!--******************************Icons test*******************************-->
+
+		<TestCase testID="MXTIR_defaultLeafIcon_setstyle" description="defaultLeafIcon set from setstyle in main app" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="defaultLeafIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.leafIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="MXTIR_discloseOpenIcon_setstyle" description="discloseOpenIcon set from setstyle in main app" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="disclosureOpenIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.discloseOpenIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<!-- 
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				-->
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="MXTIR_discloseCloseIcon_setstyle" description="discloseCloseIcon set from setstyle in main app" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="disclosureClosedIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.discloseCloseIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<SetProperty propertyName="selectedIndex" value="0" target="treeRoot.tree1" waitEvent="valueCommit" waitTarget="treeRoot.tree1"/>
+	        		<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.selectedItem, true)"  />
+	        		<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.selectedItem, false)"  />
+      				<Pause timeout="100"/>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="MXTIR_fileOpenIcon_setstyle" description="fileOpenIcon set from setstyle in main app" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="folderOpenIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.fileOpenIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="MXTIR_fileCloseIcon_setstyle" description="fileCloseIcon set from setstyle in main app" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="folderClosedIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.fileCloseIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>		
+
+
+		<TestCase testID="MXTIR_longLeafIcon_setstyle" description="defaultLeafIcon set from setstyle with long icon" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="defaultLeafIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.longIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		<TestCase testID="MXTIR_largeLeafIcon_setstyle" description="defaultLeafIcon set from setstyle with large icon" keywords="[defaultLeafIcon, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="defaultLeafIcon" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.longIcon1" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>		
+
+		<!--******************************indentation*******************************-->
+
+		<TestCase testID="MXTIR_indentation_pos" description="indentation set to positive integer = 20" keywords="[indentation, positive, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<SetStyle target="treeRoot.tree1" styleName="indentation" value="20" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		<TestCase testID="MXTIR_indentation_neg" description="indentation set to negative integer" keywords="[indentation, negative, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<SetStyle target="treeRoot.tree1" styleName="indentation" value="-10" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		 	
+		<!--******************************paddingLeft*******************************-->
+
+		<TestCase testID="MXTIR_paddingLeft_setstyle" description="paddingLeft set using setStyle" keywords="[paddingLeft, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Padding)}"  />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="paddingLeft" value="10" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<!--******************************paddingRight*******************************-->
+
+		<TestCase testID="MXTIR_paddingRight_setstyle" description="paddingRight set using setStyle" keywords="[paddingRight, setstyle, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Padding)}"  />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="paddingRight" value="12" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		 
+			
+	<!--******************************rollOverColor*******************************-->
+
+		<TestCase testID="MXTIR_rollOverColor01" description="rollOverColor set to red using hex" keywords="[rollOverColor, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="rollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" />
+
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+
+	<!--******************************selectionColor*******************************-->
+
+	<TestCase testID="MXTIR_selectionColor01" description="selectionColor set to red" keywords="[selectionColor, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Label)}"  />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.setStyle('selectionColor','0xFF0000')" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<DispatchMouseClickEvent target="treeRoot.tree1" localX="28" localY="9" waitEvent="click" waitTarget="treeRoot.tree1"/>
+   				<Pause timeout="1000"/>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+	</TestCase>
+
+	<!--******************************selectionDisabledColor*******************************-->
+
+		<TestCase testID="MXTIR_selectionDisabledColor01" description="selectionDisabledColor set to red" keywords="[selectionDisabledColor, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="selectionDisabledColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<SetProperty target="treeRoot.tree1" propertyName="selectedIndex" value="0" waitEvent="valueCommit" waitTarget="treeRoot.tree1" />
+				<SetProperty target="treeRoot.tree1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		 
+		
+	<!--******************************textRollOverColor*******************************-->
+
+		<TestCase testID="MXTIR_textRollOverColor01" description="textRollOverColorColor set to red" keywords="[textRollOverColor, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.setStyle('textRollOverColor','0xFF0000')" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" />
+
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+		
+	<!--******************************textSelectedColor*******************************-->
+
+		<TestCase testID="MXTIR_textSelectedColor01" description="textSelectedColor set to red" keywords="[textSelectedColor, Tree" >
+			<setup>
+				<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+				<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+			</setup>
+			<body>
+				<SetStyle target="treeRoot.tree1" styleName="textSelectedColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+				<SetProperty propertyName="selectedIndex" value="0" target="treeRoot.tree1" waitEvent="valueCommit" waitTarget="treeRoot.tree1"/>
+      				<Pause timeout="1000"/>
+				<CompareBitmap target="treeRoot.tree1" url="../styles/baselines/$testID.png" timeout="4500"  numColorVariances="10" maxColorVariance="10" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

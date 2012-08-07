@@ -1,0 +1,142 @@
+<UnitTester testDir="gumbo/components/Spinner/Styles/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns="*" 
+    testSWF="Gumbo_Spinner_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <!-- Test Cases -->
+    <testCases>
+                 
+		<TestCase testID="Spinner_Styles_baseColor" keywords="[Spinner, Styles, baseColor]" description="Test baseColor style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="chromeColor" value="0xFF0000" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="chromeColor" value="0xFF0000"/>												
+				<CompareBitmap target="mySpinner" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>  
+        
+		<TestCase testID="Spinner_Styles_focusColor" keywords="[Spinner, Styles, focusColor]" description="Test focusColor style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="focusColor" value="0x00FF00" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		        <SetStyle target="mySpinner" styleName="horizontalCenter" value="0" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		        <SetStyle target="mySpinner" styleName="verticalCenter" value="0" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="focusColor" value="0x00FF00"/>												
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="Spinner_Styles_symbolColor" keywords="[Spinner, Styles, symbolColor]" description="Test symbolColor style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="symbolColor" value="0x0000FF" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="symbolColor" value="0x0000FF"/>												
+				<CompareBitmap target="mySpinner" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>                 
+        
+		<TestCase testID="Spinner_Styles_horizontalCenter" keywords="[Spinner, Styles, horizontalCenter]" description="Test horizontalCenter style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="horizontalCenter" value="0" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="horizontalCenter" value="0"/>												
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="Spinner_Styles_h_v_Center" keywords="[Spinner, Styles, horizontalCenter]" description="Test horizontalCenter style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="horizontalCenter" value="0" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		        <SetStyle target="mySpinner" styleName="verticalCenter" value="0" waitTarget="mySpinner" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="horizontalCenter" value="0"/>
+				<AssertStyleValue target="mySpinner" styleName="verticalCenter" value="0"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="Spinner_Styles_verticalCenter" keywords="[Spinner, Styles, verticalCenter]" description="Test verticalCenter style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="verticalCenter" value="0" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="verticalCenter" value="0"/>												
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="Spinner_Styles_left" keywords="[Spinner, Styles, left]" description="Test left style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="left" value="50" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="left" value="50"/>												
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="Spinner_Styles_right" keywords="[Spinner, Styles, right]" description="Test right style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="right" value="50" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="right" value="50"/>												
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>        
+
+		<TestCase testID="Spinner_Styles_top" keywords="[Spinner, Styles, top]" description="Test top style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="top" value="50" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="top" value="50"/>												
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>     
+        
+		<TestCase testID="Spinner_Styles_bottom" keywords="[Spinner, Styles, bottom]" description="Test bottom style on Spinner">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>		
+		        <SetStyle target="mySpinner" styleName="bottom" value="50" waitTarget="mySpinner" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>	        	
+				<AssertStyleValue target="mySpinner" styleName="bottom" value="50"/>												
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>                
+     
+    </testCases>
+
+</UnitTester>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="800" width="800"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:comps="comps.*"
+    backgroundColor="0xFFFFFF" >
+    <s:layout> <s:TileLayout/> </s:layout>
+<fx:Style source="assets/myStyles.css" />
+<fx:Script>
+<![CDATA[
+    import mx.events.StateChangeEvent;
+
+    public function goToState2():void{
+        if(currentState == "state2"){
+            dispatchEvent(new Event("inState2"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state2";
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("inState2"));
+    }
+
+]]>
+</fx:Script>
+
+
+<s:states>
+    <s:State name="state1" />
+    <s:State name="state2" />
+</s:states>
+
+
+<s:List selectedIndex.state1="0" id="l9"   >
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state1">
+            <fx:String>another array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l10"   >
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state2">
+            <fx:String>another array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l11"   >
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l12"   >
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l13"   >
+     <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state1" text="string in state1" />
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l14"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state1" text="string in state1" />
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l15"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state2" text="string in state2" />
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l16"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state2" text="string in state2" />
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l17"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state2" text="string in state2" />
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l18"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state1" text="string in state1" />
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l19"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state2" text="string in state2" />
+        <fx:Array includeIn="state1">
+            <fx:String>array in state1</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l20"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state1" text="string in state1" />
+        <fx:Array includeIn="state2">
+            <fx:String>array in state2</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l21"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state1" text="string in state1" />
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l22"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <mx:Label includeIn="state2" text="string in state2" />
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l23"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state1" text="string in state1" />
+    </mx:ArrayCollection>
+</s:List>
+
+<s:List selectedIndex="0" id="l24"   >
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+    <mx:ArrayCollection>
+        <fx:Array>
+            <fx:String>array always present</fx:String>
+        </fx:Array>
+        <mx:Label includeIn="state2" text="string in state2" />
+    </mx:ArrayCollection>
+</s:List>
+</s:Application>

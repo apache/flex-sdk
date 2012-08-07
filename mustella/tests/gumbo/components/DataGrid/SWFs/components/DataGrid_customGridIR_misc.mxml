@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:DataGrid 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    requestedRowCount="7">
+            	
+	<s:ArrayCollection id="dp1">
+		<s:DataItem country="USA" firstName="JozFN" lastName="AltFN" number="00"/>
+		<s:DataItem country="USA" firstName="CarFN" lastName="BocFN" number="01"/>
+		<s:DataItem country="USA" firstName="TimFN" lastName="HowFN" number="02"/>
+		<s:DataItem country="USA" firstName="CliFN" lastName="DemFN" number="03"/>
+		<s:DataItem country="USA" firstName="RobFN" lastName="FinFN" number="04"/>
+		<s:DataItem country="USA" firstName="HerFN" lastName="GomFN" number="05"/>
+		<s:DataItem country="USA" firstName="LanFN" lastName="DonFN" number="06"/>
+		<s:DataItem country="USA" firstName="OguFN" lastName="OnyFN" number="07"/>
+		<s:DataItem country="USA" firstName="BenFN" lastName="FeiFN" number="08"/>
+		<s:DataItem country="USA" firstName="EdsFN" lastName="BudFN" number="09"/>
+		<s:DataItem country="USA" firstName="MicFN" lastName="BraFN" number="10"/>
+		<s:DataItem country="USA" firstName="SteFN" lastName="CheFN" number="11"/>
+		<s:DataItem country="USA" firstName="JayFN" lastName="DemLN" number="12"/>		
+	</s:ArrayCollection>
+			
+	<s:columns>
+		<s:ArrayCollection>
+			<s:GridColumn dataField="country" id="c1">
+				<s:itemRenderer>
+					<fx:Component>
+						<s:GridItemRenderer width="50" color="0x00FF00" fontStyle="italic">
+							<s:Label text="{data.country}" top="5" bottom="5" left="5" right="5"/>
+						</s:GridItemRenderer>
+					</fx:Component>
+				</s:itemRenderer>					
+			</s:GridColumn>		
+			<s:GridColumn dataField="firstName" width="100" id="c2">
+				<s:itemRenderer>
+					<fx:Component>
+						<s:GridItemRenderer color="0x0000FF">
+							<fx:Script>
+								<![CDATA[										
+									override public function set data(value:Object):void {
+										super.data = value;
+										lbl.text = "Hello " + value[column.dataField];
+									}
+								]]>
+							</fx:Script>
+							<s:Label id="lbl" top="5" bottom="5" left="5" right="5"/>
+						</s:GridItemRenderer>
+					</fx:Component>
+				</s:itemRenderer>		
+			</s:GridColumn>		
+			<s:GridColumn dataField="lastName" width="100" id="c3">			
+				<s:itemRenderer>
+					<fx:Component>
+						<s:GridItemRenderer>
+							<fx:Script>
+								<![CDATA[
+									override public function prepare(hasBeenRecycled:Boolean):void {
+										lblData.text = data[column.dataField];
+									}
+								]]>
+							</fx:Script>
+							<s:Label id="lblData" top="5" bottom="5" left="5" right="5"/>
+						</s:GridItemRenderer>
+					</fx:Component>
+				</s:itemRenderer>
+			</s:GridColumn>
+			<s:GridColumn dataField="number" width="50" id="c4">							
+				<s:itemRenderer>
+					<fx:Component>
+						<s:GridItemRenderer dataChange="dataChangeHandler();" color="0xFF0000">
+							<fx:Script>
+								<![CDATA[										
+									import mx.events.FlexEvent;
+									protected function dataChangeHandler():void{
+										lbl2.text = "# " + data.number;
+									}
+								]]>
+							</fx:Script>
+							<s:Label id="lbl2" top="5" bottom="5" left="5" right="5"/>
+						</s:GridItemRenderer>		
+					</fx:Component>
+				</s:itemRenderer>
+			</s:GridColumn>
+		</s:ArrayCollection>
+	</s:columns>
+</s:DataGrid>	

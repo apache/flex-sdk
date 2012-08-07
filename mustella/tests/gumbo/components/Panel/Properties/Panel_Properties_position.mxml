@@ -1,0 +1,189 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_position.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+		<TestCase testID="Panel_Properties_position1" keywords="[Panel, horizontalCenter, verticalCenter]" description="Test horizontal and vertical center property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Panel_Properties_position2" keywords="[Panel, horizontalCenter, verticalCenter]" description="Test horizontal and vertical center property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+				<SetProperty target="myCustomPanelPosition" propertyName="width" value="350" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="height" value="350" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>                       
+              
+		<TestCase testID="Panel_Properties_position3" keywords="[Panel, horizontalCenter, verticalCenter]" description="Test horizontal and vertical center property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="50" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="40" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>      
+        
+		<TestCase testID="Panel_Properties_position4" keywords="[Panel, horizontalCenter, verticalCenter]" description="Test horizontal and vertical center property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="-60" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="-60" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Properties_rotate" keywords="[Panel, rotation]" description="Test rotation property on Panel">
+            <setup>           
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="rotation" value="45" waitTarget="myCustomPanelPosition" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>         
+              
+		<TestCase testID="Panel_Properties_rotateX" keywords="[Panel, rotationX]" description="Test rotationX property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="rotationX" value="45" waitTarget="myCustomPanelPosition" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20" />
+            </body>
+        </TestCase>     
+        
+		<TestCase testID="Panel_Properties_rotateY" keywords="[Panel, rotationY]" description="Test rotationY property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="rotationY" value="45" waitTarget="myCustomPanelPosition" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" numColorVariances="30" maxColorVariance="10"/>
+            </body>
+        </TestCase>       
+
+		<TestCase testID="Panel_Properties_left" keywords="[Panel, left]" description="Test left property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="left" value="50" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>               
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Properties_right" keywords="[Panel, right]" description="Test right property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="right" value="50" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>               
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_top" keywords="[Panel, top]" description="Test top property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="top" value="50" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>               
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Panel_Properties_bottom" keywords="[Panel, bottom]" description="Test bottom property on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelPosition" className="Comps.CustomPanelPosition" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>
+                <SetProperty target="myCustomPanelPosition" propertyName="bottom" value="50" waitEvent="updateComplete" waitTarget="myCustomPanelPosition"/>               
+            </setup>
+            <body>
+            	<CompareBitmap target="myBrdGrp" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>    
+
+		<TestCase testID="Panel_Properties_baseline1" keywords="[Panel, baseline]" description="Test baseline property on Panel">
+            <setup>            
+                <ResetComponent target="myInnerPanel" className="spark.components.Panel" waitEvent="updateComplete"/>
+                <SetProperty target="myInnerPanel" propertyName="title" value="baseline=25"/>
+                <SetProperty target="myInnerPanel" propertyName="baseline" value="25" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myGrp" url="../Properties/Baselines/$testID_1.png" numColorVariances="3" maxColorVariance="10"/>
+            	<SetProperty target="myInnerPanel" propertyName="title" value="baseline=50"/>
+            	<SetProperty target="myInnerPanel" propertyName="baseline" value="50" waitEvent="updateComplete"/>            	
+            	<CompareBitmap target="myGrp" url="../Properties/Baselines/$testID_2.png" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase>         
+
+		<TestCase testID="Panel_Properties_baseline2" keywords="[Panel, baseline]" description="Test baseline property on Panel">
+            <setup>            
+                <ResetComponent target="myInnerPanel" className="spark.components.Panel" waitEvent="updateComplete"/>
+                <SetProperty target="myInnerPanel" propertyName="title" value="baseline=40"/>
+                <SetProperty target="myInnerPanel" propertyName="baseline" value="40" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myGrp" url="../Properties/Baselines/$testID_1.png" numColorVariances="3" maxColorVariance="10"/>
+            	<SetStyle target="myInnerPanel" styleName="fontSize" value="18" waitEvent="updateComplete"/>            	
+            	<CompareBitmap target="myGrp" url="../Properties/Baselines/$testID_2.png" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_baseline3" keywords="[Panel, baseline]" description="Test baseline property on Panel">
+            <setup>            
+                <ResetComponent target="myInnerPanel" className="spark.components.Panel" waitEvent="updateComplete"/>
+                <SetProperty target="myInnerPanel" propertyName="title" value="baseline=40"/>
+                <SetProperty target="myInnerPanel" propertyName="baseline" value="40" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myGrp" url="../Properties/Baselines/$testID_1.png" numColorVariances="3" maxColorVariance="10"/>
+            	<SetStyle target="myOutterPanel" styleName="fontSize" value="40" waitEvent="updateComplete"/>            	
+            	<CompareBitmap target="myGrp" url="../Properties/Baselines/$testID_2.png" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase>        
+
+    </testCases>
+    
+</UnitTester>
+

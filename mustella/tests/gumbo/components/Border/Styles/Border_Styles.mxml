@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Border/Styles/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"  
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="Border_Styles_basic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import mx.core.FlexGlobals;
+    ]]>
+  </fx:Script>
+  <testCases>
+  
+	<TestCase testID="Border_Styles_backgroundAlpha1" keywords="[Border,Styles,backgroundAlpha]" description="Test backgroundAlpha on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp2" className="comps.customBorder2" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrp2.myBorder" propertyName="height" value="100" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp2.myBorder" styleName="backgroundColor" value="red" waitEvent="updateComplete"/>			
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp2" />
+			<SetStyle target="myBorderGrp2.myBorder" styleName="backgroundAlpha" value="0.5" waitEvent="updateComplete"/>			
+			<AssertStyleValue target="myBorderGrp2.myBorder" styleName="backgroundAlpha" value="0.5" />
+			<CompareBitmap url="../Styles/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp2" />
+		</body>
+	</TestCase>  
+ 
+	<TestCase testID="Border_Styles_backgroundAlpha3" keywords="[Border,Styles,backgroundAlpha,styleName]" description="Test backgroundAlpha using styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp2" className="comps.customBorder2" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrp2.myBorder" propertyName="height" value="100" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp2.myBorder" styleName="backgroundColor" value="blue" waitEvent="updateComplete"/>			
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp2" />
+			<SetStyle target="myBorderGrp2.myBorder" styleName="styleName" value="myBorderBackgroundAlphaStyle" waitEvent="updateComplete"/>			
+			<AssertStyleValue target="myBorderGrp2.myBorder" styleName="backgroundAlpha" value="0.1" />
+			<CompareBitmap url="../Styles/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp2" />
+		</body>
+	</TestCase> 
+
+	<TestCase testID="Border_Styles_backgroundImage1" keywords="[Border,Styles,backgroundImage]" description="Test backgroundImage on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBI" className="comps.customBorderBI" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>									
+		</setup>
+		<body>		
+			<AssertStyleValue target="myBorderGrpBI.myBorder" styleName="backgroundImageFillMode" value="scale" />
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpBI" />		
+		</body>
+	</TestCase>
+			
+	<TestCase testID="Border_Styles_backgroundImage2" keywords="[Border,Styles,backgroundImage,backgroundImageFillMode]" description="Test backgroundImage with backgroundImageFillMode set to repeat on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBI" className="comps.customBorderBI" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="width" value="300" waitEvent="updateComplete"/>									
+			<SetStyle target="myBorderGrpBI.myBorder" styleName="backgroundImageFillMode" value="repeat" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="myBorderGrpBI.myBorder" styleName="backgroundImageFillMode" value="repeat" />
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpBI" />		
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Styles_backgroundImage3" keywords="[Border,Styles,backgroundImage,backgroundImageFillMode]" description="Test backgroundImage with backgroundImageFillMode set to clip on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBI" className="comps.customBorderBI" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>									
+			<SetStyle target="myBorderGrpBI.myBorder" styleName="backgroundImageFillMode" value="clip" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="myBorderGrpBI.myBorder" styleName="backgroundImageFillMode" value="clip" />
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpBI" />		
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Styles_backgroundImage4" keywords="[Border,Styles,backgroundImage,backgroundImageFillMode]" description="Test backgroundImage with backgroundColor set on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBI" className="comps.customBorderBI" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>									
+			<SetStyle target="myBorderGrpBI.myBorder" styleName="backgroundColor" value="blue" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpBI" />		
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_backgroundImage5" keywords="[Border,Styles,backgroundImage,backgroundImageFillMode]" description="Test backgroundImage with backgroundImageFillMode set to repeat on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBI" className="comps.customBorderBI" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBI.myBorder" propertyName="width" value="300" waitEvent="updateComplete"/>									
+			<SetStyle target="myBorderGrpBI.myBorder" styleName="styleName" value="myBorderBackgroundImageResizeModeStyle" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertStyleValue target="myBorderGrpBI.myBorder" styleName="backgroundImageFillMode" value="repeat" />
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpBI" />		
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_multiple_backgroundImage6" keywords="[Border,Styles,backgroundImage,borderStroke]" description="Test backgroundImage with borderStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBI3" className="comps.customBorderBI3" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpBI3" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_borderAlpha1" keywords="[Border,Styles,borderAlpha]" description="Test borderAlpha on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderAlpha" value="0.5" waitEvent="updateComplete"/>
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderAlpha" value="0.5" />
+			<CompareBitmap url="../Styles/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderAlpha2" keywords="[Border,Styles,borderAlpha]" description="Test borderAlpha on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderColor" value="blue" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderAlpha" value="0" waitEvent="updateComplete"/>
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderAlpha" value="0" />
+			<CompareBitmap url="../Styles/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderAlpha3" keywords="[Border,Styles,borderAlpha,styleName]" description="Test borderAlpha set with styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myBorderAlphaStyle" waitEvent="updateComplete"/>			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderColor1" keywords="[Border,Styles,borderColor]" description="Test borderColor on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderColor" value="purple" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderColor2" keywords="[Border,Styles,borderColor,baseColor]" description="Test borderColor with baseColor on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderColor" value="green" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="chromeColor" value="red" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Styles_borderColor4" keywords="[Border,Styles,borderColor]" description="Test borderColor with borderWeight on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderColor" value="purple" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderWeight" value="20" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderColor5" keywords="[Border,Styles,borderColor,styleName]" description="Test borderColor set with styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myBorderColorStyle" waitEvent="updateComplete"/>			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderStyle1" keywords="[Border,Styles,borderStyle,solid]" description="Test default borderStyle on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderStyle" value="solid"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Styles_borderStyle2" keywords="[Border,Styles,borderStyle,inset]" description="Test borderStyle inset on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderStyle" value="inset" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderStyle" value="inset"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_borderStyle3" keywords="[Border,Styles,borderStyle,inset,styleName]" description="Test borderStyle set inset by styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myBorderStyleStyle" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderStyle" value="inset"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_borderWeight1" keywords="[Border,Styles,borderWeight]" description="Test borderWeight on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderWeight" value="15"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Styles_borderWeight2" keywords="[Border,Styles,borderWeight,styleName]" description="Test borderWeight set by styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myBorderWeightStyle" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderWeight" value="25"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_cornerRadius1" keywords="[Border,Styles,cornerRadius]" description="Test cornerRadius on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="cornerRadius" value="3" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="cornerRadius" value="3"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Styles_cornerRadius2" keywords="[Border,Styles,cornerRadius]" description="Test cornerRadius on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="cornerRadius" value="10" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="cornerRadius" value="10"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Styles_cornerRadius3" keywords="[Border,Styles,cornerRadius]" description="Test cornerRadius on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="cornerRadius" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="cornerRadius" value="10"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Styles_cornerRadius4" keywords="[Border,Styles,cornerRadius,styleName]" description="Test cornerRadius set by styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myBorderCornerRadiusStyle" waitEvent="updateComplete"/>			
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="cornerRadius" value="7"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="Border_Styles_cornerRadius5" keywords="[Border,Styles,cornerRadius,clipAndEnableScrolling]" description="Test cornerRadius with clipAndEnableScrolling set on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="cornerRadius" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="clipAndEnableScrolling" value="true" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="cornerRadius" value="10"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_dropShadowVisible1" keywords="[Border,Styles,dropShadowVisible]" description="Test dropShadowVisible on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />			
+		</setup>
+		<body>					
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="false"/>
+			<CompareBitmap url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="true" waitEvent="updateComplete"/>
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="true"/>
+			<CompareBitmap url="../Styles/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Styles_dropShadowVisible2" keywords="[Border,Styles,dropShadowVisible]" description="Test dropShadowVisible on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />			
+		</setup>
+		<body>								
+			<SetStyle target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="true" waitEvent="updateComplete"/>
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="true"/>
+			<CompareBitmap url="../Styles/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="false" waitEvent="updateComplete"/>
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="false"/>
+			<CompareBitmap url="../Styles/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_dropShadowVisible3" keywords="[Border,Styles,dropShadowVisible,styleName]" description="Test dropShadowVisible with styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />			
+		</setup>
+		<body>								
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myBorderDropShadowVisibleStyle" waitEvent="updateComplete"/>
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="dropShadowVisible" value="true"/>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Styles_multiple_runTime" keywords="[Border,Styles,borderAlpha,borderColor,borderWeight,borderStyle,cornerRadius]" description="Test multiple styles set at run time on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderColor" value="blue" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderAlpha" value="0.5" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderStyle" value="inset" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrp.myBorder" styleName="cornerRadius" value="5" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_multiple_MXML1" keywords="[Border,Styles,borderAlpha,borderColor,borderWeight,borderStyle,cornerRadius]" description="Test multiple styles set in MXML on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM1" className="comps.customBorderM1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpM1" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Styles_multiple_MXML2" keywords="[Border,Styles,borderAlpha,borderColor,borderWeight,borderStyle,cornerRadius]" description="Test multiple styles set in MXML on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM2" className="comps.customBorderM2" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM1.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpM2" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Styles_multiple_MXML3" keywords="[Border,Styles,borderAlpha,borderColor,borderWeight,borderStyle,cornerRadius]" description="Test multiple styles set in MXML on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM3" className="comps.customBorderM3" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrpM3" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="Border_Styles_multiple_MXML4" keywords="[Border,Styles,borderAlpha,borderColor,borderWeight,borderStyle,cornerRadius,color,selectionColor,symbolColor,right,left,top,bottom,x,y,focusColor]" description="Test multiple styles set in MXML on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM4" className="comps.customBorderM4" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" target="myBorderGrpM4" numColorVariances="30" maxColorVariance="20" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Styles_multiple_MXML5" keywords="[Border,Styles,]" description="Test multiple styles set in MXML and changed at runtime on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM4" className="comps.customBorderM4" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrpM4.myBorder" styleName="chromeColor" value="red" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" target="myBorderGrpM4" numColorVariances="30" maxColorVariance="20"/>
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Styles_multiple_MXML6" keywords="[Border,Styles,]" description="Test multiple styles set in MXML and changed at runtime on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM4" className="comps.customBorderM4" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrpM4.aBtn" styleName="right" value="70" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrpM4.aBtn" styleName="left" value="70" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" target="myBorderGrpM4" numColorVariances="30" maxColorVariance="20"/>
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Styles_multiple_MXML7" keywords="[Border,Styles,]" description="Test multiple styles set in MXML and changed at runtime on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpM4" className="comps.customBorderM4" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.myCB" propertyName="selected" value="true" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.myNS" propertyName="value" value="4" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.myList" propertyName="selectedItem" value="Un" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.myDDL" propertyName="selectedIndex" value="5" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.mySlider" propertyName="value" value="7" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.myBtn" propertyName="label" value="new label" waitEvent="updateComplete" waitTarget="myBorderGrpM4.myBtn.skin"/>
+			<SetProperty target="myBorderGrpM4.myST" propertyName="text" value="moved" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpM4.myST" propertyName="horizontalCenter" value="100" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" target="myBorderGrpM4" numColorVariances="30" maxColorVariance="20"/>
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Styles_styleName" keywords="[Border,Styles,borderAlpha,borderColor,borderWeight,borderStyle,cornerRadius,styleName]" description="Test setting styles with styleName on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrp.myBorder" styleName="styleName" value="myStyle1" waitEvent="updateComplete"/>		
+		</setup>
+		<body>
+			<CompareBitmap url="../Styles/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+
+  </testCases>
+</UnitTester>

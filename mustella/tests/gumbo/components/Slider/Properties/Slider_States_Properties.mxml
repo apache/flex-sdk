@@ -1,0 +1,106 @@
+<UnitTester testDir="gumbo/components/Slider/Properties/"  
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="Slider_States_Basic.mxml">
+
+    <!-- Default code for all tests -->
+    <m:Script>
+        <![CDATA[
+        	public static function init(o:DisplayObject):void{}                 
+        ]]>
+    </m:Script>
+
+    <m:Metadata>
+    	<![CDATA[
+    	    [Mixin]
+    	]]>
+    </m:Metadata>
+       
+    <testCases>
+
+		<TestCase testID="Slider_states_defaultValue" keywords="[Slider, States, Default]" description="Test Default Values for Sliders in States">
+		    <setup>
+				<ResetComponent target="mySliderCustomComp" className="components.mySliderComp" waitEvent="updateComplete" waitTarget="mySliderCustomComp"/> 
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="mySliderCustomComp.myHS1" propertyName="value" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS1" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS1" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS1" propertyName="stepSize" value="1" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS1" propertyName="snapInterval" value="1" />
+				
+				<AssertPropertyValue target="mySliderCustomComp.myVS1" propertyName="value" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS1" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS1" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS1" propertyName="stepSize" value="1" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS1" propertyName="snapInterval" value="1" />				
+	        
+				<DispatchMouseClickEvent target="mySliderCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="mySliderCustomComp.state2Button"/>
+										
+				<AssertPropertyValue target="mySliderCustomComp.myHS2" propertyName="value" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS2" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS2" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS2" propertyName="stepSize" value="1" />
+				<AssertPropertyValue target="mySliderCustomComp.myHS2" propertyName="snapInterval" value="1" />
+				
+				<AssertPropertyValue target="mySliderCustomComp.myVS2" propertyName="value" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS2" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS2" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS2" propertyName="stepSize" value="1" />
+				<AssertPropertyValue target="mySliderCustomComp.myVS2" propertyName="snapInterval" value="1" />				
+		    </body>
+		</TestCase>
+		
+		<TestCase testID="Slider_states_value_change" keywords="[Slider, States, Default]" description="Test values and thumb position for sliders in States">
+		    <setup>
+				<ResetComponent target="mySliderCustomComp" className="components.mySliderComp" waitEvent="updateComplete" waitTarget="mySliderCustomComp"/> 				
+		    </setup>
+		    <body>
+				<DispatchMouseEvent target="mySliderCustomComp.myHS1" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="mySliderCustomComp.myHS1" />
+				<DispatchMouseEvent target="mySliderCustomComp.myHS1" localX="22" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="mySliderCustomComp.myHS1" />
+				<DispatchMouseEvent target="mySliderCustomComp.myHS1" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="mySliderCustomComp.myHS1" />	
+		
+				<AssertPropertyValue target="mySliderCustomComp.myHS1" propertyName="value" value="2" />		    	
+				
+				<DispatchMouseEvent target="mySliderCustomComp.myVS1" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="mySliderCustomComp.myVS1" />
+				<DispatchMouseEvent target="mySliderCustomComp.myVS1" localX="7" localY="72" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="mySliderCustomComp.myVS1" />
+				<DispatchMouseEvent target="mySliderCustomComp.myVS1" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="mySliderCustomComp.myVS1" />									
+	
+				<AssertPropertyValue target="mySliderCustomComp.myVS1" propertyName="value" value="2" />		    	
+				
+		    	<CompareBitmap target="mySliderCustomComp.myHS1" url="../Properties/Baselines/$testID_1.png"/>
+		    	<CompareBitmap target="mySliderCustomComp.myVS1" url="../Properties/Baselines/$testID_2.png"/>
+		    	
+				<DispatchMouseClickEvent target="mySliderCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="mySliderCustomComp.state2Button"/>		    	
+
+				<DispatchMouseEvent target="mySliderCustomComp.myHS2" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="mySliderCustomComp.myHS2" />
+				<DispatchMouseEvent target="mySliderCustomComp.myHS2" localX="48.5" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="mySliderCustomComp.myHS2" />
+				<DispatchMouseEvent target="mySliderCustomComp.myHS2" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="mySliderCustomComp.myHS2" />	
+		
+				<AssertPropertyValue target="mySliderCustomComp.myHS2" propertyName="value" value="5" />		    	
+				
+				<DispatchMouseEvent target="mySliderCustomComp.myVS2" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="mySliderCustomComp.myVS2" />
+				<DispatchMouseEvent target="mySliderCustomComp.myVS2" localX="7" localY="45.5" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="mySliderCustomComp.myVS2" />
+				<DispatchMouseEvent target="mySliderCustomComp.myVS2" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="mySliderCustomComp.myVS2" />													
+				
+				<AssertPropertyValue target="mySliderCustomComp.myVS2" propertyName="value" value="5" />		    	
+												
+				<CompareBitmap target="mySliderCustomComp.myHS2" url="../Properties/Baselines/$testID_3.png"/>
+		    	<CompareBitmap target="mySliderCustomComp.myVS2" url="../Properties/Baselines/$testID_4.png"/>				
+				
+				<DispatchMouseClickEvent target="mySliderCustomComp.state1Button" localX="40" localY="8" waitEvent="click" waitTarget="mySliderCustomComp.state1Button"/>		    	
+				
+				<CompareBitmap target="mySliderCustomComp.myHS1" url="../Properties/Baselines/$testID_1.png"/>
+		    	<CompareBitmap target="mySliderCustomComp.myVS1" url="../Properties/Baselines/$testID_2.png"/>
+				
+				<DispatchMouseClickEvent target="mySliderCustomComp.state2Button" localX="40" localY="8" waitEvent="click" waitTarget="mySliderCustomComp.state2Button"/>		    	
+				
+				<CompareBitmap target="mySliderCustomComp.myHS2" url="../Properties/Baselines/$testID_3.png"/>
+		    	<CompareBitmap target="mySliderCustomComp.myVS2" url="../Properties/Baselines/$testID_4.png"/>					
+		    </body>
+		</TestCase>
+	
+									
+    </testCases>
+    
+</UnitTester>

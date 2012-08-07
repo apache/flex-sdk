@@ -1,0 +1,21 @@
+<s:Panel
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+	<s:ComboBox id="theCB" width="150" selectedIndex="0">
+
+		<s:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>Product A</fx:String>
+				<fx:String>Product B</fx:String>
+				<fx:String>Product C</fx:String>
+				<fx:String>Product D</fx:String>
+				<fx:String>Product E</fx:String>
+				<fx:String>Product F</fx:String>
+			</mx:ArrayCollection>
+		</s:dataProvider>
+
+	</s:ComboBox>
+	
+</s:Panel>	

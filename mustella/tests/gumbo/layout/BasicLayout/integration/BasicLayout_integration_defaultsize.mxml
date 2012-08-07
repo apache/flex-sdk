@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_default.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	import mx.core.UIComponent;
+	public static function init(o:DisplayObject):void
+	{
+	}
+	
+	public static function getPropertyValue(element:UIComponent, propName:String):String
+	{
+		return ""+element[propName];
+	}
+	
+	
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+	<!--
+	========================================================
+	default size measurement
+	========================================================
+	-->
+	
+	<TestCase testID="horizontal_vertical_center1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter constraint set ,default size for container will be width=|horizontalCenter| * 2 + element.width;height=|verticalCenter| * 2 + element.height" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="horizontal_vertical_center2" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter constraint set,default size for container will be width=|horizontalCenter| * 2 + element.width;height=|verticalCenter| * 2 + element.height" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="horizontalCenter" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+	    	<!-- child.y=parent.height/2+verticalCenter-1/2*child.height -->
+		<AssertPropertyValue propertyName="y" value="100" target="parentGroup.childBtn"/>
+		<!-- child.y=parent.height/2+verticalCenter-1/2*child.height -->
+		<AssertPropertyValue propertyName="x" value="100" target="parentGroup.childBtn"/>
+		<!-- without other constraints, parent container must be the minimum size to hold the child  -->
+		<AssertPropertyValue propertyName="width" value="170" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="121" target="parentGroup.childGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="horizontal_vertical_center3" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter constraint set,default size for container will be width=|horizontalCenter| * 2 + element.width;height=|verticalCenter| * 2 + element.height" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="horizontalCenter" value="-50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="-50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="170" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="121" target="parentGroup.childGroup"/>
+
+	    </body>
+	</TestCase>
+
+	<!-- with left, right, top, bottom size related constraints, parent.size is calculated differently -->
+	<TestCase testID="horizontal_vertical_center4" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter constraint set,default size for container will be width=left+right+ element.width;height= top+bottom+element.height" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="40" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="40" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="top" value="40" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="bottom" value="40" target="parentGroup.childBtn" />
+
+
+		<SetProperty propertyName="horizontalCenter" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="50" target="parentGroup.childBtn" 
+		 waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+	   </setup>
+	   <body>
+		<!-- element.x=(parent.width-element.width)/2+horizontalCenter-->
+		<AssertPropertyValue propertyName="x" value="90" target="parentGroup.childBtn"/>
+		<!-- element.y=(parent.height-element.hight)/2+verticalCenter -->
+		<AssertPropertyValue propertyName="y" value="90" target="parentGroup.childBtn"/>
+		
+		<AssertPropertyValue propertyName="width" value="150" target="parentGroup.childGroup"/>
+
+		<AssertPropertyValue propertyName="height" value="101" target="parentGroup.childGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="horizontal_vertical_center5" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter constraint set,default size for container will be width=left+right+ element.width;height= top+bottom+element.height"  >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="top" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="bottom" value="10" target="parentGroup.childBtn" />
+
+
+		<SetProperty propertyName="horizontalCenter" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="50" target="parentGroup.childBtn" 
+		 waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+	   </setup>
+	   <body>
+	   	<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+	   
+	   	<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+
+		<!-- element.x=(parent.width-element.width)/2+horizontalCenter-->
+		<AssertPropertyValue propertyName="x" value="60" target="parentGroup.childBtn"/>
+		<!-- element.y=(parent.height-element.hight)/2+verticalCenter -->
+		<AssertPropertyValue propertyName="y" value="60" target="parentGroup.childBtn"/>
+		
+		
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="horizontal_vertical_center6" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter constraint set,default size for container will be width=|horizontalCenter| * 2 + element.width;height=|verticalCenter| * 2 + element.height" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="top" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="bottom" value="10" target="parentGroup.childBtn" />
+
+
+		<SetProperty propertyName="horizontalCenter" value="-50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="-50" target="parentGroup.childBtn" 
+		 waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+	   </setup>
+	   <body>
+	   	<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+	   
+	   		<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+
+		<!-- element.x=(parent.width-element.width)/2+horizontalCenter-->
+		<AssertPropertyValue propertyName="x" value="-40" target="parentGroup.childBtn"/>
+		<!-- element.y=(parent.height-element.hight)/2+verticalCenter -->
+		<AssertPropertyValue propertyName="y" value="-40" target="parentGroup.childBtn"/>
+		
+		
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="constraints_LeftRightTopBottom1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify left,right,top,bottom constraint set,default size for the container is the max extends for all children" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="50" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="top" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertMethodValue method="value=application.boundsHeightGap(application.parentGroup.childGroup,application.parentGroup.childBtn)" value="100" />
+		<AssertMethodValue method="value=application.boundsWidthGap(application.parentGroup.childGroup,application.parentGroup.childBtn)" value="100" />
+		<AssertPropertyValue propertyName="y" value="50" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="50" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="170" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="170" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="121" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="121" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="constraints_percentage1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight constraint set,default size for parent will be default Width/Height" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="35" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="constraints_percentage2" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight, horizontalCenter, verticalCenter constraint set,default size for the element will be default Width/Height with horizontalCenter, verticalCenter set" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="horizontalCenter" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="20" target="parentGroup.childBtn"/>
+		<!-- childBtn.x=(parent.width-child.width)/2+horizontalCenter -->
+		<AssertPropertyValue propertyName="x" value="33" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="45" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="41" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+	
+
+	<TestCase testID="constraints_percentage3" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight,left constraint set,default size for the element will be parent.Width/Height*percentValue" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="10" target="parentGroup.childBtn"/>
+		<!-- element.width=(parent.width-left)*percentValue -->
+		<AssertPropertyValue propertyName="width" value="35" target="parentGroup.childBtn"/>
+		<!-- measuredMinHeight is respected -->
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="80" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="80" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="constraints_percentage4" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight,right constraint set,default size for the element will be parent.Width/Height*percentValue" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="0" target="parentGroup.childBtn"/>
+		<!-- right is respected, so element.x=(parent.width-right-element.width) -->
+		<AssertPropertyValue propertyName="x" value="35" target="parentGroup.childBtn"/>
+		<!-- element.width=(parent.width-right)*percentValue -->
+		<AssertPropertyValue propertyName="width" value="35" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="80" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="80" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="constraints_percentage5" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight,left/right  constraint set,default size for the element will be parent.Width/Height*percentValue" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="0" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="10" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="35" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="constraints_percentage6" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight, left, horizontalCenter, veriticalCenter constraint set,default size for the element will be parent.Width/Height*percentValue" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />
+		<SetProperty propertyName="horizontalCenter" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="10" target="parentGroup.childBtn" /> 
+		
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+	    	<!-- element.y=(parent.height-child.height)/2+ verticalCenter -->
+		<AssertPropertyValue propertyName="y" value="20" target="parentGroup.childBtn"/>
+		<!-- element.x=(parent.width-child.width)/2+ horizontalCenter -->
+		<AssertPropertyValue propertyName="x" value="35" target="parentGroup.childBtn"/>
+		<!-- (parent.width-left)*percentValue -->
+		<AssertPropertyValue propertyName="width" value="40" target="parentGroup.childBtn"/>
+		<!-- measuredMinHeight is respected -->
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="41" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="constraints_percentage7" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight,right, horizontalCenter, veriticalCenter constraint set,default size for the element will be parent.Width/Height*percentValue" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		
+		<SetProperty propertyName="horizontalCenter" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="10" target="parentGroup.childBtn" />
+		
+		
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	 
+	   </setup>
+	    <body>
+	    	
+		<AssertPropertyValue propertyName="y" value="20" target="parentGroup.childBtn"/>
+		
+		<AssertPropertyValue propertyName="x" value="35" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="40" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="90" target="parentGroup"/>
+		<!-- parent.height=2*verticalCenter+childBtn.height -->
+		<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="41" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+	
+	
+	
+	<TestCase testID="constraints_percentage_minWidthHeight" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight,minWidth, minHeight, constraint set,default size for the element will be explicitly set minWidth,minHeight, parent container will use default width if explicit minWidth less than element.defaultWidth" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="top" value="150" target="parentGroup.childBtn" />
+		<SetProperty propertyName="minWidth" value="44" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="minHeight" value="55" target="parentGroup.childBtn" />
+		<SetProperty propertyName="bottom" value="100" target="parentGroup.childBtn"  waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />	 
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="150" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+		
+		 <!-- parent will use childBtn explicit minWidth=44, instead of defaultWidth=70*50%=35 since minWidth less than preferred default width -->
+		<AssertMethodValue method='value=getPropertyValue(application.parentGroup.childBtn,"width")' value="44" />
+		
+		<!-- parent will NOT use childBtn explicit minHeight=55, instead of using defaultHeight=21 since minHeight is great than preferred default height -->
+		<AssertMethodValue method='value=getPropertyValue(application.parentGroup.childBtn,"height")' value="55" />
+
+		<!-- default percentage as width/height is ignored for default size, also default=70>minWidth, so use default width=70 -->
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup"/>
+		
+		<AssertPropertyValue propertyName="height" value="305" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="305" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="constraints_percentage_minWidthHeight2" keywords="[BasicLayout,intergration,constraints,measure]" description="verify percentWidth,percentHeight,minWidth, minHeight, constraint set,default size for the element will be explicitly set minWidth,minHeight, parent container will use default width if explicit minHeight less than element.defaultHeight" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="160" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="110" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="top" value="150" target="parentGroup.childBtn" />
+		<SetProperty propertyName="minWidth" value="80" target="parentGroup.childBtn" />
+		<SetProperty propertyName="bottom" value="100" target="parentGroup.childBtn" />
+		<SetProperty propertyName="minHeight" value="15" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="150" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="110" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="80" target="parentGroup.childBtn"/>
+		<!-- since child.width=80 instead of 70, contentwidth=190 -->
+		<AssertPropertyValue propertyName="contentWidth" value="190" target="parentGroup.childGroup"/>
+		
+		<AssertPropertyValue propertyName="contentHeight" value="171" target="parentGroup.childGroup"/>
+		
+		
+	       <AssertMethodValue method='value=getPropertyValue(application.parentGroup.childBtn,"width")' value="80" />
+	       <!-- parent will use childBtn.defaultHeight=21, instead of minHeight=15 -->
+	       <AssertMethodValue method='value=getPropertyValue(application.parentGroup.childBtn,"height")' value="21" />
+
+		<!-- parent will use childBtn explicit minWidth=80, instead of defaultWidth=70 since minWidth>preferred default width -->
+		<AssertPropertyValue propertyName="width" value="350" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="350" target="parentGroup"/>
+		
+		<!-- height=top+bottom+preferred height=21 -->
+		<AssertPropertyValue propertyName="height" value="271" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="271" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="constraints_LeftTop_negative1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify left less than 0, top less than 0,default size for the container is the max extends for all children" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="left" value="-50" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="top" value="-50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+		
+	   </setup>
+	    <body>
+
+		<AssertPropertyValue propertyName="y" value="-50" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="-50" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="20" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="1" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="constraints_LeftTop_negative2" keywords="[BasicLayout,intergration,constraints,measure]" description="verify left less than 0, top less than 0,default size for the container is the max extends for all children" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		<SetProperty propertyName="left" value="-20" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="top" value="-10" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	
+	   </setup>
+	    <body>
+
+		<AssertPropertyValue propertyName="y" value="-10" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="-20" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="50" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="11" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="constraints_maxHeight_test1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify top,bottom, maxHeight set, container size depends on size of its all children, verify element height is restricted by maxHeight" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+
+		<SetProperty propertyName="width" value="300" target="parentGroup.childBorder"/>	
+		<SetProperty propertyName="height" value="300" target="parentGroup.childBorder"/>	
+		<SetProperty propertyName="maxHeight" value="250" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="top" value="100" waitTarget="parentGroup.childBtn"  waitEvent="updateComplete" />	
+		<!-- 
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childGroup"/>	
+		<SetProperty propertyName="percentHeight" value="100" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup"/>	
+		<SetProperty propertyName="percentHeight" value="100" target="parentGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+		-->
+	   </setup>
+	    <body>
+
+		 
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="301" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="301" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="301" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="301" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+	<TestCase testID="constraints_maxWidth_test1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify left,right, maxWidth set, container size depends on size of its all children, verify element's width is restricted by maxWidth" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+
+		<SetProperty propertyName="width" value="300" target="parentGroup.childBorder"/>	
+		<SetProperty propertyName="height" value="300" target="parentGroup.childBorder"/>	
+		<SetProperty propertyName="maxWidth" value="350" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="right" value="50" target="parentGroup.childBtn"/>	
+		<SetProperty propertyName="left" value="100" waitTarget="parentGroup.childBtn"/>	
+		
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childGroup"/>	
+		<SetProperty propertyName="percentHeight" value="100" target="parentGroup.childGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	   </setup>
+	    <body>
+
+		 
+		<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<!-- maxWidth > default width, so use default width=70 -->
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="width" value="301" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="width" value="301" target="parentGroup"/>
+		<AssertPropertyValue propertyName="height" value="301" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="301" target="parentGroup"/>
+
+	    </body>
+	</TestCase>
+
+	
+	<TestCase testID="all_constraints_test1" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter, left, right, top, bottom, percentWidth/percentHeight constraint set,verify parent.size is correct" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="top" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="bottom" value="10" target="parentGroup.childBtn" />
+		
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn"/>
+		
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" />
+		<SetProperty propertyName="horizontalCenter" value="50" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="50" target="parentGroup.childBtn" 
+		 waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+	   </setup>
+	   <body>
+	   	<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+	   
+	   	<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+	   	
+	   	
+	   	 <!-- child.height=default height*50%, but respect measuredMinHeight -->
+	   	<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+	   	
+	   	<AssertPropertyValue propertyName="width" value="21" target="parentGroup.childBtn"/>
+	   
+	   	
+		<!-- element.x=(parent.width-element.width)/2+horizontalCenter-->
+		<AssertPropertyValue propertyName="x" value="85" target="parentGroup.childBtn"/>
+		<!-- element.y=(parent.height-element.hight)/2+verticalCenter -->
+		<AssertPropertyValue propertyName="y" value="60" target="parentGroup.childBtn"/>
+		
+		
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="all_constraints_test2" keywords="[BasicLayout,intergration,constraints,measure]" description="verify horizontalCenter, veriticalCenter, left, right, top, bottom, percentWidth/percentHeight constraint set,verify parent.size is correct" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.DefaultGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="left" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="top" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="bottom" value="10" target="parentGroup.childBtn" />
+		
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn"/>
+		
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" />
+		<SetProperty propertyName="horizontalCenter" value="10" target="parentGroup.childBtn" />	
+		<SetProperty propertyName="verticalCenter" value="10" target="parentGroup.childBtn" 
+		 waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+	   </setup>
+	   <body>
+	   	<AssertPropertyValue propertyName="width" value="90" target="parentGroup.childGroup"/>
+	   
+	   	<AssertPropertyValue propertyName="height" value="41" target="parentGroup.childGroup"/>
+	   	
+	   	
+	   	 <!-- child.height=default height*50%, but respect measuredMinHeight -->
+	   	<AssertPropertyValue propertyName="height" value="21" target="parentGroup.childBtn"/>
+	   	
+	   	<AssertPropertyValue propertyName="width" value="35" target="parentGroup.childBtn"/>
+	   
+	   	
+		<!-- element.x=(parent.width-element.width)/2+horizontalCenter-->
+		<AssertPropertyValue propertyName="x" value="38" target="parentGroup.childBtn"/>
+		<!-- element.y=(parent.height-element.hight)/2+verticalCenter -->
+		<AssertPropertyValue propertyName="y" value="20" target="parentGroup.childBtn"/>
+		
+		
+	    </body>
+	</TestCase>
+	
+</testCases>
+
+
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

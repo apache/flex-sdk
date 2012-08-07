@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_styles.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import comps.PopupComboBox;
+			
+			public var popup:IFlexDisplayObject;
+			
+			protected function firePopup():void
+			{
+				var popup:IFlexDisplayObject = PopUpManager.createPopUp(application.myCB1, PopupComboBox);
+				PopUpManager.centerPopUp(popup);
+			}
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+		<TestCase testID="ComboBox_Styles_baseColor" keywords="[ComboBox, Style, baseColor]" description="Test baseColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>				
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="chromeColor" value="0xFF0000"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Styles_color1" keywords="[ComboBox, Style, color]" description="Test color on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				<SetStyle target="myCB1" styleName="color" value="0x0000FF" waitEvent="updateComplete" waitTarget="myCB1"/>				
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="color" value="0x0000FF"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="ComboBox_Styles_color2" keywords="[ComboBox, Style, color]" description="Test color on dropDown of ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="color" value="0x0000FF" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="color" value="0x0000FF"/>					
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>				
+				<Pause timeout="100"/>
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>			
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="ComboBox_Styles_contentBackgroundColor" keywords="[ComboBox, Style, contentBackgroundColor]" description="Test contentBackgroundColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="contentBackgroundColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="contentBackgroundColor" value="0x00FF00"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_focusColor" keywords="[ComboBox, Style, focusColor]" description="Test focusColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="focusColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB1" />
+				<AssertStyleValue target="myCB1" styleName="focusColor" value="0xFF0000"/>												
+				<AssertPixelValue target="stage" x="65" y="51" valueExpression="value=0x696969" />								
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_fontSize1" keywords="[ComboBox, Style, fontSize]" description="Test fontSize on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontSize" value="16" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				<SetProperty target="myCB1" propertyName="height" value="25" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontSize" value="16"/>				
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true" />				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Styles_fontSize2" keywords="[ComboBox, Style, fontSize]" description="Test large fontSize on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontSize" value="60" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				<SetProperty target="myCB1" propertyName="height" value="65" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontSize" value="60"/>				
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true" />				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_fontSize3" keywords="[ComboBox, Style, fontSize]" description="Test small fontSize on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontSize" value="8" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontSize" value="8"/>				
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_fontSize4" keywords="[ComboBox, Style, fontSize]" description="Test auto resize based on fontSize on ComboBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.Custom_CB2" waitEvent="updateComplete" waitTarget="myCB2"/>				
+			</setup>
+			<body>					
+				<RunCode code="FlexGlobals.topLevelApplication.myCB2.openDropDown()" waitEvent="open" waitTarget="myCB2"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myCB2.dropDown" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true" />			
+				<RunCode code="FlexGlobals.topLevelApplication.myCB2.closeDropDown(false)" waitTarget="myCB2" waitEvent="close" />								
+				<SetStyle target="myCB2" styleName="fontSize" value="16" waitEvent="updateComplete" waitTarget="myCB2"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB2.openDropDown()" waitEvent="open" waitTarget="myCB2"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myCB2.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true" />				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB2.closeDropDown(false)" waitTarget="myCB2" waitEvent="close" />								
+				<SetStyle target="myCB2" styleName="fontSize" value="10" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB2.openDropDown()" waitEvent="open" waitTarget="myCB2"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myCB2.dropDown" url="../Styles/Baselines/$testID_3.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myCB2.closeDropDown(false)" waitTarget="myCB2" waitEvent="close" />				
+			</body>
+		</TestCase>			
+
+		<TestCase testID="ComboBox_Styles_fontStyle1" keywords="[ComboBox, Style, fontStyle]" description="Test fontStyle on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontStyle" value="italic"/>				
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_fontStyle2" keywords="[ComboBox, Style, fontStyle]" description="Test fontStyle on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontSize" value="30" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				<SetProperty target="myCB1" propertyName="height" value="38" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontStyle" value="italic"/>
+				<AssertStyleValue target="myCB1" styleName="fontSize" value="30"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true" />				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_fontWeight1" keywords="[ComboBox, Style, fontWeight]" description="Test fontWeight on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontWeight" value="bold"/>				
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_fontWeight2" keywords="[ComboBox, Style, fontWeight]" description="Test fontWeight on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="fontSize" value="36" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				<SetProperty target="myCB1" propertyName="height" value="43" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="fontWeight" value="bold"/>				
+				<AssertStyleValue target="myCB1" styleName="fontSize" value="36"/>	
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_lineThrough" keywords="[ComboBox, Style, lineThrough]" description="Test lineThrough on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="myCB1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="lineThrough" value="true"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_lineThrough_airOnly" keywords="[ComboBox, Style, lineThrough]" description="Test lineThrough in AIR on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="myCB1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="lineThrough" value="true"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>				
+			</body>
+		</TestCase>			
+									
+		<TestCase testID="ComboBox_Styles_multiple1" keywords="[ComboBox, Style, contentBackgroundColor, baseColor]" description="Test contentBackgroundColor and baseColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="contentBackgroundColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="contentBackgroundColor" value="0x00FF00"/>
+				<AssertStyleValue target="myCB1" styleName="chromeColor" value="0xFF0000"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>		
+				<Pause timeout="100"/>
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="ComboBox_Styles_multiple2" keywords="[ComboBox, Style, color, contentBackgroundColor]" description="Test color and contentBackgroundColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetStyle target="myCB1" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>								
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<AssertStyleValue target="myCB1" styleName="color" value="0xFF0000"/>				
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>							
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>	
+
+		<TestCase testID="ComboBox_Styles_multiple3" keywords="[ComboBox, Style, color, baseColor]" description="Test color and baseColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetStyle target="myCB1" styleName="chromeColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>					
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<AssertStyleValue target="myCB1" styleName="chromeColor" value="0x0000FF"/>
+				<AssertStyleValue target="myCB1" styleName="color" value="0xFF0000"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>			
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>	
+
+		<TestCase testID="ComboBox_Styles_multiple4" keywords="[ComboBox, Style, color, contentBackgroundColor]" description="Test color and contentBackgroundColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetStyle target="myCB1" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetStyle target="myCB1" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<AssertStyleValue target="myCB1" styleName="color" value="0xFF0000"/>		
+				<AssertStyleValue target="myCB1" styleName="chromeColor" value="0x00FF00"/>			
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_MXML_Set" keywords="[ComboBox, Style]" description="Test setting multiple styles in MXML ComboBox">
+			<setup>
+				<ResetComponent target="myCB10" className="comps.Custom_CB10" waitEvent="updateComplete" waitTarget="myCB10"/>			
+				<SetProperty target="myCB10" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myCB10"/>
+				<SetProperty target="myCB10" propertyName="height" value="29" waitEvent="updateComplete"/>
+			</setup>
+			<body>	
+				<CompareBitmap target="myCB10" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB10.openDropDown()" waitEvent="open" waitTarget="myCB10"/>
+				<Pause timeout="100"/>			
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="368" stageY="352" waitEvent="rollOver" waitTarget="stage"/>				
+				<CompareBitmap target="myCB10.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true" />								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB10.closeDropDown(false)" waitTarget="myCB10" waitEvent="close"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_rollOverColor" keywords="[ComboBox, Style, rollOverColor]" description="Test setting rollOverColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>			
+				<SetStyle target="myCB1" styleName="rollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="rollOverColor" value="0xFF0000"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="140" stageY="135" waitEvent="rollOver" waitTarget="stage"/>
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ComboBox_Styles_rollOverColor2" keywords="[ComboBox, Style, rollOverColor]" description="Test rollOverColor while selectionColor is set on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="selectionColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="rollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCB1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="selectionColor" value="0x00FF00"/>
+				<AssertStyleValue target="myCB1" styleName="rollOverColor" value="0xFF0000"/>			
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="140" stageY="135" waitEvent="rollOver" waitTarget="stage"/>
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>	
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_selectionColor" keywords="[ComboBox, Style, selectionColor]" description="Test selectionColor on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="selectionColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myCB1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="selectionColor" value="0x00FF00"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_textAlignRight" keywords="[ComboBox, Style, textAlign]" description="Test textAlign on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="myCB1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="textAlign" value="right"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>				
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ComboBox_Styles_textAlignCenter" keywords="[ComboBox, Style, textAlign]" description="Test textAlign on ComboBox">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="myCB1"/>				
+				<SetProperty target="myCB1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myCB1"/>
+				<SetStyle target="myCB1" styleName="textAlign" value="center" waitEvent="updateComplete" waitTarget="myCB1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB1" styleName="textAlign" value="center"/>
+				<CompareBitmap target="myCB1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB1.closeDropDown(false)" waitTarget="myCB1" waitEvent="close"/>				
+			</body>
+		</TestCase>	
+
+		<TestCase testID="ComboBox_prompt_popup" description="Verify that prompts appear in popup windows." keywords="[ComboBox, prompt, popup]">
+			<setup>
+				<ResetComponent target="myCB1" className="comps.Custom_CB1" waitEvent="updateComplete"/>
+				<SetProperty target="myCB1" propertyName="width" value="300" waitEvent="updateComplete"/>
+				<SetProperty target="myCB1" propertyName="height" value="300" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="firePopup()"/>
+				<WaitForEffectsToEnd/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="myCB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

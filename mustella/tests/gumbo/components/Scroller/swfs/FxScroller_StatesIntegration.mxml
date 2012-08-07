@@ -1,0 +1,126 @@
+<s:Application width="200" height="300" backgroundColor="0xFFFFFF"
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+<fx:Script>
+<![CDATA[
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";
+        }
+    }
+
+    // This is the listener, set above.
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+
+
+]]>
+</fx:Script>
+
+    <!--fx:Style source="assets/myStyles.css" /-->
+
+<s:states>
+    <mx:State name="defaultState" />
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</s:states>
+<s:VGroup id="vg">
+<s:Scroller height="100" id="fc" width="100">
+
+<s:viewport.defaultState>
+    <s:Group >
+    <s:Rect width="100" height="160" >
+        <s:fill>
+            <mx:SolidColor color="0x00FFFF" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect x="10" y="10" width="30" height="215">
+            <s:fill>
+                <mx:SolidColor color="0xFFFF00" />
+            </s:fill>
+    </s:Rect>
+    </s:Group>
+</s:viewport.defaultState>
+<s:viewport.state1>
+    <s:DataGroup>
+    <s:itemRenderer>
+        <fx:Component>
+            <s:ItemRenderer>
+                <s:Rect width="50" height="22"><s:fill><s:SolidColor color="{0x0000FF + itemIndex * 100}" /></s:fill></s:Rect>
+            </s:ItemRenderer>
+        </fx:Component>
+    </s:itemRenderer>
+    <s:layout>
+            <s:VerticalLayout />
+    </s:layout>
+        <mx:ArrayCollection>
+            <fx:String>btn01</fx:String>
+            <fx:String>btn02</fx:String>
+            <fx:String>btn03</fx:String>
+            <fx:String>btn04</fx:String>
+            <fx:String>btn05</fx:String>
+            <fx:String>btn06</fx:String>
+        </mx:ArrayCollection>
+    </s:DataGroup>
+</s:viewport.state1>
+<s:viewport.state2>
+    <s:DataGroup>
+    <s:itemRenderer>
+        <fx:Component>
+            <s:ItemRenderer>
+                <s:Rect width="50" height="22"><s:fill><s:SolidColor color="{0xFF0000 + itemIndex * 100}" /></s:fill></s:Rect>
+            </s:ItemRenderer>
+        </fx:Component>
+    </s:itemRenderer>
+    <s:layout>
+            <s:VerticalLayout />
+    </s:layout>
+        <mx:ArrayCollection>
+            <fx:String>btn1</fx:String>
+            <fx:String>btn2</fx:String>
+            <fx:String>btn3</fx:String>
+            <fx:String>btn4</fx:String>
+            <fx:String>btn5</fx:String>
+            <fx:String>btn6</fx:String>
+            <fx:String>btn01</fx:String>
+            <fx:String>btn02</fx:String>
+            <fx:String>btn03</fx:String>
+            <fx:String>btn04</fx:String>
+            <fx:String>btn05</fx:String>
+            <fx:String>btn06</fx:String>
+        </mx:ArrayCollection>
+    </s:DataGroup>
+</s:viewport.state2>
+
+</s:Scroller>
+
+<s:Scroller height="80" id="sc1" includeIn="state2" width="100">
+    <s:Group >
+    <s:Rect width="80" height="60" >
+        <s:fill>
+            <mx:SolidColor color="0x3333FF" />
+        </s:fill>
+    </s:Rect>
+    <s:Ellipse width="30" height="120">
+            <s:fill>
+                <mx:SolidColor color="0x00FF00" />
+            </s:fill>
+    </s:Ellipse>
+    </s:Group>
+ </s:Scroller>
+
+</s:VGroup>
+
+</s:Application>

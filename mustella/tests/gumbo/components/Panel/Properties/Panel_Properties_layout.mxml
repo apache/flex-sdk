@@ -1,0 +1,45 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_layout.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+		<TestCase testID="Panel_Properties_horizontalLayout" keywords="[Panel, Layout]" description="Test horizontal layout Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelHLayout" className="Comps.CustomPanelHLayout" waitEvent="updateComplete" waitTarget="myCustomPanelHLayout"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myCustomPanelHLayout" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Panel_Properties_absoluteLayout" keywords="[Panel, Layout]" description="Test absolute layout Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelALayout" className="Comps.CustomPanelALayout" waitEvent="updateComplete" waitTarget="myCustomPanelALayout"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="stage" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+    </testCases>
+    
+</UnitTester>
+

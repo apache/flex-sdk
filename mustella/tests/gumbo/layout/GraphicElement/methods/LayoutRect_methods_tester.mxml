@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout/GraphicElement/methods/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutGraphicElement_main.mxml">
+
+
+
+        <!-- this set of lines form a template that must be in each unit test -->
+
+        <fx:Script>
+
+            <![CDATA[
+
+                  public static function init(o:DisplayObject):void {}
+
+            ]]>
+
+        </fx:Script>
+
+        <fx:Metadata>
+
+            <![CDATA[
+
+               [Mixin]
+
+            ]]>
+
+        </fx:Metadata>
+
+        <!-- end of set of lines that must be in each unit test -->
+
+
+
+        <fx:Script>
+
+            <![CDATA[
+
+             private function compareMatrix(actual:Matrix, expected:Matrix):Boolean{
+		trace("Actual: " + actual.toString());
+		trace("Expected: " + expected.toString());
+		trace("toFixed: " + expected.a.toFixed(1));
+		if     (actual.a.toFixed(4)  == expected.a.toFixed(4)  &&
+			actual.b.toFixed(4)  == expected.b.toFixed(4)  &&
+			actual.c.toFixed(4)  == expected.c.toFixed(4)  &&
+			actual.d.toFixed(4)  == expected.d.toFixed(4)  &&
+			actual.tx.toFixed(4) == expected.tx.toFixed(4) &&
+			actual.ty.toFixed(4) == expected.ty.toFixed(4) 	
+			)
+			return true;
+		else
+			return false;
+		}
+
+            ]]>
+
+        </fx:Script>
+
+
+
+    <testCases>
+
+	<!--*************************-->
+
+	<!--setLayoutBoundsPosition testing-->
+
+	<!--*************************-->
+
+		
+
+	<TestCase testID="RectsetLayoutBoundsPosition_properties_x30_y50" keywords="[setLayoutBoundsPosition, methods, layoutGraphicElement]" description="check height and width after calling setLayoutBoundsPosition">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<RunCode code="application.pan.b1.setLayoutBoundsPosition(30, 50)"/>
+
+		</setup>
+
+		<body>
+
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="30" />
+
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="RectsetLayoutBoundsPosition_properties_x0_y0" keywords="[setLayoutBoundsPosition, methods, layoutGraphicElement]" description="check height and width after calling setLayoutBoundsPosition">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<RunCode code="application.pan.b1.setLayoutBoundsPosition(0, 0)" />
+
+		</setup>
+
+		<body>
+
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="0" />
+
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="0" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="RectsetLayoutBoundsPosition_properties_x5000_y5000" keywords="[setLayoutBoundsPosition, methods, layoutGraphicElement]" description="check height and width after calling setLayoutBoundsPosition">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<RunCode code="application.pan.b1.setLayoutBoundsPosition(5000, 5000)"/>
+
+		</setup>
+
+		<body>
+
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="5000" />
+
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="5000" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--*********************-->
+
+	<!--setActualSize testing-->
+
+	<!--*********************-->
+
+	
+
+	<TestCase testID="RectsetActualSize_properties_x30_y50" keywords="[setActualSize, methods, layoutGraphicElement]" description="check height and width after calling setActualSize">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<RunCode code="application.pan.b1.setLayoutBoundsSize(30, 50)" />
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth()" value="30"/>
+
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight()" value="50"/>
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="RectsetActualSize_properties_x0_y0" keywords="[setActualSize, methods, layoutGraphicElement]" description="check height and width after calling setActualSize">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<RunCode code="application.pan.b1.setLayoutBoundsSize(0, 0)" />
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth()" value="0"/>
+
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight()" value="0"/>
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="RectsetActualSize_properties_x5000_y5000" keywords="[setActualSize, methods, layoutGraphicElement]" description="check height and width after calling setActualSize">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<RunCode code="application.pan.b1.setLayoutBoundsSize(5000, 5000)" />
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth()" value="5000"/>
+
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight()" value="5000"/>
+
+		</body>		
+
+	</TestCase>
+
+	<!--***********************-->
+	<!--setLayoutMatrix testing-->
+	<!--***********************-->
+	<TestCase testID="Rect_setLayoutMatrix_translation" keywords="[setLayoutMatrix, methods, layoutGraphicElement]" description="check height and width after setting the layout matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<RunCode code="application.pan.b1.setLayoutMatrix(new Matrix(1, 0, 0, 1, 15, 20), false)" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth()" value="40"/>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight()" value="22"/>
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="15" />
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="20" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="Rect_setLayoutMatrix_scale" keywords="[setLayoutMatrix, methods, layoutGraphicElement]" description="check height and width after setting the layout matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<RunCode code="application.pan.b1.setLayoutMatrix(new Matrix(5, 0, 0, 5, 0, 0), false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth(true)" value="200"/>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight(true)" value="110"/>
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="0" />
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="0" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="Rect_setLayoutMatrix_rotate" keywords="[setLayoutMatrix, methods, layoutGraphicElement]" description="check height and width after setting the layout matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<RunCode code="application.pan.b1.setLayoutMatrix(new Matrix(Math.cos(45*Math.PI/180), Math.sin(45*Math.PI/180), -Math.sin(45*Math.PI/180), Math.cos(45*Math.PI/180), 0, 0), false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth(true)" value="43.840620"/>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight(true)" value="43.8406204"/>
+			<AssertPropertyValue propertyName="rotation" value="45" target="pan.b1"/>
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="0" />
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="0" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="Rect_setLayoutMatrix_skew" keywords="[setLayoutMatrix, methods, layoutGraphicElement]" description="check height and width after setting the layout matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<RunCode code="application.pan.b1.setLayoutMatrix(new Matrix(1, Math.tan(30*Math.PI/180), Math.tan(30*Math.PI/180), 1, 0, 0), false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsWidth(true)" value="52.7017059"/>
+			<AssertMethodValue method="value=application.pan.b1.getLayoutBoundsHeight(true)" value="45.094011"/>
+			<AssertPropertyValue propertyName="x" target="pan.b1" value="0" />
+			<AssertPropertyValue propertyName="y" target="pan.b1" value="0" />
+		</body>		
+	</TestCase>
+	
+	<!--***********************-->
+	<!--getLayoutMatrix testing-->
+	<!--***********************-->
+	<TestCase testID="Rect_setLayoutMatrix_getLayoutMatrix" keywords="[getLayoutMatrix, methods, layoutUIC]" description="get the layoutMatrix after setting layout properties">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<RunCode code="application.pan.b1.setLayoutMatrix(new Matrix(5, 0, 0, 5, 0, 0), false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareMatrix(application.pan.b1.getLayoutMatrix(), new Matrix(5, 0, 0, 5, 0, 0))" value="true"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="Rect_getLayoutMatrix_translation" keywords="[getLayoutMatrix, methods, layoutUIC]" description="get the layoutMatrix after setting layout properties">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<SetProperty propertyName="x" value="20" target="pan.b1"/>
+			<SetProperty propertyName="y" value="25" target="pan.b1"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareMatrix(application.pan.b1.getLayoutMatrix(), new Matrix(1, 0, 0, 1, 20, 25))" value="true"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="Rect_getLayoutMatrix_scale" keywords="[getLayoutMatrix, methods, layoutUIC]" description="get the layoutMatrix after setting layout properties">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.b1"/>
+			<SetProperty propertyName="scaleY" value="3" target="pan.b1"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareMatrix(application.pan.b1.getLayoutMatrix(), new Matrix(2, 0, 0, 3, 0, 0))" value="true"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="Rect_getLayoutMatrix_rotate" keywords="[getLayoutMatrix, methods, layoutUIC]" description="get the layoutMatrix after setting layout properties">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.b1"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareMatrix(application.pan.b1.getLayoutMatrix(), new Matrix(Math.cos(45*Math.PI/180), Math.sin(45*Math.PI/180), -Math.sin(45*Math.PI/180), Math.cos(45*Math.PI/180), 0, 0))" value="true"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="Rect_getLayoutMatrix_skew" keywords="[getLayoutMatrix, methods, layoutUIC]" description="get the layoutMatrix after setting layout properties">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.b1" propertyName="includeInLayout" value="false"/>
+			<RunCode code="application.pan.b1.setLayoutMatrix(new Matrix(1, Math.tan(30*Math.PI/180), Math.tan(30*Math.PI/180), 1, 0, 0), false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareMatrix(application.pan.b1.getLayoutMatrix(), new Matrix(1, Math.tan(30*Math.PI/180), Math.tan(30*Math.PI/180), 1, 0, 0))" value="true"/>
+		</body>
+    	</TestCase>
+    </testCases>
+
+</UnitTester>    

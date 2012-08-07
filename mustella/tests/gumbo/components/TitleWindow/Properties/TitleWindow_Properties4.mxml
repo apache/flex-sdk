@@ -1,0 +1,50 @@
+﻿<UnitTester    
+    testDir="gumbo/components/TitleWindow/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic4.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import spark.components.TitleWindow;
+        	import comps.*;
+        		
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+		
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+	<TestCase testID="TitleWindow_Properties_title6" keywords="[TitleWindow, Title]" description="Test changing title in double byte characters">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,longTitle)" waitEvent="TitleWindowComplete" waitTarget=""/>
+			<!-- 
+			<SetStyle target="twObject" styleName="styleName" value="dbFont1" waitEvent="updateComplete" waitTarget="twObject"/>
+			-->
+			<RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('styleName','dbFont1')" waitEvent="updateComplete" waitTarget="twObject"/>
+	    </setup>
+	    <body>            	            	
+	    	<SetProperty target="twObject" propertyName="title" value="韓国で人?人感染 アジア初" waitEvent="propertyChange" waitTarget="twObject"/>
+	    	<AssertPropertyValue target="twObject" propertyName="title" value="韓国で人?人感染 アジア初"/>
+		    <CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+
+		 
+    </testCases>
+    
+</UnitTester>
+

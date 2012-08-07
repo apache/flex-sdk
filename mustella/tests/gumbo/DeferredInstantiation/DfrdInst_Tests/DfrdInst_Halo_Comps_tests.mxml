@@ -1,0 +1,72 @@
+<UnitTester
+    testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="DfrdInst_Halo_Comp_basic.mxml">           
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+ 
+		<TestCase testID="DfrdInst_IC_Halo_Comps_1" keywords="[Deferred, Instantiation]" description="Test DI with an SkinnableContainer containing Halo components with creationPolicy set to None" >
+            <setup>
+                <ResetComponent target="myAccordionIC" className="comps.CustomIC3" waitEvent="updateComplete" />                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myAccordionIC" propertyName="numElements" value="4" />
+                <CompareBitmap target="myAccordionIC" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+            </body>
+        </TestCase> 
+                            
+		<TestCase testID="DfrdInst_IC_Halo_Comps_2" keywords="[Deferred, Instantiation]" description="Test DI with an SkinnableContainer containing Halo components with creationPolicy set to None" >
+            <setup>
+                <ResetComponent target="myAccordionIC2" className="comps.CustomIC4" waitEvent="updateComplete" />                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myAccordionIC2" propertyName="numElements" value="0" />
+                <CompareBitmap target="myAccordionIC2" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+                <RunCode code="application.myAccordionIC2.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myAccordionIC2" />
+                <Pause timeout="100"/>
+                <CompareBitmap target="myAccordionIC2" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+            </body>
+        </TestCase>   
+   
+		<TestCase testID="DfrdInst_IC_Halo_Comps_3" keywords="[Deferred, Instantiation]" description="Test DI with an SkinnableContainer containing Halo components with creationPolicy set to None" >
+            <setup>
+                <ResetComponent target="myAccordionIC2" className="comps.CustomIC4" waitEvent="updateComplete" />                
+            </setup>
+            <body>                                
+            	<RunCode code="application.myAccordionIC2.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myAccordionIC2" />
+            	<Pause timeout="500"/>
+                <CompareBitmap target="myAccordionIC2.creationStatus" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+                <SetProperty target="myAccordionIC2.myAccordion4" propertyName="selectedIndex" value="1" waitTarget="myAccordionIC2.myAccordion4" waitEvent="updateComplete"/>
+                <Pause timeout="500"/>
+                <CompareBitmap target="myAccordionIC2.creationStatus" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+            </body>
+        </TestCase>   
+ 
+		<TestCase testID="DfrdInst_IC_Halo_Comps_4" keywords="[Deferred, Instantiation]" description="Test DI with a Halo component with DI auto inside a SkinnableContainer" >
+            <setup>
+                <ResetComponent target="myAccordionIC" className="comps.CustomIC3" waitEvent="updateComplete" />                
+            </setup>
+            <body>                            	
+                <AssertPropertyValue target="myAccordionIC.myAccordion1" propertyName="numElements" value="0" />                
+                <RunCode code="application.myAccordionIC.myAccordion1.createDeferredContent();" waitTarget="myAccordionIC.myAccordion1" waitEvent="updateComplete" />                
+                <AssertPropertyValue target="myAccordionIC.myAccordion1" propertyName="numElements" value="2" />                
+            </body>
+        </TestCase>        
+                                      
+    </testCases>
+    
+</UnitTester>  

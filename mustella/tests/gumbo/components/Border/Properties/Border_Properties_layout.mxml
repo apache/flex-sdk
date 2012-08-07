@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Border/Properties/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"  
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="Border_Layout_basic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import mx.core.FlexGlobals;
+    	import spark.components.BorderContainer;
+    	import spark.components.TextInput;
+    	import spark.layouts.VerticalLayout;
+    	
+    	public function addTextInput(container:BorderContainer): void
+    	{
+    	    var newTI:TextInput = new TextInput();
+    	    newTI.text = "Blah Blah" ;
+    	    container.addElement(newTI);
+    	}
+    	
+    	public function checkValues(value:Number, compareValue1:Number, compareValue2:Number): String
+    	{
+    	   if((compareValue1 < value) && (value < compareValue2))
+    	      return "pass"; 
+    	   else
+    	      return value + " is not between " + compareValue1 + " and " + compareValue2;
+    	}
+    ]]>
+  </fx:Script>
+  <testCases>
+
+	<TestCase testID="Border_Properties_multiLayout1" keywords="[Border,Properties]" description="Test layout on Border">
+		<setup>
+			<ResetComponent target="myEGrp" className="comps.customEmptyBorder2" waitEvent="updateComplete" />		
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="borderColor" value="red" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="borderColor" value="blue" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="top" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="bottom" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="left" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="right" value="10" waitEvent="updateComplete"/>			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myEGrp" />
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="Border_Properties_multiLayout2" keywords="[Border,Properties]" description="Test layout on Border">
+		<setup>
+			<ResetComponent target="myEGrp" className="comps.customEmptyBorder2" waitEvent="updateComplete" />		
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="borderColor" value="red" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="borderColor" value="blue" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="top" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="bottom" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="left" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="right" value="10" waitEvent="updateComplete"/>			
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="bottom" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="left" value="10" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myEGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_multiLayout3" keywords="[Border,Properties]" description="Test layout on Border">
+		<setup>
+			<ResetComponent target="myEGrp" className="comps.customEmptyBorder2" waitEvent="updateComplete" />		
+			<SetProperty target="myEGrp" propertyName="layout" valueExpression="value=new spark.layouts.VerticalLayout()" waitEvent="updateComplete" />
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="borderColor" value="red" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="borderColor" value="blue" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="top" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="bottom" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="left" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder1" styleName="right" value="10" waitEvent="updateComplete"/>			
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="bottom" value="10" waitEvent="updateComplete"/>
+			<SetStyle target="myEGrp.myEmptyBorder2" styleName="left" value="10" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myEGrp" />
+		</body>
+	</TestCase>		
+	<TestCase testID="Border_Properties_baselinePosition" keywords="[BorderContainer,Properties, baselinePosition]" description="Test baselinePosition on 
+	    BorderContainer">
+            <bugs>
+                <Bug bugID="SDK-23462" />
+            </bugs>
+		<setup>
+			<ResetComponent target="myEGrp" className="comps.customEmptyBorder2" waitEvent="updateComplete" />		
+			<RunCode code="addTextInput(application.myEGrp.getElementAt(0))" waitEvent="updateComplete" waitTarget="myEGrp.getElementAt(0)" />
+		</setup>
+		<body>			
+			<AssertMethodValue method="value=checkValues(application.myEGrp.getElementAt(0).baselinePosition, 10, 12)" value="pass" />
+		</body>
+	</TestCase>	
+  </testCases>
+</UnitTester>
+

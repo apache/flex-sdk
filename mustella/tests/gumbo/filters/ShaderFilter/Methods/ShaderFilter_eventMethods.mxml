@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/filters/ShaderFilter/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ShaderFilterApp2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import flash.display.Shader;
+        import flash.events.Event;
+        import spark.filters.ShaderFilter;
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+These methods related to events just call eventDispatcher.XX() and pass along the parameters which were passed in.
+Therefore, there will not be extensive tests for this standard event functionality here.
+-->
+
+<TestCase testID="addEventListener_test1_dispatchEvent_test1" keywords="[ShaderFilter,addEventListener]" description="Add an event listener and be sure it is called when the even occurs.  This also exercises dispatchEvent." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <RunCode code="application.sf1.addEventListener('change', application.customEventListener)" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <AssertEvent target="sf1" eventName="ShaderFilterApp2_CustomEvent" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="hasEventListener_test1" keywords="[ShaderFilter,hasEventListener]" description="Should be true after a listener has been added." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <RunCode code="application.sf1.addEventListener('hotdog', application.customEventListener)" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value = application.sf1.hasEventListener('hotdog')" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="hasEventListener_test2" keywords="[ShaderFilter,hasEventListener]" description="Should be false if there is no event listener." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value = application.sf1.hasEventListener('hotdog')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="hasEventListener_test3_removeEventListener_test1" keywords="[ShaderFilter,hasEventListener]" description="Should be false if listeners for the event have been removed.  Also exercises removeEventListener." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <RunCode code="application.sf1.addEventListener('hotdog', application.customEventListener)" />
+        <RunCode code="application.sf1.removeEventListener('hotdog', application.customEventListener)" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value = application.sf1.hasEventListener('hotdog')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeEventListener_test2" keywords="[ShaderFilter,removeEventListener]" description="Remove a listener, dispatch an event, and be sure the listener is not called." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <RunCode code="application.sf1.addEventListener('hotdog', application.customEventListener)" />
+        <RunCode code="application.sf1.removeEventListener('hotdog', application.customEventListener)" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <RunCode code="application.sf1.dispatchEvent(new Event('hotdog'))" />
+        <AssertNoEvent target="sf1" eventName="ShaderFilterApp2_CustomEvent" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeEventListener_test3" keywords="[ShaderFilter,removeEventListener]" description="Be sure it does not remove a listener which does not meet the criteria." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <RunCode code="application.sf1.addEventListener('hotdog', application.customEventListener)" />
+        <RunCode code="application.sf1.removeEventListener('hotdog', application.customEventListener2)" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <RunCode code="application.sf1.dispatchEvent(new Event('hotdog'))" />
+        <AssertEvent target="sf1" eventName="ShaderFilterApp2_CustomEvent" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<TestCase testID="willTrigger_test1" keywords="[ShaderFilter,willTrigger]" description="Should be false for an event which will not occur." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value = application.sf1.willTrigger('ShaderFilterApp2_CustomEvent')" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="willTrigger_test2" keywords="[ShaderFilter,willTrigger]" description="Should be true for an event which will occur." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <RunCode code="application.sf1.addEventListener('change', application.customEventListener)" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value = application.sf1.willTrigger('change')" value="true" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

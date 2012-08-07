@@ -1,0 +1,14 @@
+<s:Application backgroundColor="0xFFFFFF" height="400" width="400"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="comps.*">
+    <s:layout><s:BasicLayout/></s:layout>
+
+    <fx:Style source="assets/myStyles.css" />
+<fx:Script>
+<![CDATA[
+
+ ]]>
+</fx:Script>
+
+    <local:GraphicsGroup id="eg" />
+
+</s:Application>

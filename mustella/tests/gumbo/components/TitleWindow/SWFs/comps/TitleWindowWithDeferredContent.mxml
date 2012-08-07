@@ -1,0 +1,36 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    width="300" height="400"
+    creationPolicy="{policy}"  creationComplete="completeCreation()">
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+			public var msg:String="";
+			[Bindable]
+			public var policy:String="none";//default value is none
+			
+			override public function createDeferredContent():void
+			{
+				super.createDeferredContent();
+				var b:spark.components.Button=new Button();
+				var n:Number=numElements;
+				b.label="testButton";
+				b.name="testButton";
+				this.addElementAt(b,n);
+				msg+=" testButton is created";
+			}
+	
+			public function completeCreation():void
+			{
+				msg="creationComplete done";
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	<mx:Label text="Halo Label"/>
+   	<s:Label text="Spark Label"/>
+   	
+</s:TitleWindow>

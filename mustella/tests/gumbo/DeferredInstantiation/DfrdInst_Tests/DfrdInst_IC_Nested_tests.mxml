@@ -1,0 +1,45 @@
+<UnitTester testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="DfrdInst_Nested_basic.mxml">
+            
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+                                 
+	<TestCase testID="DfrdInst_Nested_IC_1" keywords="[Deferred, Instantiation, FxContainer, Nested]" description="Test Deferred Instantiation with Nested FxContainers" >
+            <setup>
+                <ResetComponent target="myNestedICNone1" className="comps.CustomICNestedNone" waitEvent="updateComplete" />                
+            </setup>
+            <body>                                                
+                <CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+                <RunCode code="application.myNestedICNone1.createDeferredContent();" waitTarget="myNestedICNone1" waitEvent="contentCreationComplete" />
+                <CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+                <RunCode code="application.myNestedICNone1.myNestedIC2.createDeferredContent();" waitTarget="myNestedICNone1.myNestedIC2" waitEvent="contentCreationComplete" />             
+                <CompareBitmap target="myNestedICNone1" url="../DfrdInst_Tests/Baselines/$testID_3.png"/>
+            </body>
+        </TestCase>
+        
+	<TestCase testID="DfrdInst_Nested_IC_2" keywords="[Deferred, Instantiation, FxContainer, Nested]" description="Test Deferred Instantiation with Nested FxContainers" >
+            <setup>
+                <ResetComponent target="myNestedICAuto1" className="comps.CustomICNestedAuto" waitEvent="updateComplete" />                
+            </setup>
+            <body>                                                
+                <CompareBitmap target="myNestedICAuto1" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>                
+            </body>
+        </TestCase>        
+                
+    </testCases>
+    
+</UnitTester>  

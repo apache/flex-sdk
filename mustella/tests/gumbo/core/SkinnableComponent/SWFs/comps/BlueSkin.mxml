@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  >
+    <fx:Declarations>
+		<fx:Component id="ellipseClass">
+			<s:Group top="0" left="0">
+				<s:Ellipse width="300" height="300" >
+					<s:fill>
+						<mx:SolidColor color="0xFF0000"/>
+					</s:fill>
+				</s:Ellipse>	
+			</s:Group>
+		</fx:Component>
+	</fx:Declarations>
+	
+    <s:states>
+        <s:State name="one" />
+        <s:State name="two" />
+        <s:State name="three" />
+        <s:State name="four"/>
+    </s:states>
+    
+    <s:Group>
+   	 <s:layout>
+   		<s:VerticalLayout/>
+	</s:layout>
+	<!-- current state -->
+	<s:Label id="myState" top="10" left="10" />
+
+	<!-- num dynamic parts -->
+	<s:Label id="dp" top="30" left="10"/>
+	
+	<s:Group>
+		<!-- border -->
+		<s:Rect id="brdr" left="0" right="0" top="0" bottom="0" width="55" height="55">
+			<s:stroke>            
+				<mx:SolidColorStroke weight="5" color="0x00688B" color.one="0x23238E" color.two="0xAAAAFF" />
+			</s:stroke>
+		</s:Rect>
+
+		<!-- fill -->
+		<s:Rect id="fl" left="5" right="5" top="5" bottom="5" width="50" height="50">
+			<s:stroke>
+				<mx:SolidColorStroke color="0x00688B" color.one="0x5959AB" color.two="0xE6E6FA" />
+			</s:stroke>
+			<s:fill>
+				<mx:SolidColor color="0x0000FF" color.one="0x5959AB" color.two="0xE6E6FA" />
+			</s:fill>
+		</s:Rect>
+
+		<!-- label -->
+		<s:Label id="txt" text="three" fontFamily="Arial" fontSize="11" color="0x444444" horizontalCenter="0" verticalCenter="0" left="10" right="10" top="4" bottom="2" textAlign="center" verticalAlign="middle"/>
+		
+	</s:Group>
+	
+	<mx:TabNavigator id="tn"  width="100" height="200">
+	        <mx:VBox label="Panel 1">
+	            <mx:Label text="TabNavigator container panel 1"/>
+	        </mx:VBox>
+	
+	        <mx:VBox label="Panel 2">
+	            <mx:Label text="TabNavigator container panel 2"/>
+	            <s:Button id="db" label="Deferred Button"/>
+	        </mx:VBox>
+    </mx:TabNavigator>
+    
+     </s:Group>
+</s:Skin>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DesignLayer/integration/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DesignLayerBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import mx.core.mx_internal;
+  
+    ]]>
+  </fx:Script>
+  <testCases>
+
+<!-- 
+
+DesignLayer Integration Testing
+==========================
+
++ effects
++ focus
++ misc
+
+-->
+
+<!-- effects -->
+
+<TestCase testID="DesignLayer_Integration_effects_parallel" keywords="[DesignLayer, integration, effects]" description="check that Fade and SetProperty can be used in parallel, in parallel">
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen1" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_effects_parallel_nested" keywords="[DesignLayer, integration, effects]" description="check that effect can be on used on DL with parent">
+	<!-- bugs>
+		<Bug bugID="SDK-22987" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen4" />
+	</body>
+</TestCase>
+
+<!-- focus -->
+
+<TestCase testID="DesignLayer_Integration_focus_visible_spark" keywords="[DesignLayer, integration, focus]" description="check that focus can be gained after changing visible">
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<AssertMethodValue method="application.integrationGroup.focusEntryButton.setFocus()" />
+
+		<DispatchKeyEvent key="TAB" waitTarget="integrationGroup.dlFocusVetD" waitEvent="focusIn" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen2" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_focus_visible_halo" keywords="[DesignLayer, integration, focus]" description="check that focus can be gained after changing visible">
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<AssertMethodValue method="application.integrationGroup.focusEntryButton.setFocus()" />
+
+		<DispatchKeyEvent key="TAB" waitTarget="integrationGroup.dlFocusVetD" waitEvent="focusIn" />
+		<DispatchKeyEvent key="TAB" waitTarget="integrationGroup.dlFocusVetE" waitEvent="focusIn" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen2" numColorVariances="5" ignoreMaxColorVariance="true" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_focus_invisible" keywords="[DesignLayer, integration, focus]" description="invisible elements shouldn't gain focus">
+	<!-- bugs>
+		<Bug bugID="SDK-22865" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="integrationGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<Pause timeout="600" />
+		<AssertMethodValue method="application.integrationGroup.focusEntryButton.setFocus()" />
+
+		<DispatchKeyEvent key="TAB" waitTarget="integrationGroup.focusExitButton" waitEvent="focusIn" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen2" />
+	</body>
+</TestCase>
+
+<!-- misc -->
+
+<TestCase testID="DesignLayer_Integration_halo_parent" keywords="[DesignLayer, integration, halo]" description="should work with a halo parent">
+	<!-- bugs>
+		<Bug bugID="SDK-22870" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen3" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_itemRenderer" keywords="[DesignLayer, integration, itemRenderer]" description="should work in an item renderer">
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen5" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_createAtRuntime" keywords="[DesignLayer, integration]" description="create a DesignLayer at runtime">
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.dlCreatedAtRuntime = application.createDesignLayer(0.5)" />
+		<SetProperty target="integrationGroup.dlAtRuntimeVetA" propertyName="designLayer" valueExpression="value=application.dlCreatedAtRuntime" />
+		<SetProperty target="integrationGroup.dlAtRuntimeVetB" propertyName="designLayer" valueExpression="value=application.dlCreatedAtRuntime" />
+		<SetProperty target="integrationGroup.dlAtRuntimeVetC" propertyName="designLayer" valueExpression="value=application.dlCreatedAtRuntime" />
+		<SetProperty target="integrationGroup.dlAtRuntimeVetD" propertyName="designLayer" valueExpression="value=application.dlCreatedAtRuntime" />
+		<SetProperty target="integrationGroup.dlAtRuntimeVetE" propertyName="designLayer" valueExpression="value=application.dlCreatedAtRuntime" />
+		<SetProperty target="integrationGroup.dlAtRuntimeVetF" propertyName="designLayer" valueExpression="value=application.dlCreatedAtRuntime" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen6" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_orphanALayer" keywords="[DesignLayer, integration]" description="orphan a layer make sure alpha/visible updates">
+	<!-- bugs>
+		<Bug bugID="SDK-23247" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.alpha=0.5;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild2.alpha=0.5;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.removeLayer(application.integrationGroup.dlRemoveChild2);" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.integrationGroup.dlRemoveChild2.effectiveAlpha" value="0.5" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen7" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_reparentALayer_alpha" keywords="[DesignLayer, integration]" description="reparent a layer make sure alpha updates">
+	<!-- bugs>
+		<Bug bugID="SDK-23247" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.alpha=0.1;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild2.alpha=0.8;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild3.alpha=0.2;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.removeLayer(application.integrationGroup.dlRemoveChild2);" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild3.addLayer(application.integrationGroup.dlRemoveChild2);" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.integrationGroup.dlRemoveChild2.effectiveAlpha" value="0.16" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen7" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_reparentALayer_visible_true" keywords="[DesignLayer, integration]" description="reparent a layer make sure visible updates">
+	<!-- bugs>
+		<Bug bugID="SDK-23247" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.visible=false;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild2.visible=true;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild3.visible=true;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.removeLayer(application.integrationGroup.dlRemoveChild2);" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild3.addLayer(application.integrationGroup.dlRemoveChild2);" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.integrationGroup.dlRemoveChild2.effectiveVisibility" value="true" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen7" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_reparentALayer_visible_false" keywords="[DesignLayer, integration]" description="reparent a layer make sure visible updates">
+	<!-- bugs>
+		<Bug bugID="SDK-23247" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.visible=false;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild2.visible=true;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild3.visible=false;" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild1.removeLayer(application.integrationGroup.dlRemoveChild2);" />
+		<AssertMethodValue method="application.integrationGroup.dlRemoveChild3.addLayer(application.integrationGroup.dlRemoveChild2);" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.integrationGroup.dlRemoveChild2.effectiveVisibility" value="false" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen7" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_layerHierarchy_visible" keywords="[DesignLayer, integration]" description="adding a child layer after assigning designLayer should work fine for visible">
+	<!-- bugs>
+		<Bug bugID="SDK-23254" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.integrationGroup.constructLayerHierarchy(application.integrationGroup.screen8, 'visible')" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.integrationGroup.dlHierarchyInnerLayer.effectiveVisibility" value="false" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen8" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Integration_layerHierarchy_alpha" keywords="[DesignLayer, integration]" description="adding a child layer after assigning designLayer should work fine for alpha">
+	<!-- bugs>
+		<Bug bugID="SDK-23254" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.integrationGroup.constructLayerHierarchy(application.integrationGroup.screen8, 'alpha')" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.integrationGroup.dlHierarchyInnerLayer.effectiveAlpha" value="0.25" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="integrationGroup.screen8" />
+	</body>
+</TestCase>
+
+  </testCases>
+</UnitTester>

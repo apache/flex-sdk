@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="TabBarApp1.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.TabBar;
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="TabBar_Style_baseColor_mxml" keywords="[TabBar, baseColor]" description="Ensure that baseColor works in mxml.">
+			<body>
+				<AssertStyleValue target="baseColor_tabBar" styleName="chromeColor" value="0xFFFF00"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_color_mxml" keywords="[TabBar, color]" description="Ensure that color works in mxml.">
+			<body>
+				<AssertStyleValue target="color_tabBar" styleName="color" value="0xFF0000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="color_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_focusColor_mxml" keywords="[TabBar, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+			    <DispatchMouseClickEvent target="focusColor_tabBar" localX="5" localY="5" waitEvent="click"
+			        waitTarget="focusColor_tabBar" />
+			    <DispatchKeyEvent keys="[TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="focusColor_tabBar" />
+			</setup>
+			<body>
+				<AssertStyleValue target="focusColor_tabBar" styleName="focusColor" value="0xCC0033"/>
+				<Pause timeout="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="focusColor_tabBar_box" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_baseColor_as" keywords="[TabBar, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_tabBar" className="spark.components.TabBar" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+		        <SetProperty target="baseColor_tabBar" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_tabBar" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+				<CompareBitmap url="../styles/baselines/TabBar_Style_baseColor_mxml.png" target="baseColor_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_baseColor_mouseOver" keywords="[TabBar, baseColor]" description="Ensure that baseColor works when you mouseOver a button.">
+			<setup>
+				<ResetComponent target="baseColor_tabBar" className="spark.components.TabBar" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+		        <SetProperty target="baseColor_tabBar" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_tabBar" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+				<DispatchMouseClickEvent target="baseColor_tabBar" localX="5" localY="5" waitEvent="mouseUp"
+					waitTarget="baseColor_tabBar" />
+				<DispatchMouseEvent type="mouseMove" target="baseColor_tabBar" localX="9" localY="10" waitEvent="mouseMove"
+					waitTarget="baseColor_tabBar" />
+				<Pause timeout="50"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_baseColor_disabled" keywords="[TabBar, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_tabBar" className="spark.components.TabBar" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+		        <SetProperty target="baseColor_tabBar" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_tabBar" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+				<SetProperty target="baseColor_tabBar" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_tabBar"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_color_as" keywords="[TabBar, color]" description="Ensure that baseColor still works when a Button is disabled.">
+			<setup>
+				<ResetComponent target="color_tabBar" className="spark.components.TabBar" waitEvent="updateComplete" waitTarget="color_tabBar"/>
+		        <SetProperty target="color_tabBar" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" waitEvent="updateComplete" waitTarget="color_tabBar"/>
+			</setup>
+			<body>
+				<SetStyle target="color_tabBar" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_tabBar"/>
+				<CompareBitmap url="../styles/baselines/TabBar_Style_color_mxml.png" target="color_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Style_color_disabled" keywords="[TabBar, color]" description="Ensure that color still works when a Button is disabled.">
+			<setup>
+				<ResetComponent target="color_tabBar" className="spark.components.TabBar" waitEvent="updateComplete" waitTarget="color_tabBar"/>
+		        <SetProperty target="color_tabBar" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" waitEvent="updateComplete" waitTarget="color_tabBar"/>
+			</setup>
+			<body>
+				<SetStyle target="color_tabBar" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_tabBar"/>
+				<SetProperty target="color_tabBar" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="color_tabBar"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="color_tabBar" numColorVariances="7" maxColorVariance="10"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

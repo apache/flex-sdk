@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ListDragDrop/SparkHaloDND/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="SparkHaloDNDBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	import spark.layouts.*;
+    ]]>
+  </fx:Script>
+
+  <testCases>
+
+	<TestCase testID="DataGrid_SparkList_DND" keywords="[DragDrop]" description="">
+	   <body>
+		<DispatchMouseEvent target="dg"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="dg"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="dg"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="dg"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="slv1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="slv1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="slv1" type="mouseUp" localX="50" localY="15"  waitTarget="slv1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="slv1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="DataGrid_SparkTileList_DND" keywords="[DragDrop]" description="">
+	   <body>
+		<DispatchMouseEvent target="dg"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="dg"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="dg"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="dg"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="50" localY="15"  waitTarget="stl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="30" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="DataGrid_SparkHList_DND" keywords="[DragDrop]" description="">
+	   <body>
+		<DispatchMouseEvent target="dg"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="dg"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="dg"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="dg"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="5" localY="5" />
+ 		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="shl1" type="mouseUp" localX="50" localY="15"  waitTarget="shl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="30" target="shl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloTileList_SparkList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="slv1" className="comps.ListVariableRowsComp" waitEvent="updateComplete" />
+		<ResetComponent target="tl1" className="comps.haloTileListIconComp" waitEvent="updateComplete" />
+           </setup>
+
+	   <body>
+		<DispatchMouseEvent target="tl1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="tl1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="tl1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="tl1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="slv1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="slv1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="slv1" type="mouseUp" localX="50" localY="15"  waitTarget="slv1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="slv1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloTileList_SparkTileList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="tl1" className="comps.haloTileListIconComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="tl1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="tl1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="tl1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="tl1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="50" localY="15"  waitTarget="stl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="30" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloTileList_SparkHList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="shl1" className="comps.HListComp" waitEvent="updateComplete" />
+		<ResetComponent target="tl1" className="comps.haloTileListIconComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="tl1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="tl1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="tl1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="tl1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="shl1" type="mouseUp" localX="50" localY="15"  waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="30" target="shl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloList_SparkList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="slv1" className="comps.ListVariableRowsComp" waitEvent="updateComplete" />
+		<ResetComponent target="l1" className="comps.haloListComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="slv1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="slv1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="slv1" type="mouseUp" localX="50" localY="15"  waitTarget="slv1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="slv1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+
+	<TestCase testID="HaloList_SparkTileList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="l1" className="comps.haloListComp" waitEvent="updateComplete" />
+
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="50" localY="15"  waitTarget="stl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="30" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloHList_SparkHList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="shl1" className="comps.HListComp" waitEvent="updateComplete" />
+		<ResetComponent target="hl1" className="comps.haloHListComp" waitEvent="updateComplete" />
+
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="hl1"  type="mouseUp"  localX="30" localY="10" />
+		<DispatchMouseEvent target="hl1"  type="mouseOver" buttonDown="false" localX="30" localY="10" />
+ 		<DispatchMouseEvent target="hl1"  type="mouseDown" buttonDown="true"  localX="30" localY="10" />
+ 		<DispatchMouseEvent target="hl1"  type="mouseMove" buttonDown="true"  localX="30" localY="10" />
+ 		<DispatchMouseEvent target="hl1"  type="mouseMove" buttonDown="true"  localX="30" localY="30" />
+ 		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="shl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+		<DispatchMouseEvent target="shl1" type="mouseUp" localX="50" localY="15"  waitTarget="shl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="shl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloHList_SparkTileList_DND" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="hl1" className="comps.haloHListComp" waitEvent="updateComplete" />
+
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="hl1"  type="mouseUp"  localX="40" localY="10" />
+		<DispatchMouseEvent target="hl1"  type="mouseOver" buttonDown="false" localX="40" localY="10" />
+ 		<DispatchMouseEvent target="hl1"  type="mouseDown" buttonDown="true"  localX="40" localY="10" />
+ 		<DispatchMouseEvent target="hl1"  type="mouseMove" buttonDown="true"  localX="40" localY="10" />
+ 		<DispatchMouseEvent target="hl1"  type="mouseMove" buttonDown="true"  localX="40" localY="30" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="50" localY="15"  waitTarget="stl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="30" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="DataGrid_SparkList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="dg" className="comps.DataGridComp" waitEvent="updateComplete" />
+		<ResetComponent target="slv1" className="comps.ListVariableRowsComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="slv1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="slv1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+
+ 		<DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="15" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="dg" type="mouseUp" localX="50" localY="35" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="dg" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="DataGrid_SparkTileList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="dg" className="comps.DataGridComp" waitEvent="updateComplete" />
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="15" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="dg" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="dg" type="mouseUp" localX="50" localY="35"  waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="dg" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloTileList_SparkList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="tl1" className="comps.haloTileListIconComp" waitEvent="updateComplete" />
+		<ResetComponent target="slv1" className="comps.ListVariableRowsComp" waitEvent="updateComplete" />
+
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="slv1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="slv1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+ 		<DispatchMouseEvent target="tl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="tl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="tl1" type="mouseUp" localX="50" localY="15"   waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="tl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloTileList_SparkTileList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="tl1" className="comps.haloTileListIconComp" waitEvent="updateComplete" />
+           </setup>
+
+	   <body>
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+
+ 		<DispatchMouseEvent target="tl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="tl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="tl1" type="mouseUp" localX="50" localY="15"  waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="tl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloList_SparkList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="l1" className="comps.haloListComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="slv1"  type="mouseUp"  localX="40" localY="40" />
+		<DispatchMouseEvent target="slv1"  type="mouseOver" buttonDown="false" localX="40" localY="40" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseDown" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseMove" buttonDown="true"  localX="40" localY="100" />
+
+ 		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="l1" type="mouseUp" localX="50" localY="15"  waitTarget="l1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="l1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+
+	<TestCase testID="HaloHList_SparkList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="hl1" className="comps.haloHListComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="slv1"  type="mouseUp"  localX="30" localY="10" />
+		<DispatchMouseEvent target="slv1"  type="mouseOver" buttonDown="false" localX="30" localY="10" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseDown" buttonDown="true"  localX="30" localY="10" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseMove" buttonDown="true"  localX="30" localY="10" />
+ 		<DispatchMouseEvent target="slv1"  type="mouseMove" buttonDown="true"  localX="30" localY="30" />
+
+ 		<DispatchMouseEvent target="hl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete" />
+
+		<DispatchMouseEvent target="hl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move" />
+		<DispatchMouseEvent target="hl1" type="mouseUp" localX="50" localY="15"  waitTarget="hl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="HaloHList_SparkTileList_DND1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="hl1" className="comps.haloHListComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="40" localY="10" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="40" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="40" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="40" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="40" localY="30" />
+
+ 		<DispatchMouseEvent target="hl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+
+		<DispatchMouseEvent target="hl1" type="mouseMove" buttonDown="true" localX="50" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="hl1" type="mouseUp" localX="50" localY="15"  waitTarget="hl1" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+  </testCases>
+</UnitTester>

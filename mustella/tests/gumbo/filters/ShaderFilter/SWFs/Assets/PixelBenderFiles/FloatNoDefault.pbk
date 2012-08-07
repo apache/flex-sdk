@@ -1,0 +1,24 @@
+<languageVersion : 1.0;>
+
+kernel FloatRNoDefault
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts a float as its parameter, which sets the red level.  It has no default value.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float theFloat;
+
+    void
+    evaluatePixel()
+    {
+        float4 inputColor = sampleNearest(src, outCoord());
+        dst.r = theFloat;
+        dst.g = inputColor.g;
+        dst.b = inputColor.b;
+        dst.a = inputColor.a;
+    }
+}

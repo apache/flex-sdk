@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextInput/Styles/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:m="http://ns.adobe.com/mxml/2009"
+		xmlns="*" testSWF="Flex4_TextInput_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.TextInput;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="FxTextInput_Style_baseColor_mxml" keywords="[FxTextInput, baseColor]" description="Ensure that baseColor works in mxml.">
+			<body>
+				<SetProperty target="baseColor_ti" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="baseColor_ti" styleName="chromeColor" value="0xFFFF00"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_color_mxml" keywords="[FxTextInput, color]" description="Ensure that color works in mxml.">
+			<body>
+				<SetProperty target="color_ti" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="color_ti" styleName="color" value="0xFF0000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="color_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_focusColor_mxml" keywords="[FxTextInput, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+				<SetProperty target="focusColor_ti" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="focusColor_ti" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="focusColor_ti" />
+			    <RunCode code="application.focusColor_ti.selectRange(0,5);" waitTarget="focusColor_ti" waitEvent="selectionChange" />
+			</setup>
+			<body>
+				<AssertStyleValue target="focusColor_ti" styleName="focusColor" value="0xCC0033"/>
+				<Pause timeout="250" />
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="focusColor_ti_box" numColorVariances="4" maxColorVariance="16"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_contentBackgroundColor_mxml" keywords="[FxTextInput, contentBackgroundColor]" description="Ensure that contentColor works in mxml.">
+			<body>
+				<SetProperty target="contentBackgroundColor_ti" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="contentBackgroundColor_ti" styleName="contentBackgroundColor" value="0xFFCCFF"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="contentBackgroundColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_selectionColor_mxml" keywords="[FxTextInput, selectionColor]" description="Ensure that selectionColor works in mxml.">
+			<setup>
+			    <RunCode code="application.selectionColor_ti.selectRange(0,5);" waitTarget="selectionColor_ti" waitEvent="selectionChange" />
+			    <SetProperty target="selectionColor_ti" propertyName="height" value="21" waitEvent="updateComplete"/>
+			    <DispatchMouseClickEvent target="selectionColor_ti" localX="5" localY="5" waitEvent="focusIn" waitTarget="selectionColor_ti" />
+			</setup>
+			<body>
+				<AssertStyleValue target="selectionColor_ti" styleName="focusedTextSelectionColor" value="0xFF9966"/>
+				<Pause timeout="550" />
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="selectionColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_baseColor_as" keywords="[FxTextInput, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+		        <SetProperty target="baseColor_ti" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+				<SetProperty target="baseColor_ti" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+			    <SetProperty target="baseColor_ti" propertyName="text" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_ti" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+				<CompareBitmap url="../styles/baselines/FxTextInput_Style_baseColor_mxml.png" target="baseColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_baseColor_disabled" keywords="[FxTextInput, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+		        <SetProperty target="baseColor_ti" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+		         <SetProperty target="baseColor_ti" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+			    <SetProperty target="baseColor_ti" propertyName="text" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_ti" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+				<SetProperty target="baseColor_ti" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_ti"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_color_as" keywords="[FxTextInput, color]" description="Ensure that baseColor still works when a TextInput is disabled.">
+			<setup>
+				<ResetComponent target="color_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="color_ti"/>
+		        <SetProperty target="color_ti" propertyName="x" value="323" />
+			    <SetProperty target="color_ti" propertyName="height" value="21" />
+			    <SetProperty target="color_ti" propertyName="text" value="color" waitEvent="updateComplete" waitTarget="color_ti"/>
+			</setup>
+			<body>
+				<SetStyle target="color_ti" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_ti"/>
+				<CompareBitmap url="../styles/baselines/FxTextInput_Style_color_mxml.png" target="color_ti" numColorVariances="4" maxColorVariance="16" />
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_color_disabled" keywords="[FxTextInput, color]" description="Ensure that color still works when a TextInput is disabled.">
+			<setup>
+				<ResetComponent target="color_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="color_ti"/>
+				<SetProperty target="color_ti" propertyName="height" value="21" />
+			    <SetProperty target="color_ti" propertyName="x" value="323" />
+			    <SetProperty target="color_ti" propertyName="text" value="color" waitEvent="updateComplete" waitTarget="color_ti"/>
+			</setup>
+			<body>
+				<SetStyle target="color_ti" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_ti"/>
+				<SetProperty target="color_ti" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="color_ti"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="color_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_focusColor_as" keywords="[FxTextInput, focusColor]" description="Ensure that focusColor works at runtime.">
+			<setup>
+			    <ResetComponent target="focusColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="focusColor_ti"/>
+		        <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput"/>
+		        <SetProperty target="focusColor_ti" propertyName="height" value="21" waitEvent="updateComplete"/>
+			    <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+			    <SetProperty target="focusColor_ti" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="focusColor_ti"/>
+			    <SetProperty target="focusColor_ti" propertyName="text" value="focusColor" waitEvent="updateComplete" waitTarget="focusColor_ti"/>
+			    <DispatchMouseClickEvent target="focusColor_ti" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="focusColor_ti" />
+			    </setup>
+			<body>
+				<SetStyle target="focusColor_ti" styleName="focusColor" value="0xCC0033" waitTarget="focusColor_ti" waitEvent="updateComplete" />
+				<RunCode code="application.focusColor_ti.selectRange(0,5);" waitTarget="focusColor_ti" waitEvent="selectionChange" />
+			    <Pause timeout="250" />
+			    <CompareBitmap numColorVariances="12" maxColorVariance="7" url="../styles/baselines/$testID.png" target="focusColor_ti_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_contentBackgroundColor_as" keywords="[FxTextInput, contentBackgroundColor]" description="Ensure that contentBackgroundColor works at runtime.">
+			<setup>
+				<ResetComponent target="contentBackgroundColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+				<SetProperty target="contentBackgroundColor_ti" propertyName="height" value="21" />
+			    <SetProperty target="contentBackgroundColor_ti" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+			    <SetProperty target="contentBackgroundColor_ti" propertyName="text" value="contentBackgroundColor" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+			</setup>
+			<body>
+				<SetStyle target="contentBackgroundColor_ti" styleName="contentBackgroundColor" value="0xFFCCFF"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+				<CompareBitmap url="../styles/baselines/FxTextInput_Style_contentBackgroundColor_mxml.png" target="contentBackgroundColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_contentBackgroundColor_disabled" keywords="[FxTextInput, contentBackgroundColor]" description="Ensure that contentBackgroundColor works at runtime.">
+			<setup>
+				<ResetComponent target="contentBackgroundColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+		        <SetProperty target="contentBackgroundColor_ti" propertyName="height" value="21" />
+			    <SetProperty target="contentBackgroundColor_ti" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+			    <SetProperty target="contentBackgroundColor_ti" propertyName="text" value="contentBackgroundColor" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+			</setup>
+			<body>
+				<SetStyle target="contentBackgroundColor_ti" styleName="contentBackgroundColor" value="0xFFCCFF"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+				<SetProperty target="contentBackgroundColor_ti" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_ti"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="contentBackgroundColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_selectionColor_as" keywords="[FxTextInput, selectionColor]" description="Ensure that selectionColor works at runtime.">
+			<setup>
+			    <ResetComponent target="selectionColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="selectionColor_ti"/>
+		        <SetProperty target="selectionColor_ti" propertyName="height" value="21" />
+			    <SetProperty target="selectionColor_ti" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="selectionColor_ti"/>
+			    <SetProperty target="selectionColor_ti" propertyName="text" value="selectionColor" waitEvent="updateComplete" waitTarget="selectionColor_ti"/>
+			    <DispatchMouseClickEvent target="selectionColor_ti" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="selectionColor_ti" />
+			    </setup>
+			<body>
+				<SetStyle target="selectionColor_ti" styleName="focusedTextSelectionColor" value="0xFF9966" waitTarget="selectionColor_ti" waitEvent="updateComplete" />
+				<RunCode code="application.selectionColor_ti.selectRange(0,5);" waitTarget="selectionColor_ti" waitEvent="selectionChange" />
+			    <Pause timeout="250" />
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="selectionColor_ti"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_Style_selectionColor_contentBackgroundColor" keywords="[FxTextInput, selectionColor]" description="Ensure that selectionColor+contentBackgroundColor works at runtime.">
+			<setup>
+			    <ResetComponent target="selectionColor_ti" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="selectionColor_ti"/>
+		        <SetProperty target="selectionColor_ti" propertyName="height" value="21" />
+			    <SetProperty target="selectionColor_ti" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="selectionColor_ti"/>
+			    <SetProperty target="selectionColor_ti" propertyName="text" value="selectionColor" waitEvent="updateComplete" waitTarget="selectionColor_ti"/>
+			    <DispatchMouseClickEvent target="selectionColor_ti" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="selectionColor_ti" />
+			    </setup>
+			<body>
+				<SetStyle target="selectionColor_ti" styleName="focusedTextSelectionColor" value="0xFF9966" waitTarget="selectionColor_ti" waitEvent="updateComplete" />
+				<SetStyle target="selectionColor_ti" styleName="contentBackgroundColor" value="0xFFCCCC" waitTarget="selectionColor_ti" waitEvent="updateComplete" />
+				<RunCode code="application.selectionColor_ti.selectRange(0,5);" waitTarget="selectionColor_ti" waitEvent="selectionChange" />
+			    <Pause timeout="250" />
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="selectionColor_ti"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,54 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_dfrdInst.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="Panel_Properties_DfrdInst_none" keywords="[Panel, Deferred Instantiation]" description="Test Deferred Instantiation on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelCpNone" className="Comps.CustomPanelCpNone" waitEvent="updateComplete" waitTarget="myCustomPanelCpNone"/>                
+            </setup>
+            <body>            	
+            	<CompareBitmap target="myCustomPanelCpNone" url="../Properties/Baselines/$testID_1.png" numColorVariances="5" maxColorVariance="10"/>            	
+            	<AssertPropertyValue target="myCustomPanelCpNone" propertyName="numElements" value="0" />
+            	<AssertPropertyValue target="myCustomPanelCpNone" propertyName="deferredContentCreated" value="false" />
+            	<RunCode code="application.myCustomPanelCpNone.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myCustomPanelCpNone"/>            	
+            	<AssertPropertyValue target="myCustomPanelCpNone" propertyName="numElements" value="13" />            	
+            	<AssertPropertyValue target="myCustomPanelCpNone" propertyName="deferredContentCreated" value="true" />
+            	<Pause timeout="1000"/>
+            	<CompareBitmap target="myCustomPanelCpNone" url="../Properties/Baselines/$testID_2.png" numColorVariances="5" maxColorVariance="10"/>            	
+            </body>
+        </TestCase> 
+       
+		<TestCase testID="Panel_Properties_DfrdInst_auto" keywords="[Panel, Deferred Instantiation]" description="Test Deferred Instantiation on Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelCpAuto" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanelCpAuto"/>
+            </setup>
+            <body>            	
+            	<CompareBitmap target="myCustomPanelCpAuto" url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10"/>
+            	<AssertPropertyValue target="myCustomPanelCpAuto" propertyName="numElements" value="13" />            	       
+            	<AssertPropertyValue target="myCustomPanelCpNone" propertyName="deferredContentCreated" value="true" />   	
+            </body>
+        </TestCase>         
+
+    </testCases>
+    
+</UnitTester>
+

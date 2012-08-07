@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" backgroundColor="#000000" width="640" >
+   <s:layout>
+       <s:HorizontalLayout/>
+   </s:layout>
+   
+   <s:states>
+       <s:State name="default"/>
+       <s:State name="shader" />
+       <s:State name="city" />
+       <s:State name="dirty" />
+   </s:states>
+
+    <s:Group width="512">
+        <s:BitmapImage x="128" id="bg" source="@Embed('../../../../../Assets/Images/redrect.jpg')" source.city="@Embed('../../../../../Assets/Images/bluerect.jpg')" source.dirty="@Embed('../../../../../Assets/Images/orangerect.jpg')"/>
+    </s:Group>
+
+    <fx:Declarations>
+        <s:Linear id="linearEase" />
+        
+        <s:ShaderFilter id="sphereShader" shader="@Embed(source='Assets/PixelBenderFiles/sphere.pbj')" 
+                    imgSize_x="256" imgSize_y="256" center_x="128" center_y="512" />
+                    
+        <mx:Sequence id="rotatingGlobe">
+    	    <s:AnimateFilter id="anim1" bitmapFilter="{sphereShader}" duration="500" target="{bg}">
+                <s:SimpleMotionPath property="center_y" valueFrom="512" valueTo="320" />
+    	    </s:AnimateFilter>
+    	    
+    	    <s:AnimateFilter id="anim2" bitmapFilter="{sphereShader}" duration="500" target="{bg}" easer="{linearEase}" repeatCount="0" >
+                <s:SimpleMotionPath property="offset_y" valueFrom="0.0" valueTo="1.0" />
+    	    </s:AnimateFilter>
+    	</mx:Sequence>
+    	
+    	<s:Animate id="extend" duration="1000"  target="{sphereShader}" >
+            <s:SimpleMotionPath property="rightExtension" valueFrom="0.0" valueTo="128" />
+            <s:SimpleMotionPath property="leftExtension" valueFrom="0.0" valueTo="128"/> 
+        </s:Animate>
+
+        <mx:ArrayCollection id="ac">
+            <mx:source>
+                <fx:Object col11="11" col12="1"/>
+                <fx:Object col11="11" col12=" "/>
+                <fx:Object col11="11" col12=" "/>
+            </mx:source>
+        </mx:ArrayCollection>        
+    </fx:Declarations>
+
+</s:Application>

@@ -1,0 +1,117 @@
+<s:VGroup
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="comps.*"
+    creationComplete="createAsCB()">
+    
+ 	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    		    		    		    		
+    		public var myTL_Array:Array =
+    		[
+    			"Item n0",
+    			"From n1",
+    			"New n2",
+    			"Array n3",
+    			"To n4",
+    			"Test n5",
+    			"Adding n6",    			
+    		];
+    		
+			public var myAsDP_Array:Array =
+    		[
+    			"First Item n0",
+    			"From My n1",
+    			"Array for n2",
+    			"a CB created n3",
+    			"in ActionScript n4",
+    			"Only in order n5",
+    			"to verify that capability n6",    			
+    		];    		
+    		
+    		[Bindable]
+    		public var myTL_AC:ArrayCollection = new ArrayCollection(myTL_Array);
+    		
+    		[Bindable]
+    		public var myAsDP:ArrayCollection = new ArrayCollection(myAsDP_Array);
+    		
+			public function createAsCB():void
+			{
+				var asCB:ComboBox = new ComboBox();
+				asCB.width = 100;			
+				asCB.height = 24;
+				asCB.dataProvider = myAsDP;								
+				addElement(asCB);						
+			}    				
+						
+			public function changeDP():void
+			{
+				myCB1.dataProvider = myAsDP;
+			}		
+
+			
+    	]]>   
+    </fx:Script>    
+
+	<s:ComboBox id="myCB" dataProvider="{myTL_AC}"/>
+	<s:Label id="myCB_Label" text="selectedIndex={myCB.selectedIndex}    selectedItem={myCB.selectedItem}"/>	
+
+	<s:VGroup paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="focusBox">
+		<comps:Custom_CB1 id="myCB1"/>
+	</s:VGroup>
+	<s:Label id="myCB1_Label" text="selectedIndex={myCB1.selectedIndex}    selectedItem={myCB1.selectedItem}"/>	
+
+	<comps:Custom_CB2 id="myCB2" />
+	<s:Label id="myCB2_indexLabel" text="selectedIndex={myCB2.selectedIndex}"/>
+	<s:Label id="myCB2_itemLabel" text="selectedItem={myCB2.selectedItem}"/>
+
+	<comps:Custom_CB3 id="myCB3" />
+	<s:Label id="myCB3_Label" text="selectedIndex={myCB3.selectedIndex}    selectedItem={myCB3.selectedItem}"/>	
+
+	<s:HGroup>
+		<comps:Custom_CB4H id="myCB4H" />
+		<comps:Custom_CB4T id="myCB4T" />
+	</s:HGroup>		
+	<s:Label id="myCB4H_Label" text="selectedIndex={myCB4H.selectedIndex}    selectedItem={myCB4H.selectedItem}"/>
+	<s:Label id="myCB4T_Label" text="selectedIndex={myCB4T.selectedIndex}    selectedItem={myCB4T.selectedItem}"/>
+
+	<comps:Custom_CB5 id="myCB5" />
+	<s:Label id="myCB5_Label" text="selectedIndex={myCB5.selectedIndex}    selectedItem={myCB5.selectedItem}"/>		
+
+	<comps:Custom_CB6 id="myCB6" />
+	<s:Label id="myCB6_Label" text="selectedIndex={myCB6.selectedIndex}    selectedItem={myCB6.selectedItem}"/>	
+
+	<s:HGroup>
+		<comps:Custom_CB7 id="myCB7" />	
+		<s:Button id="myBtn1" chromeColor="blue" label="Set selectedIndex=2" click="myCB7.selectedIndex=2"/>
+	</s:HGroup>
+	<s:Label id="myCB7_Label" text="selectedIndex={myCB7.selectedIndex}    selectedItem={myCB7.selectedItem}"/>		
+
+	<s:HGroup>
+		<comps:Custom_CB8 id="myCB8" />	
+		<s:Button id="myBtn2" chromeColor="blue" label="Set selectedItem=Two" click="myCB8.selectedItem='Two'"/>
+	</s:HGroup>
+	<s:Label id="myCB8_Label" text="selectedIndex={myCB8.selectedIndex}    selectedItem={myCB8.selectedItem}"/>		
+
+	<s:HGroup>
+		<s:NumericStepper id="myNS" minimum="-1" maximum="22" value="-1"/>
+		<comps:Custom_CB9 id="myCB9" selectedIndex="{myNS.value}"/>		
+	</s:HGroup>
+	<s:Label id="myCB9_Label" text="selectedIndex={myCB9.selectedIndex}    selectedItem={myCB9.selectedItem}"/>		
+
+	<comps:Custom_CB10 id="myCB10"/>
+
+	<s:HGroup>
+		<comps:Custom_CB_LabelField id="myCB_LF" />
+		<comps:Custom_CB_LabelFunc id="myCB_LFnc"/>
+	</s:HGroup>	
+
+	<comps:Custom_CB1_disabled id="myCB1_disabled"/>	
+	
+	<s:ComboBox id="myCB_noDP"/>
+	
+	<comps:Custom_CB_Array id="myCB_array"/>
+	
+</s:VGroup>

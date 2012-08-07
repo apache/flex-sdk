@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_002.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+                import mx.core.FlexGlobals;
+                import mx.collections.XMLListCollection;
+                import mx.collections.*;
+                import mx.utils.ObjectUtil;
+                import spark.components.DataGrid;
+                import spark.components.gridClasses.GridColumn;
+                import spark.components.gridClasses.GridSelectionMode;
+			
+                
+                public var tmp:String;
+                public var len:int;
+                public var backupColl:ArrayCollection;
+                
+                public var newItem:Object={index:123, firstName: "lee", lastName: "Li", food: "bread", drink: "coke"};
+			
+               /**
+                * this method is helper method to check dataGrid item contains the key, put the item into vector to use in filter/sort tests for later verification
+                */    
+                public function getRowsWithColumnContainWords(key:String, dataGrid:DataGrid):Vector.<int>
+                {
+                	var v:Vector.<int>=new Vector.<int>;
+                	for (var i:int=0;i<dataGrid.dataProvider.length;i++)
+                	{
+                		if (dataGrid.dataProvider.getItemAt(i).firstName.indexOf(key)>-1)
+                		v.push(i);
+                	}
+                	return v;
+                }
+                 
+		
+
+            
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+               
+	<TestCase testID="dataProvider_nodata_test1" keywords="[DataGrid, Property, dataProvider]" description="no dataprovider, no column, just dummy DataGrid tag">
+	    <setup>
+		<ResetComponent target="dg1" className="spark.components.DataGrid" waitEvent="updateComplete" />
+	    </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.dataProvider==null" value="true" />
+            </body>
+        </TestCase>
+
+	<TestCase testID="dataProvider_nodata_test2" keywords="[DataGrid, Property, dataProvider]" description="no dataprovider, no column, but with dimension">
+	    <setup>
+		<ResetComponent target="dg2" className="spark.components.DataGrid" waitEvent="updateComplete" />
+		<SetProperty target="dg2" propertyName="width" value="200" waitEvent="updateComplete"/>
+		<SetProperty target="dg2" propertyName="height" value="150" waitEvent="updateComplete"/>
+	    </setup>
+           <body>
+            	<AssertPropertyValue target="dg2" value="200" propertyName="width"/>
+		<AssertPropertyValue target="dg2" value="150" propertyName="height"/>
+           </body>
+        </TestCase>
+ 	<TestCase testID="dataProvider_nodata_test3" keywords="[DataGrid, Property, dataProvider]" description="dataprovider is empty collection">
+            <setup>
+		<ResetComponent target="dg3" className="spark.components.DataGrid" waitEvent="updateComplete" />
+		<SetProperty target="dg3" propertyName="dataProvider" valueExpression="value=new ArrayCollection()" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>    
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg3.dataProvider.length" value="0" />
+           </body>
+        </TestCase>
+ 	<TestCase testID="dataProvider_nodata_test4" keywords="[DataGrid, Property, dataProvider]" description="dataprovider is null">
+            <setup>
+		<ResetComponent target="dg4" className="spark.components.DataGrid" waitEvent="updateComplete" />
+		<SetProperty target="dg4" propertyName="dataProvider" valueExpression="value=null"/>
+	    </setup>        
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.dataProvider==null" value="true" />
+           </body>
+        </TestCase>
+
+ 	<TestCase testID="dataProvider_nodata_test5" keywords="[DataGrid, Property, dataProvider]" description="dataprovider isn't set, requiredSelection=true">
+            <setup>
+		<ResetComponent target="dg7" className="spark.components.DataGrid" waitEvent="updateComplete" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<SetProperty target="dg7" propertyName="requireSelection" value="true" />
+		<SetProperty target="dg7" propertyName="variableRowHeight" value="true" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>           
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg7.requireSelection" value="true" />
+            	<RunCode code="FlexGlobals.topLevelApplication.insertItems(FlexGlobals.topLevelApplication.dg7,0)"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg7" />
+            
+           </body>
+        </TestCase>
+ 	<TestCase testID="dataProvider_columnNodata_test1" keywords="[DataGrid, Property, dataProvider]" description="dataGrid has a column not data mapping">
+ 	    <setup>
+ 	    	<ResetComponent target="dg6" className="components.DataGrid_dp_columns" waitEvent="updateComplete" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="tmp=GridColumn(FlexGlobals.topLevelApplication.dg6.columns.getItemAt(0)).dataField" />
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg6.dataProvider.getItemAt(0)[tmp]==null" value="true" />
+ 		
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg6" />
+
+           </body>
+        </TestCase>
+
+ 	<TestCase testID="dataProvider_requestRowCount_test1" keywords="[DataGrid, Property, dataProvider]" description="dataGrid has requestRowCount,data rows/columns are less than requestedRowCount, requestedColumnCount">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete" />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>	  
+ 	    	<SetProperty target="dg8" propertyName="requireSelection" value="true" />
+ 	    	
+ 	    	<!-- set the dataProvider contains 5 rows -->
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider=FlexGlobals.topLevelApplication.getPartialDataGridData(5,FlexGlobals.topLevelApplication.dg8)" waitTarget="dg8" waitEvent="enterFrame"/>
+			 
+ 	    	<SetProperty target="dg8" propertyName="requestedColumnCount" value="6"  />
+ 	    	<SetProperty target="dg8" propertyName="requestedRowCount" value="7" />
+ 	    	<SetProperty target="dg8" propertyName="height" value="240"  waitEvent="updateComplete"/>
+	    </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg8.selectionContainsIndex(0)" value="true" />
+            	
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg8" />
+            	 
+           </body>
+        </TestCase>
+ 	<TestCase testID="dataProvider_requestRowCount_test2" keywords="[DataGrid, Property, dataProvider]" description="dataGrid has requestRowCount,data rows/columns are less than requestedRowCount, requestedColumnCount">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<RunCode code="FlexGlobals.topLevelApplication.dg8.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>	  
+ 	    	<SetProperty target="dg8" propertyName="requireSelection" value="true" />
+ 	    	
+ 	    	<!-- set the dataProvider contains 5 rows -->
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider=FlexGlobals.topLevelApplication.getPartialDataGridData(5,FlexGlobals.topLevelApplication.dg8)" waitTarget="dg8" waitEvent="enterFrame"/>
+ 	    	<SetProperty target="dg8" propertyName="requestedColumnCount" value="6" />
+ 	    	<SetProperty target="dg8" propertyName="requestedRowCount" value="7" />
+ 	    	<SetProperty target="dg8" propertyName="height" value="240"  waitEvent="updateComplete"/>
+	    </setup>
+        <body>
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg8.selectionContainsIndex(0)" value="true" />
+            <SetProperty target="dg8" propertyName="requestedColumnCount" value="3" />
+ 	    <SetProperty target="dg8" propertyName="requestedRowCount" value="3"  waitEvent="updateComplete"/>
+      	    
+            <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg8" />
+        </body>
+    </TestCase>
+        
+ 	<TestCase testID="dataProvider_scrollbar_test1" keywords="[DataGrid, Property, dataProvider]" description="verify dataProvider adds one more row, scrollBar shows up">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete" />
+		   <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg8" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" />
+          
+ 	    	<SetProperty target="dg8" propertyName="requireSelection" value="true" />
+ 	    	<SetProperty target="dg8" propertyName="height" value="240"  waitEvent="updateComplete"/>
+ 
+ 	    	<!-- set the dataProvider contains 7 rows -->
+ 	    	
+ 	    	<SetProperty target="dg8" propertyName="dataProvider" valueExpression ="value=FlexGlobals.topLevelApplication.getPartialDataGridData(7,FlexGlobals.topLevelApplication.dg8)" waitTarget="stage" waitEvent="enterFrame"/>
+       		
+	    </setup>
+            <body>
+            	<!-- add one more row, expect to see a scrollBar -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider.addItem(newItem)" waitTarget="stage" waitEvent="enterFrame"/>
+		 
+            	<CompareBitmap url="../Properties/baselines/$testID_scrollBar.png" numColorVariances="20" maxColorVariance="20"  target="dg8" />
+
+           </body>
+        </TestCase>
+        
+ 	<TestCase testID="dataProvider_scrollbar_test2" keywords="[DataGrid, Property, dataProvider]" description="verify dataProvider removes one row, scrollBar disappears">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>	  
+ 	    	<SetProperty target="dg8" propertyName="requireSelection" value="true" />
+ 	    	<SetProperty target="dg8" propertyName="height" value="240" />
+			
+ 	    	<!-- set the dataProvider contains 7 rows -->
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider=FlexGlobals.topLevelApplication.getPartialDataGridData(8,FlexGlobals.topLevelApplication.dg8)" waitTarget="dg8" waitEvent="enterFrame"/>
+       		
+	    </setup>
+            <body>
+            
+            	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider.removeItemAt(0)"  waitTarget="dg8" waitEvent="enterFrame"/>
+            	<CompareBitmap url="../Properties/baselines/$testID_scrollBar.png" numColorVariances="20" maxColorVariance="20"  target="dg8" />
+
+           </body>
+        </TestCase>
+ 	<TestCase testID="dataProvider_scrollbar_test3" keywords="[DataGrid, Property, dataProvider]" description="verify scrollBar should show when columns are added">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>	  
+ 	    	<SetProperty target="dg8" propertyName="requireSelection" value="true" />
+ 	    	<SetProperty target="dg8" propertyName="width" value="450"  waitEvent="updateComplete"/>
+ 	    	
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider=FlexGlobals.topLevelApplication.getPartialDataGridData(7,FlexGlobals.topLevelApplication.dg8)" waitTarget="dg8" waitEvent="enterFrame"/>
+	    </setup>
+            <body>
+            	<!-- add one more row, expect to see a scrollBar -->
+            	<RunCode code="FlexGlobals.topLevelApplication.insertNewColumns(FlexGlobals.topLevelApplication.dg8,4,2)" waitEvent="updateComplete" waitTarget="dg8"/>
+		 <CompareBitmap url="../Properties/baselines/$testID_scrollBar.png" numColorVariances="20" maxColorVariance="20"  target="dg8" />
+
+           </body>
+        </TestCase>
+
+ 	<TestCase testID="dataProvider_scrollbar_test4" keywords="[DataGrid, Property, dataProvider]" description="verify scrollBar should hide when columns are removed">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete"/>
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>	  
+ 	    	<SetProperty target="dg8" propertyName="requireSelection" value="true" />
+ 	    	<SetProperty target="dg8" propertyName="width" value="450"  waitEvent="updateComplete"/>
+ 	   
+ 	    	<RunCode code="FlexGlobals.topLevelApplication.dg8.dataProvider=FlexGlobals.topLevelApplication.getPartialDataGridData(7,FlexGlobals.topLevelApplication.dg8)"
+ 	    	waitEvent="enterFrame" waitTarget="dg8"/>
+	    </setup>
+            <body>
+            	<!-- add one more row, expect to see a scrollBar -->
+            	<RunCode code="FlexGlobals.topLevelApplication.insertNewColumns(FlexGlobals.topLevelApplication.dg8,4,2)" waitEvent="updateComplete" waitTarget="dg8"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg8.columns.removeItemAt(5)" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg8.columns.removeItemAt(4)" waitEvent="enterFrame" waitTarget="dg8"/>
+            	<CompareBitmap url="../Properties/baselines/$testID_scrollBar.png" numColorVariances="20" maxColorVariance="20"  target="dg8" />
+
+           </body>
+        </TestCase>
+
+ 	<TestCase testID="dataProvider_selection_scrolling_test1" keywords="[DataGrid, Property, dataProvider]" description="verify selection is set, scrolling scrollBar should not delect the selection">
+ 	    <setup>
+ 	    	<ResetComponent target="dg8" className="components.DataGrid_comp1" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg8" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS"/>
+		
+	    </setup>
+            <body>
+            	<!-- set first, last row as selection, scroll down/up, selection should be not affected -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg8.selectIndices(0,1)" value="true"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg8.addSelectedIndex(FlexGlobals.topLevelApplication.dg8.dataProvider.length-1)" value="true"/>
+		 
+		<RunCode code="FlexGlobals.topLevelApplication.dg8.ensureCellIsVisible(FlexGlobals.topLevelApplication.dg8.dataProvider.length-1)" waitTarget="dg8" waitEvent="enterFrame"/>
+		
+            	 <CompareBitmap url="../Properties/baselines/$testID_last.png" numColorVariances="20"   ignoreMaxColorVariance="true" target="dg8" />
+		 <RunCode code="FlexGlobals.topLevelApplication.dg8.ensureCellIsVisible(0)" waitTarget="dg8" waitEvent="enterFrame"/>
+		 
+            	 <CompareBitmap url="../Properties/baselines/$testID_first.png" numColorVariances="20"  ignoreMaxColorVariance="true"  target="dg8" />
+
+            	<!-- scroll back/forth -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg8.selectionContainsIndex(0)" value="true"/>
+		
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg8.selectionContainsIndex(FlexGlobals.topLevelApplication.dg8.dataProvider.length-1)" value="true"/>
+           </body>
+        </TestCase>
+        
+        
+        
+	<TestCase testID="dataProvider_binding_test1" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection adds item">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />	
+ 	    	<Pause timeout="50"/>
+		</setup>
+            <body>
+            	<RunCode code="len=FlexGlobals.topLevelApplication.dg9.dataProvider.length"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(0)" waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.dataProvider.length-len" value="1" />
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+	<TestCase testID="dataProvider_binding_test2" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection adds item">
+	    <setup>
+	    	 
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	
+	    </setup>
+            <body>
+            	<RunCode code="len=FlexGlobals.topLevelApplication.dg9.dataProvider.length"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(FlexGlobals.topLevelApplication.dg9.dataProvider.length-1)" waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=(FlexGlobals.topLevelApplication.dg9.dataProvider.length-len)" value="1" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.setFocus()"  waitEvent="focusIn" waitTarget="dg9" />
+            	<DispatchKeyEvent keys="[END]" waitTarget="dg9"  waitEvent="enterFrame"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.dataProvider.length-len" value="1" />
+            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+	<TestCase testID="dataProvider_binding_test3" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection adds item to middle of dataGrid">
+	    <setup>
+	    	 
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS"/>	
+	    </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectIndices2(new &lt;int&gt;[0,1,2,3,4])" />
+  		<Pause timeout="50"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsIndices(new &lt;int&gt;[0,1,2,3,4])" value="true" />
+		
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(2)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsIndices(new &lt;int&gt;[0,1,3,4,5])" value="true" />
+
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+ 
+           </body>
+        </TestCase>
+
+	<TestCase testID="dataProvider_binding_test4" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection adds item to middle of dataGrid">
+		    <setup>
+	 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />	
+	 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" />	
+		    </setup>
+	            <body>
+	            	<!-- set a couple selections -->
+	            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,4,3)"  waitTarget="stage" waitEvent="enterFrame"/>
+	            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(1,1,4,3)" value="true" />
+	            	<RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(2)"  waitTarget="stage" waitEvent="enterFrame"/>
+	            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(1,1,1,3)" value="true" />
+	            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(3,1,3,3)" value="true" />        	
+	            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+	           </body>
+        </TestCase>
+	<TestCase testID="dataProvider_binding_removeTest1" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection removes item">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="len=FlexGlobals.topLevelApplication.dg9.dataProvider.length"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.removeItem(0)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=(len-FlexGlobals.topLevelApplication.dg9.dataProvider.length)" value="1" />	
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+	
+
+	<TestCase testID="dataProvider_binding_removeTest2" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection removes item">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />	
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="len=FlexGlobals.topLevelApplication.dg9.dataProvider.length"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.removeItem(FlexGlobals.topLevelApplication.dg9.dataProvider.length-1)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=len-FlexGlobals.topLevelApplication.dg9.dataProvider.length" value="1" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.setFocus()" waitEvent="focusIn" waitTarget="dg9"/>
+            	<DispatchKeyEvent keys="[END]" waitTarget="dg9"  waitEvent="enterFrame"/>
+            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+
+	<TestCase testID="dataProvider_binding_removeTest3" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection removes item to middle of dataGrid">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS"/>	
+	
+	    </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectIndices2(new &lt;int&gt;[0,1,2,3,4])"  waitTarget="stage" waitEvent="enterFrame"/>
+            
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsIndices(new &lt;int&gt;[0,1,2,3,4])" value="true" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.removeItem(2)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsIndices(new &lt;int&gt;[0,1,2,3])" value="true" />
+	        <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+
+	<TestCase testID="dataProvider_binding_removeTest4" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection removes item to middle of dataGrid">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" />	
+	    </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,4,3)" waitEvent="enterFrame" waitTarget="dg9.grid"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(1,1,4,3)" value="true" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.removeItem(2)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(1,1,3,3)" value="true" />
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+        
+
+	<TestCase testID="dataProvider_binding_removeAllTest1" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection removes all items">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+
+	    </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,4,3)" waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(1,1,4,3)" value="true" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.gridDataCollection.removeAll()"  waitTarget="stage" waitEvent="enterFrame"/>
+		
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.dataProvider.length" value="0" />
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectedCells.length" value="0" />
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+	<TestCase testID="dataProvider_binding_removeAllTest2" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection removes all items, selectAll is called, later add a new item">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+ 	   	<SetProperty target="dg9" propertyName="preserveSelection" value="true" />	
+
+ 	   <RunCode code="FlexGlobals.topLevelApplication.dg9.preserveSelection=true"/>
+	    </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectAll()"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.gridDataCollection.removeAll()"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(20)"  waitTarget="stage" waitEvent="enterFrame"/>		
+            	<!--columns is reset, addedItem is not selected -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(0,0,1,FlexGlobals.topLevelApplication.dg9.columns.length)" value="false" /> 
+
+            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+        
+        
+	<TestCase testID="dataProvider_binding_addAllTest1" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection adds all items back">
+	    <setup>
+	    
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+ 	   </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,4,3)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCellRegion(1,1,4,3)" value="true" />
+            	<!-- back up collection data -->
+            	<RunCode code="backupColl=ObjectUtil.copy( FlexGlobals.topLevelApplication.dg9.dataProvider ) as ArrayCollection" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.gridDataCollection.removeAll()"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<Pause timeout="50"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.gridDataCollection.addAll(backupColl)" />
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectedCells.length" value="0" />
+			
+            	 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+ 
+           </body>
+        </TestCase>
+        
+	<TestCase testID="dataProvider_binding_addAllTest2" keywords="[DataGrid, Property, dataProvider]" description="dataProvider binds a collection, collection adds all items back">
+	    <setup>
+ 	    	<ResetComponent target="dg9" className="components.DataGrid_comp2" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    	<SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+ 
+	    </setup>
+            <body>
+            	<!-- set a couple selections -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.selectAll()"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<!-- back up collection data -->
+            	<RunCode code="backupColl=ArrayCollection(ObjectUtil.copy( FlexGlobals.topLevelApplication.dg9.dataProvider ))" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.gridDataCollection.removeAll()"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.gridDataCollection.addAll(backupColl)"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectedCells.length" value="0"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dg9.setFocus()" waitEvent="focusIn" waitTarget="dg9"/>
+            	<DispatchKeyEvent keys="[END]" shiftKey="true"  waitTarget="stage" waitEvent="enterFrame"/>
+            	<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+           </body>
+        </TestCase>
+        
+        <!-- sort, filter tested in selectionMethod, here is a preliminary test to check image -->
+	<TestCase testID="dataProvider_sort_test1" keywords="[DataGrid, Property, dataProvider ]" 
+	  	        description="Test preserveSelection=true, call setCellRegion, refresh rows by applying sort,verify cell selection should be updated">
+		<setup>
+		     <ResetComponent target="dg9" className="components.DataGrid_comp2"  waitEvent="updateComplete" />
+		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+		    <SetProperty target="dg9" propertyName="preserveSelection" value="true" />	
+		    <SetProperty target="dg9" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.getPartialDataGridData(5,FlexGlobals.topLevelApplication.dg9)"  waitTarget="stage" waitEvent="enterFrame"/>
+
+		    <RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,2,2)"  waitTarget="stage" waitEvent="enterFrame"/>
+		    <!-- sort based on cellIndex=1 -->
+		    <RunCode code="FlexGlobals.topLevelApplication.applySort(FlexGlobals.topLevelApplication.dg9,(GridColumn(FlexGlobals.topLevelApplication.dg9.columns.getItemAt(1))).dataField)"   waitTarget="stage" waitEvent="enterFrame"/>
+
+		    <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+		</body>
+        </TestCase>
+
+	<TestCase testID="dataProvider_sort_test2" keywords="[DataGrid, Property, dataProvider ]" 
+	  	        description="Test preserveSelection=true, call setCellRegion, refresh rows by applying sort,verify cell selection should be updated">
+		<setup>
+		     <ResetComponent target="dg9" className="components.DataGrid_comp2"  waitEvent="updateComplete" />
+		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+		    <SetProperty target="dg9" propertyName="preserveSelection" value="true"/>	
+
+		    <SetProperty target="dg9" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.getPartialDataGridData(5,FlexGlobals.topLevelApplication.dg9)" waitTarget="stage" waitEvent="enterFrame"/>
+
+		    <RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,2,2)"  waitTarget="stage" waitEvent="enterFrame"/>
+		    <!-- sort based on cellIndex=1 -->
+		    <RunCode code="trace((GridColumn(FlexGlobals.topLevelApplication.dg9.columns.getItemAt(1))).dataField)"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.applySort(FlexGlobals.topLevelApplication.dg9,(GridColumn(FlexGlobals.topLevelApplication.dg9.columns.getItemAt(1))).dataField)"   waitTarget="stage" waitEvent="enterFrame"/>
+
+		    <!-- add a new item inside the selection todo: see the selected row -->
+		    <!-- todo: need clarify after sort, whether selection is kept or not
+		    <RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(20)" waitEvent="propertyChange" waitTarget="dg9.grid"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCell(0,0)" value="true"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCell(0,1)" value="true"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCell(4,0)" value="true"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg9.selectionContainsCell(4,1)" value="true"/>
+		    -->
+
+		   <!-- check added item's position -->
+		   <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+ 		 </body>
+        </TestCase>
+
+	<TestCase testID="dataProvider_filter_test1" keywords="[DataGrid, Property, dataProvider ]" 
+	  	        description="Test preserveSelection=true, call setCellRegion, refresh rows by applying sort,verify cell selection should be updated">
+ 			<setup>
+	  		     <ResetComponent target="dg9" className="components.DataGrid_comp2"  waitEvent="updateComplete" />
+			     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+	  		</setup>
+	  		<body>		
+ 			    <SetProperty target="dg9" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"/>	
+ 	   		    <SetProperty target="dg9" propertyName="preserveSelection" value="true"/>	
+	  		   
+	  		    <SetProperty target="dg9" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.getPartialDataGridData(10,FlexGlobals.topLevelApplication.dg9)"  waitTarget="stage" waitEvent="enterFrame"/>
+	  		 
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,2,2)" />
+	  		    <!-- filter based on firstName -->
+	  		    <!-- todo: see item 11.firstName value, fiterText should use that value -->
+			    <RunCode code="FlexGlobals.topLevelApplication.filterText='J'"  />
+			    <RunCode code="FlexGlobals.topLevelApplication.applyFilter(FlexGlobals.topLevelApplication.dg9)"   waitTarget="stage" waitEvent="enterFrame"/>
+	  		    <!-- add a new item inside the selection todo: see the selected row -->
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(0)" waitTarget="stage" waitEvent="enterFrame"/>
+	  		 
+			    <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+ 			</body>
+        </TestCase>
+	<TestCase testID="dataProvider_filter_test2" keywords="[DataGrid, Property, dataProvider ]" 
+	  	        description="Test preserveSelection=true, call setCellRegion, refresh rows by applying sort,verify cell selection should be updated">
+ 			<setup>
+	  		     <ResetComponent target="dg9" className="components.DataGrid_comp2"  waitEvent="updateComplete" />	
+			     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dg9.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dg9.preserveSelection=true" />	
+	  		    <SetProperty target="dg9" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.getPartialDataGridData(10,FlexGlobals.topLevelApplication.dg9)"  waitTarget="stage" waitEvent="enterFrame"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dg9.selectCellRegion(1,1,2,2)"  waitTarget="stage" waitEvent="enterFrame"/>
+	  		    <!-- filter based on cellIndex=1 -->
+	  		    <!-- filterText should not matching added item -->
+			    <RunCode code="FlexGlobals.topLevelApplication.filterText='lee'"  />
+			    <RunCode code="FlexGlobals.topLevelApplication.applyFilter(FlexGlobals.topLevelApplication.dg9)"  waitTarget="stage" waitEvent="enterFrame"/>
+	  		    <!-- add a new item inside the selection todo: see the selected row -->
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dg9.addItem(11)"  waitTarget="stage" waitEvent="enterFrame"/>
+			    <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dg9" />
+
+ 			</body>
+        </TestCase>
+    </testCases>
+</UnitTester>

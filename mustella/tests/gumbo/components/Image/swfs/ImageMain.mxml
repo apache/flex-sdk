@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			  xmlns:s="library://ns.adobe.com/flex/spark"
+			  xmlns:mx="library://ns.adobe.com/flex/mx"
+			  xmlns:comps="comps.*"
+              xmlns:skins="skins.*"
+              xmlns="*"
+			  creationComplete="(CONFIG::skaha){import qa.Skaha;Skaha.enable()}">
+    <fx:Script>
+        <![CDATA[
+            import spark.primitives.BitmapImage;
+            import spark.components.Label;
+
+            import mx.managers.PopUpManager;
+            import mx.core.IFlexDisplayObject;
+            public var myPopUp:IFlexDisplayObject;
+            public function openPopUp(modalSetting:Boolean): void
+            {
+                myPopUp = PopUpManager.createPopUp(this, comps.PropertiesRoot, modalSetting);
+            }
+
+            public function closePopUp(): void
+            {
+                PopUpManager.removePopUp(myPopUp);
+            }
+            public function createURLRequest(str:String):URLRequest
+            {
+	                    var req:URLRequest = new URLRequest(str);
+	                    return req;
+	    }
+
+            public var imageBytes:Array = [ 71, 73, 70, 56, 57, 97, 50, 0, 30, 0, 230, 0, 0, 0, 0, 0, 173, 169, 206, 82, 73, 153, 74, 74, 74, 115, 109, 155, 248, 247, 251, 102, 102, 102, 26, 24, 35, 181, 181, 181, 70, 61, 145, 222, 222, 222, 153, 153, 153, 204, 204, 204, 58, 58, 58, 132, 132, 132, 231, 231, 231, 8, 7, 14, 90, 90, 90, 89, 81, 163, 153, 153, 153, 191, 188, 217, 165, 165, 165, 190, 190, 190, 237, 237, 233, 51, 51, 51, 214, 214, 214, 90, 82, 156, 156, 152, 190, 123, 123, 123, 140, 140, 140, 140, 135, 187, 103, 96, 165, 78, 70, 150, 173, 173, 173, 127, 121, 179, 82, 82, 82, 206, 204, 226, 195, 195, 193, 102, 102, 102, 247, 247, 247, 41, 41, 41, 66, 66, 66, 183, 179, 212, 146, 141, 190, 21, 21, 20, 227, 226, 238, 119, 111, 181, 198, 195, 221, 99, 91, 162, 255, 255, 255, 218, 216, 233, 114, 114, 114, 16, 15, 27, 114, 107, 171, 210, 208, 228, 8, 8, 8, 179, 175, 209, 240, 239, 246, 153, 153, 153, 234, 233, 243, 95, 88, 160, 90, 74, 156, 33, 33, 33, 16, 16, 16, 163, 159, 200, 142, 137, 188, 197, 189, 222, 134, 129, 183, 151, 147, 193, 202, 199, 223, 222, 221, 235, 122, 115, 176, 215, 213, 231, 74, 66, 147, 82, 75, 146, 197, 197, 197, 106, 99, 166, 231, 230, 240, 175, 171, 207, 239, 239, 239, 209, 207, 227, 25, 25, 22, 119, 112, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 249, 4, 0, 7, 0, 255, 0, 44, 0, 0, 0, 0, 50, 0, 30, 0, 0, 7, 255, 128, 49, 130, 131, 132, 132, 8, 24, 0, 16, 6, 15, 133, 141, 5, 54, 69, 77, 141, 147, 148, 147, 51, 63, 0, 153, 0, 40, 8, 148, 5, 1, 53, 48, 48, 31, 30, 50, 149, 167, 133, 5, 41, 154, 172, 0, 33, 141, 59, 76, 9, 2, 26, 181, 32, 32, 42, 168, 168, 170, 173, 172, 63, 23, 132, 59, 31, 32, 181, 197, 181, 73, 185, 186, 147, 5, 3, 189, 173, 29, 131, 194, 196, 198, 198, 184, 202, 141, 205, 206, 172, 35, 130, 77, 195, 212, 224, 73, 56, 215, 131, 217, 218, 154, 41, 49, 222, 211, 224, 212, 226, 228, 230, 231, 153, 6, 5, 223, 237, 237, 239, 186, 241, 242, 0, 11, 46, 236, 247, 194, 5, 64, 181, 79, 222, 129, 15, 180, 2, 6, 76, 226, 164, 82, 193, 115, 52, 148, 72, 80, 72, 145, 225, 164, 135, 218, 34, 242, 160, 200, 145, 225, 133, 12, 229, 248, 177, 210, 200, 177, 36, 136, 13, 140, 98, 112, 16, 169, 9, 130, 146, 141, 37, 75, 38, 121, 17, 195, 2, 38, 150, 81, 8, 76, 228, 40, 160, 39, 79, 38, 77, 26, 176, 4, 192, 130, 129, 148, 132, 10, 147, 0, 65, 162, 1, 169, 194, 32, 67, 127, 100, 40, 224, 244, 94, 18, 34, 130, 108, 248, 228, 200, 242, 7, 131, 24, 70, 170, 134, 91, 65, 8, 202, 86, 133, 17, 248, 121, 21, 148, 131, 135, 216, 98, 73, 255, 130, 52, 42, 114, 182, 157, 8, 5, 62, 206, 173, 29, 228, 33, 137, 85, 15, 148, 232, 190, 213, 0, 195, 84, 5, 109, 123, 7, 181, 104, 26, 110, 200, 169, 23, 32, 196, 38, 24, 40, 168, 195, 141, 86, 40, 190, 54, 34, 161, 33, 73, 207, 158, 73, 0, 163, 122, 33, 192, 115, 79, 16, 87, 11, 101, 152, 209, 0, 195, 128, 5, 39, 42, 237, 32, 194, 132, 7, 143, 35, 20, 174, 181, 88, 241, 193, 182, 8, 154, 228, 42, 229, 200, 17, 188, 184, 241, 224, 29, 150, 148, 0, 25, 35, 67, 133, 24, 39, 20, 44, 89, 18, 3, 1, 243, 37, 8, 136, 215, 68, 112, 34, 250, 146, 39, 5, 16, 88, 16, 36, 125, 73, 120, 230, 25, 16, 164, 44, 81, 194, 0, 2, 235, 5, 44, 116, 232, 244, 0, 67, 135, 8, 41, 58, 52, 200, 80, 194, 129, 131, 1, 49, 204, 48, 195, 2, 6, 224, 197, 65, 6, 35, 44, 192, 193, 12, 57, 160, 112, 95, 126, 13, 40, 16, 130, 1, 21, 140, 144, 129, 3, 51, 84, 128, 194, 18, 28, 148, 32, 31, 7, 6, 196, 160, 64, 4, 49, 44, 65, 162, 3, 11, 88, 128, 98, 10, 10, 164, 35, 72, 6, 0, 46, 48, 131, 32, 3, 88, 64, 98, 123, 42, 85, 136, 226, 12, 29, 112, 163, 146, 5, 28, 88, 16, 66, 7, 11, 0, 56, 98, 77, 33, 162, 56, 194, 88, 18, 10, 52, 240, 64, 4, 22, 40, 208, 1, 3, 36, 50, 48, 130, 116, 17, 28, 9, 100, 12, 14, 132, 224, 64, 7, 82, 142, 168, 94, 10, 37, 112, 16, 66, 10, 25, 48, 144, 194, 5, 90, 38, 89, 193, 2, 40, 140, 128, 65, 5, 12, 248, 224, 3, 7, 79, 10, 226, 128, 157, 37, 156, 192, 141, 5, 51, 114, 80, 193, 19, 24, 196, 121, 66, 157, 173, 49, 208, 161, 3, 40, 68, 208, 0, 7, 129, 0, 0, 59 ];
+        ]]>
+    </fx:Script>
+
+	<fx:Declarations>
+		<!-- Skaha settings objects that defines what test file we are currently working on and the favorite properties -->
+		<fx:Object id="skahaSettings" testDir="gumbo/components/Image/properties/" testFileName="Image_properties.mxml" />
+		<s:ArrayCollection id="propertiesToInspect">
+			<fx:Object propName="width" />
+			<fx:Object propName="height" />
+			<fx:Object propName="x" />
+			<fx:Object propName="y" />
+			<fx:Object propName="enabled" />
+			<fx:Object propName="source" enum="{['../../../../../Assets/Images/redrect.jpg',null]}" />
+            <fx:Object propName="scaleMode" enum="{['letterbox','stretch']}" />
+            <fx:Object propName="fillMode" enum="{['repeat','clip','scale']}" />
+            <fx:Object propName="horizontalAlign" enum="{['left','right','center']}" />
+            <fx:Object propName="verticalAlign" enum="{['top','bottom','middle']}" />
+		</s:ArrayCollection>
+	</fx:Declarations>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: myEmbeddedFont;
+			embedAsCFF: true;
+		}
+
+		s|Application {
+			fontAntiAliasType: "normal";
+			fontFamily: myEmbeddedFont;
+			fontLookup: "embeddedCFF";
+		}
+	</fx:Style>
+
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+
+    <comps:PropertiesRoot id="pr" />
+    <comps:BitmapImageRoot id="bitmapImage" />
+    <comps:EventsTesterComp id="et" />
+    <s:Image source="{imageBytes}"/>
+    <comps:ContentCacheRoot id="ccr" />
+    <s:Image id="im1" source="@Embed(source='../../../../../Assets/Images/bluerect.jpg', scaleGridLeft='10', scaleGridRight='15', scaleGridTop='10', scaleGridBottom='15')"
+                 scaleMode="stretch"
+                 smooth="true" />
+
+</s:Application>

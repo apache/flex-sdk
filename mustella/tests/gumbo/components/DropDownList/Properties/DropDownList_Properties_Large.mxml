@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DropDownList/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DropDownList_large.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="DropDownList_Properties_large_selectedIndex" keywords="[DropDownList, Property, selectedIndex]" description="Test large dataProvider and setting selectedIndex on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_Large" className="comps.mySkinComp" waitEvent="updateComplete" waitTarget="myDDL_Large"/>
+				<SetProperty target="myDDL_Large" propertyName="selectedIndex" value="9901" waitEvent="updateComplete" waitTarget="myDDL_Large"/>
+			</setup>
+			<body>											
+				<AssertPropertyValue target="myDDL_Large" propertyName="selectedIndex" value="9901"/>
+				<AssertPropertyValue target="myDDL_Large" propertyName="selectedItem" value="index 9901"/>
+				<CompareBitmap target="myDDL_Large" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_Large.openDropDown()" waitEvent="open" waitTarget="myDDL_Large"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL_Large.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_Large.closeDropDown(false)"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_large_selectedItem" keywords="[DropDownList, Property, selectedItem]" description="Test large dataProvider and setting selectedItem on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_Large" className="comps.mySkinComp" waitEvent="updateComplete" waitTarget="myDDL_Large"/>
+				<SetProperty target="myDDL_Large" propertyName="selectedItem" value="index 7401" waitEvent="updateComplete" waitTarget="myDDL_Large"/>
+			</setup>
+			<body>											
+				<AssertPropertyValue target="myDDL_Large" propertyName="selectedIndex" value="7401"/>
+				<AssertPropertyValue target="myDDL_Large" propertyName="selectedItem" value="index 7401"/>
+				<CompareBitmap target="myDDL_Large" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_Large.openDropDown()" waitEvent="open" waitTarget="myDDL_Large"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL_Large.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_Large.closeDropDown(false)"/>
+			</body>
+		</TestCase>		
+
+	</testCases>
+</UnitTester>

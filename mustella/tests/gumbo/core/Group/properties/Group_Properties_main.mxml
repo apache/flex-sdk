@@ -1,0 +1,1620 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/Group/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="GroupBasic.mxml">
+
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+      import mx.core.ClassFactory;
+	  import spark.components.Group;
+	  import mx.graphics.*;
+	  import spark.filters.*;
+	  import spark.core.MaskType;
+	  import mx.core.mx_internal;
+	  
+	  public function testBaselinePosition(group:Group):Boolean {
+	  	return !(group.baselinePosition == 0) 
+	  }
+	]]>
+  </fx:Script>
+  <testCases>
+
+<!-- baselinePosition -->
+
+    <TestCase testID="Group_property_baselinePosition" keywords="[Group, property, baselinePosition]" description="check baseline position works via a form">
+		<!-- bugs>
+			<Bug bugID="SDK-22098" />
+		</bugs-->
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(new comps.BaselineForm());" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=testBaselinePosition(application.group1)" valueExpression="value=true" />
+		</body>
+    </TestCase>
+	
+
+<!-- clipAndEnableScrolling -->
+
+    <TestCase testID="Group_property_clipAndEnableScrolling_on" keywords="[Group, property, clipAndEnableScrolling]" description="turn on clipping at run time (SDK-14958)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new BasicLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.addElement(new comps.GroupClipping);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).clipAndEnableScrolling = true" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" waitTarget="group1.getElementAt(0)" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" waitTarget="group1.getElementAt(0)" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_clipAndEnableScrolling_on.png" target="" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_clipAndEnableScrolling_off" keywords="[Group, property, clipAndEnableScrolling]" description="turn off clipping at run time (SDK-14958)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new BasicLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.addElement(new comps.GroupClipping);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).clipAndEnableScrolling = true" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" waitTarget="group1.getElementAt(0)" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).clipAndEnableScrolling = false" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" waitTarget="group1.getElementAt(0)" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_clipAndEnableScrolling_off.png" target="" timeout="2000" />
+		</body>
+    </TestCase>
+
+<!-- autoLayout property
+
++ check that the default value is true
++ set to false and move an object up/down in a HorizontalLayout, check object moves
++ set to false and move an object left/right in a VerticalLayout, check object moves
++ check default moving an object in HorizontalLayout/VerticalLayout should not have any effect
++ change height of an object in VerticalLayout with variableRowHeight set to false, check size changes
++ change width of an object in HorizontalLayout with variableColumnWidth set to false, check size changes
++ check that setting autoLayout to false works with clipAndEnableScrolling on
++ check that changing to true snaps items back into proper layout
+
+-->
+
+    <TestCase testID="Group_property_autoLayout_default" keywords="[Group, property, autoLayout]" description="check default is true">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+    	</setup>
+    	<body>
+	        <AssertPropertyValue target="group1" propertyName="autoLayout" value="true" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_position_vertical" keywords="[Group, property, autoLayout]" description="check position changes">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+        	<SetProperty 	target="group1" propertyName="autoLayout" value="false" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<RunCode code="application.group1.getElementAt(1).y = 40;" waitTarget="group1" waitEvent="updateComplete" />
+	        <AssertPropertyValue target="group1" propertyName="autoLayout" value="false" />
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_position_vertical.png" target="" timeout="2000" />
+		</body>
+    </TestCase>
+
+
+    <TestCase testID="Group_property_autoLayout_position_horizontal" keywords="[Group, property, autoLayout]" description="check position changes">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+        	<SetProperty target="group1" propertyName="autoLayout" value="false" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<RunCode code="application.group1.getElementAt(1).x = 40;" waitTarget="group1" waitEvent="updateComplete" />
+	        <AssertPropertyValue target="group1" propertyName="autoLayout" value="false" />
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_position_horizontal.png" target="" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_no_movement_vertical" keywords="[Group, property, autoLayout]" description="check position doesn't change with autoLayout default">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<RunCode code="application.group1.getElementAt(1).y = 40;" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_no_movement_vertical.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_no_movement_horizontal" keywords="[Group, property, autoLayout]" description="check position doesn't change">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 25, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<RunCode code="application.group1.getElementAt(1).x = 40;" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_no_movement_horizontal.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_size_vertical" keywords="[Group, property, autoLayout]" description="check size changes">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.variableRowHeight = false;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.rowHeight = 10;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.addCustomRect(application.group1, 100, 50, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 50, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="autoLayout" value="false" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<RunCode code="application.group1.getElementAt(1).height = 20;" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_size_vertical.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_size_horizontal" keywords="[Group, property, autoLayout]" description="check size changes">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.variableColumnWidth = false;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.columnWidth = 10;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.addCustomRect(application.group1, 50, 100, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 100, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="autoLayout" value="false" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<RunCode code="application.group1.getElementAt(1).width = 20;" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_size_horizontal.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_clipAndEnableScrolling" keywords="[Group, property, autoLayout]" description="check clipAndEnableScrolling works with autoLayout">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 25, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="autoLayout" value="false" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.group1.getElementAt(1).x = 20;" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_clipContent.png" target="" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_autoLayout_switchTo_true" keywords="[Group, property, autoLayout]" description="check equal heights">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.variableRowHeight = false;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.rowHeight = 10;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.addCustomRect(application.group1, 100, 50, 0x110000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 50, 0x880000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="autoLayout" value="false" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.group1.getElementAt(1).height = 20;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="autoLayout" value="true" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_autoLayout_switchTo_true.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+
+
+
+
+<!-- content property -->
+
+    <TestCase testID="Group_property_content_empty_array" keywords="[Group, property, content, array]" description="set content to empty array">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+        <AssertPropertyValue 	target="group1" propertyName="numElements" value="0" />
+      </body>
+    </TestCase>
+
+    <TestCase testID="Group_property_content_graphic_element" keywords="[Group, property, content, graphic]" description="set content to graphic element">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+        <RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+        <AssertPropertyValue target = "group1" propertyName="numElements" value="1" />
+        <AssertMethodValue   method="value=application.group1.getElementAt(0).xFrom" value="10" />
+        <AssertMethodValue   method="value=application.group1.getElementAt(0).yFrom" value="15" />
+      </body>
+    </TestCase>
+
+    <TestCase testID="Group_property_content_graphic_elements" keywords="[Group, property, content, graphic]" description="set content to multiple graphic element">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+        <RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+        <RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+        <AssertPropertyValue target = "group1" propertyName="numElements" value="2" />
+        <AssertMethodValue   method="value=application.group1.getElementAt(0).xFrom" value="10" />
+        <AssertMethodValue   method="value=application.group1.getElementAt(0).yFrom" value="15" />
+        <AssertMethodValue   method="value=application.group1.getElementAt(1).x" value="30" />
+        <AssertMethodValue   method="value=application.group1.getElementAt(1).y" value="40" />
+      </body>
+    </TestCase>
+
+  <!--  filters property -->
+
+	<TestCase testID="Group_property_filters_graphics" keywords="[Group, property, filters]" description="check shadow filter on graphics items">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="group1" />
+        <RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+		<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+        <RunCode code="application.addShadowFilter(application.group1);" />
+		<!-- no event sent, need to pause -->
+		<Pause timeout="200" />
+		<AssertMethodValue method="value=(application.group1.filters[0] is DropShadowFilter)" valueExpression="value=true" />
+        <CompareBitmap url="../properties/baselines/group_property_filters_graphics.png" target="group1" timeout="2000" />
+      </body>
+    </TestCase>
+
+    <TestCase testID="Group_property_filters_change" keywords="[Group, property, filters]" description="change the filters on a group">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="group1" />
+        <RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+		<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+        <RunCode code="application.addShadowFilter(application.group1);" />
+		<!-- no event sent, need to pause -->
+		<Pause timeout="200" />
+        <RunCode code="application.addBlurFilter(application.group1);" />
+		<!-- no event sent, need to pause -->
+		<Pause timeout="200" />
+		<AssertMethodValue method="value=(application.group1.filters[0] is DropShadowFilter)" valueExpression="value=true" />
+		<AssertMethodValue method="value=(application.group1.filters[1] is BlurFilter)" valueExpression="value=true" />
+        <CompareBitmap url="../properties/baselines/group_property_filters_change.png" target="group1" timeout="2000" />
+      </body>
+    </TestCase>
+
+<!-- layout property -->
+
+
+ 	<TestCase testID="Group_property_layout_default" keywords="[Group, property, layout]" description="check that layout defaults to basic layout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue target="group1" method="value=application.group1.layout.toString()" valueExpression="value='[object BasicLayout]'" />
+		</body>
+	</TestCase>
+
+	<!-- vertical -->
+
+ 	<TestCase testID="Group_property_layout_vertical_graphics" keywords="[Group, property, layout]" description="provide graphics to vertical layout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty    target="group1" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../properties/baselines/group_property_layout_vertical_graphics.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<!-- horizontal -->
+
+ 	<TestCase testID="Group_property_layout_horizontal_graphics" keywords="[Group, property, layout]" description="graphics in horizontal layout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty    target="group1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<CompareBitmap url="../properties/baselines/group_property_layout_horizontal_graphics.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_layout_switch" keywords="[Group, property, layout]" description="test switching layouts">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty    target="group1" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addEllipseAt(application.group1, 2)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../properties/baselines/group_property_layout_switch.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- mask property -->
+
+    <TestCase testID="Group_property_mask_alpha_change" keywords="[Group, property, mask, alpha]" description="check that an alpha mask can be changed to clip mask">
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+		<RunCode code="application.addCustomRect(application.group1, 100, 20, 0xFF0000, 0, 0);" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addCustomRect(application.group1, 100, 20, 0x00FF00, 0, 25);" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.applyGradientMask(application.group1)" waitTarget="group1" waitEvent="updateComplete"  />
+		<SetProperty target="group1" propertyName="maskType" value="alpha" waitTarget="group1" waitEvent="updateComplete" />
+      </setup>
+      <body>
+		<AssertPropertyValue target="group1" propertyName="maskType" value="alpha" />
+		<SetProperty target="group1" propertyName="maskType" value="clip" waitTarget="group1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="group1" propertyName="maskType" value="clip" />
+		<CompareBitmap url="../properties/baselines/group_property_mask_alpha_change.png" target="group1" timeout="2000" />
+      </body>
+    </TestCase>
+
+  	<TestCase testID="Group_property_mask_alpha_graphics" keywords="[Group, property, mask, alpha]" description="check that an alpha mask can be applied to group with graphic elements">
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+		<RunCode code="application.addRect(application.group1)" waitTarget="group1" waitEvent="updateComplete"  />
+		<RunCode code="application.addEllipseAt(application.group1, 0)" waitTarget="group1" waitEvent="updateComplete"  />
+		<RunCode code="application.applyGradientMask(application.group1)" waitTarget="group1" waitEvent="updateComplete"  />
+		<SetProperty target="group1" propertyName="maskType" value="alpha" waitTarget="group1" waitEvent="updateComplete" />
+      </setup>
+      <body>
+		<AssertPropertyValue target="group1" propertyName="maskType" value="alpha" />
+		<CompareBitmap url="../properties/baselines/group_property_mask_alpha_graphics.png" target="group1" timeout="2000" />
+
+		<SetProperty target="group1" propertyName="maskType" value="clip" waitTarget="group1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="group1" propertyName="maskType" value="clip" />
+      </body>
+    </TestCase>
+
+  	<TestCase testID="Group_property_content_mask" keywords="[Group, property, content]" description="add a mask to an item of the group">
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<RunCode code="application.addCustomRect(application.group1, 100, 20, 0xFF0000, 0, 0);" waitEvent="updateComplete" waitTarget="group1"  />
+
+		<RunCode code="application.createSubgroup(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+		<RunCode code="application.group1.getElementAt(1).layout = new VerticalLayout()" />
+		<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 100, 20, 0x00FF00, 0, 25)" />
+		<RunCode code="application.addCustomRect(application.group1.getElementAt(1), 100, 20, 0x0000FF, 0, 50)" />
+
+		<RunCode code="application.applyMask(application.group1.getElementAt(1))" waitTarget="group1" waitEvent="updateComplete" />
+      </setup>
+      <body>
+
+		<CompareBitmap url="../properties/baselines/group_property_content_mask.png" target="group1" timeout="2000" />
+      </body>
+    </TestCase>
+
+  	<TestCase testID="Group_property_maskType_default" keywords="[Group, property, maskType]" description="check default maskType of a Group">
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+		<AssertPropertyValue target="group1" propertyName="maskType" valueExpression="value=MaskType.CLIP" />
+      </body>
+    </TestCase>
+
+	<TestCase testID="Group_property_mask_graphics" keywords="[Group, property, mask]" description="mask over graphic elements">
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<RunCode code="application.addStretchRect(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+      </setup>
+      <body>
+		<RunCode code="application.applyMask(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+		<AssertMethodValue method="value=application.group1.mask.width" value="50" />
+		<AssertPropertyValue target="group1" propertyName="maskType" valueExpression="value=MaskType.CLIP" />
+		<CompareBitmap url="../properties/baselines/group_property_mask_graphics.png" target="group1" timeout="2000" />
+      </body>
+    </TestCase>
+	
+	<TestCase testID="Group_property_mask_change" keywords="[Group, property, mask]" description="change mask at runtime">
+	  <!-- bugs>
+	  	<Bug bugID="SDK-21495" />
+	  </bugs-->
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<RunCode code="application.addStretchRect(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+      </setup>
+      <body>
+		<RunCode code="application.applyMask(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+		<AssertMethodValue method="value=application.group1.mask.width" value="50" />
+		<AssertPropertyValue target="group1" propertyName="maskType" valueExpression="value=MaskType.CLIP" />
+		<RunCode code="application.applyMask2(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+		<CompareBitmap url="../properties/baselines/group_property_mask_change.png" target="group1" />
+      </body>
+    </TestCase>
+	
+	<TestCase testID="Group_property_mask_changeToNull" keywords="[Group, property, mask]" description="change mask to null at runtime">
+	  <!-- bugs>
+	  	<Bug bugID="SDK-21495" />
+	  </bugs-->
+      <setup>
+		<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		<RunCode code="application.addStretchRect(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+      </setup>
+      <body>
+		<RunCode code="application.applyMask(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+		<AssertMethodValue method="value=application.group1.mask.width" value="50" />
+		<AssertPropertyValue target="group1" propertyName="maskType" valueExpression="value=MaskType.CLIP" />
+		<RunCode code="application.group1.mask = null" waitTarget="group1" waitEvent="updateComplete" />
+		<CompareBitmap url="../properties/baselines/group_property_mask_changeToNull.png" target="group1" />
+      </body>
+    </TestCase>
+
+<!-- numElements property -->
+
+    <TestCase testID="Group_property_numElements_empty" keywords="[Group, property, numElements, empty]" description="group with no items">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+        <AssertPropertyValue target="group1" propertyName="numElements" value="0" />
+      </body>
+    </TestCase>
+    <TestCase testID="Group_property_numElements_one_element" keywords="[Group, property, numElements, one]" description="group with one item">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+      </setup>
+      <body>
+        <AssertPropertyValue target="group1" propertyName="numElements" value="1" />
+      </body>
+    </TestCase>
+    <TestCase testID="Group_property_numElements_many_elements" keywords="[Group, property, numElements, many]" description="group with multiple items">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+		<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addRect(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		<RunCode code="application.addLine(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+      </setup>
+      <body>
+        <AssertPropertyValue target="group1" propertyName="numElements" value="10" />
+      </body>
+    </TestCase>
+
+<!-- rotation property
+
+	- at 0, 45, -315, 360, -360, 3600045, -3600415
+-->
+
+	<TestCase testID="Group_property_rotation_graphic_0" keywords="[Group, property,rotation]" description="rotate group of graphics by 0 degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<AssertPropertyValue target="group1" propertyName="rotation" value="0" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_0.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_rotation_graphic_45" keywords="[Group, property,rotation]" description="rotate group of graphics by 45 degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<AssertPropertyValue target="group1" propertyName="rotation" value="45" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_45.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_rotation_graphic_minus315" keywords="[Group, property,rotation]" description="rotate group of graphics by -315 degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="rotation" value="-315" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<AssertPropertyValue target="group1" propertyName="rotation" value="45" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_45.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_rotation_graphic_360" keywords="[Group, property,rotation]" description="rotate group of graphics by 360 degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<AssertMethodValue method="value=(application.group1.rotation.toFixed(1)) * -1" valueExpression="value=0" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_0.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_rotation_graphic_minus360" keywords="[Group, property,rotation]" description="rotate group of graphics by -360 degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="rotation" value="-360" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<AssertMethodValue method="value=(application.group1.rotation.toFixed(1)) * -1" valueExpression="value=0" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_0.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_rotation_graphic_3600045" keywords="[Group, property,rotation]" description="rotate group of graphics by large amount of degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="rotation" value="3600045" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<AssertPropertyValue target="group1" propertyName="rotation" value="45" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_45.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_rotation_graphic_minus3600315" keywords="[Group, property,rotation]" description="rotate group of graphics by large amount of negative degrees">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="rotation" value="-3600315" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<AssertPropertyValue target="group1" propertyName="rotation" value="45" />
+			<CompareBitmap url="../properties/baselines/group_property_rotation_graphic_45.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- scaleGrids properties -->
+
+	<TestCase testID="Group_property_scaleGrids_default" keywords="[Group, property, scaleGrids]" description="default value of scaleGrids should be NaN">
+      <setup>
+        <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+      </setup>
+      <body>
+		<AssertPropertyValue target="group1" propertyName="scaleGridLeft" valueExpression="value=NaN" />
+		<AssertPropertyValue target="group1" propertyName="scaleGridRight" valueExpression="value=NaN" />
+		<AssertPropertyValue target="group1" propertyName="scaleGridTop" valueExpression="value=NaN" />
+		<AssertPropertyValue target="group1" propertyName="scaleGridBottom" valueExpression="value=NaN" />
+      </body>
+    </TestCase>
+
+
+
+<!-- scaleX, scaleY properties -->
+<!--
+	- graphic elements at 0, 0.5, 1, 2
+	- negative values: garbage in/garbage out
+-->
+
+
+<!-- scaleX - graphics -->
+
+	<TestCase testID="Group_property_scaleX_graphics_0" keywords="[Group, property,scaleX, graphics]" description="check scaling group with graphic items width to 0">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="0" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleX_graphics_0decimal5" keywords="[Group, property,scaleX]" description="scale graphics by .5">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="0.5" />
+			<AssertPropertyValue target="group1" propertyName="width" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleX_graphics_0decimal5.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleX_graphics_1" keywords="[Group, property,scaleX]" description="check scaling group with graphic items width to 1">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleX_graphics_1.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleX_graphics_2" keywords="[Group, property,scaleX]" description="scale graphics by 2">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="2" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="2" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleX_graphics_2.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- scaleXY - graphics -->
+
+	<TestCase testID="Group_property_scaleXY_graphics_0_0" keywords="[Group, property,scaleXY]" description="scale group to zero width and height">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="0" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="scaleY" value="0" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="0" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleXY_graphics_1_1" keywords="[Group, property,scaleXY]" description="normal scale of graphics group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleXY_graphics_1_1.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleXY_graphics_decimal5_decimal5" keywords="[Group, property,scaleXY]" description="uniform scaling of graphic item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="scaleY" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="0.5" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="0.5" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleXY_graphics_decimal5_decimal5.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleXY_graphics_decimal5_2" keywords="[Group, property,scaleXY]" description="non-uniform scaling of graphic item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="scaleY" value="2" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="0.5" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="2" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleXY_graphics_decimal5_2.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleXY_graphics_2_decimal5" keywords="[Group, property,scaleXY]" description="non-uniform scaling of graphic item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="2" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="scaleY" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="2" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="0.5" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleXY_graphics_2_decimal5.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleXY_graphics_2_2" keywords="[Group, property,scaleXY]" description="uniform scaling of graphic item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleX" value="2" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="scaleY" value="2" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="2" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="2" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleXY_graphics_2_2.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- scaleY - graphics -->
+
+	<TestCase testID="Group_property_scaleY_graphics_0" keywords="[Group, property,scaleY]" description="check scale Y of 0 for graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleY" value="0" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleY_graphics_0decimal5" keywords="[Group, property,scaleY]" description="check scale Y of 0.5 for graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleY" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="0.5" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleY_graphics_0decimal5.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleY_graphics_1" keywords="[Group, property,scaleY]" description="check default scaleY">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleY_graphics_1.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_scaleY_graphics_2" keywords="[Group, property,scaleY]" description="check scale Y of 2 for graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="x"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<SetProperty target="group1" propertyName="scaleY" value="2" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="2" />
+			<CompareBitmap url="../properties/baselines/group_property_scaleY_graphics_2.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- transform property -->
+
+	<!-- transform directly -->
+	<TestCase testID="Group_property_transform_direct" keywords="[Group, property,transform]" description="check that you can set the transform property directly">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<RunCode code="application.skewGroupViaTransform(application.group1);"  />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.transform.matrix.c" value="1" />
+			<CompareBitmap url="../properties/baselines/group_property_transform_direct.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transform_skew_graphics" keywords="[Group, property,transform]" description="skew a graphic item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addEllipseAt(application.group1,2);" waitEvent="updateComplete" waitTarget="group1"  />
+
+
+			<RunCode code="application.skewGroup(application.group1);"  />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.transform.matrix.c" value="1" />
+			<CompareBitmap url="../properties/baselines/group_property_transform_skew_graphics.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transform_color_graphics" keywords="[Group, property,transform]" description="color transform a graphics item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addEllipseAt(application.group1,2);" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<RunCode code="application.colorTransform(application.group1);"  />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.transform.colorTransform.redOffset" value="100" />
+			<AssertMethodValue method="value=application.group1.transform.colorTransform.blueOffset" value="100" />
+			<CompareBitmap url="../properties/baselines/group_property_transform_color_graphics.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transform_rotate_graphics" keywords="[Group, property,transform]" description="rotate transform a graphics item group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.addLine(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addRect(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addEllipseAt(application.group1, 2);" waitEvent="updateComplete" waitTarget="group1" />
+
+			<RunCode code="application.rotateTransform(application.group1, -45);"  />
+
+		</setup>
+		<body>
+			<CompareBitmap url="../properties/baselines/group_property_transform_rotate_graphics.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- x,y properties -->
+
+	<TestCase testID="Group_property_xy_0_0" keywords="[Group, property,scaleX]" description="check x,y at origin">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="1" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="1" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="1" />
+			<AssertPropertyValue target="group1" propertyName="height" value="1" />
+			<AssertPropertyValue target="group1" propertyName="x" value="0" />
+			<AssertPropertyValue target="group1" propertyName="y" value="0" />
+
+			<AssertPixelValue value="0xFF0000" x="0" y="0" target="" />
+			<AssertPixelValue value="0xFFFFFF" x="1" y="0" target="" />
+			<AssertPixelValue value="0xFFFFFF" x="0" y="1" target="" />
+			<AssertPixelValue value="0xFFFFFF" x="1" y="1" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_xy_100_100" keywords="[Group, property,scaleX]" description="setting xy to 100 100 shouldnt do anything since vertical layout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="1"  waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="1" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.addStretchRect(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<SetProperty target="group1" propertyName="x" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="y" value="100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="1" />
+			<AssertPropertyValue target="group1" propertyName="height" value="1" />
+			<AssertPropertyValue target="group1" propertyName="x" value="0" />
+			<AssertPropertyValue target="group1" propertyName="y" value="0" />
+
+			<AssertPixelValue value="0xFF0000" x="0" y="0" target="" />
+			<AssertPixelValue value="0xFFFFFF" x="1" y="0" target="" />
+			<AssertPixelValue value="0xFFFFFF" x="0" y="1" target="" />
+			<AssertPixelValue value="0xFFFFFF" x="1" y="1" target="" />
+
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_xy_rotate" keywords="[Group, property,scaleX]" description="check x,y doesnt change on rotate">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1.getElementAt(0));" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).rotation = 45" value="45" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y" value="100" />
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="Group_property_xy_scaleX" keywords="[Group, property,scaleX]" description="check x,y doesnt change on scale">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1.getElementAt(0));" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).scaleX = 2" value="2" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y" value="100" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_xy_scaleY" keywords="[Group, property,scaleX]" description="check x,y doesnt change on scale">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1.getElementAt(0));" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).scaleY = 2" value="2" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y" value="100" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_xy_scaleXY" keywords="[Group, property,scaleX]" description="check x,y doesnt change on scale">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addRect(application.group1.getElementAt(0));" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y = 100" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).scaleX = 2" value="2" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).scaleY = 2" value="2" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).x" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).y" value="100" />
+		</body>
+	</TestCase>
+
+<!-- transformX, transformY properties -->
+
+	<TestCase testID="Group_property_transformXY_default" keywords="[Group, property,transform]" description="check default values">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="transformX" value="0" />
+			<AssertPropertyValue target="group1" propertyName="transformY" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transformXY_origin" keywords="[Group, property,transform]" description="set transform position to the origin of a Group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).rotation = 45;" waitTarget="group1" waitEvent="updateComplete" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).rotation" value="45" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformX" value="0" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformY" value="0" />
+			<CompareBitmap url="../properties/baselines/group_property_transformXY_origin.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transformXY_middle" keywords="[Group, property,transform]" description="set transform position to the center of a Group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformX = 25;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformY = 25;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).rotation = 45;" waitTarget="group1" waitEvent="updateComplete" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).rotation" value="45" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformX" value="25" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformY" value="25" />
+			<CompareBitmap url="../properties/baselines/group_property_transformXY_middle.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transformXY_corner" keywords="[Group, property,transform]" description="set transform position to the bottom right corner of a Group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformX = 50;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformY = 50;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).rotation = 45;" waitTarget="group1" waitEvent="updateComplete" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).rotation" value="45" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformX" value="50" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformY" value="50" />
+			<CompareBitmap url="../properties/baselines/group_property_transformXY_corner.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transformXY_negative" keywords="[Group, property,transform]" description="set transform position to a negative position relative to the Group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformX = -100;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformY = -100;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).rotation = 45;" waitTarget="group1" waitEvent="updateComplete" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).rotation" value="45" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformX" value="-100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformY" value="-100" />
+			<CompareBitmap url="../properties/baselines/group_property_transformXY_negative.png" target="" timeout="2000" numColorVariances="6" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_transformXY_extend" keywords="[Group, property,transform]" description="set transform position to a position farther than group bounds">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.getElementAt(0).x = 100" />
+			<RunCode code="application.group1.getElementAt(0).y = 100" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.addCustomRect(application.group1.getElementAt(0), 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformX = 100;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).transformY = 100;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).rotation = 45;" waitTarget="group1" waitEvent="updateComplete" />
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).rotation" value="45" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformX" value="100" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).transformY" value="100" />
+			<CompareBitmap url="../properties/baselines/group_property_transformXY_extend.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- visible property (sanity check) -->
+
+	<TestCase testID="Group_property_visible" keywords="[Group, property,visible]" description="sanity check that visible works">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="visible" value="false"  />
+
+			<RunCode code="application.group1.addElement(application.createFxButton('Item 0', 75, 50));" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="visible" value="true" />
+			<CompareBitmap url="../properties/baselines/group_property_visible.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_property_depth_basic" keywords="[Group, property, depth]" description="check that you can set depth on visual items">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="mxmlContent" valueExpression="value=[new LayerGraphicsArray()];" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(0).depth = 2;" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(1).depth = 1;" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(2).depth = 1;" waitTarget="group1" waitEvent="updateComplete"/>
+			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(3).depth = 0;" waitTarget="group1" waitEvent="updateComplete"/>
+			<AssertMethodValue method="application.group1.getElementAt(0).getElementAt(4).depth = -1;" waitTarget="group1" waitEvent="updateComplete"/>
+	   	</setup>
+    	<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="140" />
+			<CompareBitmap url="../properties/baselines/group_property_layer_basic.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_mxmlContent_get" keywords="[Group, property, mxmlContent]" description="get the mxmlContent">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="mxmlContent" valueExpression="value=[new LayerGraphicsArray()];" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="value=(application.group1.mx_internal::getMXMLContent()[0] is Group)" value="true" />
+	   	</setup>
+    </TestCase>
+
+	<TestCase testID="Group_property_mxmlContent_default" keywords="[Group, property, mxmlContent]" description="get the mxmlContent">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.group1.mx_internal::getMXMLContent()" valueExpression="value=null" />
+	   	</setup>
+    </TestCase>
+
+	<TestCase testID="Group_property_styles" keywords="[Group, property, styles]" description="check rollOverColor/alternatingItemColors styles go through">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(new comps.StylesGroup())" waitTarget="group1" waitEvent="updateComplete" />
+
+			<DispatchMouseEvent target="group1" localX="20" localY="140" type="rollOver"/>
+			<DispatchMouseEvent target="group1" localX="20" localY="141" type="mouseOver" />
+			<Pause timeout="50" />
+	   	</setup>
+		<body>
+			<CompareBitmap url="../properties/baselines/group_property_styles.png" target="" timeout="2000" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_hitArea" keywords="[Group, property, hitArea]" description="check hitArea is size of full group (SDK-20554)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.addEventListener('click', function():void{});" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<DispatchMouseEvent target="group1" localX="0" localY="0" type="click" waitEvent="click" waitTarget="group1" />
+			<DispatchMouseEvent target="group1" localX="25" localY="25" type="click" waitEvent="click" waitTarget="group1" />
+			<DispatchMouseEvent target="group1" localX="75" localY="75" type="click" waitEvent="click" waitTarget="group1" />
+			<DispatchMouseEvent target="group1" localX="99" localY="99" type="click" waitEvent="click" waitTarget="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_enabled_default" keywords="[Group, property, enabled]" description="check group enabled by default">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.testingEnabledOutput = '';" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.addEventListener('click', application.handleClickEvent);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<DispatchMouseEvent target="group1" localX="25" localY="25" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value='[click]'" />
+			<DispatchMouseEvent target="group1" localX="75" localY="75" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value='[click][click]'" />
+			<DispatchMouseEvent target="group1" localX="99" localY="99" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value='[click][click][click]'" />
+			<AssertMethodValue method="value=application.group1.enabled" valueExpression="value=true" />
+			<AssertMethodValue method="value=application.group1.mouseEnabled" valueExpression="value=true" />
+			<AssertMethodValue method="value=application.group1.mouseChildren" valueExpression="value=true" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_enabled_false" keywords="[Group, property, enabled]" description="check disabled group can't be clicked on (SDK-20988) and has half alpha">
+		<!-- bugs>
+			<Bug bugID="SDK-22209" />
+			<Bug bugID="SDK-20988" />
+		</bugs-->
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="enabled" value="false" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.testingEnabledOutput = '';" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.addEventListener('click', application.handleClickEvent);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<DispatchMouseEvent target="group1" localX="25" localY="25" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value=''" />
+			<DispatchMouseEvent target="group1" localX="75" localY="75" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value=''" />
+			<DispatchMouseEvent target="group1" localX="99" localY="99" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value=''" />
+			<AssertMethodValue method="value=application.group1.enabled" valueExpression="value=false" />
+			<AssertMethodValue method="value=application.group1.mouseEnabled" valueExpression="value=false" />
+			<AssertMethodValue method="value=application.group1.mouseChildren" valueExpression="value=false" />
+			<CompareBitmap url="../properties/baselines/Group_property_enabled_false.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_disabledAlpha" keywords="[Group, property, enabled]" description="set disabledAlpha then disable the group">
+		<!-- bugs>
+			<Bug bugID="SDK-22209" />
+		</bugs-->
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetStyle target="group1" styleName="disabledAlpha" value="0.1" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="enabled" value="false" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertStyleValue target="group1" styleName="disabledAlpha" value="0.1" />
+			<CompareBitmap url="../properties/baselines/$testID.png" target="group1" />
+		</body>
+    </TestCase>
+    
+	<TestCase testID="Group_property_enabled_mouseEnabled" keywords="[Group, property, enabled]" description="check group disabled when mouseEnabled/mouseChildren true">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="mouseEnabled" value="true" />
+			<SetProperty target="group1" propertyName="mouseChildren" value="true" />
+			<SetProperty target="group1" propertyName="enabled" value="false" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.testingEnabledOutput = '';" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 50, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.addEventListener('click', application.handleClickEvent);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<DispatchMouseEvent target="group1" localX="25" localY="25" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value=''" />
+			<DispatchMouseEvent target="group1" localX="75" localY="75" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value=''" />
+			<DispatchMouseEvent target="group1" localX="99" localY="99" type="click" />
+			<AssertMethodValue method="value=application.testingEnabledOutput" valueExpression="value=''" />
+			<AssertMethodValue method="value=application.group1.enabled" valueExpression="value=false" />
+			<AssertMethodValue method="value=application.group1.mouseEnabled" valueExpression="value=false" />
+			<AssertMethodValue method="value=application.group1.mouseChildren" valueExpression="value=false" />
+		</body>
+    </TestCase>
+
+
+	<TestCase testID="Group_property_width_SDK21222" keywords="[Group, property, enabled]" description="check that no extra borders show (SDK-21222)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(new GumboStoreBugComp());" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<CompareBitmap url="../properties/baselines/group_property_width_SDK21222.png" target="" />
+		</body>
+    </TestCase>
+
+
+	<TestCase testID="Group_property_SDK21171" keywords="[Group, regression]" description="SDK-21171">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(new PathRotateObject());" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).runTest();" waitTarget="group1.getElementAt(0).vessel" waitEvent="childrenChanged" />
+	   	</setup>
+		<body>
+			<CompareBitmap url="../properties/baselines/group_property_SDK21171.png" target="group1" numColorVariances="6" ignoreMaxColorVariance="true" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_SDK18982" keywords="[Group, regression]" description="stroke should be accounted for when using left/top (SDK-18982)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(new StrokedRect());" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<CompareBitmap url="../properties/baselines/group_property_SDK18982.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_SDK20148_halo" keywords="[Group, regression]" description="group size should change when moving a child">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(application.createButton());" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<AssertMethodValue method="value=application.group1.width" value="70" />
+			<AssertMethodValue method="value=application.group1.height" value="21" />
+			
+			<RunCode code="application.group1.getElementAt(0).x += 100;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).y += 100;" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.width" value="170" />
+			<AssertMethodValue method="value=application.group1.height" value="121" />
+		</body>
+    </TestCase>
+    
+	<TestCase testID="Group_property_SDK20148_spark" keywords="[Group, regression]" description="group size should change when moving a child">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(application.createFxButton());" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<AssertMethodValue method="value=application.group1.width" value="20" />
+			<AssertMethodValue method="value=application.group1.height" value="20" />
+			
+			<RunCode code="application.group1.getElementAt(0).x += 100;" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).y += 100;" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.width" value="120" />
+			<AssertMethodValue method="value=application.group1.height" value="120" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_blendMode_disabled" keywords="[Group, regression]" description="check blend mode on a disabled button">
+		<!-- bugs>
+			<Bug bugID="SDK-24636" />
+		</bugs-->
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.addElement(new BlendModeGroup());" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<RunCode code="BlendModeGroup(application.group1.getElementAt(0)).disableSecondButton()" />
+			<Pause timeout="50" />
+			<AssertMethodValue method="value=BlendModeGroup(application.group1.getElementAt(0)).getBlendModes()" value="layer,layer" />
+	   	</setup>
+		<body>
+			<CompareBitmap url="../properties/baselines/$testID.png" target="group1" />
+		</body>
+    </TestCase>
+
+
+
+  </testCases>
+</UnitTester>

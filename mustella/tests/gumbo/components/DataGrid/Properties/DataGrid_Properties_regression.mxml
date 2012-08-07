@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_regression.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import spark.components.DataGrid;
+           	import spark.skins.spark.DataGridSkin;
+                public var rowBG:IFactory;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+			<TestCase testID="editor_colorPicker_test1" keywords="[DataGrid,Property,editable]" description="Test colorPicker as editor with showTextField=true">			
+				<setup>
+					<ResetComponent target="dataGrid" className="components.DataGrid_colorPicker_dateField" waitEvent="updateComplete"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				</setup>
+				<body>
+			 		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+					<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,2)" value="true"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  			<DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<DispatchMouseClickEvent target="dataGrid" localX="176" localY="36" />
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<DispatchKeyEvent char="FF0000" waitEvent="enterFrame" waitTarget="stage"/>
+					<DispatchKeyEvent keys="[ENTER]" waitEvent="enterFrame" waitTarget="stage"/>
+					<DispatchKeyEvent keys="[TAB]" waitEvent="enterFrame" waitTarget="stage"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid"/>
+				</body>
+			</TestCase>
+			<TestCase testID="editor_dateField_test1" keywords="[DataGrid,Property,editable]" description="Test dateField as editor, when it is invoked, press Down arrow, verify datagrid will not scroll">
+				<setup>
+					<ResetComponent target="dataGrid" className="components.DataGrid_colorPicker_dateField" waitEvent="updateComplete"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				</setup>
+				<body>
+					<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+					<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,1)" value="true"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+					<DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<DispatchKeyEvent keys="[DOWN]"  waitEvent="enterFrame" waitTarget="stage"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid"/>
+					<RunCode code="FlexGlobals.topLevelApplication.setFocus()"  waitEvent="focusIn" waitTarget=""/>
+				</body>
+			</TestCase>
+			<TestCase testID="editor_dateField_test2" keywords="[DataGrid,Property,editable]" description="Test dateField as editor, when it is invoked, verify new value will be committed">			
+				<setup>
+					<ResetComponent target="dataGrid" className="components.DataGrid_colorPicker_dateField" waitEvent="updateComplete"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				</setup>
+				<body>
+					<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+					<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,1)" value="true"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+					<DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<RunCode code="FlexGlobals.topLevelApplication.dataGrid.itemEditorInstance.dateField.open()" waitTarget="dataGrid.itemEditorInstance.dateField" waitEvent="open"/>
+					<DispatchKeyEvent keys="[DOWN,DOWN,ENTER]"  waitEvent="enterFrame" waitTarget="stage"   />
+					<DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="40" waitEvent="gridClick" waitTarget="dataGrid.grid"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid"/>
+				</body>
+			</TestCase>
+			<TestCase testID="editor_TextContent_selectAll_test" keywords="[DataGrid,Property,editable]" description="Test selectAll text in textArea editor, verify it should only act on TextArea, not grid selection">	
+				<setup>
+					<ResetComponent target="dataGrid" className="components.DataGrid_colorPicker_dateField" waitEvent="updateComplete"/>
+					<RunCode code="FlexGlobals.topLevelApplication.dataGrid.gc1.itemEditor=new ClassFactory(dgTextAreaIE)"/>
+	          			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				</setup>
+				<body>
+					<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+					<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,0)" value="true"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+					<DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" waitEvent="enterFrame" waitTarget="stage"/>
+					<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<RunCode code="FlexGlobals.topLevelApplication.dataGrid.itemEditorInstance.ta.selectAll()"  />
+            				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+					<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid"/>
+				</body>
+			</TestCase>
+    </testCases>
+</UnitTester>

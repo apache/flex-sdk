@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="gumbo/components/Button/integration/"
+    testSWF="iconButtonIntegrationTester.mxml">
+    
+    <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+    <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+    
+    <testCases>
+
+
+<TestCase testID="button_icon_integration_default_btn2" keywords="[Button, mobile, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn2" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_state1_btn2" keywords="[Button, mobile, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn2" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_state1_btn3" keywords="[Button, mobile, icon]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn3" propertyName="label" value="Edit" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn3" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_default_btn4" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn4" propertyName="label" value="" />
+		<AssertStyleValue target="grp1.btn4" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn4" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_state1_btn4" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<bugs>
+		<Bug bugID="SDK-27507" />
+	</bugs>
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn4" propertyName="label" value="Delete" />
+		<AssertStyleValue target="grp1.btn4" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn4" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_default_btn5" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn5" propertyName="label" value="Edit" />
+		<AssertStyleValue target="grp1.btn5" styleName="iconPlacement" value="top" />		
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn5" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_state1_btn5" keywords="[Button, mobile, icon, iconPlacement]" description="Test state icon iconPlacement button change">
+	<bugs>
+		<Bug bugID="SDK-27512" />
+	</bugs>
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn5" propertyName="label" value="Edit" />
+		<AssertStyleValue target="grp1.btn5" styleName="iconPlacement" value="right" />		
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn5" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_default_btn6" keywords="[Button, mobile, icon, label]" description="Test state icon button change">
+	<bugs>
+		<Bug bugID="SDK-28352" />
+	</bugs>
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn6" propertyName="label" value="" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn6" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_state1_btn6" keywords="[Button, mobile, icon, label]" description="Test state icon button change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn6" propertyName="label" value="Rectangle" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn6" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_integration_noIcon_btn6" keywords="[Button, mobile, icon, label]" description="Test clearing icon on state change">
+	<setup>
+		<ResetComponent target="grp1" className="comps.IconIntegrationRoot" waitEvent="updateComplete" />
+		<SetProperty target="grp1" propertyName="currentState" value="noIcon" waitEvent="currentStateChange" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="grp1.btn6" propertyName="label" value="No Icon" />
+		<CompareBitmap url="../integration/baselines/$testID.png" target="grp1.btn6" />
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

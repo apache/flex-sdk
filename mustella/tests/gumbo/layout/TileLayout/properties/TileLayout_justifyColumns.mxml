@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+columnAlign: 
+This property gives control over the implementation of
+horizontalAlign = "justify".
+
+left: No justification.
+justifyUsingGap: The gap changes.  columnWidth does not.
+justifyUsingWidth: The columnWidth changes.  The gap does not.
+========================================================
+-->
+
+<!--
+========================================================
+none
+========================================================
+-->
+
+<TestCase testID="columnAlign_defaultValue" keywords="[TileLayout,columnAlign]" description="Check default." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = TileLayout(application.box1.group1.layout).columnAlign" valueExpression="value = ColumnAlign.LEFT" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test1" keywords="[TileLayout,columnAlign]" description="1 item, group is wider than it." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test2" keywords="[TileLayout,columnAlign]" description="2 items, only part of the 2nd one is visible." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test3a" keywords="[TileLayout,columnAlign]" description="2 items, only part of the 2nd one is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test3b" keywords="[TileLayout,columnAlign]" description="2 items, only part of the 2nd one is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test4" keywords="[TileLayout,columnAlign]" description="4 items, only part of the 2nd one is visible." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test5a" keywords="[TileLayout,columnAlign]" description="4 items, only part of the 2nd one is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test5b" keywords="[TileLayout,columnAlign]" description="4 items, only part of the 2nd one is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test6" keywords="[TileLayout,columnAlign]" description="2 items, only part of the gap is visible." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 45)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test7a" keywords="[TileLayout,columnAlign]" description="2 items, only part of the gap is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 45)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test7b" keywords="[TileLayout,columnAlign]" description="2 items, only part of the gap is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 45)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test8" keywords="[TileLayout,columnAlign]" description="4 items, only part of the gap is visible." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 45)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test9a" keywords="[TileLayout,columnAlign]" description="4 items, only part of the gap is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 45)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_left_test9b" keywords="[TileLayout,columnAlign]" description="4 items, only part of the gap is visible, scroll right/left." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 45)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+justifyUsingGap
+========================================================
+-->
+
+<TestCase testID="columnAlign_justifyUsingGap_test1" keywords="[TileLayout,columnAlign]" description="Group width less than item + gap.  2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="6" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test2a" keywords="[TileLayout,columnAlign]" description="Group width less than item + gap.  2 items, scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="6" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test2b" keywords="[TileLayout,columnAlign]" description="Group width less than item + gap.  2 items, scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="6" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test3" keywords="[TileLayout,columnAlign]" description="Group width a little more than item + gap.  2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="9" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test4" keywords="[TileLayout,columnAlign]" description="Group width a little more than item + gap.  2 items.  Scroll a little ways over so we can see the gap." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.thumb" type="rollOver" localX="10" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.thumb.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.thumb" type="mouseDown" localX="10" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.thumb.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.thumb" type="mouseMove" localX="12" localY="2" waitTarget="box1.scroller1.horizontalScrollBar" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="9" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test5" keywords="[TileLayout,columnAlign]" description="Group width a little more than item + gap.  2 items.  Scroll all the way." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="9" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test6" keywords="[TileLayout,columnAlign]" description="Group width equals 2 items + gap.  2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 26)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 26)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingGap_test7" keywords="[TileLayout,columnAlign]" description="Group width equals 2 items + gap.  2 items.  Narrow Group by 2 pixels.  Gap should increase." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_GAP" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 26)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 26)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="58" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="58" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="horizontalGap" value="31" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+justifyUsingWidth
+========================================================
+-->
+
+<TestCase testID="columnAlign_justifyUsingWidth_test1" keywords="[TileLayout,columnAlign]" description="Group width less than item width." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="56" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test2a" keywords="[TileLayout,columnAlign]" description="Group width less than item width.  Scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="56" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test2b" keywords="[TileLayout,columnAlign]" description="Group width less than item width.  Scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 55)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 55)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="56" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test3" keywords="[TileLayout,columnAlign]" description="Group width equals item width." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test4a" keywords="[TileLayout,columnAlign]" description="Group width equals item width.  Scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test4b" keywords="[TileLayout,columnAlign]" description="Group width equals item width.  Scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test5" keywords="[TileLayout,columnAlign]" description="Group width exceeds item's width, but not by enough to fit 2 items and a gap.  1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="70" />
+        <SetProperty target="box1.group1" propertyName="height" value="70" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="70" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test6" keywords="[TileLayout,columnAlign]" description="Group width exceeds item's width, but not by enough to fit 2 items and a gap.  2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="70" />
+        <SetProperty target="box1.group1" propertyName="height" value="70" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="70" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test7a" keywords="[TileLayout,columnAlign]" description="Group width exceeds item's width, but not by enough to fit 2 items and a gap.  2 items.  Scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="70" />
+        <SetProperty target="box1.group1" propertyName="height" value="70" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="70" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test7b" keywords="[TileLayout,columnAlign]" description="Group width exceeds item's width, but not by enough to fit 2 items and a gap.  2 items.  Scroll." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="70" />
+        <SetProperty target="box1.group1" propertyName="height" value="70" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localX="2" localY="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="70" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test8" keywords="[TileLayout,columnAlign]" description="Group width exceeds item's width, but not by enough to fit 2 items and a gap.  2 items.  Increase group width to fit both items + gap." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="70" />
+        <SetProperty target="box1.group1" propertyName="height" value="70" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="110" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="52" />
+    </body>
+</TestCase>
+
+<TestCase testID="columnAlign_justifyUsingWidth_test9" keywords="[TileLayout,columnAlign]" description="Similar to the above, but start wide and decrease the group's width instead of starting narrow and increasing the group's width." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="110" />
+        <SetProperty target="box1.group1" propertyName="height" value="70" />
+        <SetProperty target="box1.group1.layout" propertyName="columnAlign" valueExpression="value = ColumnAlign.JUSTIFY_USING_WIDTH" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="70" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnWidth" value="70" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,19 @@
+<s:SkinnableContainer  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"       
+    xmlns:local="comps.*"
+    height="300"
+    width="300">
+    
+    <s:layout>
+            <s:VerticalLayout/>
+    </s:layout>
+    
+   <local:MyCustomIC id="myAuto"> 
+     	<mx:Button id="b1" label="AUTO" />   	
+    </local:MyCustomIC>
+    
+    <local:MyCustomIC id="myNone" creationPolicy="none"> 
+  		<mx:Button id="b2" label="NONE" />   	
+    </local:MyCustomIC>
+        
+</s:SkinnableContainer>

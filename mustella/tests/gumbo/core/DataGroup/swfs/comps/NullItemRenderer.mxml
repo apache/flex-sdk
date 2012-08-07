@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="init()" autoDrawBackground="false">
+
+	<fx:Script>
+		<![CDATA[
+			public function init():void {
+			
+				// Ensure that the null value comes through to the item renderer
+			
+				if (data == null){
+					theColor.color = 0xFF0000;
+					data = 'null';
+				}
+			}
+		]]>
+	</fx:Script>
+    <s:states>
+		<mx:State name="normal"/>		
+		<mx:State name="hovered"/>
+		<mx:State name="selected"/>
+	</s:states>
+
+    <s:Rect width="300" height="50">
+		<s:fill>
+			<mx:SolidColor id="theColor" color="0x00FFFF"  alpha="0.2" alpha.hovered="0.2" alpha.selected="0.8" />
+		</s:fill>
+	</s:Rect>
+
+	<mx:Label text="{data}" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
+
+</s:ItemRenderer>

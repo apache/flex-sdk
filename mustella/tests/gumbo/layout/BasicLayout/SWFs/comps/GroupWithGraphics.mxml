@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="*">
+<s:Button x="300" label="parent" id="parentBtn" top="120" bottom="150"/>
+      <s:Group id="childGroup" >
+	    <s:layout>
+	        <s:BasicLayout/>
+	    </s:layout>
+    	<s:Path id="path" data="M 20 0 C 50 0 50 35 20 35 L 15 35 L 15 45 L 0 32 L 15 19 L 15 29 L 20 29 C 44 29 44 6 20 6">
+             <!-- Use segment tags to define the arrow. >
+             <s:segments>
+                  <s:MoveSegment x="20" y="0"/>
+                  <s:CubicBezierSegment x="20" y="35"
+                       control1X="50" control1Y="0"
+                       control2X="50" control2Y="35"/>
+                  <s:LineSegment x="15" y="35"/>
+                  <s:LineSegment x="15" y="45"/>
+                  <s:LineSegment x="0" y="32"/>
+                  <s:LineSegment x="15" y="19"/>
+                  <s:LineSegment x="15" y="29"/>
+                  <s:LineSegment x="20" y="29"/>
+                  <s:CubicBezierSegment x="20" y="6"
+                       control1X="44" control1Y="29"
+                       control2X="44" control2Y="6"/>
+             </s:segments-->
+             <!-- Define the border color of the arrow. -->
+             <s:stroke>
+                  <s:SolidColorStroke color="0x888888"/>
+             </s:stroke>
+             <!-- Define the fill for the arrow. -->
+             <s:fill>
+                  <s:LinearGradient rotation="90">
+                       <s:GradientEntry color="0x000000" alpha="0.8"/>
+                       <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
+                  </s:LinearGradient>
+             </s:fill>
+        </s:Path>
+    	<s:Ellipse  id="ellipse" height="200" width="250" x="300" y="300">
+              <s:stroke>
+                   <s:SolidColorStroke color="0x000000" weight="2"/>
+              </s:stroke>
+            <s:fill>
+               <s:RadialGradient>
+                  <s:entries>
+                         <s:GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
+                         <s:GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
+                         <s:GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
+                  </s:entries>
+             </s:RadialGradient>
+            </s:fill>
+        </s:Ellipse>
+	</s:Group>
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0xFF0000"/>
+		</s:stroke>
+	</s:Rect>
+</s:Group>

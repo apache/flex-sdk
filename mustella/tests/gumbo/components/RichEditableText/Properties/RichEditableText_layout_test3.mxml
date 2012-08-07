@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*" testSWF="RichEditableText_Basic002.mxml">
+
+    <mx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+            
+            
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <!-- ################################################################## -->
+
+
+    <mx:Script>
+        <![CDATA[
+            import flash.text.engine.*;
+	    import flashx.textLayout.formats.*;
+	    import flashx.textLayout.conversion.TextConverter;
+	    import flashx.textLayout.formats.LineBreak;
+	    import spark.utils.TextFlowUtil;
+	    import mx.core.FlexGlobals;
+	   
+	    import comps.*;
+	    
+	    public var t:String="this is a test\n this is a test \r \n this is a test";
+	    public var newText:String = "<p>This is the new text.</p>";
+	    public var tmp:String="";
+
+	]]>
+    </mx:Script>
+
+    <testCases>
+
+<!-- tests here are focus on properties of RichEditableText
+-->
+        
+         
+        <TestCase testID="RichEditableText_Property_multiline1" description="text property multiline" keywords="[RichEditableText,Property,multiline]">
+            <setup>
+                <ResetComponent target="myRET1" className="comps.HellowWorldRET" waitTarget="myRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myRET1" propertyName="multiline" value="true"/>
+            </body>
+        </TestCase>     
+
+        <TestCase testID="RichEditableText_Property_multiline_false" description="text property multiline" keywords="[RichEditableText,Property,multiline]">
+            <setup>
+                <ResetComponent target="myRET1" className="comps.HellowWorldRET" waitTarget="myRET1" waitEvent="updateComplete" />
+                <SetProperty target="myRET1" propertyName="multiline" value="false" />
+                <SetProperty target="myRET1" propertyName="height" value="200" waitTarget="myRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myRET1" propertyName="multiline" value="false"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.myRET1.setFocus()" waitEvent="focusIn" waitTarget="myRET1"/>
+		<DispatchKeyEvent char="thisistest"  waitEvent="change" waitTarget="myRET1" />
+	    	<DispatchKeyEvent keys="[ENTER,ENTER,ENTER,ENTER,ENTER,ENTER]" />
+	    	<DispatchKeyEvent char="thisistest"  waitEvent="change" waitTarget="myRET1" />
+	    	<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+	    	<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="myRET1" />
+            </body>
+        </TestCase>  
+        
+        <TestCase testID="RichEditableText_Property_multiline_update" description="text property multiline from true to false" keywords="[RichEditableText,Property,multiline]">
+            <setup>
+                <ResetComponent target="myRET1" className="comps.HellowWorldRET" waitTarget="myRET1" waitEvent="updateComplete" />
+                <SetProperty target="myRET1" propertyName="height" value="200" waitTarget="myRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.myRET1.setFocus()" waitEvent="focusIn" waitTarget="myRET1"/>
+		<DispatchKeyEvent char="line1"  waitEvent="change" waitTarget="myRET1" />
+	    	<DispatchKeyEvent keys="[ENTER,ENTER,ENTER]" />
+	    	<DispatchKeyEvent char="line5"  waitEvent="change" waitTarget="myRET1" />
+	    	<SetProperty target="myRET1" propertyName="multiline" value="false"  />
+	    	<DispatchKeyEvent keys="[ENTER]" />
+	    	<DispatchKeyEvent char="line6"  waitEvent="change" waitTarget="myRET1" />
+	    	<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+	    	<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_false.png" target="myRET1" />
+	    	<RunCode code="FlexGlobals.topLevelApplication.myRET1.setFocus()" waitEvent="focusIn" waitTarget="myRET1"/>
+	    	<SetProperty target="myRET1" propertyName="multiline" value="true" />
+		<DispatchKeyEvent keys="[ENTER]" />
+	    	<DispatchKeyEvent char="line7"  waitEvent="change" waitTarget="myRET1" />
+	    	<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_true.png" target="myRET1" />
+            </body>
+        </TestCase> 
+        
+        
+        
+         <TestCase testID="RichEditableText_Property_editable" description="test default value for property editable" keywords="[RichEditableText,Property,editable]">
+ 	    <setup>
+                <ResetComponent target="myRET1" className="comps.HellowWorldRET" waitTarget="myRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myRET1" propertyName="editable" value="true"/>
+            </body>
+        </TestCase>  
+
+         <TestCase testID="RichEditableText_Property_editable_false" description="test property editable=false" keywords="[RichEditableText,Property,editable]">
+ 	    <setup>
+                <ResetComponent target="myRET1" className="comps.HellowWorldRET" waitTarget="myRET1" waitEvent="updateComplete" />
+		<SetProperty target="myRET1" propertyName="editable" value="false" waitTarget="myRET1" waitEvent="updateComplete" />
+		<RunCode code="tmp=FlexGlobals.topLevelApplication.myRET1.text" />
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.myRET1.setFocus()" waitEvent="focusIn" waitTarget="myRET1"/>
+		<DispatchKeyEvent char="line1" />
+		<Pause timeout="100"/>
+		<!-- verify text property value should not be updated -->
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myRET1.text==tmp" value="true" />
+            </body>
+        </TestCase>  
+ 
+          <TestCase testID="RichEditableText_Property_editable_change" description="test property editable=false" keywords="[RichEditableText,Property,editable]">
+  	    <setup>
+                <ResetComponent target="myRET1" className="comps.HellowWorldRET" waitTarget="myRET1" waitEvent="updateComplete" />
+ 		<SetProperty target="myRET1" propertyName="editable" value="false" waitTarget="myRET1" waitEvent="updateComplete" />
+ 		<RunCode code="tmp=FlexGlobals.topLevelApplication.myRET1.text" />
+             </setup>
+             <body>
+                <RunCode code="FlexGlobals.topLevelApplication.myRET1.setFocus()" waitEvent="focusIn" waitTarget="myRET1"/>
+ 		<DispatchKeyEvent char="line1" />
+ 		<Pause timeout="100"/>
+ 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myRET1.text=='Hello World!'" value="true" />
+ 		<SetProperty target="myRET1" propertyName="editable" value="true" waitTarget="myRET1" waitEvent="updateComplete" />
+ 		<!-- this statement doesn't work in mustella, so use mouse click as work around
+ 		<RunCode code="FlexGlobals.topLevelApplication.myRET1.setFocus()" waitEvent="focusIn" waitTarget="myRET1"/>
+ 		-->
+ 		<DispatchMouseClickEvent target="myRET1" localX="2" localY="2" />
+ 		<DispatchKeyEvent char="line1" waitEvent="change" waitTarget="myRET1" />
+ 		
+ 		<!-- verify text property value should be updated -->
+ 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myRET1.text!='Hello World!'" value="true" />
+             </body>
+        </TestCase>  
+
+          <TestCase testID="RichEditableText_Property_selectable_true" description="test property selectable=true" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+             </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="true"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(2,10)" />
+                 <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase>  
+        
+          <TestCase testID="RichEditableText_Property_selectable_true2" description="test property selectable=true, insert new text diselect text" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+             </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(2,10)" />
+                <RunCode code="FlexGlobals.topLevelApplication.insertNewText(FlexGlobals.topLevelApplication.retEditable1,newText)"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase> 
+        
+        <TestCase testID="RichEditableText_Property_selectable_true3" description="test property selectable=true, set negative value in selectRange, so selection is reset" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+             </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(2,10)" />
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(2,-10)" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase>       
+        <TestCase testID="RichEditableText_Property_selectable_true4" description="test property selectable=true, set negative value, so selection is reset" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+             </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(2,10)" />
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(-2,0)" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase>  
+
+        <TestCase testID="RichEditableText_Property_selectable_true5" description="test property selectable=true, set invalid anchorPosition/activePosition" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+             </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(100,0)" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase>
+        
+
+        <TestCase testID="RichEditableText_Property_selectable_true6" description="test property selectable=true, set invalid anchorPosition/activePosition" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+             </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(0,100)" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase>
+
+        <TestCase testID="RichEditableText_Property_selectable_false" description="test property selectable=false" keywords="[RichEditableText,Property,selectable]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+                 <SetProperty target="retEditable1" propertyName="selectable" value="false" />
+            </setup>
+             <body>
+             	<AssertPropertyValue target="retEditable1" propertyName="selectable" value="false"/>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.selectRange(0,100)" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+ 		
+             </body>
+        </TestCase>
+
+        <TestCase testID="RichEditableText_Property_maxChars_1" description="test property maxChars" keywords="[RichEditableText,Property,maxChars]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+                 <SetProperty target="retEditable1" propertyName="maxChars" value="1"/>
+                 <SetProperty target="retEditable1" propertyName="text" value=""/>
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.retEditable1.setFocus()" waitEvent="focusIn" waitTarget="retEditable1"/>
+             	<DispatchKeyEvent char="thisistest"  waitEvent="change" waitTarget="retEditable1" />
+             	<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+             	<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_1char.png" target="retEditable1" />
+            </body>
+        </TestCase>     
+        <TestCase testID="RichEditableText_Property_maxChars_10" description="test property maxChars" keywords="[RichEditableText,Property,maxChars]">
+  	    <setup>
+                 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+                 <SetProperty target="retEditable1" propertyName="text" value=""/>
+                 <SetProperty target="retEditable1" propertyName="maxChars" value="10" waitTarget="retEditable1" waitEvent="updateComplete"/>
+                 <SetProperty target="retEditable1" propertyName="width" value="150" waitTarget="retEditable1" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+             	<RunCode code="FlexGlobals.topLevelApplication.retEditable1.setFocus()" waitEvent="focusIn" waitTarget="retEditable1"/>
+             	<DispatchKeyEvent char="thisistest"  repeatCount="3" waitEvent="change" waitTarget="retEditable1" />
+             	<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+             	<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_10char.png" target="retEditable1" />
+            </body>
+        </TestCase>
+         <TestCase testID="RichEditableText_Property_maxChars_big" description="test property maxChars" keywords="[RichEditableText,Property,maxChars]">
+	    <setup>
+		 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+		 <SetProperty target="retEditable1" propertyName="text" value=""/>
+		 <SetProperty target="retEditable1" propertyName="maxChars" value="1000" waitTarget="retEditable1" waitEvent="updateComplete"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.retEditable1.textFlow=TextConverter.importToFlow(FlexGlobals.topLevelApplication.tfText4, TextConverter.TEXT_LAYOUT_FORMAT)" />
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myRET1.text.length&lt;=1000" value="true" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="retEditable1" />
+	    </body>
+        </TestCase>
+         <TestCase testID="RichEditableText_Property_restrict1" description="test property restrict" keywords="[RichEditableText,Property,restrict]">
+	    <setup>
+		 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+		 <SetProperty target="retEditable1" propertyName="text" value=""/>
+		 <SetProperty target="retEditable1" propertyName="restrict" value="A-Z 0-9" waitTarget="retEditable1" waitEvent="updateComplete"/>
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.retEditable1.setFocus()" waitEvent="focusIn" waitTarget="retEditable1"/>
+		<DispatchKeyEvent char="thisistest"  />
+		<Pause timeout="100"/>
+		<AssertPropertyValue target="retEditable1" propertyName="text" value="" />
+		<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_notaccept.png" target="retEditable1" />
+		<RunCode code="FlexGlobals.topLevelApplication.retEditable1.setFocus()" waitEvent="focusIn" waitTarget="retEditable1"/>
+		<DispatchKeyEvent char="TEST19"  waitEvent="change" waitTarget="retEditable1" />
+		<AssertPropertyValue target="retEditable1" propertyName="text" value="TEST19" />
+		<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_accept.png" target="retEditable1" />
+
+	    </body>
+        </TestCase>
+        
+         <TestCase testID="RichEditableText_Property_restrict2" description="test property restrict" keywords="[RichEditableText,Property,restrict]">
+	    <setup>
+		 <ResetComponent target="retEditable1" className="comps.EditableRET1" waitTarget="retEditable1" waitEvent="updateComplete" />
+		 <SetProperty target="retEditable1" propertyName="text" value=""/>
+		 <SetProperty target="retEditable1" propertyName="restrict" value="^a-z" waitTarget="retEditable1" waitEvent="updateComplete"/>
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.retEditable1.setFocus()" waitEvent="focusIn" waitTarget="retEditable1"/>
+		<DispatchKeyEvent char="thisistest"  />
+		<Pause timeout="100"/>
+		<AssertPropertyValue target="retEditable1" propertyName="text" value="" />
+		<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_notaccept.png" target="retEditable1" />
+		<RunCode code="FlexGlobals.topLevelApplication.retEditable1.setFocus()" waitEvent="focusIn" waitTarget="retEditable1"/>
+		<DispatchKeyEvent char="NONLOWERCASE19"  waitEvent="change" waitTarget="retEditable1" />
+		<AssertPropertyValue target="retEditable1" propertyName="text" value="NONLOWERCASE19" />
+		<RunCode code="FlexGlobals.topLevelApplication.myRET2.setFocus()" waitEvent="focusIn" waitTarget="myRET2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_accept.png" target="retEditable1" />
+
+	    </body>
+        </TestCase>
+  </testCases>
+</UnitTester>
+
+

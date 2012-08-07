@@ -1,0 +1,67 @@
+<languageVersion : 1.0;>
+
+kernel Int
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts an int and displays its value in binary.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter int theInt
+    <
+        minValue:int(0);
+        maxValue:int(7);
+        defaultValue:int(0);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos   = outCoord();
+        float x = pos.x;
+        float y = pos.y;
+        float4 bit1Bounds;
+        float4 bit2Bounds;
+        float4 bit3Bounds;
+
+        // Booleans are not supported in hydra byte code, so we'll use an int's 1 and 0.
+        int bit1 = (theInt == 1 || theInt == 3 || theInt == 5 || theInt == 7) ? 1 : 0;
+        int bit2 = (theInt == 2 || theInt == 3 || theInt == 6 || theInt == 7) ? 1 : 0;
+        int bit3 = (theInt >= 4 && theInt <= 7) ? 1 : 0;
+        
+        bit1Bounds.x = float(67); //minX
+        bit1Bounds.y = float(100); //maxX
+        bit1Bounds.z = float(0); //minY
+        bit1Bounds.w = float(25); //maxY
+
+        bit2Bounds.x = float(34);
+        bit2Bounds.y = float(66);
+        bit2Bounds.z = float(0);
+        bit2Bounds.w = float(25);
+
+        bit3Bounds.x = float(0);
+        bit3Bounds.y = float(33);
+        bit3Bounds.z = float(0);
+        bit3Bounds.w = float(25);
+
+        // 1's place
+        if(
+          ((bit1 > 0) && x >= bit1Bounds.x && y <= bit1Bounds.w)||
+          ((bit2 > 0) && x >= bit2Bounds.x && x <= bit2Bounds.y && y >= bit2Bounds.z && y <= bit2Bounds.w) ||
+          ((bit3 > 0) && x >= bit3Bounds.x && x <= bit3Bounds.y && y >= bit3Bounds.z && y <= bit3Bounds.w))
+        {
+            dst.r = float(0);
+            dst.g = float(0);
+            dst.b = float(0);
+        }else{
+            dst.r = float(0.5);
+            dst.g = float(0.5);
+            dst.b = float(0.5);
+        }
+        
+        dst.a = sampleNearest(src, outCoord()).a;
+    }
+}

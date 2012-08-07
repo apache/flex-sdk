@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_ViewStack_IconLabel.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+	import mx.core.FlexGlobals;
+        import spark.components.*;
+        import mx.core.*;
+
+	]]>
+	</mx:Script>
+
+
+<testCases>
+
+<!--
+========================================================
+
+icon
+change icon on ViewStack container and verify TabBar changes
+
+========================================================
+-->
+
+
+<!--ICON TESTS-->
+<TestCase testID="iconChange_test1" keywords="[TabBar,ViewStack,icon]" description="remove exising icon" >
+    <setup>
+	<ResetComponent target="TC_Icons" className="Assets.TestCompIcons" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC_Icons.vs1.getElementAt(0)" propertyName="icon" valueExpression="value = null" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+
+	<CompareBitmap target="TC_Icons.tb" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="iconChange_test2" keywords="[TabBar,ViewStack,icon]" description="change existing icon to cherry" >
+    <setup>
+	<ResetComponent target="TC_Icons" className="Assets.TestCompIcons" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC_Icons.vs1.getElementAt(1)" propertyName="icon" valueExpression="value = FlexGlobals.topLevelApplication.TC_Icons.icon3 as Class" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+
+    	<CompareBitmap target="TC_Icons.tb" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="iconChange_test3" keywords="[TabBar,ViewStack,icon]" description="add cherry icon where there wasn't an icon previously" >
+    <setup>
+	<ResetComponent target="TC_Icons" className="Assets.TestCompIcons" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC_Icons.vs1.getElementAt(2)" propertyName="icon" valueExpression="value = FlexGlobals.topLevelApplication.TC_Icons.icon3 as Class" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+
+    	<CompareBitmap target="TC_Icons.tb" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="iconChange_test4" keywords="[TabBar,ViewStack,icon]" description="remove icon where there was an icon and a label" >
+    <setup>
+	<ResetComponent target="TC_Icons" className="Assets.TestCompIcons" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC_Icons.vs1.getElementAt(3)" propertyName="icon" valueExpression="value = null" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+
+    	<CompareBitmap target="TC_Icons.tb" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="iconChange_test5" keywords="[TabBar,ViewStack,icon]" description="change icon to cherry where there was an icon and a label" >
+    <setup>
+	<ResetComponent target="TC_Icons" className="Assets.TestCompIcons" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC_Icons.vs1.getElementAt(4)" propertyName="icon" valueExpression="value = FlexGlobals.topLevelApplication.TC_Icons.icon3 as Class" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+
+    	<CompareBitmap target="TC_Icons.tb" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="iconChange_test6" keywords="[TabBar,ViewStack,icon]" description="change icon to cherry and change label where there was an icon and a label already" >
+    <setup>
+	<ResetComponent target="TC_Icons" className="Assets.TestCompIcons" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC_Icons.vs1.getElementAt(5)" propertyName="icon" valueExpression="value = FlexGlobals.topLevelApplication.TC_Icons.icon3 as Class" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+	<SetProperty target="TC_Icons.vs1.getElementAt(5)" propertyName="label" value="hello!" waitTarget="TC_Icons.vs1" waitEvent="collectionChange"/>
+    	<CompareBitmap target="TC_Icons.tb" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+
+<!--ICON TESTS-->
+
+
+</testCases>
+
+</UnitTester>

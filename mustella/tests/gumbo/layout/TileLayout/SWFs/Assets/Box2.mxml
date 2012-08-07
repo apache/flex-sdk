@@ -1,0 +1,8 @@
+<mx:Box xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" borderStyle="solid" x="400" y="0" borderColor="0xffffff">
+    <!-- This one does not have a scroller. -->
+    <s:Group id="group1">
+        <s:layout>
+            <s:TileLayout />
+        </s:layout>
+    </s:Group>
+</mx:Box>

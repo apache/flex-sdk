@@ -1,0 +1,27 @@
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"		
+	xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+		<s:Rect left="0" right="0" top="0" bottom="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000" weight="1"/>
+		    </s:stroke>
+		</s:Rect>	
+
+	<s:Button id="taOpenBtn" label="Open Large TextArea" width="70" height="21" click="taPUA.displayPopUp=true"/>
+
+	<s:PopUpAnchor id="taPUA" popUpPosition="below" styleName="popUpTextArea" width="70" height="21">			
+		
+		<mx:VBox id="putVBox" height="500" width="500" >			
+			<s:TextArea id="myTA" width="100%" height="100%"/>		
+			<mx:HBox>
+				<s:Button label="save" />
+				<s:Button label="clear" click="myTA.text=''"/>
+				<s:Button label="quit" click="taPUA.displayPopUp=false"/>
+			</mx:HBox>
+		</mx:VBox>
+		
+	</s:PopUpAnchor>	
+	
+</s:Group>

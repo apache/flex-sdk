@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="800" width="800"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="comps.*"
+    backgroundColor="0xFFFFFF" >
+    <s:layout> <s:VerticalLayout/> </s:layout>
+    <fx:Style source="assets/myStyles.css" />
+    <fx:Script>
+    <![CDATA[
+
+    import spark.primitives.*;
+    import comps.*;
+    import mx.graphics.SolidColorStroke;
+    import mx.graphics.SolidColor;
+    import spark.components.Group;
+    import spark.components.SkinnableContainer;
+    public var newC = new SkinnableContainer();
+
+        public function addEllipseAt(myFxContainer:SkinnableContainer, i:int, color:int=0xFFFF00, width:int=40, height:int=30):void
+        {
+            var myEllipse:Ellipse = new Ellipse();
+            myEllipse.width=width; myEllipse.height=height;
+            var myFill:SolidColor = new SolidColor();
+            myFill.color = color;
+            myEllipse.fill = myFill;
+            myFxContainer.addElementAt(myEllipse, i);
+        }
+        public function addRectAt(myFxContainer:SkinnableContainer, i:int, color:int, width:int=15, height:int=30, x:int=30, y:int=40):void
+        {
+            var myRect:Rect = new Rect();
+            myRect.x = x; myRect.y = y;
+            myRect.width=width; myRect.height=height;
+            var myFill:SolidColor = new SolidColor();
+            myFill.color = color;
+            myRect.fill = myFill;
+            myFxContainer.addElementAt(myRect,i);
+        }
+        public function addCustomRect(myGroup:SkinnableContainer, width:int, height:int, color:Number, xPos:int = 0, yPos:int = 0):void
+            {
+            var myRect:Rect = new Rect();
+            myRect.x = xPos; myRect.y = yPos;
+            myRect.width=width; myRect.height=height;
+            var myFill:SolidColor = new SolidColor();
+            myFill.color = color;
+            myRect.fill = myFill;
+            myGroup.addElement(myRect);
+        }
+        public function addRect(myGroup:SkinnableContainer):void
+            {
+            var myRect:Rect = new Rect();
+            myRect.x = 30; myRect.y = 40;
+            myRect.width=15; myRect.height=30;
+            var myFill:SolidColor = new SolidColor();
+            myFill.color = 0x123456;
+            myRect.fill = myFill;
+            myGroup.addElement(myRect);
+            }
+        public function createLine(color:int, xFrom:int=0, yFrom:int=0,xTo:int=40, yTo:int=30 ):Line
+            {
+                var myLine:Line = new Line();
+                myLine.xFrom = xFrom; myLine.yFrom = yFrom;
+                myLine.xTo=xTo; myLine.yTo=yTo;
+                var mySolidColorStroke:SolidColorStroke = new SolidColorStroke();
+                mySolidColorStroke.color = color;
+                myLine.stroke = mySolidColorStroke;
+                return myLine;
+            }
+        public function addLine(myGroup:SkinnableContainer):void
+            {
+                var myLine:Line = new Line();
+                myLine.xFrom = 10; myLine.yFrom = 15;
+                myLine.xTo=50; myLine.yTo=55;
+                var mySolidColorStroke:SolidColorStroke = new SolidColorStroke();
+                mySolidColorStroke.color = 0xAB0000;
+                myLine.stroke = mySolidColorStroke;
+                myGroup.addElement(myLine);
+            }
+        public function createGroup(color:int, width:int=40, height:int=40, x:int=0, y:int=0 ):Group
+            {
+                var myGroup:Group = new Group();
+                myGroup.layout = new VerticalLayout();
+
+                var myEllipse:Ellipse = new Ellipse();
+                myEllipse.width=width; myEllipse.height=height;
+                var myFill:SolidColor = new SolidColor();
+                myFill.color = color;
+                myEllipse.fill = myFill;
+                myGroup.addElement(myEllipse);
+
+                var myRect:Rect = new Rect();
+                myRect.width=width; myRect.height=height;
+                myRect.fill = myFill;
+                myGroup.addElement(myRect);
+
+                myGroup.addElement(createLine(color));
+
+                return myGroup;
+            }
+    public function createSubgroup(myGroup:SkinnableContainer):void {
+        var subGroup:Group = new Group();
+
+        myGroup.addElement(subGroup);
+    }
+    public function addStretchRect(myGroup:SkinnableContainer):void
+            {
+            var myRect:Rect = new Rect();
+            myRect.top = 0; myRect.left = 0;
+            myRect.bottom=0; myRect.right=0;
+            var myFill:SolidColor = new SolidColor();
+            myFill.color = 0xFF0000;
+            myRect.fill = myFill;
+            myGroup.addElement(myRect);
+
+            }
+    public function createSubgroupAt(myGroup:SkinnableContainer, width:int, index:int):void {
+
+            var newSubgroup:Group = new Group();
+            newSubgroup.width = width;
+            myGroup.addElementAt(newSubgroup, index);
+
+    }
+
+    ]]>
+    </fx:Script>
+
+    <s:SkinnableContainer id="fc" />
+    <s:Label text="{fc.contentGroup.contentWidth}" />
+    <s:Label text="{fc.contentGroup.contentHeight}" />
+    <s:Label text="{fc.contentGroup.verticalScrollPosition}" />
+    <s:Label text="{fc.contentGroup.horizontalScrollPosition}" />
+
+</s:Application>

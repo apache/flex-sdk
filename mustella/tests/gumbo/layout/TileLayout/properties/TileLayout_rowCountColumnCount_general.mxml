@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+These are general tests for rowCount and columnCount.
+========================================================
+-->
+
+<TestCase testID="defaults" keywords="[TileLayout,rowCount]" description="Get default" >
+    <setup>
+        <RunCode code="application.resetTheBindingTileLayout1()" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.theBindingTileLayout1.rowCount" value="-1" />
+        <AssertMethodValue method="value = application.theBindingTileLayout1.rowCount" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="binding_test1" keywords="[TileLayout,rowCount]" description="Set to a bindable expression in MXML." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout2()" />
+        <SetProperty target="box1.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout2" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 10)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="5" />
+    </body>
+</TestCase>
+
+<TestCase testID="binding_test2" keywords="[TileLayout,rowCount]" description="Set to a bindable expression in MXML and change." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout2()" />
+        <SetProperty target="box1.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout2" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 10)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="5" />
+        <SetProperty target="box1.group1.layout" propertyName="theRowCount" value="9" />
+        <SetProperty target="box1.group1.layout" propertyName="theColumnCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete" />
+    </body>
+</TestCase>
+
+<TestCase testID="binding_test3" keywords="[TileLayout,rowCount]" description="Bind a variable to a TileLayout's rowCount and columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout1()" />
+        <SetProperty target="box1.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 20)" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="2" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="10" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout.resize1" propertyName="repeatCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout.resize1" propertyName="duration" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="cleanup" keywords="[TileLayout,rowCount]" description="We need to clean up, but the cleanup test step doesn't run if there's a failure." >
+    <body>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

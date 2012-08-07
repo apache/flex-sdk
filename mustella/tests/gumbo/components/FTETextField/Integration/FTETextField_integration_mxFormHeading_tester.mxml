@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script source="../SWFs/global.as" />
+
+	<fx:Style>
+        .textAlignLeft {
+            textAlign: left;
+        }
+        .textAlignCenter {
+            textAlign: center;
+        }
+        .textAlignRight {
+            textAlign: right;
+        }
+        .textAlignJustify {
+            textAlign: justify;
+        }
+        .textAlignStart {
+            textAlign: start;
+        }
+        .textAlignEnd {
+            textAlign: end;
+        }
+	</fx:Style>
+
+	<testCases>
+
+		<!-- ########## PROPERTIES ########## -->
+		<TestCase testID="FTE_mxFormHeading" description="Test default mx:FormHeading" keywords="[FTETextField, FormHeading, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_disabled" description="Test label property on a mx:FormHeading" keywords="[FTETextField, FormHeading, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frmHd" propertyName="enabled" value="false" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="Qwerty" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxFormHeading_label" description="Test label property on a mx:FormHeading" keywords="[FTETextField, FormHeading, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="Qwerty" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_label_truncation" description="Test truncating label property on a mx:FormHeading" keywords="[FTETextField, FormHeading, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="200" waitTarget="can2.frm" waitEvent="resize" />
+				<SetProperty target="can2.frmHd" propertyName="label" valueExpression="value=dummyTxt" waitTarget="can2.frmItm" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_label_truncation_direction" description="Test truncating label property on a mx:FormHeading" keywords="[FTETextField, FormHeading, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="200" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="direction" value="rtl" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" valueExpression="value=dummyTxt" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## STYLES ########## -->
+		<TestCase testID="FTE_mxFormHeading_color_red" description="Test color style on a mx:FormHeading" keywords="[FTETextField, FormHeading, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="color" value="red" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" valueExpression="value=dummyTxt" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_color_red_truncating" description="Test color style on a mx:FormHeading" keywords="[FTETextField, FormHeading, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="200" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="color" value="red" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" valueExpression="value=dummyTxt" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_disabledColor_green" description="Test color style on a mx:FormHeading" keywords="[FTETextField, FormHeading, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frmHd" propertyName="enabled" value="false" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetStyle target="can2.frmHd" styleName="disabledColor" value="green" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" valueExpression="value=dummyTxt" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_fontStyle_italic" description="Test font style on a mx:FormHeading" keywords="[FTETextField, FormHeading, fontStyle, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="fontStyle" value="italic" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="Qwerty" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_fontSize" description="Test font size on a mx:FormHeading" keywords="[FTETextField, FormHeading, fontSize, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="fontSize" value="18" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="fontSize" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_fontWeight" description="Test font size on a mx:FormHeading" keywords="[FTETextField, FormHeading, fontWeight, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="fontWeight" value="normal" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="fontWeight" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxFormHeading_kerning_true" description="Test kerning on a mx:FormHeading" keywords="[FTETextField, FormHeading, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="kerning" value="true" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="WAVAWAVM" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_kerning_false" description="Test kerning on a mx:FormHeading" keywords="[FTETextField, FormHeading, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="kerning" value="false" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="WAVAWAVM" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxFormHeading_leading" description="Test leading on a mx:FormHeading" keywords="[FTETextField, FormHeading, leading, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="leading" value="20" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="leading" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_letterSpacing" description="Test letterSpacing on a mx:FormHeading" keywords="[FTETextField, FormHeading, letterSpacing, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.frmHd" styleName="letterSpacing" value="10" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="letterSpacing" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_left" description="Test textAlign=left on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="left" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=left" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_center" description="Test textAlign=center on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="center" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=center" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_right" description="Test textAlign=left on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="right" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=right" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_start" description="Test textAlign=start on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="start" waitTarget="can2.frmHd" waitEvent="enterFrame" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=start" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_start2" description="Test textAlign=start on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="start" waitTarget="can2.frmHd" waitEvent="enterFrame" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=start" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+				<SetStyle target="can2.frmHd" styleName="direction" value="rtl" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_end" description="Test textAlign=end on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="end" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=end" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxFormHeading_textAlign_end2" description="Test textAlign=end on a mx:FormHeading" keywords="[FTETextField, FormHeading, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.frmView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.frm" propertyName="width" value="300" waitTarget="can2.frm" waitEvent="resize" />
+				<SetStyle target="can2.frmHd" styleName="textAlign" value="end" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+				<SetProperty target="can2.frmHd" propertyName="label" value="textAlign=end" waitTarget="can2.frmHd" waitEvent="labelChanged" />
+				<SetStyle target="can2.frmHd" styleName="direction" value="rtl" waitTarget="can2.frmHd" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

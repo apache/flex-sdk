@@ -1,0 +1,96 @@
+<UnitTester testDir="gumbo/components/Slider/Properties/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="Slider_Wireframe.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{} 
+                
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+		<TestCase testID="HSlider_Wireframe_enabled" keywords="[HSlider, Wireframe, enabled]" description="Test HSlider with Wireframe skin">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete"/> 
+				<AssertPropertyValue target="myHSlider" propertyName="enabled" value="true"/>						        
+	    	</setup>
+	    	<body>
+				<CompareBitmap target="HSbox" url="../Properties/Baselines/$testID.png"/>
+			</body>
+    	</TestCase>
+
+		<TestCase testID="HSlider_Wireframe_dataTip" keywords="[HSlider, Wireframe, dataTip]" description="Test HSlider dataTip with Wireframe skin">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete"/> 
+				<SetProperty target="myHSlider" propertyName="value" value="5" waitEvent="updateComplete"/>
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="5"/>						        
+				<DispatchMouseEvent target="myHSlider.thumb" localX="5" localY="5" type="rollOver" waitEvent="rollOver"/>
+		        <DispatchMouseEvent target="myHSlider.thumb" localX="5" localY="5" type="mouseDown" waitEvent="mouseDown"/>
+				<CompareBitmap target="HSbox" url="../Properties/Baselines/$testID.png"/>
+				<DispatchMouseEvent target="myHSlider.thumb" localX="5" localY="5" type="mouseUp" waitEvent="mouseUp"/>
+			</body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_Wireframe_disabled" keywords="[HSlider, Wireframe, disabled]" description="Test disabled HSlider with Wireframe skin">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete"/> 
+				<SetProperty target="myHSlider" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myHSlider" propertyName="enabled" value="false"/>						        
+	    	</setup>
+	    	<body>
+				<CompareBitmap target="HSbox" url="../Properties/Baselines/$testID.png"/>
+			</body>
+    	</TestCase>    	
+
+		<TestCase testID="VSlider_Wireframe_dataTip" keywords="[VSlider, Wireframe, dataTip]" description="Test VSlider dataTip with Wireframe skin">
+	    	<setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete"/> 
+				<SetProperty target="myVSlider" propertyName="value" value="5" waitEvent="updateComplete"/>
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myVSlider" propertyName="value" value="5"/>						        
+				<DispatchMouseEvent target="myVSlider.thumb" localX="5" localY="5" type="rollOver" waitEvent="rollOver"/>
+		        <DispatchMouseEvent target="myVSlider.thumb" localX="5" localY="5" type="mouseDown" waitEvent="mouseDown"/>
+				<CompareBitmap target="VSbox" url="../Properties/Baselines/$testID.png"/>
+				<DispatchMouseEvent target="myVSlider.thumb" localX="5" localY="5" type="mouseUp" waitEvent="mouseUp"/>
+			</body>
+    	</TestCase>  
+    	
+		<TestCase testID="VSlider_Wireframe_enabled" keywords="[VSlider, Wireframe, dataTip]" description="Test VSlider dataTip with Wireframe skin">
+	    	<setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete"/> 
+				<AssertPropertyValue target="myVSlider" propertyName="enabled" value="true"/>						        
+	    	</setup>
+	    	<body>
+				<CompareBitmap target="VSbox" url="../Properties/Baselines/$testID.png"/>
+			</body>
+    	</TestCase>
+    	
+		<TestCase testID="VSlider_Wireframe_disabled" keywords="[VSlider, Wireframe, disabled]" description="Test disabled VSlider with Wireframe skin">
+	    	<setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete"/> 
+				<SetProperty target="myVSlider" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myVSlider" propertyName="enabled" value="false"/>						        
+	    	</setup>
+	    	<body>
+				<CompareBitmap target="VSbox" url="../Properties/Baselines/$testID.png"/>
+			</body>
+    	</TestCase>    	
+    	
+    </testCases>
+    
+</UnitTester>

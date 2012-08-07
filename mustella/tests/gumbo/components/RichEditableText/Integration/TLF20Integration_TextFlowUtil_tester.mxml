@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="TextFlowUtilTester.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.elements.IConfiguration;
+			import flashx.textLayout.formats.LineBreak;
+			import spark.utils.TextFlowUtil;
+			
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		
+		<!-- ******************** ******************* ******************** -->
+		<!-- ******************** TLF 2.0 TextFlowUtil Tests  ******************** -->
+		<!-- ******************** ******************* ******************** -->
+
+		<TestCase testID="TextFlowUtilCoverage" keywords="[TLF 2.0 Integration, TextFlowUtil]" 
+				  description="Test to ensure the TextFlowUtil class is covered by our automated testing">
+			<setup>
+				<SetProperty target="richEditableText" propertyName="height" value="200" waitTarget="richEditableText" waitEvent="updateComplete" />
+				<SetProperty target="richEditableText" propertyName="width" value="200" waitTarget="richEditableText" waitEvent="updateComplete" />
+				<RunCode code="application.richEditableText.setFocus()" waitEvent="focusIn" waitTarget="richEditableText" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="richEditableText" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+
+</UnitTester>		
+

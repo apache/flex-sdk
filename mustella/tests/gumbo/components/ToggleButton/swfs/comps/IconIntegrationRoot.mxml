@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Script>
+		<![CDATA[
+			import comps.ACircle;
+			import comps.ARect;
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="state1"/>
+		<s:State name="noIcon"/>
+	</s:states>
+	
+		<s:ToggleButton id="btn2" x="10" y="115" 
+					icon.default="@Embed('../../../../../../Assets/Images/ButtonImages/edit48x48.png')"
+					icon.state1="@Embed('../../../../../../Assets/Images/ButtonImages/delete48x48.png')"/>
+		
+		<s:ToggleButton id="btn3" x="100" y="115" icon="@Embed('../../../../../../Assets/Images/ButtonImages/edit48x48.png')" excludeFrom="default" 
+					label.state1="Edit"/>
+		
+		<s:ToggleButton id="btn4" x="10" y="215" icon="@Embed('../../../../../../Assets/Images/ButtonImages/delete48x48.png')" 
+					label.state1="Delete" 
+					iconPlacement.default="bottom" iconPlacement.state1="right"/>
+		
+		<s:ToggleButton id="btn5" x="190" y="215" icon="@Embed('../../../../../../Assets/Images/ButtonImages/edit48x48.png')" label="Edit"
+					iconPlacement.default="top" iconPlacement.state1="right"/>
+
+		<s:ToggleButton id="btn6" x="10" y="350" 
+			icon.default="{comps.ACircle}" 
+			icon.state1="{comps.ARect}"
+			icon.noIcon="@Clear()" 
+			label.state1="Rectangle"
+			label.noIcon="No Icon" />
+				
+</s:Group>
+	

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout3D/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="Layout3DList.mxml">
+
+
+
+
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import mx.geom.TransformOffsets;
+        import comps.*;
+        import spark.components.Button;
+        public var renderer:mx.core.UIComponent;
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_x" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.postLayoutTransformOffsets.scaleX=1.5;renderer.depth=2;" />
+                <SetProperty target="buttons" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="height" value="170" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_scale_xy" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleX=1.5;renderer.postLayoutTransformOffsets.scaleY=1.5;renderer.depth=2;" />
+                <SetProperty target="buttons" propertyName="height" value="160" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListButtons_Layout3D_property_offsets_scale_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.postLayoutTransformOffsets.scaleX=1.2;renderer.depth=2;renderer.postLayoutTransformOffsets.scaleY=1.2;renderer.postLayoutTransformOffsets.scaleZ=1.2;" />
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_xyz_rotation_xyz" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleX=1.2;renderer.depth=-2;renderer.postLayoutTransformOffsets.scaleY=1.2;renderer.postLayoutTransformOffsets.scaleZ=1.2;
+                renderer.postLayoutTransformOffsets.rotationX=30;renderer.postLayoutTransformOffsets.rotationY=30;renderer.postLayoutTransformOffsets.rotationZ=30; "/>
+                <SetProperty target="buttons" propertyName="height" value="140" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_rotation_scale_x" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleX=1.2;renderer.depth=2;renderer.rotationZ=90; "/>
+                <SetProperty target="buttons" propertyName="height" value="190" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="130" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_rotationZ_scaleY" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleY=1.2;renderer.depth=2;renderer.rotationZ=-90; "/>
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_rotationX_scaleX_layer" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleX=1.5;renderer.depth=-2;renderer.rotation=60; "/>
+                <SetProperty target="buttons" propertyName="height" value="170" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="130" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ListButtons_Layout3D_property_offsets_rotationZ_scaleZ" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleZ=1.5;renderer.depth=-2;renderer.rotation=-30;"/>
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="120" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="10" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListButtons_Layout3D_property_offsets_rotation360" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);renderer.postLayoutTransformOffsets = new TransformOffsets();
+                renderer.postLayoutTransformOffsets.scaleZ=1.5;renderer.postLayoutTransformOffsets.scaleX=1.5;renderer.postLayoutTransformOffsets.scaleY=1.5;"/>
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <SetProperty target="buttons" propertyName="width" value="120" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+                <SetProperty target="bBox" propertyName="height" value="310" waitEvent="updateComplete"/>
+                <RunCode code="renderer.rotationZ=360;"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+        <TestCase testID="ListButtons_Layout3D_property_rotation-360" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="buttons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <RunCode code="renderer=application.getSelectedItemRenderer(application.buttons);
+                renderer.scaleZ=1.5;renderer.scaleX=1.5;renderer.scaleY=1.5;"/>
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+                <RunCode code="renderer.rotationZ=-360;"/>
+                <SetProperty target="bBox" propertyName="height" value="300" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+
+
+       <TestCase testID="ListButtons_Layout3D_property_layer_addItem_layer0" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="renderer=application.buttons.dataGroup.getElementAt(2);
+                renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.depth=0;
+                renderer.postLayoutTransformOffsets.scaleY=1.5;renderer.postLayoutTransformOffsets.rotationY=-30;" />
+                <RunCode code="application.buttons.dataProvider.addItemAt(new spark.components.Button,2)" />
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+       <TestCase testID="ListButtons_Layout3D_property_layer_addItem_layer-1" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+               <RunCode code="renderer=application.buttons.dataGroup.getElementAt(2);
+                renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.postLayoutTransformOffsets.scaleX=1.5;
+                renderer.postLayoutTransformOffsets.scaleY=1.5;renderer.postLayoutTransformOffsets.rotationX=-30;renderer.depth=-1;" />
+                <RunCode code="application.buttons.dataProvider.addItemAt(new spark.components.Button,2)" />
+                <SetProperty target="buttons" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+       <TestCase testID="ListButtons_Layout3D_property_layer_addItem_layer1" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+             <RunCode code="renderer=application.buttons.dataGroup.getElementAt(2);
+                renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.postLayoutTransformOffsets.scaleX=2;
+                renderer.postLayoutTransformOffsets.scaleY=2;renderer.postLayoutTransformOffsets.rotationX=-30;renderer.depth=1;" />
+                <RunCode code="application.buttons.dataProvider.addItemAt(new spark.components.Button,2)" />
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+       <TestCase testID="ListButtons_Layout3D_property_layer_addItem_layer-2" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+               <RunCode code="application.buttons.dataGroup.getElementAt(3).depth=-3" />
+               <RunCode code="renderer=application.buttons.dataGroup.getElementAt(2);
+                renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.postLayoutTransformOffsets.scaleX=1.5;
+                renderer.postLayoutTransformOffsets.scaleY=1.5;renderer.postLayoutTransformOffsets.rotationX=-30;renderer.depth=-2;" />
+                <RunCode code="application.buttons.dataProvider.addItemAt(new spark.components.Button,2)" />
+                <SetProperty target="buttons" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+       <TestCase testID="ListButtons_Layout3D_property_layer_addItem_layer3" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="buttons" className="comps.FxListButtonsComp" waitEvent="updateComplete" />
+                <SetProperty target="buttons" propertyName="y" value="50" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+             <RunCode code="application.buttons.dataGroup.getElementAt(1).depth=2" />
+             <RunCode code="renderer=application.buttons.dataGroup.getElementAt(2);
+                renderer.depth=3;
+                renderer.postLayoutTransformOffsets = new TransformOffsets();renderer.postLayoutTransformOffsets.scaleX=2;
+                renderer.postLayoutTransformOffsets.scaleY=2;renderer.postLayoutTransformOffsets.rotationX=-30;" />
+                <RunCode code="application.buttons.dataProvider.addItemAt(new spark.components.Button,2)" />
+                <SetProperty target="buttons" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="5" maxColorVariance="15"  url="../properties/baselines/$testID.png" target="buttons" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>
+

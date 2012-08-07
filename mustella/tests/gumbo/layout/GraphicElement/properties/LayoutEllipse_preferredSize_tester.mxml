@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout/GraphicElement/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutGraphicElement_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+
+        <fx:Script>
+
+            <![CDATA[
+
+                  public static function init(o:DisplayObject):void {}
+
+            ]]>
+
+        </fx:Script>
+
+        <fx:Metadata>
+
+            <![CDATA[
+
+               [Mixin]
+
+            ]]>
+
+        </fx:Metadata>
+
+        <!-- end of set of lines that must be in each unit test -->
+
+        <fx:Script>
+
+            <![CDATA[
+
+                
+
+                private var m:Matrix;
+
+                
+
+            ]]>
+
+        </fx:Script>
+
+    <testCases>
+
+	<!--*********************************-->
+
+	<!-- includeInLayout property testing-->
+
+	<!--*********************************-->
+
+	<!--THIS IS NOT YET IMPLEMENTED ALWAYS RETURNS TRUE-->
+
+	<TestCase testID="includeInLayout_property_default" keywords="[includeInLayout, properties, layoutGraphicElement]" description="includeInLayout should return true by default">
+
+		<setup>
+
+	     		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="height" value="100"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.includeInLayout" value="true"/>
+
+      		</body>
+
+	</TestCase>
+
+	
+
+	<!--************************************-->
+
+	<!--percentWidth & percentHeight testing-->
+
+	<!--************************************-->
+
+	
+
+	<!-- BUG SDK-15886 percentWidth & percentHeight not consistent between GraphicElement and UIComponent -->
+
+	<TestCase testID="percentWidth_property" keywords="[includeInLayout, properties, layoutGraphicElement]" description="percentHeight should set percentHeight for the layoutItem">
+
+		<setup>
+
+	     		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+	     		<SetProperty propertyName="percentWidth" value="50" target="pan.e1"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.percentWidth" value="50"/>
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="percentHeight_property" keywords="[includeInLayout, properties, layoutGraphicElement]" description="percentHeight should set percentHeight for the layoutItem">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty propertyName="percentHeight" value="50" target="pan.e1"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.percentHeight" value="50"/>
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="percentWidth_percentHeight_properties" keywords="[includeInLayout, properties, layoutGraphicElement]" description="percentHeight should set percentHeight for the layoutItem">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty propertyName="percentHeight" value="50" target="pan.e1"/>
+
+			<SetProperty propertyName="percentWidth" value="50" target="pan.e1"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.percentHeight" value="50"/>
+
+			<AssertMethodValue method="value=application.pan.e1.percentWidth" value="50"/>
+
+		</body>
+
+	</TestCase>
+
+	<!--*******************************-->
+
+	<!-- preferredSize property testing-->
+
+	<!--*******************************-->
+
+	
+
+		<!--***********-->
+
+		<!-- One factor-->
+
+		<!--***********-->
+
+	<TestCase testID="preferredSize_properties_height" keywords="[preferredSize, properties, layoutGraphicElement]" description="Call preferredSize after setting height">
+
+        	<setup> 
+
+           		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="height" value="100"/>
+
+           	</setup>
+
+            	<body>
+
+            		<AssertPropertyValue propertyName="height" value="100" target="pan.e1"/>
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="100" />
+
+            	</body>
+
+        </TestCase>
+
+	<TestCase testID="preferredSize_properties_height_5000" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting height to 5000">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="height" value="5000"/>
+
+        	</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="5000" />
+
+		</body>	
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_width" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting width">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="width" value="100"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="100" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_width_5000" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting width to 5000">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="width" value="5000"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="5000" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_maxHeight" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxHeight">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="maxHeight" value="100"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_maxHeight_0" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxHeight to 0">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="maxHeight" value="0"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_maxHeight_500" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxHeight to 500">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="500"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_maxWidth" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxWidth">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="maxWidth" value="5000"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_maxWidth_0" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxWidth to 0">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="maxWidth" value="0"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_minHeight" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minHeight to 20">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="minHeight" value="20"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />	
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_minHeight_50" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minHeight to 50">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="minHeight" value="50"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />	
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_minHeight_0" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minHeight to 0">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="0"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_minWidth" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minHeight to 20">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="minWidth" value="20"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />	
+
+		</body>
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_minWidth_50" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minHeight to 50">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="minWidth" value="50"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />	
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_minWidth_0" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minHeight to 0">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minWidth" value="0"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>
+
+	</TestCase>	
+
+	
+
+	<!--************-->
+
+	<!-- Two factors-->
+
+	<!--************-->
+
+	
+
+	<TestCase testID="preferredSize_properties_height_width" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting height and width">
+
+	        <setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+           		<SetProperty target="pan.e1" propertyName="width" value="100"/>
+
+           		<SetProperty target="pan.e1" propertyName="height" value="150"/>
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="100" />
+
+                	<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="150" />
+
+            	</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_height50_maxHeight75" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting height and maxHeight">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="75"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--maxWidth gets ignored if explicit width is set-->
+
+	<TestCase testID="preferredSize_properties_height30_maxWidth20" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting height and maxWidth">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="30"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="20"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="30" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_height30_minHeight0" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting height and minHeight">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="0"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="30"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="30" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_height30_minWidth60" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting height and minWidth">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="30"/>
+
+			<SetProperty target="pan.e1" propertyName="minWidth" value="60"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="30" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_width70_maxHeight5" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting width and maxHeight">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="width" value="80"/>
+
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="5"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="80" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_width60_maxWidth50" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxWidth and width">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="width" value="60"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_width55_minHeight30" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting width and minHeight">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="width" value="55"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="30"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="55" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_width10_minWidth30" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting width and minWidth">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.e1" propertyName="width" value="10"/>
+			<SetProperty target="pan.e1" propertyName="minWidth" value="30"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="10" />
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_minHeight80_minWidth30" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting width and minWidth">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.e1" propertyName="minHeight" value="80"/>
+			<SetProperty target="pan.e1" propertyName="minWidth" value="30"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_maxHeight30_minHeight20" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxHeight and minHeight">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="30"/>
+			<SetProperty target="pan.e1" propertyName="minHeight" value="20"/>
+			<SetProperty target="pan.e1" propertyName="width" value="20"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="20" />
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_maxHeight20_maxWidth20" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxHeight and maxWidth">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="20"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="20"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_maxHeight30_minWidth30" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxHeight minWidth">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="30"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="30"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_maxWidth50_minHeight30" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxWidth50 minHeight30">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="30"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_maxWidth50_minWidth30" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting maxWidth and minWidth">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="minWidth" value="30"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_minHeight_minWidth" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting explicitWidth and measuredWidth">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="30"/>
+
+			<SetProperty target="pan.e1" propertyName="minWidth" value="40"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>			
+
+	</TestCase>
+
+	<!--**************-->
+
+	<!-- Three factors-->
+
+	<!--**************-->
+
+	
+
+	<TestCase testID="preferredSize_properties_width_maxWidth_minWidth" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting minWidth, maxWidth, and width">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minWidth" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="width" value="60"/>
+
+			<SetProperty target="pan.e1" propertyName="maxWidth" value="70"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_height_minHeight_maxHeight" keywords="[preferredSize, properties, layoutGraphicElement]" description="preferredSize after setting measuredHeight and measuredMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="40"/>
+
+			<SetProperty target="pan.e1" propertyName="maxHeight" value="60"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="50"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--******************-->
+
+	<!--actualSize testing-->
+
+	<!--******************-->
+
+	<TestCase testID="actualSize_properties_defaultEllipse" keywords="[actualPosition, properties, layoutGraphicElement]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--Without waiting for updateComplete actualSize will return the default button size-->
+
+	<TestCase testID="actualSize_height_width_properties_defaultEllipse" keywords="[actualPosition, properties, layoutGraphicElement]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="width" value="50"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsWidth()" value="50" />
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsHeight()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--After waiting for updateComplete, actualSize will return the explicit size-->
+
+	<TestCase testID="actualSize_setExplicit_properties_changeEllipse" keywords="[actualPosition, properties, layoutGraphicElement]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="height" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="pan"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsWidth()" value="50" />
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsHeight()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="actualSize_measuredHeight_measuredWidth_properties_defaultButton" keywords="[actualPosition, properties, layoutGraphicElement]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="minHeight" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="minWidth" value="50"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--**********************-->
+
+	<!--actualPosition testing-->
+
+	<!--**********************-->
+
+	<TestCase testID="actualPosition_properties_x30_y50" keywords="[actualPosition, properties, layoutGraphicElement]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="x" value="30"/>
+
+			<SetProperty target="pan.e1" propertyName="y" value="50"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsX()" value="30" />
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsY()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="actualPosition_properties_default" keywords="[actualPosition, properties, layoutGraphicElement]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsX()" value="0" />
+
+			<AssertMethodValue method="value=application.pan.e1.getLayoutBoundsY()" value="62" />
+
+		</body>		
+
+	</TestCase>
+
+	<!--*******************-->
+
+	<!--percentWidth & percentHeight testing-->
+
+	<!--*******************-->
+
+	<TestCase testID="default_percentWidth_percentHeight_properties_Ellipse" keywords="[percentWidth, percentHeight, properties, layoutGraphicElement]" description="Verifies percentWidth/percentHeight gets set correctly">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.percentWidth" value="NaN" />
+
+			<AssertMethodValue method="value=application.pan.e1.percentHeight" value="NaN" />
+
+		</body>
+
+	</TestCase>
+
+		
+
+	<TestCase testID="percentWidth_percentHeight_properties_Ellipse" keywords="[percentWidth, percentHeight, properties, layoutGraphicElement]" description="Verifieds percentWidth/percentHeight gets set correctly">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty target="pan.e1" propertyName="percentHeight" value="50"/>
+
+			<SetProperty target="pan.e1" propertyName="percentWidth" value="30"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.percentWidth" value="30" />
+
+			<AssertMethodValue method="value=application.pan.e1.percentHeight" value="50" />
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<!--***************-->
+
+	<!--minSize testing-->
+
+	<!--***************-->
+
+	
+
+	<TestCase testID="Ellipse_minSize_default" keywords="[minSize, properties, layoutGraphicElement]" description="Call minSize">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getMinBoundsWidth()" value="0" />
+
+			<AssertMethodValue method="value=application.pan.e1.getMinBoundsHeight()" value="0" />
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="Ellipse_minSize_minWidth_minHeight" keywords="[minSize, properties, layoutGraphicElement]" description="Call minSize">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty propertyName="minWidth" value="30" target="pan.e1"/>
+
+			<SetProperty propertyName="minHeight" value="50" target="pan.e1"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getMinBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.pan.e1.getMinBoundsHeight()" value="50" />
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<!--***************-->
+
+	<!--maxSize testing-->
+
+	<!--***************-->
+
+		
+
+	<TestCase testID="Ellipse_maxSize_default" keywords="[minSize, properties, layoutGraphicElement]" description="Call maxSize">
+
+		<setup> 
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getMaxBoundsWidth()" value="10000" />
+
+			<AssertMethodValue method="value=application.pan.e1.getMaxBoundsHeight()" value="10000" />
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="Ellipse_maxSize_maxWidth_maxHeight" keywords="[maxSize, properties, layoutGraphicElement]" description="Call maxSize">
+
+		<setup>
+
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+
+			<SetProperty propertyName="maxWidth" value="30" target="pan.e1"/>
+
+			<SetProperty propertyName="maxHeight" value="50" target="pan.e1"/>
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.pan.e1.getMaxBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.pan.e1.getMaxBoundsHeight()" value="50" />
+
+		</body>
+
+	</TestCase>
+
+	</testCases>
+
+</UnitTester>    
+

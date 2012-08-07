@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			xmlns:comps="comps.*"
+			testDir="gumbo/core/Group/methods/"
+			testSWF="GroupMethodMain.mxml"> 
+	
+	<fx:Script>
+		<![CDATA[ 
+			import mx.core.FlexGlobals;
+			import spark.components.*;
+			public static function init(o:DisplayObject):void { } ]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<testCases>
+		
+		<TestCase testID="Group_Methods_containsElement_UIComponent_button_false" keywords="[Group, containsElement, button, false]" description="Checks if rootButton is part of the group. This should return false as the button is part of the application but not part of the group.">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.appButton)" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_UIComponent_button" keywords="[Group, containsElement, button]" description="checks if containsElement can look for rootButton in the Group">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.rootButton)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_GraphicElement_Line_false" keywords="[Group, containsElement, line, false]" description="Checks if appLine is part of the group. This should return false as the appLine is part of the application but not part of the group.">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.appLine)" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_GraphicElement_Line_add_remove" keywords="[Group, containsElement, Line]" description="Adds and removes a Line using ActionScript and checks for the Line.">
+			<setup>
+				<ResetComponent className="comps.GroupMethodComp" target="myGroupMethodComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.addLine()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myLine)" value="true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.removeLine()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myLine)" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested_UIComponent_label" keywords="[Group, containsElement, label]" description="checks if containsElement can look for nestedLabel in the Group">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.nestedLabel)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested_GraphicElement_BitmapImage" keywords="[Group, containsElement, BitmapImage]" description="checks if containsElement can look for BitmapImage in the Group. Checking for BitmapImage that is nested in Group.">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.rootBI)" value="true" />
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.nestedBI)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_UIComponent_list" keywords="[Group, containsElement, list]" description="checks if containsElement can look for nestedList in the Group">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.nestedList)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_UIComponent_button_add" keywords="[Group, containsElement, list]" description="Adds a button using ActionScript and checks for that button.">
+			<setup>
+				<ResetComponent className="comps.GroupMethodComp" target="myGroupMethodComp" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.addButton()" valueExpression="value=true"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myButton)" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_UIComponent_label_remove" keywords="[Group, containsElement, list]" description="Removes a label using ActionScript and checks for that button no loger exist in the Group.">
+			<setup>
+				<ResetComponent className="comps.GroupMethodComp" target="myGroupMethodComp" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.removeLabel()" valueExpression="value=true"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.nestedLabel)" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_UIComponent_button_add_remove" keywords="[Group, containsElement, list]" description="Removes a button using ActionScript and checks for that button no loger exist in the Group.">
+			<setup>
+				<ResetComponent className="comps.GroupMethodComp" target="myGroupMethodComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.addButton()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myButton)" value="true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.removeButton()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myButton)" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_GraphicElement_Line" keywords="[Group, containsElement, Line]" description="checks if containsElement can look for Line in a nested Group">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.testLine)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_GraphicElement_BitmapImage_add_remove" keywords="[Group, containsElement, BitmapImage]" description="Adds amd removes a BitmapImage using ActionScript and checks for that BitmapImage.">
+			<setup>
+				<ResetComponent className="comps.GroupMethodComp" target="myGroupMethodComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.addBitmapImage()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myBitmapImage)" value="true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.removeBitmapImage()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.myBitmapImage)" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_SpritVisualElement_FXG" keywords="[Group, containsElement, FXG]" description="checks if containsElement can look for FXG in the Group">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.nestedFXG)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_nested2_SpritVisualElement_FXG_remove" keywords="[Group, containsElement, FXG]" description="Removes the FXG and checks for it inside the Group">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.removeFXG()" valueExpression="value=true"/>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(application.myGroupMethodComp.nestedFXG)" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_null" keywords="[Group, containsElement, null, false]" description="Checks if containsElement can handle null as an parameter. This should return false.">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.containsElement(null)" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Group_Methods_containsElement_wrong_level_false" keywords="[Group, containsElement, wrong level, false]" description="Checks if containsElement can return false if an element is check for at wrong level.">
+			<setup>
+				<ResetComponent target="myGroupMethodComp" className="comps.GroupMethodComp" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGroupMethodComp.level1.containsElement(application.myGroupMethodComp.rootBI)" value="false" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

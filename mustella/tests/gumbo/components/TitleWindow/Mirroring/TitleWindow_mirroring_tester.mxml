@@ -1,0 +1,347 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Mirroring/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_mirroring_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import spark.components.TitleWindow;
+        	import spark.components.*;
+        	import mx.managers.PopUpManager;
+        	import flash.display.DisplayObject;
+        	import comps.*;
+        	
+        	
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+        	 
+        	public var b:CheckBox=new CheckBox();
+        	public function addCheckBox(t:TitleWindow):void
+        	{
+        		b.label="checkbox";
+        		var n:Number=t.numElements;
+        		t.addElementAt(b,n);
+        	} 
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+	<TestCase testID="TitleWindow_layoutDirection_rtl1" keywords="[TitleWindow, Mirroring,default]" description="Test TitleWindow UI without any content and layoutDirection=rtl">
+            <setup>        
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="defaultTW" propertyName="layoutDirection" value="rtl"/>
+            	<MyCompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+    
+	<TestCase testID="TitleWindow_layoutDirection_rtl2" keywords="[TitleWindow, Mirroring,default]" description="Test default TitleWindow UI with contents and layoutDirection=rtl">
+            <setup>            
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent1,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="12" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+  	<TestCase testID="TitleWindow_layoutDirection_rtl3" keywords="[TitleWindow, Mirroring,default]" description="Test default TitleWindow UI with contents and layoutDirection=rtl">
+  	    <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'window with content2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+   	<TestCase testID="TitleWindow_layoutDirection_rtl4" keywords="[TitleWindow, Mirroring,default]" description="Test default TitleWindow UI with contents and layoutDirection=rtl">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window with content3')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+   	<TestCase testID="TitleWindow_layoutDirection_rtl5" keywords="[TitleWindow, Mirroring,default]" description="Test default TitleWindow UI with contents and layoutDirection=rtl">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'window with content4')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+     	<TestCase testID="TitleWindow_layoutDirection_rtl6" keywords="[TitleWindow, Mirroring,default]" description="Test default TitleWindow UI with contents and layoutDirection=rtl">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent5,'window with content5')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+            	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+ 
+ 
+      	<TestCase testID="TitleWindow_alert_rtl1" keywords="[TitleWindow, Mirroring,default]" description="Test default TitleWindow UI with Alert and layoutDirection=rtl">
+             <setup> 
+             	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithAlert,'window with alert')" waitEvent="TitleWindowComplete" waitTarget=""/>
+             </setup>
+             <body>
+             	<RunCode code="FlexGlobals.topLevelApplication.twObject.showAlert()" waitEvent="updateComplete" waitTarget="twObject.curAlert"/>
+		<Pause timeout="40"/>
+		
+		<AssertPropertyValue target="twObject.curAlert" propertyName="layoutDirection" value="rtl"/>
+		<MyCompareBitmap target="twObject.curAlert" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png"  numColorVariances="10" maxColorVariance="20"/>
+		<DispatchKeyEvent key="SPACE" />
+		<AssertEvent target="twObject.curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+		<WaitForEffectsToEnd />
+                  </body>
+        </TestCase>
+        
+      	<TestCase testID="TitleWindow_popupTitleWindow_rtl1" keywords="[TitleWindow, Mirroring,default]" description="Test a TitleWindow shows a titlewindow and layoutDirection=rtl">
+             <setup> 
+             	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window TitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
+             </setup>
+             <body>
+             	<RunCode code="FlexGlobals.topLevelApplication.twObject.showTitleWindow()" waitEvent="TitleWindowComplete" waitTarget="twObject"/>
+		<RunCode code="FlexGlobals.topLevelApplication.childWindowList.push(FlexGlobals.topLevelApplication.twObject.twWindow2)" />
+		<AssertPropertyValue target="twObject.twWindow2" propertyName="layoutDirection" value="rtl"/>
+		<MyCompareBitmap target="twObject.twWindow2" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png"  numColorVariances="10" maxColorVariance="20"/>
+           
+             </body>
+        </TestCase>
+  
+        <TestCase testID="TitleWindow_popupTitleWindow_rtl2" keywords="[TitleWindow, Mirroring,default]" description="Test PopupManager pops up a titlewindow and layoutDirection=rtl">
+               <setup> 
+               	   <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                   <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window TitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
+               </setup>
+               <body>
+               	   <RunCode code="FlexGlobals.topLevelApplication.twObject=TitleWindow(PopUpManager.createPopUp(DisplayObject(FlexGlobals.topLevelApplication),TitleWindowWithContent1))" />
+   	    	   <RunCode code="FlexGlobals.topLevelApplication.childWindowList.push(FlexGlobals.topLevelApplication.twObject)"/>
+   	           <AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+  		   <MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+             
+               </body>
+        </TestCase>
+ 
+       	<TestCase testID="TitleWindow_popupAnchor_rtl1" keywords="[TitleWindow, Mirroring,default]" description="Test a TitleWindow shows a popupAnchor and layoutDirection=rtl">
+              <setup> 
+              	  <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window TitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
+              </setup>
+              <body>
+              	<RunCode code="FlexGlobals.topLevelApplication.twObject.showPopupAnchor()"  waitEvent="updateComplete" waitTarget="twObject.myForm" />
+   	        <AssertPropertyValue target="twObject.myForm" propertyName="layoutDirection" value="rtl"/>
+ 	    	<Pause timeout="100"/>
+   	    	<MyCompareBitmap target="twObject.myForm" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+           
+              </body>
+        </TestCase>
+        
+        
+      <TestCase testID="TitleWindow_reparent_rtl1" keywords="[TitleWindow,contents]" description="Test move contents among two titleWindows with different layoutDirection">
+                <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowAtCreation,'two popups')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>
+    	    	<SetProperty target="twObject" propertyName="layoutDirection" value="ltr" waitEvent="updateComplete" />
+    	    	
+    	    	<SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+    	    	<SetProperty target="twObject.twWindow" propertyName="layoutDirection" value="rtl"  />
+       		<SetStyle target="twObject.twWindow" styleName="direction" value="rtl" />
+       
+    		<RunCode code="addCheckBox(FlexGlobals.topLevelApplication.twObject)" waitEvent="elementAdd" waitTarget="twObject"/>
+    		<Pause timeout="100"/>
+    		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID_addToParent.png"  mac_url="../Mirroring/Baselines/$testID_addToParent_mac.png" numColorVariances="10" maxColorVariance="20"/>
+    		
+    		<RunCode code="addCheckBox(FlexGlobals.topLevelApplication.twObject.twWindow)" waitEvent="elementAdd" waitTarget="twObject.twWindow"/>
+		 <Pause timeout="100"/>
+    		<MyCompareBitmap target="twObject.twWindow" url="../Mirroring/Baselines/$testID_addToChild.png" mac_url="../Mirroring/Baselines/$testID_addToChild_mac.png"  numColorVariances="15" maxColorVariance="20"/>
+    		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID_removeChild.png" mac_url="../Mirroring/Baselines/$testID_removeChild_mac.png"  numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>        
+        
+        
+   
+       	<TestCase testID="TitleWindow_children_rtl1" keywords="[TitleWindow, Mirroring,default]" description="Test a TitleWindow with some children having layoutDirection=rtl">
+              <setup> 
+              	  <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithRTLContent1,'window TitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
+              </setup>
+              <body>
+   	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+           
+              </body>
+        </TestCase>      
+    	 
+ 
+	
+	
+	<TestCase testID="TitleWindow_rtl_constraint1" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>            	            	
+		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="TitleWindow_rtl_constraint1_update" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>       
+	    	<SetProperty target="twObject" propertyName="layoutDirection" value="ltr" waitEvent="updateComplete" />
+	        <SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+		
+	        <SetProperty target="twObject.myOutterPanel" propertyName="layoutDirection" value="rtl"  />
+    	    	<SetStyle target="twObject.myOutterPanel" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+       
+		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	
+	
+
+	<TestCase testID="TitleWindow_rtl_constraint2" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>     
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk2.move(200,300)" waitTarget="twObject.chk2" waitEvent="move"/>
+		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="TitleWindow_rtl_constraint2_update" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>     
+	        <SetProperty target="twObject" propertyName="layoutDirection" value="ltr" waitEvent="updateComplete" />
+	    	<SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+		
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk2.move(200,300)" waitTarget="twObject.chk2" waitEvent="move"/>
+		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="TitleWindow_rtl_constraint3" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test3')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>     
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk1.move(150,60)" waitTarget="twObject.chk1" waitEvent="move"/>
+		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	<TestCase testID="TitleWindow_rtl_constraint3_update" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints3,'size constrainted test3')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>     
+	    
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.chk1.move(150,60)" waitTarget="twObject.chk1" waitEvent="move"/>
+		<SetProperty target="twObject" propertyName="layoutDirection" value="ltr" waitEvent="updateComplete" />
+		<SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject.chk1.move(100,60)" waitTarget="twObject.chk1" waitEvent="move"/>
+		
+		<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" numColorVariances="10"  mac_url="../Mirroring/Baselines/$testID_mac.png" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="TitleWindow_rtl_constraint4" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints4,'size constrainted test2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>     
+	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+
+	<TestCase testID="TitleWindow_rtl_constraint5" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test content inside titleWindow with size constraint setting, layoutDirection=rtl, move a child">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints4,'size constrainted test2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>  
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.layoutDirection='ltr'"  waitEvent="updateComplete" waitTarget="twObject" />
+   	        <SetStyle target="twObject" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="TitleWindow_rtl_title1" keywords="[TitleWindow,Mirroring,sizeConstraint]" description="Test TitleWindow title update">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+	    <body>  
+	    	<SetProperty target="defaultTW" propertyName="title" valueExpression="value=longTitle" waitEvent="updateComplete" waitTarget="defaultTW"/>
+  		<MyCompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    	<SetProperty target="defaultTW" propertyName="layoutDirection" value="ltr" waitEvent="updateComplete" waitTarget="defaultTW"/>
+	      	 <SetStyle target="defaultTW" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+	    	<Pause timeout="200"/>
+	      	<MyCompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID_ltr.png" mac_url="../Mirroring/Baselines/$testID_ltr_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    
+	    </body>
+	</TestCase>
+	
+  	<TestCase testID="TitleWindow_rtl_skin" keywords="[TitleWindow,Mirroring,skinnedWindow]" description="Test TitleWindow title update">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowSkinned,'skinnedTitleWindow')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>  
+	    	<MyCompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png"  mac_url="../Mirroring/Baselines/$testID_mac.png" numColorVariances="10" maxColorVariance="20"/>
+	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+		<DispatchMouseEvent type="click" target="twObject.closeButton" localX="5" localY="5" waitEvent="click" />
+		<AssertEvent target="twObject" eventName="close" eventClass="mx.events::CloseEvent" timeout="5000" />
+
+	    </body>
+	</TestCase>
+	
+	
+		 
+    </testCases>
+    
+</UnitTester>
+

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Events/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_itemEditEvent_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import spark.components.DataGrid;
+                import spark.components.gridClasses.GridSelectionMode;
+                import spark.components.gridClasses.GridColumn;
+                import spark.components.gridClasses.ComboBoxGridItemEditor;
+                import spark.events.GridItemEditorEvent;
+               
+            }
+            
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+               
+            <!-- gridItemEditor events -->
+	    	 <TestCase testID="event_editorSessionStarting" keywords="[DataGrid, event,gridItemEditorSessionStarting]" description="event is dispatched and expected">
+	    	       <setup>
+	    		  <ResetComponent target="dg4" className="components.DataGrid_editable_comp1" waitTarget="dg4" waitEvent="updateComplete"/>
+	                      <SetProperty target="dg4" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>  
+	    	      
+	    	          <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedIndex(0)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="60" localY="10" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.rowIndex" value="0"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.columnIndex" value="0"/>
+ 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+	    	      </body>
+	    	   </TestCase>  
+			   
+	    	 <TestCase testID="event_rowCell_position" keywords="[DataGrid, event,gridItemEditorSessionStarting]" description="event is dispatched and expected for particular cell">
+	    	       <setup>
+	    		  <ResetComponent target="dg4" className="components.DataGrid_editable_comp1" waitTarget="dg4" waitEvent="updateComplete"/>
+	                      <SetProperty target="dg4" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>  
+	    	      
+	    	          <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedCell(1,2)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="265" localY="120" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.rowIndex" value="1"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.columnIndex" value="2"/>
+ 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+	    	      </body>
+	    	   </TestCase>  
+			   
+			   
+	    	 <TestCase testID="event_editorSessionStarting_cancelEditing" keywords="[DataGrid, event,gridItemEditorSessionStarting]" description="in the dispatched event, calls preventDefault(), verify editing is cancelled">
+	    	       <setup>
+	    		  <ResetComponent target="dg4" className="components.DataGrid_editable_comp1" waitTarget="dg4" waitEvent="updateComplete"/>
+	                      <SetProperty target="dg4" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>  
+				     <RunCode code="FlexGlobals.topLevelApplication.dg4.removeEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING,FlexGlobals.topLevelApplication.dg4.editStartingHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+	                  <RunCode code="FlexGlobals.topLevelApplication.dg4.addEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING,FlexGlobals.topLevelApplication.dg4.cancelEditingHandler)"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	          <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedIndex(0)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="60" localY="10" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <DispatchKeyEvent char="FRANCE"  />
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" />
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		  
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.dataProvider.getItemAt(0,1).country" value="USA"/>
+				  <!-- no cancel event is triggered -->
+ 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditStartEvent" valueExpression="value=null"/>	     		 
+	    	      </body>
+	    	   </TestCase>  
+	    	   
+	    	 <TestCase testID="event_editorSessionStart" keywords="[DataGrid, event,gridItemEditorSessionStart]" description="event is dispatched and expected">
+	    	       <setup>
+	    		  <ResetComponent target="dg4" className="components.DataGrid_editable_comp1" waitTarget="dg4" waitEvent="updateComplete"/>
+	                      <SetProperty target="dg4" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>  
+	    	          <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedIndex(0)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="60" localY="10" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditStartEvent.rowIndex" value="0"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditStartEvent.columnIndex" value="0"/>
+ 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditStartEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START"/>
+				
+	    	      </body>
+	    	   </TestCase>  
+	    	 <TestCase testID="event_editorSessionSave" keywords="[DataGrid, event,gridItemEditorSessionSave]" description="verify edited value is saved">
+	    	       <setup>
+	    		  <ResetComponent target="dg4" className="components.DataGrid_editable_comp1" waitTarget="dg4" waitEvent="updateComplete"/>
+	                      <SetProperty target="dg4" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>  
+	    	     
+	    	          <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedIndex(0)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="250" localY="10" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <DispatchKeyEvent char="Tom"  />
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" />
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditSaveEvent.rowIndex" value="0"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditSaveEvent.columnIndex" value="2"/>
+ 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditSaveEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE"/>
+
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.dataProvider.getItemAt(0,1).firstName" value="Tom"/>
+	     		
+	    	      </body>
+	    	   </TestCase> 
+	    	 <TestCase testID="event_editorSessionCancel" keywords="[DataGrid, event,gridItemEditorSessionCancel]" description="verify when calling edition, cancellation event is dispatched, updated value is discarded">
+	    	       <setup>
+	    		 		  <ResetComponent target="dg4" className="components.DataGrid_editable_comp1" waitTarget="dg4" waitEvent="updateComplete"/>
+	                      <SetProperty target="dg4" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>  
+	    	         
+	    	       <RunCode code="FlexGlobals.topLevelApplication.dg4.setFocus()" waitEvent="focusIn" waitTarget="dg4"/>
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.setSelectedIndex(0)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <DispatchMouseClickEvent target="dg4.grid" localX="250" localY="10" waitEvent="click" waitTarget="dg4.grid"/>
+	    		  <DispatchKeyEvent char="Tom"  />
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		  <DispatchKeyEvent keys="[ESCAPE]"  waitEvent="enterFrame" waitTarget="dg4"   />
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditCancelEvent.rowIndex" value="0"/>
+				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditCancelEvent.columnIndex" value="2"/>
+ 				  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.gridItemEditCancelEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL"/>
+
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.dataProvider.getItemAt(0,1).firstName" value="JOZY JOZY JOZY"/>
+	     		
+	    	      </body>
+	   </TestCase> 
+    </testCases>
+</UnitTester>

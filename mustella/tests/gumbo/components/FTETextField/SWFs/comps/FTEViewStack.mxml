@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:ViewStack xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns:s="library://ns.adobe.com/flex/spark"
+           xmlns:mx="library://ns.adobe.com/flex/mx"
+           resizeToContent="true">
+
+	<mx:Canvas id="blank" />
+	<mx:Canvas id="accView">
+		<mx:Accordion id="acc">
+			<mx:Canvas label="The" />
+			<mx:Canvas label="Quick brown fox" />
+			<mx:Canvas label="Jumps over the lazy dog" />
+			<mx:Canvas label="qwerty" />
+		</mx:Accordion>
+	</mx:Canvas>
+	<mx:Canvas id="btnView">
+		<mx:Button id="btn" />
+	</mx:Canvas>
+	<mx:Canvas id="btnBarView">
+		<mx:ButtonBar id="btnBar" />
+	</mx:Canvas>
+	<mx:Canvas id="chkBxView">
+		<mx:CheckBox id="chkBx" />
+	</mx:Canvas>
+	<mx:Canvas id="clrPkrView">
+		<mx:ColorPicker id="clrPkr" />
+	</mx:Canvas>
+	<mx:Canvas id="cmBxView">
+		<mx:ComboBox id="cmBx" dataProvider="[qwerty,The,Quick brown fox,Jumps over the lazy dog]" />
+	</mx:Canvas>
+	<mx:Canvas id="dtChView">
+		<mx:DateChooser id="dtCh" />
+	</mx:Canvas>
+	<mx:Canvas id="dtFlView">
+		<mx:DateField id="dtFl" />
+	</mx:Canvas>
+	<mx:Canvas id="dGrView">
+		<mx:DataGrid id="dGr" />
+	</mx:Canvas>
+	<mx:Canvas id="frmView">
+		<mx:Form id="frm">
+			<mx:FormHeading id="frmHd" label="Form Heading" />
+			<mx:FormItem id="frmItm" label="Form Label" />
+			<mx:FormItem id="frmItm2" label="Form Label" />
+		</mx:Form>
+	</mx:Canvas>
+	<mx:Canvas id="hSldrView">
+		<mx:HSlider id="hSldr" labels="[min,qwerty,max]" />
+	</mx:Canvas>
+	<mx:Canvas id="lblView">
+		<mx:Label id="lbl" />
+	</mx:Canvas>
+	<mx:Canvas id="lnkBarView">
+		<mx:LinkBar id="lnkBar" />
+	</mx:Canvas>
+	<mx:Canvas id="lnkBtnView">
+		<mx:LinkButton id="lnkBtn" />
+	</mx:Canvas>
+	<mx:Canvas id="lstView">
+		<mx:List id="lst" />
+	</mx:Canvas>
+	<mx:Canvas id="mnBrView">
+	    <mx:MenuBar id="mnBr" labelField="@label">
+	        <mx:dataProvider>
+	            <fx:XMLList>
+	                <node label="The quick" />
+	                <node label="Brown fox">
+	                    <node label="Jumps" />
+	                    <node label="Over" />
+	                    <node label="The quick brown fox jumps over the lazy dog" />
+	                </node>
+	                <node label="The lazy dog" />
+	                <node label="qwerty" />
+	            </fx:XMLList>
+	        </mx:dataProvider>
+    	</mx:MenuBar>
+	</mx:Canvas>
+	<mx:Canvas id="nmStView">
+		<mx:NumericStepper id="nmSt" minimum="0" maximum="1000" value="567" />
+	</mx:Canvas>
+	<mx:Canvas id="pnlView">
+		<mx:Panel id="pnl" title="MX Panel title" status="MX Panel status" width="300" height="100" />
+	</mx:Canvas>
+	<mx:Canvas id="prgBarView">
+		<mx:ProgressBar id="prgBar" mode="manual" initialize="event.currentTarget.setProgress(76, 100);" />
+	</mx:Canvas>
+	<mx:Canvas id="rdBtnView">
+		<mx:RadioButton id="rdBtn" />
+	</mx:Canvas>
+	<mx:Canvas id="tabBarView">
+		<mx:TabBar id="tabBar" />
+	</mx:Canvas>
+	<mx:Canvas id="tabNavView">
+		<mx:TabNavigator id="tabNav">
+			<mx:Canvas label="The" />
+			<mx:Canvas label="Quick brown fox" />
+			<mx:Canvas label="Jumps over the lazy dog" />
+			<mx:Canvas label="qwerty" />
+		</mx:TabNavigator>
+	</mx:Canvas>
+	<mx:Canvas id="tWnView">
+		<mx:TitleWindow id="tWn" title="MX TitleWindow title" status="MX TitleWindow status" width="300" height="100" />
+	</mx:Canvas>
+	<mx:Canvas id="tTipBtnView" height="80" width="300">
+		<mx:Button id="tTipBtn" toolTip="The quick brown fox jumps over the lazy dog" />
+	</mx:Canvas>
+	<mx:Canvas id="vSldrView">
+		<mx:VSlider id="vSldr" labels="[min,qwerty,max]" />
+	</mx:Canvas>
+
+</mx:ViewStack>

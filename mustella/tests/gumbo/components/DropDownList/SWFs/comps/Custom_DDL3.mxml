@@ -1,0 +1,44 @@
+<s:DropDownList 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"    
+    prompt="Products" 
+    width="200"
+    dataProvider="{myDP3}">
+    
+	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    		    		
+    		public var myDP_Array3:Array =
+    		[
+    			"ProductF 0",
+    			"ProductE 1",
+    			"ProductB 2",
+    			"ProductC 3",
+    			"ProductA 4",
+    			"ProductD 5",
+    			"ProductG 6",
+    			"ProductQ 7",
+    			"ProductH 8",
+    			"ProductJ 9 ",
+    			"ProductN 10",
+    			"ProductM 11",
+    			"ProductO 12",
+    			"ProductI 13",
+    			"ProductU 14",
+    			"ProductV 15",
+    			"ProductW 16",
+    			"ProductH 17",
+				"ProductJ 18",
+    			"ProductN 19",
+    			"ProductE 20",
+				"ProductB 21",
+    			"ProductC 22"
+    		];
+    		
+    		[Bindable]
+    		public var myDP3:ArrayCollection = new ArrayCollection(myDP_Array3);
+    		
+    	]]>   
+    </fx:Script>    
+        	
+</s:DropDownList>

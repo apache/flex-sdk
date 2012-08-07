@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ListDragDrop/SparkHaloDND/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="SparkHaloDNDListBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	import spark.layouts.*;
+	import mx.managers.DragManager;
+	import mx.core.mx_internal;
+	use namespace mx_internal;
+    ]]>
+  </fx:Script>
+
+  <testCases>
+	<TestCase testID="SparkToHaloHListDND1_copy" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1.dataGroup"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="width" value="200" />
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l2" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l2" propertyName="dropEnabled" value="true" />
+                <SetProperty target="l1" propertyName="width" value="300" />
+
+            </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1" localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="10" localY="12" />
+ 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="10" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="10" localY="70" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="l2" type="mouseUp" localX="10" localY="70"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToHaloHListDND1_move" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1.dataGroup"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="l2" propertyName="dropEnabled" value="true" />
+
+            </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="10" localY="50" />
+ 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToHaloHListDND1_move1" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1.dataGroup"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="l2" propertyName="dropEnabled" value="true" />
+		<SetProperty target="l1" propertyName="width" value="150" />
+            </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="10" localY="200" />
+ 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToHaloHListDND1_rejectDrop1" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1.dataGroup"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="l1" propertyName="width" value="300" />
+             </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToHaloHListDND1_rejectDrop2" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1.dataGroup"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="selectedIndex" value="0" />
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l2" propertyName="dropEnabled" value="true" />
+                <SetProperty target="l1" propertyName="width" value="300" />
+             </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="hg" type="mouseMove" buttonDown="true" localX="250" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="130"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToHaloHListDND1_moveMultipleItems" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="l2" propertyName="dropEnabled" value="true" />
+                <SetProperty target="l1" propertyName="allowMultipleSelection" value="true" />
+		<SetProperty target="l1" propertyName="width" value="200" />
+            </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="120" />
+		<DispatchMouseClickEvent target="l1"  shiftKey="true"  localX="120" localY="10" waitEvent="change" waitTarget="l1"/>
+
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" waitEvent="dragStart"/>
+ 		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="10" localY="10"  waitEvent="dragEnter"/>
+		<DispatchMouseEvent target="l2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitEvent="dragOver"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkHaloDND/baselines/$testID.png" />
+		<DispatchMouseEvent target="l2" type="mouseUp" localX="50" localY="30"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+
+            </body>
+        </TestCase>
+
+	<TestCase testID="HListDND1_moveLeftMultipleItems" keywords="[DragDrop, List]" description="">
+           <setup>
+                <ResetComponent target="l1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="l1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <ResetComponent target="l2" className="mx.controls.List"      waitEvent="updateComplete" />
+                <SetProperty target="l1" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="dataProvider" valueExpression="value=application.createPlayersAC()" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="labelField" value="lastName" waitEvent="updateComplete" waitTarget="l1"/>
+                <SetProperty target="l2" propertyName="labelField" value="firstName" waitEvent="updateComplete" waitTarget="l2"/>
+                <SetProperty target="l1" propertyName="dragEnabled" value="true" />
+                <SetProperty target="l1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="l1" propertyName="dropEnabled" value="true" />
+                <SetProperty target="l1" propertyName="allowMultipleSelection" value="true" />
+		<SetProperty target="l1" propertyName="width" value="150" />
+		<SetProperty target="l1" propertyName="height" value="50" />
+            </setup>
+            <body>
+		<DispatchMouseEvent target="l1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="l1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="l1"/>
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="10" localY="15" />
+		<DispatchMouseClickEvent target="l1"  shiftKey="true"  localX="120" localY="10" waitEvent="change" waitTarget="l1"/>
+		<DispatchKeyEvent keys="[END]"  waitTarget="l1"  waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="l1"  type="mouseOver" buttonDown="false" localX="50" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseDown" buttonDown="true"  localX="50" localY="10" />
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="50" localY="45" />
+ 		<Pause timeout="100"/>
+ 		<DispatchMouseEvent target="l1"  type="mouseMove" buttonDown="true"  localX="40" localY="40" />
+ 		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="10" localY="30"  />
+ 		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="5" localY="35"  />
+ 		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="10" localY="30"  />
+ 		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="5" localY="35"  />
+ 		<Pause timeout="100"/>
+		<DispatchMouseEvent target="l1" type="mouseMove" buttonDown="true" localX="10" localY="40" waitEvent="dragOver"/>
+
+		<DispatchMouseEvent target="l1" type="mouseUp" localX="5" localY="40"  waitTarget="l1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="l1" url="../SparkHaloDND/baselines/$testID.png" />
+
+
+            </body>
+        </TestCase>
+
+
+  </testCases>
+</UnitTester>

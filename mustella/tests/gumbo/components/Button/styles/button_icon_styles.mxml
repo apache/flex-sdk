@@ -1,0 +1,1403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testDir="gumbo/components/Button/styles/"
+    testSWF="iconButtonTester.mxml">
+    
+  <fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+  <fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<fx:Script>
+		<![CDATA[
+			import comps.CustomButtonSkin;
+			import comps.SaveFxgGraphics;
+			import comps.ACircle;			
+			import flash.utils.getDefinitionByName;
+			import flash.utils.getQualifiedClassName;
+			
+						
+			private var fxgGraphics:SaveFxgGraphics = new SaveFxgGraphics();
+			[Bindable]
+			private var fxgCls:Class = Class(getDefinitionByName(getQualifiedClassName(fxgGraphics)));
+			
+			[Embed(source='../../../../../Assets/Images/smallredrect.jpg')]
+			[Bindable]
+			private var gifCls:Class;
+
+			[Embed(source='../../../../../Assets/Images/smallgreenrect.jpg')]
+			[Bindable]
+			private var pngCls:Class;
+
+			[Embed(source='../../../../../Assets/Images/smallbluerect.jpg')]
+			[Bindable]
+			private var pngClsLarge:Class;
+
+			[Embed(source='../../../../../Assets/Images/bluerect.jpg')]
+			[Bindable]
+			private var jpgCls:Class;
+
+			[Embed(source='../../../../../Assets/Images/smallyellowrect.jpg')]
+			[Bindable]
+			private var swfCls:Class;
+
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+		.myIcon {
+			icon-placement:bottom;			
+		}
+		
+	</fx:Style>
+    
+<testCases>
+
+<TestCase testID="button_icon_http" keywords="[Button]" description="Load icon from the internet">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="http://localhost/gumbo/components/Button/swfs/Assets/logo.png?avoidThe304_0" waitEvent="updateComplete" />
+		<Pause timeout="2500" />
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_http_404" keywords="[Button]" description="Load icon from the internet which is not available">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="http://localhost/gumbo/components/Button/swfs/Assets/logo.pngss" />
+		<Pause timeout="1000" />
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_png" keywords="[Button,icon, png]" description="Test button skin when icon is png">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_png_larger" keywords="[Button,icon, png]" description="Test button skin when an icon is swapped out for a larger one.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngClsLarge}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_gif" keywords="[Button,icon, Gif]" description="Test button skin when icon is gif">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{gifCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+ 
+<TestCase testID="button_icon_jpg" keywords="[Button,icon, jpg]" description="Test button skin when icon is jpg">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{jpgCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_swf" keywords="[Button,icon, swf]" description="Test button skin when icon is swf">
+	<bugs>
+		<Bug bugID="SDK-28356" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{swfCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_fxg_class" keywords="[Button,icon, fxg]" description="Test button skin when icon is fxg">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{fxgCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_fxg_component" keywords="[Button,icon, fxg]" description="Test button skin when icon is fxg">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+	</setup>
+	<body>
+		<RunCode code="application.btn1.setStyle('icon', comps.SaveFxgGraphics)" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_mxml_component" keywords="[Button,icon,mxml]" description="Test button skin when icon is mxml component">
+	<bugs>
+		<Bug bugID="SDK-27571" />
+		<Bug bugID="SDK-28354" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+	</setup>
+	<body>
+		<RunCode code="application.btn1.setStyle('icon',comps.ACircle)" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_add_after_short_label" keywords="[Button,icon]" description="Test button skin when icon is added after short label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Short" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_add_after_long_label" keywords="[Button,icon]" description="Test button skin when icon is added after long label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="the Quick Brown Fox jumps" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_lengthen_label" keywords="[Button,icon]" description="Put the icon on the right, then make the label longer.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="1" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>		
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="1 PPPPPPPPPPPPPPP 2" waitEvent="contentChange" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_reduce_width" keywords="[Button,icon]" description="Put the icon on the right, then reduce the width.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>		
+		<SetProperty target="btn1" propertyName="width" value="300" />
+		<SetProperty target="btn1" propertyName="label" value="1 PPPPPPPPPPPPPPP 2" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="width" value="100" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_increase_width" keywords="[Button,icon]" description="Put the icon on the right, then increase the width.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>		
+		<SetProperty target="btn1" propertyName="width" value="100" />
+		<SetProperty target="btn1" propertyName="label" value="1" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="width" value="300" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_increase_width2" keywords="[Button,icon]" description="Put the icon on the right, then increase the width.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>		
+		<SetProperty target="btn1" propertyName="width" value="100" />
+		<SetProperty target="btn1" propertyName="label" value="1 PPPPPPPPPPPPPPP 2" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="width" value="300" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_button_down" keywords="[Button,icon]" description="Test down button skin with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_button_down" keywords="[Button,icon]" description="Test down button skin with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_disabled" keywords="[Button,icon]" description="Test icon button when disabled">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_disabled" keywords="[Button,icon]" description="Test icon button skin with label when disabled">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_clear" keywords="[Button,icon]" description="Test clearing icon on button at runtime">
+	<bugs>
+		<Bug bugID="SDK-27407" />
+	</bugs>
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<RunCode code="application.btn1.clearStyle('icon')" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_null" keywords="[Button,icon]" description="Test setting icon to null.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<RunCode code="application.btn1.setStyle('icon', null)" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_clear" keywords="[Button,icon]" description="Test clearing icon on button with label at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="House" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<RunCode code="application.btn1.clearStyle('icon')" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_change_value" keywords="[Button,icon]" description="Test changing icon on button at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{jpgCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_change_value" keywords="[Button,icon]" description="Test changing icon on button with label at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Swap" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{gifCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_long_label_change_value" keywords="[Button,icon]" description="Test changing icon on button with label at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="My Home Away From Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<AssertPropertyValue target="btn1" propertyName="label" value="My Home Away From Home" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_alpha_0.5" keywords="[Button, alpha, property]" description="Test alpha 0.5 on a button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty propertyName="label" value="Alpha Button" target="btn1" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty propertyName="alpha" value=".5" target="btn1" waitEvent="alphaChanged" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_down_alpha_0.5" keywords="[Button, alpha, property]" description="Test alpha 0.5 on a button with icon on mouse down.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty propertyName="label" value="Alpha Button" target="btn1" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetProperty propertyName="alpha" value=".5" target="btn1" waitEvent="alphaChanged" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="86" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="90" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="90" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="90" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_alpha_0" keywords="[Button, alpha, property]" description="Test alpha 0 on a button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty propertyName="label" value="Alpha Button" target="btn1" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty propertyName="alpha" value="0" target="btn1" waitEvent="alphaChanged" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_height_increase" description="Tests that the button height is rendered correctly." keywords="[Button, height, properties]">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="height" value="90" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertPropertyValue target="btn1" propertyName="height" value="90"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+<!-- Excluded to SDK-27576 -->
+        <TestCase testID="button_icon_height_less_than_icon" keywords="[Button, height, property]" description="Test height less than icon of button">
+            <setup>
+                <ResetComponent target="styledBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="styledBtn"/>
+								<SetProperty target="styledBtn" propertyName="icon" value="{pngCls}" waitEvent="iconChange" waitTarget="styledBtn"/>
+            </setup>        
+            <body>
+                <SetProperty target="styledBtn" propertyName="height" value="10" waitEvent="updateComplete" waitTarget="styledBtn"/>						
+                <AssertPropertyValue propertyName="height" value="10" target="styledBtn"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="grp1"/>
+            </body>
+        </TestCase>
+<!-- Excluded to SDK-27576 -->
+        <TestCase testID="button_icon_and_label_height_less_than_icon" keywords="[Button, height, property]" description="Test height less than icon of button">
+            <setup>
+                <ResetComponent target="styledBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="styledBtn"/>
+								<SetProperty target="styledBtn" propertyName="icon" value="{pngCls}" waitEvent="iconChange" waitTarget="styledBtn"/>
+								<SetProperty target="styledBtn" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="styledBtn"/>
+            </setup>        
+            <body>
+                <SetProperty target="styledBtn" propertyName="height" value="10" waitEvent="updateComplete" waitTarget="styledBtn"/>												
+                <AssertPropertyValue propertyName="height" value="10" target="styledBtn"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="grp1"/>
+            </body>
+        </TestCase>
+<TestCase testID="button_icon_label_change_runtime" keywords="[Button, label, property]" description="Test changing label at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>		
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>        
+	<body>
+		<AssertPropertyValue propertyName="label" value="Save" target="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Confirm Validation" waitEvent="contentChange" waitTarget="btn1"/>
+		<AssertPropertyValue propertyName="label" value="Confirm Validation" target="btn1"/>					
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_scaleX_2" keywords="[Button, scaleX, property]" description="Verifies the scaleX value for Button is 2.0">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleX" value="2.0" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_scaleX_2" keywords="[Button, scaleX, property]" description="Verifies the scaleX value for Button is 2.0">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleX" value="2.0" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_scaleX_point5" keywords="[Button, scaleX, property]" description="Verifies the scaleX value for Button is .5">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleX" value="0.5" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_scaleX_point5" keywords="[Button, scaleX, property]" description="Verifies the scaleX value for Button is .5">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleX" value="0.5" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_scaleY_2" keywords="[Button, scaleY, property]" description="Set scaleY value to 2.0">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleY" value="2.0" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_scaleY_2" keywords="[Button, scaleY, property]" description="Set scaleY to 2.0 when there is a label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>		
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleY" value="2.0" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_scaleY_point5" keywords="[Button, scaleY, property]" description="Set scaleY to 0.5">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleY" value="0.5" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+
+<TestCase testID="button_icon_with_label_scaleY_point5" keywords="[Button, scaleY, property]" description="Set scaleY to 0.5 when there is a label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleY" value="0.5" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_scaleX_scaleY_1point5" keywords="[Button, scaleY, scaleX]" description="Verifies scaleX and scaleY value for Button">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty propertyName="scaleY" value="1.5" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty propertyName="scaleX" value="1.5" target="btn1" waitEvent="updateComplete" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_visible_false" keywords="[Button, visible, property]" description="Verifies visibility of button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertPropertyValue propertyName="visible" value="true" target="btn1"/>
+		<SetProperty propertyName="visible" value="false" target="btn1" waitEvent="hide" waitTarget="btn1"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="grp1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_width_increase" description="Tests that the button width is rendered correctly." keywords="[Button, width, properties]">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="width" value="225" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertPropertyValue target="btn1" propertyName="width" value="225"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_as_childTag" description="Test that icon is applied when defined as child tag of button" keywords="[Button, icon, iconPlacement]">
+	<setup>
+		<ResetComponent target="grp3" className="comps.IconAsChildTag" waitEvent="updateComplete" />
+		<SetProperty target="grp3" propertyName="x" value="10" waitEvent="xChanged"/>
+		<SetProperty target="grp3" propertyName="y" value="163" waitEvent="yChanged"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="grp3.btn1" styleName="iconPlacement" value="right"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="grp3"/>
+	</body>
+</TestCase>
+<!-- Excluded to SDK-27576-->
+        <TestCase testID="button_icon_width_less_than_icon" keywords="[Button, width, property]" description="Test width less than icon of button">
+            <setup>
+                <ResetComponent target="styledBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="styledBtn"/>
+								<SetProperty target="styledBtn" propertyName="icon" value="{pngCls}" waitEvent="iconChange" waitTarget="styledBtn"/>
+            </setup>        
+            <body>
+                <SetProperty target="styledBtn" propertyName="width" value="10" waitEvent="updateComplete" waitTarget="styledBtn"/>						
+                <AssertPropertyValue propertyName="width" value="10" target="styledBtn"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="grp1"/>
+            </body>
+        </TestCase>
+
+<!-- Excluded to SDK-27576-->
+        <TestCase testID="button_icon_and_label_width_less_than_icon" keywords="[Button, width, property]" description="Test width less than icon of button">
+            <setup>
+                <ResetComponent target="styledBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="styledBtn"/>
+								<SetProperty target="styledBtn" propertyName="icon" value="{pngCls}" waitEvent="iconChange" waitTarget="styledBtn"/>
+								<SetProperty target="styledBtn" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="styledBtn"/>
+            </setup>        
+            <body>
+                <SetProperty target="styledBtn" propertyName="width" value="10" waitEvent="updateComplete" waitTarget="styledBtn"/>						
+                <AssertPropertyValue propertyName="width" value="10" target="styledBtn"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="grp1"/>
+            </body>
+        </TestCase>
+
+<!--
+================================================================================
+iconPlacement
+================================================================================
+-->
+
+<TestCase testID="button_iconPlacement_inline" keywords="[Button,icon, iconPlacement]" description="Test button skin when icon and iconPlacement is set inline in mxml">
+	<body>
+		<AssertStyleValue target="pngBtn" styleName="iconPlacement" value="right" />			
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="pngBtn" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_css_selectionID" keywords="[Button,iconPlacement]" description="Test iconPlacement in button when set in stylesheet">
+	<setup>
+		<ResetComponent target="styledBtn" className="spark.components.Button" waitEvent="updateComplete"/>
+		<SetProperty target="styledBtn" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="styledBtn"/>
+		<SetStyle target="styledBtn" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="styledBtn"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="styledBtn" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="styledBtn" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_default" keywords="[Button,iconPlacement]" description="Test default iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_left" keywords="[Button,iconPlacement]" description="Test iconPlacement set to left.  Set iconPlacement, then icon.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_left2" keywords="[Button,iconPlacement]" description="Test iconPlacement set to left.   Set icon, then iconPlacement.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_right" keywords="[Button,iconPlacement]" description="Test iconPlacement set to right.  Set iconPlacement, then icon.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_right2" keywords="[Button,iconPlacement]" description="Test iconPlacement set to right.  Set icon, then icconPlacement.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_top" keywords="[Button,iconPlacement]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_top2" keywords="[Button,iconPlacement]" description="Test iconPlacement set to top">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_bottom" keywords="[Button,iconPlacement]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_bottom2" keywords="[Button,iconPlacement]" description="Test iconPlacement set to bottom">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<!-- 
+==================================================
+top to x 
+==================================================
+-->
+
+<TestCase testID="button_iconPlacement_top_to_bottom" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="top"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_top_to_right" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="top"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_top_to_left" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="top"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_top_to_top" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="top"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" />	
+		<Pause timeout="300" />
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<!-- 
+==================================================
+right to x 
+==================================================
+-->
+
+<TestCase testID="button_iconPlacement_right_to_left" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_right_to_top" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_right_to_bottom" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<!-- 
+==================================================
+left to x 
+==================================================
+-->
+
+<TestCase testID="button_iconPlacement_left_to_right" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="left"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_left_to_top" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="left"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_left_to_bottom" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="left"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+
+<!-- 
+==================================================
+bottom to x 
+==================================================
+-->
+
+<TestCase testID="button_iconPlacement_bottom_to_top" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="top" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="top" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_bottom_to_left" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="left" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_bottom_to_right" keywords="[Button,iconPlacement]" description="Change iconPlacement">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<!-- 
+==================================================
+Check RTL layoutDirection.
+==================================================
+-->
+<TestCase testID="button_iconPlacement_layoutDirection" keywords="[Button,iconPlacement]" description="layotuDirection is rtl, iconPlacement is right">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+		<SetStyle target="btn1" styleName="layoutDirection" value="rtl" />	
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+
+<!-- 
+==================================================
+Set iconPlacement when the label or icon is gone.
+==================================================
+-->
+
+<TestCase testID="button_iconPlacement_no_icon_right" keywords="[Button,iconPlacement]" description="Change iconPlacement when there is no icon.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_no_icon_bottom" keywords="[Button,iconPlacement]" description="Change iconPlacement when there is no icon.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Home" />
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_no_label_right" keywords="[Button,iconPlacement]" description="Change iconPlacement when there is no label.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="right"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="right" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_no_label_bottom" keywords="[Button,iconPlacement]" description="Change iconPlacement when there is no label.">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" />	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+
+<!--
+================================================================================
+Combine with various other styles and properties.
+================================================================================
+-->
+
+<TestCase testID="button_iconPlacement_css_styleName" keywords="[Button,iconPlacement, style]" description="Test iconPlacement when set in stylesheet">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Place at Bottom" waitEvent="contentChange" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="styleName" value="myIcon" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_iconPlacement_clearStyle" keywords="[Button,iconPlacement]" description="Test clearing iconPlacement on button at runtime">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="label" value="Home" waitEvent="contentChange" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="iconPlacement" value="bottom" waitEvent="updateComplete" waitTarget="btn1"/>	
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="bottom" />		
+		<RunCode code="application.btn1.clearStyle('iconPlacement')" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="iconPlacement" value="left" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_color" keywords="[Button,icon, color, label]" description="Test color change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="color" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="color" value="0xff0000" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontFamily" keywords="[Button,icon, fontFamily, label]" description="Test fontFamily change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontFamily_down" keywords="[Button,icon, fontFamily, label]" description="Test down skin on fontFamily change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="fontFamily" value="myFontFamily" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontFamily" value="myFontFamily" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontSize" keywords="[Button,icon, fontSize, label]" description="Test fontSize change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontSize" value="12" />
+		<SetStyle target="btn1" styleName="fontSize" value="26" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontSize" value="26" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontSize_down" keywords="[Button,icon, fontSize, label]" description="Test down skin on fontSize change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontSize" value="12" />		
+		<SetStyle target="btn1" styleName="fontSize" value="26" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontSize" value="26" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontWeight" keywords="[Button,icon, fontWeight, label]" description="Test fontWeight change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="fontWeight" value="normal"/>
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontWeight" value="normal" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontWeight_down" keywords="[Button,icon, fontWeight, label]" description="Test down skin on fontWeight change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="fontWeight" value="normal"/>
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontWeight" value="normal" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_textDecoration" keywords="[Button,icon, textDecoration, label]" description="Test textDecoration change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Text Decor" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="none" />		
+		<SetStyle target="btn1" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="underline" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_textDecoration_down" keywords="[Button,icon, textDecoration, label]" description="Test down skin on textDecoration change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Text Decoration" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="none" />		
+		<SetStyle target="btn1" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="textDecoration" value="underline" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1"/>
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontStyle" keywords="[Button,icon, fontStyle, label]" description="Test fontStyle change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="normal" />		
+		<SetStyle target="btn1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="italic" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_fontStyle_dowwn" keywords="[Button,icon, fontStyle, label]" description="Test down skin on fontStyle change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="My Home" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="iconPlacement" value="right" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="normal" />		
+		<SetStyle target="btn1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="fontStyle" value="italic" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_chromeColor_up" keywords="[Button,icon, chromeColor]" description="Test chromeColor change on button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_chromeColor_up" keywords="[Button,icon, chromeColor, label]" description="Test chromeColor change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_chromeColor_down" keywords="[Button,icon, chromeColor]" description="Test down skin on chromeColor change on button with icon">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_chromeColor_down" keywords="[Button,icon, chromeColor, label]" description="Test down skin on chromeColor change on button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>
+		<AssertStyleValue target="btn1" styleName="chromeColor" value="0xff0000" />		
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_chromeColor_disabled" keywords="[Button,icon, chromeColor, label]" description="Test chromeColor change on disabled button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_with_label_chromeColor_disabled" keywords="[Button,icon, chromeColor, label]" description="Test chromeColor change on disabled button with icon and label">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetProperty target="btn1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="0xff0000" waitEvent="updateComplete" waitTarget="btn1"/>	
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_custom_upSkin" keywords="[Button, icon, skinClass]" description="Test button up skin rendering when using a custom skin">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="#004e4e" waitEvent="updateComplete"/>
+		<RunCode code="application.btn1.setStyle('skinClass', comps.CustomButtonSkin)" waitTarget="btn1" waitEvent="updateComplete"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+	</body>
+</TestCase>
+
+<TestCase testID="button_icon_custom_downSkin" keywords="[Button, icon, skinClass]" description="Test button down skin rendering when using a custom skin">
+	<setup>
+		<ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget="btn1" />
+		<SetProperty target="btn1" propertyName="label" value="Save" waitEvent="contentChange" waitTarget="btn1"/>
+		<SetStyle target="btn1" styleName="icon" value="{pngCls}" waitEvent="updateComplete" waitTarget="btn1"/>
+	</setup>
+	<body>
+		<SetStyle target="btn1" styleName="chromeColor" value="#004e4e" waitEvent="updateComplete"/>
+		<RunCode code="application.btn1.setStyle('skinClass', comps.CustomButtonSkin)" waitTarget="btn1" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="btn1" type="rollOver" localX="11" localY="38" waitEvent="rollOver" />
+		<DispatchMouseEvent target="btn1" type="mouseMove" localX="13" localY="38" waitEvent="mouseMove" />
+		<DispatchMouseEvent target="btn1" type="mouseDown" localX="26" localY="43" waitEvent="mouseDown" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../styles/baselines/$testID.png" target="btn1" />
+		<DispatchMouseEvent target="btn1" type="mouseUp" localX="26" localY="43" waitEvent="mouseUp" />
+	</body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

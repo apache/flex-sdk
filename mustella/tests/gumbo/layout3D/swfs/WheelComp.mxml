@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Scroller xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:layouts="layouts.*"
+               width="300"
+               height="200" tabChildren="true">
+
+    <fx:Script>
+        <![CDATA[
+            import mx.core.IVisualElement;
+            import spark.components.Button;
+            import flash.events.MouseEvent;
+            import layouts.NumberInterpolatorWrapping;
+            import flash.geom.Point;
+
+            public function generateButton(number:int):Button
+            {
+                var b:Button = new Button();
+                var text:String = new String();
+                for (var j:int = 0; j <(1+number/2); j++)
+                {
+                    for (var k:int = 0; k<number; k++)
+                    {
+                           text +=  k+j+number;
+                    }
+                    text += "\n";
+                }
+                b.label = text;
+                b.addEventListener("click" /*MouseEvent.ROLL_OVER*/, eventHandler);
+                return b;
+            }
+
+            public function generateElements(number:int, g:Group):void
+            {
+                for(var i:int = 0; i<number; i++)
+                {
+                    g.addElement(generateButton(i));
+                }
+            }
+
+           public function eventHandler(event:Event):void
+           {
+               var index:int = g.getElementIndex(event.target as IVisualElement);
+               if (index != -1)
+                   testGroup(g, index);
+           }
+
+           public function testGroup(g:Group, n:int):void
+           {
+               var p:Point = g.layout.getScrollPositionDeltaToElement(n);
+               if (p)
+               {
+                   var startX:Number = g.horizontalScrollPosition;
+                   var startY:Number = g.verticalScrollPosition;
+                   var interpolator:NumberInterpolatorWrapping = new NumberInterpolatorWrapping(0, g.contentWidth - g.measuredWidth);
+                   var scrollLength:Number = interpolator.getLength(startX, startX + p.x);
+               }
+           }
+
+        ]]>
+    </fx:Script>
+
+                 <s:Group id="g" tabChildren="true" clipAndEnableScrolling ="false"
+                creationComplete="generateElements(8, g);">
+                    <s:layout>
+                        <layouts:WheelLayout gap="44" axisAngle="-10"/>
+                    </s:layout>
+                </s:Group>
+ </s:Scroller>

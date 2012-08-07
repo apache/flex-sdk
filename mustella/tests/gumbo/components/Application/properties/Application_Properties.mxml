@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="gumbo/components/Application/properties/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="Application_Properties_App1.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    
+    }
+    
+]]>
+</mx:Script>
+
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>
+
+<!-- end of set of lines that must be in each unit test -->
+
+<mx:Script>
+<![CDATA[
+
+    import assets.*;    
+    import mx.controls.*;
+    import mx.core.Application;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import mx.resources.ResourceManager;
+    import spark.layouts.*;
+    import spark.layouts.supportClasses.*;
+
+    use namespace mx_internal;
+
+    private function countParameters():int{
+        var i:int = 0;
+        
+        for(var obj:Object in FlexGlobals.topLevelApplication.parameters){
+            ++i;
+        }
+        
+        return i;
+    }    
+]]>
+</mx:Script>
+
+<!--
+    We use a lot of RunCodes because the standard test steps cannot recognize things
+    like Object(application.bx2.sl2.content).document as a target.
+    
+    "Failed Target Object(application.bx2.sl2.content).document not found"
+-->
+<testCases>
+
+    <TestCase testID="Application_Properties_parameters_test1" description="There should be no parameters." keywords="[Application,viewSourceURL]">
+        <body>
+            <AssertMethodValue method="value = countParameters()" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_viewSourceURL_test1" description="Just set/get viewSourceURL.  We can't actually view source in mustella, so it is a manual test." keywords="[Application,viewSourceURL]">
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.viewSourceURL" value="index.mxml" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_id_test2" keywords="[Application,id]" description="Check the id of the main app.  It's not allowed to have an id.">
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.getID()" value="null" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_backgroundColor_test1" keywords="[Application,backgroundColor]" description="Check the default.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value=Object(FlexGlobals.topLevelApplication.bx2.sl2.content).document.getStyle('backgroundColor')" value="0xffffff" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+    
+    <TestCase testID="Application_Properties_backgroundColor_test2" keywords="[Application,backgroundColor]" description="Set in AS.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_backgroundColor_test3" keywords="[Application,backgroundColor]" description="Set in MXML.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication2.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_backgroundColor_test4" keywords="[Application,backgroundColor]" description="Check the backgroundColor after resizing.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor',0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="height" value="300" />
+            <SetProperty target="bx2" propertyName="width" value="300" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_backgroundColor_test5" keywords="[Application,backgroundColor]" description="Set it to its current value.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="height" value="300" />
+            <SetProperty target="bx2" propertyName="width" value="300" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/Application_Properties_backgroundColor_test4.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_colorCorrection_test1" keywords="[Application,colorCorrection]" description="Set it to 'on' in AS.  Just be sure it's passed to the stage.">
+        <body>
+            <SetProperty propertyName="colorCorrection" value="on" />
+            <AssertPropertyValue target="stage" propertyName="colorCorrection" value="on" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_colorCorrection_test2" keywords="[Application,colorCorrection]" description="Set it to 'off' in AS.  Just be sure it's passed to the stage.">
+        <body>
+            <SetProperty propertyName="colorCorrection" value="off" />
+            <AssertPropertyValue target="stage" propertyName="colorCorrection" value="off" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_colorCorrection_test3" keywords="[Application,colorCorrection]" description="Set it to 'default' in AS.  Just be sure it's passed to the stage.">
+        <body>
+            <SetProperty propertyName="colorCorrection" value="off" />
+            <SetProperty propertyName="colorCorrection" value="default" />
+            <AssertPropertyValue target="stage" propertyName="colorCorrection" value="default" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_colorCorrection_test4" keywords="[Application,colorCorrection]" description="Setter/getter">
+        <body>
+            <SetProperty propertyName="colorCorrection" value="on" />
+            <AssertPropertyValue propertyName="colorCorrection" value="on" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_colorCorrection_test5" keywords="[Application,colorCorrection]" description="Setter/getter">
+        <body>
+            <SetProperty propertyName="colorCorrection" value="off" />
+            <AssertPropertyValue propertyName="colorCorrection" value="off" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_scriptRecursionLimit_test1" keywords="[Application,scriptRecursionLimit]" description="Recurse.">
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.testScriptRecursionLimit()" />
+            <AssertMethodValue method="value = ''" value="Fails due to SDK-16511." />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_url_test1" keywords="[Application,url]" description="Get the url property when loading a SWF from the local system and running in the standalone player.">
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.checkURL(FlexGlobals.topLevelApplication.url, 'file://', 'app:/', 'Application_Properties_App1.swf', 'Application%5FProperties%5FApp1.swf')" value="pass" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_url_test2" keywords="[Application,url]" description="Get the url property of a SWF loaded into a SWF.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.checkURL(Object(application.bx2.sl2.content).document.url, 'file://', 'app:/', 'BasicApplication.swf')" value="pass" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_height_test1" keywords="[Application,height]" description="Decrease an application's height.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.height = 20" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_height_test2" keywords="[Application,height]" description="Increase an application's height.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.height = 20" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.height = 50" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_height_test3" keywords="[Application,height]" description="height = -1.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.height = -1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_height_test4" keywords="[Application,height]" description="height = 0.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.height = 0" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_height_test5" keywords="[Application,height]" description="height = 1.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.height = 1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_unscaledHeight_test1" keywords="[Application,height]" description="In Flex 4, setting this just sets the explicitHeight.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setUnscaledHeight(30)" />
+            <AssertMethodValue method="value = application.bx2.sl2.content.document.explicitHeight" value="30" />
+        </body>
+    </TestCase>
+
+
+    <TestCase testID="Application_Properties_unscaledWidth_test1" keywords="[Application,height]" description="In Flex 4, setting this just sets the explicitWidth.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setUnscaledWidth(20)" />
+            <AssertMethodValue method="value = application.bx2.sl2.content.document.explicitWidth" value="20" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_width_test1" keywords="[Application,width]" description="Decrease an application's width.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.width = 20" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_width_test2" keywords="[Application,width]" description="Increase an application's width.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.width = 20" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.width = 50" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_width_test3" keywords="[Application,width]" description="width = -1.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.width = -1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_width_test4" keywords="[Application,width]" description="width = 0.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.width = 0" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_width_test5" keywords="[Application,width]" description="width = 1.">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.width = 1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test1" keywords="[Application,percentHeight]" description="percentHeight = -1">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = -1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test2" keywords="[Application,percentHeight]" description="percentHeight = 0">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = 0" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test3" keywords="[Application,percentHeight]" description="percentHeight = 1">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = 1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" valueExpression="value = application.bx2.sl2.height * 0.01" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test4" keywords="[Application,percentHeight]" description="percentHeight = 50">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = 50" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" valueExpression="value = application.bx2.sl2.height * 0.5" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test5" keywords="[Application,percentHeight]" description="percentHeight = 99">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = 99" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" valueExpression="value = application.bx2.sl2.height * 0.99" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test6" keywords="[Application,percentHeight]" description="percentHeight = 100">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = 100" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" valueExpression="value = application.bx2.sl2.height" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentHeight_test7" keywords="[Application,percentHeight]" description="percentHeight = 101">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentHeight = 101" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.height" valueExpression="value = application.bx2.sl2.height" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test1" keywords="[Application,percentWidth]" description="percentWidth = -1">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = -1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test2" keywords="[Application,percentWidth]" description="percentWidth = 0">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = 0" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test3" keywords="[Application,percentWidth]" description="percentWidth = 1">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = 1" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" valueExpression="value = application.bx2.sl2.width * 0.01" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test4" keywords="[Application,percentWidth]" description="percentWidth = 50">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = 50" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" valueExpression="value = application.bx2.sl2.width * 0.5" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test5" keywords="[Application,percentWidth]" description="percentWidth = 99">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = 99" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" valueExpression="value = application.bx2.sl2.width * 0.99" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test6" keywords="[Application,percentWidth]" description="percentWidth = 100">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = 100" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" valueExpression="value = application.bx2.sl2.width" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_percentWidth_test7" keywords="[Application,percentWidth]" description="percentWidth = 101">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('backgroundColor', 0x00ff00)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.percentWidth = 101" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.height - 1" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.width" valueExpression="value = application.bx2.sl2.width" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_layout_test1" description="Set layout to BasicLayout.  Everything should pile on top of each other." keywords="[Application,layout]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new BasicLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(10)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_layout_test2" description="Set layout to VerticalLayout." keywords="[Application,layout]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new VerticalLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(10)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_layout_test3" description="Set layout to HorizontalLayout." keywords="[Application,layout]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new HorizontalLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(10)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_layout_test4" description="Set layout to TileLayout." keywords="[Application,layout]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new TileLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(10)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_layout_test5" description="Set layout to TileLayout, then VerticalLayout." keywords="[Application,layout]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new TileLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(10)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new VerticalLayout()" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_numElements_test1" description="Check numElements when there are none." keywords="[Application,numElements]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.numElements" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_numElements_test2" description="Check numElements after adding one halo component." keywords="[Application,numElements]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.addHaloComponents(1)" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.numElements" value="1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_numElements_test3" description="Check numElements after adding one spark component." keywords="[Application,numElements]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.addSparkComponents(1)" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.numElements" value="1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_numElements_test4" description="Check numElements after removing all." keywords="[Application,numElements]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(10)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.removeAllElements()" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.numElements" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_numChildren_test1" description="Check numChildren when there are no elements.  There should be just one child...the app's skin." keywords="[Application,numChildren]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.numChildren" value="1" />        
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_numChildren_test2" description="There is always only 1 'child'." keywords="[Application,numChildren]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.addMixedComponents(2)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <AssertMethodValue method="value = Object(application.bx2.sl2.content).document.numChildren" value="1" />        
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test6" description="Change the rect's color and resize." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.changeSkinBackgroundRectColor(0x0000ff)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <SetProperty target="bx2" propertyName="width" valueExpression="value = application.bx2.width + 20" />
+            <SetProperty target="bx2" propertyName="height" valueExpression="value = application.bx2.height + 20" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test7" description="Add states to the skin." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/CustomApplication1.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="application.bx2.sl2.content.document.doMoodChange('happy')" waitTarget="bx2.sl2.content.document.skin" waitEvent="updateComplete" />
+            <AssertPixelValue target="bx2.sl2.content.document" x="20" y="20" value="0xffff00" />
+            <RunCode code="application.bx2.sl2.content.document.doMoodChange('sophisticated')" waitTarget="bx2.sl2.content.document.skin" waitEvent="updateComplete" />
+            <AssertPixelValue target="bx2.sl2.content.document" x="10" y="10" value="0x000000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_viewSource_test1" description="Check the viewSource string.  We can't right click in mustella, but let's check the property." keywords="[Application,viewSource]">
+        <body>
+            <AssertMethodValue method="value = ResourceManager.getInstance().getString('components','viewSource')" value="View Source" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_viewSource_test2" description="Change the locale and check the viewSource string.  Note that there is one ResourceManager for all; we can't just set the locale of the Application in the loaded SWF.  So there's no point in doing ResetComponent.  Also note that other locales don't have a viewSource string yet, so we just switch back to en_US." keywords="[Application,viewSource]">
+        <body>
+            <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR','en_US']" />
+            <AssertMethodValue method="value = ResourceManager.getInstance().getString('components','viewSource')" value="View Source" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test1" description="Change a property in a skin." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.changeSkinBackgroundRectColor(0x0000ff)" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <AssertPixelValue target="bx2.sl2" x="20" y="20" value="0x0000ff" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test2" description="Use a skin which has a scroller." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <Pause timeout="1000"/>
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitEvent="mouseMove"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('skinClass', assets.SkinWithScroller)"/>
+            <Pause timeout="1000"/>
+            <RunCode code="Object(application.bx2.sl2.content).document.skin.scroller1.setStyle('verticalScrollPolicy','on')" />
+            <RunCode code="Object(application.bx2.sl2.content).document.skin.scroller1.setStyle('horizontalScrollPolicy','on')" waitTarget="bx2.sl2.content.application.skin" waitEvent="updateComplete" />
+            <Pause timeout="1000"/>
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test3" description="Use a skin which has a scroller, add some components." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new TileLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('skinClass', assets.SkinWithScroller)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />            
+            <RunCode code="Object(application.bx2.sl2.content).document.addSparkCheckBoxes(100)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test4" description="Use a skin which has a scroller, add some components and scroll." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new TileLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('skinClass', assets.SkinWithScroller)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addSparkCheckBoxes(100)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="rollOver" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="2" localY="2" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+
+    </TestCase>
+
+    <TestCase testID="Application_Properties_skin_test5" description="Use a skin which has a scroller, scroll, click, scroll, and scroll some more." keywords="[Application,skin]">
+        <setup>
+            <ResetComponent target="bx2" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx2.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx2.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx2.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx2.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="Object(application.bx2.sl2.content).document.layout = new TileLayout()" />
+            <RunCode code="Object(application.bx2.sl2.content).document.setStyle('skinClass', assets.SkinWithScroller)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <RunCode code="Object(application.bx2.sl2.content).document.addSparkCheckBoxes(100)" waitTarget="bx2.sl2.content.application" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="rollOver" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="2" localY="2" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+            <RunCode code="application.bx2.sl2.content.application.getElementAt(49).dispatchEvent(new MouseEvent(MouseEvent.ROLL_OVER, true, false, 5, 5));"/>                                    
+            <DispatchMouseClickEvent target="bx2.sl2.content.application.getElementAt(49)" localX="5" localY="5" />         
+			
+            <DispatchMouseEvent type="rollOver" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="2" localY="2" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+            <DispatchMouseEvent type="rollOver" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="2" localY="2" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseDown" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="mouseUp" target="bx2.sl2.content.application.skin.scroller1.verticalScrollBar.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="bx2" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_tabIndex_test1" description="Confirm tabIndex was not set." keywords="[Application,tabIndex]">
+        <body>
+            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tabIndex" value="-1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_toolTip_test1" description="Confirm toolTip was not set." keywords="[Application,toolTip]">
+        <body>
+            <AssertMethodValue method="FlexGlobals.topLevelApplication.toolTip" value="null" />
+        </body>
+    </TestCase>
+
+</testCases>
+</UnitTester>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_basic1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+        import comps.*;
+        import mx.core.FlexGlobals;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+
+
+<!--
+========================================================
+Left
+========================================================
+-->
+<TestCase testID="left_over_x1" keywords="[BasicLayout,properties,left]" description="verify constraint left is over x, when both set, x will be ignored" >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="left" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="x" value="150" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+ 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="50" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="left_negative_test1" keywords="[BasicLayout,properties,left,negative]" description="verify constraint left great than parent.width, verify element is placed correctly" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="left" value="350" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="350" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="left_negative_test2" keywords="[BasicLayout,properties,left,negative]" description="verify constraint left less than 0, verify element is placed correctly" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="left" value="-350" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="-350" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="left_negative_test3" keywords="[BasicLayout,properties,left,negative]" description="verify constraint left great than parent.width, verify element is placed correctly" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="left" value="350" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="350" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="left_negative_test4" keywords="[BasicLayout,properties,left,negative]" description="verify constraint left is NaN, verify position will ignore left setting" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+        <SetProperty propertyName="left" value="Nan" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<!--
+========================================================
+Right
+========================================================
+-->
+<TestCase testID="right_over_x1" keywords="[BasicLayout,properties,right]" description="verify constraint right is over x, when both set, x will be ignored" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="right" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="x" value="150" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+ 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="180" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="right_negative_test1" keywords="[BasicLayout,properties,right,negative]" description="verify constraint right=negative number, verify element is placed correctly" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="right" value="-50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="280" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="right_negative_test2" keywords="[BasicLayout,properties,right,negative]" description="verify constraint right great than parent.width, verify element is placed correctly" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="right" value="250" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="-20" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="right_negative_test3" keywords="[BasicLayout,properties,right,negative]" description="verify constraint right, left is NaN, verify position will ignore left/right setting" >
+    <setup>
+        <ResetComponent target="parentGroup.childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+        <SetProperty propertyName="left" value="Nan" target="parentGroup.childBtn" />
+	<SetProperty propertyName="right" value="Nab" target="parentGroup.childBtn" 
+	waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	 
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<!-- add regression test sdk25371 -->
+<TestCase testID="parent_default_not_clipping" keywords="[BasicLayout,miniContentSize]" description="verify when no explicit size specified, parent not clipping content" >
+    <setup>
+         <ResetComponent target="testGP1" className="comps.GroupMiniContentSize" waitEvent="updateComplete" waitTarget="testGP1"/>
+   </setup>
+    <body>
+        <AssertPropertyValue propertyName="width" value="300" target="testGP1.childGP1"/>
+        <AssertPropertyValue propertyName="height" value="31" target="testGP1.childGP1"/>
+ 
+    </body>
+</TestCase>
+
+<!-- add regression test sdk25371 -->
+<TestCase testID="parent_default_not_clipping2" keywords="[BasicLayout,miniContentSize]" description="verify when no explicit size specified, parent not clipping content" >
+    <setup>
+        <ResetComponent target="testGP1" className="comps.GroupMiniContentSize" waitEvent="updateComplete" waitTarget="testGP1"/>
+   </setup>
+    <body>
+    	<!-- set the parent with bigger size, so inner group will increase -->
+    	<SetProperty propertyName="width" value="400" target="testGP1" waitEvent="updateComplete" waitTarget="testGP1"/>	
+	 
+        <AssertPropertyValue propertyName="width" value="400" target="testGP1.childGP1"/>
+        
+ 	<SetProperty propertyName="width" value="350" target="testGP1" waitEvent="updateComplete" waitTarget="testGP1"/>	
+ 	 
+        <AssertPropertyValue propertyName="width" value="350" target="testGP1.childGP1"/>
+        
+    </body>
+</TestCase>
+
+<!-- add regression test sdk25371 -->
+<TestCase testID="parent_default_not_clipping3" keywords="[BasicLayout,miniContentSize]" description="verify when no explicit size specified, parent not clipping content" >
+    <setup>
+        <ResetComponent target="testGP1" className="comps.GroupMiniContentSize" waitEvent="updateComplete" waitTarget="testGP1"/>
+   </setup>
+    <body>
+    	<!-- set the parent with bigger size, so inner group will increase -->
+    	<SetProperty propertyName="width" value="400" target="testGP1" waitEvent="updateComplete" waitTarget="testGP1"/>	
+	 
+        <AssertPropertyValue propertyName="width" value="400" target="testGP1.childGP1"/>
+        <!-- set the parent with smaller width, but inner group's mini content is based on its children, not shrink -->
+ 	<SetProperty propertyName="width" value="200" target="testGP1" waitEvent="updateComplete" waitTarget="testGP1"/>	
+ 	 
+        <AssertPropertyValue propertyName="width" value="300" target="testGP1.childGP1"/>
+        
+    </body>
+</TestCase>
+
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

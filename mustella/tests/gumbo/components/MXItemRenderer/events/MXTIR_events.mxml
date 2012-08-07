@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx " xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/components/MXItemRenderer/events/"  testSWF="TreeBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import comps.*
+    	import spark.skins.spark.*;
+    	import mx.core.FlexGlobals;
+    ]]>
+  </fx:Script>
+
+    <testCases>
+        <TestCase testID="change_onKeyBoard" description="Change event triggered when select item with keyboard" keywords="[events, change, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[DOWN]" />
+                <AssertEvent target="treeRoot.tree1" eventName="change" eventClass="mx.events::ListEvent" />
+                <AssertEventPropertyValue propertyName="rowIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="itemClick_onKeyBoard" description="itemClick event triggered when select item with keyboard" keywords="[events, change, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="treeRoot.tree1" localX="228" localY="9" waitEvent="click" waitTarget="treeRoot.tree1"/>
+                <AssertEvent target="treeRoot.tree1" eventName="itemClick" eventClass="mx.events::ListEvent" />
+                <AssertEventPropertyValue propertyName="rowIndex" value="0"  />
+            </body>
+        </TestCase>
+        <TestCase testID="itemCloseKeyboard" description="itemOpen event triggered when node opened with keyboard" keywords="[events, itemOpen, keyboard, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[DOWN, SPACE]" waitEvent="itemOpen" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[SPACE]"/>
+                <AssertEvent target="treeRoot.tree1" eventName="itemClose" eventClass="mx.events::TreeEvent" />
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0])" value="false" />				
+	    </body>
+        </TestCase>
+        
+        <TestCase testID="itemCloseMouse" description="itemOpen event triggered when node disclosure is clicked" keywords="[events, itemClose, disclosureclick, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+            	 <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0], true, false)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<Pause timeout="40"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0])" value="true" />				
+		<DispatchMouseClickEvent target="treeRoot.tree1" localX="10" localY="11"/>
+		<Pause timeout="40"/>
+ 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0])" value="false" />				
+	
+            </body>
+        </TestCase>
+        <TestCase testID="itemOpenKeyboard" description="itemOpen event triggered when node opened with keyboard" keywords="[events, itemOpen, keyboard, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, SPACE]" />
+                <AssertEvent target="treeRoot.tree1" eventName="itemOpen" eventClass="mx.events::TreeEvent" />
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[1])" value="true" />				
+	
+            </body>
+        </TestCase>
+        <TestCase testID="itemOpenMouse" description="itemOpen event triggered when node disclosure is clicked" keywords="[events, itemOpen, disclosureclick, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+            	<!-- initially it is closed -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0])" value="false" />	
+            	<DispatchMouseClickEvent target="treeRoot.tree1" localX="10" localY="11"/>
+		<Pause timeout="40"/>
+ 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[0])" value="true" />				
+	
+            </body>
+        </TestCase>
+        <TestCase testID="itemOpeningKeyboard" description="itemOpening event triggered when node opened with keyboard" keywords="[events, itemOpening, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+		
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[DOWN, DOWN, SPACE]" />
+                <AssertEvent target="treeRoot.tree1" eventName="itemOpening" eventClass="mx.events::TreeEvent" />
+ 		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.treeRoot.tree1.isItemOpen(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.children()[1])" value="true" />				
+	
+            </body>
+        </TestCase>
+        
+	<TestCase testID="Tree_events_scroll_buttons" description="Ensure that the scroll event triggers when you click on the track."
+           keywords="[events, scroll, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="labelField" value="label" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+	
+                <SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.largeObj" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="treeRoot.tree1.getChildAt(3).getChildAt(3)" localX="8" localY="8" />
+                <AssertEvent target="treeRoot.tree1" eventName="scroll" eventClass="mx.events::ScrollEvent" timeout="1000" />
+                <AssertPropertyValue target="treeRoot.tree1" propertyName="verticalScrollPosition" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Tree_events_scroll_track" description="Ensure that the scroll event triggers when you click on the track."
+           keywords="[events, scroll, Tree]">
+            <setup>
+		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+	
+                <SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.largeObj" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+            </setup>
+            <body>
+                <SetProperty propertyName="selectedIndex" value="7" target="treeRoot.tree1" waitEvent="valueCommit" waitTarget="treeRoot.tree1"/>
+      		<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+               
+      		<DispatchKeyEvent keys="[DOWN,DOWN]" />
+      		<AssertEvent target="treeRoot.tree1" eventName="scroll" eventClass="mx.events::ScrollEvent" numExpectedEvents="2" />
+            </body>
+        </TestCase>
+	<TestCase testID="Tree_events_scroll2" description="ensure that scroll"
+           keywords="[Bug, scroll, Tree]">
+            <setup>
+             	<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="labelField" value="label" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_LabelBinding)}"  waitEvent="maxVerticalScrollPositionChanged" waitTarget="treeRoot.tree1"/>
+	
+                <SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.largeObj" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+            </setup>
+            <body>
+                <SetProperty target="treeRoot.tree1" propertyName="verticalScrollPosition" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.tree1.maxVerticalScrollPosition" />
+                <Pause timeout="1000"/>
+                <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[10], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+                <SetProperty target="treeRoot.tree1" propertyName="verticalScrollPosition" value="0" />
+                <Pause timeout="1000"/>
+                <SetProperty target="treeRoot.tree1" propertyName="verticalScrollPosition" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.tree1.maxVerticalScrollPosition" />
+                <Pause timeout="1000"/>
+                <DispatchMouseClickEvent target="treeRoot.tree1.mx_internal:rendererArray.3.0" localX="9" localY="9" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+                <CompareBitmap target="treeRoot.tree1.mx_internal:rendererArray.6.0" url="../Events/baselines/$testID.png" timeout="2500" />
+        </body>
+        </TestCase>
+     <TestCase testID="Tree_events_horizontal_scroll_buttons" description="Ensure that the scroll event triggers when you click on the track."
+           keywords="[events,horizontal, scroll, Tree]">
+            <setup>
+                <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="labelField" value="label" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_LabelBinding)}"  />
+		<SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.largeObj" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty propertyName="horizontalScrollPolicy" value="on" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="treeRoot.tree1" localX="11" localY="113" waitEvent="itemOpen" waitTarget="treeRoot.tree1" />
+                <DispatchMouseClickEvent target="treeRoot.tree1.getChildAt(3).getChildAt(3)" localX="8" localY="8" waitEvent="click" waitTarget="treeRoot.tree1.getChildAt(3).getChildAt(3)" />
+                <AssertEvent target="treeRoot.tree1" eventName="scroll" eventClass="mx.events::ScrollEvent"  />
+                <AssertPropertyValue target="treeRoot.tree1" propertyName="horizontalScrollPosition" value="0" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="change_onKeyBoardLeft" description="Change event triggered when select item with keyboard" keywords="[events, change, Tree, keys]">
+            <setup>
+                <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+              <SetProperty propertyName="horizontalScrollPolicy" value="on" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[LEFT]" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="treeRoot.tree1" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="change_onKeyBoardDownLeft" description="Change event triggered when select item with keyboard" keywords="[events, change, Tree, keys]">
+            <setup>
+               <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+		<SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+		<Pause timeout="40"/>
+		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]"  waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[DOWN, DOWN]" waitEvent="change" waitTarget="treeRoot.tree1" />
+                <DispatchKeyEvent keys="[LEFT]" />
+                <WaitForEffectsToEnd />
+                <AssertPropertyValue target="treeRoot.tree1" propertyName="selectedIndex" value="1" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

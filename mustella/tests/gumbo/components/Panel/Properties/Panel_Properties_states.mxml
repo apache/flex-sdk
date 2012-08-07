@@ -1,0 +1,120 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_states.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+	<fx:Script>
+        <![CDATA[         
+			import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>    
+           
+    <testCases>    
+
+		<TestCase testID="Panel_Properties_states1" keywords="[Panel, states, includeIn]" description="Test states and includeIn property on Panel">
+            <setup>                            
+            	<ResetComponent target="mySP" className="Comps.CustomStatesPanel" waitEvent="updateComplete" waitTarget="mySP"/>
+            </setup>
+            <body>     
+            	<AssertPropertyValue target="mySP" propertyName="currentState" value="state01"/>
+            	<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State One"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="fontSize" value="40"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="color" value="0xFF0000"/>
+            	<SetProperty target="mySP.sCB" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="mySP.sCB"/>
+            	<SetProperty target="mySP.sNS" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="mySP.sNS"/>
+            	<SetProperty target="mySP.sLST" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mySP.sLST"/>
+            	
+				<SetProperty target="mySP" propertyName="currentState" value="state02" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state02"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State Two"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="fontSize" value="24"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="color" value="0x0000FF"/>
+				
+				<SetProperty target="mySP" propertyName="currentState" value="state01" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state01"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State One"/>            	
+            	<AssertStyleValue target="mySP.sTXT" styleName="fontSize" value="40"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="color" value="0xFF0000"/>
+				<AssertPropertyValue target="mySP.sCB" propertyName="selected" value="true"/>
+				<AssertPropertyValue target="mySP.sNS" propertyName="value" value="5"/>
+				<AssertPropertyValue target="mySP.sLST" propertyName="selectedIndex" value="2"/>
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Panel_Properties_states2" keywords="[Panel, states, includeIn]" description="Test states and includeIn property on Panel">
+            <setup>                            
+            	<ResetComponent target="mySP" className="Comps.CustomStatesPanel" waitEvent="updateComplete" waitTarget="mySP"/>
+            	<SetProperty target="mySP" propertyName="currentState" value="state02" waitTarget="mySP" waitEvent="currentStateChange"/>				
+            </setup>
+            <body>     
+            	<AssertPropertyValue target="mySP" propertyName="currentState" value="state02"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State Two"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="fontSize" value="24"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="color" value="0x0000FF"/>
+            	<SetProperty target="mySP.sRB2" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="mySP.sRB2"/>
+            	<SetProperty target="mySP.sHS" propertyName="value" value="3" waitEvent="updateComplete" waitTarget="mySP.sHS"/>
+            	<SetProperty target="mySP.sACRD" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mySP.sACRD"/>
+            	
+				<SetProperty target="mySP" propertyName="currentState" value="state01" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state01"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State One"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="fontSize" value="40"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="color" value="0xFF0000"/>
+				
+				<SetProperty target="mySP" propertyName="currentState" value="state02" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state02"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State Two"/>            	
+            	<AssertStyleValue target="mySP.sTXT" styleName="fontSize" value="24"/>
+            	<AssertStyleValue target="mySP.sTXT" styleName="color" value="0x0000FF"/>
+				<AssertPropertyValue target="mySP.sRB2" propertyName="selected" value="true"/>
+				<AssertPropertyValue target="mySP.sHS" propertyName="value" value="3"/>
+				<AssertPropertyValue target="mySP.sACRD" propertyName="selectedIndex" value="1"/>
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Properties_states3" keywords="[Panel, states, includeIn]" description="Test states and includeIn property on Panel">
+            <setup>                            
+            	<ResetComponent target="mySP" className="Comps.CustomStatesPanel" waitEvent="updateComplete" waitTarget="mySP"/>
+            </setup>
+            <body>     
+            	<AssertPropertyValue target="mySP" propertyName="currentState" value="state01"/>
+            	<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State One"/>            	
+            	<SetProperty target="mySP.sCB" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="mySP.sCB"/>            	
+				
+				<SetProperty target="mySP" propertyName="currentState" value="state02" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state02"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State Two"/>
+				<SetProperty target="mySP.sRB2" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="mySP.sRB2"/>				
+				
+				<SetProperty target="mySP" propertyName="currentState" value="state01" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state01"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State One"/>            	            	
+				<AssertPropertyValue target="mySP.sCB" propertyName="selected" value="true"/>				
+				
+				<SetProperty target="mySP" propertyName="currentState" value="state02" waitTarget="mySP" waitEvent="currentStateChange"/>				
+				<AssertPropertyValue target="mySP" propertyName="currentState" value="state02"/>
+				<AssertPropertyValue target="mySP.sTXT" propertyName="text" value="State Two"/>				
+				<AssertPropertyValue target="mySP.sRB2" propertyName="selected" value="true"/>				
+            </body>
+        </TestCase>  		
+      
+      </testCases>
+    
+</UnitTester>
+

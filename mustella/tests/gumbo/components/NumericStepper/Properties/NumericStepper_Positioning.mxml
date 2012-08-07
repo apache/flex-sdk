@@ -1,0 +1,47 @@
+<UnitTester testDir="gumbo/components/NumericStepper/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="NumericStepper_basic2.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <testCases>
+
+		<TestCase testID="NumericStepper_baseline" keywords="[FxNumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS_B2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS_B2"/>
+				<SetProperty target="myNS_B2" propertyName="baseline" value="100" waitEvent="updateComplete" waitTarget="myNS_B2"/>
+		    </setup>
+		    <body>
+				<!--CompareBitmap target="" url="../Properties/Baselines/$testID.png"/-->
+				<SetProperty value="30" target="myNS_B2" propertyName="height" waitEvent="updateComplete" waitTarget="myNS_B2"/>
+				<AssertPropertyValue target="myNS_B2" propertyName="y" value="85" />
+		    </body>
+    	</TestCase>
+		<TestCase testID="NumericStepper_baseline_Mac" keywords="[FxNumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS_B2" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS_B2"/>
+				<SetProperty target="myNS_B2" propertyName="baseline" value="100" waitEvent="updateComplete" waitTarget="myNS_B2"/>
+		    </setup>
+		    <body>
+				<SetProperty value="30" target="myNS_B2" propertyName="height" waitEvent="updateComplete" waitTarget="myNS_B2"/>
+				<AssertPropertyValue target="myNS_B2" propertyName="y" value="85" />
+		    </body>
+    	</TestCase>
+    </testCases>
+
+</UnitTester>

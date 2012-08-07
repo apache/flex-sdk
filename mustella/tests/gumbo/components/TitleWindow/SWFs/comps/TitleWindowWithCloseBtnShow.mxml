@@ -1,0 +1,20 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    creationComplete="this.closeButton.visible=true;flash.text.TextRenderer.displayMode=flash.text.TextDisplayMode.CRT"
+    width="300" height="300">
+
+    <fx:Script>
+    	<![CDATA[
+    	]]>
+    </fx:Script>
+    <mx:Form id="myForm" height="150" width="300" backgroundColor="0xff0000">
+	<mx:FormItem label="Available" direction="horizontal" backgroundColor="0x00ff00">
+		<s:Label text="spark label in Form" />
+		<mx:Label text="halo label in Form" />
+	</mx:FormItem>
+	
+    </mx:Form>
+   	
+</s:TitleWindow>

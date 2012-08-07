@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarVS.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.components.*;
+       	import mx.core.*;
+	import mx.collections.IList;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+change
+Verify the change event occurs for ButtonBar and ViewStack when selected index
+is changed on ViewStack
+Verify the change event occurs for ButtonBar and ViewStack when selected index
+is changed on ButtonBar
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="change_vs1DP_test1" keywords="[ButtonBar,ViewStack,change]" description="Test change event on ViewStack and ButtonBar when selectedIndex is changed on ViewStack">
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+    	<AssertEvent target="TC.vs1" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+    	<AssertEvent target="TC.bb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+<TestCase testID="change_vs1DP_test2" keywords="[ButtonBar,ViewStack,change]" description="Test change event on ViewStack and ButtonBar when selectedIndex is changed on ButtonBar">
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.bb" propertyName="selectedIndex" value="2" waitTarget="TC.bb" waitEvent="updateComplete" />
+
+    	<AssertEvent target="TC.vs1" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+    	<AssertEvent target="TC.bb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+<TestCase testID="change_vs2DP_test1" keywords="[ButtonBar,ViewStack,change]" description="Test change event on ViewStack and ButtonBar when selectedIndex is changed on ViewStack">
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.vs2" propertyName="selectedIndex" value="1" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+    	<AssertEvent target="TC.vs2" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+    	<AssertEvent target="TC.bb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+<TestCase testID="change_vs2DP_test2" keywords="[ButtonBar,ViewStack,change]" description="Test change event on ViewStack and ButtonBar when selectedIndex is changed on ButtonBar">
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.bb" propertyName="selectedIndex" value="1" waitTarget="TC.bb" waitEvent="updateComplete" />
+
+    	<AssertEvent target="TC.vs2" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+    	<AssertEvent target="TC.bb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+<TestCase testID="change_vs3DP_test1" keywords="[ButtonBar,ViewStack,change]" description="Test change event on ViewStack and ButtonBar when selectedIndex is changed on ViewStack">
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" waitTarget="TC.vs3" waitEvent="updateComplete" />
+    	<SetProperty target="TC.vs3" propertyName="selectedIndex" value="0" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+    	<AssertEvent target="TC.vs3" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+    	<AssertEvent target="TC.bb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+<TestCase testID="change_vs3DP_test2" keywords="[ButtonBar,ViewStack,change]" description="Test change event on ViewStack and ButtonBar when selectedIndex is changed on ButtonBar">
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.bb" propertyName="selectedIndex" value="2" waitTarget="TC.bb" waitEvent="updateComplete" />
+    	<SetProperty target="TC.bb" propertyName="selectedIndex" value="0" waitTarget="TC.bb" waitEvent="updateComplete" />
+
+    	<AssertEvent target="TC.vs3" eventName="change" eventClass="mx.events::IndexChangedEvent" />
+    	<AssertEvent target="TC.bb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+    </body>
+</TestCase>
+
+
+	</testCases>
+</UnitTester>

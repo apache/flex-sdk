@@ -1,0 +1,33 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="400" height="500">
+    <s:layout>
+    	<s:VerticalLayout/>
+    </s:layout>
+    <fx:Script>
+    	<![CDATA[
+    		import flash.events.Event;
+    		import mx.collections.ArrayCollection;
+    		[Bindable]
+    		private var d:ArrayCollection=new ArrayCollection([{slno:"1",name:"Joseph",age:"23"},{slno:"2",name:"Jeena",age:"21"},{slno:"3",name:"Jerry",age:"4"}
+    	   	 ,{slno:"4",name:"Tom",age:"1"},{slno:"5",name:"Rick",age:"12"},{slno:"6",name:"John",age:"52"}]);
+    	   	
+    		public function onBtnClick(event:Event):void
+    		{
+    			trace(event.currentTarget.label);
+    			ta.text=event.currentTarget.label+" is clicked";
+    		}
+    	]]>
+    </fx:Script>
+    	<s:CheckBox id="checkBox1" name="checkBox1" label="available"  y="10" />
+    	<s:Button id="button1" y="35" label="test Button" name="childButton" />
+    	<s:Label id="label1" y="60" name="childLabel" text="test label in myWindow with content" fontSize="16" visible="false" />
+    	<s:TextArea id="ta" width="150" height="40" y="75" />
+    	<mx:DataGrid y="120" name="datagrid1" id="dg1"   dataProvider="{d}" />
+    	<s:controlBarContent>
+    	    <s:Label text="controlBar"/>
+    	    <s:Button id="button2" label="button2"/>
+        </s:controlBarContent>
+</s:TitleWindow>

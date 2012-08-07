@@ -1,0 +1,45 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	 selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" editable="true"
+	height="150"
+	variableRowHeight="true" >
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import spark.events.GridItemEditorEvent;
+			import spark.components.gridClasses.GridSelectionMode;
+			
+			[Bindable]
+			public var text:String = "New England is facing ice warnings, heavy snow, and cold temperatures that are due to start";
+            
+			
+    		]]>
+    </fx:Script>
+   <fx:Declarations>
+	
+   </fx:Declarations>
+	<s:columns>
+		<s:ArrayList>
+		                <s:GridColumn dataField="dataField1" headerText="multiline=true">                   
+		                    <s:itemRenderer>
+		                        <fx:Component>
+		                            <s:DefaultGridItemRenderer multiline="true" width="150"/>
+		                        </fx:Component>
+		                    </s:itemRenderer>
+		                </s:GridColumn>
+		                
+		                <s:GridColumn dataField="dataField2" headerText="multiline=false">
+		                    <s:itemRenderer>
+		                        <fx:Component>
+		                            <s:DefaultGridItemRenderer multiline="false" width="150"/>
+		                        </fx:Component>
+		                    </s:itemRenderer>
+		                </s:GridColumn>
+		            </s:ArrayList>
+	</s:columns>
+	<s:ArrayList>
+	    <s:DataItem dataField1="{text}" dataField2="{text}"></s:DataItem>
+	    <s:DataItem dataField1="data1" dataField2="data2" ></s:DataItem>
+	</s:ArrayList>
+	
+</s:DataGrid>

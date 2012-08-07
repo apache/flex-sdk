@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_preInit.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Properties_preInit_misc" keywords="[DataGrid, Property, preinitialize]" description="Test calling methods at preinitialize for the DataGrid">			
+			<setup>
+				<ResetComponent target="dg_misc" className="components.DataGrid_Custom_preInit_misc" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<CompareBitmap target="dg_misc" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_preInit_misc2" keywords="[DataGrid, Property, preinitialize]" description="Test calling methods at preinitialize for the DataGrid">			
+			<setup>
+				<ResetComponent target="dg_misc2" className="components.DataGrid_Custom_preInit_misc2" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<CompareBitmap target="dg_misc2" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_preInit_setSelectedCell" keywords="[DataGrid, Property, preinitialize, set, selectedCell]" description="Test calling setSelectedCell method at preinitialize for the DataGrid">			
+			<setup>
+				<ResetComponent target="dg_cell" className="components.DataGrid_Custom_preInit_setSelectedCell" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>								
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_cell.selectionContainsCell(1,2)" value="true"/>
+				<CompareBitmap target="dg_cell" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_preInit_setSelectedCells" keywords="[DataGrid, Property, preinitialize, set, selectedCells]" description="Test calling setSelectedCells method at preinitialize for the DataGrid">			
+			<setup>
+				<ResetComponent target="dg_cells" className="components.DataGrid_Custom_preInit_setSelectedCells" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_cells.selectionContainsCell(0,1)" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_cells.selectionContainsCell(2,2)" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_cells.selectionContainsCell(1,2)" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_cells.selectionContainsCell(4,0)" value="true"/>
+				<CompareBitmap target="dg_cells" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_preInit_setSelectedIndex" keywords="[DataGrid, Property, preinitialize, set, selectedIndex]" description="Test calling setSelectedIndex method at preinitialize for the DataGrid">			
+			<setup>
+				<ResetComponent target="dg_index" className="components.DataGrid_Custom_preInit_setSelectedIndex" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_index.selectionContainsIndex(4)" value="true"/>
+				<CompareBitmap target="dg_index" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_preInit_setSelectedIndices" keywords="[DataGrid, Property, preinitialize, set, selectedIndices]" description="Test calling setSelectedIndices method at preinitialize for the DataGrid">			
+			<setup>
+				<ResetComponent target="dg_indices" className="components.DataGrid_Custom_preInit_setSelectedIndices" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_indices.selectionContainsIndex(1)" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_indices.selectionContainsIndex(3)" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_indices.selectionContainsIndex(5)" value="true"/>
+				<CompareBitmap target="dg_indices" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>			
+
+    </testCases>
+</UnitTester>

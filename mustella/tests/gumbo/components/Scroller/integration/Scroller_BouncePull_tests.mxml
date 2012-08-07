@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Scroller/integration/"
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
+testSWF="BouncePullScroller_Main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </fx:Script>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+    <![CDATA[
+               import mx.core.FlexGlobals;
+               import comps.BouncingListComp;
+               
+            // Check that a bounce happened by comparing the greatest verticalScrollPosition to the List's max verticalScrollPosition. The function
+            // will return true if you threw the List past its max verticalScrollPosition.
+            
+            public function isBounceEffectOn(scrollPosition:Number, listMaxScrollPosition:Number):String
+            {
+                if((listMaxScrollPosition < scrollPosition) || (scrollPosition < 0))
+                    return "true";
+                else
+                    return "max scrollPosition: " + listMaxScrollPosition + "is not greater than scrollPosition: " + scrollPosition;
+            }
+    ]]>
+    </fx:Script>
+
+    <testCases>
+
+
+<TestCase testID="Scroller_touchInteractionMode_pullFromTop" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the top.">
+    <setup>
+        <ResetComponent target="colorList" className="comps.BouncingListComp" waitTarget="colorList" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseEvent type="mouseDown" target="colorList" localX="13" localY="10" waitEvent="mouseDown" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="30" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="45" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="60" waitEvent="mouseMove" waitTarget="colorList"/>
+        <Pause timeout="200" />
+        <AssertPropertyValue target="colorList.dataGroup" propertyName="verticalScrollPosition" value="-22" />
+        <DispatchMouseEvent type="mouseUp" target="colorList" localX="13" localY="60" waitEvent="mouseUp" waitTarget="colorList"/>             
+    </body>
+</TestCase>
+<TestCase testID="Scroller_touchInteractionMode_pullFromBottom" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the top.">
+    <setup>
+        <ResetComponent target="colorList" className="comps.BouncingListComp" waitTarget="colorList" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="colorList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=application.colorList.maxScrollPosition" waitEvent="valueCommit" waitTarget="colorList.scroller.verticalScrollBar" />
+        <DispatchMouseEvent type="mouseDown" target="colorList" localX="13" localY="220" waitEvent="mouseDown" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="200" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="165" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="120" waitEvent="mouseMove" waitTarget="colorList"/>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value=isBounceEffectOn(application.colorList.dataGroup.verticalScrollPosition, application.colorList.maxScrollPosition)" value="true" />		
+        <DispatchMouseEvent type="mouseUp" target="colorList" localX="13" localY="20" waitEvent="mouseUp" waitTarget="colorList"/>      
+    </body>
+</TestCase>
+<TestCase testID="Scroller_mouseInteractionMode_pullFromTop" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the top.">
+    <setup>
+        <ResetComponent target="colorList" className="comps.BouncingListComp" waitTarget="colorList" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="colorList.scroller" styleName="interactionMode" value="mouse" />
+        <DispatchMouseEvent type="mouseDown" target="colorList" localX="13" localY="10" waitEvent="mouseDown" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="30" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="45" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="60" waitEvent="mouseMove" waitTarget="colorList"/>
+        <Pause timeout="200" />
+        <AssertPropertyValue target="colorList.dataGroup" propertyName="verticalScrollPosition" value="0" />
+        <DispatchMouseEvent type="mouseUp" target="colorList" localX="13" localY="60" waitEvent="mouseUp" waitTarget="colorList"/>             
+    </body>
+</TestCase>
+<TestCase testID="Scroller_mouseInteractionMode_pullFromBottom" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the top.">
+    <setup>
+        <ResetComponent target="colorList" className="comps.BouncingListComp" waitTarget="colorList" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="colorList.scroller" styleName="interactionMode" value="mouse" />
+        <SetProperty target="colorList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=application.colorList.maxScrollPosition" waitEvent="valueCommit" waitTarget="colorList.scroller.verticalScrollBar" />
+        <DispatchMouseEvent type="mouseDown" target="colorList" localX="13" localY="220" waitEvent="mouseDown" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="200" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="165" waitEvent="mouseMove" waitTarget="colorList"/>
+        <DispatchMouseEvent type="mouseMove" target="colorList" localX="13" localY="120" waitEvent="mouseMove" waitTarget="colorList"/>
+        <Pause timeout="200" />
+        <AssertPropertyValue target="colorList.dataGroup" propertyName="verticalScrollPosition" valueExpression="value=application.colorList.maxScrollPosition" />		
+        <DispatchMouseEvent type="mouseUp" target="colorList" localX="13" localY="20" waitEvent="mouseUp" waitTarget="colorList"/>      
+    </body>
+</TestCase>
+<TestCase testID="Scroller_touchInteractionMode_pullFromLeft" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the left.">
+    <setup>
+        <ResetComponent target="colorListH" className="comps.BouncingHListComp" waitTarget="colorListH" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseEvent type="mouseDown" target="colorListH" localY="13" localX="10" waitEvent="mouseDown" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="30" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="45" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="60" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <Pause timeout="200" />
+        <AssertPropertyValue target="colorListH.dataGroup" propertyName="horizontalScrollPosition" value="-22" />
+        <DispatchMouseEvent type="mouseUp" target="colorListH" localX="13" localY="60" waitEvent="mouseUp" waitTarget="colorListH"/>             
+    </body>
+</TestCase>
+<TestCase testID="Scroller_touchInteractionMode_pullFromRight" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the right.">
+    <setup>
+        <ResetComponent target="colorListH" className="comps.BouncingHListComp" waitTarget="colorListH" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="colorListH.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=application.colorListH.maxScrollPosition" 
+            waitEvent="valueCommit" waitTarget="colorListH.scroller.horizontalScrollBar" />
+        <DispatchMouseEvent type="mouseDown" target="colorListH" localY="13" localX="220" waitEvent="mouseDown" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="200" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="165" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="120" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <Pause timeout="200" />
+        <AssertMethodValue method="value=isBounceEffectOn(application.colorListH.dataGroup.horizontalScrollPosition, application.colorListH.maxScrollPosition)" value="true" />		
+        <DispatchMouseEvent type="mouseUp" target="colorListH" localY="13" localX="20" waitEvent="mouseUp" waitTarget="colorListH"/>      
+    </body>
+</TestCase>
+<TestCase testID="Scroller_mouseInteractionMode_pullFromLeft" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the left.">
+    <setup>
+        <ResetComponent target="colorListH" className="comps.BouncingHListComp" waitTarget="colorListH" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="colorListH.scroller" styleName="interactionMode" value="mouse" />
+        <DispatchMouseEvent type="mouseDown" target="colorListH" localY="13" localX="10" waitEvent="mouseDown" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="30" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="45" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="60" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <Pause timeout="200" />
+        <AssertPropertyValue target="colorListH.dataGroup" propertyName="horizontalScrollPosition" value="0" />
+        <DispatchMouseEvent type="mouseUp" target="colorListH" localY="13" localX="60" waitEvent="mouseUp" waitTarget="colorListH"/>             
+    </body>
+</TestCase>
+<TestCase testID="Scroller_mouseInteractionMode_pullFromRight" keywords="[Bounce, Scroller, interactionMode]" 
+    description="interactionMode=touch. Testing the bounce/pull effect from the right.">
+    <setup>
+        <ResetComponent target="colorListH" className="comps.BouncingHListComp" waitTarget="colorListH" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="colorListH.scroller" styleName="interactionMode" value="mouse" />
+        <SetProperty target="colorListH.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=application.colorListH.maxScrollPosition" waitEvent="valueCommit" waitTarget="colorListH.scroller.horizontalScrollBar" />
+        <DispatchMouseEvent type="mouseDown" target="colorListH" localY="13" localX="220" waitEvent="mouseDown" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="200" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="165" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <DispatchMouseEvent type="mouseMove" target="colorListH" localY="13" localX="120" waitEvent="mouseMove" waitTarget="colorListH"/>
+        <Pause timeout="200" />
+        <AssertPropertyValue target="colorListH.dataGroup" propertyName="horizontalScrollPosition" valueExpression="value=application.colorListH.maxScrollPosition" />		
+        <DispatchMouseEvent type="mouseUp" target="colorListH" localY="13" localX="20" waitEvent="mouseUp" waitTarget="colorListH"/>      
+    </body>
+</TestCase>
+</testCases>
+</UnitTester>

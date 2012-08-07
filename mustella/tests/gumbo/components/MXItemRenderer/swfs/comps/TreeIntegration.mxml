@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.Tree;
+            import mx.events.ListEvent;
+      
+            import mx.controls.TextInput;
+            
+	    [Embed(source="../../../../../../Assets/Images/purplerect.jpg")]
+	    [Bindable]
+	    public var leafIcon1:Class;
+
+	    [Embed(source="../../../../../../Assets/Images/greenrect.jpg")]
+	    [Bindable]
+	    public var largeIcon:Class;
+
+	    [Embed(source="../../../../../../Assets/Images/orangerect.jpg")]
+	    [Bindable]
+	    public var longIcon1:Class;
+
+	    [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+	    [Bindable]
+	    public var discloseOpenIcon1:Class;
+
+	    [Embed(source="../../../../../../Assets/Images/bluerect.jpg")]
+	    [Bindable]
+	    public var discloseCloseIcon1:Class;
+
+	    [Embed(source="../../../../../../Assets/Images/yellowrect.jpg")]
+	    [Bindable]
+	    public var fileOpenIcon1:Class;
+
+	    [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+	    [Bindable]
+	    public var fileCloseIcon1:Class;
+	
+	    [Bindable]
+	    public var largeObj:Object = 
+		[	{ label:"Accessibility", children: [    
+		{ label:"Classes", children: [       
+			{ label:"BoxDivider", data:"BoxDivider.as" },    
+			{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+		}, 
+		{ label:"Assets" },    
+		{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [     
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },   
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},     
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]    
+		},   
+		{ label:"Binding" },   
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [    
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		}, 
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [       
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},
+		{ label:"Accessibility", children: [    
+			{ label:"Classes", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Assets" },    
+			{ label:"CSS" } ]   
+		},  
+		{ label:"Charts", children: [   
+			{ label:"Skins", children: [      
+				{ label:"AreaSkin", data:"AreaSkin.as" },  
+				{ label:"BoxSkin", data:"BoxSkin.as" } ]    
+			},
+			{ label:"AssetRenderer" },   
+			{ label:"PlotChart" } ]  
+		},  
+		{ label:"Automation", children: [   
+			{ label:"AutomationError", data:"AutomationError.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Binding" },
+		{ label:"Collections", children: [    
+			{ label:"Box", data:"Alert.as"},   
+			{ label:"BoxClasses", children: [  
+				{ label:"HBox", data:"HBox.as" } ]    
+			},   
+			{ label:"Canvas", data:"Canvas.as" },   
+			{ label:"ICollectionView", data:"ICollectionView.as"} ]   
+		},  
+		{ label:"Containers" },
+		{ label:"Controls", children: [   
+			{ label:"DividedBox", children: [      
+				{ label:"BoxDivider", data:"BoxDivider.as" },  
+				{ label:"BoxUniter", data:"BoxUniter.as" } ]   
+			},
+			{ label:"Accordian" },   
+			{ label:"Grid" } ]  
+		}, 
+		{ label:"Core", children: [    
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Data", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Debug" }, 
+		{ label:"Effects", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },    
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Events" }, 
+		{ label:"Formatters", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Graphics" },
+		{ label:"Logging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		},  
+		{ label:"Managers" },   
+		{ label:"Preloaders" },
+		{ label:"Messaging", children: [   
+			{ label:"Alert", data:"Alert.as"},   
+			{ label:"AlertClasses", children: [  
+				{ label:"AlertForm", data:"AlertForm.as" } ]    
+			},   
+			{ label:"Tree", data:"Tree.as" },   
+			{ label:"Button", data:"Button.as"} ]   
+		}
+		];  
+		public var hierarr:Array = [ { firstName: "cool", children: [
+			{ firstName: "super cool 123", children: [
+				{ firstName: "label1 label2", lastName: "label2",  cool: true },
+				{ firstName: "test1 test2 test3", lastName: "test3",   cool: true }]
+			},
+			{ firstName: "Joan", lastName: "Lafferty",  cool: true },
+			{ firstName: "Kari", lastName: "White",  cool: true },
+			{ firstName: "Lauren", lastName: "Park",   cool: true }]
+		},
+			{ firstName: "not cool", children: [
+				{ firstName: "Ben Ben Ben", lastName: "Smith",   cool: false },
+				{ firstName: "Allen 1 1 2 3", lastName: "Holly hello",   cool: false },
+				{ firstName: "Chet 1 3234 234 3", lastName: "Kit test",  cool: false },
+				{ firstName: "Who Who", lastName: "Me Me",   cool: false }]
+			}
+		];		
+
+		public var dataX:XML =
+			<item label="Top">
+
+			<item label="Child One"/>
+			<item label="Child Two" />
+			</item>;
+
+		public var contacts1:Object = 
+			{label: "top", children: [
+			{label: "Acme", status: true, phone: "243-333-5555", children: [
+			{label: "Sales", status: true, phone: "561-256-5555"},
+			{label: "Support", status: false, phone: "871-256-5555"}
+			]},
+			{label: "Ace", status: true, phone: "444-333-5555", children: [
+			{label: "Sales", status: true, phone: "232-898-5555"},
+			{label: "Support", status: false, phone: "977-296-5555"},
+			]},
+			{label: "Platinum", status: false, phone: "521-256-5555"}
+			]};
+
+		public function processData(event:ListEvent):void {    
+
+			// Disable copying data back to the control.
+			event.preventDefault();
+
+			// Get new phone number from editor.
+			event.currentTarget.editedItemRenderer.data.phone =
+			MXTIR_MyTreeEditor(event.currentTarget.itemEditorInstance).contactPhone.text;
+
+			// Get new status from editor.
+			event.currentTarget.editedItemRenderer.data.status =
+			MXTIR_MyTreeEditor(event.currentTarget.itemEditorInstance).confirmed.selected;
+
+			// Close the cell editor.
+			event.currentTarget.destroyItemEditor(); 
+
+			// Notify the list control to update its display.
+			event.currentTarget.dataProvider.notifyItemUpdate(event.currentTarget.editedItemRenderer);
+		}    
+		
+		public function processData2(event:ListEvent):void {    
+
+			// Disable copying data back to the control.
+			event.preventDefault();
+
+			// Get new phone number from editor.
+			event.currentTarget.editedItemRenderer.data.phone =
+				TextInput(event.currentTarget.itemEditorInstance).text;
+
+			// Get new status from editor.
+			event.currentTarget.editedItemRenderer.data.status =
+				TextInput(event.currentTarget.itemEditorInstance).text!="";
+
+			// Close the cell editor.
+			event.currentTarget.destroyItemEditor(); 
+
+			// Notify the list control to update its display.
+			event.currentTarget.dataProvider.notifyItemUpdate(event.currentTarget.editedItemRenderer);
+		} 
+		public function processData3(event:ListEvent):void {    
+
+			// Disable copying data back to the control.
+			event.preventDefault();
+			var targetTree:Tree = event.currentTarget as Tree;
+			trace("####"+targetTree.editedItemRenderer);
+
+			// Get label text from editor.
+			if (targetTree.itemEditorInstance!=null)
+			{
+				targetTree.editedItemRenderer.data.label =
+				TextInput(targetTree.itemEditorInstance).text;
+			}else 
+			targetTree.editedItemRenderer.data.label="dummy";
+
+			// Close the cell editor.
+			targetTree.destroyItemEditor(); 
+
+			// Notify the list control to update its display.
+			targetTree..dataProvider.notifyItemUpdate(targetTree.editedItemRenderer);
+		}       
+		
+            /**
+             * Process an itemEditEnd event and update the value in the Tree
+             */
+            public function updateTreeValue(event:ListEvent):void {                 
+                var targetTree:Tree = event.currentTarget as Tree;
+                var valueToUpdate:*;
+                
+                // Disable copying data back to the control.
+                event.preventDefault();
+                
+                // Get new data from the editor. 
+                // each custom renderer in this Mustella project that allows editing should expose an updatedValue property
+                // try getting it here otherwise try text property if maybe its a spark TextInput then fail
+                try {
+                    valueToUpdate = (targetTree.itemEditorInstance)["updatedValue"];
+                } catch (e:Error) {
+                    try {
+                        valueToUpdate = (targetTree.itemEditorInstance)["text"];
+                    } catch(e:Error) {
+                        // is some kind of item editor that this Mustella project doesn't support
+                        valueToUpdate = "Error Updating";
+                    }
+                }
+                
+                // update the data's value
+                (targetTree.editedItemRenderer.data)[targetTree.labelField] = valueToUpdate;
+                
+                // Close the cell editor.
+                targetTree.destroyItemEditor(); 
+                
+                // Notify the list control to update its display.
+                targetTree.dataProvider.notifyItemUpdate(targetTree.editedItemRenderer);
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <!-- different data providers -->
+        <s:XMLListCollection id="dp1">
+            <fx:XMLList>
+                <node label="Mail Box">
+                    <node label="Inbox">
+                        <node label="Marketing"/>
+                        <node label="Product Management"/>
+                        <node label="Work">
+                            <node label="Lauren" />
+                            <node label="Joan" />
+                            <node label="Rob" />
+                        </node>
+                        <node label="Personal">
+                            <node label="Dad" />
+                            <node label="Mom" />
+                            <node label="Brothers" />
+                        </node>
+                    </node>
+                    <node label="Outbox">
+                        <node label="Professional"/>
+                        <node label="Personal">
+                            <node label="Dad" />
+                            <node label="Mom" />
+                            <node label="Brothers" />
+                        </node>
+                    </node>
+                    <node label="Spam">
+                        <node label="Matt" />
+                        <node label="Vera" />
+                    </node>
+                    <node label="Sent"/>
+                    <node label="Group" />
+                    <node label="DataGroup" />
+                    <node label="FCK" />
+                    <node label="MXItemRenderer" />
+                </node>
+            </fx:XMLList>
+        </s:XMLListCollection>
+    </fx:Declarations>
+    
+    <s:layout>
+        <s:HorizontalLayout />
+    </s:layout>
+    
+    <mx:Tree id="tree1" height="200" width="200" dataProvider="{dp1}" itemEditEnd="updateTreeValue(event)" labelField="@label" />
+    
+</s:Group>

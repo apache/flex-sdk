@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+===========================================
+itemSelected(index:int, selected:Boolean)
+===========================================
+-->
+
+<TestCase testID="itemSelected_test1" keywords="[ButtonBar,itemSelected]" description="Select first item." >
+    <setup>
+        <ResetComponent target="bb2" className="Assets::CustomFxButtonBar1" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb2, 1)" waitTarget="bb2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb2.callItemSelected(0, true)" waitTarget="bb2.skin.dataGroup.getElementAt(0)" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemSelected_test2" keywords="[ButtonBar,itemSelected]" description="Select second item." >
+    <setup>
+        <ResetComponent target="bb2" className="Assets::CustomFxButtonBar1" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb2, 1)" waitTarget="bb2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb2.callItemSelected(1, true)" waitTarget="bb2.skin.dataGroup.getElementAt(1)" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemSelected_test3" keywords="[ButtonBar,itemSelected]" description="Select last item." >
+    <setup>
+        <ResetComponent target="bb2" className="Assets::CustomFxButtonBar1" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb2, 1)" waitTarget="bb2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb2.callItemSelected(2, true)" waitTarget="bb2.skin.dataGroup.getElementAt(2)" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(2)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemSelected_test4" keywords="[ButtonBar,itemSelected]" description="Deselect item." >
+    <setup>
+        <ResetComponent target="bb2" className="Assets::CustomFxButtonBar1" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb2, 1)" waitTarget="bb2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="bb2.skin.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <RunCode code="application.bb2.callItemSelected(1, false)" waitTarget="bb2.skin.dataGroup.getElementAt(1)" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemSelected_test5" keywords="[ButtonBar,itemSelected]" description="Select item already selected.  Clicking rearranges the getElementAt() order, so we click on 1 and assert on 2.  This should be temporary." >
+    <setup>
+        <ResetComponent target="bb2" className="Assets::CustomFxButtonBar1" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb2, 1)" waitTarget="bb2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="bb2.skin.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <RunCode code="application.bb2.callItemSelected(2, true)" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(2)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="itemSelected_test6" keywords="[ButtonBar,itemSelected]" description="Select nonexistant item. Note no wait target b/c it's a nonexistant item." >
+    <setup>
+        <ResetComponent target="bb2" className="Assets::CustomFxButtonBar1" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb2, 1)" waitTarget="bb2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb2.callItemSelected(3, true)" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb2.skin.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

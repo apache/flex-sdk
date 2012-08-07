@@ -1,0 +1,124 @@
+<languageVersion : 1.0;>
+
+kernel Int3
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts an int3 and displays its values in binary.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter int3 theInt
+    <
+        minValue:int3(0,0,0);
+        maxValue:int3(7,7,7);
+        defaultValue:int3(0,0,0);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos   = outCoord();
+        float x = pos.x;
+        float y = pos.y;
+
+        // Booleans are not supported in hydra byte code, so we'll use an int's 1 and 0.
+        int int1bit1 = (theInt.x == 1 || theInt.x == 3 || theInt.x == 5 || theInt.x == 7) ? 1 : 0;
+        int int1bit2 = (theInt.x == 2 || theInt.x == 3 || theInt.x == 6 || theInt.x == 7) ? 1 : 0;
+        int int1bit3 = (theInt.x >= 4) ? 1 : 0;
+        
+        float4 int1bit1Bounds;
+        float4 int1bit2Bounds;
+        float4 int1bit3Bounds;
+
+        // Booleans are not supported in hydra byte code, so we'll use an int's 1 and 0.
+        int int2bit1 = (theInt.y == 1 || theInt.y == 3 || theInt.y == 5 || theInt.y == 7) ? 1 : 0;
+        int int2bit2 = (theInt.y == 2 || theInt.y == 3 || theInt.y == 6 || theInt.y == 7) ? 1 : 0;
+        int int2bit3 = (theInt.y >= 4) ? 1 : 0;
+        
+        float4 int2bit1Bounds;
+        float4 int2bit2Bounds;
+        float4 int2bit3Bounds;
+
+        // Booleans are not supported in hydra byte code, so we'll use an int's 1 and 0.
+        int int3bit1 = (theInt.z == 1 || theInt.z == 3 || theInt.z == 5 || theInt.z == 7) ? 1 : 0;
+        int int3bit2 = (theInt.z == 2 || theInt.z == 3 || theInt.z == 6 || theInt.z == 7) ? 1 : 0;
+        int int3bit3 = (theInt.z >= 4) ? 1 : 0;
+        
+        float4 int3bit1Bounds;
+        float4 int3bit2Bounds;
+        float4 int3bit3Bounds;
+        
+        int1bit1Bounds.x = float(67); //minX
+        int1bit1Bounds.y = float(100); //maxX
+        int1bit1Bounds.z = float(0); //minY
+        int1bit1Bounds.w = float(25); //maxY
+
+        int1bit2Bounds.x = float(34);
+        int1bit2Bounds.y = float(66);
+        int1bit2Bounds.z = float(0);
+        int1bit2Bounds.w = float(25);
+
+        int1bit3Bounds.x = float(0);
+        int1bit3Bounds.y = float(33);
+        int1bit3Bounds.z = float(0);
+        int1bit3Bounds.w = float(25);
+
+        int2bit1Bounds.x = float(67); //minX
+        int2bit1Bounds.y = float(100); //maxX
+        int2bit1Bounds.z = float(26); //minY
+        int2bit1Bounds.w = float(50); //maxY
+
+        int2bit2Bounds.x = float(34);
+        int2bit2Bounds.y = float(66);
+        int2bit2Bounds.z = float(26);
+        int2bit2Bounds.w = float(50);
+
+        int2bit3Bounds.x = float(0);
+        int2bit3Bounds.y = float(33);
+        int2bit3Bounds.z = float(26);
+        int2bit3Bounds.w = float(50);
+
+        int3bit1Bounds.x = float(67); //minX
+        int3bit1Bounds.y = float(100); //maxX
+        int3bit1Bounds.z = float(51); //minY
+        int3bit1Bounds.w = float(75); //maxY
+
+        int3bit2Bounds.x = float(34);
+        int3bit2Bounds.y = float(66);
+        int3bit2Bounds.z = float(51);
+        int3bit2Bounds.w = float(75);
+
+        int3bit3Bounds.x = float(0);
+        int3bit3Bounds.y = float(33);
+        int3bit3Bounds.z = float(51);
+        int3bit3Bounds.w = float(75);
+        
+        if(
+          ((int1bit1 > 0)&& x >= int1bit1Bounds.x && y <= int1bit1Bounds.w)||
+          ((int1bit2 > 0) && x >= int1bit2Bounds.x && x <= int1bit2Bounds.y && y >= int1bit2Bounds.z && y <= int1bit2Bounds.w) ||
+          ((int1bit3 > 0) && x >= int1bit3Bounds.x && x <= int1bit3Bounds.y && y >= int1bit3Bounds.z && y <= int1bit3Bounds.w) ||
+
+          ((int2bit1 > 0) && x >= int2bit1Bounds.x && x <= int2bit1Bounds.y && y >= int2bit1Bounds.z && y <= int2bit1Bounds.w)||
+          ((int2bit2 > 0) && x >= int2bit2Bounds.x && x <= int2bit2Bounds.y && y >= int2bit2Bounds.z && y <= int2bit2Bounds.w) ||
+          ((int2bit3 > 0) && x >= int2bit3Bounds.x && x <= int2bit3Bounds.y && y >= int2bit3Bounds.z && y <= int2bit3Bounds.w) ||
+          
+          ((int3bit1 > 0) && x >= int3bit1Bounds.x && x <= int3bit1Bounds.y && y >= int3bit1Bounds.z && y <= int3bit1Bounds.w)||
+          ((int3bit2 > 0) && x >= int3bit2Bounds.x && x <= int3bit2Bounds.y && y >= int3bit2Bounds.z && y <= int3bit2Bounds.w) ||
+          ((int3bit3 > 0) && x >= int3bit3Bounds.x && x <= int3bit3Bounds.y && y >= int3bit3Bounds.z && y <= int3bit3Bounds.w)
+        )
+        {
+            dst.r = float(0);
+            dst.g = float(0);
+            dst.b = float(0);
+        }else{
+            dst.r = float(0.5);
+            dst.g = float(0.5);
+            dst.b = float(0.5);
+        }
+        
+        dst.a = sampleNearest(src, outCoord()).a;
+    }
+}

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_basic3.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+        import mx.core.UIComponent;
+        import spark.components.Button;
+        import spark.components.Group;
+        import spark.primitives.Rect;
+        import comps.*;
+        
+        
+        public function addChild(parent:Group, scale:Number):void
+        {
+		var btn:Button=new spark.components.Button();
+		var childNum:Number=parent.numElements;
+		btn.label="Button_"+(childNum+1);
+
+		btn.top=50*scale;
+		btn.bottom=50*scale;
+		btn.left=50*scale;
+		btn.right=50*scale;
+		parent.addElement(btn);
+        }
+
+	public function removeLastChild(parent:Group):void{
+		var childNum:Number=parent.numElements;
+		if (childNum<1);
+		else
+		parent.removeElementAt(childNum-1);
+		
+	}
+
+	public function largeChildBorder(border:spark.primitives.Rect,scale:Number):void{
+			
+		border.width+=100*scale;
+		border.height+=100*scale;
+	}
+
+	public function smallChildBorder(border:spark.primitives.Rect,scale:Number):void{
+		border.width-=100*scale;
+		border.height-=100*scale;
+	}
+		
+	public function rotateChild(element:UIComponent, degree:Number):void{
+		element.rotation=degree;
+	}
+				
+	public function scaleUpButtonChildren(childGroup:Group,scale:Number):void{
+		 
+	    var element:mx.core.IVisualElement=null;
+	    for (var i:Number =0;i<childGroup.numChildren;i++)
+	    { 
+		element=childGroup.getElementAt(i);
+		if (element is spark.components.Button)
+		{
+			spark.components.Button(element).scaleX=scale;
+			spark.components.Button(element).scaleY=scale;
+		}
+	    }
+
+	}
+
+	public function scaleDownButtonChildren(childGroup:Group,scale:Number):void{
+		 
+	    var element:mx.core.IVisualElement=null;
+	    for (var i:Number =0;i<childGroup.numChildren;i++)
+	    { 
+		element=childGroup.getElementAt(i);
+		if (element is spark.components.Button)
+		{
+			spark.components.Button(element).scaleX=scale;
+			spark.components.Button(element).scaleY=scale;
+		}
+	    }
+
+	}
+		
+		
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+add a child
+========================================================
+-->
+<TestCase testID="addchild_increase_size1" keywords="[BasicLayout,intergration,addChild]" description="add a child, which makes default size for parent container increased, verify other child with dynamic size will have width/height changed " >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+        <SetProperty propertyName="width" value="100" target="parentGroup.childBtn"/>
+        <RunCode code="addChild(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childBtn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="100" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="addchild_notchange_size1" keywords="[BasicLayout,intergration,addChild]" description="add a child, which doesn't make the default size for parent container increased, verify other child with dynamic size will NOT have width/height changed " >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+        <RunCode code="addChild(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+       <RunCode code="addChild(application.parentGroup.childGroup,1);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="removechild_notchange_size1" keywords="[BasicLayout,intergration,removeChild]" description="remove a child, which doesn't make default size for parent container affected, verify other child with dynamic size will NOT have width/height changed " >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+        <RunCode code="addChild(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+        <RunCode code="addChild(application.parentGroup.childGroup,1);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+       <RunCode code="removeLastChild(application.parentGroup.childGroup);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="removechild_decrease_size1" keywords="[BasicLayout,intergration,removeChild]" description="remove a child, which makes default size for parent container decreased, verify other child with dynamic size will have width/height changed " >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+        <RunCode code="addChild(application.parentGroup.childGroup,0);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+        <RunCode code="addChild(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+       <AssertPropertyValue propertyName="width" value="270" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="height" value="221" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+       <RunCode code="removeLastChild(application.parentGroup.childGroup);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+       <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="resizeChild_increase_size1" keywords="[BasicLayout,intergration,resizeChild]" description="resize a child, which makes default size for parent container increased, verify other child with dynamic size will have width/height changed " >
+	<setup>
+	    <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	    <RunCode code="largeChildBorder(application.parentGroup.childBorder,1);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+	   <AssertPropertyValue propertyName="width" value="101" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="101" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+	</body>
+</TestCase>
+
+<TestCase testID="resizeChild_decrease_size1" keywords="[BasicLayout,intergration,resizeChild]" description="resize a child, which makes default size for parent container decreased, verify size for parent container is decreased as well " >
+
+	<setup>
+	    <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	    
+	    <RunCode code="largeChildBorder(application.parentGroup.childBorder,3);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+	   <AssertPropertyValue propertyName="width" value="301" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="301" target="parentGroup.childGroup"/>
+
+	   <RunCode code="smallChildBorder(application.parentGroup.childBorder,2.5);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	   <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="51" target="parentGroup.childGroup"/>
+	  
+	</body>
+    
+</TestCase>
+
+
+<TestCase testID="rotateChild_test1" keywords="[BasicLayout,intergration,rotateChild]" description="rotate a child to certain degree, verify size for parent container should be changed" >
+	<setup>
+	    <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	    <RunCode code="rotateChild(application.parentGroup.childBtn,45);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+	   <AssertPropertyValue propertyName="width" value="65" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="65" target="parentGroup.childGroup"/>
+
+	   <RunCode code="rotateChild(application.parentGroup.childBtn,90);" waitTarget="parentGroup.childBtn" waitEvent="updateComplete" />
+	   <AssertPropertyValue propertyName="width" value="21" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="70" target="parentGroup.childGroup"/>
+
+	<RunCode code="rotateChild(application.parentGroup.childBtn,225);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	   <AssertPropertyValue propertyName="width" value="65" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="65" target="parentGroup.childGroup"/>
+
+
+	</body>
+</TestCase>
+
+<TestCase testID="scaleUpChild_test1" keywords="[BasicLayout,intergration,scaleUpChild]" description="scale a child, which makes default size for parent container increased, verify size for parent container is changed" >
+	<setup>
+	    <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	    
+	    <RunCode code="scaleUpButtonChildren(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	    <SetProperty propertyName="width" value="70" target="parentGroup.parentBtn" waitEvent="updateComplete" waitTarget="parentGroup.parentBtn"/>
+      
+	    
+	</setup>
+	<body>
+	   <AssertPropertyValue propertyName="width" value="140" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="42" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+	</body>
+</TestCase>
+
+<TestCase testID="scaleDownChild_test1" keywords="[BasicLayout,intergration,scaleDownChild]" description="scale a child, which makes default size for parent container increased, verify size for parent container is changed" >
+	<setup>
+	    <ResetComponent target="parentGroup" className="comps.ResizeGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	    <RunCode code="scaleUpButtonChildren(application.parentGroup.childGroup,2);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	<SetProperty propertyName="width" value="70" target="parentGroup.parentBtn" waitEvent="updateComplete" waitTarget="parentGroup.parentBtn"/>
+	</setup>
+	<body>
+	   <AssertPropertyValue propertyName="width" value="140" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="42" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+	   <RunCode code="scaleDownButtonChildren(application.parentGroup.childGroup,1);" waitTarget="parentGroup.childGroup" waitEvent="updateComplete" />
+	  <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="height" value="21" target="parentGroup.childGroup"/>
+	   <AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+	</body>
+</TestCase>
+
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

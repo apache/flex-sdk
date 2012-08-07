@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="gumbo/components/Application/properties/" 
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="Application_Properties_controlBarApp.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    
+    }
+]]>
+</mx:Script>
+
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>
+
+<!-- end of set of lines that must be in each unit test -->
+
+<mx:Script>
+<![CDATA[
+    import assets.*;    
+    import spark.layouts.*;
+]]>
+</mx:Script>
+
+<testCases>
+
+<!-- CAUTION: Any  time you set a property you need to be wary of it in manualApplicationReset() -->
+
+<!-- 
+
+controlBarContent property:
+  + set at MXML/runtime
+  + set to null
+  + set to an empty Array
+  + set to a single element Array
+  + set to a two element Array
+  + set to a many element Array
+  + set to spark component, halo component, graphic element
+  + change the content at runtime
+  
+-->
+
+
+	<TestCase testID="Application_Properties_controlBarContent_setViaMXML" keywords="[Application, ControlBar]" description="set the controls via MXML">
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+
+	<TestCase testID="Application_Properties_controlBarContent_setAtRuntime" keywords="[Application, ControlBar]" description="set the controls at runtime">
+		<bugs>
+			<Bug bugID="SDK-23373" />
+		</bugs>
+           <setup>
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray1" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+     
+       <TestCase testID="Application_Properties_controlBarContent_setToNull" keywords="[Application, ControlBar]" description="set the controls to null when set at runtime">
+       	<bugs>
+       		<Bug bugID="SDK-23384" />
+       	</bugs>
+           <setup>            
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+         
+       <TestCase testID="Application_Properties_controlBarContent_setToEmpty" keywords="[Application, ControlBar]" description="set the controls to an empty array">
+       	<bugs>
+       		<Bug bugID="SDK-23534" />
+       	</bugs>
+           <setup>
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=[]" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+
+       <TestCase testID="Application_Properties_controlBarContent_setToSingle" keywords="[Application, ControlBar]" description="set the controls to array of one item">
+           <setup>
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray2" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+       
+       <TestCase testID="Application_Properties_controlBarContent_setToDouble" keywords="[Application, ControlBar]" description="set the controls to array of two items">
+           <setup>            
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray3" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+
+       <TestCase testID="Application_Properties_controlBarContent_halo" keywords="[Application, ControlBar]" description="set the controls to be halo components">
+           <setup>            
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray4" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+       
+       <TestCase testID="Application_Properties_controlBarContent_graphic" keywords="[Application, ControlBar]" description="set the controls to be graphic elements">
+           <setup>            
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray5" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+       
+	<TestCase testID="Application_Properties_controlBarContent_changeAtRuntime" keywords="[Application, ControlBar]" description="change the controls at runtime">
+           <setup>
+               <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+               <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray1" waitEvent="updateComplete" />
+           </setup>
+           <body>
+           	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+           </body>
+       </TestCase>
+
+        
+<!--
+
+controlBarLayout property:
+  + check default is HorizontalLayout
+  + set it to VerticalLayout/HorizontalLayout/TileLayout/BasicLayout
+  + change properties on the current layout (gap, padding, etc.)
+  + setting it to BasicLayout should work if the controls define x/y values
+  + change the layout at runtime
+
+-->
+
+		<TestCase testID="Application_Properties_controlBarLayout_default" keywords="[Application, ControlBar]" description="check default is horizontal">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=(application.controlBarLayout is HorizontalLayout)" value="true" />
+            	<AssertMethodValue method="value=application.controlBarLayout.gap" value="10" />
+            	<AssertMethodValue method="value=application.controlBarLayout.paddingTop" value="7" />
+            	<AssertMethodValue method="value=application.controlBarLayout.paddingBottom" value="7" />
+            	<AssertMethodValue method="value=application.controlBarLayout.paddingLeft" value="10" />
+            	<AssertMethodValue method="value=application.controlBarLayout.paddingRight" value="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Properties_controlBarLayout_vertical" keywords="[Application, ControlBar]" description="set the controls to a vertical layout">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarLayout" valueExpression="value=application.vLayout" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Properties_controlBarLayout_horizontal" keywords="[Application, ControlBar]" description="set the controls to a horizontal layout">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarLayout" valueExpression="value=application.hLayout" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Application_Properties_controlBarLayout_basic" keywords="[Application, ControlBar]" description="this is basic layout so the buttons will have the position as if horizontal, but there will be no bottom padding">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarLayout" valueExpression="value=application.bLayout" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Properties_controlBarLayout_tile" keywords="[Application, ControlBar]" description="set the controls to a tile layout">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarLayout" valueExpression="value=application.tLayout" waitEvent="updateComplete" />
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Properties_controlBarLayout_modify_gap" keywords="[Application, ControlBar]" description="modify a property on the default layout">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=(application.controlBarLayout is HorizontalLayout)" value="true" />
+            	<RunCode code="application.controlBarLayout.gap = 1" waitEvent="updateComplete" />
+            	
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>        
+        
+		<TestCase testID="Application_Properties_controlBarLayout_modify_paddingTop" keywords="[Application, ControlBar]" description="modify a property on the default layout">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=(application.controlBarLayout is HorizontalLayout)" value="true" />
+            	<RunCode code="application.controlBarLayout.paddingTop = 20" />
+            	<Pause timeout="50" />
+            	
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>   
+ 
+<!--        
+        
+controlBarVisible property:
+  + check default is true
+  + set to false in MXML and at runtime
+  + an invisible control bar should act like a null controlBar and not take up any space in the layout
+
+-->
+
+		<TestCase testID="Application_Properties_controlBarVisible_default_1" keywords="[Application, ControlBar]" description="check default value">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue propertyName="controlBarVisible" value="true" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Application_Properties_controlBarVisible_false" keywords="[Application, ControlBar]" description="set visible to false at runtime">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarVisible" value="false" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <!-- TODO: Neeed to build one more swf to cover these tests
+        <TestCase testID="Application_Properties_controlBarVisible_false_mxml" keywords="[Application, ControlBar]" description="set visible to false in mxml">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Application_Properties_controlBarVisible_layout_true" keywords="[Application, ControlBar]" description="make an invisible control bar visible">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarVisible" value="true" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase> -->
+        
+        <TestCase testID="Application_Properties_controlBarVisible_layout_false" keywords="[Application, ControlBar]" description="check that invisible control bar isnt included in layout">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="controlBarVisible" value="false" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../properties/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+
+</testCases>
+</UnitTester>

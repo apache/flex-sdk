@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_005.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+                import mx.core.FlexGlobals;
+                import spark.components.DataGrid;
+                import spark.components.gridClasses.GridColumn;
+                import spark.components.gridClasses.GridSelectionMode;
+
+            
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+               
+
+ 	<TestCase testID="IR_defaultIR_test001" keywords="[GridItemRenderer, defaultRenderer]" description="verify default itemRenderer using label ">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(0)" waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<SetProperty target="dataGrid" propertyName="height" value="150" waitEvent="updateComplete"/>               
+            	<!-- click the columnIndex=1 --><!-- todo: need verify localX -->
+            	<DispatchMouseClickEvent target="dataGrid.grid" localX="120" localY="20" waitEvent="gridMouseDown"/>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+         	<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+           </body>
+        </TestCase>
+ 	<TestCase testID="IR_checkBoxIR_test001" keywords="[GridItemRenderer, CheckBox]" description="verify itemRenderer using checkBox ">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(1)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).cxb.selected" value="false"/>
+         	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+           </body>
+        </TestCase>
+
+ 	<TestCase testID="IR_imageIR_test001" keywords="[GridItemRenderer, Image]" description="verify itemRenderer using image ">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).image!=null" value="true"/>
+         	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+           </body>
+        </TestCase>
+        
+        
+ 	<TestCase testID="IR_comBoBoxIR_test001" keywords="[GridItemRenderer, ComboBox]" description="verify itemRenderer using comboBox ">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+             	<SetProperty target="dataGrid" propertyName="height" value="200" waitEvent="updateComplete"/>               
+        	   
+		<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(3)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+		<!-- select first index of combobox -->
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).cb1.selectedIndex=1"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<DispatchMouseEvent type="mouseDown" target="dataGrid.grid" localX="131" localY="77" waitEvent="gridMouseDown" waitTarget="dataGrid.grid"/>
+		<DispatchMouseEvent type="mouseUp" target="dataGrid.grid" localX="131" localY="77" waitEvent="gridMouseUp" waitTarget="dataGrid.grid"/>
+		<DispatchMouseEvent type="rollOver" target="dataGrid.grid" localX="124" localY="133" />
+		<WaitForEffectsToEnd />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<DispatchMouseEvent type="rollOver" target="dataGrid.grid" localX="124" localY="137" />
+		<WaitForEffectsToEnd />
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<DispatchMouseClickEvent target="stage" localX="124" localY="137" waitEvent="click"/>
+		<WaitForEffectsToEnd />
+		<WaitForEvent numExpectedEvents="2" eventName="enterFrame" target="stage"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(3).firstName" value="MicFN"/>
+		</body>
+   </TestCase>
+        
+ 	<TestCase testID="IR_ButtonIR_test001" keywords="[GridItemRenderer, Button]" description="verify itemRenderer using comboBox ">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(4)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).btn.label" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).drink"/>
+         	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+           </body>
+        </TestCase>
+
+ 	<TestCase testID="IR_numericStepperIR_test001" keywords="[GridItemRenderer, NumericStepper]" description="verify itemRenderer using numericStepper ">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(5)" />
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).ns.value" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).numberValue"/>
+         	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+           </body>
+        </TestCase>
+        
+ 	<TestCase testID="IR_hSliderIR_test001" keywords="[GridItemRenderer, hSlider]" description="verify itemRenderer using hSlider">
+ 	    <setup>
+ 	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+ 	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(6)"  />
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).hs.value" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).numberValue"/>
+         	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+           </body>
+        </TestCase>
+ 
+  	<TestCase testID="IR_textInputIR_test001" keywords="[GridItemRenderer,textInput]" description="verify itemRenderer using textInput">
+  	    <setup>
+  	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+  	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 	    </setup>
+             <body>
+             	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(7)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).ti.text" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).firstName"/>
+             	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+            </body>
+        </TestCase>
+ 
+   	<TestCase testID="IR_textAreaIR_test001" keywords="[GridItemRenderer,textArea]" description="verify itemRenderer using textArea">
+   	    <setup>
+   	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+   	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  	    </setup>
+              <body>
+              	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(8)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).ta.text" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.getItemAt(2).lastName"/>
+
+              	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+
+             </body>
+        </TestCase>
+ 
+   	<TestCase testID="IR_dataFieldIR_test001" keywords="[GridItemRenderer,dateField]" description="verify itemRenderer using dataField">
+   	    <setup>
+   	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+   	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  	    </setup>
+              <body>
+              	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(9)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).df.selectedDate" valueExpression="value=new Date(2010,8,10)"/>
+              	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+
+             </body>
+        </TestCase>
+
+   	<TestCase testID="IR_colorPickerIR_test001" keywords="[GridItemRenderer,colorPicker]" description="verify itemRenderer using colorPicker">
+   	    <setup>
+   	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+   	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  	    </setup>
+              <body>
+              	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(10)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).cp.selectedColor" value="0x9933FF"/>
+              	 <CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid" />
+             </body>
+        </TestCase>
+        
+   	<TestCase testID="IR_popupBtnIR_test001" keywords="[GridItemRenderer,popupButton]" description="verify itemRenderer using colorPicker">
+   	    <setup>
+   	    	<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+   	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+  	    </setup>
+              <body>
+              	<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(11)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+              	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).pb.popUp.selectedIndex" value="1"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="dataGrid" propertyName="height" value="150" waitEvent="updateComplete"/>
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(2,1).pb.open()"/>
+             </body>
+        </TestCase>
+        
+    </testCases>
+</UnitTester>

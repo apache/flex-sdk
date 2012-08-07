@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichText/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RichTextBasic.mxml">
+
+    <mx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <!-- ################################################################## -->
+
+
+    <mx:Script>
+        <![CDATA[
+            import comps.TextGraphicBasic2;
+
+                    import flash.text.engine.*;
+
+                    import flashx.textLayout.formats.*;
+                    import mx.core.FlexGlobals;
+
+            public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+            public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+            public var singleLineNumbers:String = "The quick brown fox jumps over the lazy dog. 1234567890";
+            public var ligatureLevelText:String = "fi fj fl ft ffi ffj ffl ct st Th";
+            public var hello:String = "Hello";
+                    public var lorem:String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec mauris. Curabitur nisl lorem, auctor in, condimentum sed, aliquam id, felis. \nSed bibendum, nisi nec pellentesque volutpat, neque metus consequat mi, quis molestie dolor lorem at nunc. Vestibulum quis dolor. Suspendisse eget sapien. Etiam in risus vel diam malesuada tincidunt. Sed orci dui, pellentesque vel, cursus vel, aliquam eu, erat. Donec eget purus eu diam porta lobortis. In nec neque. Vivamus nisi.";
+                    public var lorem1:String = "The quick brown fox jumps over the lazy dog. 1234567890,Lorem ipsum dolor sit amet";
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+
+        <TestCase testID="RichText_width_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_width_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_hello" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=hello;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RichText_left_right_10" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="left" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="right" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+<!-- height=100 -->
+        <TestCase testID="RichText_width_100_height_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_width_100p_height_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_height_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_hello_height_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=hello;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_left_right_10_height_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="left" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="right" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+<!-- height=100% -->
+        <TestCase testID="RichText_width_100_height_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_width_100p_height_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_height_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_hello_height_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=hello;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_left_right_10_height_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="left" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="right" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+
+<!-- Top/Bottom -->
+        <TestCase testID="RichText_width_100_top_bottom" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="top" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="bottom" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_width_100p_top_bottom" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="top" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="bottom" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_top_bottom" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="top" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="bottom" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxWidth_100_hello_top_bottom" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=hello;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxWidth" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="top" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="bottom" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_left_right_10_top_bottom" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="left" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="right" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="top" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="bottom" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+<!-- height only -->
+        <TestCase testID="RichText_height_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_height_100p" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100%" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxheight_100" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxHeight" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_maxheight_100_hello" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=hello;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="maxHeight" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RichText_top_bottom_10" description="" keywords="[RichText]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="top" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="bottom" value="10" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="2" maxColorVariance="7" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RichText_baselinePosition_preValidation" description="RichText baselinePosition before updateComplete" keywords="[RichText, baselinePosition]">
+            <setup>
+               <ResetComponent target="richTextBasic" className="comps.RichTextComp" />
+           </setup>
+            <body>
+            <AssertPropertyValue propertyName="baselinePosition" value="9.1" target="richTextBasic" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_baselinePosition_postValidation" description="RichText baselinePosition before updateComplete" keywords="[RichText, baselinePosition]">
+            <setup>
+               <ResetComponent target="richTextBasic" className="comps.RichTextComp" waitTarget="richTextBasic" waitEvent="updateComplete" />
+           </setup>
+            <body>
+            <AssertPropertyValue propertyName="baselinePosition" value="9.1" target="richTextBasic" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RichText_setLayoutBoundsSize" description="" keywords="[RichText, sdk-24773]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=lorem;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="200" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <RunCode code="application.textGraphicComp.textGraphic.setLayoutBoundsSize(NaN, 200);" />
+                <Pause timeout="200"/>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="200" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="container" />
+            </body>
+        </TestCase>
+        <TestCase testID="RichText_layoutDirection_RTL" description="Set layoutDirection on the parent of RichText,  RichText should not mirror." keywords="[RichText, Mirroring, layoutDirection]">
+            <setup>
+                <ResetComponent target="textGraphicComp" className="comps.TextGraphicBasic2" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+                <SetProperty target="container" propertyName="layoutDirection" value="rtl" />
+                <SetStyle target="textGraphicComp" styleName="direction" value="rtl" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="text" valueExpression="value=lorem;" waitTarget="textGraphicComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="height" value="100" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <SetProperty target="textGraphicComp.textGraphic" propertyName="width" value="200" waitTarget="textGraphicComp.textGraphic" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="container" />
+                <SetProperty target="container" propertyName="layoutDirection" value="ltr" />
+            </body>
+        </TestCase>
+        <!-- regression test case: SDK-24980 -->
+ 	<TestCase testID="RichText_toggleTuncationTip" description="update showTruncationTip through databinding, the tooltip will show/hide based on binding value for showTruncationTip" keywords="[RichText,showTruncationTip]">
+            <setup>
+                <ResetComponent target="richTextWithTT" className="comps.RichTextWithTruncationTip" waitTarget="richTextWithTT" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="richTextWithTT" propertyName="showTruncationTip" value="true" />
+                <DispatchMouseEvent target="richTextWithTT" stageX="20" stageY="405" type="rollOver" waitEvent="enterFrame" waitTarget="stage"/>  
+	        <DispatchMouseEvent target="richTextWithTT" stageX="20" stageY="405" type="mouseOver" waitEvent="toolTipShown" waitTarget="richTextWithTT"/>
+		<AssertPropertyValue target="richTextWithTT" propertyName="toolTip" valueExpression="value=FlexGlobals.topLevelApplication.richTextWithTT.text"/>
+		
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.richTextWithTT.setShowTruncationTipFlag(false)" value="true" />
+		<DispatchMouseEvent target="richTextWithTT" stageX="20" stageY="405" type="rollOver" waitEvent="enterFrame" waitTarget="stage"/>  
+		<DispatchMouseEvent target="richTextWithTT" stageX="20" stageY="405" type="mouseOver"  waitEvent="enterFrame" waitTarget="stage"/>
+		<AssertNoEvent target="richTextWithTT" eventName="toolTipShown" eventClass="flash.events::Event" />
+		<AssertPropertyValue target="richTextWithTT" propertyName="toolTip" value="null"/>	   
+               
+            </body>
+        </TestCase>         
+  </testCases>
+</UnitTester>
+
+

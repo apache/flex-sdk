@@ -1,0 +1,270 @@
+<UnitTester testDir="gumbo/components/Spinner/Methods/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns="*" testSWF="Gumbo_Spinner_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}             
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <!-- Test Cases -->
+    <testCases>
+
+		<TestCase testID="spinner_nearestValidValue1" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round down">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="4" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="value" value="9" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="8" />
+			</body>
+        </TestCase>            
+        
+        <TestCase testID="spinner_nearestValidValue2" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round down">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="4" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="value" value="9.9" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="8" />
+			</body>
+        </TestCase>
+        
+		<TestCase testID="spinner_nearestValidValue3" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round up">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="4" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="12" />
+			</body>
+        </TestCase>        
+        
+		<TestCase testID="spinner_nearestValidValue4" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round up">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="4" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="value" value="11" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="12" />
+			</body>
+        </TestCase>
+        
+		<TestCase testID="spinner_nearestValidValue5" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round up to max">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="5" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="maximum" value="14" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="value" value="12" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="14" />
+			</body>
+        </TestCase>        
+        
+		<TestCase testID="spinner_nearestValidValue6" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round down based on max">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="5" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="maximum" value="14" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="value" value="11.9" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="10" />
+			</body>
+        </TestCase>          
+        
+		<TestCase testID="spinner_nearestValidValue7" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round a decimal no. down">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="maximum" value="15" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="value" value="12.4" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="10" />
+			</body>
+        </TestCase>          
+        
+		<TestCase testID="spinner_nearestValidValue8" keywords="[Spinner, set value]" description="Test Spinner set value method ability to round up a decimal no. up">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="snapInterval" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="maximum" value="15" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="value" value="12.5" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="15" />
+			</body>
+        </TestCase>    
+        
+		<TestCase testID="spinner_stepMethod1" keywords="[Spinner, step]" description="Test Spinner step Property">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>        	       
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="3" />
+			</body>
+        </TestCase>        
+
+		<TestCase testID="spinner_stepMethod2" keywords="[Spinner, step]" description="Test Spinner step Property with allowValueWrap">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="value" value="98" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />
+			</setup>
+			<body>        		    
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="98" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="99" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="100" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />
+			</body>
+        </TestCase>        
+
+		<TestCase testID="spinner_stepMethod3" keywords="[Spinner, step]" description="Test Spinner step Property with user defined stepSize">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>
+				<SetProperty target="mySpinner" propertyName="value" value="18" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="stepSize" value="9" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>        	       	    		    
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="27" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="36" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="45" />
+
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<Pause timeout="500" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="54" />
+			</body>
+        </TestCase>                  
+        
+		<TestCase testID="spinner_keyboardUp1" keywords="[Spinner, keyboard, Up]" description="Test Spinner keyboard UP button to increment">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="maximum" value="4" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="3" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="4" />	    	    	
+				<DispatchKeyEvent keys="[UP]" />
+				<Pause timeout="1" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="4" />	    		    		    	
+			</body>
+        </TestCase>      
+        
+		<TestCase testID="spinner_keyboardUp2" keywords="[Spinner, keyboard, Up]" description="Test Spinner keyboard UP button to increment with value wrap">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="maximum" value="4" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />
+			</setup>
+			<body>	        
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="3" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="4" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner"/>	    
+			</body>
+        </TestCase>         
+        
+		<TestCase testID="spinner_keyboardDown1" keywords="[Spinner, keyboard, Down]" description="Test Spinner keyboard DOWN button to decrement">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="value" value="4" waitEvent="updateComplete" waitTarget="mySpinner" />
+			</setup>
+			<body>	        
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="3" />
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />	    	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />	    	
+				<DispatchKeyEvent keys="[DOWN]" />
+				<Pause timeout="1" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />	    		    	
+			</body>
+		</TestCase>
+        
+		<TestCase testID="spinner_keyboardDown2" keywords="[Spinner, keyboard, Down]" description="Test Spinner keyboard DOWN button to decrement with value wrap">
+			<setup>
+				<ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>
+				<SetProperty target="mySpinner" propertyName="value" value="4" waitEvent="updateComplete" waitTarget="mySpinner" />
+				<SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />
+			</setup>
+			<body>	        
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="3" />
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />	    	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />	    	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="100" />	    	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="99" />	    		    			
+			</body>
+        </TestCase>        
+
+    </testCases>
+
+</UnitTester>

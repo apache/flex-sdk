@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_basic1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+
+<!--
+========================================================
+VerticalCenter
+========================================================
+-->
+<TestCase testID="vertical_basic_test1" keywords="[BasicLayout,properties,verticalCenter]" description="Just set verticalCenter, verify it is placed at center of container in vertical level" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="verticalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="140" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="vertical_offset_test1" keywords="[BasicLayout,propertiesverticalCenter]" description="set verticalCenter with offset, verify it is placed at away off center with distance=offset" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="verticalCenter" value="100" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="240" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="vertical_offset_test2" keywords="[BasicLayout,propertiesverticalCenter]" description="set verticalCenter with negative offset, verify it is placed at left off center about offset" >
+    <setup>
+    	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="verticalCenter" value="-100" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="40" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="vertical_over_otherXposition_properties" keywords="[BasicLayout,propertiesverticalCenter]" description="set verticalCenter, also other y position constrains, y,left, right, verify verticalCenter wins" >
+    <setup>
+     	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="verticalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="y" value="200" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="top" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+	<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="y" value="50" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="vertical_negative_test1" keywords="[BasicLayout,propertiesverticalCenter,negative]" description="verticalCenter great than parent.height, verify it is placed correctly" >
+    <setup>
+      	<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+	<SetProperty propertyName="verticalCenter" value="350" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+    	<!-- center of parent=300/2=150, verticalCenter=350, y to center at button.height=21/2=10
+    	     x=150+350-10=490
+    	-->
+        <AssertPropertyValue propertyName="y" value="490" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

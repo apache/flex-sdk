@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_states.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="ComboBox_Properties_States_includeIn" keywords="[ComboBox, Property, addItemAt]" description="Test states on ComboBox">
+			<setup>
+				<ResetComponent target="myCB" className="comps.Custom_CB_State" waitEvent="updateComplete" waitTarget="myCB"/>
+				<Pause timeout="50"/>
+			</setup>
+			<body>											
+				<CompareBitmap target="myCB" url="../Properties/Baselines/$testID_1.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myCB" propertyName="currentState" value="state2" waitTarget="myCB" waitEvent="currentStateChange"/>
+				<Pause timeout="100" waitEvent="updateComplete" waitTarget="myCB"/>
+				<CompareBitmap target="myCB" url="../Properties/Baselines/$testID_2.png" numColorVariances="18" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_States_Styles1" keywords="[ComboBox, Property, addItemAt]" description="Test states on ComboBox">
+			<setup>
+				<ResetComponent target="myCB" className="comps.Custom_CB_State" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB.myCB3" propertyName="selectedIndex" value="2" waitTarget="myCB.myCB3" waitEvent="updateComplete"/> 
+			</setup>
+			<body>											
+				<CompareBitmap target="myCB.myCB3" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB3.openDropDown()" waitEvent="open" waitTarget="myCB.myCB3"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB.myCB3.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB3.closeDropDown(false)"/>					
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_States_Styles2" keywords="[ComboBox, Property, addItemAt]" description="Test states on ComboBox">
+			<setup>
+				<ResetComponent target="myCB" className="comps.Custom_CB_State" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB.myCB3" propertyName="selectedIndex" value="2" waitTarget="myCB.myCB3" waitEvent="updateComplete"/> 
+				<SetProperty target="myCB" propertyName="currentState" value="state2" waitTarget="myCB" waitEvent="currentStateChange"/> 
+			</setup>
+			<body>											
+				<CompareBitmap target="myCB.myCB3" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB3.openDropDown()" waitEvent="open" waitTarget="myCB.myCB3"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB.myCB3.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB3.closeDropDown(false)"/>					
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_States_Styles3" keywords="[ComboBox, Property, addItemAt]" description="Test states on ComboBox">
+			<setup>
+				<ResetComponent target="myCB" className="comps.Custom_CB_State" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB.myCB1" styleName="color" value="green" waitTarget="myCB.myCB1" waitEvent="updateComplete"/> 
+				<SetStyle target="myCB.myCB1" styleName="fontSize" value="16" waitTarget="myCB.myCB1" waitEvent="updateComplete"/> 
+				<SetStyle target="myCB.myCB1" styleName="contentBackgroundColor" value="yellow" waitTarget="myCB.myCB1" waitEvent="updateComplete"/>
+				<SetStyle target="myCB.myCB1" styleName="selectionColor" value="blue" waitTarget="myCB.myCB1" waitEvent="updateComplete"/>
+				<SetProperty target="myCB.myCB1" propertyName="selectedIndex" value="1" waitTarget="myCB.myCB1" waitEvent="updateComplete"/> 
+				<SetProperty target="myCB.myCB1" propertyName="height" value="25" waitTarget="myCB.myCB1" waitEvent="updateComplete"/> 
+			</setup>
+			<body>											
+				<CompareBitmap target="myCB.myCB1" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>										
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB.myCB1"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB.myCB1.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB1.closeDropDown(false)"/>				
+				<SetProperty target="myCB" propertyName="currentState" value="state2" waitTarget="myCB" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myCB" propertyName="currentState" value="state2"/>
+				<SetProperty target="myCB" propertyName="currentState" value="state1" waitTarget="myCB" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myCB.myCB1" url="../Properties/Baselines/$testID_3.png" numColorVariances="10" ignoreMaxColorVariance="true"/>										
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB1.openDropDown()" waitEvent="open" waitTarget="myCB.myCB1"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myCB.myCB1.dropDown" url="../Properties/Baselines/$testID_4.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB.myCB1.closeDropDown(false)"/>												
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Properties_States_selected" keywords="[ComboBox, Property, addItemAt]" description="Test states on ComboBox">
+			<setup>
+				<ResetComponent target="myCB" className="comps.Custom_CB_State" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>											
+				<SetProperty target="myCB.myCB1" propertyName="selectedIndex" value="2" waitTarget="myCB.myCB1" waitEvent="updateComplete"/> 
+				<AssertPropertyValue target="myCB.myCB1" propertyName="selectedIndex" value="2"/>
+				<CompareBitmap target="myCB.myCB1" url="../Properties/Baselines/$testID_1.png" numColorVariances="18" ignoreMaxColorVariance="true"/>				
+				<SetProperty target="myCB" propertyName="currentState" value="state2" waitTarget="myCB" waitEvent="currentStateChange"/> 				
+				<SetProperty target="myCB.myCB2" propertyName="selectedItem" value="Product A" waitTarget="myCB.myCB2" waitEvent="updateComplete"/> 
+				<AssertPropertyValue target="myCB.myCB2" propertyName="selectedItem" value="Product A"/>
+				<CompareBitmap target="myCB.myCB2" url="../Properties/Baselines/$testID_2.png" numColorVariances="18" ignoreMaxColorVariance="true"/>				
+				<SetProperty target="myCB" propertyName="currentState" value="state1" waitTarget="myCB" waitEvent="currentStateChange"/> 				
+				<AssertPropertyValue target="myCB.myCB1" propertyName="selectedIndex" value="2"/>
+				<CompareBitmap target="myCB.myCB1" url="../Properties/Baselines/$testID_1.png" numColorVariances="18" ignoreMaxColorVariance="true"/>				
+				<SetProperty target="myCB" propertyName="currentState" value="state2" waitTarget="myCB" waitEvent="currentStateChange"/> 				
+				<AssertPropertyValue target="myCB.myCB2" propertyName="selectedItem" value="Product A"/>
+				<CompareBitmap target="myCB.myCB2" url="../Properties/Baselines/$testID_2.png" numColorVariances="18" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_States_prompt" keywords="[ComboBox, Property, prompt]" description="Test states on ComboBox for prompt">
+			<setup>
+				<ResetComponent target="myCB" className="comps.Custom_CB_State" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCB.myCB4" propertyName="prompt" value="prompt 1" />
+				<SetProperty target="myCB" propertyName="currentState" value="state2" waitTarget="myCB" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myCB.myCB4" propertyName="prompt" value="prompt 2"/>
+			</body>
+		</TestCase>	
+
+	</testCases>
+</UnitTester>

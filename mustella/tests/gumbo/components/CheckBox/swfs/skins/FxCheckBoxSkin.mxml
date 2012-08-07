@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	  alpha.disabledStates="0.5">
+
+    <fx:Metadata>
+    	[HostComponent("spark.components.CheckBox")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
+    </s:states>
+    
+    <s:Group verticalCenter="0" width="200" height="50">
+	    	    
+		<!-- fill -->
+		<s:Ellipse left="140" top="1" right="1" bottom="1" width="25" height="25">
+			<s:fill>			
+				<mx:SolidColor color="0xDD0000" color.selectedStates="0x00DD00"/>												
+			</s:fill>
+		</s:Ellipse>
+						
+	    <!-- checkmark -->
+	    <s:BitmapImage source="@Embed('assets/CheckMark.png')" 
+	    			   left="165" top="20" includeIn="selectedStates" />
+    </s:Group>
+
+    <!-- Label -->
+    <s:Label id="labelDisplay"
+             left="0" right="0" top="3" bottom="3" verticalCenter="2" />
+
+</s:Skin>

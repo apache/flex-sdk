@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/Scroller/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollerMainComp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import comps.*;
+
+	import spark.layouts.*;
+
+        import mx.collections.ArrayCollection;
+
+
+
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="ScrollerMain_property_horizontalScrollPosition_Group" keywords="[Scroller, property,horizontalScrollPosition]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="comps.ScrollerDataGroupComp" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="comps.ScrollerGroupComp" waitEvent="updateComplete" />
+
+           </setup>
+
+           <body>
+
+            <SetProperty    target="sc2" propertyName="width"  value="200" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2.gr" propertyName="horizontalScrollPosition"  value="100" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="200" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="70" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc2" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerMain_property_verticalScrollPosition_Group" keywords="[Scroller, property,verticalScrollPosition]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="comps.ScrollerDataGroupComp" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="comps.ScrollerGroupComp" waitEvent="updateComplete" />
+
+            <SetProperty target="sc2.gr" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="sc2.gr" waitEvent="updateComplete" />
+
+
+
+           </setup>
+
+           <body>
+
+            <SetProperty    target="sc2" propertyName="height"  value="200" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2.gr" propertyName="verticalScrollPosition"  valueExpression="value=application.sc2.viewport.contentHeight- application.sc2.verticalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="200" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="70" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc2" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerMain_property_horizontalScrollPosition_DataGroup" keywords="[Scroller, property,horizontalScrollPosition]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="comps.ScrollerDataGroupComp" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="comps.ScrollerGroupComp" waitEvent="updateComplete" />
+
+            <SetProperty target="sc1.dg" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="sc1.dg" waitEvent="updateComplete" />
+
+           </setup>
+
+           <body>
+
+            <SetProperty    target="sc1" propertyName="width"  value="200" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc1.dg" propertyName="horizontalScrollPosition"  value="100" />
+
+            <SetProperty    target="sc2" propertyName="height"  value="150" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc2" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerMain_property_verticalScrollPosition_DataGroup" keywords="[Scroller, property,verticalScrollPosition]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="comps.ScrollerDataGroupComp" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="comps.ScrollerGroupComp" waitEvent="updateComplete" />
+
+           </setup>
+
+           <body>
+
+            <SetProperty    target="sc1.dg" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight- application.sc1.verticalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerMain_VarTest_wrap" keywords="[Scroller, text]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc3" className="comps.ScrollerVarTextComp" waitEvent="updateComplete" />
+
+           </setup>
+
+           <body>
+	     <SetProperty    target="sc3" propertyName="width"   value="200" waitEvent="updateComplete"/>
+	     <Pause timeout="500"/>
+             <CompareBitmap url="../properties/baselines/$testID.png" target="sc3" numColorVariances="20" ignoreMaxColorVariance="true" />
+
+           </body>
+
+        </TestCase>
+
+       <TestCase testID="ScrollerMain_VarTest_wrap_vertScroll" keywords="[Scroller, text]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc3" className="comps.ScrollerVarTextComp" waitEvent="updateComplete" />
+	     <SetProperty    target="sc3.viewport.layout" propertyName="useVirtualLayout"   value="false" />
+           </setup>
+
+           <body>
+	     <SetProperty    target="sc3" propertyName="height"   value="230" waitEvent="updateComplete"/>
+	     <SetProperty    target="sc3" propertyName="width"   value="290" waitEvent="updateComplete"/>
+	     <SetProperty    target="sc3.dg" propertyName="verticalScrollPosition"  valueExpression="value=application.sc3.viewport.contentHeight- application.sc3.verticalScrollBar.pageSize"  />
+	     <Pause timeout="500"/>
+             <CompareBitmap url="../properties/baselines/$testID.png" target="sc3" numColorVariances="20" ignoreMaxColorVariance="true" />
+
+           </body>
+
+        </TestCase>
+
+       <TestCase testID="ScrollerMain_Button_hScroll" keywords="[Scroller, scroll]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc4" className="comps.ScrollerButtonComp" waitEvent="updateComplete" />
+
+           </setup>
+
+           <body>
+	     <SetProperty    target="sc4.gr" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc4.viewport.contentWidth- application.sc4.horizontalScrollBar.pageSize" />
+	     <Pause timeout="200"/>
+             <CompareBitmap url="../properties/baselines/$testID.png" target="sc4" numColorVariances="10" ignoreMaxColorVariance="true" />
+
+           </body>
+
+        </TestCase>
+
+       <TestCase testID="ScrollerMain_scrollBarCreation" keywords="[Scroller, scroll]" description="custom skins using a mixture of factory parts and instance parts">
+
+           <setup>
+
+            <ResetComponent target="sc5" className="comps.ScrollBarCreationComp" waitEvent="updateComplete" />
+
+           </setup>
+
+           <body>
+
+             <CompareBitmap url="../properties/baselines/$testID.png" target="sc5" numColorVariances="20" ignoreMaxColorVariance="true" />
+
+           </body>
+
+        </TestCase>
+
+    </testCases>
+
+
+
+
+
+</UnitTester>
+

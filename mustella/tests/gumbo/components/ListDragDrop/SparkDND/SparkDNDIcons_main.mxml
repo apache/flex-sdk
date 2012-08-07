@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ListDragDrop/SparkDND/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="SparkDNDIconsBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	import spark.layouts.*;
+    ]]>
+  </fx:Script>
+
+  <testCases>
+
+	<TestCase testID="SparkToSparkListDND1_copy" keywords="[DragDrop, List]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli2" type="mouseUp" localX="50" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND1_move" keywords="[DragDrop, List]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+
+            </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli2" type="mouseUp" localX="50" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND1_move1" keywords="[DragDrop, List]" description="">
+           <setup>
+ 		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+ 		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+            </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="100" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="100" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli2" type="mouseUp" localX="50" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND1_rejectDrop1" keywords="[DragDrop, List]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="sli2" propertyName="dropEnabled" value="false" />
+             </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli2" type="mouseUp" localX="50" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND1_rejectDrop2" keywords="[DragDrop, List]" description="">
+           <setup>
+ 		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+ 		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli2" propertyName="dropEnabled" value="false" />
+             </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="hg" type="mouseMove" buttonDown="true" localX="250" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="hg" type="mouseUp" localX="250" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND1_moveAll" keywords="[DragDrop, List]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+
+            </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="sli1"/>
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="120" />
+		<DispatchMouseClickEvent target="sli1"  shiftKey="true"  localX="20" localY="190" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli2" type="mouseUp" localX="50" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND1_rejectAll" keywords="[DragDrop, List]" description="">
+           <setup>
+ 		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+ 		<ResetComponent target="sli2" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+                <SetProperty target="sli2" propertyName="dropEnabled" value="false" />
+
+            </setup>
+            <body>
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="sli1"/>
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="120" />
+		<DispatchMouseClickEvent target="sli1"  shiftKey="true"  localX="20" localY="140" waitEvent="updateComplete" waitTarget="sli1"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli2" type="mouseUp" localX="50" localY="30"  waitTarget="sli1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="hg" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+	<TestCase testID="SparkToSparkListDND_selectedItemsNull" keywords="[DragDrop, List]" description="sdk-25658">
+           <setup>
+		<ResetComponent target="comp1" className="comps.ListDNDComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+		<DispatchMouseEvent target="comp1.list1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="comp1.list1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="comp1.list1"    localX="20" localY="10" waitEvent="updateComplete" waitTarget="comp1.list1"/>
+ 		<DispatchMouseEvent target="comp1.list1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="comp1.list1"  type="mouseMove" buttonDown="true"  localX="50" localY="12" />
+ 		<DispatchMouseEvent target="comp1.list2" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="comp1.list2" type="mouseMove" buttonDown="true" localX="50" localY="30" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="comp1.list2" type="mouseUp" localX="50" localY="30"  waitTarget="comp1.list1" waitEvent="dragComplete" />
+		<WaitForEffectsToEnd/>
+		<Pause timeout="100"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" target="comp1" url="../SparkDND/baselines/$testID.png" />
+            </body>
+        </TestCase>
+  </testCases>
+</UnitTester>

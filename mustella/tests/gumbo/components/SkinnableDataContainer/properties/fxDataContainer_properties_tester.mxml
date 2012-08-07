@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableDataContainer/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="FxDataContainerBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import spark.layouts.*;
+        import comps.*;
+        import mx.collections.*;
+        import spark.components.supportClasses.*;
+        import spark.skins.spark.*;
+        import spark.core.*;
+        import spark.components.SkinnableDataContainer;
+
+        public var sc:SkinnableDataContainer;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+       <TestCase testID="FxDataContainer_property_default_newContainer" keywords="[SkinnableDataContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+                    <RunCode code="application.newDataC= new SkinnableDataContainer()" />
+
+                    <SetProperty target = "newDataC" propertyName="autoLayout" value="true" />
+                    <SetProperty target = "newDataC" propertyName="layout" valueExpression="value=new HorizontalLayout()" />
+
+                    <SetProperty target = "newDataC" propertyName="height" value="0" />
+                    <SetProperty target = "newDataC" propertyName="width" value="0" />
+                    <SetProperty target = "newDataC" propertyName="itemRendererFunction" valueExpression="value=null" />
+
+                    <SetProperty target = "newDataC" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])" />
+                    <SetProperty target = "newDataC" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+                    <SetProperty target = "newDataC" propertyName="typicalItem" valueExpression="value=null" />
+
+
+                </setup>
+                <body>
+
+                    <AssertPropertyValue target = "newDataC" propertyName="autoLayout" value="true" />
+                    <AssertPropertyValue target = "newDataC" propertyName="height" value="0" />
+                    <AssertPropertyValue target = "newDataC" propertyName="width" value="0" />
+                    <AssertPropertyValue target = "newDataC" propertyName="itemRendererFunction" value="null" />
+                    
+                    <AssertPropertyValue target = "newDataC" propertyName="typicalItem" value="null" />
+
+                </body>
+        </TestCase>
+       <TestCase testID="FxDataContainer_property_default_newContainer_assert" keywords="[SkinnableDataContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+
+                    <AssertPropertyValue target = "newDc" propertyName="autoLayout" value="true" />
+                    <AssertPropertyValue target = "newDc" propertyName="height" value="0" />
+                    <AssertPropertyValue target = "newDc" propertyName="width" value="0" />
+                    <AssertPropertyValue target = "newDc" propertyName="layout" value="null" />
+                    <AssertPropertyValue target = "newDc" propertyName="itemRendererFunction" value="null" />
+                    <AssertPropertyValue target = "newDc" propertyName="itemRenderer" value="null" />
+                    <AssertPropertyValue target = "newDc" propertyName="dataProvider" value="null" />
+                </body>
+        </TestCase>
+
+        <TestCase testID="FxDataContainer_property_default_clipAndEnableScrolling" keywords="[SkinnableDataContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+
+                    <AssertPropertyValue target = "dc" propertyName="autoLayout" value="true" />
+                    <AssertPropertyValue target = "dc" propertyName="height" value="0" />
+                    <AssertPropertyValue target = "dc" propertyName="width" value="0" />
+                    <AssertPropertyValue target = "dc" propertyName="itemRendererFunction" value="null" />
+                </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_clipContent_true" keywords="[SkinnableDataContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+                    <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                    <RunCode code="application.createPlayersAC()" />
+                    <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+                    <SetProperty target = "dc" propertyName="height" value="50" />
+
+                    <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+                </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_graphics_FxDefaultComplexItemRenderer" keywords="[SkinnableDataContainer, property, FxDefaultComplexItemRenderer]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+
+            </setup>
+            <body>
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  waitTarget="dc.dataGroup"/>
+                <RunCode code="application.addEllipseAt(application.dc,0,0x00FF00);" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+                <RunCode code="application.addEllipseAt(application.dc,1,0xFF0000);" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="2" />
+                <AssertMethodValue   method="value=application.dc.dataProvider.getItemAt(0).width" value="40" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+        </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_visible_component" keywords="[SkinnableDataContainer, property, visible]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])" />
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+            </setup>
+            <body>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+                <RunCode code="application.dc.dataProvider.addItem(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+                <AssertPixelValue    target="dc" x="35"  y="35"  value="0x9966FF" />
+                <AssertPixelValue    target="dc" x="7" y="7" value="0x0000AA" />
+                <AssertPixelValue    target="dc" x="30"  y="240" value="0x9966FF" />
+                <AssertPixelValue    target="dc" x="7" y="215" value="0x0000AA" />
+                <RunCode code="application.dc.dataProvider.getItemAt(0).visible=false" />
+                <AssertPixelValue    target="dc" x="7"  y="7"  value="0xFFFFFF" />
+                <AssertPixelValue    target="dc" x="150" y="150" value="0xFFFFFF" />
+                <AssertPixelValue    target="dc" x="30"  y="240" value="0x9966FF" />
+                <AssertPixelValue    target="dc" x="7" y="215" value="0x0000AA" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxDataContainer_property_content_mix_array_itemRendererFunction" keywords="[SkinnableDataContainer, property, dataProvider, itemRendererFunction]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dc.itemRendererFunction=application.myItemRendererFunction"  />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.mixArr)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <AssertPropertyValue target = "dc" propertyName="itemRendererFunction" valueExpression="value=application.dc.dataGroup.itemRendererFunction" />
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="6" />
+                <AssertMethodValue   method="value=application.dc.dataProvider.getItemAt(0).label" value="Green string" />
+                <AssertMethodValue   method="value=application.dc.dataProvider.getItemAt(2).label" value="Checked" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxDataContainer_property_graphics_elements_layout" keywords="[SkinnableDataContainer, property, elements, layout, bug15885]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+            </setup>
+            <body>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.addRectAt(application.dc,0,0xFF0000);"  waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty    target="dc" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty    target="dc" propertyName="width"  value="100" waitEvent="updateComplete" />
+                <SetProperty    target="dc" propertyName="height"  value="100" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_itemRenderer_length" keywords="[SkinnableDataContainer, property, length]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+            </setup>
+            <body>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="rendererAdd" waitTarget="dc"/>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.dataProvider.removeItemAt(1)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="1" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="FxDataContainer_property_arrayCollection_changeLayout" keywords="[SkinnableDataContainer, property,arrayCollection,layout]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+            </setup>
+            <body>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                <RunCode code="application.createPlayersAC()" />
+                <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxDataContainer_property_itemRenderer_mixData_comp_layout_change" keywords="[SkinnableDataContainer, property, layout]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new BasicLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_arrayCollection_ellipse_numItems" keywords="[SkinnableDataContainer, property,arrayCollection,length]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.ColorEllipseRenderer);"  />
+                <RunCode code="application.createEllipseAC()" />
+                <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.ellipseAC" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="7" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxDataContainer_property_graphics_autoLayout" keywords="[SkinnableDataContainer, property, autoLayout]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+            </setup>
+            <body>
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  waitTarget="dc.dataGroup"/>
+                <RunCode code="application.addEllipseAt(application.dc,0,0x00FF00);" waitEvent="rendererAdd" waitTarget="dc" />
+                <RunCode code="application.addEllipseAt(application.dc,1,0xFF0000);" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+                <SetProperty target = "dc" propertyName="autoLayout" value="false" />
+                <RunCode code="application.addEllipseAt(application.dc,0,0x00FFFF);" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+                <RunCode code="application.addEllipseAt(application.dc,1,0xFF00FF);" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="4" />
+                <AssertPropertyValue target = "dc" propertyName="autoLayout" value="false" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+        </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_graphics_elements_autolayout" keywords="[SkinnableDataContainer, property, elements, layout, autoLayout]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+                <SetProperty target = "dc" propertyName="autoLayout" value="false" />
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+            </setup>
+            <body>
+                <RunCode code="application.addRectAt(application.dc,0,0xFF0000);"  waitEvent="rendererAdd" waitTarget="dc" />
+                <RunCode code="application.addRectAt(application.dc,1,0xFFFF00);"  waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+         <TestCase testID="FxDataContainer_property_typicalItem" keywords="[SkinnableDataContainer, property, typicalItem]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+                    <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                    <RunCode code="application.createPlayersAC()" />
+                    <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                    <SetProperty target = "dc" propertyName="typicalItem" value="application.dc.getElementAt(0)" />
+                    <AssertPropertyValue target = "dc" propertyName="typicalItem" value="application.dc.getElementAt(0)" />
+                    <CompareBitmap url="../properties/baselines/$testID.png" target="dc" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                </body>
+        </TestCase>
+         <TestCase testID="FxDataContainer_property_typicalItem_null" keywords="[SkinnableDataContainer, property, typicalItem]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+                    <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                    <RunCode code="application.createPlayersAC()" />
+                    <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                    <AssertPropertyValue target = "dc" propertyName="typicalItem" valueExpression="value=null" />
+
+                </body>
+        </TestCase>
+         <TestCase testID="FxDataContainer_property_typicalItem_remove" keywords="[SkinnableDataContainer, property, typicalItem]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+                    <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.PlayerRenderer);"  />
+                    <RunCode code="application.createPlayersAC()" />
+                    <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                    <SetProperty target = "dc" propertyName="typicalItem" value="application.dc.getElementAt(0)" />
+                    <RunCode code="application.dc.dataProvider.removeItemAt(0);" waitEvent="rendererRemove" waitTarget="dc"/>
+                    <RunCode code="application.dc.dataProvider.removeItemAt(0);" waitEvent="rendererRemove" waitTarget="dc"/>
+
+                    <AssertPropertyValue target = "dc" propertyName="autoLayout" value="true" />
+                    <CompareBitmap url="../properties/baselines/$testID.png" target="dc" numColorVariances="4" ignoreMaxColorVariance="true"/>
+                </body>
+        </TestCase>
+        <TestCase testID="FxDataContainer_property_itemAddRemove1" keywords="[SkinnableDataContainer, property, length]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+
+                <SetProperty target="dc" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  waitTarget="dc.dataGroup"/>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+            </setup>
+            <body>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+                <SetProperty target="dc" propertyName="autoLayout" value="false" />
+                <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="rendererAdd" waitTarget="dc"/>
+                <RunCode code="application.dc.dataProvider.addItem(new comps.MixDataComp)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty target="dc" propertyName="autoLayout" value="true" />
+                <RunCode code="application.dc.dataProvider.removeItemAt(1)" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+
+
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="1" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+
+         <TestCase testID="SkinnableDataContainer_property_dataProvider_sdk-20734" keywords="[SkinnableDataContainer, property, dataProvider]" description="">
+                <setup>
+                    <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                </setup>
+                <body>
+                    <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.DataGroupJustifyItemRendererComplex);"  />
+ 		    <SetProperty target="dc" propertyName="dataProvider" value="{new RectArrayCollection()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+                    <RunCode code="application.dc.dataProvider.removeItemAt(0);" waitEvent="rendererRemove" waitTarget="dc"/>
+                    <RunCode code="application.dc.dataProvider.removeItemAt(0);" waitEvent="rendererRemove" waitTarget="dc"/>
+
+                    <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="3" />
+                </body>
+        </TestCase>
+       <TestCase testID="SkinnableDataContainer_property_ac_newContainer" keywords="[SkinnableDataContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+                    <RunCode code="sc=new SkinnableDataContainer(); sc.autoLayout=false;" />
+                    <SetProperty target = "script:sc" propertyName="height" value="10" />
+                    <SetProperty target = "script:sc" propertyName="width" value="10" />
+                </setup>
+                <body>
+
+                    <AssertPropertyValue target = "script:sc" propertyName="autoLayout" value="false" />
+                    <AssertPropertyValue target = "script:sc" propertyName="height" value="10" />
+                    <AssertPropertyValue target = "script:sc" propertyName="width" value="10" />
+
+                </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

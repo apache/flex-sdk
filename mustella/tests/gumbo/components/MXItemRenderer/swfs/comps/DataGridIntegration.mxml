@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+    <fx:Declarations>
+        <!-- different data providers -->
+        
+        <s:ArrayCollection id="dp1">
+            <fx:Object firstName="Alex" lastName="Kestler" numberValue="5" booleanValue="true" enumValue="tall" imageURL="../../../../../../Assets/Images/redrect.jpg" /> <!--0-->
+            <fx:Object firstName="Britanny" lastName="Lewis" numberValue="10" booleanValue="true" enumValue="short" imageURL="../../../../../../Assets/Images/orangerect.jpg" /> <!--1-->
+            <fx:Object firstName="Charlie" lastName="Messier" numberValue="15" booleanValue="false" enumValue="medium" imageURL="../../../../../../Assets/Images/yellowrect.jpg" /> <!--2-->
+            <fx:Object firstName="Douglas" lastName="Nordstrom" numberValue="20" booleanValue="true" enumValue="tall" imageURL="../../../../../../Assets/Images/greenrect.jpg" /> <!--3-->
+            <fx:Object firstName="Eric" lastName="Osaka" numberValue="25" booleanValue="true" enumValue="medium" imageURL="../../../../../../Assets/Images/bluerect.jpg" /> <!--4-->
+            <fx:Object firstName="Frank" lastName="Penner" numberValue="30" booleanValue="true" enumValue="medium" imageURL="../../../../../../Assets/Images/purplerect.jpg" /> <!--5-->
+            <fx:Object firstName="Gillian" lastName="Quebic" numberValue="35" booleanValue="true" enumValue="tall" imageURL="../../../../../../Assets/Images/redrect.jpg" /> <!--6-->
+            <fx:Object firstName="Heather" lastName="Ryan" numberValue="40" booleanValue="true" enumValue="short" imageURL="../../../../../../Assets/Images/orangerect.jpg" /> <!--7-->
+            <fx:Object firstName="Ilana" lastName="Smith" numberValue="45" booleanValue="false" enumValue="tall" imageURL="../../../../../../Assets/Images/yellowrect.jpg" /> <!--8-->
+            <fx:Object firstName="Jessica" lastName="Tambelini" numberValue="50" booleanValue="false" enumValue="short" imageURL="../../../../../../Assets/Images/greenrect.jpg" /> <!--9-->
+            <fx:Object firstName="Kelly" lastName="Jones" numberValue="55" booleanValue="false" enumValue="medium" imageURL="../../../../../../Assets/Images/orangerect.jpg" /> <!--10-->
+            <fx:Object firstName="Laura" lastName="Borealis" numberValue="60" booleanValue="false" enumValue="short" imageURL="../../../../../../Assets/Images/orangerect.jpg" /> <!--11-->
+            <fx:Object firstName="Mary" lastName="Wickert" numberValue="65" booleanValue="true" enumValue="tall" imageURL="../../../../../../Assets/Images/redrect.jpg" /> <!--12-->
+            <fx:Object firstName="Nancy" lastName="Drew" numberValue="70" booleanValue="true" enumValue="medium" imageURL="../../../../../../Assets/Images/greenrect.jpg" /> <!--13-->
+            <fx:Object firstName="Olivia" lastName="Chan" numberValue="75" booleanValue="true" enumValue="short" imageURL="../../../../../../Assets/Images/orangerect.jpg" /> <!--14-->
+            <fx:Object firstName="Pat" lastName="Burrows" numberValue="80" booleanValue="false" enumValue="short" imageURL="../../../../../../Assets/Images/yellowrect.jpg" /> <!--15-->
+            <fx:Object firstName="Quinn" lastName="Luongo" numberValue="85" booleanValue="false" enumValue="medium" imageURL="../../../../../../Assets/Images/yellowrect.jpg" /> <!--16-->
+            <fx:Object firstName="Rachel" lastName="Demitra" numberValue="90" booleanValue="true" enumValue="tall" imageURL="../../../../../../Assets/Images/purplerect.jpg" /> <!--17-->
+            <fx:Object firstName="Stan" lastName="Thornton" numberValue="95" booleanValue="true" enumValue="medium" imageURL="../../../../../../Assets/Images/orangerect.jpg" /> <!--18-->
+        </s:ArrayCollection>
+	
+        
+        <!-- different column configurations -->
+        
+        
+        <!-- basic columns with no renderers set -->
+        <fx:Array id="columns1">
+            <mx:DataGridColumn dataField="firstName" headerText="First Name" />
+            <mx:DataGridColumn dataField="lastName" />            
+        </fx:Array>
+        
+        <!-- use an image renderer for one column -->
+        <fx:Array id="columns2">
+            <mx:DataGridColumn dataField="firstName" headerText="First Name" />
+            <mx:DataGridColumn dataField="imageURL" headerText="Image" itemRenderer="comps.MXDGIR_Image" />           
+        </fx:Array>
+        
+        <!-- use a check box renderer and as an editor too (DataGrid must be editable) -->
+        <fx:Array id="columns3">
+            <mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer="comps.MXDGIR_Label"/>
+            <mx:DataGridColumn dataField="booleanValue" headerText="Cool" itemRenderer="comps.MXDGIR_CheckBox" rendererIsEditor="true" editorDataField="editValue" />           
+        </fx:Array>
+        
+        <!-- use a CheckBox as an item editor, separate from itemRenderer (DataGrid must be editable) -->
+        <fx:Array id="columns4">
+            <mx:DataGridColumn dataField="firstName" headerText="Name" />
+            <mx:DataGridColumn dataField="booleanValue" headerText="Cool" itemEditor="comps.MXDGIR_CheckBox" itemRenderer="comps.MXDGIR_CheckBox" editorDataField="editValue" />           
+        </fx:Array>
+        
+        <!-- use a TextInput as an item editor (DataGrid must be editable) -->
+        <fx:Array id="columns5">
+            <mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer="comps.MXDGIR_Label" editorDataField="editValue" itemEditor="comps.MXDGIR_TextInput" />
+            <mx:DataGridColumn dataField="booleanValue" headerText="Cool" itemEditor="comps.MXDGIR_CheckBox" editorDataField="editValue" />           
+        </fx:Array>
+        
+        <!-- use a DropDownList as an item editor (DataGrid must be editable) -->
+        <fx:Array id="columns6">
+            <mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer="comps.MXDGIR_Label" editorDataField="editValue" itemEditor="comps.MXDGIR_TextInput" />
+            <mx:DataGridColumn dataField="enumValue" headerText="Size" itemEditor="comps.MXDGIR_DropDownList" editorDataField="editValue" />           
+        </fx:Array>
+        
+        <!-- use a HSlider as an item editor (DataGrid must be editable) -->
+        <fx:Array id="columns7">
+            <mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer="comps.MXDGIR_Label" editorDataField="editValue" itemEditor="comps.MXDGIR_TextInput" />
+            <mx:DataGridColumn dataField="numberValue" headerText="Number" itemRenderer="comps.MXDGIR_HSlider" rendererIsEditor="true" editorDataField="editValue" />           
+        </fx:Array>
+		
+		<fx:Array id="columns8">
+			<mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer="comps.MXDGIR_Label" editorDataField="editValue" itemEditor="comps.MXDGIR_TextInput" />
+			<mx:DataGridColumn dataField="numberValue" headerText="Number" itemRenderer="comps.MXDGIR_Styles" rendererIsEditor="true" editorDataField="editValue" />           
+		</fx:Array>	
+		
+		<fx:Array id="columns9">
+			<mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer="comps.MXDGIR_Label" editorDataField="editValue" itemEditor="comps.MXDGIR_TextInput" />
+			<mx:DataGridColumn dataField="booleanValue" headerText="Cool" itemRenderer="comps.MXDGIR_DisCheckBox" rendererIsEditor="true" editorDataField="editValue" />           
+		</fx:Array>			
+		
+		<fx:Array id="columns10">
+			<mx:DataGridColumn dataField="firstName" headerText="Name" itemRenderer.state1="comps.MXDGIR_Label_S1" itemRenderer.state2="comps.MXDGIR_Label_S2" editorDataField="editValue" itemEditor="comps.MXDGIR_TextInput" />
+			<mx:DataGridColumn dataField="booleanValue" headerText="Cool" itemRenderer="comps.MXDGIR_DisCheckBox" rendererIsEditor="true" editorDataField="editValue" />           
+		</fx:Array>					
+				               
+    </fx:Declarations>
+    
+    <s:layout>
+        <s:HorizontalLayout />
+    </s:layout>
+    
+    <s:states>
+		<s:State name="state1" />
+		<s:State name="state2" />
+	</s:states>
+
+  
+    <mx:DataGrid id="dataGrid1" height="200" width="300" dataProvider="{dp1}"/>
+    
+    
+</s:Group>

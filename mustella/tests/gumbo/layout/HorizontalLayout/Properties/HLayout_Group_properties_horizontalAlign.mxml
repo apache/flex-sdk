@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/HorizontalLayout/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HorizontalLayout_Group_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+	
+		<TestCase testID="HLayout_group_horizontalAlign_default" keywords="[HorizontalLayout, horizontalAlign]" description="default is top">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="horizontalAlign" value="left" target="grp.layout"/>	
+			</body>
+		</TestCase>
+				
+		<TestCase testID="HLayout_group_horizontalAlign_center" keywords="[HorizontalLayout, horizontalAlign]" description="center alignment">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete" />
+
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right" keywords="[HorizontalLayout, horizontalAlign]" description="right alignment">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete" />
+
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<!-- gap -->
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_gap_smaller" keywords="[HorizontalLayout, horizontalAlign]" description="make the gap smaller">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="gap" value="1" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete" />
+
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_gap_larger" keywords="[HorizontalLayout, horizontalAlign]" description="make the gap larger">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="gap" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_gap_smaller" keywords="[HorizontalLayout, horizontalAlign]" description="make the gap smaller">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="gap" value="1" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete" />
+
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_gap_larger" keywords="[HorizontalLayout, horizontalAlign]" description="make the gap larger">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="gap" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<!-- padding -->
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_paddingLeft" keywords="[HorizontalLayout, horizontalAlign]" description="is padding respected">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="paddingLeft" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+				
+		<TestCase testID="HLayout_group_horizontalAlign_center_paddingRight" keywords="[HorizontalLayout, horizontalAlign]" description="is padding respected">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="paddingRight" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>		
+			
+		<TestCase testID="HLayout_group_horizontalAlign_right_paddingLeft" keywords="[HorizontalLayout, horizontalAlign]" description="is padding respected">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="paddingLeft" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_paddingRight" keywords="[HorizontalLayout, horizontalAlign]" description="is padding respected">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="paddingRight" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<!-- columnWidth -->
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_columnWidth_smaller" keywords="[HorizontalLayout, horizontalAlign]" description="changing columnWidth should work">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="4" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_columnWidth_larger" keywords="[HorizontalLayout, horizontalAlign]" description="changing columnWidth should work">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="94" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_columnWidth_smaller" keywords="[HorizontalLayout, horizontalAlign]" description="changing columnWidth should work">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="4" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_columnWidth_larger" keywords="[HorizontalLayout, horizontalAlign]" description="changing columnWidth should work">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="94" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<!-- clipAndEnableScrolling -->
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_clip_false" keywords="[HorizontalLayout, horizontalAlign]" description="set multiple layout properties with clipping false">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="4" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="gap" value="26" target="grp.layout"/>
+				<SetProperty propertyName="paddingLeft" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="false" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_clip_true" keywords="[HorizontalLayout, horizontalAlign]" description="set multiple layout properties with clipping true">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="4" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="gap" value="26" target="grp.layout"/>
+				<SetProperty propertyName="paddingLeft" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_clip_false" keywords="[HorizontalLayout, horizontalAlign]" description="set multiple layout properties with clipping false">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="4" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="gap" value="26" target="grp.layout"/>
+				<SetProperty propertyName="paddingRight" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="false" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_clip_true" keywords="[HorizontalLayout, horizontalAlign]" description="set multiple layout properties with clipping true">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="columnWidth" value="4" target="grp.layout"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="grp.layout"/>
+				<SetProperty propertyName="gap" value="26" target="grp.layout"/>
+				<SetProperty propertyName="paddingRight" value="100" target="grp.layout"/>
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+		
+		<!-- percentage height elements -->
+		
+		<TestCase testID="HLayout_group_horizontalAlign_center_percent_20" keywords="[HorizontalLayout, horizontalAlign]" description="align elements with percentage height">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(0)" value="20" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(1)" value="20" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(2)" value="20" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="false" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+			
+		<TestCase testID="HLayout_group_horizontalAlign_center_percent_100" keywords="[HorizontalLayout, horizontalAlign]" description="check that horizontalAlign doesn't do anything when elements take up 100% height">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="horizontalAlign" value="center" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="false" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HLayout_group_horizontalAlign_right_percent_20" keywords="[HorizontalLayout, horizontalAlign]" description="align elements with percentage height">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(0)" value="20" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(1)" value="20" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(2)" value="20" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="false" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>	
+			
+		<TestCase testID="HLayout_group_horizontalAlign_right_percent_100" keywords="[HorizontalLayout, horizontalAlign]" description="check that horizontalAlign doesn't do anything when elements take up 100% height">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="100" target="grp" waitEvent="updateComplete"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				<RunCode code="application.addRect(application.grp)"/>
+				
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(0)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" target="grp.getElementAt(2)" value="14" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(2)" value="100" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="horizontalAlign" value="right" target="grp.layout" waitTarget="grp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="clipAndEnableScrolling" value="false" target="grp" waitTarget="grp" waitEvent="updateComplete"/>
+				
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="height" value="100" target="grp"/>
+				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target=""/>
+			</body>
+		</TestCase>
+				
+	</testCases>
+</UnitTester>

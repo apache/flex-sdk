@@ -1,0 +1,17 @@
+<s:Panel 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="150" height="150" 
+    title="Custom Skin FxPanel">
+    
+    <s:layout><s:VerticalLayout/></s:layout>
+    
+    <mx:Button label="Hello" />
+    
+    <s:CheckBox label="I am a FxCheckBox"/>
+    
+    <mx:Label text="Text from a label"/>
+        
+    
+</s:Panel>    

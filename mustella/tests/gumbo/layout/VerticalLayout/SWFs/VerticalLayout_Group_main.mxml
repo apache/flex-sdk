@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+   <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="Assets.*"
+   	width="500" height="500">
+   
+	<fx:Script>
+	<![CDATA[
+      
+		import Assets.*;
+		import mx.graphics.*;
+		import spark.components.Button;
+		import spark.components.Label;
+		import spark.components.supportClasses.TextBase;  
+		import mx.controls.ComboBox;
+		import spark.components.Group;
+       
+		public function addHaloCB(g:MyGroup):void{
+		  	var b:ComboBox = new ComboBox();
+		  	g.addElement(b);
+		}
+        
+        public function addGroup(g:MyGroup):void{
+			var grp:MyChildGroup= new MyChildGroup();
+			g.addElement(grp);
+		}
+		
+		public function addRect(g:MyGroup):void{
+			var r:MyRect = new MyRect();
+			g.addElement(r);
+		}
+
+		public function addSparkBtn(g:MyGroup):void{
+			var b:Button = new Button();
+			b.setStyle('skinClass', MyButtonSkin);
+			g.addElement(b);
+		}
+
+		public function addSimpleText(g:MyGroup):void{
+			var t:Label = new Label();
+			t.maxWidth=10000;
+			g.addElement(t);
+		}
+
+		public function addTextGraphic(g:MyGroup):void{
+			var t:TextBase = new TextBase();
+			g.addElement(t);
+		}
+
+      ]]>
+      </fx:Script>
+   	   		<fx:Style>
+			@namespace s "library://ns.adobe.com/flex/spark";
+			@namespace mx "library://ns.adobe.com/flex/mx";
+				@font-face{
+					src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+					fontFamily: myArial;
+					embedAsCFF: true;
+				}
+		
+		
+				@font-face{
+					src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+					fontWeight: bold;
+					fontFamily: myArial;
+					embedAsCFF: true;
+				}
+		
+				@font-face{
+					src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+					fontStyle: italic;
+					fontFamily: myArial;
+					embedAsCFF: true;
+		
+				}
+		
+				global{
+					fontAntiAliasType: "normal";
+					fontFamily: myArial;
+					fontSize: 12;
+		            fontLookup: "embeddedCFF";
+		            kerning: "off";
+				}
+		
+				.redText {
+				    color: #FF0000;
+				    fontWeight: "bold";
+				}
+		
+				.greenFill {
+				    fillColors: #FFFFFF, #0022DD;
+				}
+		
+				.redFill {
+				    fillColors: #FFFFFF, #DD2200;
+				    cornerRadius: 6;
+				}
+			
+   	  </fx:Style>
+   	  
+   	  <local:MyGroup id="grp"/>
+  
+      <local:MyGroupScroller id="myScroll"/>
+      
+      <s:Button id="bindBtn" label="{grp.vl.firstIndexInView}" visible="false"/>
+      <s:Button id="lastViewBtn" label="{grp.vl.lastIndexInView}" visible="false"/>
+      <s:Button id="rowCountBtn" label="{myScroll.grp.vl.rowCount}" visible="false"/>
+      
+      <s:Button id="bindScroll" label="{myScroll.grp.vl.horizontalScrollPosition}" visible="false"/>
+      <s:Button id="bindVScroll" label="{myScroll.grp.vl.verticalScrollPosition}" visible="false"/>
+      
+</s:Application> 

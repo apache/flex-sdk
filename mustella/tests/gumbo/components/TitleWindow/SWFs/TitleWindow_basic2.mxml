@@ -1,0 +1,459 @@
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="Comps.*"
+    backgroundColor="0xFFFFFF"
+    height="800" width="800">
+    <s:layout><s:VerticalLayout/></s:layout>
+    <fx:Declarations>
+	<fx:Array id="contentArray">
+		<s:Label text="controlBar content"/>
+		<s:Button id="button1" label="button1"/>
+		<s:Button id="button2" label="button2"/>
+	</fx:Array>
+    </fx:Declarations>
+    <fx:Script>    
+    	<![CDATA[    
+    		import spark.components.TitleWindow;
+    		import mx.core.IFlexDisplayObject;
+    		import mx.events.FlexEvent;
+		import mx.managers.PopUpManager;
+		import spark.components.Label;
+		import spark.components.Button;
+		import mx.core.IVisualElement;
+		import mx.collections.ArrayCollection;
+		import comps.*;
+		
+		public var defaultTW:TitleWindow, myWin:TitleWindow;
+		public var childWindowList:Array=new Array();
+    		
+    		public function createDefault():void
+    		{
+    			defaultTW = new TitleWindow();      
+			defaultTW.title="From PopUpManager...";
+			defaultTW.width = 250;
+			defaultTW.height = 150;
+			defaultTW.x = 300;
+			defaultTW.y = 10;
+			PopUpManager.addPopUp(defaultTW, this, false);
+			defaultTW.addEventListener("close", closeHandler);
+			defaultTW.addEventListener("creationComplete", handleNewWindowCreationComplete);
+    		}
+		public function createTitleWindowByClass(c:Class, title:String,yPos:Number=100):TitleWindow
+		{
+			var win:TitleWindow=new c();
+			c(win).y=yPos;
+			c(win).x=100;
+			win.title=title;
+			win.width=400;
+		        win.height=400;
+			win.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			win.addEventListener("close", closeHandler);
+			PopUpManager.addPopUp(win, this, false);
+			return win;
+		}
+		public function createTitleWindowNoSize(c:Class, title:String,yPos:Number=100):TitleWindow
+		{
+			var win:TitleWindow=new c();
+			c(win).y=yPos;
+			c(win).x=100;
+			win.title=title;
+			win.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			win.addEventListener("close", closeHandler);
+			PopUpManager.addPopUp(win, this, false);
+			return win;
+		}
+		public function createTitleWindowNoPopUp(c:Class, title:String,yPos:Number=100):TitleWindow
+		{
+			var win:TitleWindow=new c();
+			c(win).y=yPos;
+			c(win).x=100;
+			win.title=title;
+			win.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			win.addEventListener("close", closeHandler);
+			return win;
+		}
+		public function addPopUp(tw:TitleWindow, x:Number=100, y:Number=100):void
+		{
+			tw.x=x;
+			tw.y=y;
+			tw.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			tw.addEventListener("close", closeHandler);
+			PopUpManager.addPopUp(tw, this, false);
+		}
+		
+		
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    childWindowList.push(e.currentTarget);
+		    e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("TitleWindowComplete"));
+		}
+    		public function closeHandler(event:Event):void
+            	{
+                	event.target.removeEventListener("close", closeHandler);
+                	PopUpManager.removePopUp(event.target as IFlexDisplayObject);
+            	}
+
+		public function closePopUPs():void
+		{
+		
+			var win:TitleWindow=null;
+			while(childWindowList.length>0)
+			{
+				win=TitleWindow(childWindowList.pop());
+				PopUpManager.removePopUp(win);
+				win=null;
+			}
+
+		}
+		public function resetTitleWindow():void
+		{
+			closePopUPs();
+			myWin=createTitleWindowByClass(TitleWindowWithContent4, "methods test window");
+		}
+		public function testAddElement():void
+		{
+			var b:spark.components.Button=new spark.components.Button();
+			b.label="new Button";
+			b.name="addElementTest";
+			b.y=70;
+			myWin.addElement(b);
+		}	  
+		public function testAddElementAt(index:Number):Boolean
+		{
+			var lb:Label=new Label();
+			lb.text="new label";
+			lb.x=30*(index+1)
+			var elementCount:Number=myWin.numElements;
+			myWin.addElementAt(lb,index);
+			var n:Number=myWin.numElements;
+			if ((elementCount+1)!=n)
+				return false;
+			var  vElement:IVisualElement=myWin.getElementAt(index);
+			if (!(vElement is Label) || Label(vElement).text!=lb.text)
+				return false;
+			else return true;
+
+		}
+		public function testAddElementAtNegative(index:Number):Boolean
+		{
+			var lb:Label=new Label();
+			lb.text="new label";
+			lb.x=30;
+			try{
+			myWin.addElementAt(lb,index);//index isn't available
+			return false;//if no error, then test fails
+			}catch(e:Error)
+			{
+
+			}
+
+			return true;
+		}
+
+
+		public function testGetElementAt(pos:Number):Boolean
+		{
+			var iv:IVisualElement=myWin.getElementAt(pos);//this should return a button
+			var index:Number=myWin.getElementIndex(iv);
+
+			if (index!=pos)
+			{ 
+			return false;
+			}else 
+			return true;
+		}
+		public function testGetElementIndexNegative():Boolean
+		{
+
+			var lb:Label=new Label();
+			lb.text="new label";
+			lb.x=30;
+			var index:Number=-1;
+			try
+			{
+				index=myWin.getElementIndex(lb);
+			}catch(e:Error)
+			{
+			}
+			if (index!=-1)
+			{
+				trace("###index="+index)
+				return false;
+			}
+			else return true;
+		}
+		public function testGetFirstButton():Boolean
+		{
+
+			var iv:IVisualElement=myWin.getElementAt(1);//this should return a button
+			if (iv is spark.components.Button)
+			{
+			 var b:spark.components.Button=spark.components.Button(iv);
+			if (b.label.indexOf("test Button")>-1)
+			{
+				return true;
+			}
+			else 
+			{
+				trace("###button label not expected");
+				return false;
+			}
+			}else 
+			{
+			trace("###first element isn't a button");
+			return false;
+		}
+
+		}
+		public function testGetElementAtNegative(index:Number):Boolean
+		{
+
+			var iv:IVisualElement=null;
+			try
+			{
+			iv=myWin.getElementAt(index);
+			return false;
+			}catch(e:Error)
+			{
+			}
+			if (iv!=null)
+			return false;
+			else
+			return true;
+		}
+		public function testRemoveElement():Boolean
+		{
+
+			var iv:IVisualElement=myWin.getElementAt(2);//this should return the drop down list
+			myWin.removeElement(iv); //the drop down list is removed
+			var displayObj:DisplayObject=myWin.getChildByName("datagrid1");//try to get the dropdown list again
+			if (displayObj !=null)
+			return false;
+			else 
+			return true;
+
+		}
+		public function testRemoveElement2():Boolean
+		{
+
+			testAddElement();
+			var num:Number=myWin.numElements;
+			var iv:IVisualElement;
+			var coll:ArrayCollection=new  ArrayCollection();
+
+			for (var i:Number=0;i<num;i++)
+			{	
+			iv=myWin.getElementAt(i);
+			coll.addItem(iv);
+			}
+			for (i=0;i<num;i++)
+			{	
+			myWin.removeElement(IVisualElement(coll.getItemAt(i))); 
+			}
+			num=myWin.numElements;
+			if (num!=0)
+			return false;
+			else 
+			return true;
+
+		}
+
+	      public function testRemoveElementNegative():Boolean
+	      {
+
+			var iv:IVisualElement=myWin.getElementAt(2);
+			myWin.removeElement(iv); 
+			try{
+				//try to remove it again, will receive an error
+				myWin.removeElement(iv);//remove it again
+				return false;//if no error, then return false as we are expecting an error
+
+			}catch(e:Error)
+			{
+				trace(e);
+				return true;
+			}
+
+				return true;
+		}
+
+	      public function testRemoveElementNegative2():Boolean
+	      {
+
+			try{
+			var button1:Button=new Button();
+			
+			myWin.removeElement(button1);//remove an element not own, should receive an error
+			return false;
+			}catch(e:Error)
+			{
+				trace(e);
+				return true;
+			}
+				return true;
+	      }
+
+
+
+		public function testRemoveElementAt():Boolean
+		{
+			var iv:DisplayObject=null;
+			try{
+				myWin.removeElementAt(4); //remove the drop down list
+				iv=myWin.contentGroup.getChildByName("datagrid1");//try to get the dropdown list again
+			}catch(e:Error)
+			{
+				trace("###ERROR:"+e);
+				return false;
+			}
+			if (iv !=null) 
+				return false;
+			else 
+				return true;
+		}
+
+		public function testRemoveElementAtNegative(index:Number):Boolean
+		{
+
+			var element:IVisualElement=null;
+			try{
+				element=myWin.removeElementAt(index); 
+				return false;
+			}catch(e:Error)
+			{
+				trace(e);
+			}
+			if (element!=null)
+				return false;
+			else 
+				return true;
+		}
+
+		public function testRemoveElementAt2():Boolean
+		{
+			var num:Number=myWin.numElements;
+			var iv:IVisualElement;
+			var coll:ArrayCollection=new  ArrayCollection();
+
+			for (var i:Number=0;i<num;i++)
+			{	
+				myWin.removeElementAt(0); 
+			}
+			num=myWin.numElements;
+			if (num!=0)
+				return false;
+			else 
+				return true;
+
+		}
+
+		public function testRemoveAllElements():String
+		{
+			var errMsg:String="";
+			myWin.removeAllElements();
+			var iv:DisplayObject=myWin.contentGroup.getChildByName("datagrid1");//try to get the dropdown list again
+			if (iv !=null)
+				errMsg+="wrong, datagrid should be removed, expect NUll\n";
+			iv=myWin.getChildByName("childLabel");
+			if (iv !=null)
+				errMsg+="wrong, the childLabel should be removed, expect NUll\n";
+
+			iv=myWin.getChildByName("childButton");
+			if (iv !=null)
+				errMsg+="wrong, the childButton should be removed, expect NUll\n";
+
+			var tmp:IVisualElement=null;
+			try{
+
+				tmp= myWin.getElementAt(0);
+				errMsg+="wrong, element already removed, should get an error\n";
+			}catch(e:Error)
+			{
+			}
+			if (tmp !=null)
+				errMsg+="wrong, expect no child for the window\n";
+			return errMsg;
+
+		} 	
+    		
+    	]]>        
+    </fx:Script>
+        
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace c "Comps.*";
+	
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyArial;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: MyArialHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: MyArialHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: MyArialHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}		
+										
+		mx|Accordion,
+		mx|RadioButton,
+		mx|CheckBox,
+		mx|List,
+		mx|DataGrid,
+		mx|Button,
+		mx|Text,
+		mx|Label,
+		mx|NumericStepper,
+		mx|ToolTip{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+			fontSize: 12;
+		}
+			
+		s|TitleWindow,
+		s|Panel,
+		s|HSlider,
+		s|NumericStepper,
+		s|Button,
+		s|TextInput{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+			fontSize: 12;
+            		fontLookup: "embeddedCFF";
+		}		
+    
+			
+	</fx:Style>     
+</s:Application>

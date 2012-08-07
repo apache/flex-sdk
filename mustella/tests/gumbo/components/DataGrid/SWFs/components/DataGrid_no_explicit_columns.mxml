@@ -1,0 +1,151 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	dataProvider="{gridDataCollection}" selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" variableRowHeight="true"
+    width="536" height="400">
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import spark.components.gridClasses.GridSelectionMode;
+			include "../assets/nameData.as";
+			
+			
+			 
+			private var rowCount:int=100;
+			
+			
+			public function selectIndices2(v:Vector.<int>):Boolean
+			{
+				
+				if (v==null || v.length<0) return false;
+				var len:int=v.length;
+				var rowIndex:int=-1;
+				var flag:Boolean=true;
+				for (var i:int=0;i<len;i++)
+				{
+					rowIndex=v[i];
+					if (i == 0)
+						setSelectedIndex(rowIndex);
+					else
+						if (!addSelectedIndex(rowIndex))
+							flag=false;
+				}
+				return flag;
+			}
+			//need set up fixed item for image comparision
+			public function createItem(index:int):Object
+			{
+				var t:int=index;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = humanNamesData[index];
+				const lastName:String = humanNamesData[rowCount-index];
+				const food:String = foodNamesData[index];
+				const drink:String = drinkNamesData[index];
+				const image:String="../../../../../Assets/Images/smallbluerect.jpg"
+				return {index:t, firstName: firstName, lastName: lastName, food: food, drink: drink, imageURL:image,numberValue:(index+100)%99, birthDay:"2004/08/08"};
+			}
+			public function addItem(index:int):void
+			{
+				if (index<0)
+					this.dataProvider.addItem(createItem(this.dataProvider.length+1));
+				else 
+					this.dataProvider.addItemAt(createItem(1000+this.dataProvider.length+1),index);
+			}
+    			private function initData():void
+    			{
+    				for (var i:int = 0; i < rowCount; i++)
+    					gridDataCollection.addItem(createItem(i));
+    				this.rowHeight=30;//this force each row height is same
+			}
+			
+			public function resetDP():void
+			{
+				gridDataCollection.removeAll();
+				var t:ArrayCollection=new ArrayCollection();
+				for (var i:int = 100; i < rowCount+100; i++)
+					gridDataCollection.addItem(createItem(i));
+				this.dataProvider=gridDataCollection;
+
+			}
+			public function resetDP2():void
+			{
+
+				var t:ArrayCollection=new ArrayCollection();
+				for (var i:int = 100; i < rowCount+100; i++)
+					t.addItem(createItem(i));
+				this.dataProvider=t;
+
+			}
+			public function resetEmptyDP():void
+			{
+				var t:ArrayCollection=new ArrayCollection();
+				gridDataCollection.source=t.source;
+				this.dataProvider=gridDataCollection;
+								
+			}
+			public function descendingSort(obj1:Object, obj2:Object, gc:GridColumn):int
+			{
+				if (obj1[gc.dataField]>obj2[gc.dataField]) return -1;
+				else if (obj1[gc.dataField]<obj2[gc.dataField]) return 1;
+				else if (obj1[gc.dataField]==obj2[gc.dataField]) return 0;
+				else return 2;
+			}
+			
+			public function ascendingSort(obj1:Object, obj2:Object, gc:GridColumn):int
+			{
+				if (obj1[gc.dataField]>obj2[gc.dataField]) return 1;
+				else if (obj1[gc.dataField]<obj2[gc.dataField]) return -1;
+				else if (obj1[gc.dataField]==obj2[gc.dataField]) return 0;
+				else return 2;
+			}
+    		]]>
+    </fx:Script>
+	
+   <fx:Declarations>
+   
+   	<s:ArrayCollection id="columns1">
+   			<s:GridColumn dataField="index" width="40" />
+   			<s:GridColumn dataField="firstName" width="120"/>
+   			<s:GridColumn dataField="lastName" width="120"/>
+   			<s:GridColumn dataField="food" width="120"/>
+   			<s:GridColumn dataField="drink" width="120"/>
+   	</s:ArrayCollection>
+   	<s:ArrayCollection id="columns2">
+			<s:GridColumn dataField="index" width="40" sortDescending="false" />
+			<s:GridColumn dataField="firstName" width="120" sortDescending="true" />
+			<s:GridColumn dataField="lastName" width="120"  visible="false"/>
+			<s:GridColumn dataField="food" width="120"/>
+			<s:GridColumn dataField="drink" width="120"/>
+   	</s:ArrayCollection>
+   	<s:ArrayCollection id="columns3">
+			<s:GridColumn dataField="index" width="40" sortCompareFunction="{ascendingSort}" />
+			<s:GridColumn dataField="firstName" width="120" sortCompareFunction="{descendingSort}" />
+			<s:GridColumn dataField="lastName" width="120"  visible="false"/>
+			<s:GridColumn dataField="food" width="120"/>
+			<s:GridColumn dataField="drink" width="120"/>
+   	</s:ArrayCollection>
+   	
+	<s:ArrayCollection id="gridDataCollection">
+		<s:DataItem index="0" firstName="JamFN" lastName="DanFN" food="Alligator" drink="DrinkA" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="0" birthDay="2004/08/08" />
+		<s:DataItem index="1" firstName="JohFN" lastName="AntFN" food="Candy Apples" drink="DrinkB" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="1" birthDay="2004/08/08" />
+		<s:DataItem index="2" firstName="RobFN" lastName="JimFN" food="Coleslaw" drink="DrinkC" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="2" birthDay="2004/08/08" />
+		<s:DataItem index="3" firstName="MicFN" lastName="EarFN" food="Almonds" drink="DrinkD" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="3" birthDay="2004/08/08" />
+		<s:DataItem index="4" firstName="WilFN" lastName="JohFN" food="Candy Bar (Popcorn)" drink="DrinkE" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="4" birthDay="2004/08/08" />
+		<s:DataItem index="5" firstName="DavFN" lastName="ChrFN" food="Cones" drink="DrinkF" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="5" birthDay="2004/08/08" />
+		<s:DataItem index="6" firstName="RicFN" lastName="PhiFN" food="DrinkD" drink="DrinkG" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="6" birthDay="2004/08/08" />
+		<s:DataItem index="7" firstName="ChaFN" lastName="SeaFN" food="Cantaloupe" drink="DrinkH" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="7" birthDay="2004/08/08" />
+		<s:DataItem index="8" firstName="JosFN" lastName="ClaFN" food="Cookies" drink="DrinkI" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="8" birthDay="2004/08/08" />
+		<s:DataItem index="9" firstName="ThoFN" lastName="ShaFN" food="Andouille Sausage" drink="DrinkJ" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="9" birthDay="2004/08/08" />
+		<s:DataItem index="10" firstName="ChrFN" lastName="AlaFN" food="Cappuccino" drink="DrinkK" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="10" birthDay="2004/08/08" />
+		<s:DataItem index="11" firstName="DanFN" lastName="CraFN" food="Coolers" drink="DrinkL" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="11" birthDay="2004/08/08" />
+		<s:DataItem index="12" firstName="PauFN" lastName="JesFN" food="Antelope (Meat Snack Sticks)" drink="DrinkM" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="12" birthDay="2004/08/08" />
+		<s:DataItem index="13" firstName="MarFN" lastName="TodFN" food="Caramel Apples" drink="DrinkN" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="13" birthDay="2004/08/08" />
+		<s:DataItem index="14" firstName="DonFN" lastName="PhiFN" food="Corn" drink="DrinkO" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="14" birthDay="2004/08/08" />
+		<s:DataItem index="15" firstName="GeoFN" lastName="ErnFN" food="Apples" drink="DrinkP" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="15" birthDay="2004/08/08" />
+		<s:DataItem index="16" firstName="KenFN" lastName="MarFN" food="Caramel Corn" drink="DrinkQ" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="16" birthDay="2004/08/08" />
+		<s:DataItem index="17" firstName="SteFN" lastName="VicFN" food="Cornbread" drink="DrinkBC200" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="17" birthDay="2004/08/08" />
+		<s:DataItem index="18" firstName="EdwFN" lastName="BobFN" food="Arabica Coffee" drink="DrinkS" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="18" birthDay="2004/08/08" />
+		<s:DataItem index="19" firstName="BriFN" lastName="RusFN" food="Caribbean Chicken" drink="DrinkT" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="19" birthDay="2004/08/08" />
+		<s:DataItem index="20" firstName="RonFN" lastName="CarFN" food="Corndogs" drink="DrinkU" imageURL="../../../../../Assets/Images/smallbluerect.jpg" numberValue="20" birthDay="2004/08/08" />
+	</s:ArrayCollection>
+   </fx:Declarations>	
+</s:DataGrid>

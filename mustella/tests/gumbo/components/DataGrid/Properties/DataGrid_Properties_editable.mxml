@@ -1,0 +1,1686 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_itemEditor.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import mx.collections.XMLListCollection;
+                import mx.collections.ArrayList;
+                import mx.utils.ObjectUtil;
+                import spark.components.DataGrid;
+                import spark.components.gridClasses.GridSelectionMode;
+                import spark.components.gridClasses.GridColumn;
+                import spark.components.gridClasses.ComboBoxGridItemEditor;
+                import spark.events.GridItemEditorEvent;
+                import mx.managers.CursorManager;
+                import components.*;
+                
+		
+		/**
+		* this method is an event handler for gridItemEditorSessionStart, it is used for endItemEditorSesion(false) which saves data
+		*/
+		
+		public function editStartSaveHandler(event:GridItemEditorEvent):void
+		{
+	
+			var dgTemp:DataGrid=(DataGrid)(event.currentTarget);
+			if (dgTemp.itemEditorInstance!=null && dgTemp.itemEditorInstance is ComboBoxGridItemEditor)
+				(ComboBoxGridItemEditor)(dgTemp.itemEditorInstance).comboBox.selectedItem="ProductFx";
+			dgTemp.endItemEditorSession(false);
+		}
+		/**
+		* this method is an event handler for gridItemEditorSessionStart, it is used for endItemEditorSesion(true) which cancels update
+		*/
+		public function editStartCancelHandler(event:GridItemEditorEvent):void
+		{
+			var dgTemp:DataGrid=(DataGrid)(event.currentTarget);
+			if (dgTemp.itemEditorInstance!=null && dgTemp.itemEditorInstance is ComboBoxGridItemEditor)
+				(ComboBoxGridItemEditor)(dgTemp.itemEditorInstance).comboBox.selectedItem="ProductFx";
+			dgTemp.endItemEditorSession(true);
+		}
+		
+            }
+            
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+   <TestCase testID="Editable_default_false" keywords="[DataGrid, Property, editable]" description="verify by default, editable on dataGrid is true, dataGridColumn is false">
+    	       <setup> 
+    	           <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+		   <SetProperty target="dataGrid" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_CELLS}"  waitEvent="enterFrame" waitTarget="stage"/>
+    	       </setup>
+    	       <body>
+    		  <AssertPropertyValue propertyName="editable" target="dataGrid" value="false"/>
+    		  <!-- by default, DataGridColumn.editable=true -->
+    		  <AssertPropertyValue propertyName="editable" target="dataGrid.c1" value="true"/>
+    		  <!-- select the cell(0,1)-->
+    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,1)" value="true"/>
+    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+    		  <!-- click on the selected cell to invoke editor -->
+    		  <DispatchMouseClickEvent target="dataGrid.grid" localX="40" localY="10" waitEvent="click" waitTarget="dataGrid.grid"/>
+    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridItemEditEvent" valueExpression="value=null"/>
+    	      </body>
+	   </TestCase> 
+	      	  
+	    <TestCase testID="Editable_true_defaultEditor" keywords="[DataGrid, Property, editable]" description="verify editable=true, defaultGridItemEditor is TextArea">
+	       <setup> 
+		   <ResetComponent target="dataGrid4" className="components.DataGrid_editable_comp2" /> 
+	       </setup>
+	       <body>
+		  
+		  <!-- by default, DataGridColumn.editable=true -->
+		  <!-- select the cell(0,1)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid4.grid" localX="40" localY="10" waitEvent="click" waitTarget="dataGrid4.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent.rowIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent.columnIndex" value="1"/>
+	      </body>
+	   </TestCase>    
+	     
+	    <TestCase testID="Editable_GridColumn_false" keywords="[DataGrid, Property, editable]" description="verify editable=true on DataGrid, but DataGridColumn.editable=false, verify no editing allowed">
+	       <setup>
+	          <ResetComponent target="dataGrid4" className="components.DataGrid_editable_comp2" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid4.c2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>
+		  <!-- select the cell(0,1)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid4.grid" localX="40" localY="10" waitEvent="click" waitTarget="dataGrid4.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditStartEvent" valueExpression="value=null"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent" valueExpression="value=null"/>
+	      </body>
+	   </TestCase>  
+	   
+	    <TestCase testID="Editable_new_GridColumn" keywords="[DataGrid, Property, editable]" description="verify editable=true on DataGrid, add a new DataGridColumn, verify editing allowed on the column">
+	       <setup> 
+	           <ResetComponent target="dataGrid4" className="components.DataGrid_editable_comp2" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>
+	       	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid4.columns.removeAll()" />
+	       	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       	  <!-- add a new gridColumn -->
+	       	  <RunCode code="FlexGlobals.topLevelApplication.createADataGridColumn(FlexGlobals.topLevelApplication.dataGrid4,0)" />
+	       	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       	  
+		  <!-- select the cell(0,0)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/><!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid4.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid4.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent.rowIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent.columnIndex" value="0"/>
+	      </body>
+	   </TestCase>  
+	   
+	    <TestCase testID="Editable_new_GridColumn_withNewItemEditor" keywords="[DataGrid, Property, editable]" description="verify editable=true on DataGrid, add a new DataGridColumn with customized itemEditor, verify editing allowed on the column">
+	       <setup> 
+	           <ResetComponent target="dataGrid4" className="components.DataGrid_editable_comp2" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>
+	       	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid4.columns.removeAll()" />
+	       	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       	  <!-- add a new gridColumn -->
+	       	  <RunCode code="FlexGlobals.topLevelApplication.createADataGridColumn(FlexGlobals.topLevelApplication.dataGrid4,0)"  waitEvent="enterFrame" waitTarget="stage"/>
+	       	  <!-- add the new itemEditor -->
+	       	  <RunCode code="FlexGlobals.topLevelApplication.setEditorOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid4,comboxIE,0)"  waitEvent="enterFrame" waitTarget="stage"/>
+	       	  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid4.columns.getItemAt(0))).itemRenderer=new ClassFactory(dgTextAreaIR)" />
+	       	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       	  
+		  <!-- select the cell(0,0)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid4.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid4.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent.rowIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.gridItemEditEvent.columnIndex" value="0"/>
+		  <!-- click the customized itemEditor, make sure setter is called, value is updated -->
+		  <DispatchMouseClickEvent target="dataGrid4.grid" localX="22" localY="10" waitEvent="click" waitTarget="dataGrid4.grid"/>
+		  	     
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	       		 
+		  <DispatchMouseClickEvent target="dataGrid4.grid" localX="20" localY="50" waitEvent="click" waitTarget="dataGrid4.grid"/>
+ 	   	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <!-- value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid4.dataProvider.getItemAt(0).column_0" value="ProductP"/>
+		  
+		  
+	      </body>
+	   </TestCase>  
+	   
+    <TestCase testID="Editable_false_DataGrid" keywords="[DataGrid, Property, editable]" description="verify editable=false on DataGrid, verify no editing allowed on the column">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          
+		  <!-- select the cell(0,0)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	
+		  <!-- click on cell on other columns cell(0,3)-->
+		 <!-- select the cell(0,3)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,3)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="360" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	 
+		  
+	      </body>
+	   </TestCase>          
+    
+ 	    <TestCase testID="Editable_toggle_True_to_False" keywords="[DataGrid, Property, editable]" description="verify editable=false on DataGrid, verify no editing allowed on the column">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		  <!-- select the cell(0,1)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+	
+		  <!-- click the customized itemEditor, make sure setter is called, value is updated -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="202" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	       		 
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="300" localY="50" waitEvent="click" waitTarget="dataGrid2.grid"/>
+ 	   	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	  
+	  	  <!-- verify value is set -->
+	  	   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).product" value="ProductD"/>
+		 
+		  <!-- set editable=false now -->
+	  	  <SetProperty target="dataGrid2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	  	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.resetEditEventObject()"   waitEvent="enterFrame" waitTarget="stage"/>
+	  	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	
+		  
+	      </body>
+	   </TestCase>  
+	    <TestCase testID="Editable_toggle_false_to_true" keywords="[DataGrid, Property, editable]" description="verify editable=false on DataGrid, verify no editing allowed on the column, but when editable=true, editing is allowed">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+ 	          <SetProperty target="dataGrid2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	       	 <!-- click on the selected cell to invoke editor -->
+	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+		   <SetProperty target="dataGrid2" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <!-- select the cell(0,1)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+	
+		  <DispatchMouseEvent type="rollOver" target="dataGrid2.grid" localX="200" localY="52" />
+		  <WaitForEffectsToEnd />
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="52"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	  	  <!-- verify value is set -->
+	  	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).product" value="ProductP"/>
+		 
+	      </body>
+	   </TestCase> 
+	    <TestCase testID="Editable_toggle_true_to_false_onGridColumn" keywords="[DataGrid, Property, editable]" description="verify editable from true to false on DataGridColumn, verify no editing allowed on the column">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	       	 <!-- click on the selected cell to invoke editor -->
+	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,3)" value="true"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="350" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	
+		  <SetProperty target="dataGrid2.c41_3" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <!-- select the cell(3,1)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,3)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="350" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+	
+		  <DispatchKeyEvent char="test"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	  <!-- verify value is set -->
+	  	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).lastName" value="test"/>
+		 
+	      </body>
+	   </TestCase>   
+	   
+	    <TestCase testID="Editable_toggle_false_to_true_onGridColumn" keywords="[DataGrid, Property, editable]" description="verify editable from true to false on DataGrid, verify no editing allowed on the column">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(3,1)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="300" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+
+		  <DispatchKeyEvent char="test"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).firstName" value="test"/>
+		 
+		  <SetProperty target="dataGrid2.c41_2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.resetEditEventObject()" waitEvent="enterFrame" waitTarget="stage"/> 
+	       	 <!-- click on the selected cell to invoke editor -->
+	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+	       	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <!-- verify no editing event since editable=false -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="300" localY="10"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	      </body>
+	   </TestCase>  
+	   
+	    <TestCase testID="Editable_startEditMode_Tabbing" keywords="[DataGrid, Property, editable]" description="click, tab on a selected cell, verify next editable cell is in editable mode">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,0)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+		  <DispatchKeyEvent keys="[TAB]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid2" />
+		
+	      </body>
+	   </TestCase> 
+	   
+	    <TestCase testID="Editable_Tabbing_nextUnEditable" keywords="[DataGrid, Property, editable]" description="mouse click, tab on a selected cell, next cell isn't editable, verify edit focus is on next available editable cell">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <!-- so tabbing to next should be skipped -->
+		  <SetProperty target="dataGrid2.c41_4" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+		  
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,0)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+		  <DispatchKeyEvent keys="[TAB]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="test"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).firstName" value="test"/>
+		  
+		  <DispatchKeyEvent char="testtest"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- verify focus on same column, one row below -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(1).firstName" value="testtest"/>
+		  
+	      </body>
+	   </TestCase> 
+	    <TestCase testID="Editable_Tabbing_nextEditingAvailable" keywords="[DataGrid, Property, editable]" description="mouse click, tab on a selected cell, next cell isn't editable, verify edit focus is on next available editable cell">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <!-- so tabbing to next should be skipped -->
+		  <SetProperty target="dataGrid2.c41_4" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <!-- so next  rest columns are uneditable -->
+		  <SetProperty target="dataGrid2.c41_2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,0)-->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		  <!-- click on the selected cell to invoke editor -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- tabbing should focus next row, same column -->
+		  <DispatchKeyEvent keys="[TAB]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(1).country" value="FRANCE"/>
+		 
+	      </body>
+	   </TestCase> 
+	   	   
+	    <TestCase testID="Editable_startEditMode_F2_cellSeletionMode" keywords="[DataGrid, Property, editable]" description="Pres F2 on a selected cell,verify cellEditing mode is initiated">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,1)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent keys="[DOWN,DOWN,ENTER]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).product" value="ProductF"/>
+	      </body>
+	   </TestCase>
+	   
+	    <TestCase testID="Editable_startEditMode_F2_RowSeletionMode" keywords="[DataGrid, Property, editable]" description="Pres F2 on a selected cell,verify cellEditing mode is initiated">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- select the first row-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).country" value="FRANCE"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.selectionContainsIndex(0)" value="true"/>
+		 
+	      </body>
+	   </TestCase>  
+	   
+	    <TestCase testID="Editable_startItemEditorSesision_validParams01" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision will invoke cellEditing">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_ROW}"  waitEvent="enterFrame" waitTarget="stage"/>	  
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,0)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).country" value="FRANCE"/>
+	      </body>
+	   </TestCase> 
+
+   	   <!-- regression sdk-28475 -->
+	    <TestCase testID="Editable_startItemEditorSesision_cellNotEditable" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision will invoke cellEditing">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_ROW}"  waitEvent="enterFrame" waitTarget="stage"/>  
+	       </setup>
+	       <body>  
+	          <!-- select the cell at left upper corner, however the column isn't editable-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,FlexGlobals.topLevelApplication.dataGrid2.columns.length-1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		
+	      </body>
+	   </TestCase>  
+	   <!-- subtask: sdk-29942, when cell editable=false, startItemEditorSesision() should trigger editor UI -->
+	    <TestCase testID="CellNotEditable_startItemEditorSesision_editorUI" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision will invoke cellEditing UI">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_CELL}"  waitEvent="enterFrame" waitTarget="stage"/>  
+	       </setup>
+	       <body>  
+	          <!-- select the cell isn't editable-->
+	          <SetProperty target="dataGrid2.c41_4" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.itemEditorInstance"/>
+	     		 
+	      </body>
+	   </TestCase>  
+           <!-- subtask: sdk-29942, when datagrid editable=false, startItemEditorSesision() should trigger editor UI -->
+	    <TestCase testID="DGNotEditable_startItemEditorSesision_editorUI" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision will invoke cellEditing UI">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_CELL}"  waitEvent="enterFrame" waitTarget="stage"/>  
+	       </setup>
+	       <body>  
+	          <!-- select the cell isn't editable-->
+	          <SetProperty target="dataGrid2" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.itemEditorInstance"/>
+	     		 
+	      </body>
+	   </TestCase>  
+	   
+ 	   <!-- regression sdk-28476 select the cell at left upper corner, however the column isn't editable -->
+ 	   
+	    <TestCase testID="Editable_startItemEditorSesision_cellInvisible" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision on invisible cell, will not invoke cellEditing">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_ROW}"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <SetProperty target="dataGrid2.c41_4" propertyName="visible" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	         
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,1)" value="false"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	      </body>
+	   </TestCase>  
+	   
+
+	    <TestCase testID="Editable_startItemEditorSesision_validParams02" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision on corner cells, will invoke cellEditing">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_ROW}"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <!-- set the column visible -->
+		  <SetProperty target="dataGrid2.c41_3" propertyName="visible" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- select the cell at left upper corner, however the column isn't editable-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,FlexGlobals.topLevelApplication.dataGrid2.columns.length-1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		  
+		  
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		  
+		  
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1,FlexGlobals.topLevelApplication.dataGrid2.columns.length-1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		  
+	      </body>
+	   </TestCase>    
+	    <TestCase testID="Editable_startItemEditorSesision_inValidParams" keywords="[DataGrid, Method, startItemEditorSesision]" description="verify calling startItemEditorSesision on invalid cells, will not invoke cellEditing">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_ROW}"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- select the cell at left upper corner, however the column isn't editable-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,FlexGlobals.topLevelApplication.dataGrid2.columns.length)" value="false"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length,FlexGlobals.topLevelApplication.dataGrid2.columns.length)" value="false"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+	      
+	      	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(-1,0)" value="false"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+		 
+	      	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,-1)" value="false"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+		
+	      </body>
+	   </TestCase> 
+	    <TestCase testID="Editable_defaultEditors" keywords="[DataGrid, Property,Editable]" description="verify default itemEditors, also value converation">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.SINGLE_ROW}"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp6" waitEvent="enterFrame" waitTarget="stage" />
+		  <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns6" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       </setup>
+	       <body>  
+	          <!--select each cell for each column, then edit, check value is expected-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,ENTER]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).str" value="2"/>
+		 
+		  <!-- work on rest two columns, verify value, to check value converstion -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[DOWN,DOWN,ENTER]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).num" value="1"/>
+		  
+	  	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[DOWN,DOWN,ENTER]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).bool" value="1"/>
+		 
+	      </body>
+	   </TestCase>  
+	    <TestCase testID="key_ESCAPE_discardValue" keywords="[DataGrid, Property,Editable]" description="verify presing ESCAPE key, cahnge is discarded">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,1)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent char="FRANCE"  waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent keys="[ESCAPE]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).country" value="USA"/>
+		 
+	      </body>
+	   </TestCase>   
+	    <TestCase testID="key_CtrlEnter_saveValue" keywords="[DataGrid, Property,Editable]" description="verify presing Ctrl+ENTER key, change is saved">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,1)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" waitEvent="caretChange" waitTarget="dataGrid2.grid"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).country" value="FRANCE"/>
+		 
+	      </body>
+	   </TestCase> 
+	    <TestCase testID="key_CtrlEnter_nextFocus" keywords="[DataGrid, Property,Editable]" description="verify presing Ctrl+ENTER key, change is saved">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,1)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" waitEvent="caretChange" waitTarget="dataGrid2.grid"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify caret pos -->
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="0"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" value="1" />
+ 		
+	      </body>
+	   </TestCase>
+
+	    <TestCase testID="key_CtrlEnter_lastCell" keywords="[DataGrid, Property,Editable]" description="verify presing Ctrl+ENTER key on last cell, verify focus is now on DataGrid">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2.c41_3" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- edit the last cell-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1,FlexGlobals.topLevelApplication.dataGrid2.columns.length-1)"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify caret pos -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns.length-1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1" />
+ 		
+	      </body>
+	   </TestCase>     
+	   <TestCase testID="key_CtrlShiftEnter_lastCell" keywords="[DataGrid, Property,Editable]" description="verify presing Ctrl+Shift+ENTER key on last cell, verify focus is now on DataGrid">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2.c41_3" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- edit the last cell-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1,FlexGlobals.topLevelApplication.dataGrid2.columns.length-1)"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify caret pos -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns.length-1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-2" />
+ 		
+ 		  <DispatchKeyEvent keys="[F2]" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+		  <!-- verify caret pos -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns.length-1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-3" />
+ 		
+	      </body>
+	   </TestCase>  
+	   
+	<TestCase testID="key_CtrlShiftEnter_firstCell" keywords="[DataGrid, Property,Editable]" description="verify presing Ctrl+Shift+ENTER key on first cell, verify focus is now on DataGrid">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2.c41_3" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          <!-- edit the first cell-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify caret pos -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" value="0" />
+	      </body>
+	   </TestCase>  
+	   	   
+	 <TestCase testID="key_ctrlPeriod_discardValue" keywords="[DataGrid, Property,Editable]" description="verify presing Ctrl+. key, cahnge is discarded">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,0)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent char="FRANCE"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[PERIOD]"  ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- verify value is set -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).country" value="USA"/>
+		 
+	      </body>
+	   </TestCase>  
+
+	 <TestCase testID="key_tabbing_navigation" keywords="[DataGrid, Property,Editable]" description="verify tabbing on multiple components in the editor component works as expected">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <RunCode code="FlexGlobals.topLevelApplication.setEditorOnColumnIndex(FlexGlobals.topLevelApplication.dataGrid2,13)"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <SetProperty target="dataGrid2" propertyName="height" value="250"   waitEvent="updateComplete"/>
+		  
+	       </setup>
+	       <body>  
+	          <!-- select the cell(0,0)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent keys="[TAB,TAB]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.itemEditorInstance.panel1"/><!-- itemEditorInstance -->
+		 
+	      </body>
+	   </TestCase>  
+
+	 <TestCase testID="key_tabbing_lastEditableCell" keywords="[DataGrid, Property,Editable]" description="verify tabbing on last editable cell, verify focus is expected after tab">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="name" value="dataGrid2"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+	       </setup>
+	       <body>  
+	          <!-- select the cell(last,2)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1,2)"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  
+		  <DispatchKeyEvent keys="[TAB]"  ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.length-1" />
+ 		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.focusManager.getFocus().name" value="dataGrid2" />
+ 		
+	      </body>
+	   </TestCase>
+	 <TestCase testID="key_tabbing_shift_test001" keywords="[DataGrid, Property,Editable]" description="verify shift+tabbing on first editable cell, verify focus is expected after tab">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="name" value="dataGrid2"  waitEvent="enterFrame" waitTarget="stage"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+	       </setup>
+	       <body>  
+	          <!-- select the cell(first,0)-->
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+  
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  
+		  <DispatchKeyEvent keys="[TAB]"  shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" value="0" />
+ 		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.focusManager.getFocus().name" value="dataGrid2" />
+ 		
+	      </body>
+	   </TestCase>
+	   
+ 	 <TestCase testID="key_tabbing_shift_test002" keywords="[DataGrid, Property,Editable]" description="verify shift+tabbing on last editable cell, verify focus is expected after tab">
+ 	       <setup>
+ 		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
+ 		  <SetProperty target="dataGrid3" propertyName="name" value="dataGrid3"  waitEvent="enterFrame" waitTarget="stage"/>
+ 	       </setup>
+ 	       <body>  
+ 	          <!-- select the last cell-->
+ 	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setFocus()" waitEvent="focusIn" waitTarget="dataGrid3"/>
+ 		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(FlexGlobals.topLevelApplication.dataGrid3.dataProvider.length-1,FlexGlobals.topLevelApplication.dataGrid3.columns.length-1)"/>
+ 		
+ 		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+   
+ 		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage"  />
+ 		  
+ 		  <DispatchKeyEvent keys="[TAB]"  shiftKey="true" waitEvent="enterFrame" waitTarget="stage"   />
+ 		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.grid.caretColumnIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid3.columns.length-2"/>
+ 		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.grid.caretRowIndex" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid3.dataProvider.length-1" /> 		
+ 	      </body>
+	   </TestCase>
+	   
+	 <TestCase testID="key_click_outSideEditingCell" keywords="[DataGrid, Property,Editable]" description="click outside of editing cell, verify focus is expected after tab">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/>
+	       </setup>
+	       <body>  
+	          
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+ 		
+ 		  
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="100" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditSaveEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE"/>
+ 		
+	      </body>
+	   </TestCase>  
+	 <TestCase testID="key_F2_nextEditableCell" keywords="[DataGrid, Property,Editable]" description="click a cell which is selected, edit the cell, select another row, press F2 again, verify the cell with same column position on the row is editable">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       </setup>
+	       <body>  
+	          
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="260" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+    		 
+		  <DispatchKeyEvent keys="[PERIOD]"  ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(1)"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="-1"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" value="1" />
+ 		
+	      </body>
+	   </TestCase>  
+	   
+	 <TestCase testID="key_F2_nextEditableCell2" keywords="[DataGrid, Property,Editable]" description="click a cell which is selected, edit the cell,then disable eding for the column, select another row, press F2 again, verify the cell with next column position on the row is editable">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.MULTIPLE_ROWS}"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+	          
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="260" localY="10" waitEvent="click" waitTarget="dataGrid2.grid"/>
+    		 
+		  <DispatchKeyEvent keys="[ESCAPE]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- disable the column editing -->
+		  <SetProperty target="dataGrid2.c41_2" propertyName="editable" value="false" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  
+		  <!-- select next row, press F2, focus should be on previous column -->
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(1)"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" value="2" />
+ 		
+	      </body>
+	   </TestCase>   	   
+	 <TestCase testID="key_F2_NoneSelectionMode" keywords="[DataGrid, Property,Editable]" description="click a cell which is selected, edit the cell,then disable eding for the column, select another row, press F2 again, verify the cell with next column position on the row is editable">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="selectionMode" value="{GridSelectionMode.NONE}"  waitEvent="enterFrame" waitTarget="stage"/>
+		  </setup>
+	       <body>  
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex" value="0"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex" value="0" />
+ 		
+	      </body>
+	   </TestCase>	   
+	
+	   <!-- regression SDK-28582 -->
+	   <TestCase testID="key_F2_onNonEditableCell" keywords="[DataGrid, Property,Editable]" description="select a cell isn't editable, F2 on the cell,verify the cell isn't editable">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="editable" value="false"   waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+		  
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- editable=false on dataGrid, no editable -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+		  <!-- editable=true, itemEditor should show up -->
+		  <SetProperty target="dataGrid2" propertyName="editable" value="true"   waitEvent="enterFrame" waitTarget="stage"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent.type" valueExpression="value=GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING"/>
+		  <!-- click elsewhere to leave the editing mode -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="100" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		  <!-- editable=false on the gridColumn, item should be allow edit -->
+		   
+		   <SetProperty target="dataGrid2.c41_1" propertyName="editable" value="false"  waitEvent="enterFrame" waitTarget="stage"/>
+		   <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.resetEditEventObject()" waitEvent="enterFrame" waitTarget="stage"/> 
+
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.gridItemEditEvent" valueExpression="value=null"/>
+
+
+	      </body>
+	   </TestCase> 
+	
+	   <TestCase testID="Editable_style_test" keywords="[DataGrid, Property,Editable]" description="dataGrid, renderer, itemEditor has different styles, verify style set in itemEditor is used, otherwise it is from its parent">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/>   
+	       </setup>
+	       <body>  
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c41_2.itemRenderer=new ClassFactory(components.DGIR_RichEditableText)"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c41_2.itemEditor=new ClassFactory(components.DGIE_TextArea)"  waitEvent="enterFrame" waitTarget="stage"/>
+	          
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <CompareBitmap url="../Properties/baselines/$testID_green.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		 
+    		  <DispatchKeyEvent char="John"  />
+    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_red.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+ 		
+	      </body>
+	   </TestCase> 	
+	 <TestCase testID="Editable_variableRowHeight" keywords="[DataGrid, Property,Editable]" description="verify variableRowHeight=true, different columnWidth,editor should show in different size">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp5Data" waitEvent="enterFrame" waitTarget="stage" />
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1))).width=200"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	          
+	       </setup>
+	       <body>  
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_large.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.itemEditorInstance.textArea"/>
+		  <DispatchKeyEvent keys="[ESCAPE]"  waitEvent="enterFrame" waitTarget="stage"   />
+		 
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1))).width=100"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,2)"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_small.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.itemEditorInstance.textArea"/>
+	      
+	      </body>
+	   </TestCase> 
+	 <TestCase testID="Editable_multipleLine_explicit_test" keywords="[DataGrid, Property,Editable]" description="verify variableRowHeight=true, set lineBreak, multiple in renderer, the editor will receive same style">
+	       <setup>
+		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
+		  
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid3.columns.getItemAt(1))).width=200"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  	          
+	       </setup>
+	       <body>  
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setFocus()" waitEvent="focusIn" waitTarget="dataGrid3"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(0,1)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <RunCode code="CursorManager.hideCursor()" />
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid3.grid"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_large.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3"/>
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid3.columns.getItemAt(1))).width=100"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(1,1)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		   <DispatchMouseClickEvent target="dataGrid3" localX="115" localY="10" />
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_small.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3"/>
+	      
+	      </body>
+	   </TestCase> 
+	   
+	 <TestCase testID="Editable_multipleLine_toFit_test2" keywords="[DataGrid, Property,Editable]" description="verify variableRowHeight=true, set lineBreak, multiple in renderer, the editor will receive same style">
+	       <setup>
+		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
+		  
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid3.columns.getItemAt(1))).width=200"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  	          
+	       </setup>
+	       <body>  
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.lineBreakFlag='toFit'"/>
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setFocus()" waitEvent="focusIn" waitTarget="dataGrid3"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(0,1)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid3.grid"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_large.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3"/>
+		  
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid3.columns.getItemAt(1))).width=100"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(1,1)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchMouseClickEvent target="dataGrid3" localX="115" localY="10" />
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_small.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3"/>
+	      
+	      </body>
+	   </TestCase> 
+ 	<TestCase testID="Editable_multipleLine_toFit_test3" keywords="[DataGrid, Property,Editable]" description="verify variableRowHeight=true, set lineBreak, multiple in renderer, the editor will receive same style">
+	       <setup>
+		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
+		  
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid3.columns.getItemAt(1))).width=200"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  	          
+	       </setup>
+	       <body>  
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.lineBreakFlag='toFit'"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setFocus()" waitEvent="focusIn" waitTarget="dataGrid3"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(0,1)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="20" localY="10" waitEvent="click" waitTarget="dataGrid3.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_large.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3"/>
+		  <RunCode code="((GridColumn)(FlexGlobals.topLevelApplication.dataGrid3.columns.getItemAt(1))).width=100"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(1,1)" value="true"/>
+		  <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage"   />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchMouseClickEvent target="dataGrid3" localX="115" localY="10" />
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_small.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3"/>
+	      
+	      </body>
+	   </TestCase>   
+	         
+	 <TestCase testID="Editable_validation_test" keywords="[DataGrid, Property,Editable]" description="verify invalidation error is received, no data update">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  </setup>
+	       <body>  
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c41_2.itemEditor=new ClassFactory(components.DGIE_BindingValidation)"/>
+	          
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <DispatchKeyEvent char="John"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="60" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify the value isn't updated/committed -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).firstName" value="JOZY JOZY JOZY"/>
+		 
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+ 		 
+	      </body>
+	   </TestCase>   
+	   
+	<!-- bug 28587 -->
+	 <TestCase testID="Editable_renderIsEditor_test" keywords="[DataGrid, Property,Editable]" description="verify rendererIsEditor=true, the render is editor">
+	       <setup>
+		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
+		 
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+	       </setup>
+	       <body>  
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setFocus()" waitEvent="focusIn" waitTarget="dataGrid3"/>
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="310" localY="40" waitEvent="click" waitTarget="dataGrid3.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="Golden"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent keys="[ENTER]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.dataProvider.getItemAt(0).lastName" value="GoldenHamFN"/>
+		  <!-- update to a new renderer,not default one  -->
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.c3_3a.itemRenderer=new ClassFactory(components.DGIR_RichEditableText)" waitEvent="enterFrame" waitTarget="stage" />
+	          <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.ensureCellIsVisible(0,2)"  waitEvent="enterFrame" waitTarget="stage"  />
+		  <!-- click the first row, cellIndex=2 -->
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="315" localY="20"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- click elsewhere to have the value at cell (0,2) saved -->
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="310" localY="80"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify the value -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.dataProvider.getItemAt(0).lastName" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid3.dataProvider.getItemAt(0).firstName"/>
+		
+	      </body>
+	   </TestCase> 
+
+
+	 <TestCase testID="endItemEditorSession_cancelFalse_test001" keywords="[DataGrid, Method,endItemEditorSession]" description="verify calling endItemEditorSession(false), the value is saved and exit editing mode">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="name" value="dataGrid2"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.removeEventListener('gridItemEditorSessionStart',FlexGlobals.topLevelApplication.dataGrid2.editStartHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addEventListener('gridItemEditorSessionStart',editStartSaveHandler)"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(4,1)" value="true"/>
+	          <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+ 	   	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(4).product" value="ProductFx"/>
+		 
+	        </body>
+	   </TestCase>
+	   
+	 <TestCase testID="endItemEditorSession_cancelTrue_test001" keywords="[DataGrid, Method,endItemEditorSession]" description="verify calling endItemEditorSession(true), the value is saved and exit editing mode">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/>
+		  <SetProperty target="dataGrid2" propertyName="name" value="dataGrid2"  waitEvent="enterFrame" waitTarget="stage"/>
+	       </setup>
+	       <body>  
+		   <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.removeEventListener('gridItemEditorSessionStart',FlexGlobals.topLevelApplication.dataGrid2.editStartHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+ 		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addEventListener('gridItemEditorSessionStart',editStartCancelHandler)"  waitEvent="enterFrame" waitTarget="stage"/>
+	          <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.startItemEditorSession(4,1)" value="true"/>
+	          <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+ 	   	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(4).product" value="ProductD"/>
+		 
+	        </body>
+	   </TestCase>
+	 <TestCase testID="Mirroring_rtl_test1" keywords="[DataGrid, Mirroring]" description="verify mirroring layout=rtl, datagrid displays as expected">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+		  <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp2" waitEvent="enterFrame" waitTarget="stage" />
+		  <SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetProperty target="dataGrid2" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	       </setup>
+	       <body>  
+	       	  <SetStyle target="dataGrid2" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetStyle target="dataGrid2" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <CompareBitmap url="../Properties/baselines/$testID_rtl.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		  <!-- check sort indicator -->
+		  <DispatchMouseClickEvent target="dataGrid2.columnHeaderGroup" localX="100" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,0)" value="true"/>
+		  <CompareBitmap url="../Properties/baselines/$testID_sort_selection.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+	      </body>
+	   </TestCase>  
+	  
+	 <TestCase testID="Mirroring_rtl_editor_test1" keywords="[DataGrid, Mirroring]" description="verify mirroring layout=rtl, datagrid displays editors as expected">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+  		  <SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetProperty target="dataGrid2" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp2" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+	       </setup>
+	       <body>  
+	       	  <SetStyle target="dataGrid2" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		  <SetStyle target="dataGrid2" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid2" />
+   		  <!-- check editor layout, check input for editor, using the one no text insertion -->
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		 
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		  
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		  
+	      </body>
+	   </TestCase>   
+	 <TestCase testID="Mirroring_rtl_editing_test1" keywords="[DataGrid, Mirroring]" description="verify mirroring layout=rtl, input text, verify input is in right layout">
+	       <setup>
+		  <ResetComponent target="dataGrid3" className="components.DataGrid_editable_size" waitEvent="updateComplete"/> 
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       </setup>
+	       <body>  
+	          <SetStyle target="dataGrid3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid3" />
+	       	  <SetStyle target="dataGrid3" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid3" />
+		
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.setFocus()" waitEvent="focusIn" waitTarget="dataGrid3"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid3.setSelectedCell(0,1)" value="true"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchMouseClickEvent target="dataGrid3.grid" localX="240" localY="20" waitEvent="click" waitTarget="dataGrid3.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="Golden1234567" />
+		  <WaitForEffectsToEnd />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="12"/>
+		   <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid3.itemEditorInstance.textArea"/>
+	      
+		  
+	      </body>
+	   </TestCase> 
+	  
+  	   
+ 	<TestCase testID="Editable_twoWayBinding_test" keywords="[DataGrid, Property,Editable]" description="verify binding tests">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c41_2.itemEditor=new ClassFactory(components.DGIE_Binding1)"/>
+	          
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.itemEditorInstance.textGIE.text=''" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="test1234"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="5"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="60" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- verify the value is updated/committed -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).firstName" value="test1234"/> 
+	      	  
+	      	  <!-- update the dataProvider, verify the editor should get the new value -->
+	      	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.dataProvider.getItemAt(0).firstName='GUOGUO'" />
+	      	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	      	  
+	      	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.itemEditorInstance.textGIE.text" value="GUOGUO"/> 
+	      	 
+	      </body>
+	   </TestCase>  
+	   
+ 	   
+ 	<TestCase testID="Editable_DataUpdate_test" keywords="[DataGrid, Property,Editable]" description="verify after editing the data,delete the row,  ">
+	       <setup>
+		  <ResetComponent target="dataGrid2" className="components.DataGrid_editable_comp1" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c41_2.itemEditor=new ClassFactory(components.DGIE_Binding1)"/>
+	          <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.itemEditorInstance.textGIE.text=''" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <DispatchKeyEvent char="test1234"  />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="60" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		 	  
+	      	  <!-- update the dataProvider, verify the editor should get the new value -->
+	      	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.dataProvider.removeItemAt(0)" />
+	      	  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	      	  
+	      	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <!-- make sure no run time error -->
+		  <DispatchMouseClickEvent target="dataGrid2.grid" localX="20" localY="60" waitEvent="click" waitTarget="dataGrid2.grid"/>
+		 
+	      </body>
+	   </TestCase> 	
+	   <!-- regression test case: SDK-29256 -->
+	   <TestCase testID="Editable_focusIn_multiline_test" keywords="[DataGrid, Property,Editable]" description="verify focusIn should be consistent no matter what multiline is set: no insertion pt. Text selected ">
+	       <setup>
+		  <ResetComponent target="dataGrid5" className="components.DataGrid_editable_comp3" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		 
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid5.setFocus()" waitEvent="focusIn" waitTarget="dataGrid5"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid5.itemEditorInstance.textArea"/>
+	      
+	      	  
+	      	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid5.itemEditorInstance.textArea"/>
+	          <!-- this statement is work around for bug 29522 -->
+	          <RunCode code="FlexGlobals.topLevelApplication.setFocus()"  waitEvent="focusIn" waitTarget=""/>
+	      </body>
+	   </TestCase> 	   
+  	
+  	   <TestCase testID="Editable_multiline_true_explicit_test" keywords="[DataGrid, Property,Editable]" description="verify If multiline=true then a newline character is inserted into the text. ">
+	       <setup>
+		  <ResetComponent target="dataGrid6" className="components.DataGrid_multiline_lineBreakStyle" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		 
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid6.setFocus()" waitEvent="focusIn" waitTarget="dataGrid6"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- add enter key at end of line -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="80" localY="40" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <DispatchKeyEvent keys="[ENTER]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- click else where to commit the change -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="200" localY="100" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  
+		  <!-- select the cell again to check added newline -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.dataProvider.getItemAt(0).dataField1.lastIndexOf('\n')" value="18"/>
+	    	  <!-- check the text should show the newline -->
+	    	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid6.setFocus()" waitEvent="enterFrame" waitTarget="stage"/>
+	    	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.setSelectedCell(0,0)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid6"/>
+		  <!-- work around for bug 29522 -->
+		  <RunCode code="FlexGlobals.topLevelApplication.setFocus()"  waitEvent="focusIn" waitTarget=""/>
+		
+	    </body>
+	   </TestCase>	   
+   	<!-- regression test case: SDK-29261: case 2-->
+	   <TestCase testID="Editable_multiline_true_toFit_test" keywords="[DataGrid, Property,Editable]" description="verify multineline=true,tofit set, newline is added, text is to fit the column ">
+	       <setup>
+		  <ResetComponent target="dataGrid6" className="components.DataGrid_multiline_lineBreakStyle" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+	       	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid6.setFocus()" waitEvent="focusIn" waitTarget="dataGrid6"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.setSelectedCell(0,1)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- add enter key at end of line -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="230" localY="40" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <DispatchKeyEvent keys="[ENTER]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- click else where to commit the change -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="200" localY="100" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <!-- select the cell again to check added newline -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.dataProvider.getItemAt(0).dataField2.lastIndexOf('\n')" value="18"/>
+		  <!-- image here to verify explicit, toFit text layout -->
+		  <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid6"/>
+	   
+	    </body>
+	   </TestCase> 
+	   
+	   <!-- regression test case: SDK-29261: case 3-->
+	   <TestCase testID="Editable_multiline_notSet_explicit_test" keywords="[DataGrid, Property,Editable]" description="verify linebreak=explicit set,then multiline=true, newline is added">
+	       <setup>
+		  <ResetComponent target="dataGrid6" className="components.DataGrid_multiline_lineBreakStyle" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		 
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid6.setFocus()" waitEvent="focusIn" waitTarget="dataGrid6"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.setSelectedCell(0,2)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- add enter key at end of line -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="430" localY="40" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <DispatchKeyEvent keys="[ENTER]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- click else where to commit the change -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="200" localY="100" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <!-- select the cell again to check added newline -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.dataProvider.getItemAt(0).dataField3.lastIndexOf('\n')" value="18"/>   
+	    </body>
+	   </TestCase> 
+	   
+	   <!-- regression test case: SDK-29261: case 4-->
+	   <TestCase testID="Editable_multiline_false_toFit_test" keywords="[DataGrid, Property,Editable]" description="verify linebreak=toFit,default multine=false,newline ends the editing session">
+	       <setup>
+		  <ResetComponent target="dataGrid6" className="components.DataGrid_multiline_lineBreakStyle" waitEvent="updateComplete"/> 
+	       </setup>
+	       <body>  
+		 
+		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid6.setFocus()" waitEvent="focusIn" waitTarget="dataGrid6"/>
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.setSelectedCell(0,3)" value="true"/>
+		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- add enter key at end of line -->
+		  <DispatchMouseClickEvent target="dataGrid6.grid" localX="580" localY="40" waitEvent="click" waitTarget="dataGrid6.grid"/>
+		  <!-- enter will end editing session -->
+		  <DispatchKeyEvent keys="[ENTER]" waitEvent="enterFrame" waitTarget="stage" />
+		  <!-- select the cell again to check added newline -->
+		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.dataProvider.getItemAt(0).dataField4.lastIndexOf('\n')" value="9"/>
+		    
+	    </body>
+	   </TestCase> 		
+	   <TestCase testID="key_input_ComboBoxEditor_test001" keywords="[DataGrid, Property,Editable]" description="verify input text in editable combobox editor, verify combobox value tried to match the input">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(0,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(0,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <DispatchKeyEvent char="Arizona"  waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <CompareBitmap url="../Properties/baselines/$testID_input.png" numColorVariances="20" ignoreMaxColorVariance="true" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     		  <DispatchKeyEvent keys="[ENTER]"  waitEvent="enterFrame" waitTarget="stage"   />
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(0).state" value="Arizona"/>
+	     		 
+	     		  <!-- cancel the change -->
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(1,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <DispatchKeyEvent char="Arizona" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <DispatchKeyEvent keys="[ESCAPE]"  waitEvent="enterFrame" waitTarget="stage"   />
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(1).state" value="Alaska"/>
+	     	      </body>
+	     	   </TestCase>   
+	         
+	               <TestCase testID="key_navigation_on_ComboBoxEditor" keywords="[DataGrid, Property,Editable]" description="verify key navigation on combobox editor, verify up/down arrow, ctrl+down arrow works as expected">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(0,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(0,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	       
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN]"  waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <CompareBitmap url="../Properties/baselines/$testID_index3.png" numColorVariances="20" maxColorVariance="20" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     		  <DispatchKeyEvent keys="[ENTER]"  waitEvent="enterFrame" waitTarget="stage"   />
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(0).state" value="Arkansas"/>
+	     		 
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(0,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,UP]"  waitEvent="enterFrame" waitTarget="stage" />
+	     		 
+	     		  <CompareBitmap url="../Properties/baselines/$testID_index2.png" numColorVariances="20" ignoreMaxColorVariance="true" target="dataGrid7.itemEditorInstance.comboBox.dropDown"/>
+	     		 
+	     		  <DispatchKeyEvent keys="[ENTER]"  waitEvent="enterFrame" waitTarget="stage"   />
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(0).state" value="Colorado"/>
+	     	      </body>
+	     	   </TestCase>   
+	     	  <TestCase testID="comboBoxEditor_close_open" keywords="[DataGrid, Property,Editable]" description="verify combobox can be closed/open with key navigation">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(0,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(0,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	       
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <!-- close the editor first -->
+	     		  <DispatchMouseClickEvent target="dataGrid7.itemEditorInstance.comboBox" localX="22" localY="15"  waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.itemEditorInstance.comboBox.isDropDownOpen" value="false"/>
+	     		  <DispatchKeyEvent keys="[DOWN]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage"   />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.itemEditorInstance.comboBox.isDropDownOpen" value="true"/>
+	     		 <RunCode code="FlexGlobals.topLevelApplication.setFocus()"  waitEvent="focusIn" waitTarget=""/>
+	     		
+	     	       </body>
+	     	   </TestCase> 
+	     
+	     	  <TestCase testID="mouse_interacting_on_comboBoxEditor" keywords="[DataGrid, Property,Editable]" description="verify mouse clicking navigation on combobox cell editor">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(0,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(0,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <!-- mouse over in the drop down list -->
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <DispatchMouseEvent type="mouseOver" target="dataGrid7.itemEditorInstance.comboBox" localX="22" localY="15" waitEvent="mouseOver" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <DispatchMouseClickEvent target="dataGrid7.itemEditorInstance.comboBox.dropDown" localX="22" localY="75" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <!-- verify value is committed -->
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(0).state" value="Arkansas"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.setFocus()"  waitEvent="focusIn" waitTarget=""/>
+	     		
+	     	       </body>
+	     	   </TestCase> 
+	     
+	      		<TestCase testID="mouse_interacting_on_comboBoxEditor_test2" keywords="[DataGrid, Property,Editable]" description="verify mouse clicks on the same selected value">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(1,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(1,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <!-- mouse on the same, selected value -->
+	     		  <DispatchMouseClickEvent target="dataGrid7.itemEditorInstance.comboBox.dropDown" localX="22" localY="10"  />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <!-- verify value is committed -->
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(1).state" value="Alaska"/>
+	     		   
+	     	       </body>
+	     	   </TestCase> 	 
+	     
+	     	  <TestCase testID="mouse_comboBoxEditor_verticalScrollBar_test" keywords="[DataGrid, Property,Editable]" description="verify mouse clicks on verticalScrollbar of Combobox editor will scroll the dropdown list, verify clicking on the scrollbar scrolls the list">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(5,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(5,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	       
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <!-- mouse on the vertical scrollbar, move up/down-->
+	     		  <DispatchMouseEvent target="dataGrid7.itemEditorInstance.comboBox.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3"  waitEvent="enterFrame" waitTarget="stage" />
+	     		  <DispatchMouseEvent type="mouseDown" target="dataGrid7.itemEditorInstance.comboBox.scroller.verticalScrollBar.thumb"  localX="3" localY="3"   waitEvent="enterFrame" waitTarget="stage" />
+	     		  <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="dataGrid7.itemEditorInstance.comboBox.scroller.verticalScrollBar.track" waitEvent="enterFrame" waitTarget="stage"  />
+	     		  <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="20" target="dataGrid7.itemEditorInstance.comboBox.scroller.verticalScrollBar.track"  waitEvent="enterFrame" waitTarget="stage"  />
+	     		  <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="1" target="dataGrid7.itemEditorInstance.comboBox.scroller.verticalScrollBar.track"  waitEvent="enterFrame" waitTarget="stage" />
+	     		  <DispatchMouseEvent type="mouseUp" target="dataGrid7.itemEditorInstance.comboBox.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+	     		
+	     		  <DispatchMouseClickEvent target="dataGrid7.itemEditorInstance.comboBox.dropDown" localX="50" localY="5" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(5).state" value="Alabama Alabama Alabama Alabama Alabama Alabama"/>
+	     		
+	     	       </body>
+	     	   </TestCase> 
+	     	   
+	               <TestCase testID="mouse_comboBoxEditor_horizontalScrollBar_test" keywords="[DataGrid, Property,Editable]" description="verify mouse clicks on horizontalScrollbar of Combobox editor will scroll the dropdown list, verify clicking on the scrollbar scrolls the list">
+	     	       <setup>
+	     		  <ResetComponent target="dataGrid7" className="components.DataGrid_ComboBoxEditor" waitEvent="updateComplete"/> 
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     	       </setup>
+	     	       <body>  
+	     	          <!-- select the cell(5,0)-->
+	     	          <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setFocus()" waitEvent="focusIn" waitTarget="dataGrid7"/>
+	     		  <RunCode code="FlexGlobals.topLevelApplication.dataGrid7.setSelectedCell(5,0)"/>
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	       
+	     		  <DispatchKeyEvent keys="[F2]" waitEvent="enterFrame" waitTarget="stage" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     		  <!-- mouse on the horizontal scrollbar, move left/right -->
+	     		  <DispatchMouseEvent type="mouseDown" target="dataGrid7.itemEditorInstance.comboBox.scroller.horizontalScrollBar.thumb"  localX="3" localY="3"   waitEvent="enterFrame" waitTarget="stage" />
+	     		  <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="10" target="dataGrid7.itemEditorInstance.comboBox.scroller.horizontalScrollBar.track"  waitEvent="enterFrame" waitTarget="stage"  />
+	     		  <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="50" localY="10" target="dataGrid7.itemEditorInstance.comboBox.scroller.horizontalScrollBar.track"  waitEvent="enterFrame" waitTarget="stage"  />
+	     		  <DispatchMouseEvent type="mouseUp" target="dataGrid7.itemEditorInstance.comboBox.scroller.horizontalScrollBar.thumb"  localX="50" localY="3"  waitEvent="enterFrame" waitTarget="stage" />
+	     
+	     		  <DispatchMouseClickEvent target="dataGrid7.itemEditorInstance.comboBox.dropDown" localX="50" localY="10" />
+	     		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	     		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid7.dataProvider.getItemAt(5).state" value="Alaska"/>
+	     	       </body>
+	   </TestCase> 	   
+    </testCases>
+</UnitTester>

@@ -1,0 +1,68 @@
+<languageVersion : 1.0;>
+
+kernel Float2x2
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts a float2x2 as a parameter, which sets shades of red.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float2x2 allFloats
+    <
+        minValue:float2x2(0,0,0,0);
+        maxValue:float2x2(1,1,1,1);
+        defaultValue:float2x2(0,0,0,0);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos = outCoord();
+        float x = pos.x;
+        float y = pos.y;
+
+        int4 box1bounds;
+        int4 box2bounds;
+        int4 box3bounds;
+        int4 box4bounds;
+        
+        box1bounds.x = 0;    //minX
+        box1bounds.y = 50;   //maxX
+        box1bounds.z = 0;    //minY
+        box1bounds.w = 50;   //maxY
+
+        box2bounds.x = 51;   //minX
+        box2bounds.y = 100;  //maxX
+        box2bounds.z = 0;    //minY
+        box2bounds.w = 50;   //maxY
+
+        box3bounds.x = 0;    //minX
+        box3bounds.y = 50;   //maxX
+        box3bounds.z = 51;   //minY
+        box3bounds.w = 1000; //maxY
+
+        box4bounds.x = 51;   //minX
+        box4bounds.y = 100;  //maxX
+        box4bounds.z = 51;   //minY
+        box4bounds.w = 100;  //maxY
+        
+        if(x >= float(box1bounds.x) && x <= float(box1bounds.y) && y >= float(box1bounds.z) && y <= float(box1bounds.w)){
+            dst.r = allFloats[0][0];
+        }else if(x >= float(box2bounds.x) && x <= float(box2bounds.y) && y >= float(box2bounds.z) && y <= float(box2bounds.w)){
+            dst.r = allFloats[0][1];
+        }else if(x >= float(box3bounds.x) && x <= float(box3bounds.y) && y >= float(box3bounds.z) && y <= float(box3bounds.w)){
+            dst.r = allFloats[1][0];
+        }else if(x >= float(box4bounds.x) && x <= float(box4bounds.y) && y >= float(box4bounds.z) && y <= float(box4bounds.w)){
+            dst.r = allFloats[1][1];
+        }else{
+            dst.r = float(0);
+        }
+        
+        dst.g = float(0);
+        dst.b = float(0);
+        dst.a = sampleNearest(src, outCoord()).a;
+    }
+}

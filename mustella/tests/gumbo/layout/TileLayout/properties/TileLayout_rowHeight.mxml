@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test setting rowHeight to various values.
+Set verticalGap to 0 so that it's easier to tell
+what's going on.
+========================================================
+-->
+<TestCase testID="rowHeight_test1" keywords="[TileLayout,rowHeight]" description="Defaults to NaN." >
+    <body>
+        <AssertMethodValue method="value = new TileLayout().rowHeight" valueExpression="value = NaN" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test2" keywords="[TileLayout,rowHeight]" description="Set to a bindable expression in MXML." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout2()" />
+        <SetProperty target="box2.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout2" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 10)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="50" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test3" keywords="[TileLayout,rowHeight]" description="Set to a bindable expression in MXML and change." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout2()" />
+        <SetProperty target="box2.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout2" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 10)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="50" />
+        <SetProperty target="box2.group1.layout" propertyName="theRowHeight" value="40" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="40" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test4" keywords="[TileLayout,rowHeight]" description="Bind a variable to rowHeight." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout1()" />
+        <SetProperty target="box2.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout1" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="32" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 10)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout.resize1" propertyName="repeatDelay" value="32" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test5" keywords="[TileLayout,rowHeight]" description="Set to a decimal value, then get. Getters should not round." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="40.3" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="40.3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test6" keywords="[TileLayout,rowHeight]" description="When NaN, create elements of different widths. The rowHeight should be set to the tallest one." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <SetProperty target="box2.group1.layout" propertyName="requestedRowCount" value="1" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" valueExpression="value = NaN" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 3)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box2.group1, 'width', 4, 0)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box2.group1, 'height', 4, 0)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box2.group1, 'width', 65, 1)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box2.group1, 'height', 65, 1)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box2.group1, 'width', 30, 2)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box2.group1, 'width', 30, 2)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="65" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test7" keywords="[TileLayout,rowHeight]" description="2 elements, set to: -1.  Make the box bigger so we can get bitmap data." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="-1" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2" propertyName="height" value="25" waitTarget="box2" waitEvent="updateComplete" />
+        <SetProperty target="box2" propertyName="width" value="20" waitTarget="box2" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test8" keywords="[TileLayout,rowHeight]" description="2 elements, set to: 0." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test9" keywords="[TileLayout,rowHeight]" description="2 elements, set to: 1." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="1" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="rowHeight" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test10" keywords="[TileLayout,rowHeight]" description="2 elements, set equal to the elements' height." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="25" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test11" keywords="[TileLayout,rowHeight]" description="2 elements, set to just less than the elements' height." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="24" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test12" keywords="[TileLayout,rowHeight]" description="2 elements, set to greater than the elements' height." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="30" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowHeight_test13" keywords="[TileLayout,rowHeight]" description="2 elements, set to greater than the Group's height." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="verticalAlign" value="middle" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box2.group1" propertyName="width" value="50" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <SetProperty target="box2.group1.layout" propertyName="rowHeight" value="51" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

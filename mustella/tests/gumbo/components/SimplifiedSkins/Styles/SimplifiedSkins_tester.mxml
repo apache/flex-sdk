@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SimplifiedSkins/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="SimplifiedSkins_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+		<TestCase testID="SimplifiedSkins_ButtonBar" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <setup>
+            	<ResetComponent target="ss" className="comps.SimSkinComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.btnbar"/>
+            </body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_Button" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.btn"/>
+            </body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_CheckBox" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ckbox"/>
+            </body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_ComboBox" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.cmbbox"/>
+            </body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_DefaultButton" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.defBtn"/>
+            </body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_DropDownList" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ddl"/>
+            </body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_HScrollBar" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.hsc"/>
+            </body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_HSlider" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+            <body>
+                <CompareBitmap url="../Styles/baselines/$testID.png" target="ss.hslide"/>
+            </body>
+		</TestCase>
+		<TestCase testID="SimplifiedSkins_List" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.lt"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_NumericStepper" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ns"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_Panel" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.pnl"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_RadioButton" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.radbtn"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_SkinnableContainer" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.sc"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_SkinnableDataContainer" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.sdc"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_Spinner" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.spin"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_TextArea" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ta"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_TextInput" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.ti"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_TitleWindow" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.titleWin"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="SimplifiedSkins_ToggleButtoon" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.tgbtn"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_VideoPlayer" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.vp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_VScrollBar" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.vsc"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="SimplifiedSkins_VSlider" description="Verify style not applied since styling script block stripped out" keywords="[SimplifiedSkins]">
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="ss.vslide"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

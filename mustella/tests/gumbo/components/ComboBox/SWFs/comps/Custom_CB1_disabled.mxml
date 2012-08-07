@@ -1,0 +1,18 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"     
+    xmlns:s="library://ns.adobe.com/flex/spark"    
+    height="24" width="147"
+    enabled="false">
+    
+    <s:dataProvider>
+    	<s:ArrayCollection>
+    		<fx:String>Product A</fx:String>
+    		<fx:String>Product B</fx:String>
+    		<fx:String>Product C</fx:String>
+    		<fx:String>Product D</fx:String>
+    		<fx:String>Product E</fx:String>
+    		<fx:String>Product F</fx:String>
+		</s:ArrayCollection>
+	</s:dataProvider>
+	
+</s:ComboBox>

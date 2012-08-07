@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ListIcons.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+        import spark.layouts.*;
+        import mx.collections.ArrayCollection;
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="List_method_arrayCollection_setItemAt_icons" keywords="[List, method,arrayCollection,binding, setItemAt]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="500" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="2" waitEvent="valueCommit" waitTarget="list2"/>
+                <RunCode code="application.list2.dataProvider.setItemAt(application.objIcon,2);" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="1" />
+                <AssertPixelValue    target = "list2" x="15"  y="72" value="0x6666FF" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_method_arrayCollection_addItemAt_icons" keywords="[List, method,arrayCollection,binding, addItemAt]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <RunCode code="application.list2.dataProvider.addItem(application.objIcon);" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <SetProperty target="list2" propertyName="selectedIndex" value="10" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="1" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="11" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="list2" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_method_arrayCollection_addItem_icons" keywords="[List, method,arrayCollection,binding, addItem]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="width" value="700" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="40" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="9" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <RunCode code="application.list2.dataProvider.addItem(application.objIcon);" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="9" />
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="11" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="list2" numColorVariances="4" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="List_method_arrayCollection_removeItem_icons" keywords="[List, method,arrayCollection,binding, removeItem]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="width" value="500" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="1" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="2" />
+                <RunCode code="application.list2.dataProvider.removeItemAt(1);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="-1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_method_arrayCollection_removeItem_icons_last" keywords="[List, method,arrayCollection,binding, removeItem]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="9" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <RunCode code="application.list2.dataProvider.removeItemAt(9);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_method_arrayCollection_removeAll_icons" keywords="[List, method,arrayCollection,binding, removeAll]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="9" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <RunCode code="application.list2.dataProvider.removeAll();" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="List_method_getItemIndex_first_last" keywords="[List, method, getItemIndex]" description="">
+            <body>
+                <AssertPropertyValue target = "list4.dataProvider" propertyName="length" value="54" />
+                <AssertMethodValue   method="value=application.list4.dataProvider.getItemIndex(application.list3.dataProvider.getItemAt(0))"  value="0" />
+                <AssertMethodValue   method="value=application.list4.dataProvider.getItemIndex(application.list3.dataProvider.getItemAt(53))" value="53" />
+                <AssertMethodValue   method="value=application.list4.dataProvider.getItemIndex(1)" value="-1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_method_getItemIndex_content" keywords="[List, method, getItemIndex]" description="">
+            <body>
+                <AssertPropertyValue target = "list4.dataProvider" propertyName="length" value="54" />
+                <AssertMethodValue   method="value=application.list4.dataProvider.getItemIndex(application.arrIcons[53])" value="53" />
+                <AssertMethodValue   method="value=application.list4.dataProvider.getItemIndex(application.arrIcons[0])"  value="0" />
+                <AssertMethodValue   method="value=application.list4.dataProvider.getItemIndex('a')"  value="-1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="List_method_removeItemAt_icons" keywords="[List, method, removeItemAt]" description="">
+            <setup>
+                <ResetComponent target="list3" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="width" value="500" waitEvent="updateComplete" />
+
+                <SetProperty    target="list3" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <RunCode code="application.list3.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <SetProperty    target="list3" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.arrIcons)" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.list3.dataProvider.removeItemAt(0)" waitEvent="collectionChange" waitTarget="list3.dataProvider"/>
+                <RunCode code="application.list3.dataProvider.removeItemAt(52)" waitEvent="collectionChange" waitTarget="list3.dataProvider"/>
+                <AssertPropertyValue target = "list3.dataProvider" propertyName="length" value="52" />
+                <AssertMethodValue   method="value=application.list3.dataProvider.getItemAt(0).label" value="2" />
+                <AssertMethodValue   method="value=application.list3.dataProvider.getItemAt(51).label" value="53" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+
+</UnitTester>

@@ -1,0 +1,2052 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout/layoutUIC/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutUIC_main.mxml">
+
+
+
+        <!-- this set of lines form a template that must be in each unit test -->
+
+        <fx:Script>
+
+            <![CDATA[
+
+                  public static function init(o:DisplayObject):void {}
+
+            ]]>
+
+        </fx:Script>
+
+        <fx:Metadata>
+
+            <![CDATA[
+
+               [Mixin]
+
+            ]]>
+
+        </fx:Metadata>
+
+        <!-- end of set of lines that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+		import mx.core.ILayoutElement;
+            ]]>
+        </fx:Script>
+    <testCases>
+	<!--*********************************-->
+	<!-- includeInLayout property testing-->
+	<!--*********************************-->
+	
+	<TestCase testID="includeInLayout_property_default" keywords="[includeInLayout, properties, layoutUIC]" description="includeInLayout should return true by default">
+		<setup>
+
+	     		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>		
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.includeInLayout" value="true"/>
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="includeInLayout_property_false" keywords="[includeInLayout, properties, layoutUIC]" description="includeInLayout should return true by default">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>		
+
+			<SetProperty propertyName="includeInLayout" value="false" target="b1"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.includeInLayout" value="false"/>
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<!--************************************-->
+
+	<!--percentWidth & percentHeight testing-->
+
+	<!--************************************-->
+
+	
+
+	<TestCase testID="percentWidth_property" keywords="[includeInLayout, properties, layoutUIC]" description="percentHeight should set percentHeight for the application.b1">
+
+		<setup>
+
+	     		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>	
+
+	     		<SetProperty propertyName="percentWidth" value="50" target="b1"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.percentWidth" value="50"/>
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="percentHeight_property" keywords="[includeInLayout, properties, layoutUIC]" description="percentHeight should set percentHeight for the application.b1">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>	
+
+			<SetProperty propertyName="percentHeight" value="50" target="b1"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.percentHeight" value="50"/>
+
+		</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="percentHeight_percentHeight_property" keywords="[includeInLayout, properties, layoutUIC]" description="percentHeight should set percentHeight for the application.b1">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>	
+
+			<SetProperty propertyName="percentHeight" value="50" target="b1"/>
+
+						<SetProperty propertyName="percentHeight" value="50" target="b1"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.percentHeight" value="50"/>
+
+		</body>
+
+	</TestCase>
+
+	<!--*******************************-->
+
+	<!-- preferredSize property testing-->
+
+	<!--*******************************-->
+
+	
+
+		<!--***********-->
+
+		<!-- One factor-->
+
+		<!--***********-->
+
+
+
+	<TestCase testID="preferredSize_properties_measuredWidth" keywords="[preferredSize, properties, layoutUIC]" description="Call preferredSize after setting measuredWidth">
+
+        	<setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredWidth" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="100" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+        </TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredWidth_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth to 5000">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredWidth" value="5000"/>
+
+           		
+
+        	</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="5000" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>	
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredHeight" value="100"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="100" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight to 5000">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredHeight" value="5000"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="5000" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredMinWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinWidth">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredMinWidth" value="100"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredMinWidth_0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinWidth to 0">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredMinWidth" value="0"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredMinWidth_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinWidth to 5000">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredMinWidth" value="5000"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredMinHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinHeight">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredMinHeight" value="100"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredMinHeight_0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinHeight to 0">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredMinHeight" value="0"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredMinHeight_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinHeight to 5000">
+
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredMinHeight" value="5000"/>
+
+           		
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />		
+
+		</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitWidth">
+
+        	<setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitWidth" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="100" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+        </TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitWidth_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitWidth to 5000">
+
+        	<setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitWidth" value="5000"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="5000" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+        </TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitHeight">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitHeight" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="100" />
+
+            	</body>
+
+        </TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitHeight_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitHeight to 5000">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitHeight" value="5000"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="5000" />
+
+            	</body>
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitMinWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMinWidth">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMinWidth" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinWidth_0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMinWidth to 0">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMinWidth" value="0"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinWidth_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMinWidth to 5000">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMinWidth" value="5000"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMinHeight">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMinHeight" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinHeight_0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMinHeight to 0">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMinHeight" value="0"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinHeight_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMinHeight to 5000">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMinHeight" value="5000"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMaxWidth">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMaxWidth" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxWidth_0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMaxWidth to 0">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMaxWidth" value="0"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxWidth_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMaxWidth to 5000">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMaxWidth" value="5000"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMaxHeight">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMaxHeight" value="100"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxHeight_0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMaxHeight to 0">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMaxHeight" value="0"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxHeight_5000" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitMaxHeight to 5000">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="explicitMaxHeight" value="5000"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+            	</body>
+
+	</TestCase>
+
+
+
+	<!--************-->
+
+	<!-- Two factors-->
+
+	<!--************-->
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredHeight150_measuredWidth100" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and measuredWidth">
+
+	        <setup> 
+
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+           		<SetProperty target="b1" propertyName="measuredWidth" value="100"/>
+
+           		<SetProperty target="b1" propertyName="measuredHeight" value="150"/>
+
+           		
+
+        	</setup>
+
+            	<body>
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="100" />
+
+                	<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="150" />
+
+            	</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredHeight0_measuredWidth0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and measuredWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="0"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="0"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="0" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="0" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredHeight60_explicitMinWidth110" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and explicitMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="110"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="60" />
+
+		</body>		
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_measuredHeight30_explicitMinHeight0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and explicitMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="0"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="30"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="30" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredHeight0_explicitMinHeight30" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and explicitMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="0"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="0" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredHeight50_explicitMinHeight80" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and explicitMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="80"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="50"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight60_explicitMinHeight50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and measuredMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="60" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredWidth60_explicitMinHeight110" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth and explicitMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="110"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	<TestCase testID="preferredSize_properties_measuredWidth30_explicitMinWidth0" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth and explicitMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="0"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="30"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredWidth0_explicitMinWidth30" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth and explicitMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="0"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="0" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredWidth50_explicitMinWidth80" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth and measuredMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="80"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="50"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="50" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredWidth60_explicitMinWidth50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth and measuredMinWidtht">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitWidth40_explicitMinWidth50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitWidth and explicitMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitHeight40_explicitMinHeight50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitHeight and explicitMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="40" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitWidth40_measuredWidth30" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitWidth and measuredWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitHeight40_measuredHeight30" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting explicitHeight and measuredHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="40" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredMinWidth_measuredMinHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinWidth and measuredMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredMinWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="measuredMinHeight" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitMinWidth_explicitMinHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredMinWidth and measuredMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight_explicitWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after measuredHeight and explicitWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="60" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after measuredHeight and explicitMaxWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="60"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="60" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after measuredHeight and explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="50"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="60" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredWidth_explicitHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after measuredWidth and explicitHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="50"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="50" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredWidth_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after measuredWidth and explicitMaxWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="50"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredWidth_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after measuredWidth and explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="5"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="60" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitHeight_explicitWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitHeight and explicitWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="20" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitHeight_explicitMinWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitHeight and explicitMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="20" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitHeight_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitHeight and explicitMaxWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="20" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitHeight_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitHeight and explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="10"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="20" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitWidth_explicitMinWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinWidth and explicitWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitWidth_explicitMinHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinHeight and explicitWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitWidth_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitWidth_explicitMaxWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<TestCase testID="preferredSize_properties_explicitWidth_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitWidth_explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="15"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="30" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinWidth_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinWidth and explicitMaxWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="15"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinWidth_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinWidth and explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="15"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinHeight_explicitMaxWidth" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinHeight and explicitMaxWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="15"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMinHeight_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinHeight and explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="10"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_explicitMaxWidth_explicitMaxHeight" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after explicitMinHeight and explicitMaxHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--**************-->
+
+	<!-- Three factors-->
+
+	<!--**************-->
+
+	
+
+	<TestCase testID="preferredSize_properties_measuredWidth60_explicitWidth70_explicitMinWidth50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth, explicitMinWidth and explicitWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="70"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="70" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!-- Returns 40 for width instead of 50-->
+
+	<TestCase testID="preferredSize_properties_measuredWidth60_explicitWidth40_explicitMinWidth50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredWidth, explicitWidth and explicitMinWidth">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+
+
+	<TestCase testID="preferredSize_properties_measuredHeight60_explicitHeight40_explicitMinHeight50" keywords="[preferredSize, properties, layoutUIC]" description="preferredSize after setting measuredHeight and measuredMinHeight">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getPreferredBoundsHeight()" value="40" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--******************-->
+
+	<!--actualSize testing-->
+
+	<!--******************-->
+
+	<TestCase testID="actualSize_properties_defaultButton" keywords="[actualPosition, properties, layoutUIC]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--Without waiting for updateComplete actualSize will return the default button size-->
+
+	<TestCase testID="actualSize_explicitHeight_explicitWidth_properties_defaultButton" keywords="[actualPosition, properties, layoutUIC]" description="actualPosition after setting x and y">
+
+		<setup> 
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+
+			<SetProperty target="b1" propertyName="explicitHeight" value="50"/>
+
+			<SetProperty target="b1" propertyName="explicitWidth" value="50"/>
+
+			
+
+		</setup>
+
+		<body>
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="40" />
+
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="22" />
+
+		</body>		
+
+	</TestCase>
+
+	
+
+	<!--After waiting for updateComplete, actualSize will return the explicit size-->
+	<TestCase testID="actualSize_setExplicit_properties_defaultButton" keywords="[actualPosition, properties, layoutUIC]" description="actualPosition after setting x and y">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="50"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="50" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="50" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="actualSize_measuredHeight_measuredWidth_properties_defaultButton" keywords="[actualPosition, properties, layoutUIC]" description="actualPosition after setting x and y">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="50"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="getLayoutBoundsWidthandHeight_before_getLayoutPositionXandY_SDK17354" keywords="[actualSize, actualPosition, properties, layoutUIC]" description="Testcase for SDK 17354">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="x" value="30"/>
+			<SetProperty target="b1" propertyName="y" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="22" />						
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="50" />
+		</body>
+	</TestCase>
+	<!--**********************-->
+	<!--actualPosition testing-->
+	<!--**********************-->
+
+	<TestCase testID="actualPosition_properties_x30_y50" keywords="[actualPosition, properties, layoutUIC]" description="actualPosition after setting x and y">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="x" value="30"/>
+			<SetProperty target="b1" propertyName="y" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="50" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="actualPosition_properties_default" keywords="[actualPosition, properties, layoutUIC]" description="actualPosition after setting x and y">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0" />
+		</body>		
+	</TestCase>
+
+	<!--*******************-->
+	<!--percentWidth/percentHeight testing-->
+	<!--*******************-->
+
+	<TestCase testID="default_percentWidth_percentHeight_properties_defaultButton" keywords="[percentWidth, percentHeight, properties, layoutUIC]" description="Verifies percentWidth/percentHeight gets set correctly">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.percentWidth" value="NaN" />
+			<AssertMethodValue method="value=application.b1.percentHeight" value="NaN" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="percentWidth_percentHeight_properties_defaultButton" keywords="[percentWidth, percentHeight, properties, layoutUIC]" description="Verifieds percentWidth/percentHeight gets set correctly">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="percentHeight" value="50"/>
+			<SetProperty target="b1" propertyName="percentWidth" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.percentWidth" value="30" />
+			<AssertMethodValue method="value=application.b1.percentHeight" value="50" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="percentWidth_percentHeight_properties_percentHeight_explicitWidth_defaultButton" keywords="[percentWidth, percentHeight, properties, layoutUIC]" description="Verifieds percentWidth/percentHeight gets set correctly">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="percentHeight" value="50"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.percentWidth" value="NaN" />
+			<AssertMethodValue method="value=application.b1.percentHeight" value="50" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="percentWidth_percentHeight_properties_percentWidth_explicitHeight_defaultButton" keywords="[percentWidth, percentHeight, properties, layoutUIC]" description="Verifieds percentWidth/percentHeight gets set correctly">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="50"/>
+			<SetProperty target="b1" propertyName="percentWidth" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.percentWidth" value="30" />
+			<AssertMethodValue method="value=application.b1.percentHeight" value="NaN" />
+		</body>
+	</TestCase>	
+	
+	</testCases>
+</UnitTester>    

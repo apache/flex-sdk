@@ -1,0 +1,326 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Events/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[        
+        	import mx.core.FlexGlobals;
+		import spark.components.Button;
+		import spark.components.TitleWindow;
+		import mx.managers.PopUpManager;
+		import flash.display.DisplayObject;
+		import spark.events.TitleWindowBoundsEvent;
+		import flash.geom.Rectangle;
+		import mx.events.FlexEvent;
+		public var boundEvt:TitleWindowBoundsEvent;
+
+		import comps.*;
+        	
+        	public static function init(o:DisplayObject):void {}
+        	
+        	public function addWMEventListners(tw:TitleWindow):void
+        	{
+        		boundEvt=null;
+        		tw.addEventListener(TitleWindowBoundsEvent.WINDOW_MOVE,TWMoveHandler);
+			tw.addEventListener(TitleWindowBoundsEvent.WINDOW_MOVE_START,TWMoveHandler);
+			tw.addEventListener(TitleWindowBoundsEvent.WINDOW_MOVE_END,TWMoveHandler);
+		}
+        	public function TWMoveHandler(event:TitleWindowBoundsEvent):void
+        	{
+        		boundEvt=event;
+        		
+        	}
+        	
+        	public function checkBoundEventNotNull(bound:Rectangle):String
+        	{
+        		var err:String="";
+        		if (bound==null) return err="null";
+        		if (bound.bottomRight==null || bound.topLeft==null)
+        		err+="bottomRight or topLeft is null;";
+        		if (bound.bottom<=0 || bound.height<=0 || bound.width <=0 )
+        		err+="bottom, height or width is 0;";
+        		return err;
+        		
+        	}
+			
+			
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="TitleWindow_mouseEvents" keywords="[TitleWindow, Event]" description="Test Mouse Events for TitleWindow">
+            <setup>        
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete"/>
+  	    </setup>
+            <body>
+		<DispatchMouseEvent target="defaultTW" type="mouseOver" localX="25" localY="25" waitEvent="mouseOver" waitTarget="defaultTW"/>
+		<DispatchMouseEvent target="defaultTW" type="mouseMove" localX="50" localY="50" />
+		<AssertEvent target="defaultTW" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+		<DispatchMouseEvent target="defaultTW" type="mouseUp" localX="50" localY="50" />
+		<AssertEvent target="defaultTW" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="TitleWindow_toolTipEvent" keywords="[TitleWindow, Event, toolTip]" description="Test toolTip Event for TitleWindow">
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent1,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+  	    </setup>
+	    <body>
+		<DispatchMouseEvent target="twObject.titleDisplay" localX="50" localY="10" type="mouseOver"/>
+		<AssertEvent target="twObject" eventName="toolTipShown" eventClass="mx.events::ToolTipEvent" timeout="5000" />				
+	    </body>
+	</TestCase>
+	
+      <TestCase testID="TitleWindow_closeEvent" keywords="[TitleWindow, Event, close]" description="Test close Event for TitleWindow">
+           <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent1,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	   </setup>
+	   <body>
+	     <DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+	     <DispatchMouseEvent type="click" target="twObject.closeButton" localX="5" localY="5" waitEvent="click" />
+             <AssertEvent target="twObject" eventName="close" eventClass="mx.events::CloseEvent" timeout="5000" />
+
+	    </body>
+	</TestCase>
+    
+      <TestCase testID="TitleWindow_MoveAreaEvents1" keywords="[TitleWindow, Event, MoveAreaEvents]" description="Test moveArea Events for TitleWindow">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <DispatchMouseEvent type="rollOver" target="twObject.moveArea" localX="2" localY="2" />
+	     <AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.assertMouseEventPropertyNoChange()" value="true" />
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <WaitForEffectsToEnd />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="182" stageY="215"/>
+	     <WaitForEffectsToEnd />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="235" stageY="115" />
+	     <WaitForEffectsToEnd />
+	     <DispatchMouseEvent type="mouseUp" target="twObject.moveArea"   stageX="115" stageY="215"/>
+	     <WaitForEffectsToEnd />
+	     <AssertPropertyValue target="twObject" propertyName="mouseUpStr" value="MoveAreaMU" />
+	     <AssertPropertyValue target="twObject" propertyName="mouseMoveStr" value="MoveAreaMM" />
+	     <AssertPropertyValue target="twObject" propertyName="mouseDownStr" value="MoveAreaMD" />
+	</body>
+	</TestCase>
+	
+      <TestCase testID="TitleWindow_MoveAreaEvents2" keywords="[TitleWindow, Event, MoveAreaEvents]" description="Test NO moveArea Events inside of contentArea of  TitleWindow">
+	 <setup>
+	     <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	     <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	</setup>
+	<body>
+	    <DispatchMouseEvent type="rollOver" target="twObject.childBtn" localX="2" localY="2" />
+	    <WaitForEffectsToEnd />
+	    <DispatchMouseEvent type="mouseDown" target="twObject.childBtn" localX="12" localY="15"/>
+	    <WaitForEffectsToEnd />
+	    <DispatchMouseEvent type="mouseMove" target="twObject.childBtn" stageX="150" stageY="5"  />
+	    <WaitForEffectsToEnd />
+	    <DispatchMouseEvent type="mouseUp" target="twObject.childBtn" stageX="150" stageY="5"  />
+	    <WaitForEffectsToEnd />
+	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.assertMouseEventPropertyNoChange()" value="true" />
+	</body>
+	</TestCase>
+
+      <TestCase testID="TitleWindow_MoveAreaEvents3" keywords="[TitleWindow, Event, MoveAreaEvents]" description="Test NO moveArea Events inside of contentArea of  TitleWindow">
+	 <setup>
+	     <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	     <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	</setup>
+	<body>
+	    <DispatchMouseEvent type="rollOver" target="twObject.contentGroup" localX="2" localY="2" />
+	    <WaitForEffectsToEnd />
+	    <DispatchMouseEvent type="mouseDown" target="twObject.contentGroup" localX="12" localY="15" />
+	    <WaitForEffectsToEnd />
+	    <DispatchMouseEvent type="mouseMove" target="twObject.contentGroup" stageX="150" stageY="5"  />
+	    <WaitForEffectsToEnd />
+	    <DispatchMouseEvent type="mouseUp" target="twObject.contentGroup" localX="5" localY="5"  />
+	    <WaitForEffectsToEnd />
+	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.assertMouseEventPropertyNoChange()" value="true" />
+	</body>
+	</TestCase>
+	
+      <TestCase testID="TitleWindow_MoveAreaEvents4" keywords="[TitleWindow, Event, MoveAreaEvents]" description="Test NO moveArea Events inside of controlBarArea of  TitleWindow">
+          <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	</setup>
+	<body>
+		<DispatchMouseEvent type="rollOver" target="twObject.controlBarGroup" localX="2" localY="2" />
+		<WaitForEffectsToEnd />
+		<DispatchMouseEvent type="mouseDown" target="twObject.controlBarGroup" localX="12" localY="10" />
+		<WaitForEffectsToEnd />
+		<DispatchMouseEvent type="mouseDown" target="twObject.controlBarGroup" localX="5" localY="5" />
+		<WaitForEffectsToEnd />
+		<DispatchMouseEvent type="mouseUp" target="twObject.controlBarGroup" localX="5" localY="5" />
+		<WaitForEffectsToEnd />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.assertMouseEventPropertyNoChange()" value="true" />
+	    </body>
+	</TestCase>
+	
+        <!-- windowMove, windowMoving, windowMoveStart, windowMoveEnd events 
+        -->
+      <TestCase testID="TitleWindow_moveEvents1" keywords="[TitleWindow, Event, MoveEvents]" description="Test NO windowMoveStart event when just click the moveArea">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <DispatchMouseEvent type="click" target="twObject.moveArea" localX="2" localY="2"/>
+	     <AssertNoEvent target="twObject" eventName="windowMoveStart" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" />
+	     <AssertNoEvent target="twObject" eventName="windowMoveEnd" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" />
+	       	
+	</body>
+	</TestCase>
+
+      <TestCase testID="TitleWindow_moveEvents2" keywords="[TitleWindow, Event, MoveEvents]" description="Test NO windowMoveStart event when just click the moveArea">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="2" localY="2"/>
+	     <AssertNoEvent target="twObject" eventName="windowMoveStart" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" />
+	     <DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="2" localY="2"/>
+	    <AssertNoEvent target="twObject" eventName="windowMoveEnd" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" />
+	       	
+	</body>
+	</TestCase>
+	
+	
+ 	<TestCase testID="TitleWindow_moveEvents3" keywords="[TitleWindow, Event, MoveEvents]" description="Test windowMoveStart/windowMoveEnd event when just move the moveArea">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="182" stageY="215" />
+	     <AssertEvent target="twObject" eventName="windowMoveStart" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	    
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="285" stageY="255"  />
+	      <AssertEvent target="twObject" eventName="windowMoving" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     <AssertEvent target="twObject" eventName="windowMove" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     <Pause timeout="20"/>
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="295" stageY="255"  />
+	     <DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5" />	    
+	     <AssertEvent target="twObject" eventName="windowMoveEnd" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" />
+	     	
+	   </body>
+	</TestCase>
+	<!-- regression sdk27852 -->
+ 	<TestCase testID="TitleWindow_move_afterRePopup" keywords="[TitleWindow, Event, MoveEvents]" description="Test window is popup again, verify it can still be moved/dragged">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="182" stageY="215" />
+	     <DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5" />
+	     <AssertPropertyValue target="twObject" propertyName="x" value="169" />
+	     <AssertPropertyValue target="twObject" propertyName="y" value="199" />
+	     <!-- add the popup again -->
+	     <RunCode code="PopUpManager.addPopUp(FlexGlobals.topLevelApplication.twObject, DisplayObject(FlexGlobals.topLevelApplication), false);" waitEvent="enterFrame" waitTarget="stage" />
+	     <!-- try to move the window again -->
+	     <RunCode code="trace('add popup again, then move')" />
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="282" stageY="315" />
+	     <DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5" />
+	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	     <AssertPropertyValue target="twObject" propertyName="x" value="269" />
+	     <AssertPropertyValue target="twObject" propertyName="y" value="299" />
+	   </body>
+	</TestCase>	
+  
+ 	<TestCase testID="TitleWindowBoundsEvent_beforeBounds1" keywords="[TitleWindow,TitleWindowBoundsEvent]" description="Test TitleWindowBoundsEvent">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <RunCode code="addWMEventListners(FlexGlobals.topLevelApplication.twObject)" />
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="182" stageY="215" />
+	     <AssertEvent target="twObject" eventName="windowMoveStart" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.beforeBounds)" value=""/>
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.afterBounds)" value=""/>
+	    
+	        	
+	   </body>
+	</TestCase>
+ 	<TestCase testID="TitleWindowBoundsEvent_beforeBounds2" keywords="[TitleWindow,TitleWindowBoundsEvent]" description="Test TitleWindowBoundsEvent">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <RunCode code="addWMEventListners(FlexGlobals.topLevelApplication.twObject)" />
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="182" stageY="215" />
+	     <AssertEvent target="twObject" eventName="windowMoveStart" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.beforeBounds)" value=""/>
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.afterBounds)" value=""/>
+	     
+	     <RunCode code="this.boundEvt=null"/>
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="285" stageY="255"  />
+	     <AssertEvent target="twObject" eventName="windowMoving" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     <AssertEvent target="twObject" eventName="windowMove" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     
+	     
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.beforeBounds)" value=""/>
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.afterBounds)" value=""/>
+	     
+	          	
+	   </body>
+	</TestCase>
+ 	<TestCase testID="TitleWindowBoundsEvent_afterBounds1" keywords="[TitleWindow,TitleWindowBoundsEvent]" description="Test TitleWindowBoundsEvent">
+          <setup>
+	      <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	      <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowEvent,'test window')" waitTarget="" waitEvent="TitleWindowComplete"/>
+	  </setup>
+	  <body>
+	     <RunCode code="addWMEventListners(FlexGlobals.topLevelApplication.twObject)" />
+	     <DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="12" localY="15" />
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="182" stageY="215" />
+	     <AssertEvent target="twObject" eventName="windowMoveStart" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	      
+	      
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="285" stageY="255"  />
+	     <AssertEvent target="twObject" eventName="windowMoving" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     <AssertEvent target="twObject" eventName="windowMove" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" numExpectedEvents="-1"/>
+	     
+	     <Pause timeout="20"/>
+	     <RunCode code="this.boundEvt=null"/>
+	     <DispatchMouseEvent type="mouseMove" target="twObject.moveArea" stageX="295" stageY="255"  />
+	     <DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5" />	    
+	     <AssertEvent target="twObject" eventName="windowMoveEnd" eventClass="spark.events::TitleWindowBoundsEvent" timeout="5000" />
+	   
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.beforeBounds)" value=""/>
+	     <AssertMethodValue method="value=checkBoundEventNotNull(this.boundEvt.afterBounds)" value=""/>
+	     	
+	   </body>
+	</TestCase>
+	
+    </testCases>
+    
+</UnitTester>
+

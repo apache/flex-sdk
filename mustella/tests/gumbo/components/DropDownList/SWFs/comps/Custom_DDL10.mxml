@@ -1,0 +1,55 @@
+<s:DropDownList 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"    
+    prompt="Products" 
+    width="300"
+    color="0xFFFFFF"
+    chromeColor="0xFF0000"
+    contentBackgroundColor="0x0000DD"
+    fontSize="20"
+    fontWeight="bold"
+    fontStyle="italic"
+    selectionColor="0x00FF00"
+    rollOverColor="0x00FFFF"
+    horizontalCenter="0"
+    verticalCenter="0"
+    textAlign="center"  
+    dataProvider="{myDP10}">
+    
+	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    		    		
+    		public var myDP_Array10:Array =
+    		[
+    			"ProductF 0",
+    			"ProductE 1",
+    			"ProductB 2",
+    			"ProductC 3",
+    			"ProductA 4",
+    			"ProductD 5",
+    			"ProductI 6",
+    			"ProductQ 7",
+    			"ProductH 8",
+    			"ProductJ 9 ",
+    			"ProductN 10",
+    			"ProductM 11",
+    			"ProductO 12",
+    			"ProductR 13",
+    			"ProductU 14",
+    			"ProductV 15",
+    			"ProductW 16",
+    			"ProductH 17",
+				"ProductJ 18",
+    			"ProductN 19",
+    			"ProductE 20",
+				"ProductB 21",
+    			"ProductX 22"
+    		];
+    		
+    		[Bindable]
+    		public var myDP10:ArrayCollection = new ArrayCollection(myDP_Array10);
+    		
+    	]]>   
+    </fx:Script>    
+        	
+</s:DropDownList>

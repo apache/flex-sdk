@@ -1,0 +1,37 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark"  variableRowHeight="false" showDataTips="true" height="300" width="240" creationComplete="init()">
+        <fx:Script>
+			<![CDATA[
+			
+			import mx.managers.ToolTipManager;
+
+			private function init():void {
+				ToolTipManager.showDelay = 0;	
+			}
+			
+    			public function myDataTipField(item:Object, column:GridColumn):String
+    			{
+    				return "row "+ item.index+",cell "+column.columnIndex;
+    			}
+    			public function setDataTipOnColumn1():void
+    			{
+    				c1.dataTipFunction=myDataTipField;
+    			}
+    		]]>
+    </fx:Script>
+	<s:dataProvider>
+		<s:ArrayList>
+			<s:DataItem index="0" dtValue="datatip datatip 1" xbool="The 1 string in this column ends up wrapped and out of sight"/>
+			<s:DataItem index="1" dtValue="datatip datatip 2" xbool="The 2 string in this column ends up wrapped and out of sight"/>
+			<s:DataItem index="2" dtValue="datatip datatip 3" xbool="The 3 string in this column ends up wrapped and out of sight"/>
+			<s:DataItem index="3" dtValue="datatip datatip 4" xbool="The 4 string in this column ends up wrapped and out of sight"/>
+			<s:DataItem index="4" dtValue="datatip datatip 5" xbool="The 5 string in this column ends up wrapped and out of sight"/>
+		</s:ArrayList>
+	</s:dataProvider>
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn id="c1"  dataField="xbool" width="100" dataTipField="dtValue"/>
+			<s:GridColumn id="c2" dataField="xbool" headerText="long long long header text" width="100"/>
+		</s:ArrayList>
+	</s:columns>
+</s:DataGrid>

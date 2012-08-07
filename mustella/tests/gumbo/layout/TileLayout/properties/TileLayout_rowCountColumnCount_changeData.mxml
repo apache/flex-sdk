@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Make sure rowCount and columnCount work fine when
+adding and removing data.
+========================================================
+-->
+<TestCase testID="rowCountColumnCount_addRemoveData_test1" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 1 item" >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test2" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test3" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 3 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test4" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 4 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test5" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 5 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test6" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 6 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test7" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 7 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 7)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test8" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 8 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 8)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test9" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 9 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test10" keywords="[TileLayout,rowCount,columnCount]" description="No data, add 10 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test11" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test12" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 2." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 2)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test13" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 3." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test14" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 4." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test15" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 5." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 5)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test16" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 6." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 6)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test17" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 7." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 7)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test18" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 8." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 8)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test19" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 9." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 9)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test20" keywords="[TileLayout,rowCount,columnCount]" description="10 items, remove 10." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 10)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="21" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test21" keywords="[TileLayout,rowCount,columnCount]" description="12 items, orientation=rows, colCount=3, rowCount=4, add an item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 12)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="5" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test22" keywords="[TileLayout,rowCount,columnCount]" description="13 items, orientation=rows, colCount=3, rowCount=4, remove an item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 13)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test23" keywords="[TileLayout,rowCount,columnCount]" description="12 items, orientation=columns, colCount=3, rowCount=4, add an item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 12)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test24" keywords="[TileLayout,rowCount,columnCount]" description="13 items, orientation=columns, colCount=3, rowCount=4, remove an item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 13)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test25" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default. Add 1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test26" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default. Add 3 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test27" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default. Add 4 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test28" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default. Add 4 items, remove 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test29" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default. Add 1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test30" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default. Add 3 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test31" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default. Add 4 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test32" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default. Add 4 items, remove 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test33" keywords="[TileLayout,rowCount,columnCount]" description="Height and width fit 1 item. Add 2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1" propertyName="width" value="50" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 48)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 48)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test34" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default, orientation=columns. Add 1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test35" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default, orientation=columns. Add 3 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test36" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default, orientation=columns. Add 4 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test37" keywords="[TileLayout,rowCount,columnCount]" description="Width fits 1 item, height is default, orientation=columns. Add 4 items, remove 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test38" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default, orientation=columns. Add 1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test39" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default, orientation=columns. Add 3 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test40" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default, orientation=columns. Add 4 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test41" keywords="[TileLayout,rowCount,columnCount]" description="Height fits 1 item, width is default, orientation=columns. Add 4 items, remove 1.">
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_addRemoveData_test42" keywords="[TileLayout,rowCount,columnCount]" description="Height and width fit 1 item, orientation=columns. Add 2 items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 48)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 48)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 49)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 49)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

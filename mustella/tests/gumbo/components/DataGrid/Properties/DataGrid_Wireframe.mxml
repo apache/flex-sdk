@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_Wireframe_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Wireframe_default" keywords="[DataGrid, Property, Wireframe]" description="Test DataGrid with Wireframe skin">			
+			<setup>
+				<ResetComponent target="emptyDG" className="spark.components.DataGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="emptyDG" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Wireframe_populated" keywords="[DataGrid, Property, Wireframe]" description="Test DataGrid with Wireframe skin">			
+			<setup>
+				<ResetComponent target="myWFComp" className="components.basicDG_2" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myWFComp.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Wireframe_selectedRow" keywords="[DataGrid, Property, Wireframe]" description="Test DataGrid with Wireframe skin">			
+			<setup>
+				<ResetComponent target="myWFComp" className="components.basicDG_2" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWFComp.dataGrid1.setSelectedIndex(3)" value="true"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+			</setup>
+			<body>				
+				<CompareBitmap target="myWFComp.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Wireframe_selectedCell" keywords="[DataGrid, Property, Wireframe]" description="Test DataGrid with Wireframe skin">			
+			<setup>
+				<ResetComponent target="myWFComp" className="components.basicDG_2" waitEvent="updateComplete" />
+				<SetProperty target="myWFComp.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWFComp.dataGrid1.setSelectedCell(2,1)" value="true"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+			</setup>
+			<body>				
+				<CompareBitmap target="myWFComp.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>				
+		
+		
+        
+    </testCases>
+</UnitTester>

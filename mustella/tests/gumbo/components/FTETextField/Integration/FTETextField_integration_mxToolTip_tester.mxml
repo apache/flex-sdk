@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script source="../SWFs/global.as" />
+
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.ToolTip;
+            import mx.core.IToolTip;
+            import mx.managers.ToolTipManager;
+
+            ToolTipManager.showDelay = 10;
+            ToolTipManager.hideDelay = 400;
+
+            public const colorObj:Object = {color:0xFF0000, fontSize:16, textDecoration:"underline"};
+            public const fox:String = "The quick brown fox jumps over the lazy dog"; 
+
+            public var tt:IToolTip;
+            
+            /*
+            private function setUpToolTip(text:String, obj:Object):void {
+                var sty:CSSStyleDeclaration = new CSSStyleDeclaration("mx.controls.ToolTip");
+                for (var key:String in obj) {
+                    sty.setStyle(key, obj[key]);
+                }
+                tt = ToolTipManager.createToolTip(text, 20, 20) as ToolTip;
+            }
+
+            private function cleanUpToolTip(obj:Object):void {
+                ToolTipManager.destroyToolTip(tt);
+                var sty:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.controls.ToolTip");
+                for (var key:String in obj) {
+                    sty.clearStyle(key);
+                }
+            }
+            */
+        ]]>
+    </fx:Script>
+
+
+	<testCases>
+
+
+		<!-- ########## STYLES ########## -->
+
+		<TestCase testID="FTE_mxToolTip" description="Test color style on a mx:ToolTip" keywords="[FTETextField, ToolTip, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tTipBtnView" waitTarget="can2" waitEvent="change" />
+				<DispatchMouseEvent target="can2.tTipBtn" localX="5" localY="1" type="rollOver"/>	
+				<DispatchMouseEvent target="can2.tTipBtn" localX="5" localY="3" type="mouseOver"/>	
+				<DispatchMouseEvent target="can2.tTipBtn" localX="55" localY="5" type="mouseOver" waitEvent="toolTipShown" waitTarget="can2.tTipBtn"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+			<cleanup>
+				<DispatchMouseEvent target="can2.tTipBtn" localX="2" localY="1" type="rollOut"/>	
+			</cleanup>
+		</TestCase>
+	</testCases>
+
+
+</UnitTester>

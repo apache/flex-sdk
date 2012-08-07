@@ -1,0 +1,9 @@
+<s:NumericStepper
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"    
+    chromeColor="0x0000FF"
+    contentBackgroundColor="0x00FF00"
+    symbolColor="0xFF0000"
+    color="0xFF0000"
+    fontSize="8"
+    fontWeight="bold"
+    height="23"/>           

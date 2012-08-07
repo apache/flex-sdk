@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/filters/ShaderFilter/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ShaderFilterApp2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import flash.display.Shader;
+import spark.filters.ShaderFilter;
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+    Yes, Pause is necessary.
+-->
+
+<!-- bottomExtension -->
+<TestCase testID="bottomExtension_test1" keywords="[ShaderFilter,bottomExtension]" description="ShaderFilter's bottomExtension defaults to 0." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="bottomExtension" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottomExtension_test2" keywords="[ShaderFilter,bottomExtension]" description="Set a ShaderFilter's bottomExtension to 0." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="bottomExtension" value="0" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="bottomExtension" value="0" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottomExtension_test3" keywords="[ShaderFilter,bottomExtension]" description="Set a ShaderFilter's bottomExtension to 40." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="bottomExtension" value="40" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="bottomExtension" value="40" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<!-- topExtension -->
+<TestCase testID="topExtension_test1" keywords="[ShaderFilter,topExtension]" description="ShaderFilter's topExtension defaults to 0." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="topExtension" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="topExtension_test2" keywords="[ShaderFilter,topExtension]" description="Set a ShaderFilter's topExtension to 0." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="topExtension" value="0" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="topExtension" value="0" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<TestCase testID="topExtension_test3" keywords="[ShaderFilter,topExtension]" description="Set a ShaderFilter's topExtension to 40." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="topExtension" value="40" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="topExtension" value="40" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<!-- leftExtension -->
+<TestCase testID="leftExtension_test1" keywords="[ShaderFilter,leftExtension]" description="ShaderFilter's leftExtension defaults to 0." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="leftExtension" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="leftExtension_test2" keywords="[ShaderFilter,leftExtension]" description="Set a ShaderFilter's leftExtension to 0." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="leftExtension" value="0" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="leftExtension" value="0" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<TestCase testID="leftExtension_test3" keywords="[ShaderFilter,leftExtension]" description="Set a ShaderFilter's leftExtension to 40." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="leftExtension" value="40" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="leftExtension" value="40" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<!-- rightExtension -->
+<TestCase testID="rightExtension_test1" keywords="[ShaderFilter,rightExtension]" description="ShaderFilter's rightExtension defaults to 0." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="rightExtension" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="rightExtension_test2" keywords="[ShaderFilter,rightExtension]" description="Set a ShaderFilter's rightExtension to 0." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="rightExtension" value="0" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="rightExtension" value="0" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rightExtension_test3" keywords="[ShaderFilter,rightExtension]" description="Set a ShaderFilter's rightExtension to 40." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="rightExtension" value="40" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="rightExtension" value="40" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<!-- combinations -->
+<TestCase testID="multiple_extensions_test1" keywords="[ShaderFilter,rightExtension,leftExtension]" description="Set a ShaderFilter's rightExtension and leftExtension to 40." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="rightExtension" value="40" />
+        <SetProperty target="sf1" propertyName="leftExtension" value="40" />        
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="rightExtension" value="40" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="leftExtension" value="40" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+<TestCase testID="multiple_extensions_test2" keywords="[ShaderFilter,rightExtension,leftExtension,topExtension,bottomExtension]" description="Set all extensions to 40." >
+    <setup>
+        <ResetComponent target="img2" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="rightExtension" value="40" />
+        <SetProperty target="sf1" propertyName="leftExtension" value="40" />
+        <SetProperty target="sf1" propertyName="topExtension" value="40" />
+        <SetProperty target="sf1" propertyName="bottomExtension" value="40" />
+        <SetProperty target="img2" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img2" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img2" propertyName="width" value="20" />
+        <SetProperty target="img2" propertyName="height" value="20" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="rightExtension" value="40" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="leftExtension" value="40" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="topExtension" value="40" />
+        <AssertPropertyValue target="img2.filters.0" propertyName="bottomExtension" value="40" />
+        <CompareBitmap url="../Properties/Baselines/$testID.png" target="bx1" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

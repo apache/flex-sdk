@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="RichEditableText_Basic005.mxml">
+	
+	<mx:Script>
+		<!-- Necessary for test runner. -->
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	<testCases>
+		<TestCase testID="RichEditableText_sizing_width_layout1" description="text area sizing" keywords="[RichEditableText,Scroll,Size]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="width" value="150" waitEvent="updateComplete"/>
+				<ResetComponent target="hOnly" className="spark.components.RichEditableText" waitTarget="hOnly" waitEvent="updateComplete" />
+				<SetProperty target="hOnly" propertyName="height" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="0" maxColorVariance="0" url="../Integration/baselines/$testID_true.png" target="wOnly" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_sizing_height_layout1" description="text area sizing" keywords="[RichEditableText,Scroll,Size]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="width" value="150" waitEvent="updateComplete"/>
+				<ResetComponent target="hOnly" className="spark.components.RichEditableText" waitTarget="hOnly" waitEvent="updateComplete" />
+				<SetProperty target="hOnly" propertyName="height" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="0" maxColorVariance="0" url="../Integration/baselines/$testID_true.png" target="hOnly" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_resize_width_on_text" description="text area resizing on text entry" keywords="[RichEditableText,Scroll,Size]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="width" value="150" waitEvent="updateComplete"/>
+				<ResetComponent target="hOnly" className="spark.components.RichEditableText" waitTarget="hOnly" waitEvent="updateComplete" />
+				<SetProperty target="hOnly" propertyName="height" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="hOnly" localX="2" localY="2" waitTarget="hOnly" waitEvent="click" />
+		
+				<DispatchKeyEvent char="This line is too long for this little box." waitTarget="hOnly" waitEvent="resize" />
+				
+				<CompareBitmap numColorVariances="0" maxColorVariance="0" url="../Integration/baselines/$testID_true.png" target="hOnly" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_resize_height_on_text" description="text area resizing on text entry" keywords="[RichEditableText,Scroll,Size]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="width" value="150" waitEvent="updateComplete"/>
+				<ResetComponent target="hOnly" className="spark.components.RichEditableText" waitTarget="hOnly" waitEvent="updateComplete" />
+				<SetProperty target="hOnly" propertyName="height" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="wOnly" localX="2" localY="2" waitTarget="wOnly" waitEvent="click" />
+				
+				<DispatchKeyEvent char="This" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="resize" />
+				<DispatchKeyEvent char="paragraph" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="resize" />
+				<DispatchKeyEvent char="is to tall" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="resize" />
+				<DispatchKeyEvent char="for this" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="resize" />
+				<DispatchKeyEvent char="short box." waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="resize" />
+				
+				<CompareBitmap numColorVariances="0" maxColorVariance="0" url="../Integration/baselines/$testID_true.png" target="wOnly" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_no_autosize_fixed" description="no autosizing with fixed width and height" keywords="[RichEditableText,fixed,width,height,autosize,SDK-22202]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="width" value="60" waitEvent="updateComplete"/>
+				<SetProperty target="wOnly" propertyName="height" value="15" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="wOnly" localX="2" localY="2" waitTarget="wOnly" waitEvent="click" />
+				
+				<DispatchKeyEvent char="This is too long for this short a box." waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent char="And too tall." waitTarget="wOnly" waitEvent="change" />
+				
+				<CompareBitmap numColorVariances="0" maxColorVariance="0" url="../Integration/baselines/$testID_true.png" target="wOnly" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_no_autosize_bp_rl" description="no autosizing for right-to-left block progression" keywords="[RichEditableText,rl,block progression,autosize,SDK-22202]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetStyle target="wOnly" styleName="blockProgression" value="rl" waitEvent="updateComplete"/>
+				<SetProperty target="wOnly" propertyName="width" value="15" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="wOnly" localX="2" localY="2" waitTarget="wOnly" waitEvent="selectionChange" />
+				
+				<DispatchKeyEvent char="This is too long for this short a box." waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent char="And too tall." waitTarget="wOnly" waitEvent="change" />
+				
+				<CompareBitmap numColorVariances="0" maxColorVariance="0" url="../Integration/baselines/$testID_true.png" target="wOnly" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_no_text_fixed_width" description="with fixed width and no text there should be one line" keywords="[RichEditableText,fixed,width,SDK-22202]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="width" value="60" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="wOnly" propertyName="height" value="12" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_no_text_fixed_height" description="with fixed height and no text should yeild a one character wide display" keywords="[RichEditableText,fixed,height,SDK-22202]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="heightInLines" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="wOnly" propertyName="width" value="12" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_fixed_height_break_toFit" description="with fixed height and toFit breaking should produce a long box unless there's a width constraint" keywords="[RichEditableText,fixed,height,toFit,SDK-22202]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="heightInLines" value="1" waitEvent="updateComplete"/>
+				<!-- default is toFit <SetStyle target="wOnly" styleName="lineBreak" value="toFit" waitEvent="updateComplete"/> -->
+			</setup>
+			<body>
+				<AssertPropertyValue target="wOnly" propertyName="width" value="12" />
+				<DispatchMouseClickEvent target="wOnly" localX="2" localY="2" waitTarget="wOnly" waitEvent="selectionChange" />
+				<DispatchKeyEvent char="This RichEditableText should have a 'width' of 308." waitTarget="wOnly" waitEvent="change" />
+				<AssertPropertyValue target="wOnly" propertyName="width" value="308" />
+				<SetProperty target="wOnly" propertyName="maxWidth" value="300" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="wOnly" propertyName="width" value="277" />
+				<AssertPropertyValue target="wOnly" propertyName="height" value="12" />
+			</body>
+		</TestCase>
+		<TestCase testID="RichEditableText_fixed_height_break_explicit" description="with fixed height and explicit breaking should yeild a long box" keywords="[RichEditableText,fixed,height,explicit,SDK-22202]">
+			<setup>
+				<ResetComponent target="wOnly" className="spark.components.RichEditableText" waitTarget="wOnly" waitEvent="updateComplete" />
+				<SetProperty target="wOnly" propertyName="heightInLines" value="2" waitEvent="updateComplete"/>
+				<!-- default is toFit <SetStyle target="wOnly" styleName="lineBreak" value="explicit" waitEvent="updateComplete"/> -->
+			</setup>
+			<body>
+				<AssertPropertyValue target="wOnly" propertyName="width" value="12" />
+				<DispatchMouseClickEvent target="wOnly" localX="2" localY="2" waitTarget="wOnly" waitEvent="selectionChange" />
+				<DispatchKeyEvent char="This should display" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent keys="[ENTER]" waitTarget="wOnly" waitEvent="change" />
+				<DispatchKeyEvent char="as two lines." waitTarget="wOnly" waitEvent="change" />
+				<AssertPropertyValue target="wOnly" propertyName="width" value="115" />
+				<SetProperty target="wOnly" propertyName="heightInLines" value="1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="wOnly" propertyName="width" value="115" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

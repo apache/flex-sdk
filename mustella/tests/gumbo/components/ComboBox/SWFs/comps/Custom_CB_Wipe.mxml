@@ -1,0 +1,11 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"   
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    selectedIndex="0"
+    skinClass="skins.CB_WipeSkin">
+    
+    <s:dataProvider>
+    	<s:ArrayList source="[Wipe,Fade,Rotate3D,Effects,ComboBox,dropDown,Flex]"/>
+    </s:dataProvider>
+    
+</s:ComboBox>   

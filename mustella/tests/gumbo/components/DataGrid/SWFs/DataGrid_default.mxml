@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="components.*"
+    backgroundColor="0xFFFFFF"
+    width="700" height="700">
+        
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+			
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+			           			
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+            fontLookup: "embeddedCFF";		
+		}		
+	</fx:Style> 
+	
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem country="USA" firstName="JozFN" lastName="AltFN" position="FW" club="VilCB" number="00"/>
+			<s:DataItem country="USA" firstName="ApaFN" lastName="MacFN" position="DF" club="SfnCB" number="999"/>
+			<s:DataItem country="USA" firstName="TimFN" lastName="HowFN" position="GK" club="EveCB" number="02"/>
+			<s:DataItem country="USA" firstName="CliFN" lastName="DemFN" position="MF" club="FulCB" number="03"/>
+			<s:DataItem country="USA" firstName="RobFN" lastName="FinFN" position="FW" club="RslCB" number="04"/>
+			<s:DataItem country="USA" firstName="HerFN" lastName="GomFN" position="FW" club="PacCB" number="05"/>
+			<s:DataItem country="USA" firstName="LanFN" lastName="DonFN" position="MF" club="lagCB" number="06"/>
+			<s:DataItem country="USA" firstName="OguFN" lastName="OnyFN" position="DF" club="MilCB" number="07"/>
+			<s:DataItem country="USA" firstName="BenFN" lastName="FeiFN" position="MF" club="AGF" number="08"/>
+			<s:DataItem country="USA" firstName="EdsFN" lastName="BudFN" position="FW" club="lagCB" number="09"/>
+			<s:DataItem country="USA" firstName="MicFN" lastName="BraFN" position="MF" club="BmbCB" number="10"/>
+			<s:DataItem country="USA" firstName="SteFN" lastName="CheFN" position="DF" club="HanCB" number="11"/>
+			<s:DataItem country="USA" firstName="JayFN" lastName="DemLN" position="DF" club="WatCB" number="12"/>
+			<s:DataItem country="USA" firstName="JozFN" lastName="AltFN" position="FW" club="VilCB" number="13"/>
+			<s:DataItem country="ENG" firstName="RobFN" lastName="GreFN" position="GK" club="BrvCB" number="14"/>
+			<s:DataItem country="ENG" firstName="JoeFN" lastName="HarFN" position="GK" club="MncCB" number="15"/>
+			<s:DataItem country="ENG" firstName="GleFN" lastName="JohFN" position="DF" club="LivCB" number="16"/>
+			<s:DataItem country="ENG" firstName="AshFN" lastName="ColFN" position="DF" club="CheCB" number="17"/>
+			<s:DataItem country="ENG" firstName="MicFN" lastName="DawFN" position="DF" club="ThsCB" number="18"/>
+			<s:DataItem country="ENG" firstName="JohFN" lastName="TerFN" position="DF" club="CheCB" number="19"/>
+			<s:DataItem country="ENG" firstName="SteFN" lastName="WarFN" position="DF" club="AsvCB" number="20"/>
+			<s:DataItem country="ENG" firstName="MatFN" lastName="UpsFN" position="DF" club="WhuCB" number="21"/>
+			<s:DataItem country="ENG" firstName="JamFN" lastName="CarFN" position="DF" club="LivCB" number="22"/>
+			<s:DataItem country="ENG" firstName="LedFN" lastName="KinFN" position="DF" club="ThsCB" number="23"/>		
+		</s:ArrayCollection>
+				
+		<s:ArrayCollection id="columns1">					 
+			<s:GridColumn id="c1_1" />
+			<s:GridColumn id="c1_2" />
+			<s:GridColumn id="c1_3" dataField="lastName" />
+			<s:GridColumn id="c1_4" dataField="position"/>
+			<s:GridColumn id="c1_5" dataField="club"/>
+			<s:GridColumn id="c1_6" dataField="number"/>
+		</s:ArrayCollection>	
+		
+		<s:ArrayCollection id="columns2">					 
+			<s:GridColumn id="c2_1" headerText="Column 1"/>
+			<s:GridColumn id="c2_2" headerText="Column 2"/>
+			<s:GridColumn id="c2_3" headerText="Column 3"/>
+			<s:GridColumn id="c2_4" headerText="Column 4"/>
+			<s:GridColumn id="c2_5" headerText="Column 5"/>
+			<s:GridColumn id="c2_6" headerText="Column 6"/>
+		</s:ArrayCollection>		
+	</fx:Declarations>	
+	
+    <s:layout>
+    	<s:HorizontalLayout paddingLeft="10" paddingTop="10"/>
+    </s:layout>	
+    
+    <s:DataGrid id="defaultDG"/>
+    
+    <comps:CustomDG_wTypItem id="defaultDG_typItem"/>
+
+
+</s:Application>	

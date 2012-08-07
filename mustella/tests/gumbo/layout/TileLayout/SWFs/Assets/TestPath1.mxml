@@ -1,0 +1,25 @@
+<s:Path xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    data="M 20 0 C 50 0 50 35 20 35 L 15 35 L 15 45 L 0 32 L 15 19 L 15 29 L 20 29 C 44 29 44 6 20 6">
+
+    <fx:Script>
+    <![CDATA[
+
+        public function set color1(val:uint):void{
+            LinearGradient(this.fill).entries[0].color = val;
+            LinearGradient(this.fill).entries[1].color = val;
+        }
+
+    ]]>
+    </fx:Script>
+    <s:stroke>
+        <mx:SolidColorStroke color="0x888888"/>
+    </s:stroke>
+    <s:fill>
+        <s:LinearGradient rotation="90">
+            <s:entries>
+                <mx:GradientEntry color="0" alpha="1"/>
+                <mx:GradientEntry color="0" alpha="1"/>
+            </s:entries>
+        </s:LinearGradient>
+    </s:fill>
+</s:Path>

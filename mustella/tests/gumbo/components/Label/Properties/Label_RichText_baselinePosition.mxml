@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="baselinePosition_basic.mxml">
+
+    <mx:Script>
+	<![CDATA[
+
+           import comps.RichTextBasic;
+           import mx.events.FlexEvent;
+           import mx.core.FlexGlobals;
+           import spark.components.Label;
+           import spark.components.RichText;
+           
+	   public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+	   public var errMsg:String="";
+           public static function init(o:DisplayObject):void
+	   {
+
+	   }
+	   public function updateCompleteHandler(evt:Event):void
+	   {
+	   	errMsg="";
+	   	var bp:Number;
+	   	if (evt.target is Label)
+	   	{
+	   		bp=Label(evt.target).baselinePosition;
+	   		if (bp!=11.55)
+	   		errMsg+=Label(evt.target).width+":baselinePosition="+bp;
+	   		if (Label(evt.target).width>40)
+	   			evt.target.removeEventListener("updateComplete",updateCompleteHandler);
+	   		else
+	   			FlexGlobals.topLevelApplication.label4.width+=1;
+	   	}else if (evt.target is RichText)
+	   	{
+	   		bp=RichText(evt.target).baselinePosition;
+			if (bp!=11.55)
+			errMsg+=RichText(evt.target).width+":baselinePosition="+bp;
+			if (RichText(evt.target).width>40)
+				evt.target.removeEventListener("updateComplete",updateCompleteHandler);
+			else
+	   		   FlexGlobals.topLevelApplication.richText4.width+=1;
+	   	}
+	   }
+	   
+
+	]]>
+	</mx:Script>
+
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+
+	<testCases>
+    
+	<TestCase testID="baselinePosition_property_label_test1" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label at measurement, labelText is valid texte">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos1AtMeasure" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_label_test2" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label at updateDisplayList, labelText is valid texte">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos1AtDisplay" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_label_test3" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label at measurement, labelText is empty line">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos2AtMeasure" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_label_test4" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label at updateDisplayList, labelText is empty line">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos2AtDisplay" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_label_test5" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label at measurement, labelText is not set">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos3AtMeasure" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_label_test6" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label at updateDisplayList, labelText is not set">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos3AtDisplay" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_regression_24750_1" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label when label width is small value">
+		<setup>
+		<SetProperty target="label4" propertyName="width" value="0" waitTarget="label4" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <AssertPropertyValue target="label4" propertyName="baselinePosition" value="11.350000" />
+		    <SetProperty target="label4" propertyName="width" value="1" waitTarget="label4" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="label4" propertyName="baselinePosition" value="11.350000" />
+		    <SetProperty target="label4" propertyName="width" value="2" waitTarget="label4" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="label4" propertyName="baselinePosition" value="11.350000" />
+		    <SetProperty target="label4" propertyName="width" value="8" waitTarget="label4" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="label4" propertyName="baselinePosition" value="11.350000" />
+		 
+		</body>
+		
+	</TestCase>
+	<TestCase testID="baselinePosition_regression_24750_2" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label when label width is small value">
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.label4.addEventListener('updateComplete',updateCompleteHandler)"/>
+		<SetProperty target="label4" propertyName="width" value="3" waitTarget="label4" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<Pause timeout="300"/>
+		<AssertMethodValue method="value=errMsg" value="21:baselinePosition=11.35" />
+		 
+	    </body>
+		
+	</TestCase>
+	
+	<TestCase testID="baselinePosition_regression_24750_3" keywords="[baselinePosition, property, RichText]" description="Test baselinePosition for a RichText when RichText width is small value">
+		<setup>
+		<SetProperty target="richText4" propertyName="width" value="0" waitTarget="richText4" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		    <AssertPropertyValue target="richText4" propertyName="baselinePosition" value="11.350000" />
+		    <SetProperty target="richText4" propertyName="width" value="1" waitTarget="richText4" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="richText4" propertyName="baselinePosition" value="11.350000" />
+		    <SetProperty target="richText4" propertyName="width" value="2" waitTarget="richText4" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="richText4" propertyName="baselinePosition" value="11.350000" />
+		    <SetProperty target="richText4" propertyName="width" value="8" waitTarget="richText4" waitEvent="updateComplete" />
+		    <AssertPropertyValue target="richText4" propertyName="baselinePosition" value="11.350000" />
+		 
+		</body>
+		
+	</TestCase>
+	<TestCase testID="baselinePosition_regression_24750_4" keywords="[baselinePosition, property, RichText]" description="Test baselinePosition for a RichText when RichText width is small value">
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.richText4.addEventListener('updateComplete',updateCompleteHandler)"/>
+		<SetProperty target="richText4" propertyName="width" value="3" waitTarget="richText4" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<Pause timeout="300"/>
+		<AssertMethodValue method="value=errMsg" value="22:baselinePosition=11.35" />
+		 
+	    </body>
+		
+	</TestCase>	
+	
+	<TestCase testID="baselinePosition_property_richText_test1" keywords="[baselinePosition, property, RichText]" description="Test default baselinePosition for a RichText at measurement, text is valid texte">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos4AtMeasure" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_richText_test2" keywords="[baselinePosition, property, RichText]" description="Test default baselinePosition for a RichText at updateDisplayList, text is valid texte">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos4AtDisplay" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_richText_test3" keywords="[baselinePosition, property, RichText]" description="Test default baselinePosition for a RichText at measurement, text is empty line">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos5AtMeasure" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_richText_test4" keywords="[baselinePosition, property, RichText]" description="Test default baselinePosition for a RichText at updateDisplayList, text is empty line">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos5AtDisplay" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_richText_test5" keywords="[baselinePosition, property, RichText]" description="Test default baselinePosition for a RichText at measurement, text is not set">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos6AtMeasure" value="8.300000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="baselinePosition_property_richText_test6" keywords="[baselinePosition, property, RichText]" description="Test default baselinePosition for a RichText at updateDisplayList, text is not set">
+		<body>
+			<AssertPropertyValue target="" propertyName="baselinePos6AtDisplay" value="8.300000" />
+		</body>
+	</TestCase>
+	
+	</testCases>
+</UnitTester>

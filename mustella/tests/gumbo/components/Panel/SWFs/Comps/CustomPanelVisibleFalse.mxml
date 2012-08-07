@@ -1,0 +1,30 @@
+<s:Panel 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    title="Visible FALSE" 
+    visible="false">
+    
+	<s:layout> <s:VerticalLayout/> </s:layout>
+    
+   	<mx:HBox>
+   		<mx:Button id="myButton" label="Halo Button"/> 
+   		<s:Button id="myFxButton" label="FxButton"/>
+   	</mx:HBox>
+    	
+   	<mx:Label text="Halo Label"/>
+   	<mx:Text text="Halo Text"/>
+    	    	
+   	<mx:Accordion id="myAccordion" width="75%" height="100" >
+   		<mx:HBox label="Tab 1"><mx:Label text="Text on tab1"/></mx:HBox>
+   		<mx:HBox label="Tab 2"><mx:Label text="Text on tab2"/></mx:HBox>
+   		<mx:HBox label="Tab 3"><mx:Label text="Text on tab3"/></mx:HBox>
+   	</mx:Accordion>
+	
+	<s:Ellipse id="myEllipse" height="50" width="50">
+		<s:fill>
+			<mx:SolidColor color="0x0000FF"/>
+		</s:fill>
+	</s:Ellipse>
+				    	    	    	       
+</s:Panel>

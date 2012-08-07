@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DesignLayer/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DesignLayerBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import mx.core.mx_internal;
+    	
+    ]]>
+  </fx:Script>
+  <testCases>
+
+<!-- 
+
+DesignLayer Properties Testing
+==========================
+
+mx.core.IVisualElement:
+
++ designLayer
+
+mx.core.DesignLayer:
+
++ alpha
++ visible
++ effectiveAlpha (read only)
++ effectiveVisibility (read only)
++ numLayers (read only)
+
+-->
+
+
+<!-- designLayer property -->
+
+<TestCase testID="DesignLayer_Properties_designLayer_default" keywords="[DesignLayer, properties, designLayer]" description="check default of each type">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.defaultTypeA" propertyName="designLayer" value="null" />
+		<AssertPropertyValue target="propertiesGroup.defaultTypeB" propertyName="designLayer" value="null" />
+		<AssertPropertyValue target="propertiesGroup.defaultTypeC" propertyName="designLayer" value="null" />
+		<AssertPropertyValue target="propertiesGroup.defaultTypeD" propertyName="designLayer" value="null" />
+		<AssertPropertyValue target="propertiesGroup.defaultTypeE" propertyName="designLayer" value="null" />
+		<AssertPropertyValue target="propertiesGroup.defaultTypeF" propertyName="designLayer" value="null" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_designLayer_get" keywords="[DesignLayer, properties, designLayer]" description="check that the designLayer property reflects the parent DesignLayer">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetA.designLayer.id" value="dlDesignLayer2" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetB.designLayer.id" value="dlDesignLayer2" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetC.designLayer.id" value="dlDesignLayer2" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetD.designLayer.id" value="dlDesignLayer2" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetE.designLayer.id" value="dlDesignLayer2" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetF.designLayer.id" value="dlDesignLayer2" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_designLayer_change_to1" keywords="[DesignLayer, properties, designLayer]" description="change designLayer at runtime to have  alpha of 1">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetA.designLayer = application.propertiesGroup.defaultDesignLayer" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetB.designLayer = application.propertiesGroup.defaultDesignLayer" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetC.designLayer = application.propertiesGroup.defaultDesignLayer" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetD.designLayer = application.propertiesGroup.defaultDesignLayer" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetE.designLayer = application.propertiesGroup.defaultDesignLayer" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetF.designLayer = application.propertiesGroup.defaultDesignLayer" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetA.designLayer.id" value="defaultDesignLayer" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetB.designLayer.id" value="defaultDesignLayer" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetC.designLayer.id" value="defaultDesignLayer" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetD.designLayer.id" value="defaultDesignLayer" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetE.designLayer.id" value="defaultDesignLayer" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetF.designLayer.id" value="defaultDesignLayer" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen10" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_designLayer_change_toNull" keywords="[DesignLayer, properties, designLayer]" description="change designLayer at runtime to null">
+	<!-- bugs>
+		<Bug bugID="SDK-22959" />
+	</bugs-->
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetA.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetB.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetC.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetD.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetE.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetF.designLayer = null" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetA.designLayer" valueExpression="value=null" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetB.designLayer" valueExpression="value=null" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetC.designLayer" valueExpression="value=null" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetD.designLayer" valueExpression="value=null" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetE.designLayer" valueExpression="value=null" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetF.designLayer" valueExpression="value=null" />
+		
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetA.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetB.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetC.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetD.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetE.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetF.alpha" value="1" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen10" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_designLayer_change_fromNull" keywords="[DesignLayer, properties, designLayer]" description="change designLayer at runtime from null">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetA.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetB.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetC.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetD.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetE.designLayer = null" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetF.designLayer = null" />
+		<Pause timeout="50" />
+		
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetA.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetB.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetC.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetD.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetE.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetF.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<Pause timeout="50" />
+	</setup>
+	<body>
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetA.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetB.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetC.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetD.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetE.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer1VetF.designLayer = application.propertiesGroup.dlDesignLayer2" />
+		
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetA.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetB.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetC.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetD.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetE.alpha" value="1" />
+		<AssertMethodValue method="value=application.propertiesGroup.dlDesignLayer1VetF.alpha" value="1" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen10" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_designLayer_nested" keywords="[DesignLayer, properties, designLayer]" description="check the designLayer is the parent of the no-op DesignLayer">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer2VetA.designLayer = application.propertiesGroup.dlDesignLayer3" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer2VetB.designLayer = application.propertiesGroup.dlDesignLayer3" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer2VetC.designLayer = application.propertiesGroup.dlDesignLayer3" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer2VetD.designLayer = application.propertiesGroup.dlDesignLayer3" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer2VetE.designLayer = application.propertiesGroup.dlDesignLayer3" />
+		<AssertMethodValue method="application.propertiesGroup.dlDesignLayer2VetF.designLayer = application.propertiesGroup.dlDesignLayer3" />
+	</body>
+</TestCase>
+
+
+<!-- alpha property -->
+
+<TestCase testID="DesignLayer_Properties_alpha_default" keywords="[DesignLayer, properties, alpha]" description="check default of alpha">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.defaultDesignLayer" propertyName="alpha" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_alpha_binding" keywords="[DesignLayer, properties, alpha]" description="check alpha can be target of data binding">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+		<SetProperty target="propertiesGroup.alphaSlider" propertyName="value" value="0.5" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlDataBinding" propertyName="alpha" value="0.5" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen9" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_alpha_MXML" keywords="[DesignLayer, properties, alpha]" description="set alpha via mxml">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXML" propertyName="alpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXMLVetA" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXMLVetB" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXMLVetC" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXMLVetD" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXMLVetE" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaMXMLVetF" propertyName="alpha" value="1" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen2" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_alpha_runtime" keywords="[DesignLayer, properties, alpha]" description="set alpha at runtime">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="propertiesGroup.dlAlpha" propertyName="alpha" value="0.5"  />
+		<!-- TODO: Key off of an event here -->
+		<Pause timeout="50" />
+		<AssertPropertyValue target="propertiesGroup.dlAlpha" propertyName="alpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaVetA" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaVetB" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaVetC" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaVetD" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaVetE" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaVetF" propertyName="alpha" value="1" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_alpha_nested_MXML" keywords="[DesignLayer, properties, alpha]" description="set nested alpha via mxml">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXML1" propertyName="alpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXML2" propertyName="alpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXML1" propertyName="effectiveAlpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXML2" propertyName="effectiveAlpha" value="0.25" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXMLVetA" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXMLVetB" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXMLVetC" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXMLVetD" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXMLVetE" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedMXMLVetF" propertyName="alpha" value="1" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen4" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_alpha_nested_runtime" keywords="[DesignLayer, properties, alpha]" description="set nested alphas at runtime">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="propertiesGroup.dlAlphaNested1" propertyName="alpha" value="0.5"  />
+		<SetProperty target="propertiesGroup.dlAlphaNested2" propertyName="alpha" value="0.5"  />
+
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNested1" propertyName="alpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNested2" propertyName="alpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNested1" propertyName="effectiveAlpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNested2" propertyName="effectiveAlpha" value="0.25" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedVetA" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedVetB" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedVetC" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedVetD" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedVetE" propertyName="alpha" value="1" />
+		<AssertPropertyValue target="propertiesGroup.dlAlphaNestedVetF" propertyName="alpha" value="1" />
+
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen3" />
+	</body>
+</TestCase>
+
+<!-- visible property -->
+
+<TestCase testID="DesignLayer_Properties_visible_default" keywords="[DesignLayer, properties, visible]" description="check default of visible">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.defaultDesignLayer" propertyName="visible" value="true" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_visible_binding" keywords="[DesignLayer, properties, visible]" description="check visible can be target of data binding">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+		<SetProperty target="propertiesGroup.visibleToggleButton" propertyName="selected" value="false" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlDataBinding" propertyName="visible" value="false" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen9" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_visible_MXML" keywords="[DesignLayer, properties, visible]" description="set visible via mxml">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXML" propertyName="visible" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXMLVetA" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXMLVetB" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXMLVetC" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXMLVetD" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXMLVetE" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleMXMLVetF" propertyName="visible" value="true" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen6" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_visible_runtime" keywords="[DesignLayer, properties, visible]" description="set visible at runtime">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="propertiesGroup.dlVisible" propertyName="visible" value="false" />
+
+		<AssertPropertyValue target="propertiesGroup.dlVisible" propertyName="visible" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleVetA" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleVetB" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleVetC" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleVetD" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleVetE" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleVetF" propertyName="visible" value="true" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen5" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_visible_nested_MXML" keywords="[DesignLayer, properties, visible]" description="set nested visible via mxml">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXML1" propertyName="visible" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXML2" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXML1" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXML2" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXMLVetA" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXMLVetB" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXMLVetC" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXMLVetD" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXMLVetE" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedMXMLVetF" propertyName="visible" value="true" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen8" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_visible_nested_runtime" keywords="[DesignLayer, properties, visible]" description="set nested visibles at runtime">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="propertiesGroup.dlVisibleNested1" propertyName="visible" value="false"  />
+		<SetProperty target="propertiesGroup.dlVisibleNested2" propertyName="visible" value="true"  />
+
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNested1" propertyName="visible" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNested2" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNested1" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNested2" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedVetA" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedVetB" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedVetC" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedVetD" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedVetE" propertyName="visible" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlVisibleNestedVetF" propertyName="visible" value="true" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="propertiesGroup.screen7" />
+	</body>
+</TestCase>
+
+<!-- numLayers property -->
+
+<TestCase testID="DesignLayer_Properties_numLayers_default" keywords="[DesignLayer, properties, numLayers]" description="check number of direct layer children">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.defaultDesignLayer" propertyName="numLayers" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_numLayers_0" keywords="[DesignLayer, properties, numLayers]" description="check number of direct layer children">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlNumLayers0" propertyName="numLayers" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_numLayers_0_group" keywords="[DesignLayer, properties, numLayers]" description="check number of direct layer children">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlNumLayers0Group" propertyName="numLayers" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_numLayers_1" keywords="[DesignLayer, properties, numLayers]" description="check number of direct layer children">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlNumLayers1" propertyName="numLayers" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_numLayers_2" keywords="[DesignLayer, properties, numLayers]" description="check number of direct layer children">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlNumLayers2" propertyName="numLayers" value="2" />
+	</body>
+</TestCase>
+
+<!-- effectiveAlpha property -->
+
+<TestCase testID="DesignLayer_Properties_effectiveAlpha_default" keywords="[DesignLayer, properties, effectiveAlpha]" description="check default of effectiveAlpha">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.defaultDesignLayer" propertyName="effectiveAlpha" value="1" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_effectiveAlpha_1" keywords="[DesignLayer, properties, effectiveAlpha]" description="check effectiveAlpha works on nested DesignLayers">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha1" propertyName="effectiveAlpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha2" propertyName="effectiveAlpha" value="0.1" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha3" propertyName="effectiveAlpha" value="0.1" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha4" propertyName="effectiveAlpha" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_effectiveAlpha_2" keywords="[DesignLayer, properties, effectiveAlpha]" description="check effectiveAlpha works on nested DesignLayers">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha5" propertyName="effectiveAlpha" value="0" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha6" propertyName="effectiveAlpha" value="0" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha7" propertyName="effectiveAlpha" value="0" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha8" propertyName="effectiveAlpha" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_effectiveAlpha_3" keywords="[DesignLayer, properties, effectiveAlpha]" description="check effectiveAlpha works on nested DesignLayers">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha9" propertyName="effectiveAlpha" value="0.5" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha10" propertyName="effectiveAlpha" value="0.25" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha11" propertyName="effectiveAlpha" value="0.125" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveAlpha12" propertyName="effectiveAlpha" value="0.0625" />
+	</body>
+</TestCase>
+
+<!-- effectiveVisibility property -->
+
+<TestCase testID="DesignLayer_Properties_effectiveVisibility_default" keywords="[DesignLayer, properties, effectiveVisibility]" description="check default of effectiveVisibility">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.defaultDesignLayer" propertyName="effectiveVisibility" value="true" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_effectiveVisibility_1" keywords="[DesignLayer, properties, effectiveVisibility]" description="check effectiveVisibility works in nested DesignLayers">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility1" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility2" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility3" propertyName="effectiveVisibility" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility4" propertyName="effectiveVisibility" value="false" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_effectiveVisibility_2" keywords="[DesignLayer, properties, effectiveVisibility]" description="check effectiveVisibility works in nested DesignLayers">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility5" propertyName="effectiveVisibility" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility6" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility7" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility8" propertyName="effectiveVisibility" value="false" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_Properties_effectiveVisibility_3" keywords="[DesignLayer, properties, effectiveVisibility]" description="check effectiveVisibility works in nested DesignLayers">
+	<setup>
+		<ResetComponent target="propertiesGroup" className="comps.PropertiesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility9" propertyName="effectiveVisibility" value="true" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility10" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility11" propertyName="effectiveVisibility" value="false" />
+		<AssertPropertyValue target="propertiesGroup.dlEffectiveVisibility12" propertyName="effectiveVisibility" value="false" />
+	</body>
+</TestCase>
+
+
+
+  </testCases>
+</UnitTester>

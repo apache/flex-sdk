@@ -1,0 +1,60 @@
+<UnitTester testDir="gumbo/components/Slider/Effects/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="Slider_Basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+	<fx:Script>
+        <![CDATA[
+			import mx.core.FlexGlobals;                
+        ]]>
+    </fx:Script>    
+       
+    <testCases>
+	               
+		<TestCase testID="VSlider_Effects_slideDuration" keywords="[VSlider, Effects, slideDuration]" description="Test slideDuration on VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetStyle target="myVSlider" styleName="slideDuration" value="1000" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	  		        		       		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="4"/>
+				<Pause timeout="900"/>
+		        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkVSliderVal()" value="false"/>
+		        <Pause timeout="900"/>
+		        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkVSliderVal()" value="true"/>
+		    </body>
+    	</TestCase>    
+    	
+		<TestCase testID="VSlider_Effects_slideDuration2" keywords="[VSlider, Effects, slideDuration]" description="Test slideDuration on VSlider">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+				<SetStyle target="myVSlider" styleName="slideDuration" value="100" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	  		        		       		
+				<DispatchMouseClickEvent target="myVSlider" localX="7" localY="4"/>
+				<Pause timeout="900"/>
+		        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkVSliderVal()" value="true"/>		        
+		    </body>
+    	</TestCase>    	
+ 	    		
+    </testCases>
+    
+</UnitTester>

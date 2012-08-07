@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/Scroller/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollerBasicComp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import comps.*;
+
+import spark.layouts.*;
+
+        import mx.collections.ArrayCollection;
+
+
+
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="ScrollerComp_method_viewport_DataGroup_page" keywords="[Scroller, method,viewport,DataGroup]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc2" propertyName="height"  value="250" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc2" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc2" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc2.skin" waitEvent="updateComplete" />
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <RunCode code="application.sc2.verticalScrollBar.changeValueByPage();" waitEvent="valueCommit" waitTarget="sc2.verticalScrollBar"/>
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="value"    value="250" />
+
+            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="maximum"    value="446" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_method_viewport_DataGroup_contentHeight_value" keywords="[Scroller, method,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="250" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight - application.sc1.verticalScrollBar.pageSize" waitEvent="updateComplete" waitTarget="sc1.verticalScrollBar"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="120" waitEvent="updateComplete"/>
+
+            <RunCode code="application.sc1.verticalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.verticalScrollBar"/>
+            <Pause timeout="100"/>
+            <RunCode code="application.sc1.verticalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.verticalScrollBar"/>
+            <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="value"    value="0" />
+
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="pageSize"    value="250" />
+
+
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_method_viewport_HGroup" keywords="[Scroller, method,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth - application.sc1.horizontalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+            <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
+		<Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+
+           </body>
+
+        </TestCase>
+       <TestCase testID="ScrollerComp_method_viewport_HGroup1" keywords="[Scroller, method,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth - application.sc1.horizontalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+            <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
+		<Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+
+           </body>
+
+        </TestCase>
+
+
+        <TestCase testID="HScrollerComp_method_viewport_HGroup_contentWidth" keywords="[Scroller, method,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+	    <SetStyle target="sc1" styleName="skinClass" valueExpression="value=comps.HScrollerSkin" waitEvent="updateComplete" />
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+	    <SetStyle target="sc1.horizontalScrollBar" styleName="smoothScrolling" value="true"   />
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth - application.sc1.horizontalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+            <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
+
+   	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_method_viewport_VGroup_contentHeight" keywords="[Scroller, method,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="400" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="150" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight - application.sc1.verticalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="180" waitEvent="updateComplete"/>
+
+            <RunCode code="application.sc1.verticalScrollBar.changeValueByPage(false);" waitEvent="valueCommit" waitTarget="sc1.verticalScrollBar"/>
+		<Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="value"    value="26" />
+
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="maximum"    value="431" />
+
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="pageSize"    value="400" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_method_viewport_VGroup_getItemAt" keywords="[Scroller, method,getItemAt]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="400" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="150" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <AssertMethodValue method="value=application.sc1.getElementAt(0)"    valueExpression="value=application.sc1.viewport" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_method_viewport_VGroup_getItemIndex" keywords="[Scroller, method,getItemIndex]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="400" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="150" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <AssertMethodValue method="value=application.sc1.getElementIndex(application.sc1.viewport)"    value="0" />
+
+           </body>
+
+        </TestCase>
+
+<!-- assert errors on Scroller -->
+
+	<TestCase testID="Scroller_method_error_removeElementAt" keywords="[Scroller, method, removeElementAt]" description="assert error when calling removeElementAt">
+		<setup>
+			<ResetComponent target="sc4" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc4" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc4.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('removeElementAt', application.sc4)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+	<TestCase testID="Scroller_method_error_addElementAt" keywords="[Scroller, method, addElementAt]" description="assert error when calling addElementAt">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('addElementAt', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+	<TestCase testID="Scroller_method_error_removeElement" keywords="[Scroller, method, removeElement]" description="assert error when calling removeElement">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('removeElement', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+	<TestCase testID="Scroller_method_error_removeAllElements" keywords="[Scroller, method, removeAllElements]" description="assert error when calling removeAllElements">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('removeAllElements', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Scroller_method_error_addElement" keywords="[Scroller, method, addElement]" description="assert error when calling addElement">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('addElement', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+	<TestCase testID="Scroller_method_error_setElementIndex" keywords="[Scroller, method, setElementIndex]" description="assert error when calling setElementIndex">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('setElementIndex', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+	<TestCase testID="Scroller_method_error_swapElements" keywords="[Scroller, method, swapElements]" description="assert error when calling swapElements">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('swapElements', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+	<TestCase testID="Scroller_method_error_swapElementsAt" keywords="[Scroller, method, swapElementsAt]" description="assert error when calling swapElementsAt">
+		<setup>
+			<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+			<SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertScrollerError('swapElementsAt', application.sc1)" value="This operation is not supported in Scroller." />
+		</body>
+	</TestCase>
+    </testCases>
+
+
+
+
+
+</UnitTester>
+

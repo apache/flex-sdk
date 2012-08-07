@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+		import mx.core.FlexGlobals;
+        import spark.components.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=========
+enabled
+=========
+-->
+
+<TestCase testID="TabBar_properties_arrowKeysWrapFocus_default" keywords="[TabBar,arrowKeysWrapFocus]"
+    description="The default of the arrowKeysWrapFocus property should be false." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb1" propertyName="arrowKeysWrapFocus" value="false" />
+        <DispatchKeyEvent key="TAB" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="tb1" waitEvent="change" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+<TestCase testID="TabBar_properties_arrowKeysWrapFocus_false_leftKey" keywords="[TabBar,arrowKeysWrapFocus]"
+    description="The default of the arrowKeysWrapFocus property should be false and pressing LEFT key should not wrap." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb1" propertyName="arrowKeysWrapFocus" value="false" />
+        <DispatchKeyEvent key="TAB" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="tb1" />
+        <AssertNoEvent target="tb1" eventName="change" eventClass="mx.event::FlexEvent" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+<TestCase testID="TabBar_properties_arrowKeysWrapFocus_true_rightKey" keywords="[TabBar,arrowKeysWrapFocus]"
+    description="When arrowKeysWrapFocus property is true, the focus should wrap when using the right key." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <SetProperty propertyName="arrowKeysWrapFocus" target="tb1" value="true" />
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <DispatchKeyEvent key="TAB" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="RIGHT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="tb1" waitEvent="change" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+<TestCase testID="TabBar_properties_arrowKeysWrapFocus_true_leftKey" keywords="[TabBar,arrowKeysWrapFocus]"
+    description="When arrowKeysWrapFocus property is true, the focus should wrap when using the LEFT key." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <SetProperty propertyName="arrowKeysWrapFocus" target="tb1" value="true" />
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+    </setup>
+    <body>
+        <DispatchKeyEvent key="TAB" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="LEFT" waitTarget="tb1" waitEvent="keyUp" />
+        <DispatchKeyEvent key="SPACE" waitTarget="tb1" waitEvent="change" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+<TestCase testID="TabBar_properties_baselinePosition_Validation" keywords="[TabBar,baselinePosition]"
+    description="check default baselinePosition" >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb1" propertyName="baselinePosition" value="15.85" />
+    </body>
+</TestCase>
+
+
+
+<!-- there are focus tests on tabbing tabBar, tests here are to verify clicking tabBar
+	will not take away focus on other controls
+-->
+
+<TestCase testID="focus_test1" keywords="[TabBar,focus]" description="check focus String is still on textArea when tabBar is clicked" >
+    <setup>
+        <ResetComponent target="vgroup1" className="Assets.GroupWithTabBars" waitEvent="updateComplete" />
+         <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.vgroup1.tabBarFocusTest1, 1)" waitTarget="vgroup1.tabBarFocusTest1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.textArea1.setFocus()"/>
+        <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.textArea1" timeout="2000" />
+        <DispatchMouseClickEvent target="vgroup1.tabBarFocusTest1.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+        <CompareBitmap url="../Properties/baselines/$testID.png" target="vgroup1" numColorVariances="10" maxColorVariance="20" />
+    </body>
+</TestCase>
+
+<TestCase testID="focus_test2" keywords="[TabBar,focus]" description="check focus String is still on ButtonBar when tabBar is clicked" >
+    <setup>
+        <ResetComponent target="vgroup1" className="Assets.GroupWithTabBars" waitEvent="updateComplete" />
+         <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.vgroup1.tabBarFocusTest1, 1)" waitTarget="vgroup1.tabBarFocusTest1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.textArea1.setFocus()"/>
+        <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.textArea1" timeout="2000" />
+        <DispatchKeyEvent keys="[TAB,TAB,TAB]"/>
+        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.buttonBar1.setFocus()" />
+  	<WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.buttonBar1" timeout="2000" />
+      
+        <DispatchKeyEvent keys="[RIGHT,RIGHT,SPACE]" waitEvent="focusIn" waitTarget="vgroup1.buttonBar1" />
+        <DispatchMouseClickEvent target="vgroup1.tabBarFocusTest1.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+		<WaitForEffectsToEnd/>
+        <CompareBitmap url="../Properties/baselines/$testID.png" target="vgroup1" numColorVariances="10" maxColorVariance="20"/>
+    </body>
+</TestCase>
+
+<TestCase testID="focus_test3" keywords="[TabBar,focus]" description="check focus is expected when tabBar is clicked" >
+    <setup>
+	      <ResetComponent target="vgroup1" className="Assets.GroupWithTabBars" waitEvent="updateComplete" />
+          <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.vgroup1.buttonBar1, 1)" waitTarget="vgroup1.buttonBar1" waitEvent="updateComplete" />
+          <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.vgroup1.tabBarFocusTest1, 1)" waitTarget="vgroup1.tabBarFocusTest1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="100"/>
+        <RunCode code="FlexGlobals.topLevelApplication.vgroup1.buttonBar1.setFocus()"/>
+        <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.buttonBar1" timeout="2000" />
+      
+        <DispatchKeyEvent keys="[RIGHT,RIGHT,SPACE]" />
+		<WaitForEffectsToEnd/>
+        <WaitForEvent numExpectedEvents="-1" eventName="updateComplete" target="vgroup1.buttonBar1" timeout="2000" />
+        <CompareBitmap url="../Properties/baselines/$testID_tabBar_focus3.png" target="vgroup1" numColorVariances="10" maxColorVariance="20"/>
+        <Pause timeout="40"/>
+        <DispatchMouseClickEvent target="vgroup1.tabBarFocusTest1.skin.dataGroup.getChildAt(2)" localX="2" localY="2" waitEvent="updateComplete" />
+       
+        <DispatchKeyEvent keys="[LEFT]" waitEvent="keyUp" waitTarget="vgroup1.buttonBar1"/>
+        <WaitForEffectsToEnd/>
+        <CompareBitmap url="../Properties/baselines/$testID_tabBar_focus1.png" target="vgroup1" numColorVariances="10" maxColorVariance="20"/>
+         <Pause timeout="100"/>
+    </body>
+</TestCase>
+
+<TestCase testID="longLabel_test1" keywords="[TabBar,enabled]" description="long label" >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 4)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tb1" propertyName="width" value="200" waitTarget="tb1" waitEvent="updateComplete" />
+    	<DispatchMouseEvent target="tb1.dataGroup.getElementAt(1)" type="mouseOver" localX="20" localY="20" waitEvent="toolTipShown"/>
+        <CompareBitmap url="../Properties/baselines/$testID.png" target="tb1" numColorVariances="10" maxColorVariance="20"/>
+    </body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

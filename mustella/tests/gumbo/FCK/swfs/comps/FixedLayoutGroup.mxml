@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="*" creationComplete="init()">
+		
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.*;
+		
+			public function init():void {
+			
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:VGroup id="newContent">
+			<s:Button label="new content 1" />
+			<s:Button label="new content 2" />
+			<s:Button label="new content 3" />
+		</s:VGroup>
+	</fx:Declarations>	
+	
+	<s:HGroup>
+		<s:Group>
+			<s:layout>
+				<s:VerticalLayout variableRowHeight="false" rowHeight="50" />
+			</s:layout>
+			
+			<s:Button label="button" />
+			
+			<local:EventsComponent />
+			
+			<local:EventsContainer scaleContentWhenResized="true">
+				<s:VGroup>
+					<s:Button label="item a" />
+					<s:Button label="item b" />
+					<s:Button label="item c" />										
+				</s:VGroup>
+			</local:EventsContainer>
+			<local:FlashMask  scaleContentWhenResized="true">
+				<s:VGroup>
+					<s:Button label="item 0" />
+					<s:Button label="item 1" />
+					<s:Button label="item 2" />
+					<s:Button label="item 3" />
+				</s:VGroup>
+			</local:FlashMask>
+				
+		</s:Group>
+	
+	
+		<s:Group>
+			<local:EventsComponent x="0" y="0" depth="2" />
+			<local:EventsComponent x="10" y="10"  width="100%" height="10%" />
+			<local:EventsComponent x="20" y="20" />
+			<local:FlashMask x="30" y="30" depth="1">
+				<s:Button label="in flash mask 0"  />
+			</local:FlashMask>
+			<local:FlashMask x="40" y="40">
+				<s:Button label="in flash mask 1" />
+			</local:FlashMask>
+			<local:FlashMask x="50" y="50" depth="-1">
+				<s:Button label="in flash mask 2" />
+			</local:FlashMask>
+		</s:Group>
+	
+	
+	</s:HGroup>
+	
+
+</s:Group>
+

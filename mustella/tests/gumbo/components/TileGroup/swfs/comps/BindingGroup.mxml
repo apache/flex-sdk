@@ -1,0 +1,24 @@
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+
+	<s:TileGroup id="innerGroup" width="106" height="106" clipAndEnableScrolling="true">
+		<s:Rect width="50" height="50"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect width="50" height="50"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect width="50" height="50"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect width="50" height="50"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+	</s:TileGroup>
+
+	<s:Label id="txt_columnCount" text="{innerGroup.columnCount}" />
+	<s:Label id="txt_columnWidth" text="{innerGroup.columnWidth}" />
+	<s:Label id="txt_horizontalGap" text="{innerGroup.horizontalGap}" />
+	<s:Label id="txt_rowCount" text="{innerGroup.rowCount}" />
+	<s:Label id="txt_rowHeight" text="{innerGroup.rowHeight}" />
+	<s:Label id="txt_verticalGap" text="{innerGroup.verticalGap}" />
+	
+</s:Group>

@@ -1,0 +1,56 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"       
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    height="24">
+    
+
+	<fx:Script>
+		<![CDATA[
+		
+			public function setTI_22():void
+			{
+				this.typicalItem = dpArray[22];
+			}
+			
+			public function setTI_13():void
+			{
+				this.typicalItem = dpArray[13];
+			}			
+
+		]]>   
+    </fx:Script>
+    
+	<fx:Declarations>
+		<fx:Array id="dpArray">    		     
+			<fx:String>Product F 0</fx:String>
+			<fx:String>Product E 1</fx:String>
+			<fx:String>Product B 2</fx:String>
+			<fx:String>Flex 3</fx:String>
+			<fx:String>Product A 4</fx:String>
+			<fx:String>Product D 5</fx:String>
+			<fx:String>"Product G 3" 6</fx:String>
+			<fx:String>Product H 7</fx:String>
+			<fx:String>Product I 8</fx:String>
+			<fx:String>Product J 9 </fx:String>
+			<fx:String>Product K 10</fx:String>
+			<fx:String>Product L 11</fx:String>
+			<fx:String>Product M 12</fx:String>
+			<fx:String>Product N 13</fx:String>
+			<fx:String>Product O 14</fx:String>
+			<fx:String>Product P 15</fx:String>
+			<fx:String>Product Q 16</fx:String>
+			<fx:String>Product I 17</fx:String>
+			<fx:String>Product J 18</fx:String>
+			<fx:String>Product K 19</fx:String>
+			<fx:String>Product E 20</fx:String>
+			<fx:String>Product B 21</fx:String>
+			<fx:String>Flex 22</fx:String>
+    	</fx:Array>      
+    </fx:Declarations>    
+    
+    <s:dataProvider>
+    	<s:ArrayList source="{dpArray}"/>
+    </s:dataProvider>
+        	
+</s:ComboBox>

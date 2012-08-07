@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*"
+    width="500" height="300"
+    creationComplete="init()"
+    controlBarLayout.state1="{vLayout}"
+	controlBarLayout.state2="{hLayout}"
+
+    controlBarVisible.state3="true"
+	controlBarVisible.state4="false"
+	>
+
+	<fx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+	    import mx.core.FlexGlobals;
+	    import spark.components.*;
+	    import spark.layouts.*;
+		import spark.layouts.supportClasses.LayoutBase;
+	
+		/**
+		 * Some private variables to remember the initial state
+		 **/
+		private var initialControlBarLayout:LayoutBase;
+		private var initialControlBarContent:Array = new Array();
+		private var initialControlBarVisible:Boolean;
+		private var initialSkinClass:Class;
+		private var initialEnabled:Boolean;
+		private var initialVisible:Boolean;
+		private var initialAlpha:Number;
+		private var initialCurrentState:String;
+		private var initialFontSize:String;
+		private var initialFontWeight:String;
+		private var initialPaddingTop:Number;
+		private var initialGap:Number;
+		private var initialBaseColor:Number;
+		
+		/**
+		 * Save some initial values to reset to later
+		 **/
+		private function init():void {
+			
+			// get inital control bar content
+			for (var i:int = 0; i < this.controlBarGroup.numElements; i++){
+				initialControlBarContent.push(this.controlBarGroup.getElementAt(i));
+			}
+			
+			// get the initial control bar layout
+			initialControlBarLayout = this.controlBarLayout;
+			initialPaddingTop = (this.controlBarLayout as HorizontalLayout).paddingTop;
+			initialGap = (this.controlBarLayout as HorizontalLayout).gap;
+			
+			// get the initial control bar visible
+			initialControlBarVisible = this.controlBarVisible;
+			
+			// get the initial enabled/visible/alpha value
+			initialEnabled = this.enabled;
+			initialVisible = this.visible;
+			initialAlpha = this.alpha;
+			
+			// get the initial state
+			initialCurrentState = this.currentState;
+			
+			// get the initial skin class
+			initialSkinClass = getStyle('skinClass');
+			
+			// get the initial fontWeight/fontSize/baseColor styles
+			initialFontSize = this.getStyle('fontSize');
+			initialFontWeight = this.getStyle('fontWeight');
+			initialBaseColor = this.getStyle('chromeColor');
+			
+		}
+		
+		/**
+		 * Manually reset some properties of Application to replicate what we would like
+		 * ResetComponent to do.
+		 * 
+		 * CAUTION: This manual reset is built specifically for this SWF file.  Other tests that
+		 * use other SWF files may have slightly different reset methods based on what the SWF
+		 * needs to reset.
+		 **/
+		public function manualApplicationReset():void {
+			this.controlBarContent = null;
+			this.controlBarLayout = null;
+			
+			this.controlBarContent = initialControlBarContent;
+			this.controlBarLayout = initialControlBarLayout;
+			(this.controlBarLayout as HorizontalLayout).paddingTop = initialPaddingTop;
+			(this.controlBarLayout as HorizontalLayout).gap = initialGap;
+			this.controlBarVisible = initialControlBarVisible;
+			this.enabled = initialEnabled;
+			this.visible = initialVisible;
+			this.alpha = initialAlpha;
+			this.currentState = initialCurrentState;
+			this.setStyle('skinClass', initialSkinClass);
+			this.setStyle('fontSize', initialFontSize);
+			this.setStyle('fontWeight', initialFontWeight);
+			this.setStyle('chromeColor', initialBaseColor);
+		
+			this.dispatchEvent(new Event("manualResetComplete"));
+		}
+		
+   		/**
+   		 *  Keeps track of btns that have been clicked
+   		 */
+   		public var clickString:String = "";
+   	    
+   	    /**
+   	     * Update the value of clickString when something is clicked
+   	     */
+   		private function handleClick(event:Event):void {
+   			var ic:String = "";
+   			
+   			if (event.target.id == null){
+   				ic = "no id";
+   			} else {
+   				ic = event.target.id;
+   			}
+   			
+   			clickString += "[" + ic + "]";	
+   		}
+   		
+   		/**
+   		 * Returns a button of specified size 
+   		 */
+   		public function createButton(width:int = 100, height:int = 100):spark.components.Button {
+   			var btn:spark.components.Button = new spark.components.Button();
+   			btn.width = width;
+   			btn.height = height;
+   			return btn;
+   		}
+	    
+	]]>
+	</fx:Script>
+
+	<fx:Style>
+	    @namespace s "library://ns.adobe.com/flex/spark";
+	    @namespace mx "library://ns.adobe.com/flex/mx";
+	
+	    @font-face {
+	        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+	        fontFamily: EmbeddedVerdanaCFF;
+	        embedAsCFF: true;
+	    }
+	
+	    @font-face {
+	        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+	        fontWeight: bold;
+	        fontFamily: EmbeddedVerdanaCFF;
+	        embedAsCFF: true;
+	    }
+	
+	    @font-face {
+	        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+	        fontStyle: italic;
+	        fontFamily: EmbeddedVerdanaCFF;
+	        embedAsCFF: true;
+	    }
+	
+	    @font-face {
+	        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+	        fontFamily: EmbeddedVerdana;
+				embedAsCFF: false;
+	    }
+	
+	    @font-face {
+	        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+	        fontWeight: bold;
+	        fontFamily: EmbeddedVerdana;
+				embedAsCFF: false;
+	    }
+	
+	    @font-face {
+	        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+	        fontStyle: italic;
+	        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+	    }
+	
+	    s|Button{
+	        fontFamily: EmbeddedVerdanaCFF;
+	        fontLookup: embeddedCFF;
+	        fontAntiAliasType: normal;
+	    }
+	
+	    mx|Button{
+	        fontFamily: EmbeddedVerdana;
+	        fontAntiAliasType: normal;
+	    }
+	    
+	    mx|Alert {
+	        fontFamily: EmbeddedVerdana;
+	        fontAntiAliasType: normal;
+	        header-height: 10;
+	    }
+	
+	</fx:Style>
+	
+    <fx:Declarations>
+    	<fx:Array id="contentArray1">
+    		<s:Button id="btn1" click="handleClick(event)" label="1" width="30" />
+    		<s:Button id="btn2" click="handleClick(event)" label="2" width="30" />
+    		<s:Button id="btn3" click="handleClick(event)" label="3" width="30" />
+    		<s:Button id="btn4" click="handleClick(event)" label="4" width="30" />
+    	</fx:Array>
+    	
+    	<fx:Array id="contentArray2">
+    		<s:Button label="1" />
+    		<s:Button label="2" />
+    		<s:Button label="3" />
+    		<s:Button label="4" />
+    		<s:Button label="5" />
+    		<s:Button label="6" />
+    		<s:Button label="7" />
+    		<s:Button label="8" />
+    		<s:Button label="9" />
+    	</fx:Array>
+    	
+    	<fx:Array id="contentArray3">
+    		<s:Button id="btn5" click="handleClick(event)" chromeColor="0xFF0000" label="red" width="30" />
+    		<s:Button id="btn6" click="handleClick(event)" label="" width="30" />
+    		<s:Button id="btn7" click="handleClick(event)" chromeColor="0xFF0000" label="red" width="30" />
+    	</fx:Array>
+    	
+    	<s:VerticalLayout id="vLayout" />
+    	<s:HorizontalLayout id="hLayout" />
+    	
+    	<s:Button id="bigButton" label="Big Button" width="300" height="300" />
+    </fx:Declarations>
+	
+    <s:controlBarContent>
+    	<s:Button label="A" id="btnA" click="handleClick(event)" width="35" />
+    	<s:Button label="B" id="btnB" click="handleClick(event)" width="35" />
+    	<s:Button label="C" id="btnC" click="handleClick(event)" width="35" />
+    </s:controlBarContent>
+	
+    <s:controlBarContent.state5>
+    	<s:Button label="D" id="btnD" click="handleClick(event)" width="35" />
+    	<s:Button label="E" id="btnE" click="handleClick(event)" width="35" />
+    	<s:Button label="F" id="btnF" click="handleClick(event)" width="35" />
+    </s:controlBarContent.state5>
+		    
+	<s:states>
+		<s:State name="defaultState" />
+		<s:State name="state1" />
+		<s:State name="state2" />
+		<s:State name="state3" />
+		<s:State name="state4" />
+		<s:State name="state5" />
+	</s:states>
+	
+	<s:layout><s:VerticalLayout /></s:layout>
+	
+	<s:Rect width="100" height="100">
+		<s:fill><s:SolidColor color="0xe3e3e3" /></s:fill>
+	</s:Rect>
+	
+	<s:Button id="btnFocusEntry" label="content" />
+	
+	
+
+</s:Application>

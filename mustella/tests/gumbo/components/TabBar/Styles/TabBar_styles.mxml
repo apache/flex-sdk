@@ -1,0 +1,1371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import mx.collections.*;
+		import mx.core.FlexGlobals;
+        import spark.components.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+fontFamily: Does not work; see bug SDK-18608
+================================================================================
+-->
+<TestCase testID="fontFamily_mxml_test1" keywords="[TabBar,fontFamily]" description="The fontFamily was set to arial in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontFamilyTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_mxml_test2" keywords="[TabBar,fontFamily]" description="The fontFamily was set to verdana in mxml." >
+    <body>
+        <CompareBitmap numColorVariances="15" ignoreMaxColorVariance="true"  url="../Styles/baselines/$testID.png" target="fontFamilyTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_test1" keywords="[TabBar,fontFamily]" description="The fontFamily is set to arial in as." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+        <SetStyle target="runtimeTB1" styleName="fontLookup" value="embeddedCFF" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"  target="runtimeTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_test2" keywords="[TabBar,fontFamily]" description="The fontFamily is set to verdana in as." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+        <SetStyle target="runtimeTB1" styleName="fontLookup" value="embeddedCFF" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" />
+        <SetStyle target="runtimeTB1" styleName="fontFamily" value="EmbeddedArno" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_css_test1" keywords="[TabBar,fontFamily]" description="The fontFamily is set to a css style, which is arial, in as." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"  target="runtimeTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_css_test2" keywords="[TabBar,fontFamily]" description="The fontFamily is set to a css style, which is verdana, in as." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+fontSize: Does not work; see bug SDK-18603
+================================================================================
+-->
+<TestCase testID="fontSize_mxml_test1" keywords="[TabBar,fontSize]" description="The fontSize was set to 8 in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontSizeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_mxml_test2" keywords="[TabBar,fontSize]" description="The fontSize was set to 24 in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontSizeTB2"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_test1" keywords="[TabBar,fontSize]" description="The fontSize is set to 8 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="fontSize" value="8" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_test2" keywords="[TabBar,fontSize]" description="The fontSize is set to 24 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="fontSize" value="24" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_css_test1" keywords="[TabBar,fontSize]" description="The fontSize is set to a css style, which is 8, in as." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontSize1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_css_test2" keywords="[TabBar,fontSize]" description="The fontSize is set to a css style, which is 24, in as." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontSize2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+<!--
+================================================================================
+fontWeight
+================================================================================
+-->
+<TestCase testID="fontWeight_mxml_test1" keywords="[TabBar,fontWeight]" description="The fontWeight was set to bold in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontWeightTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_mxml_test2" keywords="[TabBar,fontWeight]" description="The fontWeight was set to normal in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontWeightTB2" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_test1" keywords="[TabBar,fontWeight]" description="The fontWeight is set to bold at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_test2" keywords="[TabBar,fontWeight]" description="The fontWeight is set to normal at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+        <SetStyle target="runtimeTB1" styleName="fontWeight" value="normal" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_css_test1" keywords="[TabBar,fontWeight]" description="The fontWeight is set to a css style, which is bold, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontWeight1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_css_test2" keywords="[TabBar,fontWeight]" description="The fontWeight is set to a css style, which is normal, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontWeight1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontWeight2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+color
+================================================================================
+-->
+<TestCase testID="color_mxml_test1" keywords="[TabBar,color]" description="The color was set to 0xff0000 in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="colorTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="color_as_test1" keywords="[TabBar,color]" description="color is set to 0xff0000 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="color" value="0xff0000" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="color_as_css_test1" keywords="[TabBar,color]" description="color is set to a css style, which is 0xff0000, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="color1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+<!-- 
+================================================================================
+cornerRadius:
+================================================================================
+-->
+
+<TestCase testID="cornerRadius_test1" keywords="[TabBar,cornerRadius]" description="set cornerRadius=0 style at runtime" >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+	    <SetStyle target="runtimeTB1" styleName="cornerRadius" value="0" waitEvent="updateComplete" waitTarget="runtimeTB1" />
+        <AssertStyleValue target="runtimeTB1" styleName="cornerRadius" value="0" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="cornerRadius_test2" keywords="[TabBar,cornerRadius]" description="set cornerRadius=10 style at runtime" >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+	 <SetStyle target="runtimeTB1" styleName="cornerRadius" value="10" waitEvent="updateComplete" waitTarget="runtimeTB1" />
+        <AssertStyleValue target="runtimeTB1" styleName="cornerRadius" value="10" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="cornerRadius_test3" keywords="[TabBar,cornerRadius]" description="set cornerRadius style selector at runtime" >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+		<SetProperty target="runtimeTB1" propertyName="styleName" value="cornerRadius1" waitEvent="updateComplete" />
+        <AssertStyleValue target="runtimeTB1" styleName="cornerRadius" value="6" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+<TestCase testID="cornerRadius_test4" keywords="[TabBar,cornerRadius]" description="check default cornerRadius from class style" >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <AssertStyleValue target="runtimeTB1" styleName="cornerRadius" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="cornerRadius_test5" keywords="[TabBar,cornerRadius]" description="check focus String when cornerRadius changed from style" >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="cornerRadius" value="20" waitEvent="updateComplete" waitTarget="runtimeTB1" />
+        <SetStyle target="runtimeTB1" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="runtimeTB1" />
+	<RunCode code="FlexGlobals.topLevelApplication.runtimeTB1.setFocus()"/>
+	<Pause timeout="40"/>
+	<DispatchKeyEvent key="RIGHT" waitEvent="keyUp" waitTarget="runtimeTB1" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+
+
+<!--
+================================================================================
+direction: 
+================================================================================
+-->
+<TestCase testID="direction_mxml_test1" keywords="[TabBar,direction]" description="The direction was set to rtl in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="directionTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_mxml_test2" keywords="[TabBar,direction]" description="The direction was set to ltr in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="directionTB2"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_as_test1" keywords="[TabBar,direction]" description="direction is set to rtl at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac_hebrew" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="textAlign" value="left" />
+        <SetStyle target="runtimeTB1" styleName="direction" value="rtl" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_as_test2" keywords="[TabBar,direction]" description="direction is set to ltr at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac_hebrew" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="textAlign" value="left" />
+        <SetStyle target="runtimeTB1" styleName="direction" value="ltr" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_as_css_test1" keywords="[TabBar,direction]" description="direction is set to a css style, which is rtl, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac_hebrew" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1 direction1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_as_css_test2" keywords="[TabBar,direction]" description="direction is set to a css style, which is ltr, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac_hebrew" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="fontFamily1 direction2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+<!--
+================================================================================
+lineThrough
+================================================================================
+-->
+<TestCase testID="lineThrough_mxml_test1" keywords="[TabBar,lineThrough]" description="lineThrough was set to true in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="lineThroughTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_mxml_test2" keywords="[TabBar,lineThrough]" description="lineThrough was set to false in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="lineThroughTB2" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_test1" keywords="[TabBar,lineThrough]" description="lineThrough is set to true at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="lineThrough" value="true" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_test2" keywords="[TabBar,lineThrough]" description="lineThrough is set to false at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="lineThrough" value="true" waitEvent="updateComplete" />
+        <SetStyle target="runtimeTB1" styleName="lineThrough" value="false" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_css_test1" keywords="[TabBar,lineThrough]" description="lineThrough is set to a css style, which is true, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="lineThrough1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_css_test2" keywords="[TabBar,lineThrough]" description="lineThrough is set to a css style, which is false, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="lineThrough1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="lineThrough2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+kerning
+================================================================================
+-->
+<TestCase testID="kerning_mxml_test1" keywords="[TabBar,kerning]" description="kerning was set to true in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="kerningTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_mxml_test2" keywords="[TabBar,kerning]" description="kerning was set to auto in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="kerningTB2"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_mxml_test3" keywords="[TabBar,kerning]" description="kerning was set to off in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="kerningTB3"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_test1" keywords="[TabBar,kerning]" description="kerning is set to true at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="kerning" value="off" waitEvent="updateComplete" />
+        <SetStyle target="runtimeTB1" styleName="kerning" value="on" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_test2" keywords="[TabBar,kerning]" description="kerning is set to auto at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="kerning" value="off" waitEvent="updateComplete" />
+        <SetStyle target="runtimeTB1" styleName="kerning" value="auto" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_test3" keywords="[TabBar,kerning]" description="kerning is set to off at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="kerning" value="off" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_css_test1" keywords="[TabBar,kerning]" description="kerning is set to a css style, which is on, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="kerning3" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="kerning1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_css_test2" keywords="[TabBar,kerning]" description="kerning is set to a css style, which is auto, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="kerning3" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="kerning2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_css_test3" keywords="[TabBar,kerning]" description="kerning is set to a css style, which is off, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac2" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="kerning3" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1"  numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+textDecoration
+================================================================================
+-->
+<TestCase testID="textDecoration_mxml_test1" keywords="[TabBar,textDecoration]" description="textDecoration was set to underline in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="textDecorationTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_mxml_test2" keywords="[TabBar,textDecoration]" description="textDecoration was set to none in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="textDecorationTB2" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_test1" keywords="[TabBar,textDecoration]" description="textDecoration is set to underline at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_test2" keywords="[TabBar,textDecoration]" description="textDecoration is set to none at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeTB1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+        <SetStyle target="runtimeTB1" styleName="textDecoration" value="none" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_css_test1" keywords="[TabBar,textDecoration]" description="textDecoration is set to a css style, which is underline, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="textDecoration1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_css_test2" keywords="[TabBar,textDecoration]" description="textDecoration is set to a css style, which is none, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeTB1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="textDecoration1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeTB1" propertyName="styleName" value="textDecoration2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeTB1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+top
+================================================================================
+-->
+<TestCase testID="top_mxml_test1" keywords="[TabBar,top]" description="top was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="31" target="topCanvas1" />
+        <AssertPropertyValue propertyName="y" value="5" target="topTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_mxml_test2" keywords="[TabBar,top]" description="top was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="26" target="topCanvas2" />
+        <AssertPropertyValue propertyName="y" value="0" target="topTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_mxml_test3" keywords="[TabBar,top]" description="top was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="21" target="topCanvas3" />
+        <AssertPropertyValue propertyName="y" value="-5" target="topTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_test1" keywords="[TabBar,top]" description="top is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="top" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_test2" keywords="[TabBar,top]" description="top is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="top" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_test3" keywords="[TabBar,top]" description="top is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="top" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="-5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_css_test1" keywords="[TabBar,top]" description="top is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="top1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="y" value="5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_css_test2" keywords="[TabBar,top]" description="top is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="top2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_css_test3" keywords="[TabBar,top]" description="top is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="top3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="y" value="-5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+left - These tests test the width of a Canvas that has a TabBar in it. The width
+is calculated by:  215 (width of TabBar) + 2 (canvas border) + left
+================================================================================
+-->
+<TestCase testID="left_mxml_test1" keywords="[TabBar,left]" description="left was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="222" target="leftCanvas1" />
+        <AssertPropertyValue propertyName="x" value="5" target="leftTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_mxml_test2" keywords="[TabBar,left]" description="left was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="217" target="leftCanvas2" />
+        <AssertPropertyValue propertyName="x" value="0" target="leftTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_mxml_test3" keywords="[TabBar,left]" description="left was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="212" target="leftCanvas3" />
+        <AssertPropertyValue propertyName="x" value="-5" target="leftTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_test1" keywords="[TabBar,left]" description="left is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="215" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="left" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="222" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_test2" keywords="[TabBar,left]" description="left is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="215" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="left" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="217" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_test3" keywords="[TabBar,left]" description="left is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="215" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="left" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="212" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="-5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_css_test1" keywords="[TabBar,left]" description="left is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="230" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="left1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="237" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_css_test2" keywords="[TabBar,left]" description="left is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="230" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="left2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_css_test3" keywords="[TabBar,left]" description="left is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="230" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="left3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="227" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="-5" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+bottom - Tests check the height of the canvas that the TabBar is in and the y value of the TabBar.
+height values are 24 (height of TabBar) + 2 (borderThickness) + bottom (style)
+================================================================================
+-->
+<TestCase testID="bottom_mxml_test1" keywords="[TabBar,bottom]" description="bottom was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="31" target="bottomCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="bottomTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_mxml_test2" keywords="[TabBar,bottom]" description="bottom was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="26" target="bottomCanvas2" />
+        <AssertPropertyValue propertyName="y" value="0" target="bottomTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_mxml_test3" keywords="[TabBar,bottom]" description="bottom was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="21" target="bottomCanvas3" />
+        <AssertPropertyValue propertyName="y" value="0" target="bottomTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_test1" keywords="[TabBar,bottom]" description="bottom is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="bottom" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_test2" keywords="[TabBar,bottom]" description="bottom is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_test3" keywords="[TabBar,bottom]" description="bottom is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="bottom" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_css_test1" keywords="[TabBar,bottom]" description="bottom is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="bottom1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_css_test2" keywords="[TabBar,bottom]" description="bottom is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="bottom2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_css_test3" keywords="[TabBar,bottom]" description="bottom is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeTB3" value="24" waitTarget="runtimeCanvas1.runtimeTB3"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="bottom3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+right
+================================================================================
+-->
+<TestCase testID="right_mxml_test1" keywords="[TabBar,right]" description="right was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="222" target="rightCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="rightTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_mxml_test2" keywords="[TabBar,right]" description="right was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="217" target="rightCanvas2" />
+        <AssertPropertyValue propertyName="x" value="0" target="rightTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_mxml_test3" keywords="[TabBar,right]" description="right was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="212" target="rightCanvas3" />
+        <AssertPropertyValue propertyName="x" value="0" target="rightTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_test1" keywords="[TabBar,right]" description="right is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="right" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="222" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_test2" keywords="[TabBar,right]" description="right is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="right" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="217" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_test3" keywords="[TabBar,right]" description="right is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="right" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="212" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_css_test1" keywords="[TabBar,right]" description="right is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="right1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="237" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_css_test2" keywords="[TabBar,right]" description="right is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="right2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_css_test3" keywords="[TabBar,right]" description="right is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeTB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="right3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="227" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+top/bottom/left/right combinations
+================================================================================
+-->
+<TestCase testID="tblr_as_test1" keywords="[TabBar,right]" description="top and right are set to 5 and 10 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="top" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="right" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="tblr_as_test2" keywords="[TabBar,right]" description="top and bottom are set to 10 and 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="top" value="10" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="bottom" value="5" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="tblr_as_test3" keywords="[TabBar,right]" description="all are set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="top" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="bottom" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="left" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="right" value="5" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+verticalCenter - These tests test the position of a 24 px high TabBar in a 50 px high Canvas.
+================================================================================
+-->
+<TestCase testID="verticalCenter_mxml_test1" keywords="[TabBar,verticalCenter]" description="verticalCenter was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="y" value="18" target="verticalCenterTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_mxml_test2" keywords="[TabBar,verticalCenter]" description="verticalCenter was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="y" value="13" target="verticalCenterTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_mxml_test3" keywords="[TabBar,verticalCenter]" description="verticalCenter was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="y" value="8" target="verticalCenterTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_test1" keywords="[TabBar,verticalCenter]" description="verticalCenter is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="verticalCenter" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="10" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_test2" keywords="[TabBar,verticalCenter]" description="verticalCenter is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="verticalCenter" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="47" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_test3" keywords="[TabBar,verticalCenter]" description="verticalCenter is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="verticalCenter" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_css_test1" keywords="[TabBar,verticalCenter]" description="verticalCenter is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="verticalCenter1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="10" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_css_test2" keywords="[TabBar,verticalCenter]" description="verticalCenter is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="verticalCenter2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="height" value="47" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_css_test3" keywords="[TabBar,verticalCenter]" description="verticalCenter is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="verticalCenter3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="45" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+horizontalCenter
+================================================================================
+-->
+<TestCase testID="horizontalCenter_mxml_test1" keywords="[TabBar,horizontalCenter]" description="horizontalCenter was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="x" value="20" target="horizontalCenterTB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_mxml_test2" keywords="[TabBar,horizontalCenter]" description="horizontalCenter was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="x" value="15" target="horizontalCenterTB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_mxml_test3" keywords="[TabBar,horizontalCenter]" description="horizontalCenter was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="x" value="10" target="horizontalCenterTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_test1" keywords="[TabBar,horizontalCenter]" description="horizontalCenter is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="220" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="horizontalCenter" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="10" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_test2" keywords="[TabBar,horizontalCenter]" description="horizontalCenter is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="220" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="horizontalCenter" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="222" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_test3" keywords="[TabBar,horizontalCenter]" description="horizontalCenter is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="220" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="horizontalCenter" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+    <TestCase testID="horizontalCenter_as_css_test1" keywords="[TabBar,horizontalCenter]" description="horizontalCenter is set to a css style, which is 5, at runtime.  The container will be 12 larger. (5 for left side, 5 for right side, 2 for border)" >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="horizontalCenter1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="242" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="10" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_css_test2" keywords="[TabBar,horizontalCenter]" description="horizontalCenter is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="horizontalCenter2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_css_test3" keywords="[TabBar,horizontalCenter]" description="horizontalCenter is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeTB3" propertyName="styleName" value="horizontalCenter3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="242" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeTB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeTB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+vertical/horizontalCenter combinations
+================================================================================
+-->
+<TestCase testID="vhc_as_test1" keywords="[TabBar,verticalCenter]" description="vertical and horizontal center are set to 5 and 10 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="verticalCenter" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="horizontalCenter" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="vhc_as_test2" keywords="[TabBar,verticalCenter]" description="vertical and horizontal center are set to 10 and 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomTabBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="verticalCenter" value="10" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeTB3" styleName="horizontalCenter" value="5" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" numColorVariances="15" ignoreMaxColorVariance="true" />
+    </body>
+</TestCase>
+<!--
+================================================================================
+baseline combinations
+================================================================================
+-->
+<TestCase testID="spark_baseline_75_mxml" keywords="[TabBar,baseline]"
+    description="Measure the position of a TabBar with baseline set to 70 inline in a Group." >
+    <body>
+        <AssertPropertyValue propertyName="y" target="baseline_tabbar_mxml" value="54" />
+    </body>
+</TestCase>
+<TestCase testID="spark_baseline_zero" keywords="[TabBar,baseline]"
+    description="Measure the position of a TabBar with baseline set to 0 in a Group." >
+    <setup>
+        <ResetComponent target="baseline_tabbar" className="Assets.CustomTabBar3" waitEvent="updateComplete"
+            waitTarget="baseline_tabbar"/>
+    </setup>
+    <body>
+    	<RunCode code="FlexGlobals.topLevelApplication.baseline_tabbar.testSkinPartsGetter()"/><!-- for code coverage -->
+        <SetStyle target="baseline_tabbar" styleName="baseline" value="0" waitEvent="updateComplete" waitTarget="baseline_tabbar"/>
+        <AssertPropertyValue propertyName="y" target="baseline_tabbar" value="-16" />
+    </body>
+</TestCase>
+<TestCase testID="spark_baseline_25" keywords="[TabBar,baseline]"
+    description="Measure the position of a TabBar with baseline set to 25 in a Group." >
+    <setup>
+        <ResetComponent target="baseline_tabbar" className="Assets.CustomTabBar3" waitEvent="updateComplete"
+            waitTarget="baseline_tabbar"/>
+    </setup>
+    <body>
+        <SetStyle target="baseline_tabbar" styleName="baseline" value="25" waitEvent="updateComplete" waitTarget="baseline_tabbar"/>
+        <AssertPropertyValue propertyName="y" target="baseline_tabbar" value="9" />
+    </body>
+</TestCase>
+<TestCase testID="spark_baseline_neg5" keywords="[TabBar,baseline]"
+    description="Measure the position of a TabBar with baseline set to -5 in a Group." >
+    <setup>
+        <ResetComponent target="baseline_tabbar" className="Assets.CustomTabBar3" waitEvent="updateComplete"
+            waitTarget="baseline_tabbar"/>
+    </setup>
+    <body>
+        <SetStyle target="baseline_tabbar" styleName="baseline" value="-5" waitEvent="updateComplete" waitTarget="baseline_tabbar"/>
+        <AssertPropertyValue propertyName="y" target="baseline_tabbar" value="-21" />
+    </body>
+</TestCase>
+</testCases>
+</UnitTester>

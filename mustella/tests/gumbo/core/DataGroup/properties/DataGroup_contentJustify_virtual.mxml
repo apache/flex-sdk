@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/core/DataGroup/properties/" testSWF="DataGroupBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+	  import spark.components.DataGroup;
+	  import spark.primitives.*;
+	  import mx.collections.ArrayCollection;
+	  import spark.components.Group;
+	  
+	  public function createTypicaGroup(width:int, height:int):Group {
+	    var typicalGroup:Group = new Group();
+		typicalGroup.width = width;
+		typicalGroup.height = height;
+		return typicalGroup;
+	  }
+	  
+	]]>
+  </fx:Script>
+  <testCases>
+  
+<!-- 
+
+========================
+
+	DataGroup Virtualization Testing - contentJustify testing
+	
+	The tests in this file are a subset of the DataGroup_contentJustify.mxml tests with virtual layout enabled.
+	The test names are the same except _virtual is appended to each test name.
+	Each test should have the identical output as the equivalent non-virtual test.
+	
+	Note: These tests point to the same bitmaps as the non-virtualized test file
+	
+	(See the DataGroup/virtual folder for further comments on the DataGroup virtualization tests)
+	
+========================
+
+-->
+
+<!-- data items -->
+
+	<TestCase testID="DataGroup_horizontalAlign_default_virtual" keywords="[DataGroup, horizontalAlign]" description="check default value">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="left" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_horizontalAlign_data_left_virtual" keywords="[DataGroup, horizontalAlign]" description="left align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'left'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="left" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_data_left_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_horizontalAlign_data_center_virtual" keywords="[DataGroup, horizontalAlign]" description="center align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />				
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="center" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_data_center_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_horizontalAlign_data_right_virtual" keywords="[DataGroup, horizontalAlign]" description="right align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />				
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="right" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_data_right_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_horizontalAlign_data_justify_virtual" keywords="[DataGroup, horizontalAlign]" description="justify align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_data_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_horizontalAlign_data_contentJustify_virtual" keywords="[DataGroup, horizontalAlign]" description="contentJustify align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_data_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+<!-- graphic items -->	
+
+	<TestCase testID="DataGroup_horizontalAlign_graphic_left_virtual" keywords="[DataGroup, horizontalAlign]" description="left align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'left'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="left" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_left_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_horizontalAlign_graphic_center_virtual" keywords="[DataGroup, horizontalAlign]" description="center align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="center" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_center_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_horizontalAlign_graphic_right_virtual" keywords="[DataGroup, horizontalAlign]" description="right align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="right" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_right_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_horizontalAlign_graphic_justify_virtual" keywords="[DataGroup, horizontalAlign]" description="justify align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_horizontalAlign_graphic_contentJustify_virtual" keywords="[DataGroup, horizontalAlign]" description="contentJustify align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- mixed content items -->	
+
+	<TestCase testID="DataGroup_horizontalAlign_mix_left_virtual" keywords="[DataGroup, horizontalAlign]" description="left align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'left'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="left" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_mix_left_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_horizontalAlign_mix_center_virtual" keywords="[DataGroup, horizontalAlign]" description="center align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="center" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_mix_center_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_horizontalAlign_mix_right_virtual" keywords="[DataGroup, horizontalAlign]" description="center align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="right" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_mix_right_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_horizontalAlign_mix_justify_virtual" keywords="[DataGroup, horizontalAlign]" description="justify align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_mix_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_horizontalAlign_mix_contentJustify_virtual" keywords="[DataGroup, horizontalAlign]" description="contentJustify align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_mix_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+<!-- all small items (graphics) -->
+
+	<TestCase testID="DataGroup_horizontalAlign_graphic_small_left_virtual" keywords="[DataGroup, horizontalAlign]" description="left align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'left'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="left" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_small_left_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_horizontalAlign_graphic_small_center_virtual" keywords="[DataGroup, horizontalAlign]" description="center align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="center" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_small_center_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_horizontalAlign_graphic_small_right_virtual" keywords="[DataGroup, horizontalAlign]" description="right align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="right" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_small_right_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_horizontalAlign_graphic_small_justify_virtual" keywords="[DataGroup, horizontalAlign]" description="justify align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_small_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_horizontalAlign_graphic_small_contentJustify_virtual" keywords="[DataGroup, horizontalAlign]" description="contentJustify align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.horizontalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_horizontalAlign_graphic_small_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	
+<!--
+
+HorizontalLayout - verticalAlign
+
+- check default value
+- left, right, center, justify, contentJustify
+	- with mix, data, graphics
+	- with small/large items
+
+-->
+		
+<!-- data items -->
+
+	<TestCase testID="DataGroup_verticalAlign_default_virtual" keywords="[DataGroup, verticalAlign]" description="check default value">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="top" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_verticalAlign_data_top_virtual" keywords="[DataGroup, verticalAlign]" description="top align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'top'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="top" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_data_top_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_verticalAlign_data_middle_virtual" keywords="[DataGroup, verticalAlign]" description="middle align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'middle'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="middle" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_data_middle_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_verticalAlign_data_bottom_virtual" keywords="[DataGroup, verticalAlign]" description="bottom align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'bottom'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="bottom" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_data_bottom_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_verticalAlign_data_justify_virtual" keywords="[DataGroup, verticalAlign]" description="justify align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_data_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_verticalAlign_data_contentJustify_virtual" keywords="[DataGroup, verticalAlign]" description="contentJustify align data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="160" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_data_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+
+<!-- graphic items -->	
+
+	<TestCase testID="DataGroup_verticalAlign_graphic_top_virtual" keywords="[DataGroup, verticalAlign]" description="top align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'top'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="top" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_top_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_verticalAlign_graphic_middle_virtual" keywords="[DataGroup, verticalAlign]" description="middle align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'middle'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="middle" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_middle_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_verticalAlign_graphic_bottom_virtual" keywords="[DataGroup, verticalAlign]" description="bottom align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'bottom'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="bottom" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_bottom_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_verticalAlign_graphic_justify_virtual" keywords="[DataGroup, verticalAlign]" description="justify align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_verticalAlign_graphic_contentJustify_virtual" keywords="[DataGroup, verticalAlign]" description="contentJustify align graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>				
+	
+<!-- mixed content items -->	
+
+	<TestCase testID="DataGroup_verticalAlign_mix_top_virtual" keywords="[DataGroup, verticalAlign]" description="top align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'top'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="top" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_mix_top_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_verticalAlign_mix_middle_virtual" keywords="[DataGroup, verticalAlign]" description="middle align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'middle'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="middle" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_mix_middle_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_verticalAlign_mix_bottom_virtual" keywords="[DataGroup, verticalAlign]" description="middle align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'bottom'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="bottom" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_mix_bottom_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_verticalAlign_mix_justify_virtual" keywords="[DataGroup, verticalAlign]" description="justify align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_mix_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_verticalAlign_mix_contentJustify_virtual" keywords="[DataGroup, verticalAlign]" description="contentJustify align mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_mix_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>				
+
+<!-- all small items (graphics) -->
+
+	<TestCase testID="DataGroup_verticalAlign_graphic_small_top_virtual" keywords="[DataGroup, verticalAlign]" description="top align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'top'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="top" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_small_top_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_verticalAlign_graphic_small_middle_virtual" keywords="[DataGroup, verticalAlign]" description="middle align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'middle'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="middle" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_small_middle_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_verticalAlign_graphic_small_bottom_virtual" keywords="[DataGroup, verticalAlign]" description="bottom align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'bottom'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="bottom" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_small_bottom_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_verticalAlign_graphic_small_justify_virtual" keywords="[DataGroup, verticalAlign]" description="justify align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'justify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="justify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_small_justify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_verticalAlign_graphic_small_contentJustify_virtual" keywords="[DataGroup, verticalAlign]" description="contentJustify align graphic items (small items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.verticalAlign = 'contentJustify'" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="typicalItem" value="XXXX" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.verticalAlign" value="contentJustify" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<CompareBitmap url="../properties/baselines/datagroup_verticalAlign_graphic_small_contentJustify_virtual.png" target="" timeout="2000" />
+		</body>
+	</TestCase>				
+
+		
+		
+  </testCases>
+</UnitTester>

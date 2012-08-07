@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="comps.*" backgroundColor="0xFFFFFF" width="600" height="600" creationComplete="initCollections()">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+
+	<fx:Script>
+		<![CDATA[
+		    import mx.collections.*;
+
+		    [Bindable]
+		    public var menuBarCollection:XMLListCollection;
+
+		    private var menubarXML:XMLList =
+			<>
+			    <menuitem label="Menu1">
+				<menuitem label="MenuItem 1-A" data="1A"/>
+				<menuitem label="MenuItem 1-B" data="1B"/>
+			    </menuitem>
+			    <menuitem label="Menu2">
+				<menuitem label="MenuItem 2-A" type="check"  data="2A"/>
+				<menuitem type="separator" />
+				<menuitem label="MenuItem 2-B" >
+				    <menuitem label="SubMenuItem 3-A" type="radio"
+					groupName="one" data="3A"/>
+				    <menuitem label="SubMenuItem 3-B" type="radio"
+					groupName="one" data="3B"/>
+				</menuitem>
+			    </menuitem>
+			</>;
+
+		    // Event handler to initialize the MenuBar control.
+		    private function initCollections():void {
+			menuBarCollection = new XMLListCollection(menubarXML);
+		    }
+
+		]]>
+	</fx:Script>
+	<fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myArial;
+			embedAsCFF: true;
+
+		}
+
+		global{
+			fontAntiAliasType: "normal";
+			fontFamily: myArial;
+			fontSize: 12;
+            fontLookup: "embeddedCFF";
+		}
+
+		.redText {
+		    color: #FF0000;
+		    fontWeight: "bold";
+		}
+
+		.greenFill {
+		    fillColors: #FFFFFF, #0022DD;
+		}
+
+		.redFill {
+		    fillColors: #FFFFFF, #DD2200;
+		    cornerRadius: 6;
+		}
+	</fx:Style>
+	
+	<s:Group id="basicGrp" height="500" width="500">
+	
+		<local:MyRect id="mr"/>
+
+		<local:MyPath id="mp"/>
+
+		<local:MyBitmap id="mb"/>
+
+		<local:MyText id="mt"/>
+
+		<local:MyEllipse id="me"/>
+	
+		<!--UIComponents-->
+		<mx:Button id="btn" width="50" height="30">	
+		</mx:Button>
+
+		<mx:ComboBox id="cb" dataProvider="[apple, orange, banana, grape, peach]"/>
+
+		<mx:MenuBar labelField="@label" dataProvider="{menuBarCollection}" />
+	</s:Group>            
+	
+	<!--Group for SDK-18433-->
+	<s:Group width="100%" height="100%">
+	<s:Group id="ellGroup" x="300" y="300">
+		<s:Ellipse id="ell" height="50" width="75" top="0" left="0" bottom="0" right="0">
+			<s:fill>
+				<mx:SolidColor color="0x00CC00"/>
+			</s:fill>
+		</s:Ellipse>
+	</s:Group>
+	</s:Group>
+	
+	<!--Group for SDK-18219-->
+	<s:VGroup id="vg1" y="300">
+		<s:VGroup id="vg2">
+			<s:Button label="Hello" click="{t1.text='Hello'}" />
+			<s:RichText id="t1" text="x" />
+			<s:Button label="y" click="{t1.text='y'}" />
+		</s:VGroup>
+		<s:Button id="zBtn" label="z" click="{t1.text='z'}" />
+	</s:VGroup>
+	
+	<local:MyGroup id="myGrp" y="400"/>
+</s:Application>

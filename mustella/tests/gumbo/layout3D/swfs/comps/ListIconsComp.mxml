@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+dataProvider="{createIconsAC()}" height="70" width="200" useVirtualLayout="false">
+<s:layout> <s:HorizontalLayout/> </s:layout>
+<fx:Script>
+<![CDATA[
+
+import mx.collections.ArrayCollection;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c1.png")]
+public var icon11:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c2.png")]
+public var icon12:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c3.png")]
+public var icon13:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c4.png")]
+public var icon14:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c5.png")]
+public var icon15:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c6.png")]
+public var icon16:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c7.png")]
+public var icon17:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c8.png")]
+public var icon18:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r1_c9.png")]
+public var icon19:Class;
+
+[Bindable]
+[Embed(source="../../../../../Assets/Images/GridImages/1_r2_c1.png")]
+public var icon21:Class;
+
+        public function createIconsAC():ArrayCollection
+        {
+                var acIcons:ArrayCollection = new ArrayCollection
+                ([  {label:"1", data:icon11},
+                {label:"2", data:icon12},
+                {label:"3", data:icon13},
+                {label:"4", data:icon14},
+                {label:"5", data:icon15},
+                {label:"6", data:icon16},
+                {label:"7", data:icon17},
+                {label:"8", data:icon18},
+                {label:"9", data:icon19},
+                {label:"10", data:icon21}] );
+                return acIcons;
+        }
+]]>
+</fx:Script>
+
+
+        <s:itemRenderer>
+            <fx:Component >
+                <s:ItemRenderer autoDrawBackground = "false" >
+                        <s:states>
+                            <mx:State name="normal" />
+                            <mx:State name="hovered" />
+                            <mx:State name="selected" />
+                        </s:states>
+                    <s:Rect left="0" right="0" top="0" bottom="0">
+                        <s:fill>
+                            <mx:SolidColor color="0xFF0000" alpha="0.1" alpha.hovered="0.3" alpha.selected="0.6" />
+                        </s:fill>
+                    </s:Rect>
+                    <s:VGroup  width="30" height="30">
+                    <s:Label text="{data.label}" />
+                    <mx:Image id="im" source="{data.data}" />
+                    </s:VGroup>
+                </s:ItemRenderer>
+            </fx:Component>
+        </s:itemRenderer>
+    </s:List>

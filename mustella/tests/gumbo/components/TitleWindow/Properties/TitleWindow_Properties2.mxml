@@ -1,0 +1,619 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import spark.components.TitleWindow;
+        	import comps.*;
+        	
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+        	
+        	public var screenY:int = flash.system.Capabilities.screenResolutionY;
+		public var screenX:int = flash.system.Capabilities.screenResolutionX;
+		
+		
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+       	<fx:Array id="contentArray1">
+       		<s:Button label="1" width="30" />
+       		<s:Button label="2" width="30" />
+       		<s:Button label="3" width="30" />
+       		<s:Button label="4" width="30" />
+       	</fx:Array>
+       	
+       	<fx:Array id="contentArray2">
+       		<s:Button label="single" />
+       	</fx:Array>
+       	
+       	<fx:Array id="contentArray3">
+       		<mx:Button />
+       		<mx:Button emphasized="true" />
+       		<mx:Button />
+       	</fx:Array>
+       	
+       	<fx:Array id="contentArray4">
+       		<s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+       		<s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x00FF00" /></s:fill></s:Rect>
+       		<s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x0000FF" /></s:fill></s:Rect>
+       	</fx:Array>
+       <fx:Array id="widercontentArray1">
+       		<s:HSlider id="mySparkHSlider" width="400"/> 
+       	</fx:Array>
+       <fx:Array id="tallercontentArray1">
+		<s:VSlider id="mySparkVSlider" height="500"/> 
+       	</fx:Array>
+       <fx:Array id="contentArrayBL">
+		<s:Rect x="20"  width="20" height="20"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		<s:Rect x="50" width="20" height="20"><s:fill><s:SolidColor color="0x00FF00" /></s:fill></s:Rect>
+		<s:Rect x="80" width="20" height="20"><s:fill><s:SolidColor color="0x0000FF" /></s:fill></s:Rect>
+       	</fx:Array>
+       <fx:Array id="contentArrayHL">
+       		<s:HGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xDD6245" /></s:fill></s:Rect>
+		</s:HGroup>
+		<s:HGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x00FF00" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x5BDD45" /></s:fill></s:Rect>
+		</s:HGroup>
+		<s:HGroup>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x0000FF" /></s:fill></s:Rect>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x5445DD" /></s:fill></s:Rect>
+		</s:HGroup>
+       	</fx:Array>
+
+       <fx:Array id="contentArrayVL">
+       		<s:VGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xEE8395" /></s:fill></s:Rect>
+		</s:VGroup>
+		<s:VGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x00FF00" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x83EEC8" /></s:fill></s:Rect>
+		</s:VGroup>
+		<s:VGroup>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x0000FF" /></s:fill></s:Rect>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x838AEE" /></s:fill></s:Rect>
+		</s:VGroup>
+       	</fx:Array>
+       <fx:Array id="contentArrayHL2">
+       		<s:HGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xDD6245" /></s:fill></s:Rect>
+		</s:HGroup>
+		<s:HGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x00FF00" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x5BDD45" /></s:fill></s:Rect>
+		</s:HGroup>
+		<s:HGroup>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x0000FF" /></s:fill></s:Rect>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x5445DD" /></s:fill></s:Rect>
+		</s:HGroup>
+       	</fx:Array>
+
+       <fx:Array id="contentArrayVL2">
+       		<s:VGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0xEE8395" /></s:fill></s:Rect>
+		</s:VGroup>
+		<s:VGroup>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x00FF00" /></s:fill></s:Rect>
+		    <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x83EEC8" /></s:fill></s:Rect>
+		</s:VGroup>
+		<s:VGroup>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x0000FF" /></s:fill></s:Rect>
+		   <s:Rect width="20" height="20"><s:fill><s:SolidColor color="0x838AEE" /></s:fill></s:Rect>
+		</s:VGroup>
+       	</fx:Array>
+         <fx:Array id="contentArrayTL">
+       		<s:Group width="100" height="100">
+		    <s:BitmapImage fillMode="repeat" source="@Embed('../../../../../Assets/Images/yellowrect.jpg')"/>
+		</s:Group>
+       	</fx:Array>
+       <fx:Array id="contentArrayClipH">
+       		<s:HSlider id="myLongSparkHSlider" width="500"/>
+       	</fx:Array>
+        <fx:Array id="contentArrayClipV">
+       		<s:VSlider id="myLongSparkVSlider" height="500"/>
+       	</fx:Array>    
+  	<fx:Array id="contentArrayFill">
+       		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+       	</fx:Array> 
+	<fx:Array id="contentArrayFill2">
+		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+       	</fx:Array>
+       	<s:BasicLayout id="bLayout" />
+       	<s:VerticalLayout id="vLayout" />
+       	<s:HorizontalLayout id="hLayout" />
+       	<s:TileLayout id="tLayout" />    	
+    </fx:Declarations>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+	<TestCase testID="TitleWindow_closeButton_invisible1" keywords="[TitleWindow,closeButton,invisible]" description="Test a titleWindow with closeButton.visible=false">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtn,'window without content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+	<TestCase testID="TitleWindow_closeButton_invisible2" keywords="[TitleWindow,closeButton,visible]" description="Test a titleWindow with closeButton.visible=false">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtnShow,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.closeButton.visible=false"/>
+	    	<Pause timeout="50"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>  
+        
+	<TestCase testID="TitleWindow_closeButton_visible1" keywords="[TitleWindow,closeButton,visible]" description="Test a titleWindow with closeButton.visible=false">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtnShow,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>     
+
+	<TestCase testID="TitleWindow_closeButton_visible2" keywords="[TitleWindow,closeButton,visible]" description="Test a titleWindow with closeButton.visible=false initially">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtn,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.closeButton.visible=true"/>
+	    	<Pause timeout="50"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+ 	<TestCase testID="TitleWindow_closeButton_rollover" keywords="[TitleWindow,closeButton,visible]" description="Test a titleWindow with closeButton.visible=false initially">
+             <setup>            
+ 		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+ 		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtnShow,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+ 	    </setup>
+ 	    <body>
+ 	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+ 		<WaitForEffectsToEnd />
+ 		<CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+             </body>
+        </TestCase> 
+ 
+  	<TestCase testID="TitleWindow_closeButton_disabled" keywords="[TitleWindow,closeButton,disabled]" description="Test a titleWindow with closeButton.visible=false initially">
+              <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtnShow,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.closeButton.enabled='false'" waitEvent="updateComplete" waitTarget="twObject.closeButton" />
+  	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+  		<WaitForEffectsToEnd />
+  		<CompareBitmap target="twObject.closeButton" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" maxColorVariance="20"/>
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+              </body>
+        </TestCase> 
+        
+  	<TestCase testID="TitleWindow_controlBarContent1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with empty controlBarContent">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarEmptyContent,'empty controlBar content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+              </body>
+        </TestCase> 
+
+  	<TestCase testID="TitleWindow_controlBarContent2" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a label">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarContent1,'label as controlBar content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+              </body>
+        </TestCase> 
+        
+   	<TestCase testID="TitleWindow_controlBarContent3" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having 4 buttons">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'window without content')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray1"/>
+		  <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	   
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+    	<TestCase testID="TitleWindow_controlBarContent4" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having 1 button">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'window without content')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray2" />
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	   
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+
+   	<TestCase testID="TitleWindow_controlBarContent5" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having 3 buttons,one is emphasized">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'window without content')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray3" />
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	   
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+
+   	<TestCase testID="TitleWindow_controlBarContent6" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having 3 color filled rect">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'window without content')"/>
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray4" />
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	   
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+
+   	<TestCase testID="TitleWindow_controlBarContentWider" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a wider control">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'window without content')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=widercontentArray1" />
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	   
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+
+   	<TestCase testID="TitleWindow_controlBarContentTaller" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a taller control">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'window without content')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=tallercontentArray1"/>
+    		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	   
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+ 	<TestCase testID="TitleWindow_controlBarVisible_false" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a label">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarContent1,'label as controlBar content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarVisible" value="false" waitEvent="updateComplete" waitTarget="twObject"/>
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+              </body>
+        </TestCase>   
+ 	<TestCase testID="TitleWindow_controlBarVisible_true" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a label">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarContent1,'label as controlBar content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarVisible" value="false" waitEvent="updateComplete" waitTarget="twObject"/>
+  	   	<!-- from false to true again -->
+  		<SetProperty target="twObject" propertyName="controlBarVisible" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+              </body>
+        </TestCase> 
+
+	<TestCase testID="TitleWindow_controlBarInvisible" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a label">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarContentInvisible,'controlBar is invisible')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	   	<AssertPropertyValue target="twObject" propertyName="controlBarVisible" value="false" />
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+  	   	<!-- from false to true again -->
+  		<SetProperty target="twObject" propertyName="controlBarVisible" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
+  		<AssertPropertyValue target="twObject" propertyName="controlBarVisible" value="true" />
+  		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID_change.png"  numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+	<TestCase testID="TitleWindow_controlBarHLayout" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent having a label">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContentInvisible,'controlBar is invisible')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=hLayout" />
+  	   	<SetProperty target="twObject" propertyName="controlBarVisible" value="false" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+	<TestCase testID="TitleWindow_controlBarHLayout2" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarLayout">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayVL"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=hLayout" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete"/>
+      
+  	   	
+            </body>
+        </TestCase> 
+  	<TestCase testID="TitleWindow_controlBarHLayout3" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarLayout">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayHL" />
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=hLayout" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete"/>
+                <Pause timeout="40"/>
+            </body>
+        </TestCase> 
+        
+ 	<TestCase testID="TitleWindow_controlBarVLayout1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarLayout">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayHL2"/>
+  	   	<Pause timeout="40"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=vLayout" />
+  	   	<Pause timeout="40"/>
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20" />
+            </body>
+        </TestCase> 
+  	<TestCase testID="TitleWindow_controlBarVLayout2" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarLayout">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayVL2"/>
+  	   	<Pause timeout="20"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=vLayout" />
+  	   	<Pause timeout="20"/>
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+  	    	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete"/>
+            </body>
+        </TestCase> 
+
+	<TestCase testID="TitleWindow_controlBarBasicLayout1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarLayout">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayBL" />
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=bLayout" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+  	<TestCase testID="TitleWindow_controlBarTileLayout1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarLayout">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayTL" />
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=tLayout" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20" />
+            </body>
+        </TestCase> 
+
+  	<TestCase testID="TitleWindow_controlBarContentClip1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent clipping">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayClipH"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=hLayout"/>
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20" />
+            </body>
+        </TestCase> 
+
+  	<TestCase testID="TitleWindow_controlBarContentClip2" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent clipping">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayClipV"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=vLayout" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png"  numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+   	<TestCase testID="TitleWindow_controlBarContentFill1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent Fill">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayFill" />
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=vLayout"  />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete"/>
+  	    	<Pause timeout="40"/>
+      
+            </body>
+        </TestCase> 
+      	<TestCase testID="TitleWindow_controlBarContentFill2" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent Fill">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArrayFill2" />
+  	   	<SetProperty target="twObject" propertyName="controlBarLayout" valueExpression="value=hLayout" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="7" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+		
+      	<TestCase testID="TitleWindow_empty_controlBarContent1" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent is reset">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=new Array()" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="7" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+      	<TestCase testID="TitleWindow_empty_controlBarContent2" keywords="[TitleWindow,controlBarContent]" description="Test a titleWindow with controlBarContent is reset">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarLayout,'controlBarLayout')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="7" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+			
+ 	<TestCase testID="TitleWindow_moveArea_default1" keywords="[TitleWindow,MoveArea]" description="Test moveArea in a titleWindow">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,'window without content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<!-- check moveArea, need clarify it is property or skin, need exploring it in ascode -->
+	    	<!-- assert it isn't null -->
+		<CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20" />
+            </body>
+        </TestCase>   
+	<TestCase testID="TitleWindow_moveArea_move1" keywords="[TitleWindow,MoveArea]" description="Test move a titleWindow by mouse dragging/dropping">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,'window without content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<!-- check mouse down to (moveArea),move to (0, 0) -->
+	    	<DispatchMouseClickEvent target="twObject.moveArea"    localX="20" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseDown"  localX="10" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseMove"  stageX="100" stageY="250" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="100" stageY="350" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="11" stageY="11" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseUp"  stageX="11" stageY="11" />
+		<Pause timeout="20"/>
+		<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=0"/>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=0"/>
+            </body>
+        </TestCase>  
+
+	<TestCase testID="TitleWindow_moveArea_move2" keywords="[TitleWindow,MoveArea]" description="Test move a titleWindow by mouse dragging/dropping">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,'window without content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<!-- check mouse down to (moveArea),move to (0, 800) -->
+	    	<DispatchMouseClickEvent target="twObject.moveArea"    localX="20" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseDown"  localX="10" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseMove"  stageX="100" stageY="250" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="100" stageY="350" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="11" stageY="811" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseUp"  stageX="11" stageY="811" />
+		<Pause timeout="20"/>
+		<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=800"/>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=0"/>
+            </body>
+        </TestCase>  
+
+	<TestCase testID="TitleWindow_moveArea_move3" keywords="[TitleWindow,MoveArea]" description="Test move a titleWindow by mouse dragging/dropping">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,'window without content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<!-- check mouse down to (moveArea),move to (800, 0) -->
+	    	<DispatchMouseClickEvent target="twObject.moveArea"    localX="20" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseDown"  localX="10" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseMove"  stageX="100" stageY="250" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="100" stageY="350" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="811" stageY="11" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseUp"  stageX="811" stageY="11" />
+		<Pause timeout="20"/>
+		<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=0"/>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=800"/>
+            </body>
+        </TestCase>  
+
+	<TestCase testID="TitleWindow_moveArea_move4" keywords="[TitleWindow,MoveArea]" description="Test move a titleWindow by mouse dragging/dropping">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,'window without content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<!-- check mouse down to (moveArea),move to (800, 800) -->
+	    	<DispatchMouseClickEvent target="twObject.moveArea"    localX="20" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseDown"  localX="10" localY="10" />
+		<DispatchMouseEvent target="twObject.moveArea"  type="mouseMove"  stageX="100" stageY="250" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="800" stageY="350" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseMove"  stageX="811" stageY="811" />
+		<DispatchMouseEvent target="twObject.moveArea" type="mouseUp"  stageX="811" stageY="811" />
+		<Pause timeout="20"/>
+		<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=800"/>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=800"/>
+            </body>
+        </TestCase>  
+    </testCases>
+    
+</UnitTester>
+

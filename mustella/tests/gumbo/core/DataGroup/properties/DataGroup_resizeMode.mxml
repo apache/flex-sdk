@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/core/DataGroup/properties/" testSWF="DataGroupBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+	  import spark.components.DataGroup;
+	  import spark.primitives.*;
+	  import mx.collections.ArrayCollection;
+
+	]]>
+  </fx:Script>
+  <testCases>
+
+<!-- resizeMode property -->
+
+<!-- default value -->
+
+	<TestCase testID="DataGroup_property_resizeMode_default" keywords="[DataGroup, property, resizeMode]" description="check default value">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="noScale" />
+		</body>
+	</TestCase>
+
+<!-- different dimensions to resize to -->
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_fillDimensions_200x200" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_fillDimensions_200x200.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_fillDimensions_100x100" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_fillDimensions_100x100.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_fillDimensions_50x100" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_fillDimensions_50x100.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_fillDimensions_100x50" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="50" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_fillDimensions_100x50.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_fillDimensions_50x50" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="50" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_fillDimensions_50x50.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_fillDimensions_1x1" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="1" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="1" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="1" />
+			<AssertPropertyValue target="group1" propertyName="height" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+		</body>
+	</TestCase>
+
+<!-- change dimensions - permute(small,medium,large) -->
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_changeDimensions_mediumToLarge" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_changeDimensions_mediumToLarge.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_changeDimensions_mediumToSmall" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="50" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_changeDimensions_mediumToSmall.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_changeDimensions_largeToMedium" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<Pause timeout="200" />
+
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_changeDimensions_largeToMedium.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_changeDimensions_smallToMedium" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_changeDimensions_smallToMedium.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_changeDimensions_smallToLarge" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="200" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_changeDimensions_smallToLarge.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_property_resizeMode_vectorGraphic_changeDimensions_largeToSmall" keywords="[DataGroup, property, resizeMode]" description="check items resize to the group's size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width" value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="resizeMode" value="scale" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.dataProvider.addItem(new comps.VectorGraphic)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			<AssertPropertyValue target="group1" propertyName="width" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="50" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<CompareBitmap url="../properties/baselines/datagroup_property_resizeMode_vectorGraphic_changeDimensions_largeToSmall.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+
+
+
+
+
+
+  </testCases>
+</UnitTester>

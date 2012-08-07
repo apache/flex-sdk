@@ -1,0 +1,98 @@
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="Comps.*"
+    backgroundColor="0xFFFFFF"
+    height="740" width="800">
+    
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}			
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: MyArialHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: MyArialHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: MyArialHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}					
+			
+		mx|Accordion,
+		mx|RadioButton,
+		mx|CheckBox,
+		mx|List,
+		mx|DataGrid,
+		mx|Button,
+		mx|Text,
+		mx|Label,
+		mx|NumericStepper{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+		}
+					
+		s|Panel,
+		s|HSlider,
+		s|NumericStepper,
+		s|Button,
+		s|TextInput{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;				
+			fontLookup: "embeddedCFF";
+		}		
+			    
+	</fx:Style>    
+  
+	<s:layout> <s:HorizontalLayout/> </s:layout>
+		
+	<s:Group id="myGrp">    
+		<s:layout>
+			<s:VerticalLayout paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"/>
+		</s:layout>
+		<local:CustomStylePanel id="myCustomStylePanel" />    	
+		<s:Button id="changeButton" label="Change title" click="myCustomStylePanel.title='New Title'"/>
+    </s:Group>
+    
+	<local:CustomStylePaddingPanel id="myCustomStylePaddingPanel" />    
+		                              
+</s:Application>

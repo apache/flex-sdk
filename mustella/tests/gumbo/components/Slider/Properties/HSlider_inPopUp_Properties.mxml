@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Slider/Properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Slider_PopUp_Basic.mxml">
+
+    <fx:Script>
+	<![CDATA[
+
+            public static function init(o:DisplayObject):void
+	    {
+
+	    }
+
+	    public function cleanUpPopUps(): void
+	    {
+	        if(application.parent.numChildren > 1)
+		{
+		    var popups:int = application.parent.popUpChildren.numChildren;
+		    if(popups > 0)
+		    {
+		        for (var i:int=0; i<popups; i++)
+			{
+			     application.parent.removeChild(application.parent.popUpChildren.getChildAt(i));
+			}
+		    }
+		}
+	    }
+        ]]>
+    </fx:Script>
+
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+
+    <testCases>
+	    
+		<TestCase testID="HSlider_default_liveDragging_inPopUp" keywords="[HSlider, liveDragging, PopUp]" description="Test Default liveDragging Mode for HSlider in PopUp">
+			<setup>
+				<RunCode code="cleanUpPopUps()" />
+				<WaitForEffectsToEnd />
+				<RunCode code="application.addWindow(false)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+				<SetStyle target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" styleName="liveDragging" value="false" />
+			</setup>
+			<body>
+				<AssertStyleValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" styleName="liveDragging" value="false" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />	
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="10" />
+
+				<AssertEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" eventName="change" eventClass="flash.events::Event" numExpectedEvents="1" />
+
+				<RunCode code="application.closeWindow(application.iPanel)" />
+			</body>
+    	</TestCase>
+    
+		<TestCase testID="HSlider_liveDragging_Enabled_inPopUp" keywords="[HSlider, liveDragging, PopUp]" description="Test liveDragging enabled mode for HSlider in PopUp">
+			<setup>
+				<RunCode code="cleanUpPopUps()" />
+				<WaitForEffectsToEnd />
+				<RunCode code="application.addWindow(false)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />				
+			</setup>
+			<body>	      
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+				<AssertStyleValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" styleName="liveDragging" value="true" />
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="10" />
+				<AssertEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" eventName="valueCommit" eventClass="mx.events::FlexEvent" />        
+
+				<RunCode code="application.closeWindow(application.iPanel)" />
+			</body>
+    	</TestCase>
+    
+		<TestCase testID="HSlider_default_min_max_values_inPopUp" keywords="[HSlider, Default, PopUp]" description="Test Default Min and Max for HSlider in PopUp">
+			<setup>
+				<RunCode code="cleanUpPopUps()" />
+				<WaitForEffectsToEnd />
+				<RunCode code="application.addWindow(false)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="minimum" value="0" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="maximum" value="10" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="stepSize" value="1" />            	
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="10" />
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+
+				<RunCode code="application.closeWindow(application.iPanel)" />
+			</body>
+    	</TestCase>       	
+    	
+ 		<TestCase testID="HSlider_custom_max_inPopUp" keywords="[HSlider, Maximum, PopUp]" description="Test Custom Positive Maximum for HSlider in PopUp">
+            <setup>
+				<RunCode code="cleanUpPopUps()" />
+				<WaitForEffectsToEnd />
+				<RunCode code="application.addWindow(false)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+				<SetProperty target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="300" />
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />
+
+				<RunCode code="application.closeWindow(application.iPanel)" />
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_min_inPopUp" keywords="[HSlider, Minimum, PopUp]" description="Test Custom Negative Minimum for HSlider in PopUp">
+            <setup>
+	        	<RunCode code="cleanUpPopUps()" />
+				<WaitForEffectsToEnd />
+				<RunCode code="application.addWindow(false)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+				<SetProperty target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="minimum" value="-40" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="10" />
+
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+				<DispatchMouseEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" />
+
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="-40" />
+
+				<RunCode code="application.closeWindow(application.iPanel)" />
+            </body>
+    	</TestCase>      	
+
+        <TestCase testID="HSlider_track_click_inPopUp" keywords="[HSlider, Track, PopUp]" description="Test clicking in the track for HSlider in PopUp">
+			<setup>
+				<RunCode code="cleanUpPopUps()" />
+				<WaitForEffectsToEnd />
+				<RunCode code="application.addWindow(false)" waitTarget="systemManager.topLevelSystemManager.getChildAt(0)" waitEvent="updateComplete" />
+				<SetProperty target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="maximum" value="100" />
+			</setup>
+	    	<body>
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />	  
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="23.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="20" />	  	       
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="41.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="40" />	        
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="58.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="60" />			     
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="76.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="80" />	       
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="94.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="100" />
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="76.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="80" />	       	        
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="58.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="60" />	        
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="41.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="40" />	        
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="23.5" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="20" />	        
+
+				<DispatchMouseClickEvent target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" localX="4" localY="4" waitTarget="systemManager.rawChildren.getChildAt(2).getChildAt(0)" waitEvent="change" />
+				<AssertPropertyValue target="systemManager.rawChildren.getChildAt(2).getChildAt(0)" propertyName="value" value="0" />	        
+
+				<RunCode code="application.closeWindow(application.iPanel)" />
+	   		</body>
+    	</TestCase>    		 
+       
+
+    </testCases>
+    
+</UnitTester>

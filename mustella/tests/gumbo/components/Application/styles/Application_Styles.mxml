@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester
+    testDir="gumbo/components/Application/styles/"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns="*"
+    testSWF="Application_Styles_App1.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+
+    }
+
+]]>
+</mx:Script>
+
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>
+
+<!-- end of set of lines that must be in each unit test -->
+
+<mx:Script>
+<![CDATA[
+
+    import assets.*;
+    import mx.controls.*;
+    import mx.core.Application;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import mx.managers.*;
+    import spark.layouts.*;
+    import spark.layouts.supportClasses.*;
+
+    public var theText:String = "\n\n\n\n\n\n\n\n\n\n";
+
+]]>
+</mx:Script>
+
+<testCases>
+
+    <TestCase testID="Application_Styles_baseColor_test1" keywords="[Application,baseColor]" description="Be sure baseColor works.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication4.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.setStyle('chromeColor','0x00ff00')" waitTarget="bx1.sl2.content.document.skin" waitEvent="updateComplete"/>
+            <AssertPixelValue target="bx1.sl2.content.document.btn1" x="5" y="5" value="0x44ff44" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Styles_contentBackgroundColor_test1" keywords="[Application,contentBackgroundColor]" description="Be sure contentBackgroundColor works.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication4.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.setStyle('contentBackgroundColor','0xff0000')" waitTarget="bx1.sl2.content.document.skin" waitEvent="updateComplete"/>
+            <AssertPixelValue target="bx1.sl2.content.document.ta1" x="5" y="5" value="0xff0000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Styles_focusColor_test1" keywords="[Application,focusColor]" description="Be sure focusColor works.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication4.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <DispatchKeyEvent keys="[TAB]" />
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.setStyle('focusColor','0x0000ff')" waitTarget="bx1.sl2.content.document.skin" waitEvent="updateComplete"/>
+            <CompareBitmap url="../styles/baselines/$testID.png" target="bx1.sl2.content.document.box1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Styles_rollOverColor_test1" keywords="[Application,rollOverColor]" description="Be sure rollOverColor works.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication4.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.setStyle('rollOverColor','0xff00ff')" waitTarget="bx1.sl2.content.document.skin" waitEvent="updateComplete"/>
+            <DispatchMouseEvent type="rollOver" target="bx1.sl2.content.document.list1.mx_internal:rendererArray.1.0" localX="5" localY="4" />
+            <DispatchMouseEvent type="mouseMove" target="bx1.sl2.content.document.list1.mx_internal:rendererArray.1.0" localX="5" localY="4" waitEvent="updateComplete" />
+            <AssertPixelValue target="bx1.sl2.content.document.list1.mx_internal:rendererArray.1.0" x="5" y="5" value="0xff00ff" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Styles_focusedTextSelectionColor_test1" keywords="[Application,selfocusedTextSelectionColor]" description="Be sure selectionColor works.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication4.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.setStyle('focusedTextSelectionColor','0x00ffff')" waitTarget="bx1.sl2.content.document.skin" waitEvent="updateComplete"/>
+            <SetProperty target="bx1.sl2.content.document.ta1" propertyName="text" value="          " waitEvent="valueCommit" />
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.ta1.selectRange(0,9)" waitTarget="bx1.sl2.content.document.ta1" waitEvent="selectionChange" />
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.ta1.focusManager.setFocus(FlexGlobals.topLevelApplication.bx1.sl2.content.document.ta1)" waitTarget="bx1.sl2.content.document.ta1" waitEvent="focusIn" />
+            <AssertPixelValue target="bx1.sl2.content.document.ta1" x="10" y="10" value="0x00ffff" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Styles_symbolColor_test1" keywords="[Application,symbolColor]" description="Be sure symbolColor works.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication4.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.bx1.sl2.content.document.setStyle('symbolColor','0xffffff')"/>
+            <SetProperty target="bx1.sl2.content.document.ta1" propertyName="text" waitEvent="updateComplete" valueExpression="value = theText" />
+            <CompareBitmap url="../styles/baselines/$testID.png" target="bx1.sl2.content.document.ta1" />
+        </body>
+    </TestCase>
+
+</testCases>
+</UnitTester>

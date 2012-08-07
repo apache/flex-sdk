@@ -1,0 +1,34 @@
+<languageVersion : 1.0;>
+
+kernel BoolUL
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts 1 bool as a parameter.  The upper left corner turns black if it is true.";
+>
+{
+    parameter bool theBool;
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos   = outCoord();    
+        float x      = pos.x;
+        float y      = pos.y;
+        bool upperLeft = theBool;
+        
+        dst.a = float(1);
+        
+        if(upperLeft && x < float(50) && y < float(50)){
+            dst.r = float(0);
+            dst.g = float(0);
+            dst.b = float(0);
+        }else{
+            dst.r = float(1);
+            dst.g = float(1);
+            dst.b = float(1);
+        }
+    }
+}

@@ -1,0 +1,193 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="Panel_Properties_title1" keywords="[Panel, Title]" description="Test default properties of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel" propertyName="title" value="My Panel Title" waitEvent="propertyChange" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="title" value="My Panel Title"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase> 
+ 
+		<TestCase testID="Panel_Properties_title2" keywords="[Panel, Title]" description="Test default properties of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel" propertyName="title" value="0123456789 _Panel_ $#!@%^*():" waitEvent="propertyChange" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="title" value="0123456789 _Panel_ $#!@%^*():"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>        
+       
+		<TestCase testID="Panel_Properties_title3" keywords="[Panel, Title]" description="Test changing title at runtime Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>                
+            </setup>
+            <body>            	
+            	<DispatchMouseClickEvent target="changeButton" localX="5" localY="5" waitEvent="click" waitTarget="changeButton"/>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="title" value="New Title" />
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Panel_Properties_title4" keywords="[Panel, Title]" description="Test changing title at runtime Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel" propertyName="title" value="Testing a very long title in an Panel to see how it is displayed and if the panel sizes up correctly given the length" waitEvent="propertyChange" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10"/>
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Properties_title5" keywords="[Panel, Title]" description="Test changing title at runtime Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel" propertyName="width" value="100" />
+                <SetProperty target="myCustomPanel" propertyName="title" value="Testing a very long title in an Panel to see how it is displayed when the width is set to only 100" waitEvent="propertyChange" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Properties_fixedSize" keywords="[Panel, Height, Width, Size]" description="Test specifying a fixed size for Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>
+				<AssertPropertyValue target="myCustomPanel" propertyName="width" value="200"/>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="height" value="200"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Panel_Properties_alpha" keywords="[Panel, Alpha]" description="Test the alpha property of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>				
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID_1.png" />
+            	<SetProperty target="myCustomPanel" propertyName="alpha" value="0"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID_2.png" />
+            	<SetProperty target="myCustomPanel" propertyName="alpha" value="0.5"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID_3.png" />
+            </body>
+        </TestCase>      
+        
+		<TestCase testID="Panel_Properties_disabled1" keywords="[Panel, Disabled, Enabled]" description="Test enabled property at runtime of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <DispatchMouseClickEvent target="disableButton" localX="5" localY="5" waitEvent="click" waitTarget="disableButton"/>
+            </setup>
+            <body>				
+            	<AssertPropertyValue target="myCustomPanel" propertyName="enabled" value="false"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />            	
+            </body>
+        </TestCase>        
+
+		<TestCase testID="Panel_Properties_disabled2" keywords="[Panel, Disabled, Enabled]" description="Test enabled property of components within Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+                <SetProperty target="myCustomPanel.myButton" propertyName="enabled" value="false"/>                
+                <SetProperty target="myCustomPanel.myFxHSlider" propertyName="enabled" value="false"/>
+                <SetProperty target="myCustomPanel.myFxNS" propertyName="enabled" value="false"/>
+            </setup>
+            <body>				            	
+				<AssertPropertyValue target="myCustomPanel.myButton" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="myCustomPanel.myFxHSlider" propertyName="enabled" value="false"/>
+                <AssertPropertyValue target="myCustomPanel.myFxNS" propertyName="enabled" value="false"/>            	
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myCustomPanel.myFxButton" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myCustomPanel.myNS" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myCustomPanel.myHSlider" />
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID.png" />            	
+            </body>
+        </TestCase>        
+
+		<TestCase testID="Panel_Properties_disabled3" keywords="[Panel, Enabled]" description="Test enabled property using mxml of Panel">
+            <setup>            
+                <ResetComponent target="myCustomDisPanel" className="Comps.CustomPanelDisabled" waitEvent="updateComplete" waitTarget="myCustomDisPanel"/>                
+            </setup>
+            <body>   
+            	<Pause timeout="100"/>
+            	<CompareBitmap target="myCustomDisPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>                         
+
+		<TestCase testID="Panel_Properties_toolTip" keywords="[Panel, toolTip]" description="Test toolTip property of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>                
+            </setup>
+            <body>             	
+            	<DispatchMouseEvent target="myCustomPanel" localX="50" localY="10" type="mouseOver" waitEvent="toolTipShown" waitTarget="myCustomPanel"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID_1.png" />
+            	<DispatchMouseEvent target="myCustomPanel.myAccordion" localX="37" localY="7" type="mouseOver" waitEvent="toolTipShown" waitTarget="myCustomPanel.myAccordion"/>
+            	<CompareBitmap target="myCustomPanel" url="../Properties/Baselines/$testID_2.png" />
+            </body>
+        </TestCase>		
+        
+		<TestCase testID="Panel_Properties_skinned" keywords="[Panel, Skin]" description="Test skinned Panel">
+            <setup>            
+                <ResetComponent target="mySkinnedPanel" className="Comps.CustomPanelSkinned" waitEvent="updateComplete" waitTarget="mySkinnedPanel"/>                
+            </setup>
+            <body>            	
+            	<CompareBitmap target="mySkinnedPanel" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Properties_skinnedNoTitle" keywords="[Panel, Skin]" description="Test skinned Panel">
+            <setup>            
+                <ResetComponent target="mySkinnedPanelNoTitle" className="Comps.CustomPanelSkinnedNoTitle" waitEvent="updateComplete" waitTarget="mySkinnedPanelNoTitle"/>                
+            </setup>
+            <body>            	
+            	<CompareBitmap target="mySkinnedPanelNoTitle" url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="20" />
+            </body>
+        </TestCase>        
+        <TestCase testID="Panel_Properties_baselinePosition_preValidation" keywords="[Panel, baselinePosition]" description="Test baselinePosition property of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" />
+                <SetProperty target="myCustomPanel" propertyName="title" value="My Panel Title" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="baselinePosition" value="19.85"/>
+            </body>
+        </TestCase>         
+        <TestCase testID="Panel_Properties_baselinePosition_postValidation" keywords="[Panel, baselinePosition]" description="Test baselinePosition property of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" />
+                <SetProperty target="myCustomPanel" propertyName="title" value="My Panel Title" waitEvent="propertyChange" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myCustomPanel" propertyName="baselinePosition" value="19.85"/>
+            </body>
+        </TestCase> 
+    </testCases>
+    
+</UnitTester>
+

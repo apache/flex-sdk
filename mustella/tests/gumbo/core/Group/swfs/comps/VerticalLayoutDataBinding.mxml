@@ -1,0 +1,16 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  >
+
+	<s:Group id="innerGroup" width="50" height="100" clipAndEnableScrolling="true">
+		<s:layout><s:VerticalLayout id="vLayout" /></s:layout>
+		<s:Rect width="50" height="44"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect width="50" height="44"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect width="50" height="44"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect width="50" height="44"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+	</s:Group>
+
+
+	<mx:Label id="label_firstIndexInView" text="{vLayout.firstIndexInView}" />
+	<mx:Label id="label_lastIndexInView" text="{vLayout.lastIndexInView}" />
+	<mx:Label id="label_rowCount" text="{vLayout.rowCount}" />
+	
+</s:Group>

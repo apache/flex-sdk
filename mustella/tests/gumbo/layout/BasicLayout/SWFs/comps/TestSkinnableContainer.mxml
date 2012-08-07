@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="*">
+	<s:layout>
+            <s:BasicLayout />
+         </s:layout>
+        <mx:Box id="textinput_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:TextInput id="textinput1" text="FxTextInput" />
+        </mx:Box>
+        <s:Button id="buttona" y="{textinput1.y+30}" label="button2" />
+        <mx:Box id="button_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:Button id="button1" label="FxButton" y="{buttona.y+30}" />
+        </mx:Box>
+        <mx:Box id="radiobutton_box" y="{button_box.y+20}" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:RadioButton id="radiobutton1" label="FxRadi_Butt_n" selected="true"/>
+        </mx:Box>
+        <mx:Box id="togglebutton_box" y="{radiobutton1.y+20}" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:ToggleButton label="FxToggleButton" id="togglebutton1" />
+        </mx:Box>
+        <s:VScrollBar y="{togglebutton_box.y+20}" maximum="10" minimum="0" id="vscrollbar1" />
+        <mx:Box y="{vscrollbar1.y+20}" id="numericstepper_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:NumericStepper id="numericstepper1" />
+        </mx:Box>
+        <s:Rect id="border1" left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x00FF00"/>
+		</s:stroke>
+	</s:Rect> 
+</s:SkinnableContainer>

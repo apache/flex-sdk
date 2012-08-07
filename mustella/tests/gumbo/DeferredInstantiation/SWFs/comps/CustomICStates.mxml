@@ -1,0 +1,40 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="comps.*"	
+    height="250"
+    width="250">
+    
+    <s:layout>
+    	<s:VerticalLayout/>
+    </s:layout>
+
+    <fx:Script>
+    <![CDATA[	
+	import mx.events.StateChangeEvent;
+    		
+	public function goToState2():void{
+	    if(currentState == "state2"){
+	        dispatchEvent(new Event("inState2"));
+	    }else{
+	        addEventListener("currentStateChange", handleCurrentStateChange);
+	        currentState = "state2";   
+	    }
+    	}
+    		
+    	private function handleCurrentStateChange(e:StateChangeEvent):void{
+		dispatchEvent(new Event("inState2"));
+	}
+
+    ]]>
+    </fx:Script>
+
+    <s:states>
+	<s:State name="state1" />
+	<s:State name="state2" />
+    </s:states>
+
+    <s:Button id="myButtonA" label="Gumbo Button Default State" includeIn="state1" />
+    
+    <s:Button id="myButtonB" label="Gumbo Button State Two" includeIn="state2" />
+
+</s:SkinnableContainer>

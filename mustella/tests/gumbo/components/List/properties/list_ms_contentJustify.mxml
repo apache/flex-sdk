@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="ListBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import comps.*;
+        import mx.collections.*;
+        import spark.layouts.*;
+
+    ]]>
+    </fx:Script>
+
+    <testCases>
+
+    <TestCase testID="List_ms_horizontalAlign_default" keywords="[List, horizontalAlign]" description="check default value">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <ResetComponent target="list2" className="spark.components.List" waitTarget="list2" waitEvent="updateComplete" />
+        </setup>
+        <body>
+             <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+             <SetProperty target="list1" propertyName="requireSelection" value="true" />
+             <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="contentJustify" />
+             <AssertPropertyValue target="list1" propertyName="width" value="112" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_data_left" keywords="[List, horizontalAlign]" description="left align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'left'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="list1" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_data_center" keywords="[List, horizontalAlign]" description="center align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'center'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="list1" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_data_right" keywords="[List, horizontalAlign]" description="right align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'right'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="list1" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_data_justify" keywords="[List, horizontalAlign]" description="justify align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="useVirtualLayout"  value="false"  />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_data_contentJustify" keywords="[List, horizontalAlign]" description="contentJustify align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+<!-- graphic items -->
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_left" keywords="[List, horizontalAlign]" description="left align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'left'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_center" keywords="[List, horizontalAlign]" description="center align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'center'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_right" keywords="[List, horizontalAlign]" description="right align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'right'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_justify" keywords="[List, horizontalAlign]" description="justify align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="useVirtualLayout"  value="false"  />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_contentJustify" keywords="[List, horizontalAlign]" description="contentJustify align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+<!-- mixed content items -->
+
+    <TestCase testID="List_ms_horizontalAlign_mix_left" keywords="[List, horizontalAlign]" description="left align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'left'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_mix_center" keywords="[List, horizontalAlign]" description="center align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'center'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_mix_right" keywords="[List, horizontalAlign]" description="center align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'right'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_mix_justify" keywords="[List, horizontalAlign]" description="justify align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="useVirtualLayout"  value="false"  />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_mix_contentJustify" keywords="[List, horizontalAlign]" description="contentJustify align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+<!-- all small items (graphics) -->
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_small_left" keywords="[List, horizontalAlign]" description="left align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'left'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_small_center" keywords="[List, horizontalAlign]" description="center align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'center'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_small_right" keywords="[List, horizontalAlign]" description="right align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'right'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_small_justify" keywords="[List, horizontalAlign]" description="justify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_horizontalAlign_graphic_small_contentJustify" keywords="[List, horizontalAlign]" description="contentJustify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <AssertMethodValue method="application.list1.layout.horizontalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+<!--
+
+HorizontalLayout - verticalAlign
+
+- check default value
+- left, right, center, justify, contentJustify
+    - with mix, data, graphics
+    - with small/large items
+
+-->
+
+<!-- data items -->
+
+    <TestCase testID="List_ms_verticalAlign_default" keywords="[List, verticalAlign]" description="check default value">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="-1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_data_top" keywords="[List, verticalAlign]" description="top align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'top'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height" value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_data_middle" keywords="[List, verticalAlign]" description="middle align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'middle'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_data_bottom" keywords="[List, verticalAlign]" description="bottom align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_data_justify" keywords="[List, verticalAlign]" description="justify align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="useVirtualLayout"  value="false"  />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_data_contentJustify" keywords="[List, verticalAlign]" description="contentJustify align data items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+<!-- graphic items -->
+
+    <TestCase testID="List_ms_verticalAlign_graphic_top" keywords="[List, verticalAlign]" description="top align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'top'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_middle" keywords="[List, verticalAlign]" description="middle align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'middle'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_bottom" keywords="[List, verticalAlign]" description="bottom align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_justify" keywords="[List, verticalAlign]" description="justify align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="useVirtualLayout"  value="false"  />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_contentJustify" keywords="[List, verticalAlign]" description="contentJustify align graphic items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+<!-- mixed content items -->
+
+    <TestCase testID="List_ms_verticalAlign_mix_top" keywords="[List, verticalAlign]" description="top align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'top'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_mix_middle" keywords="[List, verticalAlign]" description="middle align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'middle'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_mix_bottom" keywords="[List, verticalAlign]" description="middle align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_mix_justify" keywords="[List, verticalAlign]" description="justify align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="useVirtualLayout"  value="false"  />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_mix_contentJustify" keywords="[List, verticalAlign]" description="contentJustify align mix items">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="100" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+
+<!-- all small items (graphics) -->
+
+    <TestCase testID="List_ms_verticalAlign_graphic_small_top" keywords="[List, verticalAlign]" description="top align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'top'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="list1" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_small_middle" keywords="[List, verticalAlign]" description="middle align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'middle'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="list1" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_small_bottom" keywords="[List, verticalAlign]" description="bottom align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="list1" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_small_justify" keywords="[List, verticalAlign]" description="justify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'justify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_ms_verticalAlign_graphic_small_contentJustify" keywords="[List, verticalAlign]" description="contentJustify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+            <SetProperty target="list1" propertyName="requireSelection" value="true" />
+            <SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.list1.layout.verticalAlign = 'contentJustify'" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="height"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="width"  value="200" waitTarget="list1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.list1.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="list1" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="list1" timeout="2000" />
+            <AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+        </body>
+    </TestCase>
+
+    </testCases>
+</UnitTester>

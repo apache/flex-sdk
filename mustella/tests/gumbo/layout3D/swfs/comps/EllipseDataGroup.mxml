@@ -1,0 +1,53 @@
+<s:DataGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+>
+<s:itemRenderer>
+    <fx:Component>
+        <s:ItemRenderer autoDrawBackground = "false" >
+
+            <s:states>
+                <s:State name="normal"/>
+                <s:State name="hovered"/>
+                <s:State name="selected"/>
+            </s:states>
+
+            <fx:Script>
+                <![CDATA[
+                    [Bindable("dataChanged")]
+                    override public function set data(value:Object):void
+                    {
+                        super.data = value;
+
+                        this.x = value.x;
+                        this.y = value.y;
+
+                        contentGroup.removeAllElements();
+                        contentGroup.addElement(mx.core.IVisualElement(data));
+                    }
+                ]]>
+            </fx:Script>
+
+            <s:Group id="contentGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
+
+        </s:ItemRenderer>
+    </fx:Component>
+</s:itemRenderer>
+    <mx:ArrayCollection>
+       <s:Group>
+        <s:Ellipse width="40" height="20" id="e1" x="10" y="10">
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+            <s:fill><mx:SolidColor color="0xFF00FF"/></s:fill>
+        </s:Ellipse>
+      </s:Group><s:Group>
+        <s:Ellipse width="40" height="20" id="e2" x="30" y="20">
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+             <s:fill><mx:SolidColor color="0x00FF00"/></s:fill>
+        </s:Ellipse>
+       </s:Group><s:Group>
+        <s:Ellipse width="40" height="20" id="e3" x="50" y="30">
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+             <s:fill><mx:SolidColor color="0x0000FF"/></s:fill>
+        </s:Ellipse>
+      </s:Group>
+    </mx:ArrayCollection>
+</s:DataGroup>
+

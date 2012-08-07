@@ -1,0 +1,86 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+
+<fx:Script>
+<![CDATA[
+
+    import mx.controls.*;
+    import mx.graphics.*;
+    import spark.components.*;
+    import spark.primitives.Rect;
+    import mx.core.FlexGlobals;
+
+    /**
+    * For testing FlexGlobals.topLevelApplication.
+    **/
+    public function getTopLevelApplication():String{
+        return FlexGlobals.topLevelApplication.theIdentifier;
+    }
+    
+    /**
+    * Add some halo and spark controls for layout testing.
+    **/
+    public function addMixedComponents(numOfEach:int):void{
+        var i:int;
+        
+        for(i = 0; i < numOfEach; ++i){
+            addElement(new mx.controls.Button());
+            addElement(new spark.components.Button());            
+        }
+    }
+
+    /**
+    * Add halo components.
+    **/
+    public function addHaloComponents(numToAdd:int):void{
+        var i:int;
+        
+        for(i = 0; i < numToAdd; ++i){
+            addElement(new mx.controls.Button());
+        }
+    }
+
+    /**
+    * Add spark components.
+    **/
+    public function addSparkComponents(numToAdd:int):void{
+        var i:int;
+        
+        for(i = 0; i < numToAdd; ++i){
+            addElement(new spark.components.Button());
+        }
+    }
+
+
+    /**
+    * Add spark CheckBoxes
+    **/
+    public function addSparkCheckBoxes(numToAdd:int):void{
+        var i:int;
+        var ck:spark.components.CheckBox;
+        
+        for(i = 0; i < numToAdd; ++i){
+            ck = new spark.components.CheckBox();
+            addElement(ck);
+        }
+    }
+
+    /**
+    * Change a property of the skin property.
+    **/
+    public function changeSkinBackgroundRectColor(val:uint):void{
+         var r:Rect = Object(skin).backgroundRect;
+         var c:SolidColor = new SolidColor();
+
+         c.color = val;
+         r.fill = c;
+    }
+
+]]>
+</fx:Script>
+
+<s:states>
+    <s:State name="stop" />
+    <s:State name="go" />
+</s:states>
+
+</s:Application>

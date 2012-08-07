@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_005.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import spark.components.DataGrid;
+                import flash.events.MouseEvent;
+                import spark.events.GridEvent;
+                import spark.components.gridClasses.GridColumn;
+                
+                public function setAlternatingRowColors(dg:DataGrid, colorArray:Array):void
+                {
+                	dg.setStyle('alternatingRowColors', colorArray);
+                }
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+		<!-- style borderAlpha, borderColor, borderVisible, contentBackgroundAlpha, and contentBackgroundColor,alternatingRowColors.
+		--> 		
+		<TestCase testID="style_borderAlpha_test001" keywords="[DataGrid, Styles,borderAlpha]" description="Test borderAlpha=0, border changes">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>				
+				<SetStyle target="dataGrid2" styleName="borderColor" value="0x00ff00" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		
+				<SetStyle target="dataGrid2" styleName="borderAlpha" value="0" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_zero.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_borderAlpha_test002" keywords="[DataGrid, Styles,borderAlpha]" description="Test borderAlpha=0.5,1,verify border changes">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>				
+				<SetStyle target="dataGrid2" styleName="borderColor" value="0x00ff00" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		
+				<SetStyle target="dataGrid2" styleName="borderAlpha" value="0.5" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_half.png"/>
+				<SetStyle target="dataGrid2" styleName="borderAlpha" value="1" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_one.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_borderColor_test001" keywords="[DataGrid, Styles,borderColor]" description="Test borderColor,verify border color changes">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>				
+				<SetStyle target="dataGrid2" styleName="borderColor" value="0x00ff00" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_green.png"/>
+				<SetStyle target="dataGrid2" styleName="borderColor" value="0xff0000" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_red.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_borderVisible_test001" keywords="[DataGrid, Styles,borderVisible]" description="Test borderVisible,verify border shows/hides">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_show.png"/>
+				<SetStyle target="dataGrid2" styleName="borderVisible" value="false" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_hide.png"/>
+				<SetStyle target="dataGrid2" styleName="borderVisible" value="true" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_show.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_contentStyles_test001" keywords="[DataGrid, Styles,contentAlpha,contentBackGroundColor]" description="Test content style is set(alpha,color),verify content changes">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<SetStyle target="dataGrid2" styleName="contentBackgroundColor" value="0xff0000" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				
+			</setup>
+			<body>
+				<SetStyle target="dataGrid2" styleName="contentAlpha" value="0" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_0_alpha.png"/>
+				<SetStyle target="dataGrid2" styleName="contentAlpha" value="1" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_1_alpah.png"/>
+				<SetStyle target="dataGrid2" styleName="contentBackgroundColor" value="0x0000ff" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_blue.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_contentStyles_test002" keywords="[DataGrid, Styles,contentAlpha,contentBackGroundColor]" description="Test content style is set(alpha,color), also itemRenderer has contentBackgroundColor, borderColor set as well,verify itemRenderer should use its own styles">			
+			<setup>
+				<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<SetStyle target="dataGrid" styleName="contentBackgroundColor" value="0xff0000" waitEvent="updateComplete" waitTarget="dataGrid" />
+				<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(12)" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="style_alternatingRowColors_test001" keywords="[DataGrid, Styles,alternatingRowColors]" description="Test alternatingRowColors=[]">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete"/>
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=[]" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				
+			</setup>
+			<body>
+				
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_none.png"/>
+				 
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=null" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_none.png"/>
+				
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=['haloSilver']" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_haloSilver.png"/>
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=['red','white','blue']" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_3colors.png"/>
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=['white','haloOrange']" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_2colors.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="style_alternatingRowColors_test002" keywords="[DataGrid, Styles,alternatingRowColors]" description="Test alternatingRowColors style in ">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete"/>
+				<RunCode code="setAlternatingRowColors(FlexGlobals.topLevelApplication.dataGrid2,[])" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/style_alternatingRowColors_test001_none.png"/>
+				<RunCode code="setAlternatingRowColors(FlexGlobals.topLevelApplication.dataGrid2,null)" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/style_alternatingRowColors_test001_none.png"/>
+				<RunCode code="setAlternatingRowColors(FlexGlobals.topLevelApplication.dataGrid2,['haloSilver'])" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/style_alternatingRowColors_test001_haloSilver.png"/>
+				<RunCode code="setAlternatingRowColors(FlexGlobals.topLevelApplication.dataGrid2,['red','white','blue'])" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/style_alternatingRowColors_test001_3colors.png"/>
+				<RunCode code="setAlternatingRowColors(FlexGlobals.topLevelApplication.dataGrid2,['white','haloOrange'])" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/style_alternatingRowColors_test001_2colors.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_alternatingRowColors_test003" keywords="[DataGrid, Styles,alternatingRowColors]" description="Test set alternatingRowColors style, also resize dataGrid">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="setAlternatingRowColors(FlexGlobals.topLevelApplication.dataGrid2,['haloSilver','haloOrange'])" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			</setup>
+			<body>
+				<SetProperty target="dataGrid2" propertyName="height" value="200" waitEvent="updateComplete"/>				
+				<SetProperty target="dataGrid2" propertyName="width" value="400" waitEvent="updateComplete"/>				
+				
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_css_test001" keywords="[DataGrid, Styles,css]" description="Test styles defined in css">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<SetStyle target="dataGrid2" styleName="styleName" value="style1" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<!-- regression 28445 -->
+		<!-- comment it out till the bug is fixed -->
+		<!-- 
+		<TestCase testID="style_css_test002" keywords="[DataGrid, Styles,css]" description="Test styles defined in css">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>
+				
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=['red']" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				
+				<SetStyle target="dataGrid2" styleName="styleName" value="style2" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		-->
+		
+		<TestCase testID="style_column_test001" keywords="[DataGrid, Styles,GridColumn]" description="Test style set in GridColumn should work">			
+			<setup>
+				<ResetComponent target="dataGrid12" className="components.DataGrid_size3" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid12,13)"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid12" propertyName="height" value="200" waitEvent="updateComplete"/>								
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid12" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="style_column_test002" keywords="[DataGrid, Styles,GridColumn]" description="Test style set in GridColumn should work">			
+			<setup>
+				<ResetComponent target="dataGrid12" className="components.DataGrid_size3" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid12,14)" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid12" propertyName="height" value="200" waitEvent="updateComplete"/>								
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid12" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="style_column_test003" keywords="[DataGrid, Styles,GridColumn]" description="Test style set in GridColumn should work">			
+			<setup>
+				<ResetComponent target="dataGrid12" className="components.DataGrid_size3" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid12,15)"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="dataGrid12" propertyName="height" value="200" waitEvent="updateComplete"/>								
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid12" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<!-- regression SDK-28672, not use style -->
+		<TestCase testID="style_direction_locale_IR_test001" keywords="[DataGrid, Styles,Renderer]" description="Test style direction, locale are styles now, also style can set in renderer">			
+			<setup>
+				<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dpWithDate"  waitEvent="updateComplete"/>								
+				<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.columns1" waitEvent="updateComplete"/>								
+				<SetProperty target="dataGrid" propertyName="height" value="120" waitEvent="updateComplete"/>								
+				
+				<!-- style is set in renderer, should work -->
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<!-- the difference is this one use style, locale i fr-FR -->
+		<TestCase testID="style_direction_locale_IR_test002" keywords="[DataGrid, Styles,Renderer]" description="Test style direction, locale are styles now, also style can set in renderer">			
+			<setup>
+				<ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dpWithDate" waitEvent="updateComplete"/>								
+				<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.columns1" waitEvent="updateComplete"/>								
+				<SetStyle target="dataGrid" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="dataGrid" />
+				<!-- set up locale style, also layoutDirection/direction=rtl -->
+				<SetStyle target="dataGrid" styleName="styleName" value="style3" waitEvent="updateComplete" waitTarget="dataGrid" />
+				<SetProperty target="dataGrid" propertyName="height" value="120" waitEvent="updateComplete"/>								
+				
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>		
+<TestCase testID="style_caretColor_test001" keywords="[DataGrid, Styles,caretColor]" description="Test caretColor style changes">			
+		<setup>
+			<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+			<SetProperty target="dataGrid2" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage" />	
+		</setup>
+		<body>
+			<!-- assert default style value for caretColor -->
+			<AssertStyleValue target="dataGrid2" styleName="caretColor" value="0x167FF" />
+			<SetStyle target="dataGrid2" styleName="caretColor" value="0xff0000" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2" />
+			<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.grid.caretRowIndex=1 " />
+			<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.grid.caretColumnIndex=1 " />
+			<DispatchKeyEvent keys="[RIGHT]" waitTarget="dataGrid2" waitEvent="enterFrame" />
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_red.png"/>
+			<!-- change to a new style for caretColor -->
+			<SetStyle target="dataGrid2" styleName="caretColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_green.png"/>
+			<!-- move the caret, verify the style is applied -->
+			<DispatchKeyEvent keys="[LEFT]" waitTarget="dataGrid2" waitEvent="enterFrame" />
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_green2.png"/>
+			<!-- move the caret, verify the style is applied -->
+			<DispatchKeyEvent keys="[DOWN,LEFT]" waitTarget="dataGrid2" waitEvent="enterFrame" />
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="vg1" url="../Styles/Baselines/$testID_green3.png"/>	
+		</body>
+	</TestCase>
+	<TestCase testID="style_caretRollOverColor_css" keywords="[DataGrid, Styles,caretColor]" description="Test caretColor style changes">			
+		<setup>
+			<ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			<SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+			<SetProperty target="dataGrid2" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>	
+		</setup>
+		<body>
+			<!-- assert default style value for caretColor -->
+			<AssertStyleValue target="dataGrid2" styleName="rollOverColor" value="0xCEDBEF" />
+			<SetStyle target="dataGrid2" styleName="styleName" value="style4" waitEvent="updateComplete" waitTarget="dataGrid2" />
+			<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2" />
+			<DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="110" localY="20" />
+			<DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="110" localY="30" />
+
+			<AssertEvent target="dataGrid2.grid" eventName="{GridEvent.GRID_ROLL_OVER}" eventClass="spark.events::GridEvent" />
+			<CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+
+		</body>
+	</TestCase>
+	
+	<TestCase testID="style_symbolColor_scrollBarRenderer" keywords="[DataGrid,styles,symbolColor ]" 
+	        description="Test symbolColors on scrollBars, renderer components">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData2(12)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <SetStyle target="dataGrid2" styleName="symbolColor" value="0x39E01B" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <!-- set the firstName column with new renderer which contains checkBox -->
+		    <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid2,1)" waitEvent="enterFrame" waitTarget="stage"/>
+		    
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Styles/Baselines/$testID_newRenderer.png" target="dataGrid2"/>
+		   
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.updateItems(2,2,'long long long long long value')" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Styles/Baselines/$testID_long.png" target="dataGrid2"/>
+		</body>
+	    </TestCase>
+	<TestCase testID="style_symbolSelectionColor_css" keywords="[DataGrid,styles,symbolColor ]" 
+	        description="Test symbolColors on scrollBars, renderer components">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData2(12)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <SetStyle target="dataGrid2" styleName="styleName" value="style4" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <!-- set the firstName column with new renderer which contains checkBox -->
+		    <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid2,1)" waitEvent="enterFrame" waitTarget="stage"/>
+		    
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Styles/Baselines/$testID.png" target="dataGrid2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,1)" value="true" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Styles/Baselines/$testID_selection.png" target="dataGrid2"/>
+		   
+		 </body>
+	    </TestCase>
+	    
+	   <TestCase testID="style_symbolColor_editor" keywords="[DataGrid,styles,symbolColor ]" 
+	        description="Test symbolColors on scrollBars, editor components">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="editable" value="true"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <SetStyle target="dataGrid2" styleName="symbolColor" value="0x39E01B" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <!-- set the firstName column with new renderer which contains checkBox -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1).itemEditor=new ClassFactory(dgIE01)" waitEvent="enterFrame" waitTarget="stage"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,1)" value="true"/>
+		    <DispatchKeyEvent keys="[F2]"  waitEvent="enterFrame" waitTarget="stage" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.itemEditorInstance"/>
+		</body>
+	    </TestCase>
+	   <TestCase testID="style_symbolColor_sortArrow" keywords="[DataGrid,styles,symbolColor ]" 
+	        description="Test symbolColors on header renderer, sortArrow">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <SetStyle target="dataGrid2" styleName="symbolColor" value="0x39E01B" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		    <DispatchMouseClickEvent target="dataGrid2.columnHeaderGroup" localX="200" localY="10" waitEvent="gridClick" waitTarget="dataGrid2.columnHeaderGroup"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchMouseClickEvent target="dataGrid2.grid" localX="200" localY="60" />
+		    <CompareBitmap url="../Styles/baselines/$testID_up.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.columnHeaderGroup"/>
+		
+		    <SetStyle target="dataGrid2" styleName="symbolColor" value="0x3BB6EB" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
+		    <!-- reverse sort -->
+		    <DispatchMouseClickEvent target="dataGrid2.columnHeaderGroup" localX="200" localY="10"  waitEvent="gridClick" waitTarget="dataGrid2.columnHeaderGroup"/>
+		    <CompareBitmap url="../Styles/baselines/$testID_down.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2.columnHeaderGroup"/>
+		</body>
+	    </TestCase>
+
+	   <TestCase testID="style_rolloverColor_test001" keywords="[DataGrid,styles,rollOverColor ]" 
+	        description="Test rollOverColor style on row/cell/renderer">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid2,0)" waitEvent="enterFrame" waitTarget="stage"/>
+		    
+		    <SetStyle target="dataGrid2" styleName="rollOverColor" value="0x39E01B" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+            	    <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="10" localY="20" />
+		    <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="10" localY="30" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cell1.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    
+		    <SetStyle target="dataGrid2" styleName="rollOverColor" value="0x3BB6EB" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
+		    <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="40" localY="20" />
+		    <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="40" localY="30" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cell2.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    
+		    <SetProperty target="dataGrid2" propertyName="selectionMode" value="singleRow" waitEvent="enterFrame" waitTarget="stage" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+		    <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid2.grid" localX="120" localY="20" />
+		    <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid2.grid" localX="120" localY="30" />
+		    <CompareBitmap url="../Styles/baselines/$testID_row1.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		   
+		
+		</body>
+	    </TestCase>
+	    
+
+	   <TestCase testID="style_selectionColor_test001" keywords="[DataGrid,styles,selectionColor ]" 
+	        description="Test selectionColor style on cell/renderer">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData2(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid2,1)" waitEvent="enterFrame" waitTarget="stage"/>
+		    <SetStyle target="dataGrid2" styleName="symbolColor" value="red" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  
+		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0xC5C9C9" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+            	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,1)" value="true" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cellgray.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		
+		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x37D422" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,1)" value="true" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cellgreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    
+		    <SetProperty target="dataGrid2" propertyName="selectionMode" value="multipleCells" waitEvent="enterFrame" waitTarget="stage" />
+		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.selectCellRegion(2,1,3,2)" value="true" />
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.ensureCellIsVisible(5,1)"  waitEvent="enterFrame" waitTarget="stage" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cellRegionGreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    
+		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x22C2D4" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedCell(4,3)" value="true" />	  
+		    <CompareBitmap url="../Styles/baselines/$testID_blue.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		</body>
+	    </TestCase>
+ 	   <TestCase testID="style_selectionColor_test002" keywords="[DataGrid,styles,selectionColor ]" 
+	        description="Test selectionColor style on row/renderer">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="selectionMode" value="singleRow"/>
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="250" waitEvent="updateComplete"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex2(FlexGlobals.topLevelApplication.dataGrid2,1)" waitEvent="enterFrame" waitTarget="stage"/>
+		    <SetStyle target="dataGrid2" styleName="symbolColor" value="red" waitEvent="updateComplete" waitTarget="dataGrid2" />
+		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0xC5C9C9" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+            	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(2)" value="true" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cellgray.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		
+		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x37D422" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedIndex(3)" value="true" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cellgreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    
+		    <SetProperty target="dataGrid2" propertyName="selectionMode" value="multipleRows" waitEvent="enterFrame" waitTarget="stage" />
+		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedIndex(4)" value="true" />
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedIndex(5)" value="true" />
+		    <CompareBitmap url="../Styles/baselines/$testID_cellRegionGreen.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    
+		    <SetStyle target="dataGrid2" styleName="selectionColor" value="0x22C2D4" waitEvent="updateComplete" waitTarget="dataGrid2" /> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.addSelectedIndex(0)" value="true" />	  
+		    <CompareBitmap url="../Styles/baselines/$testID_cellRegionBlue.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		   <!-- clear selection -->
+		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.clearSelection()" value="true" />	
+		   <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		   <!-- should select color is removed, should see symbolColor for the renderer -->
+		   <CompareBitmap url="../Styles/baselines/$testID_clear.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		</body>
+	    </TestCase>
+	   <TestCase testID="style_styleOnRenderer_test" keywords="[DataGrid,styles,symbolColor ]" 
+	        description="Test symbolColor,selectionColor,rollOverColor seton renderer">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="height" value="150" waitEvent="updateComplete"/>	
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData2(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+		    <SetStyle target="dataGrid2" styleName="styleName" value="style5" waitEvent="updateComplete" waitTarget="dataGrid2" />
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		    <RunCode code="GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1)).itemRenderer=new ClassFactory(dgIR1WithStyle);"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <!-- symbol color should be red, not black -->
+		    <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(2,1)" value="true" />
+		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		     <!-- selection, rollOver is at DataGrid -->
+		    <CompareBitmap url="../Styles/baselines/$testID_selection.png" numColorVariances="20" maxColorVariance="20" target="dataGrid2"/>
+		</body>
+	    </TestCase>    
+	    <!-- test defaultDataGridItemEditor style -->
+	    <TestCase testID="style_defaultDataGridItemEditor_test" keywords="[DataGrid, style,defaultDataGridItemEditor]" description="verify defaultDataGridItemEditor style default setting">
+	    	       <setup>
+	    	          <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete"/> 
+	    		  <SetProperty target="dataGrid" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	          <SetProperty target="dataGrid.column2" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	       </setup>
+	    	       <body>
+	    		  <!-- select the cell(0,1)-->
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,1)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <!-- click on the selected cell to invoke editor -->
+	    		  <DispatchMouseClickEvent target="dataGrid.grid" localX="40" localY="10" waitEvent="click" waitTarget="dataGrid.grid"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		  <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.dataGrid.itemEditorInstance is spark.components.gridClasses.DefaultGridItemEditor)" valueExpression="value=true"/>
+	    	      </body>
+	   </TestCase>
+	    <TestCase testID="style_defaultDataGridItemEditor_test2" keywords="[DataGrid, style,defaultDataGridItemEditor]" description="verify defaultDataGridItemEditor style set a new value">
+	    	       <setup>
+	    	          <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete"/> 
+	    		  <SetProperty target="dataGrid" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	          <SetProperty target="dataGrid.column2" propertyName="editable" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+	    	          <SetStyle target="dataGrid" styleName="defaultDataGridItemEditor" valueExpression="value=dgIE01" waitEvent="updateComplete" waitTarget="dataGrid" />	
+			
+	    	       </setup>
+	    	       <body>
+	    		  <!-- select the cell(0,1)-->
+	    		  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(0,1)" value="true"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+	    		  <!-- click on the selected cell to invoke editor -->
+	    		  <DispatchMouseClickEvent target="dataGrid.grid" localX="40" localY="10" waitEvent="click" waitTarget="dataGrid.grid"/>
+	    		  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    		  <DispatchKeyEvent keys="[DOWN]" ctrlKey="true" waitEvent="enterFrame" waitTarget="stage"   />
+	     		  <DispatchMouseClickEvent target="dataGrid.itemEditorInstance.cb1" localX="22" localY="15"  waitEvent="enterFrame" waitTarget="stage" />
+	     		  <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.dataGrid.itemEditorInstance is dgIE01)" valueExpression="value=true"/>
+	    	      </body>
+	   </TestCase> 
+    </testCases>
+</UnitTester>

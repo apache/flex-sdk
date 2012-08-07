@@ -1,0 +1,50 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Events/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="Panel_mouseEvents" keywords="[Panel, Event]" description="Test Mouse Events for Panel">
+            <setup>
+                <ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+            </setup>
+            <body>
+				<DispatchMouseEvent target="myCustomPanel" type="mouseOver" localX="25" localY="25" waitEvent="mouseOver" waitTarget="myCustomPanel"/>
+				<DispatchMouseEvent target="myCustomPanel" type="mouseMove" localX="50" localY="50" />
+				<AssertEvent target="myCustomPanel" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+				<DispatchMouseEvent target="myCustomPanel" type="mouseUp" localX="50" localY="50" />
+				<AssertEvent target="myCustomPanel" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Panel_toolTipEvents" keywords="[Panel, Event, toolTip]" description="Test toolTip Events for Panel">
+			<setup>
+				<ResetComponent target="myCustomPanel" className="Comps.CustomPanel" waitEvent="updateComplete" waitTarget="myCustomPanel"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myCustomPanel" localX="50" localY="10" type="mouseOver"/>
+				<AssertEvent target="myCustomPanel" eventName="toolTipShown" eventClass="mx.events::ToolTipEvent" timeout="5000" />				
+			</body>
+		</TestCase>
+        
+    </testCases>
+    
+</UnitTester>
+

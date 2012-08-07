@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/LayoutProps/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="Flex3_IUserLayoutProps_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+               
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+            <![CDATA[
+	    ]]>
+	</fx:Script>
+	
+	<testCases>
+		<TestCase testID="Flex3_mxButton_scaleX_layoutProps" keywords="[mxButton, scaleX, top, layout]" description="Verify layout properties are postscale">
+			<setup>
+				<ResetComponent target="btn2" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minWidth" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minHeight" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxWidth" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxHeight" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="scaleX" value="6" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn2.width" value="360" />
+				<AssertMethodValue method="value=application.btn2.height" value="22" />
+				<AssertMethodValue method="value=application.btn2.explicitWidth" value="NaN" />
+				<AssertMethodValue method="value=application.btn2.explicitHeight" value="NaN" />
+				<AssertMethodValue method="value=application.btn2.explicitMinWidth" value="60" />
+				<AssertMethodValue method="value=application.btn2.explicitMinHeight" value="10" />
+				<AssertMethodValue method="value=application.btn2.explicitMaxWidth" value="6000" />
+				<AssertMethodValue method="value=application.btn2.explicitMaxHeight" value="1000" />
+				<AssertPropertyValue propertyName="measuredMinWidth" value="240" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinHeight" value="22" target="btn2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Flex3_mxButton_scaleX_width_layoutProps" keywords="[mxButton, scaleX, top, layout]" description="Verify layout properties are postscale">
+			<setup>
+				<ResetComponent target="btn2" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="width" value="55" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="height" value="33" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minWidth" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minHeight" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxWidth" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxHeight" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="scaleX" value="2" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn2.width" value="110" />
+				<AssertMethodValue method="value=application.btn2.height" value="33" />
+				<AssertMethodValue method="value=application.btn2.explicitWidth" value="110" />
+				<AssertMethodValue method="value=application.btn2.explicitHeight" value="33" />
+				<AssertMethodValue method="value=application.btn2.explicitMinWidth" value="20" />
+				<AssertMethodValue method="value=application.btn2.explicitMinHeight" value="10" />
+				<AssertMethodValue method="value=application.btn2.explicitMaxWidth" value="2000" />
+				<AssertMethodValue method="value=application.btn2.explicitMaxHeight" value="1000" />
+				<AssertPropertyValue propertyName="measuredMinWidth" value="0" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinHeight" value="0" target="btn2"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Flex3_mxButton_scaleX_noMin_noMax_layoutProps" keywords="[mxButton, scaleX, top, layout]" description="Verify layout properties are postscale">
+			<setup>
+				<ResetComponent target="btn2" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="scaleX" value="6" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="240" target="btn2"/>
+				<AssertPropertyValue propertyName="height" value="22" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitWidth" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitHeight" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMinWidth" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMinHeight" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMaxWidth" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMaxHeight" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinWidth" value="240" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinHeight" value="22" target="btn2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Flex3_mxButton_scaleY_layoutProps" keywords="[mxButton, scaleY, top, layout]" description="Verify layout properties are postscale">
+			<setup>
+				<ResetComponent target="btn2" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minWidth" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minHeight" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxWidth" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxHeight" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="scaleY" value="3" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="40" target="btn2"/>
+				<AssertPropertyValue propertyName="height" value="90" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitWidth" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitHeight" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMinWidth" value="10" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMinHeight" value="30" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMaxWidth" value="1000" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMaxHeight" value="3000" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinWidth" value="40" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinHeight" value="66" target="btn2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Flex3_mxButton_scaleX_scaleY_layoutProps" keywords="[mxButton, scaleX, top, layout]" description="Verify layout properties are postscale">
+			<setup>
+				<ResetComponent target="btn2" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minWidth" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="minHeight" value="10" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxWidth" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="maxHeight" value="1000" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="scaleY" value="3" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+				<SetProperty propertyName="scaleX" value="5" target="btn2" waitEvent="updateComplete" waitTarget="btn2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="250" target="btn2"/>
+				<AssertPropertyValue propertyName="height" value="90" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitWidth" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitHeight" value="NaN" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMinWidth" value="50" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMinHeight" value="30" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMaxWidth" value="5000" target="btn2"/>
+				<AssertPropertyValue propertyName="explicitMaxHeight" value="3000" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinWidth" value="200" target="btn2"/>
+				<AssertPropertyValue propertyName="measuredMinHeight" value="66" target="btn2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Flex3_mxButton_rotation_verticalLayout_layoutProps" keywords="[mxButton, rotation, verticalLayout, layout]" description="Layout doesn't take into account rotation set at runtime for Button">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="rotation" value="45" target="btn" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="vgrp"/>
+			</body>
+		</TestCase>
+				
+	</testCases>
+</UnitTester>

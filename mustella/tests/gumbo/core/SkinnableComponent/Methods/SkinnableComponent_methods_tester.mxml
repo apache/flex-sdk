@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testDir="gumbo/core/SkinnableComponent/Methods/" testSWF="SkinnableComponent_Main.mxml" xmlns:comps="comps.*" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }                   
+    ]]>
+    </fx:Script>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>  
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+    <![CDATA[
+import spark.components.supportClasses.Skin;
+import spark.components.Label;
+        import comps.*;
+        
+            private function checkSkin(so:Skin):Boolean{
+                return so is comps.RedSkin;
+            }
+            
+            private function checkState(so:Label, val:String):Boolean{
+                return (so.text == val);
+            }
+            
+            private function checkMethods(tb:Label, val:String):Boolean{
+                trace("Actual: " + tb.text);
+                trace("Expected: " + val);
+                return (tb.text == val);
+            }
+    ]]>
+    </fx:Script>
+
+    <testCases>
+
+    <!-- This test checks both removing parts, and getDynamicPartAt because the code calls getDynamicPartAt to remove the dynamic parts-->
+    <TestCase testID="SkinnableComponent_dynamicPart_addBehavior_removePart" keywords="[SkinnableComponent, methods]" description="add dynamic part, add event listener">
+        <setup>
+            <ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+            <SetProperty propertyName="label" value="three" target="mc" waitEvent="updateComplete" waitTarget="mc"/>
+            <SetProperty propertyName="label" value="two" target="mc" waitEvent="updateComplete" waitTarget="mc"/>
+        </setup>
+        <body>
+            <AssertPixelValue target="" value="0xFFFFFF" x="59" y="107"/>
+            <AssertPixelValue target="" value="0xFCFCFC" x="81" y="88"/>
+        </body>
+    </TestCase>
+
+    <TestCase testID="attachSkin_method_order" keywords="[SkinnableComponent, methods]" description="Verifies attachSkin calls methods in order attachSkin, findSkinParts, partAdded ">
+        <setup>
+        <ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=checkMethods(application.mc.functionOrder, 'attachSkin findSkinParts partAdded partAdded partAdded partAdded ')" value="true"/>
+        </body>
+    </TestCase>
+    
+    <TestCase testID="detachSkin_method_order" keywords="[SkinnableComponent, methods]" description="Verifies detachSkin calls methods in order detachSkin clearSkinParts partRemoved ">
+        <setup>
+            <ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+            <SetStyle styleName="skinClass" valueExpression="value=comps.BlueSkin" target="mc" waitEvent="updateComplete" waitTarget="mc" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=checkMethods(application.mc.unloadOrder, 'detachSkin clearSkinParts partRemoved partRemoved partRemoved partRemoved ')" value="true"/>
+        </body>
+    </TestCase>
+    
+    <!-- Dynamic part tests -->
+    <TestCase testID="SkinnableComponent_addDynamicPart" keywords="[SkinnableComponent, methods]" description="add a dynamic part">
+        <setup>
+            <ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+            <SetProperty propertyName="label" value="three" target="mc" waitEvent="updateComplete" waitTarget="mc"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.mc.numDynParts('ellipseClass')" value="4"/>
+        </body>
+    </TestCase>
+    
+    <TestCase testID="SkinnableComponent_dynamicPart_addBehavior" keywords="[SkinnableComponent, methods]" description="add dynamic part, add event listener">
+        <setup>
+            <ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+            <SetProperty propertyName="label" value="three" target="mc" waitEvent="updateComplete" waitTarget="mc"/>
+            <DispatchMouseClickEvent target="mc" localX="200" localY="200" />
+            <DispatchMouseClickEvent target="mc" localX="200" localY="200" />
+            <DispatchMouseClickEvent target="mc" localX="200" localY="200" />
+            <DispatchMouseClickEvent target="mc" localX="200" localY="200" />
+            <!--<DispatchMouseClickEvent target="mc" localX="200" localY="200" waitTarget="mc.skin" waitEvent="updateComplete"/>
+            <DispatchMouseClickEvent target="mc" localX="200" localY="200" waitTarget="mc.skin" waitEvent="updateComplete"/>
+            <DispatchMouseClickEvent target="mc" localX="200" localY="200" waitTarget="" waitEvent="updateComplete"/>-->
+            <Pause timeout="1000"/>
+        </setup>
+        <body>
+            <AssertPixelValue target="" value="0xFF0000" x="173" y="148"/>
+            <AssertPixelValue target="" value="0xFF0000" x="173" y="149"/>
+        </body>
+    </TestCase>
+    
+    
+    <TestCase testID="SkinnableComponent_dynamicPart_numDynamicParts" keywords="[SkinnableComponent, methods]" description="add dynamic part, count dynamic parts">
+        <setup>
+            <ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+            <SetProperty propertyName="label" value="three" target="mc" waitEvent="updateComplete" waitTarget="mc"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value=checkState(application.mc.skin.dp, '4')" value="true"/>
+        </body>
+    </TestCase>
+    </testCases>
+</UnitTester>

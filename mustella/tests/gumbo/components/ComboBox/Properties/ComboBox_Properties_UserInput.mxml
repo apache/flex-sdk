@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_basic_input.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="ComboBox_Properties_inputDigitString1" keywords="[ComboBox, Property, Match]" description="Test the input of numbers as strings on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="1239"/>
+				<Pause timeout="100"/>			
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_digit" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="1239"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ComboBox_Properties_inputString1" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="Z"/>
+				<Pause timeout="100"/>																			
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Z"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="charGrp" url="../Properties/Baselines/$testID.png" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="ComboBox_Properties_inputString2" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="Reaching"/>
+				<Pause timeout="100"/>																			
+				<DispatchKeyEvent key="TAB" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Reaching"/>				
+				<CompareBitmap target="charGrp" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Properties_inputString3" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="1234567890"/>
+				<Pause timeout="100"/>																			
+				<DispatchKeyEvent key="TAB" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="1234567890"/>				
+				<CompareBitmap target="charGrp" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Properties_inputString4" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="H!@#$%^_+91Bye"/>
+				<Pause timeout="100"/>																			
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="H!@#$%^_+91Bye"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Properties_inputString5" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="New Stuff"/>
+				<Pause timeout="100"/>																			
+				<DispatchKeyEvent key="ESCAPE" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>				
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ComboBox_Properties_inputString6" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Plum"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="New Stuff"/>
+				<Pause timeout="100"/>																			
+				<DispatchKeyEvent key="ESCAPE" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Plum"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_emptyDPInput" keywords="[ComboBox, Property, inputString]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_emptyDP" className="comps.Custom_CB_emptyDP" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_emptyDP" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_emptyDP" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_emptyDP"/>
+				<DispatchKeyEvent char="New Item"/>	
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_emptyDP"/>
+				<AssertPropertyValue target="myCB_emptyDP" propertyName="selectedIndex" value="-3"/>
+				<AssertPropertyValue target="myCB_emptyDP" propertyName="selectedItem" value="New Item"/>				
+			</body>
+		</TestCase>		
+			
+		<TestCase testID="ComboBox_Properties_labelToItem1" keywords="[ComboBox, Property, labelToItem, labelToItemFunction]" description="Test labelToItemFunction on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_L2I" className="comps.Custom_CB_L2I" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_L2I" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myCB_L2I" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myCB_L2I.selectedItem" propertyName="ingredient" value="Cucumber"/>
+				<AssertPropertyValue target="myCB_L2I.selectedItem" propertyName="category" value="vegetable"/>									
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="ComboBox_Properties_labelToItem2" keywords="[ComboBox, Property, labelToItem, labelToItemFunction]" description="Test labelToItemFunction on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_L2I" className="comps.Custom_CB_L2I" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<DispatchKeyEvent char="New Item"/>	
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_L2I"/>
+				<AssertPropertyValue target="myCB_L2I.selectedItem" propertyName="ingredient" value="New Item"/>
+				<AssertPropertyValue target="myCB_L2I.selectedItem" propertyName="category" value="mystery"/>																						
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="ComboBox_Properties_matchChar1" keywords="[ComboBox, Property, Matching]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="true"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_matchChar2" keywords="[ComboBox, Property, Matching]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>								
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="2"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<DispatchKeyEvent char="l"/>
+				<Pause timeout="100"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="3"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<DispatchKeyEvent char="a"/>
+				<Pause timeout="100"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="19"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID_3.png" numColorVariances="8" ignoreMaxColorVariance="true"/>	
+				<DispatchKeyEvent char="t"/>
+				<Pause timeout="100"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="19"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID_4.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<DispatchKeyEvent char="e"/>
+				<Pause timeout="100"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="19"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID_5.png" numColorVariances="8" ignoreMaxColorVariance="true"/>								
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="19"/>
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="19"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Plate"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ComboBox_Properties_matchChar3" keywords="[ComboBox, Property, Matching]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="A"/>
+				<Pause timeout="100"/>										
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Apex"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Properties_matchChar4" keywords="[ComboBox, Property, Matching]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>															
+				<DispatchKeyEvent char="l"/>
+				<Pause timeout="100"/>								
+				<DispatchKeyEvent char="a"/>
+				<Pause timeout="100"/>								
+				<DispatchKeyEvent key="BACKSPACE"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="BACKSPACE"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="u"/>
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Plum"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ComboBox_Properties_matchChar5" keywords="[ComboBox, Property, Matching]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Poach"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>				
+				<DispatchKeyEvent char="Z"/>
+				<Pause timeout="100"/>															
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="true"/>				
+				<DispatchKeyEvent key="TAB" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Z"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="ComboBox_Properties_matchChar6" keywords="[ComboBox, Property, Matching]" description="Test using an input string to match an item in ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>				
+				<CompareBitmap target="charGrp" url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" />				
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="Q"/>
+				<Pause timeout="100"/>															
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="true"/>
+				<CompareBitmap target="myCB_char.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" />				
+				<DispatchKeyEvent key="TAB" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Q"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Properties_matchDigitString1" keywords="[ComboBox, Property, Match]" description="Test the matching of numbers as strings on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="124"/>
+				<Pause timeout="100"/>	
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>		
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_digit" url="../Properties/Baselines/$testID.png" numColorVariances="30" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="11"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="1243"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ComboBox_Properties_matchDigitString2" keywords="[ComboBox, Property, Match]" description="Test the matching of numbers as strings on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="5"/>		
+				<Pause timeout="50"/>
+				<DispatchKeyEvent char="6"/>		
+				<Pause timeout="50"/>
+				<DispatchKeyEvent char="7"/>		
+				<Pause timeout="50"/>
+				<DispatchKeyEvent char="1"/>		
+				<Pause timeout="50"/>
+				<DispatchKeyEvent keys="[BACKSPACE]"/>
+				<Pause timeout="50"/>
+				<DispatchKeyEvent keys="[BACKSPACE]"/>
+				<Pause timeout="50"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="567"/>
+			</body>
+		</TestCase>				
+
+		<TestCase testID="ComboBox_Properties_matchDigitString3" keywords="[ComboBox, Property, Match]" description="Test the matching of numbers as strings on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="5671"/>
+				<Pause timeout="100"/>		
+				<DispatchKeyEvent keys="[BACKSPACE]"/>
+				<Pause timeout="50"/>
+				<DispatchKeyEvent keys="[BACKSPACE]"/>
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent char="89"/>
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>												
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="3"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="56789"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ComboBox_Properties_matchDigitString4" keywords="[ComboBox, Property, Match]" description="Test the matching of numbers as strings on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="5678901"/>
+				<Pause timeout="100"/>			
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>								
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="4"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="5678901"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ComboBox_Properties_maxChars1" keywords="[ComboBox, Property, maxChars]" description="Test maxChars on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>				
+				<SetProperty target="myCB_char" propertyName="maxChars" value="3" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="Appr"/>
+				<Pause timeout="100"/>			
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>								
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Apple"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="ComboBox_Properties_maxChars2" keywords="[ComboBox, Property, maxChars]" description="Test maxChars on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+				<SetProperty target="myCB_digit" propertyName="maxChars" value="3" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="5671"/>
+				<Pause timeout="100"/>			
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>								
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="3"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="56789"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="ComboBox_Properties_openOnInput1" keywords="[ComboBox, Property, openOnInput]" description="Test the openOnInput property of ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+			</setup>
+			<body>							
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="A"/>
+				<Pause timeout="100"/>										
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="openOnInput" value="true"/>					
+				<DispatchKeyEvent key="TAB" waitEvent="close" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Apex"/>
+				<SetProperty target="myCB_char" propertyName="openOnInput" value="false"/>
+				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="false"/>
+				<AssertPropertyValue target="myCB_char" propertyName="openOnInput" value="false"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="ComboBox_Properties_openOnInput2" keywords="[ComboBox, Property, openOnInput]" description="Test the openOnInput property of ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="openOnInput" value="false"/>
+			</setup>
+			<body>							
+				<AssertPropertyValue target="myCB_char" propertyName="openOnInput" value="false"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="S"/>
+				<Pause timeout="100"/>						
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="false"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="change" waitTarget="myCB_char"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="9"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Stroke"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="ComboBox_Properties_openOnInput3" keywords="[ComboBox, Property, openOnInput]" description="Test the openOnInput property of ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="openOnInput" value="false"/>
+			</setup>
+			<body>							
+				<AssertPropertyValue target="myCB_char" propertyName="openOnInput" value="false"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="F"/>
+				<Pause timeout="100"/>										
+				<AssertPropertyValue target="myCB_char" propertyName="isDropDownOpen" value="false"/>
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="12"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>				
+				<DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="12"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Flexible"/>
+				<DispatchKeyEvent char="F"/>				
+				<Pause timeout="100"/>						
+				<DispatchKeyEvent char="l"/>
+				<Pause timeout="100"/>		
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="12"/>
+				<DispatchKeyEvent char="a"/>														
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="13"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="13"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Flash"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ComboBox_Properties_openOnInput4" keywords="[ComboBox, Property, openOnInput]" description="Test the openOnInput property of ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="openOnInput" value="false"/>
+			</setup>
+			<body>							
+				<AssertPropertyValue target="myCB_char" propertyName="openOnInput" value="false"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent key="DOWN"/>
+				<Pause timeout="100"/>	
+				<DispatchKeyEvent key="DOWN"/>
+				<Pause timeout="100"/>	
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Apple"/>				
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_digit"/>	
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Apple"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_openOnInput5" keywords="[ComboBox, Property, openOnInput]" description="Test the openOnInput property of ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="openOnInput" value="false"/>
+			</setup>
+			<body>							
+				<AssertPropertyValue target="myCB_char" propertyName="openOnInput" value="false"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent key="DOWN"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="DOWN"/>
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="1"/>
+				<DispatchKeyEvent key="UP"/>				
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="0"/>
+				<DispatchKeyEvent key="DOWN"/>				
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Apple"/>	
+				<AssertPropertyValue target="myCB_char" propertyName="caretIndex" value="1"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Properties_restrict_toLowerCase1" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="abcdefghijklmnopqrstuvwxyz" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="p"/>
+				<Pause timeout="100"/>																										
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>				
+			</body>
+		</TestCase>			
+
+		<TestCase testID="ComboBox_Properties_restrict_toLowerCase2" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="abcdefghijklmnopqrstuvwxyz" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="8"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="p"/>
+				<Pause timeout="100"/>																										
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Properties_restrict_toLowerCase3" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="abcdefghijklmnopqrstuvwxyz" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="p"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="L"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_restrict_toUpperCase1" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="p"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>																										
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>				
+			</body>
+		</TestCase>			
+
+		<TestCase testID="ComboBox_Properties_restrict_toUpperCase2" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="8"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>																										
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Properties_restrict_toUpperCase3" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="P"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="l"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="2"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Peach"/>				
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Properties_restrict_toUpperLowerCase1" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="8"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="s"/>
+				<Pause timeout="100"/>		
+				<DispatchKeyEvent char="t"/>
+				<Pause timeout="100"/>	
+				<DispatchKeyEvent char="r"/>
+				<Pause timeout="100"/>	
+				<DispatchKeyEvent char="O"/>
+				<Pause timeout="100"/>					
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="9"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Stroke"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_restrict_toUpperLowerCase2" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>
+				<SetProperty target="myCB_char" propertyName="restrict" value="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="f"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="L"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="e"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="X"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_char" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="12"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Flexible"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Properties_restrict_toDigits1" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="f"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="L"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="e"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent char="X"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_digit" url="../Properties/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Properties_restrict_toDigits2" keywords="[ComboBox, Property, Restrict]" description="Test the restrict property on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_digit" className="comps.Custom_CB_Input_Digit" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_digit"/>
+				<DispatchKeyEvent char="1243"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_digit"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<CompareBitmap target="myCB_digit" url="../Properties/Baselines/$testID.png" numColorVariances="30" ignoreMaxColorVariance="true"/>
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedIndex" value="11"/>				
+				<AssertPropertyValue target="myCB_digit" propertyName="selectedItem" value="1243"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Properties_customInputEdited" keywords="[ComboBox, Property]" description="Test that a custom input can be edited/changed on a ComboBox">
+			<setup>
+				<ResetComponent target="myCB_char" className="comps.Custom_CB_Input_Char" waitEvent="updateComplete"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="Custom Entry"/>
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="100"/>								
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Custom Entry"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_L2I.setFocus()" waitEvent="focusIn" waitTarget="myCB_L2I"/>
+				<DispatchKeyEvent keys="[TAB, TAB]" waitEvent="focusIn" waitTarget="myCB_char"/>
+				<DispatchKeyEvent char="Updated Custom"/>
+				<Pause timeout="100"/>																										
+				<DispatchKeyEvent key="ENTER" waitEvent="change" waitTarget="myCB_char"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedIndex" value="-3"/>				
+				<AssertPropertyValue target="myCB_char" propertyName="selectedItem" value="Updated Custom"/>				
+			</body>
+		</TestCase>	
+
+	</testCases>
+</UnitTester>

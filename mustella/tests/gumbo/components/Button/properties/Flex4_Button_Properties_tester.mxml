@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Button/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Flex4_Button_main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }           
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+import spark.components.Button;
+            
+            [Bindable]
+            [Embed(source="../../../../../Assets/Images/ButtonImages/smallUpSkin.jpg")]
+            public var RedU:Class;
+
+        ]]>
+    </fx:Script>
+
+    <fx:Style>
+        .myStyle{
+            color: #FF0000
+        }
+    
+        .myStyle2{
+            color: #0000FF
+        }
+    </fx:Style>
+
+    <testCases>
+        <TestCase testID="Checking_autoRepeat_property_true_of_Button" description="Test that checks repeated buttonDown events are sent when autoRepeat is true" keywords="[Button, autoRepeat, property]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+                <SetProperty target="myButton" propertyName="autoRepeat" value="true"/>         
+            </setup>
+            <body>
+                <DispatchMouseEvent target="myButton" type="rollOver" localX="30" localY="20"/>
+                <DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20"/>
+                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20" waitEvent="updateComplete" waitTarget="myButton"/>
+                <AssertEvent target="myButton" eventName="buttonDown" eventClass="mx.events::FlexEvent" />      
+                <DispatchMouseEvent target="myButton" type="mouseUp" localX="30" localY="20" />
+                <AssertPropertyValue target="myButton" propertyName="autoRepeat" value="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="autoRepeat_property_true_of_Button_repeatInterval" description="Test that checks repeated buttonDown events are sent when autoRepeat is true" keywords="[Button, autoRepeat, property]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+                <SetProperty target="myButton" propertyName="autoRepeat" value="true"/>     
+                <SetStyle target="myButton" styleName="repeatDelay" value="10"/>
+                <SetStyle target="myButton" styleName="repeatInterval" value="500"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent target="myButton" type="rollOver" localX="30" localY="20"/>
+                <DispatchMouseEvent target="myButton" type="mouseOver" localX="30" localY="20"/>
+                <DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20" waitEvent="updateComplete" waitTarget="myButton"/>
+                <AssertEvent target="myButton" eventName="buttonDown" numExpectedEvents="2" eventClass="mx.events::FlexEvent" />        
+                <DispatchMouseEvent target="myButton" type="mouseUp" localX="30" localY="20" />
+                <AssertPropertyValue target="myButton" propertyName="autoRepeat" value="true"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="enabled_false_property_of_Button" description="Tests that the button is not enabled" keywords="[Button, enabled, properties]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myButton" propertyName="enabled" value="false"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase> 
+        <TestCase testID="enabled_default_property_of_Button" description="Tests that the button is not enabled" keywords="[Button, enabled, properties]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myButton" propertyName="enabled" value="true"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="stickyHighlighting_true_property_of_Button" description="Button down skin displays even after user drags mouse off the button" keywords="[Button, stickyHighlighting, properties]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="stickyHighlighting" value="true" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchMouseEvent type="rollOver" localX="26" localY="1" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseOver" localX="26" localY="1" target="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="3" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="4" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="5" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="6" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="7" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseDown" localX="26" localY="8" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="7" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="6" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="5" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="4" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="2" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseOut" localX="27" localY="-1" target="myButton" />
+                <DispatchMouseEvent type="rollOut" localX="27" localY="-1" target="myButton"/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="23" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="23" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="22" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="22" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="21" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="stickyHighlighting_false_property_of_Button" description="Button down skin does not display even after user drags mouse off the button" keywords="[Button, stickyHighlighting, properties]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="stickyHighlighting" value="false" />
+                <DispatchMouseEvent type="rollOver" localX="26" localY="1" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseOver" localX="26" localY="1" target="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="3" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="4" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="5" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="6" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="7" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseDown" localX="26" localY="8" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="7" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="6" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="5" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="4" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseMove" localX="26" localY="2" target="myButton" waitEvent="mouseMove" waitTarget="myButton"/>
+                <DispatchMouseEvent type="mouseOut" localX="27" localY="-1" target="myButton" />
+                <DispatchMouseEvent type="rollOut" localX="27" localY="-1" target="myButton"/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="23" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="23" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="22" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="22" target=""/>
+                <DispatchMouseEvent type="mouseMove" stageX="127" stageY="21" target="" />
+                <DispatchMouseEvent type="mouseDown" stageX="127" stageY="21" target=""/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Checking_height_property_of_Button" description="Tests that the button height is rendered correctly." keywords="[Button, height, properties]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myButton" propertyName="height" value="50"/>
+                <CompareBitmap url="../properties/baselines/Checking_height_50_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_label_property_of_Button" description="Test that label sets the label" keywords="[Button, label, properties]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="label" value="hello" waitEvent="contentChange" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myButton" propertyName="label" value="hello"/>
+                <CompareBitmap url="../properties/baselines/Checking_label_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+     <!--Testcase for manual test of styleName for Button-->
+        <TestCase testID="Checking_styleName_property_of_Button" description="Test that setting the styleName property renders the Button properly." keywords="[Button, styleName, property]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="styleName" value="myStyle"/>
+                <SetProperty target="myButton" propertyName="label" value="styleName Button" waitTarget="myButton" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_styleName_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_toolTip_property_of_Button" keywords="[Button, toolTip, property]" description="Ensure the toolTip property gets set.">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="toolTip" value="Button tool tip" waitEvent="toolTipChanged" waitTarget="myButton"/>
+                <DispatchMouseEvent target="myButton" localX="15" localY="1" type="rollOver"/>  
+                <DispatchMouseEvent target="myButton" localX="15" localY="3" type="mouseOver"/> 
+                <DispatchMouseEvent target="myButton" localX="15" localY="5" type="mouseOver" waitEvent="toolTipShow" waitTarget="myButton"/>   
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_toolTip_property_of_Button.png" target="panel1" numColorVariances="1" maxColorVariance="10"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_toolTip_truncated_property_of_Button" keywords="[Button, toolTip, property]" description="Ensure the toolTip property gets set.">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="label" value="Button with long label should have a tooltip and be truncated" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchMouseEvent target="myButton" localX="15" localY="1" type="rollOver"/>  
+                <DispatchMouseEvent target="myButton" localX="15" localY="3" type="mouseOver"/> 
+                <DispatchMouseEvent target="myButton" localX="15" localY="5" type="mouseOver" waitEvent="toolTipShow" waitTarget="myButton"/>   
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="toolTip" value="Button with long label should have a tooltip and be truncated" target="myButton"/>
+                <AssertPropertyValue propertyName="isTruncated" value="true" target="myButton.labelDisplay"/>
+                
+                <CompareBitmap url="../properties/baselines/$testID.png" target="panel1" numColorVariances="1" maxColorVariance="10"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_visible_true_property_of_Button" keywords="[Button, visible, property]" description="Ensure the visible property of true shows the Button.">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="visible" value="true" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Checking_visible_true_property_of_Button_visually" keywords="[Button, visible, property]" description="Ensure the visible property of true shows the Button.">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="visible" value="true"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_visible_true_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Checking_visible_false_property_of_Button" keywords="[Button, visible, property]" description="Ensure the visible property of false does not show the Button.">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="visible" value="false"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_visible_false_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--Test for manual tests of width for Button-->
+        <TestCase testID="Checking_width_default_of_Button" keywords="[Button, width, property]" description="Verifies the default width of a Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="label" value="Button" waitEvent="updateComplete" waitTarget="myButton.skin"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="70" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_noLabel_width_default_of_Button" keywords="[Button, width, property]" description="Verifies the default width of a Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="70" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_height_default_of_Button" keywords="[Button, width, property]" description="Verifies the default height of a Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="height" value="21" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_width_50_of_Button" keywords="[Button, width, property]" description="Verifies the width of the Button is 50">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="width" value="50" />
+                <SetProperty target="myButton" propertyName="label" value="Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="50" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_width_50_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--No half pixels for buttons because it renders badly in the Flash player, so it's rounded.-->
+        <TestCase testID="Checking_width_26point5_of_Button" keywords="[Button, width, property]" description="Verifies the width of the Button is 26.5">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="width" value="26.5"/>
+                <SetProperty target="myButton" propertyName="label" value="Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="26.5" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_width_26point5_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_width_100_of_Button" keywords="[Button, width, property]" description="Verifies the width of the Button is 50">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="width" value="100"/>
+                <SetProperty target="myButton" propertyName="label" value="Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="width" value="100" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_width_100_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of x property of Button-->
+        <TestCase testID="Checking_x_default_of_Button" keywords="[Button, x, property]" description="Verifies the default x of a Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="label" value="x Button" waitEvent="updateComplete" waitTarget="myButton.skin"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="x" value="0" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_x_50_of_Button" keywords="[Button, x, property]" description="Verifies the x of the Button is 50">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="x" value="50"/>
+                <SetProperty target="myButton" propertyName="label" value="50 x Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="x" value="50" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_x_50_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_neg5point6_x_of_Button" keywords="[Button, x, property]" description="Verifies the x of the Button is -5.6">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="x" value="-5.6"/>
+                <SetProperty target="myButton" propertyName="label" value="-5.6 x Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_x_neg5point6_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_x_100_of_Button" keywords="[Button, x, property]" description="Verifies the x of the Button is 100">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="x" value="100"/>
+                <SetProperty target="myButton" propertyName="label" value="100 x Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="x" value="100" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_x_100_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of y property of Button-->
+        <TestCase testID="Checking_y_default_of_Button" keywords="[Button, y, property]" description="Verifies the default x of a Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="label" value="y Button" waitEvent="updateComplete" waitTarget="myButton.skin"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="y" value="0" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_y_56_of_Button" keywords="[Button, y, property]" description="Verifies the y of the Button is 56">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="y" value="56"/>
+                <SetProperty target="myButton" propertyName="label" value="56 y Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="y" value="56" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_y_56_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_neg5point6_y_of_Button" keywords="[Button, y, property]" description="Verifies the y of the Button is -5.6">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="y" value="-5.6"/>
+                <SetProperty target="myButton" propertyName="label" value="-5.6 y Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_y_neg5point6_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_y_50_of_Button" keywords="[Button, y, property]" description="Verifies the y of the Button is 50">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="y" value="50"/>
+                <SetProperty target="myButton" propertyName="label" value="50 y Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="y" value="50" target="myButton"/>
+                <CompareBitmap url="../properties/baselines/Checking_y_50_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of maxHeight of Button-->
+        <TestCase testID="Checking_maxHeight_property_10_of_Button" keywords="[Button, maxHeight, property]" description="Verifies the maxHeight of the Button is 10">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="maxHeight" value="10"/>
+                <SetStyle target="myButton" styleName="icon" value="{RedU}" waitTarget="myButton"  waitEvent="updateComplete"/>
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_maxHeight_10_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_maxHeight_property_default_of_Button" keywords="[Button, maxHeight, property]" description="Verifies the maxHeight default of the Button is 10000">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxHeight" target="myButton" value="10000"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of maxWidth of Button-->
+        <TestCase testID="Checking_maxWidth_property_10_of_Button" keywords="[Button, maxWidth, property]" description="Verifies the maxWidth of the Button is 10">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="maxWidth" value="10"/>
+                <SetProperty target="myButton" propertyName="label" value="This is a really long label that should not appear." waitEvent="updateComplete"/>
+            </setup>        
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_maxWidth_10_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Checking_maxWidth_property_default_of_Button" keywords="[Button, maxWidth, property]" description="Verifies the maxWidth default of the Button is 10000">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>        
+            <body>
+                <AssertPropertyValue propertyName="maxWidth" target="myButton" value="10000"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of minHeight of Button-->
+        <TestCase testID="Checking_minHeight_property_100_of_Button" keywords="[Button, minHeight, property]" description="Verifies the minHeight of a Button is set to 100">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="minHeight" value="100" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_minHeight_100_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of minWidth of Button-->
+        <TestCase testID="Checking_minWidth_property_100_of_Button" keywords="[Button, minWidth, property]" description="Verifies the minWidth of a Button is set to 100">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="minWidth" value="100" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_minWidth_100_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of percentHeight of Button-->
+        <TestCase testID="Checking_percentHeight_property_50_of_Button" keywords="[Button, percentHeight, property]" description="Verifies the percentHeight of a Button is set to 50">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_percentHeight_50_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of percentWidth of Button-->
+        <TestCase testID="Checking_percentWidth_property_50_of_Button" keywords="[Button, percentWidth, property]" description="Verifies the percentWidth of a Button is set to 50">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty target="myButton" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_percentWidth_50_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of scale X of Button-->
+        <TestCase testID="Checking_scaleX_default_property_of_Button" keywords="[Button, scaleX, property]" description="Verifies the default scaleX value for Button is 1.0">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="scaleX" value="1.0" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_scaleX_2_property_of_Button" keywords="[Button, scaleX, property]" description="Verifies the default scaleX value for Button is 2.0">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleX" value="2.0" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_scaleX_2_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_scaleX_point565_property_of_Button" keywords="[Button, scaleX, property]" description="Verifies the scaleX value for Button is .565">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleX" value=".565" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_scaleX_point565_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_scaleX_point5_property_of_Button" keywords="[Button, scaleX, property]" description="Verifies the default scaleX value for Button is 0.5">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleX" value=".5" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_scaleX_point5_property_of_Button.png" target="panel1"/>
+            </body>
+        </TestCase>
+
+        <!--Testcase for manual test of scale Y of Button-->
+        <TestCase testID="Checking_scaleY_default_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 1.0">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="scaleY" value="1.0" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_scaleY_2_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 2.0">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleY" value="2.0" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_scaleY_2_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_scaleY_point565_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the scaleY value for Button is .565">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleY" value=".565" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_scaleY_point565_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Checking_scaleY_point5_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 0.5">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleY" value=".5" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/Checking_scaleY_point5_property_of_Button.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="alpha_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 0.5">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="Alpha Button" target="myButton" waitEvent="updateComplete" waitTarget="myButton.skin"/>
+                <SetProperty propertyName="alpha" value=".2" target="myButton" waitEvent="alphaChanged" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="focusEnabled_false_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 0.5">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="Focus Button" target="myButton" waitEvent="updateComplete" waitTarget="myButton.skin"/>
+                <SetProperty propertyName="focusEnabled" value="false" target="myButton"/>
+                <DispatchKeyEvent key="TAB"  />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="panel1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="focusEnabled_true_property_of_Button" keywords="[Button, scaleY, property]" description="Verifies the default scaleY value for Button is 0.5">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="Focus Button" target="myButton" waitEvent="updateComplete" waitTarget="myButton.skin"/>
+                <SetProperty propertyName="focusEnabled" value="true" target="myButton"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myButton" />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="panel1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Bug_SDK-13582" keywords="[Button, LEFT, RIGHT]" description="To verify the bug Bug SDK-13582">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <DispatchKeyEvent key="LEFT" ctrlKey="true"/>
+                <DispatchKeyEvent key="RIGHT" ctrlKey="true"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/BUG_SDK_13582.png" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="rotation_property_FxButton" keywords="[Button, rotation, property]" description="Rotating a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="rotation" value="45" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="rotationX_property_FxButton" keywords="[Button, rotationX, property]" description="Rotating a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="rotationX" value="45" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="panel1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="rotationY_property_FxButton" keywords="[Button, rotationY, property]" description="Rotating a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="rotationY" value="45" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="panel1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="rotationZ_property_FxButton" keywords="[Button, rotationY, property]" description="Rotating a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="rotationZ" value="45" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="panel1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="scaleX_property_FxButton" keywords="[Button, scaleX, property]" description="Scaling a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleX" value="3" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="scaleY_property_FxButton" keywords="[Button, scaleY, property]" description="Scaling a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleY" value="6" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="scaleZ_property_FxButton" keywords="[Button, scaleX, property]" description="Scaling a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="scaleZ" value="5" target="myButton" waitEvent="updateComplete" waitTarget="myButton"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="content_property_FxButton" keywords="[Button, content, property]" description="Setting content in a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="The quick brown fox jumps" target="myButton" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="content" value="The quick brown fox jumps" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="set_content_property_FxButton" keywords="[Button, content, property]" description="Setting content in a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="content" value="The quick brown fox jumps" target="myButton" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="content" value="The quick brown fox jumps" target="myButton"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="set_content_get_label_property_FxButton" keywords="[Button, content, property]" description="Setting content in a FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="content" value="The quick brown fox jumps" target="myButton" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="label" value="The quick brown fox jumps" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="baselinePosition_property_Button_prevalidation" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" />
+                <SetProperty propertyName="label" value="The quick brown fox jumps" target="myButton" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="baselinePosition_property_Button_prevalidation_noLabel" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="baselinePosition_property_Button_postvalidation" keywords="[Button, baselinePosition, property]" description="Get read only property baselinePosition of FxButton">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="The quick brown fox jumps" target="myButton" />
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="baselinePosition" value="14.55" target="myButton"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="layoutDirection_property_Button_rtl" keywords="[Button, Mirroring, layoutDirection]" 
+            description="Set layoutDirection on a Spark Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="rtl Spark Button" target="myButton" />
+                <SetProperty propertyName="width" value="80" target="myButton" waitTarget="myButton"
+                    waitEvent="updateComplete" />
+                <SetStyle styleName="direction" value="rtl" target="myButton" />
+                <SetProperty propertyName="layoutDirection" value="rtl" target="myButton" waitTarget="myButton"
+                    waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+            </body>
+        </TestCase>
+        <TestCase testID="layoutDirection_property_Button_rtl_setOnParent" keywords="[Button, Mirroring, layoutDirection]" 
+            description="Set layoutDirection on a Spark Button">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+                <SetProperty propertyName="label" value="rtl Spark Button" target="myButton" />
+                <SetProperty propertyName="width" value="80" target="myButton" waitTarget="myButton"
+                    waitEvent="updateComplete" />
+                <SetStyle styleName="direction" value="rtl" target="panel1" />
+                <SetProperty propertyName="layoutDirection" value="rtl" target="panel1" waitTarget="panel1"
+                    waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myButton"/>
+                <SetStyle styleName="direction" value="ltr" target="panel1" />
+                <SetProperty propertyName="layoutDirection" value="ltr" target="panel1" waitTarget="panel1"
+                    waitEvent="updateComplete" />
+			</body>
+        </TestCase>
+        
+        <!-- SDK-21073 Create spark RadioButton test using errorString -->
+      
+    	<TestCase testID="ErrorString_Checking_Button_errorString" description="Test that Gumbo Components give no indication that there is an error. SDK-21073" keywords="[Button, errorString, property]">
+            <setup>
+                <ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete"/>
+                <SetProperty target="myButton" propertyName="errorString" value="myButton has an error string" waitEvent="updateComplete"/>         
+            </setup>
+            <body>
+                <DispatchMouseEvent target="myButton" type="mouseOver" localX="10" localY="10"/>     
+                <AssertPropertyValue target="myButton" propertyName="errorString" value="myButton has an error string" waitEvent="toolTipShown" waitTarget="myButton"/>
+                 <CompareBitmap url="../properties/baselines/$testID.png" target="panel1" ignoreMaxColorVariance="true" numColorVariances="15"/>
+            </body>
+        </TestCase>
+    </testCases>
+  
+</UnitTester>

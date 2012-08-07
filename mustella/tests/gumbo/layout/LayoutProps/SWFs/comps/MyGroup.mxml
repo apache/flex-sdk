@@ -1,0 +1,8 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  height="100" width="200">
+	<s:Ellipse id="vEll" >
+		<s:fill>
+			<mx:SolidColor color="0x00CC00"/>
+		</s:fill>
+	</s:Ellipse>
+	<mx:Button id="vBtn" />
+</s:Group>

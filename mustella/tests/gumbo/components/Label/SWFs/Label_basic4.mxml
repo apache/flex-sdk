@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	width="800" height="1600" xmlns:comps="comps.*" 
+	creationComplete="flash.text.TextRenderer.displayMode=flash.text.TextDisplayMode.CRT">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: veraEmbedded;
+			embedAsCFF: false;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: veraEmbedded;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: veraEmbedded;
+			embedAsCFF: false;
+
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+		mx|Panel {
+			fontAntiAliasType: "normal";
+			fontFamily: veraEmbedded;
+            		fontLookup: "embeddedCFF";
+            		headerHeight:36;
+		}
+
+		mx|TitleWindow {
+			fontAntiAliasType: "normal";
+			fontFamily: veraEmbedded;
+            		fontLookup: "embeddedCFF";
+            		headerHeight:36;
+		}
+		
+		mx|Label {
+			fontAntiAliasType: "normal";
+			fontFamily: veraEmbedded;
+            		fontLookup: "embeddedCFF";
+		}
+		s|Panel {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            		fontLookup: "embeddedCFF";
+            		headerHeight:36;
+		}		
+		s|Label {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            		fontLookup: "embeddedCFF";
+            
+		}
+
+		s|RichText {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            		fontLookup: "embeddedCFF";
+            
+		}
+		.paddedBox {
+			paddingLeft: 20;
+			paddingRight: 20;
+			paddingTop: 20;
+			paddingBottom: 20;
+			backgroundColor: #CCCCCC;
+			backgroundAlpha: 1.0;
+		}
+		
+	</fx:Style>
+	<fx:Script>
+	<![CDATA[
+		import spark.components.Label;
+		import mx.core.Container;
+		import mx.events.FlexEvent;
+		import mx.managers.PopUpManager;
+		import comps.TestTitleWindow;
+		import mx.core.IFlexDisplayObject;
+		
+		public var labelAtRuntime:spark.components.Label;
+		[Bindable]
+		public var labelStr:String="Retail sales jumped in August, spurred by widespread gains beyond the increases of autos and gasoline that economists expected";
+		public var thePopUp:IFlexDisplayObject;
+		public function addNewLabel(container:Container,content:String):void
+		{
+			labelAtRuntime=new spark.components.Label();
+			labelAtRuntime.text=content;
+			
+			var num:Number=container.numElements;
+			container.addElementAt(labelAtRuntime,num);
+		}
+		
+		public function removeLabel():void
+		{	
+			var parent:DisplayObjectContainer;
+			if (labelAtRuntime!=null)
+			{
+				parent=labelAtRuntime.parent;
+				trace("###parent="+parent);
+				if (parent!=null)
+				{
+					parent.addEventListener("remove",removeChildListener);
+					parent.removeChild(labelAtRuntime);
+				}else 
+					labelAtRuntime=null;
+			}
+			dispatchEvent(new FlexEvent("labelReset"));
+		}
+		public function removeChildListener(evt:FlexEvent):void
+		{
+			if (evt.currentTarget==labelAtRuntime)
+			{
+				labelAtRuntime=null;
+				dispatchEvent(new FlexEvent("labelReset"));
+			}
+			
+		}
+		public function showPopUp():IFlexDisplayObject{
+			if (thePopUp==null)
+			{
+				thePopUp = PopUpManager.createPopUp(this, TestTitleWindow);
+			}
+			return thePopUp;
+		}
+    
+		public function hidePopUp():void{
+			if(thePopUp != null)
+			{
+		    		PopUpManager.removePopUp(thePopUp);
+		    		thePopUp=null;
+		    	}
+		}
+		public function resetTextValue():void{
+			myLabel0.text="this is a label in mx application";
+			myLabel1.text="this is a label in HBox";
+			myLabel2.text=labelStr;
+			myLabel3.text="label in Form";
+			myLabel5.text="inside of controlBar";
+		}
+	]]>
+	</fx:Script>
+	<s:Label id="myLabel0" text="this is a label in mx application"/>
+	<mx:HBox id="myHBox" height="150" width="300">
+		<s:Label id="myLabel1" text="this is a label in HBox" rotation="45"/>
+
+	</mx:HBox>
+	<mx:Panel id="myPanel" height="150" width="300">
+		<s:Label id="myLabel2" text="{labelStr}"/>
+	</mx:Panel>
+	<mx:Form id="myForm" height="150" width="300">
+		<mx:FormItem label="Available">
+		    <s:Button />
+		</mx:FormItem>
+		<mx:FormItem label="Comments">
+		    <s:Label id="myLabel3" text="label in Form" />
+		</mx:FormItem>
+	</mx:Form>
+
+	<mx:ControlBar id="myControlBar" height="150" width="300">
+		<mx:Label id="haloLabel2" text="I am a halo label" />
+	   	<s:Label id="myLabel5" text="inside of controlBar" />
+	</mx:ControlBar>
+	<s:Panel id="sparkPanel1" height="150" width="300">
+		<mx:Label id="haloLabelInSP1" text="I am a halo label" />
+		<s:Label id="myLabelSP1" y="40" text="I am a spark label" />
+		<s:RichText id="myRichTextSP1" y="80" text="I am a spark richText" />
+	</s:Panel>
+	<mx:Spacer height="20" />
+	<comps:TestSparkPanel id="sparkPanel2"/>
+	<mx:Spacer height="20" />
+	<mx:Form id="myForm2" height="150" width="300" backgroundColor="0xff0000">
+		<mx:FormItem label="Available" direction="horizontal" backgroundColor="0x00ff00">
+		    	<s:Label text="spark label in Form" />
+		    	<mx:Label text="halo label in Form" />
+		</mx:FormItem>
+	</mx:Form>
+</mx:Application>

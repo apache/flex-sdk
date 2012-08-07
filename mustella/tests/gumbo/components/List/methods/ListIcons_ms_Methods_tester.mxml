@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ListIcons.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+        import spark.layouts.*;
+        import mx.collections.ArrayCollection;
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="List_ms_method_arrayCollection_setItemAt_icons" keywords="[List, method,arrayCollection,binding, setItemAt]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="500" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+            	<SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+            	<SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="2" waitEvent="valueCommit" waitTarget="list2"/>
+                <RunCode code="application.list2.dataProvider.setItemAt(application.objIcon,2);" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="1" />
+                <AssertPixelValue    target = "list2" x="15"  y="72" value="0x6666FF" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_ms_method_addItemAt_icons" keywords="[List, method,arrayCollection,binding, addItemAt]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+            	<SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="height" value="200" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <RunCode code="application.list2.dataProvider.addItem(application.objIcon);" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <SetProperty target="list2" propertyName="selectedIndex" value="10" waitEvent="valueCommit" waitTarget="list2"/>
+                <SetProperty target="list2" propertyName="height" value="250" waitEvent="updateComplete" />
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="1" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="11" />
+				<SetProperty target="list2.dataGroup" propertyName="verticalScrollPosition"  value="100"  waitEvent="propertyChange"/>
+				<SetProperty target="list2" propertyName="width" value="120" waitEvent="updateComplete" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="list2" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="List_ms_method_arrayCollection_addItem_icons" keywords="[List, method,arrayCollection,binding, addItem]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="width" value="700" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="40" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+            	<SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="width" value="600" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="9" waitEvent="valueCommit" waitTarget="list2"/>
+                <SetProperty target="list2" propertyName="width"  value="250"  />
+				<SetProperty target="list2" propertyName="height"  value="50"  />
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <RunCode code="application.list2.dataProvider.addItem(application.objIcon);" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <SetProperty target="list2" propertyName="width" value="200" waitEvent="updateComplete" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="9" />
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <AssertPropertyValue target = "list2.dataProvider" propertyName="length" value="11" />
+                <CompareBitmap url="../methods/baselines/$testID.png" target="list2" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="List_ms_method_arrayCollection_removeItem_icons" keywords="[List, method,arrayCollection,binding, removeItem]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="width" value="500" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+            	<SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+            	<SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <SetProperty    target="list2" propertyName="layout"  valueExpression="value=new HorizontalLayout()" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="1" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="2" />
+                <RunCode code="application.list2.dataProvider.removeItemAt(1);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="0" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_ms_method_arrayCollection_removeItem_icons_last" keywords="[List, method,arrayCollection,binding, removeItem]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+            	<SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+            	<SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="9" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <RunCode code="application.list2.dataProvider.removeItemAt(9);" waitEvent="updateComplete"  waitTarget="list2.dataGroup" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_ms_method_arrayCollection_removeAll_icons" keywords="[List, method,arrayCollection,binding, removeAll]" description="">
+            <setup>
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<SetProperty target="list2" propertyName="allowMultipleSelection" value="true" />
+            	<SetProperty target="list2" propertyName="requireSelection" value="true" />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.IconRenderer);"  />
+                <RunCode code="application.createIconsAC()" />
+                <SetProperty target="list2" propertyName="dataProvider" valueExpression="value=application.acIcons" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <SetProperty target="list2" propertyName="selectedIndex" value="9" waitEvent="valueCommit" waitTarget="list2"/>
+                <AssertMethodValue   method="value=application.list2.selectedItem.label" value="10" />
+                <RunCode code="application.list2.dataProvider.removeAll();" waitEvent="collectionChange"  waitTarget="list2.dataProvider" />
+                <AssertPropertyValue target = "list2" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+
+</UnitTester>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_regression.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import spark.components.DataGrid;
+           	import spark.skins.spark.DataGridSkin;
+                public var rowBG:IFactory;
+     
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+		<!--rowBackground skin--> 		
+		<TestCase testID="rowBackground_property_test" keywords="[DataGrid,Property,rowBackground]" description="Test setting rowBackground tag inside s:DataGrid">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="rowBackground_addRemoveRow_test" keywords="[DataGrid,Property,rowBackground]" description="Test add/remove first row will based on prepareGridVisualElement logic to set rowBackground ">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<!-- add first row, so still the first three row have the rowBackground -->
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addARow()" waitEvent="enterFrame" waitTarget="stage" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID_addFirstRow.png"/>
+				<!-- add first two row, so still the first three row have the rowBackground -->
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.removeFirstRow()" waitEvent="enterFrame" waitTarget="stage" />
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.removeFirstRow()" waitEvent="enterFrame" waitTarget="stage" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID_removeFirstRow.png"/>
+			
+			</body>
+		</TestCase>
+		<TestCase testID="rowBackground_getsetter_test" keywords="[DataGrid,Property,rowBackground]" description="Test rowBackground getter/setter">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<!-- get rowBackground -->
+				<RunCode code="rowBG=FlexGlobals.topLevelApplication.dataGrid2.grid.rowBackground" />
+				<AssertMethodValue method="value=rowBG!=null" value="true" />
+				<!-- set the same rowBackground back -->
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.grid.rowBackground=rowBG" waitEvent="enterFrame" waitTarget="stage" />
+				<!-- set a new rowBackground back, then check the setting -->
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setRowBackground(FlexGlobals.topLevelApplication.myRowBackground)" waitEvent="enterFrame" waitTarget="stage" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID.png"/>
+			
+			</body>
+		</TestCase>
+		<TestCase testID="rowBackground_AlternatingRowColor_test" keywords="[DataGrid,Property,rowBackground]" description="Test rowBackground and AlternatingRowColor both set, latter wins">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<!-- set AlternatingRowColor -->
+				<SetStyle target="dataGrid2" styleName="alternatingRowColors" valueExpression="value=['haloSilver','haloOrange']" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		<TestCase testID="rowBackground_skin_test" keywords="[DataGrid,skin,rowBackground]" description="Test setting rowBackground from dataGrid skinClass">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<SetStyle target="dataGrid2" styleName="skinClass" valueExpression="value=MyDataGridSkin" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="rowBackground_skin_rowChange_test" keywords="[DataGrid,skin,rowBackground]" description="Test add/remove rows, the rowBackground logic still applies">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<SetStyle target="dataGrid2" styleName="skinClass" valueExpression="value=MyDataGridSkin" waitEvent="updateComplete" waitTarget="dataGrid2" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<!-- add a row -->
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addARow()" waitEvent="enterFrame" waitTarget="stage" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID_addRow.png"/>
+				<!-- remove all rows -->
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.dataProvider.removeAll()" waitEvent="enterFrame" waitTarget="stage" />
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addARow()" waitEvent="enterFrame" waitTarget="stage" />
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addARow()" waitEvent="enterFrame" waitTarget="stage" />
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addARow()" waitEvent="enterFrame" waitTarget="stage" />
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.addARow()" waitEvent="enterFrame" waitTarget="stage" />
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID.png"/>
+			
+			</body>
+		</TestCase>
+		<TestCase testID="rowBackground_update_test" keywords="[DataGrid,skin,rowBackground]" description="Test setting rowBackground to change the one from dataGrid skinClass">			
+			<setup>
+				<ResetComponent target="dataGrid2" className="components.DataGrid_rowBackground" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setRowBackground(FlexGlobals.topLevelApplication.imageRowBackground)" waitEvent="enterFrame" waitTarget="stage" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid2" url="../Styles/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+    </testCases>
+</UnitTester>

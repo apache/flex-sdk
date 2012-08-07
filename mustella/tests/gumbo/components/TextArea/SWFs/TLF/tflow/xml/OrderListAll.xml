@@ -1,0 +1,29 @@
+	  <p>BEFORE</p>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="upperAlpha"><li>upperAlpha item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="lowerAlpha"><li>lowerAlpha item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="upperRoman"><li>upperRoman item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="lowerRoman"><li>lowerRoman item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="arabicIndic"><li>arabicIndic item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="bengali"><li>bengali item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="decimal"><li>decimal item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="decimalLeadingZero"><li>decimalLeadingZero item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="devanagari"><li>devangari item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="gujarati"><li>gujarati item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="gurmukhi"><li>gurmukhi item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="kannada"><li>kannada item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="persian"><li>persian item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="thai"><li>thai item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="urdu"><li>urdu item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="cjkEarthlyBranch"><li>cjkEarthlyBranch item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="cjkHeavenlyStem"><li>cjkHeavenlyStem item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="hangul"><li>hangul item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="hangulConstant"><li>hangulConstant item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="hiragana"><li>hiragana item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="hiraganaIroha"><li>hiraganaIroha item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="katakana"><li>katakana item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="katakanaIroha"><li>katakanaIroha item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="lowerGreek"><li>lowerGreek item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="lowerLatin"><li>lowerLatin item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="upperGreek"><li>upperGreek item</li><li>another</li></list>
+	  <list paddingRight="24" paddingLeft="24" listStyleType="upperLatin"><li>upperLatin item</li><li>another</li></list>
+	  <p>AFTER</p>

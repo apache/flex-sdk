@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+		import mx.core.FlexGlobals;
+		import mx.core.FlexGlobals;
+        import spark.components.*;
+		
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=========
+enabled
+=========
+-->
+
+<TestCase testID="enabled_test1" keywords="[TabBar,enabled]" description="Be sure it starts up enabled." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd/>
+        <AssertPropertyValue target="tb1" propertyName="enabled" value="true" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="1" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="enabled_test2" keywords="[TabBar,enabled]" description="Set it to disabled in AS." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <SetProperty target="tb1" propertyName="enabled" value="false" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="2" localY="2" />
+        <WaitForEffectsToEnd/>
+        <SetProperty target="tb1" propertyName="width" value="199" waitTarget="tb1" waitEvent="updateComplete" />
+        <Pause timeout="100"/>
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <CompareBitmap url="../Properties/baselines/$testID.png" target="tb1" />
+    </body>
+</TestCase>
+
+<TestCase testID="enabled_test3" keywords="[TabBar,enabled]" description="Set it to disabled, then enabled, in AS." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <SetProperty target="tb1" propertyName="enabled" value="false" />
+        <SetProperty target="tb1" propertyName="width" value="200" waitTarget="tb1" waitEvent="updateComplete" />
+        <SetProperty target="tb1" propertyName="enabled" value="true" />
+        <SetProperty target="tb1" propertyName="width" value="100" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="1" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+<TestCase testID="enabled_false_keyborad" keywords="[TabBar,enabled]" description="Test tabbing to a disabled TabBar." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+        <SetProperty target="tb1" propertyName="enabled" value="false" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+        <DispatchKeyEvent key="TAB" />
+        <AssertNoEvent target="tb1" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+    </body>
+</TestCase>
+<TestCase testID="enabled_true_tabToEmptyTabBar" keywords="[TabBar,enabled, dataProvider]"
+    description="Test tabbing to an empty TabBar." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusOut" waitTarget="default_button" />
+        <AssertEvent target="default_button" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+    </body>
+</TestCase>
+<TestCase testID="enabled_false_tabToEmptyTabBar" keywords="[TabBar,enabled, dataProvider]"
+    description="Test tabbing to an empty TabBar. Just be sure there isn't a RTE tabbing to an empty TabBar." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="tb1" propertyName="enabled" value="false" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusOut" waitTarget="default_button" />
+        <AssertEvent target="default_button" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+    </body>
+</TestCase>
+</testCases>
+</UnitTester>

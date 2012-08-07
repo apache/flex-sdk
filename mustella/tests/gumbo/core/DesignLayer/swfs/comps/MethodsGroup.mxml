@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+	xmlns:local="*">
+	
+	<fx:Script>
+		<![CDATA[
+			public function scriptBlockReference():void {
+				trace(dlGetLayerAtChild1);
+				trace(dlGetLayerAtChild2);
+				trace(dlGetLayerAtChild3);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:layout><s:HorizontalLayout /></s:layout>
+	
+	<!-- for getLayerAt() testing -->
+	
+	<fx:DesignLayer id="dlGetLayerAt">
+		<fx:DesignLayer id="dlGetLayerAtChild1"><s:Rect /></fx:DesignLayer>
+		<fx:DesignLayer id="dlGetLayerAtChild2"><s:Rect /></fx:DesignLayer>
+		<fx:DesignLayer id="dlGetLayerAtChild3"><s:Rect /></fx:DesignLayer>
+		<s:Group>
+			<fx:DesignLayer id="noParent1"><s:Rect /></fx:DesignLayer>
+		</s:Group>
+	</fx:DesignLayer>
+	
+	<!-- for addLayer() testing -->
+	
+	<fx:DesignLayer id="dlAddLayer1">	
+	</fx:DesignLayer>
+		
+	<fx:DesignLayer id="dlAddLayer2">
+		<fx:DesignLayer id="dlAddLayer3">
+			<s:Rect />
+		</fx:DesignLayer>
+		<fx:DesignLayer id="dlAddLayer4">
+			<s:Rect />
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+	<!-- for removeLayer() testing -->
+	
+	<fx:DesignLayer id="dlRemoveLayer1">
+		<fx:DesignLayer id="dlRemoveLayer2">
+			<comps:TypeFXG  id="dlRemoveLayerVetA" />
+			<comps:TypeFCK  id="dlRemoveLayerVetB" />
+			<comps:TypeFCK2 id="dlRemoveLayerVetC" />
+			<comps:TypeUICS id="dlRemoveLayerVetD" />
+			<comps:TypeUICH id="dlRemoveLayerVetE" />
+			<comps:TypeIGE  id="dlRemoveLayerVetF" />
+		</fx:DesignLayer>
+		<fx:DesignLayer id="dlRemoveLayer3">
+			<s:Rect />
+		</fx:DesignLayer>
+		<fx:DesignLayer id="dlRemoveLayer4">
+			<s:Rect />
+		</fx:DesignLayer>
+	</fx:DesignLayer>
+	
+</s:Group>

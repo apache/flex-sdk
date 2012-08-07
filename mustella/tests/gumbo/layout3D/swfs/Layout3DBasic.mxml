@@ -1,0 +1,10 @@
+<s:Application backgroundColor="0xFFFFFF" height="700" width="700"
+
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="comps.*">
+    <s:layout><s:BasicLayout/></s:layout>
+    <fx:Style source="assets/myStyles.css" />
+    <local:RectGroup id="rg"/>
+    <local:FxListComp id="list1" y="100" x="100" depth="-1"/>
+    <local:GraphicsGroup id="gr1" y="200" x="100"/>
+    <local:ListIconsComp id="icons" y="400" x="100"/>
+</s:Application>

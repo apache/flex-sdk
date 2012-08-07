@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	         xmlns:custom="Assets.*"
+	         width="800" height="600"
+             >
+
+<fx:Script>
+<![CDATA[
+    import mx.events.StateChangeEvent;
+    import spark.components.supportClasses.ItemRenderer;
+    import spark.layouts.*;
+    
+    /**
+    * Any test case could start out in any state, depending on how the
+    * previous test failed.  Therefore, we cannot switch to a state and
+    * then wait, since we may already be in that state.
+    **/
+    public function ensureState1():void{
+        if(currentState == "state1"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		fontFamily: EmbeddedArno;
+		embedAsCFF: true;
+	}
+        
+    s|Button{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|Label{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    global{
+        kerning: "off";
+    }
+</fx:Style>
+
+<s:states>
+    <s:State name="state1" />
+    
+    <s:State name="state1a" />
+    <s:State name="state1b" />
+    <s:State name="state2a" />
+    <s:State name="state2b" />
+    <s:State name="state3a" />
+    <s:State name="state3b" />
+    <s:State name="state3c" />
+    <s:State name="state3d" />
+    <s:State name="state4a" />
+    <s:State name="state4b" />
+    <s:State name="state4c" />
+    <s:State name="state5a" />
+    <s:State name="state5b" />
+    <s:State name="state6a" />
+    <s:State name="state6b" />
+</s:states>
+<!-- 
+    The reason for defining everything in MXML for the integration
+    test is so that we can test states too.
+    Use TileLayout as the list's layout.
+-->
+
+<s:layout>
+    <s:HorizontalLayout />
+</s:layout>
+
+<!-- columnCount and rowCount -->
+<s:List id="list1" itemRenderer="Assets.TestListItemRenderer1">
+    <s:layout>
+        <s:TileLayout requestedColumnCount.state1a="4" requestedColumnCount.state1b="1" requestedRowCount.state1a="1" requestedRowCount.state1b="4" />
+    </s:layout>
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:List>
+
+<!-- columnWidth and rowHeight -->
+<s:List id="list2" itemRenderer="Assets.TestListItemRenderer1" >
+    <s:layout>
+        <s:TileLayout columnWidth.state2a="40" columnWidth.state2b="20" rowHeight.state2a="20" rowHeight.state2b="40"/>
+    </s:layout>
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:List> 
+
+<!-- elementHorizontal/VerticalAlign -->
+<s:List id="list3" itemRenderer="Assets.TestListItemRenderer1" >
+    <s:layout>
+        <s:TileLayout horizontalAlign.state3a="left" 
+                    horizontalAlign.state3b="center" 
+                    horizontalAlign.state3c="right"
+                    horizontalAlign.state3d="justify"
+                    verticalAlign.state3a="top" 
+                    verticalAlign.state3b="middle" 
+                    verticalAlign.state3c="bottom"
+                    verticalAlign.state3d="justify"
+                    columnWidth="40" rowHeight="40" />
+    </s:layout>
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:List> 
+
+<!-- columnAlign/Rows -->
+<s:List id="list4" width="60" height="60" itemRenderer="Assets.TestListItemRenderer1" >
+    <s:layout>
+        <s:TileLayout horizontalAlign="{HorizontalAlign.JUSTIFY}"
+                    verticalAlign="{VerticalAlign.JUSTIFY}"
+                    rowAlign.state4a="{RowAlign.TOP}"
+                    rowAlign.state4b="{RowAlign.JUSTIFY_USING_GAP}"
+                    rowAlign.state4c="{RowAlign.JUSTIFY_USING_HEIGHT}"
+                    columnAlign.state4a="{ColumnAlign.LEFT}"
+                    columnAlign.state4b="{ColumnAlign.JUSTIFY_USING_GAP}"
+                    columnAlign.state4c="{ColumnAlign.JUSTIFY_USING_WIDTH}"
+                    horizontalGap="0"
+                    verticalGap="0"
+                    requestedRowCount="2"
+                    requestedColumnCount="2" />
+    </s:layout>
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:List> 
+
+<!-- horizontal/verticalGap -->
+<s:List id="list5" itemRenderer="Assets.TestListItemRenderer1" >
+    <s:layout>
+        <s:TileLayout horizontalGap.state5a="0" horizontalGap.state5b="20" verticalGap.state5a="20" verticalGap.state5b="0" />
+    </s:layout>
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:List> 
+
+<!-- orientation -->
+<s:List id="list6" itemRenderer="Assets.TestListItemRenderer1" >
+    <s:layout>
+        <s:TileLayout orientation.state6a="columns" orientation.state6b="rows" />
+    </s:layout>
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:Object color="0xff0000" />
+            <fx:Object color="0x00ff00" />
+            <fx:Object color="0x0000ff" />
+            <fx:Object color="0xffff00" />
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:List>
+
+</s:Application>

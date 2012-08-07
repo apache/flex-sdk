@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:DataGrid 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    dataProvider="{dp1}" 
+    columns="{columns1}"    
+    width="700" height="300">
+            	
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem Name="Main Collection" Price="2499.99" inStock="true" OS="pc" Icon="../../../../../Assets/Images/smallredrect.jpg"/>
+			<s:DataItem Name="Designer Collection" Price="1699.99" inStock="true" OS="unix" Icon="../../../../../Assets/Images/smallorangerect.jpg"/>			
+			<s:DataItem Name="Production Collection" Price="1699.99" inStock="false" OS="pc" Icon="../../../../../Assets/Images/smallyellowrect.jpg"/>
+			<s:DataItem Name="Web Collection" Price="1699.99" OS="pc" inStock="true" Icon="../../../../../Assets/Images/smallgreenrect.jpg"/>
+			<s:DataItem Name="ProductA" Price="699.99" OS="unix" inStock="true" Icon="../../../../../Assets/Images/smallbluerect.jpg"/>
+			<s:DataItem Name="ProductB" Price="69.99" inStock="true" OS="cellphone" Icon="../../../../../Assets/Images/smallpurplerect.jpg"/>
+			<s:DataItem Name="ProductC" Price="299.99" OS="pc" inStock="false" Icon="../../../../../Assets/Images/smallredrect.jpg"/>
+			<s:DataItem Name="ProductD" Price="299.99" OS="unix" inStock="false" Icon="../../../../../Assets/Images/smallorangerect.jpg"/>
+			<s:DataItem Name="ProductE" Price="1699.99" OS="linux" inStock="true" Icon="../../../../../Assets/Images/smallyellowrect.jpg"/>
+			<s:DataItem Name="ProductF" Price="199.99" OS="unix" inStock="true" Icon="../../../../../Assets/Images/smallgreenrect.jpg"/>
+			<s:DataItem Name="ProductG" Price="199.99" OS="pc" inStock="false" Icon="../../../../../Assets/Images/smallbluerect.jpg"/>
+			<s:DataItem Name="ProductH" Price="449.99" OS="linux" inStock="true" Icon="../../../../../Assets/Images/smallpurplerect.jpg"/>
+			<s:DataItem Name="ProductI" Price="0.00" OS="pc" inStock="true" Icon="../../../../../Assets/Images/smallredrect.jpg"/>
+			<s:DataItem Name="ProductJ" Price="0.00" OS="pc" inStock="true" Icon="../../../../../Assets/Images/smallorangerect.jpg"/>
+			<s:DataItem Name="ProductK" Price="0.00" OS="pc" inStock="false" Icon="../../../../../Assets/Images/smallyellowrect.jpg"/>			
+		</s:ArrayCollection>
+				
+		<s:ArrayCollection id="columns1">					 
+			<s:GridColumn id="c1_1" dataField="Icon" itemRenderer="components.DGIR_IMG"/>
+			<s:GridColumn id="c1_2" dataField="Name" itemRenderer="components.DGIR_LBL"/>
+			<s:GridColumn id="c1_3" dataField="Price" itemRenderer="components.DGIR_NS"/>
+			<s:GridColumn id="c1_4" dataField="OS" itemRenderer="components.DGIR_DDL" width="100"/>
+			<s:GridColumn id="c1_5" dataField="inStock" itemRenderer="components.DGIR_CB" width="75"/>						
+			<s:GridColumn id="c1_6" headerText="Purchase" itemRenderer="components.DGIR_TGLBTN"/>
+		</s:ArrayCollection>				
+	</fx:Declarations>
+    
+</s:DataGrid>	

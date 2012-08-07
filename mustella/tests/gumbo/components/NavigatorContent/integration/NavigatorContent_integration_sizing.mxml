@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="gumbo/components/NavigatorContent/integration/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+	xmlns:assets="assets.*"
+    testSWF="NavigatorContent_Integration_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.*;           // Includes INavigatorContent, Container, FlexGlobals.
+        import mx.containers.*;     // Includes Panel, Accordion, etc...
+        import spark.components.*;  // Includes NavigatorContent.
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<TestCase testID="integration_sizing_absolutevalue_test1" keywords="[NavigatorContent]" description="Decrease height." >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1.child1" propertyName="height" value="100" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_absolutevalue_test2" keywords="[NavigatorContent]" description="Decrease width" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1.child1" propertyName="width" value="100" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_absolutevalue_test3" keywords="[NavigatorContent]" description="Decrease height and width" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1.child1" propertyName="height" value="100" waitEvent="updateComplete" />
+		<SetProperty target="tn1.child1" propertyName="width" value="100" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_absolutevalue_test4" keywords="[NavigatorContent]" description="Increase height.  Essentially no effect b/c controls are not explicitly placed outside bounds of TabNav." >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1.child1" propertyName="height" value="220" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_absolutevalue_test5" keywords="[NavigatorContent]" description="Increase width.  Essentially no effect b/c controls are not explicitly placed outside bounds of TabNav." >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1.child1" propertyName="width" value="220" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_absolutevalue_test6" keywords="[NavigatorContent]" description="Increase height and width.  Essentially no effect b/c controls are not explicitly placed outside bounds of TabNav." >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1.child1" propertyName="height" value="220" waitEvent="updateComplete" />
+		<SetProperty target="tn1.child1" propertyName="width" value="220" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test1" keywords="[NavigatorContent]" description="r2c true, spark to smaller spark" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="true" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test2" keywords="[NavigatorContent]" description="r2c true, spark to larger spark" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="true" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test3" keywords="[NavigatorContent]" description="r2c true, spark to smaller halo" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="true" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test4" keywords="[NavigatorContent]" description="r2c true, spark to larger halo" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="true" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="4" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test5" keywords="[NavigatorContent]" description="rtc false, spark to smaller spark" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="false" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test6" keywords="[NavigatorContent]" description="rtc false, spark to larger spark" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="false" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test7" keywords="[NavigatorContent]" description="rtc false, spark to smaller halo" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="false" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test8" keywords="[NavigatorContent]" description="rtc false, spark to larger halo" >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn2" propertyName="resizeToContent" value="false" />
+		<SetProperty target="tn2" propertyName="selectedIndex" value="4" waitEvent="updateComplete" />
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test9" keywords="[NavigatorContent]" description="r2c true, halo to smaller spark" >
+    <setup>
+        <ResetComponent target="tn3" className="assets.TabNav3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn3" propertyName="resizeToContent" value="true" />
+		<SetProperty target="tn3" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<CompareBitmap target="tn3" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test10" keywords="[NavigatorContent]" description="r2c true, halo to larger spark" >
+    <setup>
+        <ResetComponent target="tn3" className="assets.TabNav3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn3" propertyName="resizeToContent" value="true" />
+		<SetProperty target="tn3" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="tn3" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test11" keywords="[NavigatorContent]" description="r2c false, halo to smaller spark" >
+    <setup>
+        <ResetComponent target="tn3" className="assets.TabNav3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn3" propertyName="resizeToContent" value="false" />
+		<SetProperty target="tn3" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<CompareBitmap target="tn3" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_sizing_resizeToContent_test12" keywords="[NavigatorContent]" description="r2c false, halo to larger spark" >
+    <setup>
+        <ResetComponent target="tn3" className="assets.TabNav3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn3" propertyName="resizeToContent" value="false" />
+		<SetProperty target="tn3" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="tn3" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+</testCases>
+</UnitTester>

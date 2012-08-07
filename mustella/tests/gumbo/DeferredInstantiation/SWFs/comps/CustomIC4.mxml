@@ -1,0 +1,39 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="comps.*"		 
+    height="300"
+    width="300"
+    creationPolicy="none" >
+		 
+    <s:layout>
+    	<s:VerticalLayout/>
+    </s:layout>
+
+    <mx:Label text="Halo Accordion with creationPolicy set to none" />
+
+    <mx:Accordion id="myAccordion3" borderStyle="solid" width="200" height="100" >
+        <mx:HBox id="myAccordion3Tab1" label="A3 Tab 1" >
+    	    <mx:Button id="myAccordion3Button1" label="A3 Halo Button on Tab 1" />
+		</mx:HBox>
+	    	
+		<mx:HBox id="myAccordion3Tab2" label="A3 Tab 2" >
+	    	<s:Button id="myAccordion3Button2" label="A3 Gumbo Button on Tab 2" />
+		</mx:HBox> 
+    </mx:Accordion>
+    
+    <mx:Label text="Halo Accordion with creationPolicy set to auto" />
+    <mx:Label id="creationStatus" text="Label A4T2 NOT created" />
+    
+    <mx:Accordion id="myAccordion4" borderStyle="solid" width="200" height="100" creationPolicy="auto" >
+        <mx:VBox id="myAccordion4Tab1" label="A4 Tab 1" >
+            <mx:Button id="myAccordion4Button1" label="A4 Halo Button on Tab 1" />
+    	</mx:VBox>
+    	    	
+    	<mx:VBox id="myAccordion4Tab2" label="A4 Tab 2" >
+    	    <s:Button id="myAccordion4Button2" label="A4 Gumbo Button on Tab 2" creationComplete="creationStatus.text='Label A4T2 CREATED'"/>
+    	</mx:VBox> 
+    </mx:Accordion>
+    
+    
+    
+</s:SkinnableContainer>

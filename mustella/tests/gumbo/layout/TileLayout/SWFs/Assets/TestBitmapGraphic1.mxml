@@ -1,0 +1,1 @@
+<s:BitmapImage xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" fillMode="repeat" source="@Embed('../../../../../../Assets/Images/smallredrect.jpg')"/>

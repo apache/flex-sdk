@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
+testSWF="ListStates.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </fx:Script>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+    <![CDATA[
+        import mx.collections.ArrayList;
+     ]]>
+    </fx:Script>
+    <testCases>
+
+	<TestCase testID="list_state1" keywords="[States]" description="" >
+		<body>
+			<SetProperty target="list1" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+			<SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+			<DispatchMouseClickEvent target="list1" localX="5" localY="25" waitTarget="list1" waitEvent="updateComplete" />
+			<DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../integration/baselines/$testID.png" target="list1" />
+		</body>
+	</TestCase>
+	<TestCase testID="list_state2" keywords="[States]" description="" >
+		<body>
+			<DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../integration/baselines/$testID.png" target="list1" />
+		</body>
+	</TestCase>
+	<TestCase testID="list_state3" keywords="[States]" description="" >
+		<body>
+			<DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../integration/baselines/$testID.png" target="list1" />
+		</body>
+	</TestCase>
+	<TestCase testID="list_state4" keywords="[States]" description="" >
+		<body>
+			<DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../integration/baselines/$testID.png" target="list1" />
+		</body>
+	</TestCase>
+	<TestCase testID="list_state5" keywords="[States]" description="" >
+		<body>
+			<DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../integration/baselines/$testID.png" target="list1" />
+		</body>
+	</TestCase>
+	<TestCase testID="list_state6" keywords="[States]" description="" >
+		<body>
+			<DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete" />
+			<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../integration/baselines/$testID.png" target="list1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="List_integration_errorString" keywords="[List, Property, errorString]" description="Test errorString on List">
+		<setup>
+
+			<SetProperty target="list1" propertyName="errorString" value="this is errorString"/>
+			<SetProperty target="list1" propertyName="height" value="150" waitEvent="updateComplete"/>
+
+		</setup>
+		<body>
+
+			<DispatchMouseEvent type="mouseOver" target="list1" localX="10" localY="40" waitEvent="toolTipShown" waitTarget="list1"/>
+			<AssertEvent target="list1" eventName="toolTipStart" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+			<AssertEvent target="list1" eventName="toolTipCreate" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+			<AssertEvent target="list1" eventName="toolTipShow" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+			<AssertPropertyValue target="list1" propertyName="errorString" value="this is errorString" />
+			<DispatchMouseEvent type="mouseMove" target="stage" localX="300" localY="4" />
+			<DispatchMouseEvent type="mouseMove" target="stage" localX="300" localY="40" />
+
+		</body>
+	</TestCase>
+        <TestCase testID="List_Caret_Selection1" keywords="[List, caretIndex, selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="comp1" className="comps.CaretTesterListComp" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+		<DispatchMouseClickEvent  target="comp1.list1" waitEvent="updateComplete" localX="20" localY="20"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="comp1.list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="comp1.list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="comp1.list1" waitEvent="updateComplete"/>
+		<AssertPixelValue    target = "comp1.list1" x="50"  y="40" value="0xFF0000" />
+		<AssertPixelValue    target = "comp1.list1" x="50"  y="180" value="0xFFFF00" />
+		<AssertPixelValue    target = "comp1.list1" x="50"  y="80" value="0xC3C3C3" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_Caret_Selection2" keywords="[List, caretIndex, selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="comp1" className="comps.CaretTesterListComp" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+		<DispatchMouseClickEvent  target="comp1.list1" waitEvent="updateComplete" localX="20" localY="120"/>
+		<DispatchMouseClickEvent  target="comp1.list1" waitEvent="click" localX="20" localY="120"/>
+ 		<AssertPixelValue    target = "comp1.list1" x="100"  y="120" value="0xFFFF00" />
+ 		<AssertPixelValue    target = "comp1.list1" x="100"  y="80" value="0xC3C3C3" />
+		<AssertPixelValue    target = "comp1.list1" x="100"  y="180" value="0xC3C3C3" />
+            </body>
+        </TestCase>
+       <TestCase testID="List_Caret_Selection3" keywords="[List, caretIndex, selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="comp1" className="comps.CaretTesterListComp" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+		<DispatchMouseClickEvent  target="comp1.list1" waitEvent="updateComplete" localX="20" localY="120"/>
+		<DispatchKeyEvent keys="[UP]" ctrlKey="true"  waitEvent="caretChange" waitTarget="comp1.list1"/>
+ 		<AssertPixelValue    target = "comp1.list1" x="100"  y="20" value="0xC3C3C3" />
+		<AssertPixelValue    target = "comp1.list1" x="100"  y="80" value="0x0000FF" />
+		<AssertPixelValue    target = "comp1.list1" x="100"  y="130" value="0x00FF00" />
+            </body>
+        </TestCase>
+
+</testCases>
+</UnitTester>

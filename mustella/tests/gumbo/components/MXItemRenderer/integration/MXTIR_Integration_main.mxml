@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx " xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/components/MXItemRenderer/integration/"  testSWF="TreeBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import comps.*
+    	import spark.skins.spark.*;
+    ]]>
+  </fx:Script>
+  
+<!--
+
+MXItemRenderer Testing - Tree - Integration tests
+=====================================================
+
+-->
+
+ <fx:Script>
+    <![CDATA[
+    	import comps.*
+    	import spark.skins.spark.*;
+    	import mx.core.FlexGlobals;
+	private function addEmptyBranchDP():void
+
+	{
+		var newNode:XML = <item label='Middle' isBranch="true"></item>;
+		FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.addItemAt(newNode, 1);
+	}
+
+	private function addEmptyBranchDD():void
+
+	{
+		var newNode:XML = <item label='Middle' isBranch="true"></item>;
+		FlexGlobals.topLevelApplication.treeRoot.tree1.dataDescriptor.addChildAt(FlexGlobals.topLevelApplication.treeRoot.dataX, newNode, 2, FlexGlobals.topLevelApplication.treeRoot.dataX);
+
+	}
+	
+	// Adding a branch by going through the Tree control's dataDescriptor. 
+	private function addEmptyBranchDP2():void
+	{
+		var newObj:Object = {label:"Middle", children:[{ label:"test1", data:"new node1" },    
+			{ label:"test2", data:"new node2" } ]};
+		FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider.addItemAt(newObj, 0);
+		
+	}
+
+	private function removeBranchDD():void
+	{
+		var newNode:XML = <item label='Child 4' isBranch="true"></item>;
+		FlexGlobals.topLevelApplication.treeRoot.tree1.dataDescriptor.removeChildAt(FlexGlobals.topLevelApplication.treeRoot.dataX,newNode,2);
+	}
+	public function addItemEditEndHandler():void
+    	{
+    		FlexGlobals.topLevelApplication.treeRoot.tree1.addEventListener('itemEditEnd',
+    		FlexGlobals.topLevelApplication.treeRoot.processData3);
+		
+    	}
+    	public function addItemEditEndHandler2():void
+    	{
+    		FlexGlobals.topLevelApplication.treeRoot.tree1.addEventListener('itemEditEnd',
+    		FlexGlobals.topLevelApplication.treeRoot.processData);
+		
+    	}
+    ]]>
+  </fx:Script>
+  <testCases>
+
+
+<!--
+
+MXItemRenderer Testing - Tree - Integration tests
+=====================================================
+
+-->
+
+<TestCase testID="MXTIR_label_renderer001" keywords="[MXTreeItemRenderer, integration]" description="render contains a spark label">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Label)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />                    
+	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_bitMapImage_renderer001" keywords="[MXTreeItemRenderer, integration]" description="render contains a spark BitmapImage">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Label)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />     
+	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_largeContent_renderer001" keywords="[MXTreeItemRenderer, integration]" description="render contains a large content">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_LargeContent)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />  
+	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_dropDownList_renderer001" keywords="[MXTreeItemRenderer, integration]" description="render contains a dropDownList">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_DropDownList)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_dropDownList_renderer002" keywords="[MXTreeItemRenderer, integration]" description="render contains a dropDownList, select value in list, verify value is updated">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_DropDownList)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+	<!-- 
+	todo
+	select dropdown list, verify value is updated?
+	
+	-->
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+
+<TestCase testID="MXTIR_primitives_renderer001" keywords="[MXTreeItemRenderer, integration]" description="render contains primitives">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Primitives)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_mixContent_renderer001" keywords="[MXTreeItemRenderer, integration]" description="render contains halo, spark controls">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_MixHaloSpark)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_mixContent_renderer002" keywords="[MXTreeItemRenderer, integration]" description="render contains halo, spark controls">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_MixHaloSpark)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+        <DispatchMouseEvent target="treeRoot.tree1" type="mouseOver" localX="10" localY="5" />
+	<CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+       
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_mixContent_renderer003" keywords="[MXTreeItemRenderer, integration]" description="render contains halo, spark controls">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_MixHaloSpark)}"  />
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+	<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="treeRoot.tree1"/>
+	<WaitForEffectsToEnd/>
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_itemEditor_001" keywords="[MXTreeItemRenderer, integration]" description="verify itemEditor shows up">
+   <setup>
+   		<ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+   		<SetProperty target="treeRoot.tree1" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+   		<SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Styles)}"  />
+   		
+           	<SetProperty target="treeRoot.tree1" propertyName="editable" value="true"  />
+               </setup>
+               <body>
+                   <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+                   <DispatchKeyEvent keys="[DOWN]" />
+                   <DispatchKeyEvent char="boogie" />
+                   
+                   <DispatchMouseClickEvent target="treeRoot.tree1" localX="228" localY="9" waitEvent="click" waitTarget="treeRoot.tree1"/>
+               	<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
+       
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+       
+        
+    </body>
+</TestCase>
+
+
+<TestCase testID="MXTIR_itemEditor_002" keywords="[MXTreeItemRenderer, integration]" description="verify customized itemEditor shows up">
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="labelField" value="label" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+	<SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.contacts1" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+   	
+    </setup>
+    <body>
+    	<SetProperty target="treeRoot.tree1" propertyName="editable" value="true"  />
+    	<SetProperty target="treeRoot.tree1" propertyName="editorHeightOffset" value="75"  />
+    	<SetProperty target="treeRoot.tree1" propertyName="editorWidthOffset" value="-100"  />
+    	<SetProperty target="treeRoot.tree1" propertyName="editorXOffset" value="40"  />
+    	<SetProperty target="treeRoot.tree1" propertyName="editorYOffset" value="30"  />
+    	
+    	<SetProperty target="treeRoot.tree1" propertyName="rowHeight" value="24"  />
+    	<SetProperty target="treeRoot.tree1" propertyName="width" value="200"  />
+    	
+        <SetProperty target="treeRoot.tree1" propertyName="showRoot" value="false" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="itemRenderer" value="{new ClassFactory(comps.MXTIR_Label)}"  />
+        <SetProperty target="treeRoot.tree1" propertyName="itemEditor" value="{new ClassFactory(comps.MXTIR_MyTreeEditor)}" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="treeRoot.tree1" />
+        <Pause timeout="1000"/>
+	<CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_addEmptyBranch_001" keywords="[MXTreeItemRenderer, integration]" description="add empty branch to the tree">
+
+      <setup>
+          <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+          <SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.dataX" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+             	
+      </setup>
+      <body>
+         	
+           <RunCode code="addEmptyBranchDP()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+   	   <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
+           <Pause timeout="50"/>
+           <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+             	 
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_addEmptyBranch_002" keywords="[MXTreeItemRenderer, integration]" description="add empty branch to the tree by going through the Tree control's dataDescriptor">
+
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+        <SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.dataX" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+           	
+    </setup>
+    <body>
+         	
+        <RunCode code="addEmptyBranchDD()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandItem(FlexGlobals.topLevelApplication.treeRoot.tree1.dataProvider[0], true)"  />
+        <Pause timeout="50"/>
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+
+    </body>
+</TestCase>
+
+<TestCase testID="MXTIR_removeItemFromBranch_001" keywords="[MXTreeItemRenderer, integration]" description="add empty branch to the tree by going through the Tree control's dataDescriptor">
+
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+        <SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.dataX" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+           	
+    </setup>
+    <body>
+        		
+        <RunCode code="addEmptyBranchDD()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+        <SetProperty propertyName="selectedIndex" value="0" target="treeRoot.tree1" waitEvent="valueCommit" waitTarget="treeRoot.tree1"/>
+        <RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.selectedItem, true)"  />
+      	<Pause timeout="100"/>
+        <CompareBitmap url="../integration/baselines/$testID_1.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+       
+        <RunCode code="removeBranchDD()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+        
+        <CompareBitmap url="../integration/baselines/$testID_2.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+        
+    </body>
+</TestCase>
+
+
+<TestCase testID="MXTIR_addEmptyBranch_003" keywords="[MXTreeItemRenderer, integration]" description="add empty branch to the tree with objectItem">
+
+    <setup>
+        <ResetComponent target="treeRoot" className="comps.TreeIntegration" waitEvent="updateComplete" />
+        <SetProperty target="treeRoot.tree1" propertyName="labelField" value="label" waitEvent="updateComplete" waitTarget="treeRoot.tree1" />
+	<SetProperty propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.treeRoot.contacts1" target="treeRoot.tree1" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+           	
+    </setup>
+    <body>
+        
+        <RunCode code="addEmptyBranchDP2()" waitEvent="updateComplete" waitTarget="treeRoot.tree1"/>
+        <SetProperty propertyName="selectedIndex" value="0" target="treeRoot.tree1" waitEvent="valueCommit" waitTarget="treeRoot.tree1"/>
+	<RunCode code="FlexGlobals.topLevelApplication.treeRoot.tree1.expandChildrenOf(FlexGlobals.topLevelApplication.treeRoot.tree1.selectedItem, true)"  />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="treeRoot.tree1"  numColorVariances="10" maxColorVariance="10" />
+    </body>
+</TestCase>
+
+
+
+
+ 
+
+  </testCases>
+</UnitTester>

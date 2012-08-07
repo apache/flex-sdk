@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/layoutUIC/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutUIC_main.mxml">
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+import mx.core.ILayoutElement;
+                
+                private var m:Matrix;
+		                
+		private function transformButton(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number):Matrix{
+			var m1:Matrix = new Matrix();
+			m1.a = a;
+			m1.b = b;
+			m1.c = c;
+			m1.d = d;
+			m1.tx = tx;
+			m1.ty = ty;
+			return m1;
+		}
+            ]]>
+        </fx:Script>
+    <testCases>
+    
+    	<!--*****************-->
+        <!--setActualPosition-->
+        <!--*****************-->
+	<TestCase testID="transform_translation_setActualPosition" keywords="[transform, methods, layoutUIC]" description="Call actualPosition after setting x and y via transform matrix">
+        	<setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		
+           		<RunCode code="application.b1.setLayoutBoundsPosition(20, 30)"/>
+           		<RunCode code="m = application.b1.transform.matrix; m.translate(5,10); application.b1.transform.matrix = m;" />
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="25" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="25" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="40" />
+            	</body>
+        </TestCase>
+        
+        <TestCase testID="transform_translation_setActualPosition_pretransform" keywords="[transform, methods, layoutUIC]" description="Call actualPosition after setting x and y via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="m = application.b1.transform.matrix; m.translate(5,10); application.b1.transform.matrix = m;" />
+			<RunCode code="application.b1.setLayoutBoundsPosition(20, 30,false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="20" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+         <TestCase testID="transform_translation_setActualPosition_pretransform_true" keywords="[transform, methods, layoutUIC]" description="Call actualPosition after setting x and y via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="m = application.b1.transform.matrix; m.translate(5,10); application.b1.transform.matrix = m;" />
+			<RunCode code="application.b1.setLayoutBoundsPosition(20, 30)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+	<TestCase testID="transform_scalingX_matrix_setActualPosition" keywords="[transform, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.scale(5,1); application.b1.transform.matrix = m;"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="100" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="100" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+	<TestCase testID="transform_scalingY_matrix_setActualPosition" keywords="[transform, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.scale(1,3); application.b1.transform.matrix = m;"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="90" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="20" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="90" />
+		</body>
+        </TestCase>
+	<TestCase testID="transform_scaling_scaleX_setActualPosition" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="scaleX" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="20" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="transform_scaling_scaleY_setActualPosition" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="scaleY" value="3" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="20" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+	<TestCase testID="transform_rotating_setActualPosition_90degrees" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="rotation" value="90" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="42" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+	<TestCase testID="transform_skewing_setActualPosition" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="20" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="transform_rotating_setActualPosition_45degrees" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="rotation" value="45" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="19.993634" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="35.55" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="transform_rotating_setActualPosition_45degrees_scale2x" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-45.212698" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="35.35" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="-14.1" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="35.35" />
+		</body>
+        </TestCase>
+        
+         <TestCase testID="transform_rotating_setActualPosition_45degrees_scale2y" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-22.606349" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="70.7" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="-7.05" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="70.7" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="transform_rotating_setActualPosition_45degrees_scale2x_translatex5" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); m.translate(5,0); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-40.212698" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="35.35" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="-9.1" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="35.35" />
+		</body>
+	</TestCase>
+	 <TestCase testID="transform_rotating_setActualPosition_45degrees_scale2y_translatey5" keywords="[transform, setActualPosition, methods, layoutUIC]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsPosition(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2);m.translate(0,5); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-22.606349" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="75.70" />
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="-7.05" />
+                	<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="75.7" />
+		</body>
+	</TestCase>        
+	
+        <!--*************-->
+	<!--setActualSize-->
+        <!--*************-->
+        
+        <!--actualPosition-->
+        
+        <TestCase testID="transform_rotate_setActualSize_actualPosition" keywords="[transform, rotate, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and rotate">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+        	</setup>
+        	<body>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-21.213203"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+        
+        <TestCase testID="transform_scaling_setActualSize_actualPosition" keywords="[transform, scale, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and scaling">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.scale(3, 1); application.b1.transform.matrix = m;"/>
+			
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+        
+        <TestCase testID="transform_translating_setActualSize_actualPosition" keywords="[transform, translate, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and translating">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.translate(3, 1); application.b1.transform.matrix = m;"/>
+			
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="3"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="1"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="3"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="1"/>
+        	</body>
+        </TestCase>
+        <TestCase testID="transform_skewing_setActualSize_actualPosition" keywords="[transform, skew, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and skewing">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+     			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+     			
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+        
+      	<TestCase testID="transform_scaleX_setActualSize_actualPosition" keywords="[transform, scaleX, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and scaleX">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleX" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+        <TestCase testID="transform_scaleY_setActualSize_actualPosition" keywords="[transform, scaleY, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and scaleY">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleY" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+        <TestCase testID="transform_rotation_setActualSize_actualPosition" keywords="[transform, rotation, setActualSize, methods, layoutUIC]" description="Check actualPosition after calling setActualSize and rotation">
+        	<setup>
+        		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="b1" waitEvent="updateComplete" waitTarget="b1" />
+			
+		</setup>
+	        <body>
+	     		<AssertMethodValue method="value=application.b1.getLayoutBoundsX()" value="-21.213226"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY()" value="0"/> 
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.b1.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+        
+        <!--actualSize-->
+        <TestCase testID="transform_rotate45_setActualSize_actualSize" keywords="[transform, rotate, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="35.355338"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="35.355338"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_rotate90_setActualSize_actualSize" keywords="[transform, rotate, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(90*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth().toFixed(0)" value="30"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight().toFixed(0)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_scaling_setActualSize_actualSize" keywords="[transform, scale, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and scaling">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.scale(3, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="60"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_translating_setActualSize_actualSize" keywords="[transform, translate, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and translating">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.translate(3, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_skewing_setActualSize_actualSize" keywords="[transform, skew, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and skewing">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="71.961523"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_scaleX_setActualSize_actualSize" keywords="[transform, scaleX, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and scaleX">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="includeInLayout" target="b1" value="false"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			
+			<SetProperty propertyName="scaleX" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<!--Since includeInLayout is false, the layout manager should not come through and use preferredSize over actualSize, so actualSize should scale based on what is set-->
+			<!--in this case actualSize is 20, scaleX by 5, so 100-->
+			<!--OLD: preferredSize of 40 in the button is used over actualSize and so scale makes x 200-->
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="100"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_scaleX_setActualSize_explicitWidth_actualSize" keywords="[transform, scaleX, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and scaleX">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="height" value="10" target="b1"/>
+			<SetProperty propertyName="width" value="20" target="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="includeInLayout" target="b1" value="false"/>
+			<SetProperty propertyName="scaleX" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<!--Since includeInLayout is false, the layout manager should not come through and use preferredSize over actualSize, so actualSize should scale based on what is set-->
+			<!--in this case actualSize y is 30 so 30-->
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="100"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_scaleY_setActualSize_actualSize" keywords="[transform, scaleY, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and scaleY">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleY" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="40"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="110"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="40"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="22"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_scaleY_setActualSize_actualSize_pretransform" keywords="[transform, scaleY, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and scaleY">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="scaleY" value="5" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="40"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="110"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="40"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="22"/>
+		</body>
+	</TestCase>
+	<TestCase testID="transform_rotation_setActualSize_actualSize" keywords="[transform, rotation, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and rotation">
+		<setup>
+		
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="35.355377"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="35.355377"/> 
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+        </TestCase>
+        <TestCase testID="transform_rotation_setActualSize_actualSize_pretransform" keywords="[transform, rotation, setActualSize, methods, layoutUIC]" description="Check actualSize after calling setActualSize and rotation">
+		<setup>
+
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="b1"/>
+			
+			<RunCode code="application.b1.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="45" target="b1" waitEvent="updateComplete" waitTarget="b1"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth()" value="35.355377"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight()" value="35.355377"/> 
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.b1.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+        </TestCase>
+        </testCases>
+</UnitTester>     

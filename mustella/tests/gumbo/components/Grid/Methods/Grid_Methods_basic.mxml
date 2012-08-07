@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Grid/Methods/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Grid_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="Grid_Methods_getCellBounds1" keywords="[Grid, Methods, getCellBounds]" description="Test getCellBounds method of Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=39, h=27)"/>                
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Grid_Methods_getCellBounds2" keywords="[Grid, Methods, getCellBounds]" description="Test getCellBounds method of Grid with width and height set">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myGrid" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                 
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=81, h=27)"/>                
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Grid_Methods_getCellBounds3" keywords="[Grid, Methods, getCellBounds]" description="Test getCellBounds method of Grid with rowHeight set">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+                <SetProperty target="myGrid" propertyName="rowHeight" value="80" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=39, h=80)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,3)" value="(x=131, y=160, w=33, h=80)"/>
+            </body>
+        </TestCase>   
+        
+		<TestCase testID="Grid_Methods_getCellBounds4" keywords="[Grid, Methods, getCellBounds]" description="Test getCellBounds method of Grid with the width of a column set">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=100, h=27)"/>                
+            </body>
+        </TestCase> 
+ 
+		<TestCase testID="Grid_Methods_getColumnBounds1" keywords="[Grid, Methods, getColumnBounds]" description="Test getColumnBounds method of Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0)" value="(x=0, y=0, w=39, h=432)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(1)" value="(x=39, y=0, w=37, h=432)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(2)" value="(x=76, y=0, w=55, h=432)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3)" value="(x=131, y=0, w=33, h=432)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4)" value="(x=164, y=0, w=60, h=432)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5)" value="(x=224, y=0, w=27, h=432)"/>                           
+            </body>
+        </TestCase>        
+	
+ 		<TestCase testID="Grid_Methods_getItemRendererAt1" keywords="[Grid, Methods, getItemRendererAt]" description="Test getItemRendererAt method of Grid">
+             <setup>
+                 <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                   
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             </setup>
+             <body>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getItemRendererAt(0,0).height" value="20"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="39"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getItemRendererAt(0,0).width" value="29"/>
+             </body>
+         </TestCase>
+          	        	    
+    </testCases>
+</UnitTester>

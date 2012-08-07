@@ -1,0 +1,315 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_controlBar.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        	
+        	import spark.layouts.*;
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+    
+<!-- 
+
+controlBarContent property:
+  + set at MXML/runtime
+  + set to null
+  + set to an empty Array
+  + set to a single element Array
+  + set to a two element Array
+  + set to a many element Array
+  + set to spark component, halo component, graphic element
+  + change the content at runtime
+  
+-->
+
+		<TestCase testID="Panel_Properties_controlBarContent_setViaMXML" keywords="[Panel, ControlBar]" description="set the controls via MXML">
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Properties_controlBarContent_setAtRuntime" keywords="[Panel, ControlBar]" description="set the controls at runtime">
+			<bugs>
+				<Bug bugID="SDK-23373" />
+			</bugs>
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen1" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarContent_setToNull_1" keywords="[Panel, ControlBar]" description="set the controls to null when set at runtime">
+        	<bugs>
+        		<Bug bugID="SDK-23384" />
+        	</bugs>
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray1" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen1" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarContent_setToNull_2" keywords="[Panel, ControlBar]" description="set the controls to null when set via mxml">
+            <bugs>
+        		<Bug bugID="SDK-23384" />
+        	</bugs>
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="Panel_Properties_controlBarContent_setToEmpty" keywords="[Panel, ControlBar]" description="set the controls to an empty array">
+        	<bugs>
+        		<Bug bugID="SDK-23534" />
+        	</bugs>
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarContent" valueExpression="value=[]" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Panel_Properties_controlBarContent_setToSingle" keywords="[Panel, ControlBar]" description="set the controls to array of one item">
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen1" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarContent_setToDouble" keywords="[Panel, ControlBar]" description="set the controls to array of two items">
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen1" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Panel_Properties_controlBarContent_halo" keywords="[Panel, ControlBar]" description="set the controls to be halo components">
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen1" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarContent_graphic" keywords="[Panel, ControlBar]" description="set the controls to be graphic elements">
+            <setup>            
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray5" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen1" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_controlBarContent_changeAtRuntime" keywords="[Panel, ControlBar]" description="change the controls at runtime">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+<!--
+
+controlBarLayout property:
+  + check default is HorizontalLayout
+  + set it to VerticalLayout/HorizontalLayout/TileLayout/BasicLayout
+  + change properties on the current layout (gap, padding, etc.)
+  + setting it to BasicLayout should work if the controls define x/y values
+  + change the layout at runtime
+
+-->
+
+		<TestCase testID="Panel_Properties_controlBarLayout_default" keywords="[Panel, ControlBar]" description="check default is horizontal">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=(application.controlBarRoot.panel2.controlBarLayout is HorizontalLayout)" value="true" />
+            	<AssertMethodValue method="value=application.controlBarRoot.panel2.controlBarLayout.gap" value="10" />
+            	<AssertMethodValue method="value=application.controlBarRoot.panel2.controlBarLayout.paddingTop" value="7" />
+            	<AssertMethodValue method="value=application.controlBarRoot.panel2.controlBarLayout.paddingBottom" value="7" />
+            	<AssertMethodValue method="value=application.controlBarRoot.panel2.controlBarLayout.paddingLeft" value="10" />
+            	<AssertMethodValue method="value=application.controlBarRoot.panel2.controlBarLayout.paddingRight" value="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_controlBarLayout_vertical" keywords="[Panel, ControlBar]" description="set the controls to a vertical layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarLayout" valueExpression="value=application.controlBarRoot.vLayout" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_controlBarLayout_horizontal" keywords="[Panel, ControlBar]" description="set the controls to a horizontal layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarLayout" valueExpression="value=application.controlBarRoot.hLayout" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_controlBarLayout_basic" keywords="[Panel, ControlBar]" description="set the controls to a basic layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarLayout" valueExpression="value=application.controlBarRoot.bLayout" waitEvent="updateComplete" />
+				<SetProperty target="controlBarRoot.panel2" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_controlBarLayout_tile" keywords="[Panel, ControlBar]" description="set the controls to a tile layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarLayout" valueExpression="value=application.controlBarRoot.tLayout" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarContent" valueExpression="value=application.controlBarRoot.contentArray1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_controlBarLayout_modify_gap" keywords="[Panel, ControlBar]" description="modify a property on the default layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=(application.controlBarRoot.panel2.controlBarLayout is HorizontalLayout)" value="true" />
+            	<RunCode code="application.controlBarRoot.panel2.controlBarLayout.gap = 1" waitTarget="controlBarRoot.panel2" waitEvent="updateComplete" />
+            	
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>        
+        
+		<TestCase testID="Panel_Properties_controlBarLayout_modify_paddingTop" keywords="[Panel, ControlBar]" description="modify a property on the default layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=(application.controlBarRoot.panel2.controlBarLayout is HorizontalLayout)" value="true" />
+            	<RunCode code="application.controlBarRoot.panel2.controlBarLayout.paddingTop = 20" />
+            	<Pause timeout="50" />
+            	
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>   
+        
+<!--        
+        
+controlBarVisible property:
+  + check default is true
+  + set to false in MXML and at runtime
+  + an invisible control bar should act like a null controlBar and not take up any space in the layout
+
+-->
+
+		<TestCase testID="Panel_Properties_controlBarVisible_default_1" keywords="[Panel, ControlBar]" description="check default value when no controlBar content">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="controlBarRoot.panel1" propertyName="controlBarVisible" value="true" />
+            </body>
+        </TestCase>   
+ 
+		<TestCase testID="Panel_Properties_controlBarVisible_default_2" keywords="[Panel, ControlBar]" description="check default value with controlBar content">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="controlBarRoot.panel2" propertyName="controlBarVisible" value="true" />
+            </body>
+        </TestCase>   
+        
+        <TestCase testID="Panel_Properties_controlBarVisible_false" keywords="[Panel, ControlBar]" description="set visible to false at runtime">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel2" propertyName="controlBarVisible" value="false" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen2" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarVisible_false_mxml" keywords="[Panel, ControlBar]" description="set visible to false in mxml">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen3" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarVisible_layout_false" keywords="[Panel, ControlBar]" description="check that invisible control bar isnt included in layout">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel4" propertyName="controlBarVisible" value="false" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen4" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Properties_controlBarVisible_layout_true" keywords="[Panel, ControlBar]" description="make an invisible control bar visible">
+            <setup>
+                <ResetComponent target="controlBarRoot" className="Comps.CustomPanelControlBar" waitEvent="updateComplete" />
+                <SetProperty target="controlBarRoot.panel3" propertyName="controlBarVisible" value="true" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarRoot.screen3" url="../Properties/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase> 
+        
+                
+    </testCases>
+    
+</UnitTester>
+
+

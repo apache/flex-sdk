@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:local="comps.*"
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="800" height="800">
+<fx:Style>
+		
+		@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myArial;
+			embedAsCFF: true;
+
+		}
+
+		s|Button {
+			fontAntiAliasType: "normal";
+			fontFamily: myArial;
+			fontLookup: "embeddedCFF";
+		}
+	    .myStyle{
+	        color: #FF0000
+	    }
+	
+	    .myStyle2{
+	        color: #0000FF
+	    }
+	</fx:Style>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+<s:Group id="group1" height="200" width="200" left="20" top="20"> 
+		<s:Rect id="border" left="0" right="0" top="0" bottom="0"> 
+			<s:stroke> 
+				<s:SolidColorStroke color="0xFF0000" weight="2"/> 
+			</s:stroke>
+		</s:Rect>
+		
+		<s:Button id="myButtonInGroup"/>
+		<s:Button x="100" y="80" label="Button" fontSize="20"/>
+		
+	</s:Group>
+	
+	<s:Panel left="461" top="105" width="250" height="200" id="panel1">
+		<s:Button x="46" y="10" label="Button" id="buttonInPanel"/>
+		<s:Button x="100" y="80" label="Button" fontSize="20"/>
+	</s:Panel>
+	
+	<local:CustomPanel_Baseline left="37" top="320" id="customPanel1">
+	</local:CustomPanel_Baseline>
+	
+</s:Application>

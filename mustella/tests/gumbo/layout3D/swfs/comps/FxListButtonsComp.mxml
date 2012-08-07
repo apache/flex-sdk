@@ -1,0 +1,45 @@
+  <s:List xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+  xmlns:s="library://ns.adobe.com/flex/spark"  useVirtualLayout="true">
+                <mx:ArrayCollection>
+                    <s:Button label="Ann"  ></s:Button>
+                    <s:Button label="Tom"  ></s:Button>
+                    <s:Button label="John" ></s:Button>
+                    <s:Button label="Jane" ></s:Button>
+                    <s:Button label="Bill" ></s:Button>
+                </mx:ArrayCollection>
+           <s:itemRenderer>
+                <fx:Component>
+<s:ItemRenderer autoDrawBackground = "false"  >
+
+     <s:states>
+         <s:State name="normal" />
+         <s:State name="selected" />
+         <s:State name="hovered" />
+     </s:states>
+
+     <fx:Script>
+     <![CDATA[
+        import mx.core.IVisualElement;
+
+        override public function set data(value:Object):void {
+            if(value == null)
+                return;
+
+            customDataRenderingGroup.removeAllElements();
+            customDataRenderingGroup.addElement(value as IVisualElement);
+        }
+     ]]>
+    </fx:Script>
+
+ <s:Rect left="0" right="0" top="0" bottom="0">
+    <s:fill>
+        <mx:SolidColor color="0x00FF00"
+            alpha="0" alpha.hovered="0.2" alpha.selected="0.8" />
+    </s:fill>
+ </s:Rect>
+ <s:Group id="customDataRenderingGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2"/>
+
+ </s:ItemRenderer>
+                </fx:Component>
+            </s:itemRenderer>
+    </s:List>

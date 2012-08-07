@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="375" width="500" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:comps="comps.*"
+	backgroundColor="0xFFFFFF" >
+	<s:layout><s:VerticalLayout/></s:layout>
+	<fx:Style source="assets/styles.css" />
+			
+	<fx:Script>
+	<![CDATA[	
+		import comps.*;
+	]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="rbg1" />
+		<s:RadioButtonGroup id="rbg2" />
+		<s:RadioButtonGroup id="rg" selectedValue="left" />
+	</fx:Declarations>
+	
+	<s:RadioButton id="rb1" />
+	<s:RadioButton id="rb2" />
+	<s:RadioButton id="rb3" />
+	<s:RadioButton id="rb4" />
+	
+	<s:Group id="bindingGroup" />
+	
+	<comps:HaloRadioButtonGroup id="hrg" />
+	<comps:SparkRadioButtonGroup id="srg" />
+	
+	<!--Set visible to false, only set to true for tests that need to verify-->
+	<!--One way binding-->
+	<mx:Label id="sellbl_one" text="{srg.sparkGrp.selection.label}" visible="false"/>
+	<mx:Label id="selVallbl_one" text="{srg.sparkGrp.selectedValue}" visible="false"/>
+	<mx:Label id="enabledlbl_one" text="{srg.sparkGrp.enabled}" visible="false"/>
+	<mx:Label id="numlbl_one" text="{srg.sparkGrp.numRadioButtons}" visible="false"/>
+	
+	<!--Two way binding-->
+	<mx:Label id="sellbl" text="@{srg.sparkGrp.selection.label}" visible="false"/>
+	<mx:Label id="selVallbl" text="@{srg.sparkGrp.selectedValue}" visible="false"/>
+	<mx:Label id="enabledlbl" enabled="@{srg.sparkGrp.enabled}" text="enabled" visible="false"/>
+	
+	<s:RadioButton label="left" value="left" group="{rg}" visible="false" includeInLayout="false" />
+	<s:RadioButton label="right" value="right" group="{rg}" visible="false" includeInLayout="false" />
+</s:Application>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_default.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Properties_default_height_width" keywords="[DataGrid, Property, Width, Height]" description="Test default height of width MXML DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG" className="spark.components.DataGrid" waitEvent="updateComplete"/>						
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="84"/>		
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="89"/>
+				<CompareBitmap target="defaultDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="DataGrid_Properties_default_dp_noColumns" keywords="[DataGrid, Property, dataProvider]" description="Test setting a dataProvider without setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG" className="spark.components.DataGrid" waitEvent="updateComplete"/>
+				<SetProperty target="defaultDG" propertyName="dataProvider" valueExpression="value=application.dp1" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="294"/>
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="253"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG.grid.getRowBounds(2).height" value="27"/>
+				<CompareBitmap target="defaultDG" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_default_dp_noColumns_fixedRowHeight" keywords="[DataGrid, Property, dataProvider]" description="Test setting a dataProvider without setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG" className="spark.components.DataGrid" waitEvent="updateComplete"/>				
+				<SetProperty target="defaultDG" propertyName="dataProvider" valueExpression="value=application.dp1" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="294"/>
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="253"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG.grid.getRowBounds(2).height" value="27"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DataGrid_Properties_default_columnsAtRuntime1" keywords="[DataGrid, Property, columns]" description="Test setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG" className="spark.components.DataGrid" waitEvent="updateComplete"/>				
+				<SetProperty target="defaultDG" propertyName="columns" valueExpression="value=application.columns1" waitEvent="enterFrame" waitTarget="stage"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="84"/>
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="122"/>				
+				<CompareBitmap target="defaultDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_default_columnsAtRuntime2" keywords="[DataGrid, Property, columns]" description="Test setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG" className="spark.components.DataGrid" waitEvent="updateComplete"/>				
+				<SetProperty target="defaultDG" propertyName="columns" valueExpression="value=application.columns2" waitEvent="enterFrame" waitTarget="stage"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG" propertyName="height" value="84"/>
+				<AssertPropertyValue target="defaultDG" propertyName="width" value="122"/>								
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DataGrid_Properties_default_typItem_height_width" keywords="[DataGrid, Property, Width, Height]" description="Test default height of width MXML DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG_typItem" className="components.CustomDG_wTypItem" waitEvent="updateComplete"/>										
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="84"/>		
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="259"/>
+				<CompareBitmap target="defaultDG_typItem" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DataGrid_Properties_default_typItem_dp_noColumns" keywords="[DataGrid, Property, dataProvider]" description="Test setting a dataProvider without setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG_typItem" className="components.CustomDG_wTypItem" waitEvent="updateComplete"/>
+				<SetProperty target="defaultDG_typItem" propertyName="dataProvider" valueExpression="value=application.dp1" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<Pause timeout="2000"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="294"/>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="273"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG_typItem.grid.getRowBounds(2).height" value="27"/>
+				<CompareBitmap target="defaultDG_typItem" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_default_typItem_dp_noColumns_fixedRowHeight" keywords="[DataGrid, Property, dataProvider]" description="Test setting a dataProvider without setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG_typItem" className="components.CustomDG_wTypItem" waitEvent="updateComplete"/>				
+				<SetProperty target="defaultDG_typItem" propertyName="dataProvider" valueExpression="value=application.dp1" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="294"/>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="273"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.defaultDG_typItem.grid.getRowBounds(2).height" value="27"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DataGrid_Properties_default_typItem_columnsAtRuntime1" keywords="[DataGrid, Property, columns]" description="Test setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG_typItem" className="components.CustomDG_wTypItem" waitEvent="updateComplete"/>				
+				<SetProperty target="defaultDG_typItem" propertyName="columns" valueExpression="value=application.columns1" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="84"/>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="208"/>				
+				<CompareBitmap target="defaultDG_typItem" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_default_typItem_columnsAtRuntime2" keywords="[DataGrid, Property, columns]" description="Test setting columns DataGrid">			
+			<setup>
+				<ResetComponent target="defaultDG_typItem" className="components.CustomDG_wTypItem" waitEvent="updateComplete"/>				
+				<SetProperty target="defaultDG_typItem" propertyName="columns" valueExpression="value=application.columns2" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>		
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="height" value="84"/>
+				<AssertPropertyValue target="defaultDG_typItem" propertyName="width" value="122"/>								
+			</body>
+		</TestCase>			
+
+    </testCases>
+</UnitTester>

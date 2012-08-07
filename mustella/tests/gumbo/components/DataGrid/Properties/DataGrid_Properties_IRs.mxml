@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_IR.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+<!--
+		<TestCase testID="DataGrid_Properties_IR_default" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>					<SetProperty target="myDG_IR" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="8"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="myDG_IR" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DataGrid_Properties_IR_checkBox1" keywords="[DataGrid, Property, itemRenderer]" description="Test using a DropDownList in an itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(2,4).cb.selected" value="false"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_IR_checkBox2" keywords="[DataGrid, Property, itemRenderer]" description="Test using a DropDownList in an itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="10"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(2,4).cb.selected" value="false"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(2,4).cb.selected = true" waitEvent="enterFrame" waitTarget="stage"/>												
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(2,4).cb.selected" value="true"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="8"/>
+				<SetProperty target="myDG_IR" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<CompareBitmap target="myDG_IR" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_IR_dropDownList1" keywords="[DataGrid, Property, itemRenderer]" description="Test using a DropDownList in an itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(1,3).ddl.selectedIndex" value="1"/>				
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_IR_dropDownList2" keywords="[DataGrid, Property, itemRenderer]" description="Test using a DropDownList in an itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="8"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(1,3).ddl.selectedIndex" value="1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(1,3).ddl.selectedIndex = 2" waitEvent="enterFrame" waitTarget="stage"/>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(1,3).ddl.selectedItem" value="linux"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="8"/>
+				<SetProperty target="myDG_IR" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<CompareBitmap target="myDG_IR" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_IR_numericStepper1" keywords="[DataGrid, Property, itemRenderer]" description="Test using a DropDownList in an itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(0,2).ns.value" value="2499.99"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR_numericStepper2" keywords="[DataGrid, Property, itemRenderer]" description="Test using a DropDownList in an itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<Pause timeout="5000"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="8"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(0,2).ns.value" value="2499.99"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(0,2).ns.value = 2000.01" waitEvent="enterFrame" waitTarget="stage"/>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR.grid.getItemRendererAt(0,2).ns.value" value="2000.01"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="8"/>
+				<SetProperty target="myDG_IR" propertyName="height" value="150" waitEvent="updateComplete"/>
+				<CompareBitmap target="myDG_IR" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_IR_rowHeight1" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>				
+				<SetProperty target="myDG_IR" propertyName="rowHeight" value="100" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myDG_IR" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="DataGrid_Properties_IR_scroller" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">					
+			<setup>
+				<ResetComponent target="myDG_IR" className="components.DataGrid_Custom_IRs" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+				<SetProperty target="myDG_IR" propertyName="rowHeight" value="100" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR.dp1.getItemAt(1,1).Name='ABCDEFGHIJKLMNOPQRSTUVWXYZ';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR.dp1.refresh();" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myDG_IR" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="DataGrid_Properties_IR2_default" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myDG_IR2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_IR2_default2" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>				
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR2.ensureCellIsVisible(12)" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+				<CompareBitmap target="myDG_IR2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR2_lst" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,4).mylst.selectedIndex = 3" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,4).mylst.selectedItem" value="android"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+				<CompareBitmap target="myDG_IR2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR2_textArea1" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).txtarea.text = 'NEW TEXT'" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).txtarea.text" value="NEW TEXT"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+				<CompareBitmap target="myDG_IR2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DataGrid_Properties_IR2_textArea2" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).hs.value = 30" waitEvent="enterFrame" waitTarget="stage"/>	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).hs.value" value="30"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+				<CompareBitmap target="myDG_IR2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DataGrid_Properties_IR2_textInput" keywords="[DataGrid, Property, itemRenderer]" description="Test using itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>								
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,2).txtinpt.text = 'UPDATED'" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,2).txtinpt.text" value="UPDATED"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+				<CompareBitmap target="myDG_IR2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_IR2_width1" keywords="[DataGrid, Property, itemRenderer]" description="Test width of itemRenderers in explicitly sized columns on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,0).width" value="150"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_IR2_width2" keywords="[DataGrid, Property, itemRenderer]" description="Test width of itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).width" value="129"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR2_height1" keywords="[DataGrid, Property, itemRenderer]" description="Test height of itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).height" value="148"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR2_height2" keywords="[DataGrid, Property, itemRenderer]" description="Test height of itemRenderers in explicitly sized rows on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_IR2" className="components.DataGrid_Custom_IRs2" waitEvent="updateComplete"/>		
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>				
+				<SetProperty target="myDG_IR2" propertyName="rowHeight" value="200" waitEvent="updateComplete" waitTarget="myDG_IR2.grid"/>
+			</setup>
+			<body>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myDG_IR2.grid.getItemRendererAt(0,1).height" value="200"/>
+			</body>
+		</TestCase>	
+-->		
+		<TestCase testID="DataGrid_Properties_IR_richTextEditor" keywords="[DataGrid, Property, itemRenderer, RichTextEdtiro]" description="Test using a RichTextEditor in the itemRenderers on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_rteIR" className="components.DataGrid_Custom_RichTxtEd" waitEvent="updateComplete"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="4"/>
+			</setup>
+			<body>								
+				<CompareBitmap target="myDG_rteIR" url="../Properties/Baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+    </testCases>
+</UnitTester>

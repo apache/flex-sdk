@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="ListBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import comps.*;
+        import mx.collections.*;
+        import spark.layouts.*;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="List_VerticalLayout_getDestinationIndex_up" keywords="[List, keyboard, VerticalLayout, up]" description="Use the keyboard to navigate up one spot in the list">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="C" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="2" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target="list1" propertyName="selectedIndex" value="1" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="List_VerticalLayout_getDestinationIndex_firstItem_up" keywords="[List, keyboard, VerticalLayout, up]" description="Use the keyboard to navigate up when at the top of the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[UP]"  waitTarget="list1" />
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+			</body>
+        </TestCase>
+        
+        <TestCase testID="List_VerticalLayout_getDestinationIndex_down" keywords="[List, keyboard, VerticalLayout, down]" description="Use the keyboard to navigate up one spot in the list">
+            <setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="C" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="2" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="3" />
+			</body>
+        </TestCase>
+        
+        <TestCase testID="List_VerticalLayout_getDestinationIndex_lastItem_down" keywords="[List, keyboard, VerticalLayout, down]" description="Use the keyboard to navigate up one spot in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" />
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="25" />
+			</body>
+        </TestCase>
+        
+        <TestCase testID="List_VerticalLayout_getDestinationIndex_firstItem_end" keywords="[List, keyboard, VerticalLayout, end]" description="Use the keyboard to hit end and go to the last item">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="25" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="List_VerticalLayout_getDestinationIndex_middle_end" keywords="[List, keyboard, VerticalLayout, end]" description="Use the keyboard to navigate to end in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_VerticalLayout_getDestinationIndex_pageUp" keywords="[List, keyboard, VerticalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="9" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="List_VerticalLayout_getDestinationIndex_pageDown" keywords="[List, keyboard, VerticalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="13" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_VerticalLayout_getDestinationIndex_lastItem_pageUp" keywords="[List, keyboard, VerticalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="23" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="List_VerticalLayout_getDestinationIndex_lastItem_pageDown" keywords="[List, keyboard, VerticalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" />
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+			</body>
+		</TestCase>
+		
+        <TestCase testID="List_HorizontalLayout_getDestinationIndex_left" keywords="[List, keyboard, HorizontalLayout, left]" description="Use the keyboard to navigate left one spot in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="C" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="2" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="1" />
+			</body>
+		</TestCase>
+		        
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_firstItem_left" keywords="[List, keyboard, HorizontalLayout, left]" description="Use the keyboard to navigate left when at the beginning of the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" />
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+			</body>
+		</TestCase>
+		        
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_right" keywords="[List, keyboard, HorizontalLayout, right]" description="Use the keyboard to navigate right one spot in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="C" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="2" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="3" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_lastItem_right" keywords="[List, keyboard, HorizontalLayout, right]" description="Use the keyboard to navigate right one spot in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" />
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="25" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_lastItem_home" keywords="[List, keyboard, HorizontalLayout, home]" description="Use the keyboard to hit home and go to the first item">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="Z" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_middle_home" keywords="[List, keyboard, HorizontalLayout, home]" description="Use the keyboard to navigate to home in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_firstItem_end" keywords="[List, keyboard, HorizontalLayout, end]" description="Use the keyboard to hit end and go to the last item">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list1" propertyName="selectedIndex" value="25" />
+			</body>
+		</TestCase>
+				
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_middle_end" keywords="[List, keyboard, HorizontalLayout, end]" description="Use the keyboard to navigate to end in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="25" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_pageUp" keywords="[List, keyboard, HorizontalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="7" />
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_pageDown" keywords="[List, keyboard, HorizontalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="L" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="11" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="14" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_firstItem_pageUp" keywords="[List, keyboard, HorizontalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="List_HorizontalLayout_getDestinationIndex_firstItem_pageDown" keywords="[List, keyboard, HorizontalLayout, pageUp]" description="Use the keyboard to navigate page up in the list">
+			<setup>
+				<ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+				<SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+				<SetProperty target="list1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+				<SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>                
+			</setup>
+			<body>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+				<DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+				<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+				<AssertPropertyValue target = "list1" propertyName="selectedIndex" value="3" />
+			</body>
+		</TestCase>
+		
+    </testCases>
+</UnitTester>

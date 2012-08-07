@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/Panel/Mirroring/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Panel_Mirroring.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <mx:Script>
+
+    <![CDATA[
+
+    public static function init(o:DisplayObject):void
+
+    {
+
+    }
+    
+	public var tmp:Point;	
+	
+	
+	private function convertXY(obj:Object):Point
+	{
+		tmp = new Point(obj.x, obj.y);
+		var globalPT:Point = obj.localToGlobal(tmp);
+		return(globalPT);
+	}
+
+
+
+    ]]>
+
+    </mx:Script>
+
+    <mx:Metadata>
+
+    <![CDATA[
+
+        [Mixin]
+
+    ]]>
+
+    </mx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <testCases>
+  
+        <TestCase testID="Panel_Title" keywords="[Panel, Mirroring]" description="Test title position of Panel with mirroring">
+            <setup>
+            	<ResetComponent target="mainPanel" className="Comps.PanelComp_Mirroring" waitTarget="mainPanel" waitEvent="updateComplete" />
+            	<RunCode code="application.setPanelProps('vertical')" waitTarget="mainPanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel).x" value="500"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel).y" value="0"/>
+            	<CompareBitmap target="mainPanel" numColorVariances="7" maxColorVariance="10" url="../Mirroring/baselines/$testID.png" />
+            </body>
+        </TestCase>
+  
+        <TestCase testID="Panel_Contents" keywords="[Panel, Mirroring]" description="Test the contents of the Panel with mirroring">
+            <setup>
+            	<ResetComponent target="mainPanel" className="Comps.PanelComp_Mirroring" waitTarget="mainPanel" waitEvent="updateComplete" />
+            	<RunCode code="application.setPanelProps('vertical')" waitTarget="mainPanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.btn).x" value="499"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.btn).y" value="32"/>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.lbl).x" value="409"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.lbl).y" value="86"/>            	
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Panel_Contents_Horizontal" keywords="[Panel, Mirroring]" description="Test the contents of the Panel with layout horizontal with mirroring">
+            <setup>
+		<ResetComponent target="mainPanel" className="Comps.PanelComp_Mirroring" waitTarget="mainPanel" waitEvent="updateComplete" />
+            	<RunCode code="application.setPanelProps('horizontal')" waitTarget="mainPanel" waitEvent="updateComplete"/>            
+            </setup>
+            <body>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.btn).x" value="499"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.btn).y" value="32"/>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.lbl).x" value="409"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.lbl).y" value="32"/>            	
+            </body>
+        </TestCase>             
+ 
+        <TestCase testID="Panel_ControlBar_Contents" keywords="[Panel, Mirroring]" description="Test the position of the ControlBar contents with mirroring">
+            
+            <setup>
+            	<ResetComponent target="mainPanel" className="Comps.PanelComp_Mirroring" waitTarget="mainPanel" waitEvent="updateComplete" />
+            	<RunCode code="application.setPanelProps('vertical')" waitTarget="mainPanel" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.cb_btn).x" value="479"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.cb_btn).y" value="352"/>
+                <AssertMethodValue method="value=convertXY(application.mainPanel.cb_lbl).x" value="399"/>
+            	<AssertMethodValue method="value=convertXY(application.mainPanel.cb_lbl).y" value="352"/>  
+            </body>
+        </TestCase>     
+        
+    </testCases>
+
+</UnitTester>
+

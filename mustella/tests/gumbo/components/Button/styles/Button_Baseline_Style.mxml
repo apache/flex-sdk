@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Button/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+			xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Button_Baseline.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+			import Assets.*;
+			
+		]]>
+	</fx:Script>
+
+	<fx:Script>
+		<![CDATA[
+			
+			
+			[Embed(source='../../../../../Assets/Images/bluerect.jpg')]
+			[Bindable]
+			private var logopng:Class;
+
+
+		]]>
+	</fx:Script>
+
+
+	<testCases>
+		
+		<!-- SDK-22398 Spark Button Baseline -->
+		
+	
+		<TestCase testID="baseline_10_Button_Group" description="set baseline Button inside group, align with another button, different font size, fontFamily" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="myButtonInGroup" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="myButtonInGroup" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontWeight" value="bold" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="10" target="myButtonInGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButtonInGroup" styleName="baseline" value="10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="group1"/>
+			</body>
+		</TestCase>
+		 		
+		<TestCase testID="baseline_10_BigFont_Group" description="set Button baseline with big fontSize" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="myButtonInGroup" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="myButtonInGroup" target="myButtonInGroup" waitEvent="updateComplete" waitTarget="myButtonInGroup"/>
+				<SetStyle styleName="fontSize" value="40" target="myButtonInGroup" waitEvent="updateComplete" waitTarget="myButtonInGroup"/>
+				<SetStyle styleName="baseline" value="10" target="myButtonInGroup" waitEvent="updateComplete" waitTarget="myButtonInGroup"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButtonInGroup" styleName="baseline" value="10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="group1"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="baseline_50_Group" description="set Button baseline to 50" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="myButtonInGroup" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="myButtonInGroup" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontSize" value="20" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="50" target="myButtonInGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButtonInGroup" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png"  target="group1"/>
+			</body>	
+		</TestCase>
+	
+		<TestCase testID="baseline_Move_Group" description="move group set Button baseline" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="myButtonInGroup" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="myButtonInGroup" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontSize" value="20" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="50" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetProperty propertyName="x" value="10" target="group1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="y" value="10" target="group1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButtonInGroup" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="group1"/>
+			</body>	
+		</TestCase>
+		
+		<TestCase testID="baseline_Font_Style" description="set Button baseline with italic fontStyle" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="myButtonInGroup" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="LabelStyle" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontStyle" value="italic" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontSize" value="40" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="50" target="myButtonInGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButtonInGroup" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="group1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="baseline_Font_Weight" description="set Button baseline with bold font" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="myButtonInGroup" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="myButtonInGroup" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontWeight" value="bold" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontSize" value="40" target="myButtonInGroup" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="100" target="myButtonInGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myButtonInGroup" styleName="baseline" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="group1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="baseline_panel" description="set Button baseline inside a panel" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="buttonInPanel" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="50" target="buttonInPanel" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="buttonInPanel" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png"  target="panel1" />
+			</body>	
+		</TestCase>
+	    
+	    <TestCase testID="baseline_panel_Icon" description="set baseline on a Button with icon " keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="buttonInPanel" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="buttonInPanel" target="buttonInPanel" waitEvent="updateComplete"/>
+				<SetStyle styleName="fontSize" value="20" target="buttonInPanel" waitEvent="updateComplete"/>
+				<SetStyle target="buttonInPanel" styleName="icon" value="{logopng}" waitEvent="updateComplete" />
+				<SetStyle styleName="baseline" value="50" target="buttonInPanel" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="buttonInPanel" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png"  target="panel1" />
+			</body>	
+		</TestCase>
+	    	
+	
+		<TestCase testID="baseline_panel_resize" description="check that baseline remains the same after resizing panel" keywords="[Button, baseline, style]">
+			<setup>
+				<ResetComponent target="buttonInPanel" className="spark.components.Button" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="50" target="buttonInPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="panel1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="height" value="100" target="panel1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="buttonInPanel" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png"  target="panel1" />
+			</body>	
+		</TestCase>
+		
+
+		<TestCase testID="baseline_set_baseline_customPanel" description="set button baseline in custom panel" keywords="[Button, baseline, style]">
+			<setup>
+			    <ResetComponent target="customPanel1" className="comps.CustomPanel_Baseline" waitEvent="updateComplete"/>
+			    <SetProperty propertyName="x" value="37" target="customPanel1" waitEvent="updateComplete"/>
+			    <SetProperty propertyName="y" value="320" target="customPanel1" waitEvent="updateComplete"/>
+				<SetStyle styleName="baseline" value="50" target="customPanel1.buttonInCustomPanel" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="customPanel1.buttonInCustomPanel" styleName="baseline" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png"  target="customPanel1"/>
+			</body>	
+		</TestCase>
+				
+		<TestCase testID="baseline_verify_baseline_customPanel" description="verify button baseline in custom panel" keywords="[Button, baseline, style]">
+			<setup>
+			    <ResetComponent target="customPanel1" className="comps.CustomPanel_Baseline" waitEvent="updateComplete"/>
+			    <SetProperty propertyName="x" value="37" target="customPanel1" waitEvent="updateComplete"/>
+			    <SetProperty propertyName="y" value="320" target="customPanel1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png"  target="customPanel1"/>
+			</body>	
+		</TestCase>
+		
+		
+	</testCases>
+</UnitTester>

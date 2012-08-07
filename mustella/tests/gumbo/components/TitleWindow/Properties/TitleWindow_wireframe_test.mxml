@@ -1,0 +1,83 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_Wireframe_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[        
+        	import mx.core.FlexGlobals;
+		import spark.components.Button;
+		import spark.components.TitleWindow;
+		import mx.managers.PopUpManager;
+		import flash.display.DisplayObject;
+		import spark.events.TitleWindowBoundsEvent;
+		import flash.geom.Rectangle;
+		import mx.events.FlexEvent;
+		public var boundEvt:TitleWindowBoundsEvent;
+
+		import comps.*;
+        	
+        	public static function init(o:DisplayObject):void {}
+        	
+        		
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="TitleWindow_wireframe_basic" keywords="[TitleWindow, skin,wireframe]" description="Test wireframe set for TitleWindow">
+            <setup>        
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="MyTitleWindowComplete"/>
+  	    </setup>
+            <body>
+		<DispatchMouseEvent target="defaultTW" type="mouseOver" localX="25" localY="25" waitEvent="mouseOver" waitTarget="defaultTW"/>
+		<DispatchMouseEvent target="defaultTW" type="mouseMove" localX="50" localY="50" />
+		<AssertEvent target="defaultTW" eventName="mouseMove" eventClass="flash.events::MouseEvent" timeout="5000" />
+		<DispatchMouseEvent target="defaultTW" type="mouseUp" localX="50" localY="50" />
+		<AssertEvent target="defaultTW" eventName="mouseUp" eventClass="flash.events::MouseEvent" timeout="5000" />
+		<CompareBitmap target="defaultTW" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            
+            </body>
+        </TestCase>
+
+        <TestCase testID="TitleWindow_wireframe_closeButton" keywords="[TitleWindow,skin, wireframe]" description="Test wireframe for close button when mouse roll over the close button">
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="MyTitleWindowComplete"/>
+  	   </setup>
+	    <body>
+		<DispatchMouseEvent type="rollOver" target="defaultTW.closeButton" localX="2" localY="2" />
+		<WaitForEffectsToEnd />
+		<CompareBitmap target="defaultTW.closeButton" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+  	    </body>
+	</TestCase>
+	
+       	<TestCase testID="TitleWindow_wireframe_closeButtonDisabled" keywords="[TitleWindow,wireframe, closeButton,disabled]" description="Test a wireframed titleWindow with closeButton.visible=false initially">
+                   <setup>            
+       		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+       		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithCloseBtn2,'window with content')" waitEvent="MyTitleWindowComplete" waitTarget=""/>
+       	    </setup>
+       	    <body>
+       	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.closeButton.enabled='false'" waitEvent="updateComplete" waitTarget="twObject.closeButton" />
+       	    	<DispatchMouseEvent type="rollOver" target="twObject.closeButton" localX="2" localY="2" />
+       		<WaitForEffectsToEnd />
+       		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+       	    </body>
+             </TestCase> 
+        
+	
+    </testCases>
+    
+</UnitTester>
+

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import mx.collections.*;
+        import spark.components.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=============
+dataProvider
+=============
+-->
+
+<!-- SDK-18393 -->
+<TestCase testID="dataProvider_test1" keywords="[ButtonBar,dataProvider]" description="Change the dataProvider and verify basic functionality." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb1.dataProvider = new ArrayCollection(['four','five','six'])" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="four" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="label" value="five" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="label" value="six" />
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1" propertyName="selectedItem" value="five" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test2" keywords="[ButtonBar,dataProvider]" description="Add item to the beginnig of the dataProvider and verify basic functionality." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb1.dataProvider.addItemAt('zero', 0)" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="zero" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="label" value="one" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="label" value="two" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(3)" propertyName="label" value="three" />
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(3)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1" propertyName="selectedItem" value="zero" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test3" keywords="[ButtonBar,dataProvider]" description="Add item to the end of the dataProvider and verify basic functionality." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb1.dataProvider.addItem('four')" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="label" value="three" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(3)" propertyName="label" value="four" />
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(3)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(3)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb1" propertyName="selectedItem" value="four" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test4" keywords="[ButtonBar,dataProvider]" description="Remove some items from the dataProvider." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb1.dataProvider.removeItemAt(2)" />
+        <RunCode code="application.bb1.dataProvider.removeItemAt(1)" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb1" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="bb1.dataProvider" propertyName="length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test5" keywords="[ButtonBar,dataProvider]" description="Remove all items from the dataProvider and add two.  Verify basic functionality." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.bb1.dataProvider.removeItemAt(2)" />
+        <RunCode code="application.bb1.dataProvider.removeItemAt(1)" />
+        <RunCode code="application.bb1.dataProvider.removeItemAt(0)" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="application.bb1.dataProvider.addItem('four')" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="application.bb1.dataProvider.addItem('five')" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="four" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="label" value="five" />
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb1" propertyName="selectedItem" value="four" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="bb1.dataProvider" propertyName="length" value="2" />
+    </body>
+</TestCase>
+
+<!--SDK-18393 -->
+<TestCase testID="dataProvider_test6" keywords="[ButtonBar,dataProvider]" description="Start with an empty dataProvider and add items." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value=new ArrayCollection()" />
+        <RunCode code="application.bb1.dataProvider.addItem('one')" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="application.bb1.dataProvider.addItem('two')" waitTarget="bb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="bb1" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="1" />
+        <AssertPropertyValue target="bb1.dataProvider" propertyName="length" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test7" keywords="[ButtonBar,dataProvider]" description="Use a dataProvider with complex objects." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="requireSelection" value="true" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="labelField" value="trip" />
+        <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value=application.complexDP" waitEvent="updateComplete" />
+        </setup>
+    <body>
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(0)" propertyName="label" value="Australia" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="label" value="Thailand" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(2)" propertyName="label" value="Maui" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test8" keywords="[ButtonBar,dataProvider,requireSelection]" description="Set requireSelection before the dataProvider." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="requireSelection" value="true" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitEvent="updateComplete" waitTarget="skin"/>
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.bb1.selectedItem ==(application.bb1.dataProvider.getItemAt(0))" value="true" />
+        <AssertMethodValue method="value=application.bb1.selectedItem ==(application.bb1.dataProvider.getItemAt(1))" value="false" />
+        <AssertMethodValue method="value=application.bb1.selectedItem ==(application.bb1.dataProvider.getItemAt(2))" value="false" />
+    </body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

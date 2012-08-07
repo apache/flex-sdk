@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:custom="assets.*"
+             backgroundColor="0xffffff"
+	         width="800" height="600" >
+
+<fx:Script>
+<![CDATA[
+
+    import mx.core.*;           // Includes INavigatorContent and Container.
+    import mx.containers.*;     // Includes Panel, Accordion, etc...
+    import spark.components.*;  // Includes NavigatorContent.
+
+    [Embed(source="assets/../../../../../../Assets/Images/redrect.jpg")]
+    [Bindable]
+    public var RedSquare:Class;
+
+    [Embed(source="assets/../../../../../../Assets/Images/greenrect.jpg")]
+    [Bindable]
+    public var GreenSquare:Class;
+
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    /**********************
+    * Flex 4 embedding
+    **********************/
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+        fontWeight: bold;
+        fontStyle: italic;
+        fontFamily: EmbeddedVeraCFF;
+        embedAsCFF: true;
+    }
+
+    /**********************
+    * Pre-Flex 4 embedding
+    **********************/
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-BoldItalic.ttf");
+        fontWeight: bold;
+        fontStyle: italic;
+        fontFamily: EmbeddedVera;
+        embedAsCFF: false;
+    }
+
+</fx:Style>
+
+<fx:Declarations>
+
+</fx:Declarations>
+
+
+<s:layout>
+    <s:VerticalLayout/>
+</s:layout>
+
+<!--
+<mx:ViewStack id="vs1" />
+<custom:VSNone_NCUnset id="vs2" />
+<custom:VSAll_NCUnset id="vs3" />
+-->
+
+<custom:VSAll_NCAll id="vs2" />
+<custom:VSAuto_NCAll id="vs3" />
+<custom:VSNone_NCAll id="vs4" />
+
+<custom:VSAll_NCAuto id="vs6" />
+<custom:VSAuto_NCAuto id="vs7" />
+<custom:VSNone_NCAuto id="vs8" />
+
+<custom:VSAll_NCNone id="vs10" />
+<custom:VSAuto_NCNone id="vs11" />
+<custom:VSNone_NCNone id="vs12" />
+
+<custom:VSAll_NCUnset id="vs14" />
+<custom:VSAuto_NCUnset id="vs15" />
+<custom:VSNone_NCUnset id="vs16" />
+
+</s:Application>

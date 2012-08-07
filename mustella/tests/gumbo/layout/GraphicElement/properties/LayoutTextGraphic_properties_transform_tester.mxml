@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/GraphicElement/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutGraphicElement_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+        <fx:Script>
+            <![CDATA[
+                
+                private var m:Matrix;
+                
+            ]]>
+        </fx:Script>
+
+	<testCases>
+
+	<!--*****************-->
+	<!--Transform testing-->
+	<!--*****************-->
+	
+	<!--**************-->
+	<!--actualPosition-->
+	<!--**************-->
+	
+	<TestCase testID="TextGraphic_transform_translation_actualPosition" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition after setting x and y via transform matrix">
+        	<setup> 
+           		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+          		<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+           		<SetProperty propertyName="x" target="pan.tg" value="30"/>
+           		<SetProperty propertyName="y" target="pan.tg" value="35" waitEvent="updateComplete" waitTarget="pan.tg"/>
+               	</setup>
+            	<body>
+            		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="30"/>
+                	<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="35" />
+            		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="30"/>
+                	<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="35" />
+            	</body>
+        </TestCase>
+        
+	<TestCase testID="TextGraphic_transform_scaling_actualPosition" keywords="[transform, properties, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+		<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="scaleX" target="pan.tg" value="3"/>
+			<SetProperty propertyName="scaleY" target="pan.tg" value="4" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+        </TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_actualPosition_90degrees" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" target="pan.tg" value="90" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-23" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+        </TestCase>
+ 
+        <TestCase testID="TextGraphic_transform_rotating_actualPosition_45degrees" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+		<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" target="pan.tg" value="45" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-16.263474" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_rotating_actualPosition_45degrees_scale2x" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-16.263474" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_rotating_actualPosition_scale2x_45degrees" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-16.263474" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+        </TestCase>
+       
+        <TestCase testID="TextGraphic_transform_rotating_actualPosition_45degrees_scale2y" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-32.526947" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_rotating_actualPosition_45degrees_scale2x_translatex5" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition after scaling and translating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-11.263474" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="5" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_actualPosition_45degrees_scale2y_translatey5" keywords="[transform, actualPosition, properties, layoutGraphicElement]" description="Call actualPosition">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg"/>
+			<SetProperty propertyName="y" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-32.526947" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="5" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="5" />
+		</body>
+	</TestCase>
+       
+        <!--*************-->
+        <!--preferredSize-->
+        <!--*************-->
+        <TestCase testID="TextGraphic_transform_translation_preferredSize" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize after setting x and y via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg"/>
+			<SetProperty propertyName="y" value="10" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="23" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_scaling_preferredSize" keywords="[transform, properties, layoutGraphicElement]" description="Call preferredSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="80" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="69" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_preferredSize_90degrees" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth().toFixed(0)" value="23" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight().toFixed(0)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_preferredSize_45degrees" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="44.547775" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="44.547775" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_preferredSize_45degrees_scale2x" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="72.832077" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="72.832077" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+	 <TestCase testID="TextGraphic_transform_rotating_preferredSize_45degrees_scale2y" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="60.811249" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="60.811249" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_preferredSize_45degrees_scale2x_translatex5" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize after scaling and translating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="72.832077" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="72.832077" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />			
+		</body>
+	</TestCase>
+
+	 <TestCase testID="TextGraphic_transform_rotating_preferredSize_45degrees_scale2y_translatey5" keywords="[transform, preferredSize, properties, layoutGraphicElement]" description="Call preferredSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg"/>
+			<SetProperty propertyName="y" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth()" value="60.811249" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight()" value="60.811249" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.pan.tg.getPreferredBoundsHeight(false)" value="23" />
+		</body>
+	</TestCase>
+        
+        <!--*******-->
+	<!--minSize-->
+	<!--*******-->
+	
+        <TestCase testID="TextGraphic_transform_translation_minSize_minWidth_minHeight" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize after setting x and y via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="30" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="50" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="50" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="50" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_scaling_minSize_minWidth_minHeight" keywords="[transform, properties, layoutGraphicElement]" description="Call minSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="30" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="50" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="4" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="120" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="50" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="50" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="TextGraphic_transform_scaling_minSize" keywords="[transform, properties, layoutGraphicElement]" description="Call minSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="scaleX" value="4" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_90degrees_minWidth_minHeight" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="30" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="50" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight().toFixed(0)" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="50" />			
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_90degrees" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />			
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_minHeight_minWidth" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="20" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="30" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="35.355377" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="35.355377" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="30" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />			
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2x_minHeight_minWidth" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+		<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="20" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="30" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="49.497528" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="49.497528" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="30" />			
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2x" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />			
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2y_minHeight_minWidth" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="20" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="30" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="56.568604" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="56.568604" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="30" />
+		</body>
+	</TestCase>
+	
+	 <TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2y" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize ">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2x_translatex5_minWidth_minHeight" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="20" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="30" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="49.497528" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="49.497528" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="30" />			
+		</body>
+	</TestCase>
+	
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2x_translatex5" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />			
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2y_translatey5_minHeight_minWidth" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="minWidth" value="20" target="pan.tg"/>
+			<SetProperty propertyName="minHeight" value="30" target="pan.tg"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg"/>
+			<SetProperty propertyName="y" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="56.568604" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="56.568604" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="30" />
+		</body>
+	</TestCase>
+	
+	 <TestCase testID="TextGraphic_transform_rotating_minSize_45degrees_scale2y_translatey5" keywords="[transform, minSize, properties, layoutGraphicElement]" description="Call minSize">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" target="pan.tg" value="false"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg"/>
+			<SetProperty propertyName="y" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.pan.tg.getMinBoundsHeight(false)" value="0" />
+		</body>
+	</TestCase>
+	
+<!--Transforms for testing:
+rotation
+scaleX
+scaleY
+transform
+-->
+
+    </testCases>
+</UnitTester>    

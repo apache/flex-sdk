@@ -1,0 +1,1394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ListDragDrop/SparkHaloDND/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="SparkHaloDNDBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	import spark.layouts.*;
+	import mx.managers.DragManager;
+	import mx.core.mx_internal;
+	use namespace mx_internal;
+    ]]>
+  </fx:Script>
+
+  <testCases>
+	<TestCase testID="SparkVListIcons_copy1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_copy2" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_copy3" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_copy4" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="50" />
+
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="11" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="200"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="10"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_copy5" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="50" />
+
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_copy6" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="height" value="300" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_copy7" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="height" value="300" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_copy8" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="height" value="300" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_copy9" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="height" value="300" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_copy10" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="height" value="300" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_copy11" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="5" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="4" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="3"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_move11" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="10" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="10" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="5" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="4" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="3"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_move1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="16" localY="225" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<WaitForEffectsToEnd/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="230"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_move2" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+           </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkVListIcons_move3" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_move4" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="14" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="200"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkVListIcons_move5" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="sli1" className="comps.ListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="sli1" propertyName="dragMoveEnabled" value="true" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="sli1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="sli1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="sli1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="sli1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="sli1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="sli1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="sli1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="sli1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="sli1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_copy1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIcons_copy2" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIcons_copy3" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_copy4" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="100" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="50" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="12" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="11" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="14" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="12" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="12" localY="14"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_copy5" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="50" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_copy6" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIcons_copy7" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIcons_copy8" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_copy9" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_copy10" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+
+
+	<TestCase testID="SparkTileListIcons_move1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<WaitForEffectsToEnd/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIcons_move2" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+           </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIcons_move3" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_move4" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="50" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="12" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="13" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="12" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="14" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="12" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="12" localY="15"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_move5" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+
+	<TestCase testID="SparkTileListIconsRows_copy1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIconsRows_copy2" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIconsRows_copy3" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_copy4" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="14" localY="14" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
+		<Pause timeout="100"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_copy5" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_copy6" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIconsRows_copy7" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIconsRows_copy8" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_copy9" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_copy10" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="height" value="300" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+
+
+	<TestCase testID="SparkTileListIconsRows_move1" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="230" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<WaitForEffectsToEnd/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="220"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIconsRows_move2" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+           </setup>
+
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+	<TestCase testID="SparkTileListIconsRows_move3" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="120" />
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="150" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="220" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="240" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="246" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="247" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="245" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="245"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_move4" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="20" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="13" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="12" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="200"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="15"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_move5" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="250" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="15" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="10" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="15" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIconsRows_move6" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="200" />
+		<SetProperty target="stl1" propertyName="width" value="200" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="rows" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="5" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="200"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+	<TestCase testID="SparkTileListIcons_move6" keywords="[DragDrop]" description="">
+           <setup>
+		<ResetComponent target="stl1" className="comps.TileListIconsComp" waitEvent="updateComplete" />
+		<SetProperty target="stl1" propertyName="dragMoveEnabled" value="true" />
+		<SetProperty target="stl1" propertyName="height" value="200" />
+		<SetProperty target="stl1" propertyName="width" value="200" />
+		<SetProperty target="stl1.layout" propertyName="orientation" value="columns" />
+            </setup>
+	   <body>
+		<RunCode code="DragManager.endDrag()" />
+		<DispatchMouseEvent target="stl1"  type="mouseUp"  localX="10" localY="100" />
+		<DispatchMouseEvent target="stl1"  type="mouseOver" buttonDown="false" localX="10" localY="100" />
+		<DispatchMouseClickEvent target="stl1"    localX="20" localY="10" />
+		<DispatchKeyEvent keys="[END]"  waitTarget="stl1" shiftKey="true" waitEvent="updateComplete"/>
+ 		<DispatchMouseEvent target="stl1"  type="mouseDown" buttonDown="true"  localX="10" localY="100" />
+ 		<DispatchMouseEvent target="stl1"  type="mouseMove" buttonDown="true"  localX="5" localY="12" />
+
+ 		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="15" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="updateComplete"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="10" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="6" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="3" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="2" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<DispatchMouseEvent target="stl1" type="mouseMove" buttonDown="true" localX="5" localY="5" waitTarget="mx.managers::DragManager.mx_internal:dragProxy" waitEvent="move"/>
+		<Pause timeout="100"/>
+		<DispatchMouseEvent target="stl1" type="mouseUp" localX="15" localY="5"  waitEvent="dragDrop" />
+		<WaitForEffectsToEnd/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" target="stl1" url="../SparkHaloDND/baselines/$testID.png" />
+	   </body>
+	</TestCase>
+
+  </testCases>
+</UnitTester>

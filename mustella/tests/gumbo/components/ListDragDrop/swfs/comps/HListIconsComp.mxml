@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:List
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" dataProvider="{createIconsAC()}"
+    dragEnabled="true" dropEnabled="true" allowMultipleSelection="true" width="150" creationComplete="layout.dragScrollInitialDelay = 0">
+    <s:layout><s:HorizontalLayout/></s:layout>
+
+    <fx:Script>
+        <![CDATA[
+	import mx.core.mx_internal;
+	use namespace mx_internal;
+            import mx.collections.ArrayCollection;
+
+            public function createIconsAC():ArrayCollection
+            {
+                var acIcons:ArrayCollection = new ArrayCollection
+                    ([  {label:"1",  data:0xFFFF00},
+                        {label:"2",  data:0xFF0000},
+                        {label:"3",  data:0x00FF00},
+                        {label:"4",  data:0x00FFFF},
+                        {label:"5",  data:0xFFF000},
+                        {label:"6",  data:0xF000AA},
+                        {label:"7",  data:0xCCFF00},
+                        {label:"8",  data:0xAAFF00},
+                        {label:"9",  data:0xFFBB00},
+                        {label:"a",  data:0x00FF00}] );
+                return acIcons;
+            }
+        ]]>
+    </fx:Script>
+    <s:itemRenderer>
+        <fx:Component>
+            <s:ItemRenderer >
+                <!-- This 'set data' override replaces the bindings in the s:Label and mx:Image. -->
+                <fx:Script>
+                    <![CDATA[
+                           override public function set data(value:Object):void
+                            {
+                                super.data = value;
+                                if (!value)
+                                    return;
+                                labelDisplay.text = value.label;
+                                col.color=value.data;
+
+                            }
+                    ]]>
+                </fx:Script>
+
+                <s:HGroup>
+                        <s:Label id="labelDisplay" text="a" width="20"/>
+                        <s:Rect width="20" height="20" id="rect" >
+                            <s:fill>
+                                <mx:SolidColor color="0xFF0000" id="col"/>
+                            </s:fill>
+                        </s:Rect>
+                </s:HGroup>
+
+            </s:ItemRenderer>
+        </fx:Component>
+    </s:itemRenderer>
+
+</s:List>

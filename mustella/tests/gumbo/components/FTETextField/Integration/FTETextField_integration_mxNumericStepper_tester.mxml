@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script source="../SWFs/global.as" />
+
+
+	<testCases>
+
+		<!-- ########## PROPERTIES ########## -->
+		<TestCase testID="FTE_mxNumericStepper_disabled" description="Test label property on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="enabled" value="false" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+
+
+
+		<!-- ########## STYLES ########## -->
+		<TestCase testID="FTE_mxNumericStepper_color_red" description="Test color style on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="color" value="red" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_color_red_truncating" description="Test color style on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="40" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="color" value="red" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_disabledColor_green" description="Test color style on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="enabled" value="false" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+				<SetStyle target="can2.nmSt" styleName="disabledColor" value="green" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_fontStyle_italic" description="Test font style on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, fontStyle, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="fontStyle" value="italic" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_fontSize" description="Test font size on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, fontSize, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="fontSize" value="18" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_fontWeight" description="Test font size on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, fontWeight, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="fontWeight" value="bold" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxNumericStepper_kerning_true" description="Test kerning on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="kerning" value="true" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_kerning_false" description="Test kerning on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="kerning" value="false" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxNumericStepper_leading" description="Test leading on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, leading, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="leading" value="20" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_letterSpacing" description="Test letterSpacing on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, letterSpacing, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.nmSt" styleName="letterSpacing" value="10" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_left" description="Test textAlign=left on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="left" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_center" description="Test textAlign=center on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="left" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="center" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_right" description="Test textAlign=left on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="right" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_start" description="Test textAlign=start on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="start" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.nmSt" styleName="textAlign" value="start" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_start2" description="Test textAlign=start on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="start" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+				<SetStyle target="can2.nmSt" styleName="direction" value="rtl" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.nmSt" styleName="textAlign" value="start" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_end" description="Test textAlign=end on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="end" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.nmSt" styleName="textAlign" value="end" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxNumericStepper_textAlign_end2" description="Test textAlign=end on a mx:NumericStepper" keywords="[FTETextField, NumericStepper, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.nmStView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.nmSt" propertyName="width" value="150" waitTarget="can2.nmSt" waitEvent="resize" />
+				<SetStyle target="can2.nmSt" styleName="textAlign" value="end" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+				<SetStyle target="can2.nmSt" styleName="direction" value="rtl" waitTarget="can2.nmSt" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="can2.nmSt" styleName="textAlign" value="end" />
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

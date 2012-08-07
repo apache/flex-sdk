@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" xmlns:comps="comps" testSWF="ListRETBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+	import spark.layouts.*;
+        import mx.collections.ArrayCollection;
+        import spark.events.IndexChangeEvent;
+        import spark.skins.spark.*;
+        import mx.events.CollectionEventKind;
+        import mx.events.CollectionEvent;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="TRendRET_List_keyboard_navigation1" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+	    </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_keyboard_navigation2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+	</setup>
+            <body>
+
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+               <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_keyboard_navigation3" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+
+
+                <SetProperty target="list6" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list6"/>
+
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list6" waitEvent="change"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_keyboard_navigation4" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+                <AssertPropertyValue target = "list6" propertyName="selectedIndex" value="-1" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                 <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+
+            </body>
+        </TestCase>
+
+       <TestCase testID="TRendRET_List_keyboard_navigation5" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+                <SetProperty target="list6" propertyName="allowMultipleSelection" value="true" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <SetProperty target="list6" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list6"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_keyboard_navigation6" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+	</setup>
+            <body>
+               <SetProperty target="list6" propertyName="allowMultipleSelection" value="true" />
+
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="TRendRET_List_scrollPosition1" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	    </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<SetProperty target="list6.dataGroup" propertyName="verticalScrollPosition" value="150"  waitEvent="propertyChange" />
+
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_scrollPosition2" keywords="[List, property]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+	</setup>
+            <body>
+                <SetProperty target="list6.dataGroup" propertyName="verticalScrollPosition" value="450"  waitEvent="propertyChange" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+               <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_scrollPosition3" keywords="[List, property]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+                <SetProperty target="list6" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list6"/>
+
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list6" waitEvent="change"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<SetProperty target="list6.dataGroup" propertyName="verticalScrollPosition" value="800"  waitEvent="propertyChange" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_scrollPosition4" keywords="[List, property" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+                <SetProperty target="list6.dataGroup" propertyName="verticalScrollPosition" value="100"  waitEvent="propertyChange" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN,DOWN,DOWN,DOWN,DOWN,DOWN,DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+
+            </body>
+        </TestCase>
+
+       <TestCase testID="TRendRET_List_scrollPosition5" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+                <SetProperty target="list6" propertyName="allowMultipleSelection" value="true" />
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <SetProperty target="list6.dataGroup" propertyName="verticalScrollPosition" value="500"  waitEvent="propertyChange" />
+                <SetProperty target="list6" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list6"/>
+                <CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+        <TestCase testID="TRendRET_List_scrollPosition6" keywords="[List]" description="">
+            <setup>
+                <ResetComponent target="list6" className="comps.TListComp" waitEvent="updateComplete" />
+
+	</setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB, TAB, TAB, TAB, TAB, TAB]" waitTarget="list6" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list6" waitEvent="change"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list6" waitEvent="updateComplete"/>
+
+		<SetProperty target="list6.dataGroup" propertyName="verticalScrollPosition" value="1000"  waitEvent="propertyChange" />
+		<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list6" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+</UnitTester>

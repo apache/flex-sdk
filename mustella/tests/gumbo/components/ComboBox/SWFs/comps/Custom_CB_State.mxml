@@ -1,0 +1,62 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+        	                   
+    <s:states>
+    	<s:State name="state1"/>
+    	<s:State name="state2"/>
+    </s:states>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:ComboBox id="myCB1" includeIn="state1" selectedIndex="3" height="24" width="147"> 	
+		<s:dataProvider>
+			<s:ArrayList source="[Product A,Product B,Flex,Product D,Product E,Product F]"/>
+		</s:dataProvider>		
+	</s:ComboBox>
+		
+	<s:Label id="myCB1_Label" text="selectedIndex={myCB1.selectedIndex}    selectedItem={myCB1.selectedItem}" includeIn="state1"/>	
+		
+	<s:ComboBox id="myCB2" includeIn="state2" selectedIndex="3" height="24" width="147">		
+		<s:dataProvider>
+			<s:ArrayList source="[Product I,Product G,Flex,Product J,Product C,Product A]"/>
+		</s:dataProvider>		
+	</s:ComboBox>
+		
+	<s:Label id="myCB2_Label" text="selectedIndex={myCB2.selectedIndex}    selectedItem={myCB2.selectedItem}" includeIn="state2"/>	
+		
+	<s:ComboBox id="myCB3"
+		height="24" width="147"
+		color.state1 = "red"
+		chromeColor.state1 = "white"
+		contentBackgroundColor.state1 = "green"
+		selectionColor.state1 = "blue"
+		rollOverColor.state1 = "yellow"
+		selectedIndex.state1 = "1"
+		
+		color.state2 = "blue"
+		chromeColor.state2 = "green" 
+		contentBackgroundColor.state2 = "yellow"
+		selectionColor.state2 = "red" 
+		rollOverColor.state2 = "purple"
+		selectedIndex.state2 = "2">
+		
+		<s:dataProvider>
+			<s:ArrayList source="[Product K,Product L,Product M,Product N,Product O,Product P]"/>
+		</s:dataProvider>		
+	</s:ComboBox>	
+        
+    <s:Label id="myCB3_Label" text="selectedIndex={myCB3.selectedIndex}    selectedItem={myCB3.selectedItem}"/>
+	
+	<s:ComboBox id="myCB4"
+		prompt.state1="prompt 1"
+		prompt.state2="prompt 2">
+		
+		<s:dataProvider>
+			<s:ArrayList source="[Product K,Product L,Product M,Product N,Product O,Product P]"/>
+		</s:dataProvider>		
+	</s:ComboBox>
+        
+</s:SkinnableContainer>

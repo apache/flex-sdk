@@ -1,0 +1,49 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+> <s:layout><s:VerticalLayout/></s:layout>
+        <s:Rect width="30" height="20">
+            <s:fill>
+                <mx:SolidColor color="0xFF00FF" />
+            </s:fill>
+        </s:Rect>
+
+        <s:Ellipse width="20" height="20">
+            <s:fill>
+                <mx:SolidColor color="0xAAFF00" />
+            </s:fill>
+        </s:Ellipse>
+        <s:Rect width="40" height="40">
+            <s:fill>
+                <mx:SolidColor color="0x00FFAA" />
+            </s:fill>
+        </s:Rect>
+
+        <s:Ellipse width="80" height="80">
+            <s:fill>
+                <mx:SolidColor color="0x0000FF" />
+            </s:fill>
+        </s:Ellipse>
+        <s:Rect width="20" height="100">
+            <s:fill>
+                <mx:SolidColor color="0x9900BB" />
+            </s:fill>
+        </s:Rect>
+
+        <s:Ellipse width="20" height="70">
+            <s:fill>
+                <mx:SolidColor color="0xFFFF00" />
+            </s:fill>
+        </s:Ellipse>
+        <s:Rect width="80" height="80">
+            <s:fill>
+                <mx:SolidColor color="0x9900DD" />
+            </s:fill>
+        </s:Rect>
+
+        <s:Ellipse width="70" height="70">
+            <s:fill>
+                <mx:SolidColor color="0xFFDDDD" />
+            </s:fill>
+        </s:Ellipse>
+ <s:BitmapImage id="bitmapGraphic1" source="@Embed('../assets/grayRect.png')" />
+
+ </s:Group>

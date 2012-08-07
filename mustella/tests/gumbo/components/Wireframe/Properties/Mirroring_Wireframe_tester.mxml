@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Wireframe/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="Mirroring_Main.mxml" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </fx:Script>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import mx.core.FlexGlobals;
+        import assets.*;
+    ]]>
+    </fx:Script>
+
+    <testCases>
+    
+
+        <TestCase testID="Mirroring_Spark_Button_enabled" description="Bitmap of mirrored button" keywords="[Button, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+                <SetProperty propertyName="width" value="100" target="btn" />
+                <SetProperty propertyName="height" value="40" target="btn" />
+                <SetProperty propertyName="label" value="Spark Button" target="btn" waitTarget="btn" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="btn"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_ToggleButton_enabled" description="Bitmap of mirrored ToggleButton" keywords="[ToggleButton, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="togBtn" className="spark.components.ToggleButton" waitEvent="updateComplete"/>
+                <SetProperty target="togBtn" propertyName="label" value="ToggleButton" waitEvent="updateComplete" waitTarget="togBtn"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="togBtn"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_CheckBox_enabled" description="Bitmap of mirrored CheckBox" keywords="[CheckBox, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="ckBox" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty propertyName="label" value="Spark CheckBox" target="ckBox" waitTarget="ckBox" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ckBox"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_RadioButton_enabled" description="Bitmap of mirrored RadioButton" keywords="[RadioButton, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="radBtn" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+                <SetProperty propertyName="label" value="Spark RadioButton" target="radBtn" waitTarget="radBtn" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="radBtn"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_HSlider_enabled" description="Bitmap of mirrored HSlider" keywords="[HSlider, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="hslide" className="spark.components.HSlider" waitEvent="updateComplete"/>
+                <SetProperty target="hslide" propertyName="height" value="11" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="hslide"/>
+            </body>
+        </TestCase>         
+        <TestCase testID="Mirroring_Spark_HScrollBar_enabled" description="Bitmap of mirrored HScrollBar" keywords="[HScrollBar, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="hscroll" className="spark.components.HScrollBar" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="hscroll"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_NumericStepper_enabled" description="Bitmap of mirrored NumericStepper" keywords="[NumericStepper, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="ns" className="spark.components.NumericStepper" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ns"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_Spinner_enabled" description="Bitmap of mirrored Spinner" keywords="[Spinner, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="spin" className="spark.components.Spinner" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="spin"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_TextInput_enabled" description="Bitmap of mirrored TextInput" keywords="[TextInput, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="ti" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="ti" propertyName="text" value="Cartoon Dog" waitEvent="updateComplete" waitTarget="ti"/>
+            </setup>
+            <body>
+                <SetProperty target="ti" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="ti"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="ti"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mirroring_Spark_TextArea_enabled" description="Bitmap of mirrored TextArea" keywords="[TextArea, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="ta" className="spark.components.TextArea" waitEvent="updateComplete"/>
+                <SetProperty target="ta" propertyName="text" value="News! News to find breaking news, current events, the latest headlines, news photos, analysis and opinion on top stories, world" waitEvent="updateComplete" waitTarget="ta"/>
+            </setup>
+            <body>
+                <SetProperty target="ta" propertyName="height" value="60" waitEvent="updateComplete" waitTarget="ta"/>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ta"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Mirroring_Spark_VScrollBar_enabled" description="Bitmap of mirrored Spinner" keywords="[VScrollBar, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="vscroll" className="spark.components.VScrollBar" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="vscroll"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_DropDownList_enabled" description="Bitmap of mirrored DropDownList" keywords="[DropDownList, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="myDDL" className="spark.components.DropDownList" waitTarget="myDDL" waitEvent="updateComplete" />
+                <SetProperty target="myDDL" propertyName="dataProvider" valueExpression="value=application.travelWords" waitTarget="myDDL" waitEvent="updateComplete" />
+                <SetProperty target="myDDL" propertyName="selectedIndex" value="3" waitTarget="myDDL" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID_1.png" target="myDDL" numColorVariances="5" maxColorVariance="5" />
+                <RunCode code="FlexGlobals.topLevelApplication.myDDL.openDropDown()" waitEvent="open" waitTarget="myDDL"/>
+                <CompareBitmap url="../Properties/baselines/$testID_2.png" target="myDDL.dropDown" numColorVariances="5" maxColorVariance="5" />
+                <RunCode code="FlexGlobals.topLevelApplication.myDDL.closeDropDown(false)" />
+            </body>
+        </TestCase>
+     
+        <TestCase testID="Mirroring_Spark_CheckBox_selected" description="Bitmap of mirrored CheckBox" keywords="[CheckBox, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="ckBox" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="ckBox" propertyName="label" value="CheckBox" waitEvent="updateComplete" waitTarget="ckBox"/>
+                <DispatchMouseClickEvent target="ckBox" localX="7" localY="8" waitEvent="updateComplete" waitTarget="ckBox"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ckBox"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_RadioButton_selected" description="Bitmap of mirrored RadioButton" keywords="[RadioButton, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="radBtn" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+                <SetProperty propertyName="label" value="Spark RadioButton" target="radBtn" waitTarget="radBtn" waitEvent="updateComplete"/>
+                <SetProperty target="radBtn" propertyName="selected" value="true" waitTarget="radBtn" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="radBtn"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_VSlider_enabled" description="Bitmap of mirrored VSlider" keywords="[VSlider, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="vslide" className="spark.components.VSlider" waitEvent="updateComplete"/>               
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="vslide"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_VSlider_largeWidth" description="Bitmap of mirrored VSlider with a larger width" keywords="[VSlider, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="vslide" className="spark.components.VSlider" waitEvent="updateComplete"/>
+                <SetProperty target="vslide" propertyName="width" value="100" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="vslide"/>
+                <SetProperty target="vslide" propertyName="width" value="11" waitEvent="updateComplete"/>
+            </body>
+        </TestCase>         
+        <TestCase testID="Mirroring_Spark_List_enabled" description="Bitmap of mirrored List" keywords="[List, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="myList" className="spark.components.List" waitTarget="myList" waitEvent="updateComplete" />
+                <SetProperty target="myList" propertyName="dataProvider" valueExpression="value=application.stateInfo" waitTarget="myList" waitEvent="updateComplete" />
+                <SetProperty target="myList" propertyName="height" value="100" waitTarget="myList" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="myList" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_ButtonBar_enabled" description="Bitmap of mirrored Spark ButtonBar"
+            keywords="[ButtonBar, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="buttonbar1" className="spark.components.ButtonBar" waitTarget="buttonbar1" waitEvent="updateComplete" />
+                <SetProperty target="buttonbar1" propertyName="dataProvider" valueExpression="value=application.holidayWords" waitTarget="buttonbar1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" maxColorVariance="5" target="buttonbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_ComboBox_enabled" description="Bitmap of disabled mirrored ComboBox" keywords="[ComboBox, Mirroring, skin, enabled]">
+            <setup>
+                <ResetComponent target="comboBox1" className="spark.components.ComboBox" waitTarget="comboBox1" waitEvent="updateComplete" />
+                <SetProperty target="comboBox1" propertyName="dataProvider" valueExpression="value=application.travelWords" waitTarget="comboBox1" waitEvent="updateComplete" />
+                <SetProperty target="comboBox1" propertyName="selectedIndex" value="2" waitTarget="comboBox1" waitEvent="updateComplete" /> 
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="5" maxColorVariance="5" target="comboBox1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Mirroring_Spark_TabBar_enabled" description="Bitmap of mirrored Spark TabBar"
+            keywords="[TabBar, Mirroring, Wireframe]">
+            <setup>
+                <ResetComponent target="tabBar1" className="spark.components.TabBar" waitTarget="tabBar1" waitEvent="updateComplete" />
+                <SetProperty target="tabBar1" propertyName="dataProvider" valueExpression="value=application.holidayWords" waitTarget="tabBar1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" maxColorVariance="5" target="tabBar1"/>
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

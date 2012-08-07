@@ -1,0 +1,110 @@
+<mx:Application width="200" height="300" 
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+>
+
+<fx:Script>
+<![CDATA[
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";
+        }
+    }
+
+    // This is the listener, set above.
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+
+
+]]>
+</fx:Script>
+
+<fx:Style>
+
+			@namespace s "library://ns.adobe.com/flex/spark";
+			@namespace mx "library://ns.adobe.com/flex/mx";
+			@namespace "components.*";
+
+			@font-face{
+					src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+					fontFamily: myArial;
+					embedAsCFF: true;
+				}
+
+
+				@font-face{
+					src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+					fontWeight: bold;
+					fontFamily: myArial;
+					embedAsCFF: true;
+				}
+
+				@font-face{
+					src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+					fontStyle: italic;
+					fontFamily: myArial;
+					embedAsCFF: true;
+
+				}
+
+				global{
+					fontAntiAliasType: "normal";
+					fontFamily: myArial;
+					fontSize: 12;
+		            fontLookup: "embeddedCFF";
+		            kerning: "off";
+				}
+				</fx:Style>
+<mx:states>
+    <mx:State name="defaultState" />
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</mx:states>
+<s:VGroup id="vg">
+<s:Scroller height="100" id="sc" width="100" excludeFrom="state2">
+  <s:Group>
+    <s:SkinnableDataContainer  itemRenderer="{null}" >
+        <mx:ArrayCollection>
+            <s:Button label="btn01"  />
+            <s:Button label="btn02" />
+            <s:Button label="btn03" />
+            <s:Button label="btn04" />
+            <s:Button label="btn05"  />
+            <s:Button label="btn06" />
+            <s:Button label="btn01"  />
+            <s:Button label="btn02" />
+            <s:Button label="btn03" />
+            <s:Button label="btn04" />
+            <s:Button label="btn05"  />
+            <s:Button label="btn06" />
+        </mx:ArrayCollection>
+    </s:SkinnableDataContainer>
+  </s:Group>
+</s:Scroller>
+<s:Scroller height="80" id="sc1" includeIn="state2" width="100">
+    <s:Group >
+    <s:Rect width="80" height="60" >
+        <s:fill>
+            <mx:SolidColor color="0x3333FF" />
+        </s:fill>
+    </s:Rect>
+    <s:Ellipse width="30" height="120">
+            <s:fill>
+                <mx:SolidColor color="0x00FF00" />
+            </s:fill>
+    </s:Ellipse>
+    </s:Group>
+ </s:Scroller>
+
+</s:VGroup>
+
+</mx:Application>

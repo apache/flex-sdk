@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableContainer/integration/"   xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
+ testSWF="FxContainerBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import spark.layouts.*;
+
+        import comps.*;
+        import spark.components.*;
+        import spark.skins.spark.*;
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="FxContainer_integration_graphics" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=FcSkinWithScroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <RunCode code="application.addEllipseAt(application.fc,1,0xFF0000);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <RunCode code="application.addEllipseAt(application.fc,2,0x00FF22);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <RunCode code="application.addEllipseAt(application.fc,3,0xFFFF00);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <SetProperty target = "fc" propertyName="width" value="100" waitEvent="updateComplete"/>
+                <SetProperty target = "fc" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="4" />
+                <AssertMethodValue   method="value=application.fc.getElementAt(0).width" value="40" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_integration_skinChange" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <RunCode code="application.fc.removeElementAt(0)"  waitEvent="elementRemove" waitTarget="fc"/>
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FFFF);" waitEvent="elementAdd" waitTarget="fc" />
+                <RunCode code="application.addEllipseAt(application.fc,1,0xFFFF00);" waitEvent="elementAdd" waitTarget="fc" />
+                <SetProperty target = "fc" propertyName="width" value="100" waitEvent="updateComplete"/>
+                <SetProperty target = "fc" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=FcSkinWithScroller" waitEvent="updateComplete" />
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  />
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="3" />
+                <SetProperty target = "fc" propertyName="height" value="90" waitEvent="updateComplete"/>
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_integration_addRemove_skinChange" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <RunCode code="application.fc.removeElementAt(0)"  waitEvent="elementRemove" waitTarget="fc"/>
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=FcSkinWithScroller" waitEvent="updateComplete" />
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FFFF);" waitEvent="elementAdd" waitTarget="fc" />
+                <RunCode code="application.fc.removeElementAt(0)"  waitEvent="elementRemove" waitTarget="fc"/>
+                <RunCode code="application.addEllipseAt(application.fc,0,0xFFFF00);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=SkinnableContainerSkin" waitEvent="updateComplete" />
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <SetProperty target = "fc" propertyName="width" value="100" waitEvent="updateComplete"/>
+                <SetProperty target = "fc" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_integration_addElement_skinChange" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=FcSkinWithScroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <SetProperty target = "fc" propertyName="width" value="110" waitEvent="updateComplete"/>
+
+                <SetProperty target = "fc" propertyName="width" value="100" waitEvent="updateComplete"/>
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_integration_horizontalSkin1" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<!--SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" /-->
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=HorizontalSkinWithScroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            <Pause timeout="100"/>
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00,50,50);" waitEvent="elementAdd" waitTarget="fc" />
+                <Pause timeout="100"/>
+                <RunCode code="application.addEllipseAt(application.fc,1,0xFF0000,60,70);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <Pause timeout="100"/>
+                <RunCode code="application.addEllipseAt(application.fc,2,0x00FF22,110,15);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <Pause timeout="100"/>
+                <RunCode code="application.addEllipseAt(application.fc,3,0xFFFF00,20,200);" waitEvent="elementAdd" waitTarget="fc" />
+
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="4" />
+                <AssertMethodValue   method="value=application.fc.getElementAt(0).width" value="50" />
+                <AssertPropertyValue target = "fc.contentGroup" propertyName="contentWidth" value="258" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_integration_horizontalSkin2" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <SetStyle target="fc" styleName="skinClass" valueExpression="value=HorizontalSkinWithScroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc,0,0xFF0000,60,70);"  waitEvent="elementAdd" waitTarget="fc"/>
+                <RunCode code="application.fc.removeElementAt(0)"  waitEvent="elementRemove" waitTarget="fc"/>
+                <RunCode code="application.addEllipseAt(application.fc,0,0xFFFF00,20,200);" waitEvent="elementAdd" waitTarget="fc" />
+                <RunCode code="application.fc.removeElementAt(0)"  waitEvent="elementRemove" waitTarget="fc"/>
+
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="0" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_integration_changeSkin_Bug22703" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+             </setup>
+            <body>
+ 		<SetStyle target="fc" styleName="skinClass" valueExpression="value=SquareSkin" waitEvent="updateComplete" />
+		<AssertPixelValue  target="fc" x="10" y="10" value="0xFF0000" />
+
+            </body>
+        </TestCase>
+     </testCases>
+</UnitTester>

@@ -1,0 +1,1971 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/LayoutProps/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="IUserLayoutProps_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+               
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+            <![CDATA[
+		
+		]]>
+	</fx:Script>
+	
+	<testCases>
+        	<!--Single layout properties-->
+        	<TestCase testID="Rect_top_layoutProps" keywords="[Rect, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="top" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+           		</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="25" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Rect_get_top_layoutProps" keywords="[Rect, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="top" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="top" value="25" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="25" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Rect_get_top_default_layoutProps" keywords="[Rect, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="top" value="null" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Rect_left_layoutProps" keywords="[Rect, left, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="left" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_default_get_left_layoutProps" keywords="[Rect, left, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="left" value="null" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_get_left_layoutProps" keywords="[Rect, left, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="left" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="left" value="25" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_bottom_layoutProps" keywords="[Rect, bottom, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="bottom" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="445" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_default_get_bottom_layoutProps" keywords="[Rect, bottom, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="bottom" value="null" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_get_bottom_layoutProps" keywords="[Rect, bottom, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="bottom" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="bottom" value="25" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="445" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_right_layoutProps" keywords="[Rect, right, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="right" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="425" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_default_get_right_layoutProps" keywords="[Rect, right, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="right" value="null" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase><TestCase testID="Rect_get_right_layoutProps" keywords="[Rect, right, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="right" value="25" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="right" value="25" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="425" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_horizontalCenter_layoutProps" keywords="[Rect, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="225" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_default_get_horizontalCenter_layoutProps" keywords="[Rect, horizontalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="horizontalCenter" value="null" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_get_horizontalCenter_layoutProps" keywords="[Rect, horizontalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="horizontalCenter" value="0" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="225" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_horizontalCenter_layoutProps_includeInLayout_false" keywords="[Rect, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mr"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mr" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Rect_verticalCenter_layoutProps" keywords="[Rect, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="235" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_default_get_verticalCenter_layoutProps" keywords="[Rect, verticalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="verticalCenter" value="null" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase><TestCase testID="Rect_get_verticalCenter_layoutProps" keywords="[Rect, verticalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mr" waitEvent="updateComplete" waitTarget="mr"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="verticalCenter" value="0" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="235" />
+			</body>
+		</TestCase>
+		<TestCase testID="Rect_verticalCenter_layoutProps_includeInLayout_false" keywords="[Rect, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mr" className="comps.MyRect" waitEvent="updateComplete" waitTarget="mr"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mr"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mr" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="includeInLayout" value="false" target="mr"/>
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mr.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Ellipse_top_layoutProps" keywords="[Ellipse, top, layout]" description="Set top, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="top" value="25" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="25" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_left_layoutProps" keywords="[Ellipse, left, layout]" description="Set top, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="left" value="25" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_bottom_layoutProps" keywords="[Ellipse, bottom, layout]" description="Set top, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="bottom" value="25" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="445" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_right_layoutProps" keywords="[Ellipse, right, layout]" description="Set top, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="right" value="25" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="425" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_horizontalCenter_layoutProps" keywords="[Ellipse, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="225" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_horizontalCenter_layoutProps_includeInLayout_false" keywords="[Ellipse, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="me"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="me" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_verticalCenter_layoutProps" keywords="[Ellipse, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="235" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_verticalCenter_layoutProps_includeInLayout_false" keywords="[Ellipse, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the corEllipse values">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="me"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="me" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.me.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Path_top_layoutProps" keywords="[Path, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="top" value="25" target="mp" waitEvent="updateComplete" waitTarget="mp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="-0.5" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="25" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Path_left_layoutProps" keywords="[Path, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="left" value="25" target="mp" waitEvent="updateComplete" waitTarget="mp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="-0.5" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Path_bottom_layoutProps" keywords="[Path, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="bottom" value="25" target="mp" waitEvent="updateComplete" waitTarget="mp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="-0.5" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="424" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Path_right_layoutProps" keywords="[Path, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="right" value="25" target="mp" waitEvent="updateComplete" waitTarget="mp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="374" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="-0.5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Path_horizontalCenter_layoutProps" keywords="[Path, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mp" waitEvent="updateComplete" waitTarget="mp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="200" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="-0.5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Path_horizontalCenter_layoutProps_includeInLayout_false" keywords="[Path, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mp"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mp" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="-0.5" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="-0.5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Path_verticalCenter_layoutProps" keywords="[Path, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mp" waitEvent="updateComplete" waitTarget="mp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="-0.5" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="225" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Path_verticalCenter_layoutProps_includeInLayout_false" keywords="[Path, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mp" className="comps.MyPath" waitEvent="updateComplete" waitTarget="mp"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mp"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mp" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsX()" value="-0.5" />
+				<AssertMethodValue method="value=application.mp.getLayoutBoundsY()" value="-0.5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BitmapGraphic_top_layoutProps" keywords="[BitmapGraphic, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="top" value="25" target="mb" waitEvent="updateComplete" waitTarget="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="25" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="BitmapGraphic_left_layoutProps" keywords="[BitmapGraphic, left, layout]" description="Set left, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="left" value="25" target="mb" waitEvent="updateComplete" waitTarget="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="BitmapGraphic_bottom_layoutProps" keywords="[BitmapGraphic, bottom, layout]" description="Set bottom, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="bottom" value="25" target="mb" waitEvent="updateComplete" waitTarget="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="453" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="BitmapGraphic_right_layoutProps" keywords="[BitmapGraphic, right, layout]" description="Set right, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="right" value="25" target="mb" waitEvent="updateComplete" waitTarget="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="435" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BitmapGraphic_horizontalCenter_layoutProps" keywords="[BitmapGraphic, horizontalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mb" waitEvent="updateComplete" waitTarget="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="230" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BitmapGraphic_horizontalCenter_layoutProps_includeInLayout_false" keywords="[BitmapGraphic, horizontalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mb"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="BitmapGraphic_verticalCenter_layoutProps" keywords="[BitmapGraphic, verticalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mb" waitEvent="updateComplete" waitTarget="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="239" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="BitmapGraphic_verticalCenter_layoutProps_includeInLayout_false" keywords="[BitmapGraphic, verticalCenter, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mb" className="comps.MyBitmap" waitEvent="updateComplete" waitTarget="mb"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mb"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mb"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mb.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextGraphic_top_layoutProps" keywords="[TextGraphic, top, layout]" description="Set top, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="top" value="25" target="mt" waitEvent="updateComplete" waitTarget="mt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="25" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextGraphic_left_layoutProps" keywords="[TextGraphic, left, layout]" description="Set left, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="left" value="25" target="mt" waitEvent="updateComplete" waitTarget="mt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextGraphic_bottom_layoutProps" keywords="[TextGraphic, bottom, layout]" description="Set bottom, verify x and y are correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="bottom" value="25" target="mt" waitEvent="updateComplete" waitTarget="mt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="425" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextGraphic_right_layoutProps" keywords="[TextGraphic, right, layout]" description="Set right, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="right" value="25" target="mt" waitEvent="updateComplete" waitTarget="mt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="375" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextGraphic_horizontalCenter_layoutProps" keywords="[TextGraphic, right, layout]" description="Set right, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mt" waitEvent="updateComplete" waitTarget="mt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="200" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextGraphic_horizontalCenter_layoutProps_includeInLayout_false" keywords="[TextGraphic, right, layout]" description="Set right, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mt"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="mt" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextGraphic_verticalCenter_layoutProps" keywords="[TextGraphic, right, layout]" description="Set right, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mt" waitEvent="updateComplete" waitTarget="mt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="225" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TextGraphic_verticalCenter_layoutProps_includeInLayout_false" keywords="[TextGraphic, right, layout]" description="Set right, verify x and y are the correct values">
+			<setup>
+				<ResetComponent target="mt" className="comps.MyText" waitEvent="updateComplete" waitTarget="mt"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="mt"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="mt" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.mt.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Button_top_layoutProps" keywords="[Button, top, layout]" description="Set top, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<RunCode code="application.btn.top=10" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="10" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_get_top_layoutProps" keywords="[Button, top, layout]" description="Set top, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<RunCode code="application.btn.top=10" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="top" target="btn" value="10"/>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.top" value="10" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="10" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_default_get_top_layoutProps" keywords="[Button, top, layout]" description="Set top, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.top" value="null" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Button_left_layoutProps" keywords="[Button, left, layout]" description="Set left, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="left" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_default_get_left_layoutProps" keywords="[Button, left, layout]" description="Set left, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="left" target="btn" value="null"/>
+				<AssertMethodValue method="value=application.btn.left" value="null" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_get_left_layoutProps" keywords="[Button, left, layout]" description="Set left, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="left" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="left" target="btn" value="25"/>
+				<AssertMethodValue method="value=application.btn.left" value="25" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="25" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_bottom_layoutProps" keywords="[Button, bottom, layout]" description="Set bottom, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="bottom" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="454" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Button_default_get_bottom_layoutProps" keywords="[Button, bottom, layout]" description="Set bottom, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="bottom" target="btn" value="null"/>
+				<AssertMethodValue method="value=application.btn.bottom" value="null" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_get_bottom_layoutProps" keywords="[Button, top, layout]" description="Set bottom, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="bottom" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="bottom" target="btn" value="25"/>
+				<AssertMethodValue method="value=application.btn.bottom" value="25" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="454" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_right_layoutProps" keywords="[Button, right, layout]" description="Set right, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="right" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="405" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_default_get_right_layoutProps" keywords="[Button, right, layout]" description="Set right, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="right" target="btn" value="null"/>
+				<AssertMethodValue method="value=application.btn.right" value="null" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_get_right_layoutProps" keywords="[Button, right, layout]" description="Set right, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="right" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="right" target="btn" value="25"/>
+				<AssertMethodValue method="value=application.btn.right" value="25" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="405" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_horizontalCenter_layoutProps" keywords="[Button, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="215" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_get_horizontalCenter_layoutProps" keywords="[Button, horizontalCenter, layout]" description="Set top, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="right" value="25" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="right" target="btn" value="25"/>
+				<AssertMethodValue method="value=application.btn.right" value="25" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="405" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_horizontalCenter_10_layoutProps" keywords="[Button, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="horizontalCenter" value="10" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="225" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_horizontalCenter_neg10_layoutProps" keywords="[Button, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="horizontalCenter" value="-10" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="205" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_horizontalCenter_layoutProps_includeInLayout_false" keywords="[Button, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="btn"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="btn" />
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Button_horizontalCenter_layoutProps_percentWidth" keywords="[Button, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="horizontalCenter" value="0" target="btn" />
+				<SetProperty propertyName="percentWidth" value="50" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="125" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsWidth()" value="250" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsHeight()" value="21" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Button_verticalCenter_layoutProps_percentHeight" keywords="[Button, horizontalCenter, layout]" description="Set horizontalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="btn" />
+				<SetProperty propertyName="percentHeight" value="50" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="125" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsWidth()" value="70" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsHeight()" value="250" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_verticalCenter_layoutProps" keywords="[Button, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="verticalCenter" target="btn" value="0"/>
+				<AssertMethodValue method="value=application.btn.verticalCenter" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="240" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Button_verticalCenter_10_layoutProps" keywords="[Button, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="verticalCenter" value="10" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="250" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_verticalCenter_neg10_layoutProps" keywords="[Button, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="verticalCenter" value="-10" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="230" />
+			</body>
+		</TestCase>
+		<TestCase testID="Button_verticalCenter_layoutProps_includeInLayout_false" keywords="[Button, verticalCenter, layout]" description="Set verticalCenter, verify x and y are the corButton values">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="includeInLayout" value="false" target="btn"/>
+				<SetProperty propertyName="verticalCenter" value="0" target="btn" />
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsX()" value="0" />
+				<AssertMethodValue method="value=application.btn.getLayoutBoundsY()" value="0" />
+			</body>
+		</TestCase>
+		
+		<!-- Test case for SDK-18433 -->
+		<TestCase testID="Ellipse_transform_SDK18433" keywords="[transform, rotation, minWidth, minHeight, layoutGraphicElement]" description="Verify that minWidth, minHeight are respected when rotation is set">
+			<setup>	
+				<SetProperty propertyName="rotation" value="90" target="ell" waitEvent="updateComplete" waitTarget="ell"/>
+				<SetProperty propertyName="minWidth" value="120" target="ell" waitEvent="updateComplete" waitTarget="ell"/>
+				<SetProperty propertyName="minHeight" value="100" target="ell" waitEvent="updateComplete" waitTarget="ell"/>
+			</setup>
+			<body>
+        			<!--<CompareBitmap url="../Properties/baselines/$testID.png" target="ellGroup"/>-->
+				<AssertMethodValue method="value=application.ell.getLayoutBoundsWidth()" value="99.902344" />
+				<AssertMethodValue method="value=application.ell.getLayoutBoundsHeight()" value="119.912109" />
+			</body>
+      		</TestCase>
+      		
+      		<TestCase testID="Button_click_resize_SDK18219" keywords="[transform, rotation, minWidth, minHeight, layoutGraphicElement]" description="Verify that minWidth, minHeight are respected when rotation is set">
+			<setup>	
+				<DispatchMouseClickEvent target="zBtn" localX="8" localY="8" /> 
+				<Pause timeout="1000"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="vg1"/> 
+			</body>
+      		</TestCase>
+		
+		<TestCase testID="percentWidth_mxButton_explicit_parent" keywords="[Button, Ellipse, layout, percentsWidth" description="UIComponent and GraphicElement with percentWidth render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentWidth" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentHeight" value="NaN" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth()" value="70" />
+				<AssertPropertyValue propertyName="percentWidth" target="myGrp.vBtn" value="25"/>
+				<AssertPropertyValue propertyName="percentHeight" target="myGrp.vBtn" value="NaN"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth_Ellipse_explicit_parent" keywords="[Button, Ellipse, layout, percentsWidth" description="UIComponent and GraphicElement with percentWidth render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth()" value="140" />
+				<AssertPropertyValue propertyName="percentWidth" value="70" target="myGrp.vEll"/>
+				<AssertPropertyValue propertyName="percentHeight" value="NaN" target="myGrp.vEll"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth_mxButton_Ellipse_explicit_parent" keywords="[Button, Ellipse, layout, percentsWidth" description="UIComponent and GraphicElement with percentWidth render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="percentWidth" value="25" target="myGrp.vBtn"/>
+				<AssertPropertyValue propertyName="percentWidth" value="70" target="myGrp.vEll"/>
+				<AssertPropertyValue propertyName="percentHeight" value="NaN" target="myGrp.vBtn"/>
+				<AssertPropertyValue propertyName="percentHeight" value="NaN" target="myGrp.vEll"/>
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentWidth" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentHeight" value="NaN" />			
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth()" value="140" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth()" value="70" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="percentWidth50_mxButton_Ellipse_explicit_parent" keywords="[Button, Ellipse, layout, percentsWidth" description="UIComponent and GraphicElement with percentWidth render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="40" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="percentWidth" value="50" target="myGrp.vBtn"/>
+				<AssertPropertyValue propertyName="percentWidth" value="40" target="myGrp.vEll"/>
+				<AssertPropertyValue propertyName="percentHeight" value="NaN" target="myGrp.vBtn"/>
+				<AssertPropertyValue propertyName="percentHeight" value="NaN" target="myGrp.vEll"/>
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentWidth" value="50" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentHeight" value="NaN" />			
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth()" value="80" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth()" value="100" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentHeight_mxButton_Ellipse_explicit_parent" keywords="[Button, Ellipse, layout, percentHeight]" description="UIComponent and GraphicElement with percentHeight render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentHeight" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="percentWidth" value="NaN" target="myGrp.vBtn"/>
+				<AssertPropertyValue propertyName="percentWidth" value="NaN" target="myGrp.vEll"/>
+				<AssertPropertyValue propertyName="percentHeight" value="30" target="myGrp.vBtn"/>
+				<AssertPropertyValue propertyName="percentHeight" value="20" target="myGrp.vEll"/>
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentWidth" value="NaN" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.percentHeight" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="20" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="percentWidth_percentHeight_mxButton_Ellipse_explicit_parent" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and percentHeight render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentHeight" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="140" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="20" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth110_percentHeight120_mxButton_Ellipse_explicit_parent" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and percentHeight render correctly in explicit parent">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="120" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="110" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentHeight" value="120" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="110" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="200" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="200" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="100" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="100" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth_percentHeight_mxButton_Ellipse_change_larger" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and percentHeight render correctly when parent gets larger at runtime">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentHeight" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="200" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="300" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="60" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="75" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="40" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true).toFixed(0)" value="210" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth_percentHeight_mxButton_Ellipse_change_smaller" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and percentHeight render correctly when parent gets smaller at runtime">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentHeight" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="90" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="100" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="27" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="18" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="70" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth_percentHeight_mxButton_Ellipse_minimums" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and percentHeight render with minimums when parent gets smaller at runtime">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="20" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentHeight" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="90" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="100" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="18" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="70" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="percentWidth_mxButton_fixedWidth_Ellipse" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and fixed width render correctly">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="65" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="65" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentHeight_mxButton_fixedHeight_Ellipse" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentHeight and fixed height render correctly">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="65" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="65" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentWidth_Ellipse_fixedWidth_mxButton" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentWidth and fixed width render correctly">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="25" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="65" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="65" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="50" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="percentHeight_Ellipse_fixedHeight_mxButton" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentHeight and fixed height render correctly">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="25" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="65" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="65" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentHeightandWidth_mxButton_fixedHeightandWidth_Ellipse" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentHeight and fixed height render correctly">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="65" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="100" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="65" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="70" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentHeightandWidth_Ellipse_fixedHeightandWidth_mxButton" keywords="[Button, Ellipse, layout, percents]" description="UIComponent and GraphicElement with percentHeight and fixed height render correctly">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="25" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="percentWidth" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="height" value="65" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="70" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="65" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="100" />				
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_right_Ellipse" keywords="[Ellipse, left, right, layout]" description="left and right for Ellipse, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="25" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="right" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="125" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top_bottom_Ellipse" keywords="[Ellipse, top, bottom, layout]" description="top and bottom for Ellipse, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="top" value="10" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="10" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_right_top_bottom_Ellipse" keywords="[Ellipse, left, right, top, bottom, layout]" description="left, right, top, bottom for Ellipse, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="25" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="right" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="top" value="20" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="0" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="80" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="125" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="20" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_right_mxButton" keywords="[mxButton, left, right, layout]" description="left and right for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="right" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="125" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="left150_right30_mxButton" keywords="[mxButton, left, right, layout]" description="left and right for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="150" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="right" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="150" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="top_bottom_mxButton" keywords="[mxButton, top, bottom, layout]" description="top and bottom for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="top" value="10" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="20" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="10" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top50_bottom30_mxButton" keywords="[mxButton, top, bottom, layout]" description="top and bottom for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="top" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		<!-- Button preserves it's minWidth of 70, and the right value of 120 is modified to 100 on screen, but not as a value-->
+		<TestCase testID="left60_right120_mxButton" keywords="[mxButton, top, bottom, layout]" description="top and bottom for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="60" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="right" value="120" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="60" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<AssertPropertyValue propertyName="right" value="120" target="myGrp.vBtn"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top50_bottom60_mxButton" keywords="[mxButton, top, bottom, layout]" description="top and bottom for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="top" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="60" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top50_bottom60_Ellipse" keywords="[Ellipse, top, bottom, layout]" description="top and bottom for Ellipse, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="top" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="60" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<!-- Does not work due to SDK-18714-->
+		<TestCase testID="top50_bottom60_minWidth_minHeight_Ellipse" keywords="[Ellipse, top, bottom, layout]" description="top and bottom for Ellipse, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="minWidth" value="30" target="myGrp.vEll"/>
+				<SetProperty propertyName="minHeight" value="10" target="myGrp.vEll"/>
+				<SetProperty propertyName="top" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="60" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="10" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<!-- Does not work due to SDK-18714-->
+		<TestCase testID="left50_right60_minWidth_minHeight_Ellipse" keywords="[Ellipse, top, bottom, layout]" description="top and bottom for Ellipse, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="minWidth" value="30" target="myGrp.vEll"/>
+				<SetProperty propertyName="minHeight" value="10" target="myGrp.vEll"/>
+				<SetProperty propertyName="top" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="60" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="10" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_right_top_bottom_mxButton" keywords="[mxButton, left, right, top, bottom, layout]" description="left, right, top, bottom for mxButton, size and position are correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="right" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="top" value="20" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="bottom" value="0" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="80" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="125" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="20" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="width_getLayoutBoundsWidth_mxButton" keywords="[mxButton, width, layout]" description="width for mxButton, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="width" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="height_getLayoutBoundsHeight_mxButton" keywords="[mxButton, height, layout]" description="height for mxButton, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="height" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="minWidth_getLayoutBoundsWidth_mxButton" keywords="[mxButton, minWidth, layout]" description="minWidth for mxButton, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="minWidth" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="minHeight_getLayoutBoundsHeight_mxButton" keywords="[mxButton, minHeight, layout]" description="minHeight for mxButton, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="minHeight" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		
+		<TestCase testID="maxWidth_getLayoutBoundsWidth_mxButton" keywords="[mxButton, maxWidth, layout]" description="maxWidth for mxButton, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="maxWidth" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsHeight(true)" value="10000" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="maxHeight_getLayoutBoundsHeight_mxButton" keywords="[mxButton, maxHeight, layout]" description="maxHeight for mxButton, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="maxHeight" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="width_getLayoutBoundsWidth_Ellipse" keywords="[Ellipse, width, layout]" description="width for Ellipse, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="width" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />		
+			</body>
+		</TestCase>
+		
+		<TestCase testID="height_getLayoutBounds_Ellipse" keywords="[Ellipse, height, layout]" description="height for Ellipse, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="height" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="minWidth_getLayoutMinBounds_Ellipse" keywords="[Ellipse, width, layout]" description="width for Ellipse, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="minWidth" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />		
+			</body>
+		</TestCase>
+
+		<TestCase testID="minHeight_getLayoutMinBounds_Ellipse" keywords="[Ellipse, minHeight, layout]" description="minHeight for Ellipse, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="minHeight" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="maxWidth_getLayoutMaxBounds_Ellipse" keywords="[Ellipse, width, layout]" description="width for Ellipse, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="maxWidth" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsHeight(true)" value="10000" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />		
+			</body>
+		</TestCase>
+
+		<TestCase testID="maxHeight_getLayoutMaxBounds_Ellipse" keywords="[Ellipse, maxHeight, layout]" description="maxHeight for Ellipse, size is correct">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="maxHeight" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsHeight(true)" value="30" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="default_getLayoutBounds_Ellipse" keywords="[Ellipse, getLayoutBoundsHeight, layout]" description="default height and width for Ellipse">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsHeight(true)" value="10000" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="0" />				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="default_getLayoutBounds_mxButton" keywords="[Ellipse, getLayoutBoundsHeight, layout]" description="default height and width for Ellipse">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsHeight(true)" value="10000" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="height50_width30_x70_y50_getLayoutBounds_Ellipse" keywords="[Ellipse, getLayoutBoundsHeight, layout]" description="default height and width for Ellipse">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="height" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="width" value="30" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="x" value="70" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty propertyName="y" value="50" target="myGrp.vEll" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsHeight(true)" value="50" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMaxBoundsHeight(true)" value="10000" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vEll.getMinBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsX(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vEll.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="height50_width30_x70_y50_getLayoutBounds_mxButton" keywords="[Ellipse, getLayoutBoundsHeight, layout]" description="default height and width for Ellipse">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="height" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="width" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="x" value="70" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="y" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="30" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="50" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMaxBoundsHeight(true)" value="10000" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getMinBoundsHeight(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="50" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<!-- Hierarchy tests-->
+		<TestCase testID="top_percentHeight_mxButton" keywords="[mxButton, top, percentHeight]" description="top should take precedence over percentHeight">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="top" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentHeight" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="30" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="bottom_percentHeight_mxButton" keywords="[mxButton, top, percentHeight]" description="top should take precedence over percentHeight">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="bottom" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentHeight" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_percentWidth_mxButton" keywords="[mxButton, left, percentWidth]" description="left should take precedence over percentWidth">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="left" value="50" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentWidth" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="150" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="50" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="right_percentWidth_mxButton" keywords="[mxButton, right, percentWidth]" description="right should take precedence over percentWidth">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="right" value="60" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentWidth" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="140" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top_bottom_percentHeight_mxButton" keywords="[mxButton, top, percentHeight]" description="top should take precedence over percentHeight">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="100" target="myGrp.vBtn" />
+				<SetProperty propertyName="top" value="20" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="bottom" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="50" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="20" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left70_right60_percentWidth100_mxButton" keywords="[mxButton, right, percentWidth]" description="right should take precedence over percentWidth">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="100" target="myGrp.vBtn" />
+				<SetProperty propertyName="left" value="70" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="right" value="60" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left70_right60_percentWidth50_mxButton" keywords="[mxButton, right, percentWidth]" description="right should take precedence over percentWidth">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentWidth" value="20" target="myGrp.vBtn" />
+				<SetProperty propertyName="left" value="70" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="right" value="60" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="70" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top25_bottom30_left20_right30_percentHeight100_percentWidth100_mxButton" keywords="[mxButton, top, percentHeight]" description="top should take precedence over percentHeight">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="100" target="myGrp.vBtn" />
+				<SetProperty propertyName="percentWidth" value="100" target="myGrp.vBtn" />
+				<SetProperty propertyName="top" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="bottom" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="left" value="20" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="right" value="30" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="150" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="45" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="20" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="25" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="percentHeight100_percentWidth100_width125_height25_mxButton" keywords="[mxButton, height, width, percentHeight, percentWidth]" description="percentHeight and percentWidth should take precedence over width height">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="percentHeight" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentWidth" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="height" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="width" value="125" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="125" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="25" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="width125_height25_percentHeight100_percentWidth100_mxButton" keywords="[mxButton, height, width, percentHeight, percentWidth]" description="percentHeight and percentWidth should take precedence over width height">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="height" value="25" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="width" value="125" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentHeight" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+				<SetProperty propertyName="percentWidth" value="100" target="myGrp.vBtn" waitEvent="updateComplete" waitTarget="myGrp.vBtn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="200" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="100" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_mxButton_measured_explicit_layoutProps" keywords="[mxButton, Ellipse]" description="">
+			<setup>
+				<ResetComponent target="myGrp" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="myGrp"/>
+				<SetProperty target="myGrp" propertyName="y" value="700"/>
+				<SetProperty propertyName="height" value="10" target="myGrp" />
+				<SetProperty propertyName="width" value="30" target="myGrp" waitEvent="updateComplete" waitTarget="myGrp"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsHeight(true)" value="21" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsX(true)" value="0" />
+				<AssertMethodValue method="value=application.myGrp.vBtn.getLayoutBoundsY(true)" value="0" />	
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myGrp"/>
+			</body>
+		</TestCase>
+		
+		<!--explicitMinWidth, explicitMinHeight, explicitMaxWidth, explicitMaxHeight, layoutMatrix, -->
+		<TestCase testID="Ellipse_explicitMinHeight_layoutProps" keywords="[Ellipse, explicitMinHeight, layout]" description="explicitMinHeight gets set and respected">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="explicitMinHeight" value="90" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getMinBoundsWidth(true)" value="0" />				
+				<AssertMethodValue method="value=application.me.getMinBoundsHeight(true)" value="90" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Ellipse_explicitMinWidth_layoutProps" keywords="[Ellipse, explicitMinWidth, layout]" description="explicitMinWidth gets set and respected">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="explicitMinWidth" value="95" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getMinBoundsWidth(true)" value="95" />				
+				<AssertMethodValue method="value=application.me.getMinBoundsHeight(true)" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="Ellipse_explicitMaxHeight_layoutProps" keywords="[Ellipse, explicitMaxHeight, layout]" description="explicitMaxHeight gets set and respected">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="explicitMaxHeight" value="90" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.me.getMaxBoundsHeight(true)" value="90" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Ellipse_explicitMaxWidth_layoutProps" keywords="[Ellipse, explicitMaxWidth, layout]" description="explicitMaxWidth gets set and respected">
+			<setup>
+				<ResetComponent target="me" className="comps.MyEllipse" waitEvent="updateComplete" waitTarget="me"/>
+				<SetProperty propertyName="explicitMaxWidth" value="95" target="me" waitEvent="updateComplete" waitTarget="me"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.me.getMaxBoundsWidth(true)" value="95" />				
+				<AssertMethodValue method="value=application.me.getMaxBoundsHeight(true)" value="10000" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="mxButton_explicitMinHeight_layoutProps" keywords="[Ellipse, explicitMinHeight, layout]" description="explicitMinHeight gets set and respected">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="explicitMinHeight" value="90" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getMinBoundsWidth(true)" value="70" />				
+				<AssertMethodValue method="value=application.btn.getMinBoundsHeight(true)" value="90" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mxButton_explicitMinWidth_layoutProps" keywords="[mxButton, explicitMinWidth, layout]" description="explicitMinWidth gets set and respected">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="explicitMinWidth" value="95" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getMinBoundsWidth(true)" value="95" />				
+				<AssertMethodValue method="value=application.btn.getMinBoundsHeight(true)" value="21" />
+			</body>
+		</TestCase>
+		<TestCase testID="mxButton_explicitMaxHeight_layoutProps" keywords="[mxButton, explicitMaxHeight, layout]" description="explicitMaxHeight gets set and respected">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="explicitMaxHeight" value="90" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getMaxBoundsWidth(true)" value="10000" />				
+				<AssertMethodValue method="value=application.btn.getMaxBoundsHeight(true)" value="90" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="mxButton_explicitMaxWidth_layoutProps" keywords="[mxButton, explicitMaxWidth, layout]" description="explicitMaxWidth gets set and respected">
+			<setup>
+				<ResetComponent target="btn" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="btn"/>
+				<SetProperty propertyName="explicitMaxWidth" value="95" target="btn" waitEvent="updateComplete" waitTarget="btn"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.btn.getMaxBoundsWidth(true)" value="95" />				
+				<AssertMethodValue method="value=application.btn.getMaxBoundsHeight(true)" value="10000" />
+			</body>
+		</TestCase>
+	</testCases> 
+
+</UnitTester>    

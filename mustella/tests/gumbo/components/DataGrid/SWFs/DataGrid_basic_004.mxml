@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:local="*" xmlns:comps="components.*"
+			   preinitialize="initData()"
+			   width="800" height="800">
+	<!-- 
+	<fx:Style source="../../../../../Assets/Fonts/VeraFontStyles.css" />
+	-->
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+			
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVeraHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVeraHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVeraHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}				
+			           			
+		
+		s|DataGrid s|GridColumnHeaderGroup{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+           		 fontLookup: "embeddedCFF";		
+		}
+				
+		
+		global{
+		    fontFamily: MyVera;
+		    fontAntiAliasType: normal;
+		    kerning: "off";
+        	}
+	 		
+	</fx:Style>	
+	
+	
+	
+	<fx:Script>
+		<![CDATA[
+		import mx.collections.ArrayCollection;
+		import spark.components.gridClasses.GridSelectionMode;
+		import spark.components.gridClasses.CellPosition;
+		include "./assets/nameData.as";
+		public var rowCount:int=20;
+		[Bindable]
+		public var v:Vector.<Object>;
+		[Bindable]
+			public var gridDataCollection:ArrayCollection = new ArrayCollection();
+		[Bindable]
+			public var gridDataCollection2:ArrayCollection = new ArrayCollection();
+		[Bindable]
+		public var obj1:Object;
+		[Bindable]
+		public var obj2:Object;
+		public function initData():void
+		{
+			for (var i:int = 0; i < rowCount; i++)
+			{
+				gridDataCollection.addItem(createItem(i));
+			}
+
+			v=Vector.<Object>([    gridDataCollection.getItemAt(1),
+						gridDataCollection.getItemAt(2),
+						gridDataCollection.getItemAt(3),
+						gridDataCollection.getItemAt(4)]);
+			obj1=gridDataCollection.getItemAt(0);
+			obj2=gridDataCollection.getItemAt(19);
+	
+		}
+		public function createItem(index:int):Object
+		{
+			var t:int=index;
+			if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+			const firstName:String = humanNamesData[index];
+			const lastName:String = humanNamesData[rowCount-index];
+			const food:String = foodNamesData[index];
+			const drink:String = drinkNamesData[index];
+			return {index:t, firstName: firstName, lastName: lastName, food: food, drink: drink};
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<comps:DataGrid_selectedCell 	id="dg1" />
+	<comps:DataGrid_selectedCells 	id="dg2" />
+	<comps:DataGrid_selectedIndex 	id="dg3" />
+	<comps:DataGrid_selectedIndices id="dg4" />
+	<s:DataGrid  id="dg5" dataProvider="{gridDataCollection}"  selectionMode="{GridSelectionMode.MULTIPLE_ROWS}" 
+				  width="500" height="500">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="index" width="20"/>
+					<s:GridColumn dataField="firstName" width="80"/>
+					<s:GridColumn dataField="lastName" width="80"/>
+					<s:GridColumn dataField="food" width="80"/>
+					<s:GridColumn dataField="drink" width="80"/>
+				</s:ArrayList>
+			</s:columns>
+		 	
+			<s:selectedItems>
+				<fx:Object>{obj1}</fx:Object>
+				<fx:Object>{obj2}</fx:Object>
+			</s:selectedItems>
+	</s:DataGrid>
+	<s:DataGrid  id="dg6" dataProvider="{gridDataCollection}"  selectionMode="{GridSelectionMode.SINGLE_ROW}" 
+				  width="500" height="500">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="index" width="20"/>
+					<s:GridColumn dataField="firstName" width="80"/>
+					<s:GridColumn dataField="lastName" width="80"/>
+					<s:GridColumn dataField="food" width="80"/>
+					<s:GridColumn dataField="drink" width="80"/>
+				</s:ArrayList>
+			</s:columns>
+			<s:selectedItem>{obj2}</s:selectedItem>
+	</s:DataGrid>
+		
+</s:Application>

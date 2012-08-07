@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/TitleWindow/Effects/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_basic.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+	<![CDATA[
+	import comps.*;
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.core.FlexGlobals;
+	]]>
+	</mx:Script>
+
+	
+<testCases>
+
+
+<!--
+========================================================
+Test closeEffect
+========================================================
+-->
+
+<TestCase testID="Effect_creationComplete_test1" keywords="[TitleWindow,effects,closeEffect]" description="check closeEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('creationCompleteEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+      
+    <body>
+  	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)" /> 
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="twObject" timeout="2000" />
+        <WaitForEffectsToEnd />
+        <AssertEvent target="twObject" eventName="effectStart" eventClass="mx.events::EffectEvent" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+Test focusInEffect
+========================================================
+-->
+
+ 
+<TestCase testID="Effect_focusIn_test1" keywords="[TitleWindow,effects,focusInEffect]" description="check focusInEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('focusInEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+  	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)" waitTarget="" waitEvent="TitleWindowComplete" /> 
+        <DispatchKeyEvent keys="[TAB]" waitTarget="twObject.checkBox1"  />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="twObject.checkBox1" timeout="2000" />
+        <AssertEvent target="twObject.checkBox1" eventName="focusInEffect" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="Effect_hide_test1" keywords="[TitleWindow,effects,hideEffect]" description="check hideEffect" >    
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="defaultTW" propertyName="visible" value="false" waitTarget="defaultTW" waitEvent="updateComplete" />
+        <WaitForEffectsToEnd />
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="defaultTW" timeout="2000" />
+        <AssertEvent target="defaultTW" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_hide_test2" keywords="[TitleWindow,effects,hideEffect]" description="check hideEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('hideEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+    	<RunCode code="FlexGlobals.topLevelApplication.twObject.visible=false"/>
+  	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)" waitTarget="" waitEvent="TitleWindowComplete" /> 
+  	<SetProperty target="twObject" propertyName="visible" value="true" waitTarget="twObject" waitEvent="updateComplete" />
+        <Pause timeout="50"/>
+        <SetProperty target="twObject" propertyName="visible" value="false" waitTarget="twObject" waitEvent="updateComplete" />
+	<WaitForEffectsToEnd />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="twObject" timeout="2000" />
+	<AssertEvent target="twObject" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_show_test1" keywords="[TitleWindow,effects,showEffect]" description="check showEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+        <RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('hideEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+    	<RunCode code="FlexGlobals.topLevelApplication.twObject.visible=false"/>
+  	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)" waitTarget="" waitEvent="TitleWindowComplete" /> 
+  	<SetProperty target="twObject" propertyName="visible" value="true" waitTarget="twObject" waitEvent="updateComplete" />
+       	<WaitForEffectsToEnd />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="twObject" timeout="2000" />
+	<AssertEvent target="twObject" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_resize_test1" keywords="[TitleWindow,effects,resizeEffect]" description="check resizeEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.defaultTW.setStyle('resizeEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+    	<Pause timeout="40"/>
+    	<SetProperty target="defaultTW" propertyName="width" value="375" waitTarget="defaultTW" waitEvent="updateComplete" />
+       	<WaitForEffectsToEnd />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="defaultTW" timeout="2000" />
+	<AssertEvent target="defaultTW" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_resize_test2" keywords="[TitleWindow,effects,resizeEffect]" description="check resizeEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.defaultTW.setStyle('resizeEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+        <Pause timeout="40"/>
+    	<SetProperty target="defaultTW" propertyName="height" value="475" waitTarget="defaultTW" waitEvent="updateComplete" />
+       	<WaitForEffectsToEnd />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="defaultTW" timeout="2000" />
+	<AssertEvent target="defaultTW" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_rollOver_test1" keywords="[TitleWindow,effects,rollOverEffect]" description="check rollOverEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.defaultTW.setStyle('rollOverEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+    	<DispatchMouseEvent target="defaultTW" type="mouseOver" localX="25" localY="25" waitEvent="mouseOver" waitTarget="defaultTW"/>
+       	<WaitForEffectsToEnd />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="defaultTW" timeout="2000" />
+	<AssertEvent target="defaultTW" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_move_test1" keywords="[TitleWindow,effects,moveEffect]" description="check moveEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.defaultTW.setStyle('moveEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+    	<SetProperty target="defaultTW" propertyName="x" valueExpression="value=FlexGlobals.topLevelApplication.defaultTW.x+100" waitTarget="defaultTW" waitEvent="updateComplete" />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="defaultTW" timeout="2000" />
+	<AssertEvent target="defaultTW" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="Effect_move_test2" keywords="[TitleWindow,effects,moveEffect]" description="check moveEffect" >
+    <setup>
+        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+        <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitTarget="" waitEvent="TitleWindowComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('moveEffect',FlexGlobals.topLevelApplication.myFade2);" />
+    </setup>
+    <body>
+    	<SetProperty target="defaultTW" propertyName="y" valueExpression="value=FlexGlobals.topLevelApplication.defaultTW.y+100" waitTarget="defaultTW" waitEvent="updateComplete" />
+	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="defaultTW" timeout="2000" />
+	<AssertEvent target="defaultTW" eventName="alphaChanged" eventClass="flash.events::Event" numExpectedEvents="-1"/>
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+</testCases>
+
+</UnitTester>

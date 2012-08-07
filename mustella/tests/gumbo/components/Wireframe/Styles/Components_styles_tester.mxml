@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+testDir="gumbo/components/Wireframe/Styles/"
+xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:mx="library://ns.adobe.com/flex/mx"
+xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" 
+testSWF="Components_Main.mxml" >
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		import mx.core.FlexGlobals;
+
+	]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="Wireframe_Button_icon_test1" description="Wireframe Button with an icon, default position" keywords="[Button, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="btn" propertyName="label" value="default" />
+				<SetStyle target="btn" styleName="icon" valueExpression="value = FlexGlobals.topLevelApplication.CheckClassPNG" waitEvent="updateComplete" waitTarget="btn"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="btn"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_Button_icon_test2" description="Wireframe Button with an icon, top position" keywords="[Button, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="btn" propertyName="label" value="top" />			
+				<SetStyle target="btn" styleName="iconPlacement" value="top"/>
+				<SetStyle target="btn" styleName="icon" valueExpression="value = FlexGlobals.topLevelApplication.CheckClassPNG" waitEvent="updateComplete" waitTarget="btn"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="btn"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_ToggleButton_icon_test1" description="Wireframe ToggleButton with an icon, default position" keywords="[ToggleButton, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="togBtn" className="spark.components.ToggleButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="togBtn" propertyName="label" value="default" />
+				<SetStyle target="togBtn" styleName="icon" valueExpression="value = FlexGlobals.topLevelApplication.CheckClassPNG" waitEvent="updateComplete" waitTarget="togBtn"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="togBtn"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_ToggleButton_icon_test2" description="Wireframe ToggleButton with an icon, top position" keywords="[ToggleButton, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="togBtn" className="spark.components.ToggleButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="togBtn" propertyName="label" value="top" />			
+				<SetStyle target="togBtn" styleName="iconPlacement" value="top"/>
+				<SetStyle target="togBtn" styleName="icon" valueExpression="value = FlexGlobals.topLevelApplication.CheckClassPNG" waitEvent="updateComplete" waitTarget="togBtn"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="togBtn"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_ButtonBar_icon_test1" description="Wireframe ButtonBar with an icon, default position" keywords="[ButtonBar, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="buttonbar1" className="spark.components.ButtonBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="buttonbar1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="buttonbar1" propertyName="labelField" value="theData" />
+				<SetProperty target="buttonbar1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.ac1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="buttonbar1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_ButtonBar_icon_test2" description="Wireframe ButtonBar with an icon, top position" keywords="[ButtonBar, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="buttonbar1" className="spark.components.ButtonBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="buttonbar1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="buttonbar1" propertyName="labelField" value="theData" />
+				<SetStyle target="buttonbar1" styleName="iconPlacement" value="top"/>
+				<SetProperty target="buttonbar1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.ac1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="buttonbar1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_TabBar_icon_test1" description="Wireframe TabBar with an icon, default position" keywords="[TabBar, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="tabbar1" className="spark.components.TabBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="tabbar1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="tabbar1" propertyName="labelField" value="theData" />
+				<SetProperty target="tabbar1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.ac1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="tabbar1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_TabBar_icon_test2" description="Wireframe TabBar with an icon, top position" keywords="[TabBar, wireframe, skin, icon]">
+			<setup>
+				<ResetComponent target="tabbar1" className="spark.components.TabBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="tabbar1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="tabbar1" propertyName="labelField" value="theData" />
+				<SetStyle target="tabbar1" styleName="iconPlacement" value="top"/>
+				<SetProperty target="tabbar1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.ac1" waitEvent="updateComplete" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="tabbar1"/>
+			</body>
+		</TestCase>
+
+
+	</testCases>
+</UnitTester>

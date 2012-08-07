@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Effects/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"    
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_effects.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="ComboBox_Effects_fade1" keywords="[ComboBox, Effects, fade]" description="Test Fade effect on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_fade" className="comps.Custom_CB_Fade" waitEvent="updateComplete" waitTarget="myCB_fade"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_fade.openDropDown();" waitEvent="open" waitTarget="myCB_fade"/>
+				<Pause timeout="2000"/>
+				<CompareBitmap target="myFadeGrp" url="../Effects/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_fade.closeDropDown(false);"/>
+				<Pause timeout="2000"/>
+				<CompareBitmap target="myFadeGrp" url="../Effects/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="ComboBox_Effects_wipe1" keywords="[ComboBox, Effects, Wipe]" description="Test Wipe effect on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_wipe" className="comps.Custom_CB_Wipe" waitEvent="updateComplete" waitTarget="myCB_wipe"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_wipe.openDropDown();" waitEvent="open" waitTarget="myCB_wipe"/>
+				<Pause timeout="2000"/>
+				<CompareBitmap target="myWipeGrp" url="../Effects/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_wipe.closeDropDown(false);"/>
+				<Pause timeout="2000"/>
+				<CompareBitmap target="myWipeGrp" url="../Effects/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="ComboBox_Effects_rotate3D" keywords="[ComboBox, Effects, Rotate3D]" description="Test Rotate3D effect on ComboBox">
+			<setup>
+				<ResetComponent target="myCB_R3D" className="comps.Custom_CB_Rotate3D" waitEvent="updateComplete" waitTarget="myCB_R3D"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_R3D.openDropDown();" waitEvent="open" waitTarget="myCB_R3D"/>
+				<Pause timeout="2000"/>
+				<CompareBitmap target="myR3DGrp" url="../Effects/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myCB_R3D.closeDropDown(false);"/>
+				<Pause timeout="2000"/>
+				<CompareBitmap target="myR3DGrp" url="../Effects/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+					
+	</testCases>
+</UnitTester>

@@ -1,0 +1,17 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"    
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    height="24" width="147"
+    dataProvider="{myDP5}">
+    
+	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    		    		    		
+    		[Bindable]
+    		public var myDP5:ArrayCollection = new ArrayCollection();
+    	]]>   
+    </fx:Script>    
+        	
+</s:ComboBox>

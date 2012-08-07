@@ -1,0 +1,167 @@
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="Comps.*"
+    backgroundColor="0xFFFFFF"
+    height="800" width="800">
+    <s:layout><s:VerticalLayout/></s:layout>
+    <fx:Declarations>
+	<fx:Array id="contentArray">
+		<s:Label text="controlBar content"/>
+		<s:Button id="button1" label="button1"/>
+		<s:Button id="button2" label="button2"/>
+	</fx:Array>
+    </fx:Declarations>
+    <fx:Script>    
+    	<![CDATA[    
+    		import spark.components.TitleWindow;
+    		import mx.core.IFlexDisplayObject;
+    		import mx.events.FlexEvent;
+		import mx.managers.PopUpManager;
+		import spark.components.Label;
+		import spark.components.Button;
+		import mx.core.IVisualElement;
+		import mx.collections.ArrayCollection;
+		import comps.*;
+		
+		public var defaultTW:TitleWindow, myWin:TitleWindow, twObject:TitleWindow;
+		public var childWindowList:Array=new Array();
+    		
+    		public function createDefault():void
+    		{
+    			defaultTW = new TitleWindow();      
+			defaultTW.title="From PopUpManager...";
+			defaultTW.width = 250;
+			defaultTW.height = 150;
+			defaultTW.x = 300;
+			defaultTW.y = 10;
+			PopUpManager.addPopUp(defaultTW, this, false);
+			defaultTW.addEventListener("close", closeHandler);
+			defaultTW.addEventListener("creationComplete", handleNewWindowCreationComplete);
+    		}
+		
+		public function createTitleWindowByClass(c:Class, title:String,yPos:Number=100):TitleWindow
+		{
+			var win:TitleWindow=new c();
+			c(win).y=yPos;
+			c(win).x=100;
+			win.title=title;
+			win.width=400;
+		        win.height=400;
+			win.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			win.addEventListener("close", closeHandler);
+			PopUpManager.addPopUp(win, this, false);
+			return win;
+		}		
+		
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    childWindowList.push(e.currentTarget);
+		    e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("MyTitleWindowComplete"));
+		}
+    		public function closeHandler(event:Event):void
+            	{
+                	event.target.removeEventListener("close", closeHandler);
+                	PopUpManager.removePopUp(event.target as IFlexDisplayObject);
+            	}
+
+		public function closePopUPs():void
+		{
+		
+			var win:TitleWindow=null;
+			while(childWindowList.length>0)
+			{
+				win=TitleWindow(childWindowList.pop());
+				PopUpManager.removePopUp(win);
+				win=null;
+			}
+
+		}
+		public function resetTitleWindow():void
+		{
+			closePopUPs();
+			myWin=createTitleWindowByClass(TitleWindowWithContent4, "methods test window");
+		}
+		
+		
+    		
+    	]]>        
+    </fx:Script>
+        
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace c "Comps.*";
+	
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyArial;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: MyArialHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: MyArialHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: MyArialHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}		
+										
+		mx|Accordion,
+		mx|RadioButton,
+		mx|CheckBox,
+		mx|List,
+		mx|DataGrid,
+		mx|Button,
+		mx|Text,
+		mx|Label,
+		mx|NumericStepper,
+		mx|ToolTip{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+			fontSize: 12;
+		}
+			
+		s|TitleWindow,
+		s|Panel,
+		s|HSlider,
+		s|NumericStepper,
+		s|Button,
+		s|TextInput{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+			fontSize: 12;
+            		fontLookup: "embeddedCFF";
+		}		
+    
+			
+	</fx:Style>     
+</s:Application>

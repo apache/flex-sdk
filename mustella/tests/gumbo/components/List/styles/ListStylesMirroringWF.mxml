@@ -1,0 +1,287 @@
+<UnitTester testDir="gumbo/components/List/styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ListMirroring_wireframe.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>
+
+    <testCases>
+
+		<TestCase testID="WF_sparkList_Mirroring_as_default" keywords="[List, Mirroring, rtl]" description="Test layoutDirection/direction set to rtl in AS on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.setLdRTL()" />
+				<Pause timeout="20"/>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="rtl"/>
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.setDRTL()" />
+				<Pause timeout="20"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="rtl"/>
+				<SetProperty target="list_m1" propertyName="height" value="130" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="130" waitEvent="updateComplete" />
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_default" keywords="[List, Mirroring, rtl]" description="Test layoutDirection/direction rtl on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="ltr"/>
+				<SetStyle target="list_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="ltr"/>
+				<SetProperty target="list_m1" propertyName="height" value="130" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="130" waitEvent="updateComplete" />
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<SetStyle target="list_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<SetProperty target="list_m1" propertyName="height" value="135" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="135" waitEvent="updateComplete" />
+				<AssertStyleValue target="list_m1" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="rtl"/>
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_mxml_default" keywords="[List, Mirroring, rtl]" description="Test layoutDirection/direction set to rtl in MXML on List">
+			<setup>
+				<ResetComponent target="list_m2" className="comps.Custom_List_M_RTL" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="list_m2" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="list_m2" styleName="direction" value="rtl"/>
+				<CompareBitmap target="list_m2" url="../styles/baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_mxml_changeDir" keywords="[List, Mirroring, rtl]" description="Test layoutDirection set to ltr at runtime on List">
+			<setup>
+				<ResetComponent target="list_m2" className="comps.Custom_List_M_RTL" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="list_m2" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="list_m2" styleName="direction" value="rtl"/>
+				<CompareBitmap target="list_m2" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<SetStyle target="list_m2" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+				<SetStyle target="list_m2" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+				<AssertStyleValue target="list_m2" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="list_m2" styleName="direction" value="ltr"/>
+				<SetProperty target="list_m2" propertyName="height" value="130" waitEvent="updateComplete" />
+				<SetProperty target="list_m2" propertyName="width"  value="130" waitEvent="updateComplete" />
+				<CompareBitmap target="list_m2" url="../styles/baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_keyboard1" keywords="[List, Mirroring, rtl]" description="Test keyboard navigation with layoutDirection rtl on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="list_m1"/>
+
+				<DispatchKeyEvent keys="[DOWN]" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keys="[DOWN]" />
+				<Pause timeout="100"/>
+
+				<AssertPropertyValue target="list_m1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedItem" value="ProductC"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_keyboard2" keywords="[List, Mirroring, rtl]" description="Test keyboard navigation with layoutDirection rtl on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<SetProperty target="list_m1" propertyName="selectedIndex" value="4" />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="list_m1"/>
+				<DispatchKeyEvent keys="[UP]" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keys="[UP]" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedItem" value="ProductC"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_parentContainer1" keywords="[List, Mirroring, rtl]" description="Test setting layDirection on parentContainer of List">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="myPanel3" propertyName="height" value="160" waitEvent="updateComplete" />
+				<SetProperty target="myPanel3" propertyName="width"  value="160" waitEvent="updateComplete" />
+				<Pause timeout="100"/>
+				<CompareBitmap target="myPanel3" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_parentContainer2" keywords="[List, Mirroring, rtl]" description="Test setting direction on parentContainer of List">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
+				<SetProperty target="myPanel3" propertyName="height" value="160" waitEvent="updateComplete" />
+				<SetProperty target="myPanel3" propertyName="width"  value="160" waitEvent="updateComplete" />
+
+				<CompareBitmap target="myPanel3" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_parentContainer3" keywords="[List, Mirroring, rtl]" description="Test setting layoutDirection/direction on parentContainer of List">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="myPanel3" propertyName="height" value="160" waitEvent="updateComplete" />
+				<SetProperty target="myPanel3" propertyName="width"  value="160" waitEvent="updateComplete" />
+
+				<CompareBitmap target="myPanel3" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_parentContainer4" keywords="[List, Mirroring, rtl]" description="Test setting styles and layoutDirection/direction on parentContainer of List">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="color" value="0x00DD00" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="fontSize" value="14" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="chromeColor" value="0x0000DD" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="myPanel3" styleName="color" value="0x00DD00" />
+				<AssertStyleValue target="myPanel3" styleName="fontSize" value="14" />
+				<AssertStyleValue target="myPanel3" styleName="chromeColor" value="0x0000DD" />
+				<SetProperty target="myPanel3" propertyName="height" value="160" waitEvent="updateComplete" />
+				<SetProperty target="myPanel3" propertyName="width"  value="160" waitEvent="updateComplete" />
+
+				<CompareBitmap target="myPanel3" url="../styles/baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_selectedIndex" keywords="[List, Mirroring, rtl]" description="Test selectedIndex with layoutDirection/direction rtl on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="rtl"/>
+				<SetProperty target="list_m1" propertyName="selectedIndex" value="2" />
+				<AssertPropertyValue target="list_m1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedItem" value="ProductC"/>
+				<SetProperty target="list_m1" propertyName="height" value="130" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="130" waitEvent="updateComplete" />
+
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_selectedItem" keywords="[List, Mirroring, rtl]" description="Test selectedIndex with layoutDirection/direction rtl on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="rtl"/>
+				<SetProperty target="list_m1" propertyName="selectedItem" value="ProductD" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedIndex" value="3"/>
+				<SetProperty target="list_m1" propertyName="height" value="130" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="130" waitEvent="updateComplete" />
+
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="WF_sparkList_Mirroring_styles" keywords="[List, Mirroring, rtl]" description="Test styles with layoutDirection/direction rtl on List">
+			<setup>
+				<ResetComponent target="list_m1" className="comps.Custom_List_M" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="color" value="0x00FF00" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="chromeColor" value="0xDD0000" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="list_m1" styleName="color" value="0x00FF00"/>
+				<AssertStyleValue target="list_m1" styleName="fontSize" value="16"/>
+				<AssertStyleValue target="list_m1" styleName="chromeColor" value="0xDD0000"/>
+				<SetProperty target="list_m1" propertyName="selectedItem" value="ProductD" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedItem" value="ProductD" />
+				<AssertPropertyValue target="list_m1" propertyName="selectedIndex" value="3"/>
+				<SetProperty target="list_m1" propertyName="height" value="130" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="130" waitEvent="updateComplete" />
+
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID_1.png" numColorVariances="3" maxColorVariance="20"/>
+
+				<SetStyle target="list_m1" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+				<SetStyle target="list_m1" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+				<AssertStyleValue target="list_m1" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="list_m1" styleName="direction" value="ltr"/>
+				<AssertStyleValue target="list_m1" styleName="color" value="0x00FF00"/>
+				<AssertStyleValue target="list_m1" styleName="fontSize" value="16"/>
+				<AssertStyleValue target="list_m1" styleName="chromeColor" value="0xDD0000"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="list_m1" propertyName="selectedIndex" value="3"/>
+				<SetProperty target="list_m1" propertyName="height" value="135" waitEvent="updateComplete" />
+				<SetProperty target="list_m1" propertyName="width"  value="135" waitEvent="updateComplete" />
+
+				<CompareBitmap target="list_m1" url="../styles/baselines/$testID_3.png" numColorVariances="3" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+
+    </testCases>
+
+</UnitTester>

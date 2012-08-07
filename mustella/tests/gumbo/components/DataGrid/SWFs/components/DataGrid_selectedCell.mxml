@@ -1,0 +1,74 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	requestedMinRowCount="5"  requestedRowCount="10" dataProvider="{gridDataCollection}"
+	requestedMinColumnCount="1" selectionMode="{GridSelectionMode.SINGLE_CELL}"
+    width="366" height="500">
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import spark.components.gridClasses.GridSelectionMode;
+			import spark.components.gridClasses.CellPosition;
+			include "../assets/nameData.as";
+			use namespace mx_internal;
+			
+			 
+			private var rowCount:int=20;
+			 
+			public function createItem(index:int):Object
+		        {
+		        	var t:int=index;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = humanNamesData[index];
+				const lastName:String = humanNamesData[rowCount-index];
+				const food:String = foodNamesData[index];
+				const drink:String = drinkNamesData[index];
+				return {index:t, firstName: firstName, lastName: lastName, food: food, drink: drink};
+			}
+    			private function initData():void
+    			{
+    				for (var i:int = 0; i < rowCount; i++)
+    					gridDataCollection.addItem(createItem(i));
+    				//work around:	dataProvider="{gridDataCollection}"
+    				this.dataProvider=gridDataCollection;
+    				this.rowHeight=30;//this force each row height is same
+			}
+			
+    		]]>
+    </fx:Script>
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn dataField="index" width="30"/>
+			<s:GridColumn dataField="firstName" width="80"/>
+			<s:GridColumn dataField="lastName" width="80"/>
+			<s:GridColumn dataField="food" width="80"/>
+			<s:GridColumn dataField="drink" width="80"/>
+		</s:ArrayList>
+	</s:columns>
+	<s:selectedCell>
+		<s:CellPosition rowIndex="3" columnIndex="1" />
+        </s:selectedCell>
+   <fx:Declarations>
+	<s:ArrayCollection id="gridDataCollection">
+	<s:DataItem index="0" firstName="JamFN" lastName="DanFN" food="Alligator" drink="DrinkA" />
+	<s:DataItem index="1" firstName="JohFN" lastName="AntFN" food="Candy Apples" drink="DrinkB" />
+	<s:DataItem index="2" firstName="RobFN" lastName="JimFN" food="Coleslaw" drink="DrinkC" />
+	<s:DataItem index="3" firstName="MicFN" lastName="EarFN" food="Almonds" drink="DrinkD" />
+	<s:DataItem index="4" firstName="WilFN" lastName="JohFN" food="Candy Bar (Popcorn)" drink="DrinkE" />
+	<s:DataItem index="5" firstName="DavFN" lastName="ChrFN" food="Cones" drink="DrinkF" />
+	<s:DataItem index="6" firstName="RicFN" lastName="PhiFN" food="DrinkD" drink="DrinkG" />
+	<s:DataItem index="7" firstName="ChaFN" lastName="SeaFN" food="Cantaloupe" drink="DrinkH" />
+	<s:DataItem index="8" firstName="JosFN" lastName="ClaFN" food="Cookies" drink="DrinkI" />
+	<s:DataItem index="9" firstName="ThoFN" lastName="ShaFN" food="Andouille Sausage" drink="DrinkJ" />
+	<s:DataItem index="10" firstName="ChrFN" lastName="AlaFN" food="Cappuccino" drink="DrinkK" />
+	<s:DataItem index="11" firstName="DanFN" lastName="CraFN" food="Coolers" drink="DrinkL" />
+	<s:DataItem index="12" firstName="PauFN" lastName="JesFN" food="Antelope (Meat Snack Sticks)" drink="DrinkM" />
+	<s:DataItem index="13" firstName="MarFN" lastName="TodFN" food="Caramel Apples" drink="DrinkN" />
+	<s:DataItem index="14" firstName="DonFN" lastName="PhiFN" food="Corn" drink="DrinkO" />
+	<s:DataItem index="15" firstName="GeoFN" lastName="ErnFN" food="Apples" drink="DrinkP" />
+	<s:DataItem index="16" firstName="KenFN" lastName="MarFN" food="Caramel Corn" drink="DrinkQ" />
+	<s:DataItem index="17" firstName="SteFN" lastName="VicFN" food="Cornbread" drink="DrinkR" />
+	<s:DataItem index="18" firstName="EdwFN" lastName="BobFN" food="Arabica Coffee" drink="DrinkS" />
+	<s:DataItem index="19" firstName="BriFN" lastName="RusFN" food="Caribbean Chicken" drink="DrinkT" />
+	</s:ArrayCollection>
+   </fx:Declarations>
+</s:DataGrid>

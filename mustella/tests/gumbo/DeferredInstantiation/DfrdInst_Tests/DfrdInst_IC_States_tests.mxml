@@ -1,0 +1,38 @@
+<UnitTester testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="DfrdInst_States_basic.mxml">
+            
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+                                 
+	<TestCase testID="DfrdInst_States_IC_1" keywords="[Deferred, Instantiation, FxContainer, States]" description="Test Deferred Instantiation with States" >
+            <setup>
+                <ResetComponent target="myStatesIC" className="comps.CustomICStates" waitEvent="updateComplete" />                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myStatesIC" propertyName="numElements" value="1" />   
+                <AssertPropertyValue target="myStatesIC.myButtonA" propertyName="label" value="Gumbo Button Default State" />   
+                
+                <RunCode code="application.myStatesIC.goToState2()" waitTarget="myStatesIC" waitEvent="inState2" />
+                
+                <AssertPropertyValue target="myStatesIC" propertyName="numElements" value="1" />   
+                <AssertPropertyValue target="myStatesIC.myButtonB" propertyName="label" value="Gumbo Button State Two" />   
+            </body>
+        </TestCase>   
+                               
+    </testCases>
+    
+</UnitTester>  

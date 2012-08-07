@@ -1,0 +1,3 @@
+-locale=qa_QA
+-source-path=../locale/qa_QA
+-library-path=${mustella.dir},${mustella.dir}/classes,${sdk.dir}/frameworks/libs/textLayout.swc,${sdk.dir}/frameworks/libs/core.swc,${sdk.dir}/frameworks/libs/framework.swc,${sdk.dir}/frameworks/libs/mx/mx.swc,${sdk.dir}/frameworks/libs/sparkskins.swc,${sdk.dir}/frameworks/libs/spark.swc,${sdk.dir}/frameworks/libs/rpc.swc,${sdk.dir}/frameworks/libs/authoringsupport.swc,${sdk.dir}/frameworks/locale/en_US,qa_QA_Resources.swc

@@ -1,0 +1,407 @@
+<UnitTester    
+    testDir="gumbo/components/Application/integration/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Application_Integration_controlBarApp.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        	
+        	import mx.controls.Alert;
+        	import spark.layouts.*;
+        	import spark.components.Button;
+        	import assets.*;
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+    
+<!-- 
+
+States:
+
+    + toggle visibility between states
+    + change layouts between states
+    + have different controls based on different states
+    + check that controlBar elements can't be interacted with when the Application is disabled
+    + disable, enable a Application and check that controls can be interacted with
+    + disable, enable, disable a Application and check that controls cannot be interacted with
+    + change the controlBarContent while the Application is disabled
+    + change the controlBarLayout while the Application is disabled
+
+-->
+
+		<TestCase testID="Application_Integration_controlBar_states_layout" keywords="[Application, ControlBar]" description="change layout based on state">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+                
+		<TestCase testID="Application_Integration_controlBar_states_visible_false" keywords="[Application, ControlBar]" description="change visible to false based on state">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="currentState" value="state4" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Application_Integration_controlBar_states_visible_true" keywords="[Application, ControlBar]" description="change visible to true based on state">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="currentState" value="state4" waitEvent="currentStateChange" />
+                <SetProperty propertyName="currentState" value="state3" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Integration_controlBar_states_content" keywords="[Application, ControlBar]" description="change content based on state">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="currentState" value="state5" waitEvent="currentStateChange" />
+            </setup>
+            <body>
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+		
+		<TestCase testID="Application_Integration_controlBar_enabled" keywords="[Application, ControlBar]" description="enabling a Application should enable its controlBar">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="clickString" value="" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" value="false" waitEvent="updateComplete" />
+            	<DispatchMouseEvent localX="30" localY="20" type="click"/>
+            	<AssertPropertyValue propertyName="clickString" valueExpression="value=''" />	
+                <SetProperty propertyName="enabled" value="true" waitEvent="updateComplete" />
+                <DispatchMouseEvent localX="30" localY="20" type="click"/>
+            	<AssertPropertyValue  propertyName="clickString" valueExpression="value='[btnA]'" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Application_Integration_controlBar_disabled" keywords="[Application, ControlBar]" description="shouldn't be able to click on disable panel's controlBar">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="clickString" value="" />
+                <SetProperty propertyName="enabled" value="false" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent localX="30" localY="20" type="click"/>
+            	<AssertPropertyValue propertyName="clickString" valueExpression="value=''" />	
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>                
+        
+		<TestCase testID="Application_Integration_controlBar_disabled_2" keywords="[Application, ControlBar]" description="disable, enable, disable a Application">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetProperty propertyName="clickString" value="" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" value="false" waitEvent="updateComplete" />
+            	<DispatchMouseEvent localX="30" localY="20" type="click"/>
+            	<AssertPropertyValue propertyName="clickString" valueExpression="value=''" />	
+                <SetProperty propertyName="enabled" value="true" waitEvent="updateComplete" />
+                <DispatchMouseEvent localX="30" localY="20" type="click"/>
+            	<AssertPropertyValue propertyName="clickString" valueExpression="value='[btnA]'" />
+                <SetProperty propertyName="enabled" value="false" waitEvent="updateComplete" />
+            	<DispatchMouseEvent localX="30" localY="20" type="click"/>
+            	<AssertPropertyValue propertyName="clickString" valueExpression="value='[btnA]'" />
+            </body>
+        </TestCase>      
+          
+		<TestCase testID="Application_Integration_controlBar_disabled_change_content" keywords="[Application, ControlBar]" description="change controlbar on a disabled panel">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" value="false" waitEvent="updateComplete" />
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray1" waitEvent="updateComplete" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+          
+		<TestCase testID="Application_Integration_controlBar_disabled_change_layout" keywords="[Application, ControlBar]" description="change controlbar on a disabled panel">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="enabled" value="false" waitEvent="updateComplete" />
+                <SetProperty propertyName="controlBarLayout" valueExpression="value=application.vLayout" waitEvent="updateComplete" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+<!-- 
+
+Styles
+
+    + check that setting font styles on a Application/Application applies to the controlBar
+    + set controlBar styles that are different from the content's styles by applying them to the controlBarGroup
+    
+-->
+
+		<TestCase testID="Application_Integration_controlBar_styles" keywords="[Application, ControlBar]" description="setting styles on Application should affect controlBar">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetStyle styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Application_Integration_controlBar_styles_controlBarGroup" keywords="[Application, ControlBar]" description="set a style specific to the controlBarGroup">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetStyle target="controlBarGroup" styleName="fontSize" value="20" waitEvent="updateComplete" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+<!--
+
+Keyboard/Focus:
+
+    + check that the controlBar elements tab order is before the Application elements
+
+-->
+
+		<TestCase testID="Application_Integration_controlBar_focus_1" keywords="[Application, ControlBar]" description="check content can gain focus">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.btnFocusEntry.setFocus()" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Application_Integration_controlBar_focus_2" keywords="[Application, ControlBar]" description="check mxmlContent get focus after controlBarContent">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.btnFocusEntry.setFocus()" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>  
+       
+<!--
+
+Scrolling:
+
+    + custom skin the ApplicationSkin to have a Scroller around the controlsGroup to support scrolling of controlBar elements
+    + put Scrollers around the contentGroup and the controlsGroup and make sure everything lays out propertly
+-->
+
+       
+		<TestCase testID="Application_Integration_controlBar_scrolling" keywords="[Application, ControlBar]" description="custom skin to include scrollbars">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetStyle styleName="skinClass" valueExpression="value=assets.SkinWithControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray2" waitEvent="updateComplete" />
+			    <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>  
+        
+<!--
+
+Layout:
+
+    + set an element of the Application to top=0, check it adjusts to the right position when toggling the controlBar on and off
+    + check that the controlBar chrome grows/shrinks to accommodate a size change of a controlBar element
+
+    + add and remove controlBar at runtime
+    + add and remove controlBar elements at runtime
+
+-->
+        
+		<TestCase testID="Application_Integration_controlBar_layout_hide" keywords="[Application, ControlBar]" description="remove the controlBar and content should move to fill its space">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarVisible" value="false" waitEvent="updateComplete" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Integration_controlBar_layout_increaseHeight" keywords="[Application, ControlBar]" description="increase the height of a controlBar element">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarGroup.addElement(application.createButton(100, 100))" waitEvent="updateComplete"  />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Application_Integration_controlBar_layout_add" keywords="[Application, ControlBar]" description="add the controlBar at runtime">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray1" waitEvent="updateComplete" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Integration_controlBar_layout_add_element" keywords="[Application, ControlBar]" description="add a controlBar element at runtime">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarGroup.addElementAt(new spark.components.Button(), 0)" waitEvent="updateComplete"  />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Application_Integration_controlBar_layout_remove" keywords="[Application, ControlBar]" description="remove the controlBar at runtime">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Application_Integration_controlBar_layout_remove_element" keywords="[Application, ControlBar]" description="remove a controlBar element at runtime">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarGroup.removeElementAt(0)" waitEvent="updateComplete"  />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+
+<!--
+
+Other:
+
+    + check that setting enabled/alpha/visible on Application/Application applies to the controlBar too
+    + check that a modal popup (ex: Alert) obscures the Application controlBar
+    + custom skin to position the controlBar in another area of the Application
+
+-->
+   
+              
+		<TestCase testID="Application_Integration_controlBar_alpha" keywords="[Application, ControlBar]" description="setting alpha on app should be applied to the controlBar too">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>    
+
+		<TestCase testID="Application_Integration_controlBar_visible" keywords="[Application, ControlBar]" description="setting visible on app should be applied to the controlBar too">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="visible" value="false" waitEvent="hide" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            </body>
+        </TestCase>
+            
+		<TestCase testID="Application_Integration_controlBar_customSkin" keywords="[Application, ControlBar]" description="custom skin to move the controlBar">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetStyle styleName="skinClass" valueExpression="value=assets.SkinWithControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray2" waitEvent="updateComplete" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="2" maxColorVariance="10"  />
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Application_Integration_controlBar_customSkin_introduceControlBar" keywords="[Application, ControlBar]" description="custom skin to introduce a scrollbar">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetStyle styleName="skinClass" valueExpression="value=assets.SkinWithNoControlBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray2" />
+                <SetProperty propertyName="controlBarLayout" valueExpression="value=new VerticalLayout();" />
+				<Pause timeout="200" />
+				<AssertMethodValue method="value=application.controlBarLayout is VerticalLayout" value="true" />
+				<AssertMethodValue method="value=application.controlBarVisible" value="true" />
+				<AssertMethodValue method="value=application.controlBarContent[0].label" value="1" />
+                <SetStyle styleName="skinClass" valueExpression="value=assets.SkinWithControlBar" waitEvent="updateComplete" />
+				<AssertMethodValue method="value=application.controlBarLayout is VerticalLayout" value="true" />
+				<AssertMethodValue method="value=application.controlBarVisible" value="true" />
+				<AssertMethodValue method="value=application.controlBarContent[0].label" value="1" />
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="2" maxColorVariance="10"  />
+            </body>
+        </TestCase> 
+		
+		<TestCase testID="Application_Integration_controlBar_baseColor" keywords="[Application, ControlBar]" description="check that baseColor works (SDK-23862)">
+			<bugs>
+				<Bug bugID="SDK-23862" />
+			</bugs>
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+                <SetStyle styleName="chromeColor" valueExpression="value=0x0000FF" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty propertyName="controlBarContent" valueExpression="value=application.contentArray3" />				
+                <CompareBitmap target="" url="../integration/baselines/$testID.png" numColorVariances="4" maxColorVariance="10" />
+            </body>
+        </TestCase> 
+		
+
+		
+        <TestCase testID="Application_Integration_controlBar_popup" keywords="[Application, ControlBar]" description="popup an alert to make sure controlBar gets grayed out properly">
+            <setup>
+                <RunCode code="application.manualApplicationReset()" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="Alert.show(' ');" />
+                <Pause timeout="200" />
+            	<CompareBitmap target="" url="../integration/baselines/$testID.png" />
+            	<!-- CAUTION: If this fails, everything below it will fail -->
+            </body>
+            <cleanup>
+            	<DispatchMouseEvent localX="250" localY="175" type="click"/>
+            	<Pause timeout="200" />
+            </cleanup>
+        </TestCase>  
+   
+    </testCases>
+    
+</UnitTester>
+
+

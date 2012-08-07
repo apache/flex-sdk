@@ -1,0 +1,54 @@
+<s:Application width="200" height="300" backgroundColor="0xFFFFFF"
+xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+
+
+<fx:Script>
+<![CDATA[
+    import mx.core.UIComponent;
+    import mx.events.StateChangeEvent;
+
+    // Any test case could start out in any state, depending on how the
+    // previous test failed.  Therefore, we cannot switch to a state and
+    // then wait, since we may already be in that state.
+    public function doManualReset():void{
+        if(currentState == "defaultState"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "defaultState";
+        }
+    }
+
+    // This is the listener, set above.
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+
+
+]]>
+</fx:Script>
+
+    <fx:Style source="assets/myStyles.css" />
+
+<s:states>
+    <mx:State name="defaultState" />
+    <mx:State name="state1" />
+    <mx:State name="state2" />
+</s:states>
+
+<s:SkinnableDataContainer id="fc" itemRenderer="{null}" >
+<s:layout><s:VerticalLayout gap="10" /></s:layout>
+    <mx:ArrayCollection>
+        <s:Button id="btn01" includeIn="defaultState" />
+        <s:Button id="btn02" includeIn="state1" label.state1=" state1 label "/>
+        <s:Button id="btn03" includeIn="state1,state2" label=" state1,state2 "/>
+        <s:Button id="btn04" excludeFrom="state1" label=" excludeFrom state1 "/>
+        <s:Button id="btn05" label="defaultState label" label.state1=" state1 label " />
+        <s:Button id="btn06" label.state1="state1 label" label.state2=" state2 label " />
+    </mx:ArrayCollection>
+</s:SkinnableDataContainer>
+
+</s:Application>

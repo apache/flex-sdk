@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/core/DataGroup/viewport/" testSWF="DataGroupBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+	  import spark.components.DataGroup;
+	  import spark.primitives.*;
+	  import mx.collections.ArrayCollection;
+	  import spark.core.NavigationUnit;
+
+	  
+	]]>
+  </fx:Script>
+  <testCases>
+ 
+<!-- 
+
+========================
+
+	DataGroup Virtualization Testing
+	
+	The tests in this file are a subset of the DataGroup_viewport_main.mxml tests with virtual layout enabled.
+	The test names are the same except _virtual is appended to each test name.
+	Each test should have the identical output as the equivalent non-virtual test.
+	
+	Note: These tests point to the same bitmaps as the non-virtualized test file
+	
+	(See the DataGroup/virtual folder for further comments on the DataGroup virtualization tests)
+	
+========================
+
+--> 
+ 
+<!-- 
+
+- - - - - - - - - - - - 
+DataGroup Viewport Testing
+- - - - - - - - - - - - 
+
+The viewport tests have been split into different files for easy of use.
+
+ - Tests that apply to general viewport functionality and not specific to a specific layout are in DataGroup_viewport_main.mxml
+ - Tests that are specific to VerticalLayout/HorizontalLayout are under Group/viewport
+ 
+-->  
+
+
+	
+	
+<!-- clipContent property
+
++ check default value is false
++ create group with large content and check that content is clipped to group dimensions
++ create group with content smaller than group size and check that behaviour is identical with clipping on and off
++ change clipContent value at runtime and ensure screen is updated properly
++ check that the fractionOfElementInView() method always returns 1 when clipContent false
++ check that the firstIndexInView property always returns 0 when clipContent false
++ check that the lastIndexInView property always returns the last item when clipContent false
++ check that the getHorizontalScrollPositionDelta()/getVerticalScrollPositionDelta() methods always return 0 when clipContent false
++ check that changing scroll position values has no visual effect with clipContent set to false
++ check that changing scroll position values are retained after changing clipContent value
++ check that clipContent value is retained when assigned before creating a layout object
++ check that rotating and scaling a group works with clipContent
+
+-->
+
+		
+	<TestCase testID="DataGroup_viewport_clipContent_deltaMethods_vertical_virtual" keywords="[DataGroup, viewport, clipContent]" description="delta methods should return 0 (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.UP)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.DOWN)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.PAGE_UP)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.PAGE_DOWN)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.HOME)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.END)" value="0" />
+			
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="0" />			
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_viewport_clipContent_deltaMethods_horizontal_virtual" keywords="[DataGroup, viewport, clipContent]" description="delta methods should return 0 (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.UP)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.DOWN)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.PAGE_UP)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.PAGE_DOWN)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.HOME)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getVerticalScrollPositionDelta(NavigationUnit.END)" value="0" />
+			
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="0" />			
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_viewport_clipContent_null_layout_virtual" keywords="[DataGroup, viewport, clipContent]" description="check clipContent value retained after creating layout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<Pause timeout="50" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="clipAndEnableScrolling" value="true" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_clipContent_rotate_virtual" keywords="[DataGroup, viewport, clipAndEnableScrolling]" description="clipContent should play well with rotate">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="300" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="rotation"  value="-45" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 50, 0x000011)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 100, 0x000066)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 50, 0x0000AA)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../viewport/baselines/datagroup_viewport_clipContent_rotate.png" target="" timeout="2000" />		
+		</body>
+	</TestCase>				
+			
+	
+	
+<!-- contentHeight / contentWidth properties
+
++ Test data binding
++ Adjust size of a group's content to be smaller and assert the content size changes appropriately (on VerticalLayout, HorizontalLayout, BasicLayout)
++ Use a Resize effect to change the size of a DataGroup item, verify that content size is adjusted
++ Use a Move effect to change the position of a DataGroup item, verify that content size is adjusted
++ Add items to a specific position in a group and check that width/height, contentWidth/contentHeight are set properly
++ Set default, positive, negative, and zero gaps on the layout (Vertical and Horizontal)
++ Create group that has items such that content size is larger than 8192x8192
++ Check that an empty group has contentWidth/contentHeight equal to width/height
++ Set width on a group and ensure that adding content changes contentWidth/contentHeight and does not affect width/height
++ Check content width/height using VerticalLayout
++ Check content width/height using HorizontalLayout
++ Check content width/height using BasicLayout
+
+-->
+
+
+
+
+<!-- really large content -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_very_large_vertical_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size on very large groups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 50000, 50000, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 50000, 50000, 0x000088)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="50000" />	
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="100006" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_viewport_contentSize_very_large_horizontal_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size on very large groups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 50000, 50000, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 50000, 50000, 0x000088)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100006" />	
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="50000" />
+		</body>
+	</TestCase>	
+	
+
+<!-- change item size -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_change_dimensions_vertical_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="change item size and check content size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />	
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />		
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="46" />
+			<RunCode code="value=application.group1.dataProvider.getItemAt(1).height = 10" waitEvent="updateComplete" waitTarget="group1" />		
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="36" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_viewport_contentSize_change_dimensions_horizontal_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="change item size and check content size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="500" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />	
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />		
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="206" />
+			<RunCode code="value=application.group1.dataProvider.getItemAt(1).width = 50" />
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="156" />
+		</body>
+	</TestCase>	
+
+	
+<!-- graphic content with the default gap -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_set_dimensions_smaller_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size when content smaller that height">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="50" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="50" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="50" />
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="DataGroup_viewport_contentSize_set_dimensions_larger_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size when content smaller than viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="500" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="500" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="500" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="500" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_1_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with vertical layout (1 item)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_5_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with vertical layout (5 items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="124" />
+			<AssertPropertyValue target="group1" propertyName="height" value="124" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_1_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with horizontal layout (1 item)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_5_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with horizontal layout (5 items)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="524" />
+			<AssertPropertyValue target="group1" propertyName="width" value="524" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>	
+	
+<!-- setting a custom gap of 0 -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_1_gap_0_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with zero gap (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 0" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_5_gap_0_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with zero gap (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 0" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_1_gap_0_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with zero gap (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 0" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_5_gap_0_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with zero gap (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 0" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="500" />
+			<AssertPropertyValue target="group1" propertyName="width" value="500" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>	
+
+<!-- check setting a positive gap -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_1_gap_100_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with large gap (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_5_gap_100_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with large gap (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="500" />
+			<AssertPropertyValue target="group1" propertyName="height" value="500" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_1_gap_100_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with large gap (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_5_gap_100_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with large gap (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="900" />
+			<AssertPropertyValue target="group1" propertyName="width" value="900" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>	
+	
+<!-- check setting a negative gap -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_1_gap_minus10_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with negative gap (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = -10" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DataGroup_viewport_contentSize_vertical_5_gap_minus10_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with negative gap (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = -10" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="60" />
+			<AssertPropertyValue target="group1" propertyName="height" value="60" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_1_gap_minus10_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with negative gap (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = -10" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_viewport_contentSize_horizontal_5_gap_minus10_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size with negative gap (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.group1.layout.gap = -10" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 100, 20, 0x000044)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="460" />
+			<AssertPropertyValue target="group1" propertyName="width" value="460" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="20" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>	
+	
+<!-- check that adding random rects mesasures properly -->
+	
+
+	
+
+		
+
+	
+	
+<!-- check that a mix of elements measures properly -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_subgroups_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="check content size works with subgroups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.group1.dataProvider.getItemAt(0).width = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.group1.dataProvider.getItemAt(1).width = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.group1.dataProvider.getItemAt(0).height = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.group1.dataProvider.getItemAt(1).height = 100" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="206" />
+			<AssertPropertyValue target="group1" propertyName="width" value="206" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+		</body>
+	</TestCase>	
+		
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+<!-- swap items in and out of view -->
+
+	<!-- Not useful in DataGroup - see tests in Group/viewport -->
+		
+<!-- change layout on the fly -->
+
+	<TestCase testID="DataGroup_viewport_contentSize_swap_layout_virtual" keywords="[DataGroup, viewport, contentWidth, contentHeight]" description="swap layout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 25,25 ,0xCCCCCC)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 25,25 ,0x999999)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 25,25 ,0x666666)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 25,25 ,0x333333)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="118" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="25" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../viewport/baselines/datagroup_viewport_contentSize_swap_layout.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_viewport_scrollPosition_swap_layout_virtual" keywords="[DataGroup, viewport, scrollPosition]" description="swapping layout should reset scroll position">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 94, 44, 0xCCCCCC)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 94, 44, 0xE3E3E3)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 94, 44, 0x001100)" waitEvent="updateComplete" waitTarget="group1" />
+			
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="50" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).x" value="0" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).y" value="0" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).width" value="94" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).height" value="44" />
+			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).x" value="0" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).y" value="50" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).width" value="94" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).height" value="44" />
+			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).x" value="0" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).y" value="100" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).width" value="94" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).height" value="44" />
+			
+			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="50" />
+			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="0" />
+			
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="0" />
+			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).x" value="0" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).y" value="0" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).width" value="94" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).height" value="44" />
+			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).x" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).y" value="0" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).width" value="94" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).height" value="44" />
+			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).x" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).y" value="0" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).width" value="94" />			
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).height" value="44" />
+			
+			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="0" />
+			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="0" />			
+			
+			<CompareBitmap url="../viewport/baselines/datagroup_viewport_scrollPosition_swap_layout.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+
+
+<!-- setContentSize()  method
+
++ set contentSize to zero in group with items
++ set contentSize to zero in empty group
++ set contentSize to positive values in group with items
++ set contentSize to positive values in empty group
+
+-->
+
+	<TestCase testID="DataGroup_viewport_setContentSize_zero_empty_virtual" keywords="[DataGroup, viewport, setContentSize]" description="set the content size of an empty group to zero">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.setContentSize(0,0)" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="0" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="0" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_viewport_setContentSize_zero_virtual" keywords="[DataGroup, viewport, setContentSize]" description="set the content size of a group to zero">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0xCCCCCC)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x999999)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x666666)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x333333)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x000000)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.setContentSize(0,0)" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="0" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="0" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_viewport_setContentSize_positive_empty_virtual" keywords="[DataGroup, viewport, setContentSize]" description="set the content size of an empty group to positive">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.setContentSize(50,50)" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_viewport_setContentSize_positive_virtual" keywords="[DataGroup, viewport, setContentSize]" description="set the content size of a group to positive">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0xCCCCCC)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x999999)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x666666)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x333333)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x000000)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.setContentSize(50,50)" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="50" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+		</body>
+	</TestCase>	
+			
+			
+<!-- swap items in and out of view -->
+
+	<TestCase testID="DataGroup_property_scrollPosition_swapItems_in_view_virtual" keywords="[DataGroup, property, scrollPosition]" description="swap items in view">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0xCCCCCC)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x999999)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x666666)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x333333)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.customSwap(application.group1, 0,2)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertPropertyValue target="group1" propertyName="x" value="0" />
+			<AssertPropertyValue target="group1" propertyName="y" value="0" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="120" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="118" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../viewport/baselines/datagroup_viewport_scrollPosition_swapItems_in_view.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_property_scrollPosition_swapItems_into_view_virtual" keywords="[DataGroup, property, scrollPosition]" description="swap items into view">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true" />			
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value= new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0xCCCCCC)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x999999)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x666666)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 120,25 ,0x333333)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.customSwap(application.group1,3,1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertPropertyValue target="group1" propertyName="x" value="0" />
+			<AssertPropertyValue target="group1" propertyName="y" value="0" />
+			<AssertPropertyValue target="group1" propertyName="contentWidth" value="120" />
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="118" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../viewport/baselines/datagroup_viewport_scrollPosition_swapItems_into_view.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+			
+			
+  </testCases>
+</UnitTester>

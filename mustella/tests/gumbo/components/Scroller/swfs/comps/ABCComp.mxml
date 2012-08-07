@@ -1,0 +1,16 @@
+<s:DataGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="createDP()" itemRenderer="spark.skins.spark.DefaultItemRenderer">
+<s:layout><s:HorizontalLayout/></s:layout>
+    <fx:Script>
+    <![CDATA[
+    import mx.collections.ArrayCollection;
+import mx.skins.spark.*;
+
+        private function  createDP():void
+        {
+            this.dataProvider=new ArrayCollection(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+    }
+    ]]>
+    </fx:Script>
+
+ </s:DataGroup>
+

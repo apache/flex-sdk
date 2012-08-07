@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ScrollBar/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Scrollbar_inactive_wireframe_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+
+
+    ]]>
+    </fx:Script>
+    <testCases>
+    	<TestCase testID="Wireframe_HScrollBar_inactive_default" keywords="[HScrollBar,property,default]" description="Check appearance of HScrollBar in inactive state">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp.vertHScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_inactive_default" keywords="[VScrollBar,property,default]" description="Check appearance of VScrollBar in inactive state">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp.vertVScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_activate_grow_children_verticalLayout" keywords="[HScrollBar,property,default]" description="HScrollBar activates when children get larger">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="50" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<SetProperty propertyName="width" value="200" target="vGrp.btn" waitEvent="updateComplete" waitTarget="vGrp.btn"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_activate_grow_children_verticalLayout" keywords="[VScrollBar,property,default]" description="HScrollBar activates when children get larger">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="50" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<SetProperty propertyName="height" value="200" target="vGrp.btn" waitEvent="updateComplete" waitTarget="vGrp.btn"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_scroll_grow_children_verticalLayout" keywords="[HScrollBar,property,default]" description="HScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="100" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<SetProperty propertyName="width" value="200" target="vGrp.btn" waitEvent="updateComplete" waitTarget="vGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertHScroll.incrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_scroll_grow_children_verticalLayout" keywords="[VScrollBar,property,default]" description="VScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="100" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<SetProperty propertyName="height" value="200" target="vGrp.btn" waitEvent="updateComplete" waitTarget="vGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertVScroll.incrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_decrease_scroll_grow_children_verticalLayout" keywords="[HScrollBar,property,default]" description="HScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="150" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<SetProperty propertyName="width" value="500" target="vGrp.btn" waitEvent="updateComplete" waitTarget="vGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertHScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertHScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertHScroll.decrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertHScroll.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertHScroll.decrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertHScroll.decrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_decrease_scroll_grow_children_verticalLayout" keywords="[VScrollBar,property,default]" description="VScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="100" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<SetProperty propertyName="height" value="200" target="vGrp.btn" waitEvent="updateComplete" waitTarget="vGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertVScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertVScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertVScroll.decrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertVScroll.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertVScroll.decrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertVScroll.decrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="vGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_activate_grow_children_horizontalLayout" keywords="[HScrollBar,property,default]" description="HScrollBar activates when children get larger">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="50" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<SetProperty propertyName="width" value="200" target="hGrp.btn" waitEvent="updateComplete" waitTarget="hGrp.btn"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="hGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_activate_grow_children_horizontalLayout" keywords="[VScrollBar,property,default]" description="HScrollBar activates when children get larger">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="50" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<SetProperty propertyName="height" value="200" target="hGrp.btn" waitEvent="updateComplete" waitTarget="hGrp.btn"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="hGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_scroll_grow_children_horizontalLayout" keywords="[HScrollBar,property,default]" description="HScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="300" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<SetProperty propertyName="width" value="50" target="hGrp.btn" waitEvent="updateComplete" waitTarget="hGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horHScroll.incrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="hGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_scroll_grow_children_horizontalLayout" keywords="[VScrollBar,property,default]" description="VScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="100" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<SetProperty propertyName="height" value="200" target="hGrp.btn" waitEvent="updateComplete" waitTarget="hGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horVScroll.incrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="hGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_decrease_scroll_grow_children_horizontalLayout" keywords="[HScrollBar,property,default]" description="HScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="150" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<SetProperty propertyName="width" value="500" target="hGrp.btn" waitEvent="updateComplete" waitTarget="hGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horHScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horHScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.decrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.decrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horHScroll.decrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="hGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_decrease_scroll_grow_children_horizontalLayout" keywords="[VScrollBar,property,default]" description="VScrollBar is scrollable after being activated">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="100" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<SetProperty propertyName="height" value="200" target="hGrp.btn" waitEvent="updateComplete" waitTarget="hGrp.btn"/>
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horVScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horVScroll.incrementButton" />
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horVScroll.decrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horVScroll.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horVScroll.decrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horVScroll.decrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID.png" target="hGrp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_toggle_to_inactive" keywords="[HScrollBar, property, default]" description="Toggle HScrollBar from active to inactive">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="100" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_1.png" target="hGrp.horHScroll"/>
+				<SetProperty propertyName="width" value="500" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_2.png" target="hGrp.horHScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_toggle_to_inactive" keywords="[VScrollBar, property, default]" description="Toggle VScrollBar from active to inactive">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty propertyName="height" value="200" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_1.png" target="vGrp.vertVScroll"/>
+				<SetProperty propertyName="height" value="500" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_2.png" target="vGrp.vertVScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_HScrollBar_toggle_to_inactive_disabled" keywords="[HScrollBar, property, default]" description="Toggle disabled HScrollBar from active to inactive">
+			<setup>
+				<ResetComponent target="hGrp" className="components.HorGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!-- inactive and disabled-->
+				<SetProperty propertyName="enabled" value="false" target="hGrp.horHScroll"/>
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.incrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.incrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.incrementButton" localX="5" localY="5" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_1.png" target="hGrp.horHScroll"/>
+
+				<!-- active and disabled-->
+				<SetProperty propertyName="width" value="300" target="hGrp.horGrp" waitEvent="updateComplete" waitTarget="hGrp.horGrp"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_2.png" target="hGrp.horHScroll"/>
+
+				<!-- verify mouse events are not received -->
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.incrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.incrementButton" localX="5" localY="5" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_3.png" target="hGrp.horHScroll"/>
+
+				<!-- active and enabled verify mouse events are received -->
+				<SetProperty propertyName="enabled" value="true" target="hGrp.horHScroll"/>
+				<DispatchMouseEvent type="rollOver"  target="hGrp.horHScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="hGrp.horHScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="hGrp.horHScroll.incrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_4.png" target="hGrp.horHScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_VScrollBar_toggle_to_inactive_disabled" keywords="[VScrollBar, property, default]" description="Toggle disabled VScrollBar from active to inactive">
+			<setup>
+				<ResetComponent target="vGrp" className="components.VertGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<!-- inactive and disabled -->
+				<SetProperty propertyName="enabled" value="false" target="vGrp.vertVScroll" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_1.png" target="vGrp.vertVScroll"/>
+
+				<!-- active and disabled -->
+				<SetProperty propertyName="height" value="100" target="vGrp.vertGrp" waitEvent="updateComplete" waitTarget="vGrp.vertGrp"/>
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_2.png" target="vGrp.vertVScroll"/>
+
+				<!-- verify mouse events are not received -->
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_3.png" target="vGrp.vertVScroll"/>
+
+				<!-- active and enabled verify mouse events are received -->
+				<SetProperty propertyName="enabled" value="true" target="vGrp.vertVScroll" />
+				<DispatchMouseEvent type="rollOver"  target="vGrp.vertVScroll.incrementButton" localX="5" localY="5"  />
+				<DispatchMouseEvent type="mouseDown" target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+				<DispatchMouseEvent type="mouseUp"   target="vGrp.vertVScroll.incrementButton" localX="5" localY="5" waitEvent="updateComplete" waitTarget="vGrp.vertVScroll.incrementButton" />
+				<CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../properties/baselines/$testID_4.png" target="vGrp.vertVScroll"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:DataGrid xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" width="300" creationComplete="startIt()"
+allowMultipleSelection="true" dragEnabled="true" dropEnabled="true" dragMoveEnabled="true" >
+
+	<mx:Script>
+	<![CDATA[
+
+        public var dp1:Array = [{col1:"one",col2:"two",col3:"three"},
+	     {col1:"one",col2:"two",col3:"three"}, {col1:"one",col2:"two",col3:"three"},
+	     {col1:"one",col2:"two",col3:"three"},{col1:"one",col2:"two",col3:"three"},
+	     {col1:"one",col2:"two",col3:"three"},{col1:"one",col2:"two",col3:"three"},
+	     {col1:"one",col2:"two",col3:"three"},{col1:"one",col2:"two",col3:"three"},
+	     {col1:"one",col2:"two",col3:"three"},{col1:"one",col2:"two",col3:"three"}];
+
+	    public function startIt():void
+	    {
+	       dataProvider=dp1;
+	    }
+	]]>
+	</mx:Script>
+
+    <mx:columns>
+	   		<mx:DataGridColumn headerText="Column 1" dataField="col1"/>
+	   		<mx:DataGridColumn headerText="Column 2" dataField="col2"/>
+	   		<mx:DataGridColumn headerText="Column 3" dataField="col3"/>
+		</mx:columns>
+</mx:DataGrid>
+

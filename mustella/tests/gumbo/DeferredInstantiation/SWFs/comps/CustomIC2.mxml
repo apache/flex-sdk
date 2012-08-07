@@ -1,0 +1,46 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="comps.*"
+    height="500"
+    width="200"
+    creationPolicy="none" >
+
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+
+    <mx:VBox id="myVBox" >
+    	<mx:Label id="myVBoxLabel" text="Halo Label in Halo VBox" />
+    </mx:VBox>
+
+    <mx:Label id="myLabel" text="Halo Label" />
+
+    <mx:TextArea text="Halo Text Area" />
+
+    <mx:Button id="myButton" label="Halo Button 1" />
+
+    <s:TextInput id="myTextInput" text="Gumbo TextInput" height="50" width="150" />
+
+    <s:Group id="myGroup" width="150" height="200" >
+        <s:layout>
+            <s:VerticalLayout/>
+        </s:layout>
+    	<s:Button id="myGroupButton" label="GButton Group" />
+    	<s:BitmapImage id="myPic" width="100" height="100" source="@Embed('../../../../../Assets/Images/smallredrect.jpg')" fillMode="repeat"/>
+    	<s:Ellipse id="myEllipse" height="25" width="25">
+	    <s:fill>
+			<mx:SolidColor color="0x0000FF"/>
+	    </s:fill>
+	</s:Ellipse>
+    </s:Group>
+
+    <mx:Accordion id="myAccordion" width="150" height="100" >
+        <mx:VBox id="myVBoxTab1" label="Tab 1" >
+            <mx:Button id="myAccordionButton1" label="HButton Tab 1" />
+        </mx:VBox>
+        <mx:VBox id="myVBoxTab2" label="Tab 2" >
+            <s:Button id="myAccordionButton2" label="GButton Tab 2" />
+        </mx:VBox>
+    </mx:Accordion>
+
+</s:SkinnableContainer>

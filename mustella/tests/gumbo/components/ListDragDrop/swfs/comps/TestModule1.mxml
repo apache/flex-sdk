@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Module
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	contentBackgroundColor="0x999999" height="300" width="130">
+    <fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+		    fontWeight: bold;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		@font-face {
+		    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+		    fontStyle: italic;
+		    fontFamily: EmbeddedVerdana;
+		    embedAsCFF: true;
+		}
+
+		s|Label {
+			fontAntiAliasType: "normal";
+			fontFamily: EmbeddedVerdana;
+            		fontLookup: "embeddedCFF";
+		}
+		global{
+		    fontFamily: EmbeddedVerdana;
+		    fontAntiAliasType: normal;
+		}
+	</fx:Style>
+<fx:Script>
+<![CDATA[
+import mx.controls.*;
+import mx.collections.ArrayCollection;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c1.png")]
+public var icon11:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c2.png")]
+public var icon12:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c3.png")]
+public var icon13:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c4.png")]
+public var icon14:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c5.png")]
+public var icon15:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c6.png")]
+public var icon16:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c7.png")]
+public var icon17:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c8.png")]
+public var icon18:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r1_c9.png")]
+public var icon19:Class;
+
+[Bindable]
+[Embed(source="../../../../../../Assets/Images/GridImages/1_r2_c1.png")]
+public var icon21:Class;
+
+
+           public function createIconsAC():ArrayCollection
+            {
+                var acIcons:ArrayCollection = new ArrayCollection
+                    ([  {label:"a", data:icon11},
+                {label:"b",  data:icon12},
+                {label:"c",  data:icon13},
+                {label:"d",  data:icon14},
+                {label:"e",  data:icon15},
+                {label:"f",  data:icon16},
+                {label:"g",  data:icon17},
+                {label:"i",  data:icon18},
+                {label:"j",  data:icon19},
+                {label:"k", data:icon21}] );
+                return acIcons;
+           }
+]]>
+</fx:Script>
+<s:List	dataProvider="{createIconsAC()}" dragEnabled="true"  dropEnabled="true"  alternatingItemColors="[0xFF0000,0x00FF00]">
+<s:itemRenderer>
+<fx:Component>
+<s:ItemRenderer>
+ 	<s:states>
+ 		<s:State name="normal" />
+ 		<s:State name="hovered" />
+ 		<s:State name="selected" />
+ 		<s:State name="normalAndShowsCaret"/>
+ 		<s:State name="hoveredAndShowsCaret"/>
+ 		<s:State name="selectedAndShowsCaret"/>
+ 		<s:State name="dragging"/>
+	</s:states>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke
+				color="0xCDCDCD"
+				weight="1"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor
+				color.dragging="0xDDFFDD"
+				color.normal="{contentBackgroundColor}"
+				color.normalAndShowsCaret="{contentBackgroundColor}"
+				color.hovered="{getStyle('rollOverColor')}"
+				color.hoveredAndShowsCaret="{getStyle('rollOverColor')}"
+				color.selected="{getStyle('selectionColor')}"
+				color.selectedAndShowsCaret="{getStyle('selectionColor')}"
+				/>
+		</s:fill>
+	</s:Rect>
+    <s:VGroup >
+        <s:Label text="{data.label}"  />
+        <mx:Image id="im" source="{data.data}" />
+    </s:VGroup>
+</s:ItemRenderer>
+</fx:Component>
+</s:itemRenderer>
+
+</s:List>
+
+</mx:Module>

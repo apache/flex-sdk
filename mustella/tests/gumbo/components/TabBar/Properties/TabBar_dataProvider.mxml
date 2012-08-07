@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import mx.collections.*;
+	import mx.core.FlexGlobals;
+        import spark.components.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=============
+dataProvider
+=============
+-->
+
+<!-- SDK-18393 -->
+<TestCase testID="dataProvider_test1" keywords="[TabBar,dataProvider]" description="Change the dataProvider and verify basic functionality." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider = new ArrayCollection(['four','five','six'])" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="four" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="label" value="five" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="label" value="six" />
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1" propertyName="selectedItem" value="five" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test2" keywords="[TabBar,dataProvider]" description="Add item to the beginnig of the dataProvider and verify basic functionality." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.addItemAt('zero', 0)" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="zero" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="label" value="one" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="label" value="two" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(3)" propertyName="label" value="three" />
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(3)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1" propertyName="selectedItem" value="zero" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test3" keywords="[TabBar,dataProvider]" description="Add item to the end of the dataProvider and verify basic functionality." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.addItem('four')" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="label" value="three" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(3)" propertyName="label" value="four" />
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(3)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(3)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb1" propertyName="selectedItem" value="four" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test4" keywords="[TabBar,dataProvider]" description="Remove some items from the dataProvider." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.removeItemAt(2)" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.removeItemAt(1)" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb1" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="tb1.dataProvider" propertyName="length" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test5" keywords="[TabBar,dataProvider]" description="Remove all items from the dataProvider and add two.  Verify basic functionality." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.removeItemAt(2)" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.removeItemAt(1)" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.removeItemAt(0)" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.addItem('four')" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.addItem('five')" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="four" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="label" value="five" />
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb1" propertyName="selectedItem" value="four" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="tb1.dataProvider" propertyName="length" value="2" />
+    </body>
+</TestCase>
+
+<!--SDK-18393 -->
+<TestCase testID="dataProvider_test6" keywords="[TabBar,dataProvider]" description="Start with an empty dataProvider and add items." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tb1" propertyName="dataProvider" valueExpression="value=new ArrayCollection()" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.addItem('one')" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.tb1.dataProvider.addItem('two')" waitTarget="tb1.dataGroup" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb1" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb1" propertyName="selectedIndex" value="1" />
+        <AssertPropertyValue target="tb1.dataProvider" propertyName="length" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test7" keywords="[TabBar,dataProvider]" description="Use a dataProvider with complex objects." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <SetProperty target="tb1" propertyName="labelField" value="trip" />
+        <SetProperty target="tb1" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.complexDP" waitEvent="updateComplete" />
+        </setup>
+    <body>
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(0)" propertyName="label" value="Australia" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(1)" propertyName="label" value="Thailand" />
+        <AssertPropertyValue target="tb1.dataGroup.getElementAt(2)" propertyName="label" value="Maui" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test8" keywords="[TabBar,dataProvider,requireSelection]" description="Set requireSelection before the dataProvider." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitEvent="updateComplete" waitTarget="skin"/>
+    </setup>
+    <body>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tb1.selectedItem ==(FlexGlobals.topLevelApplication.tb1.dataProvider.getItemAt(0))" value="true" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tb1.selectedItem ==(FlexGlobals.topLevelApplication.tb1.dataProvider.getItemAt(1))" value="false" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tb1.selectedItem ==(FlexGlobals.topLevelApplication.tb1.dataProvider.getItemAt(2))" value="false" />
+    </body>
+</TestCase>
+
+<TestCase testID="dataProvider_test9" keywords="[TabBar,dataProvider,requireSelection]" description="Set requireSelection=false before the dataProvider." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+		<SetProperty target="tb1" propertyName="requireSelection" value="false" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitEvent="updateComplete" waitTarget="skin"/>
+		
+    </setup>
+    <body>
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tb1.selectedItem ==(FlexGlobals.topLevelApplication.tb1.dataProvider.getItemAt(0))" value="false" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tb1.selectedItem ==(FlexGlobals.topLevelApplication.tb1.dataProvider.getItemAt(1))" value="false" />
+        <AssertMethodValue method="value=FlexGlobals.topLevelApplication.tb1.selectedItem ==(FlexGlobals.topLevelApplication.tb1.dataProvider.getItemAt(2))" value="false" />
+    </body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

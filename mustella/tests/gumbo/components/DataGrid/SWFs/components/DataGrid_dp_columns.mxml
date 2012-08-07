@@ -1,0 +1,54 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	dataProvider="{gridDataCollection}" variableRowHeight="true"
+    creationComplete="initData()" width="426" height="400">
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			include "../assets/nameData.as";
+			use namespace mx_internal;
+			
+			 
+			private var rowCount:int=100;
+			[Bindable]
+			public var gridDataCollection:ArrayCollection = new ArrayCollection();
+			 
+
+			public function createItem(index:int):Object
+			    {
+			    	if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = humanNamesData[index];
+				const lastName:String = humanNamesData[index];
+				const food:String = foodNamesData[index];
+				const drink:String = drinkNamesData[index];
+				return {index:index, firstName: firstName, lastName: lastName, food: food, drink: drink};
+			}
+			public function addItem(index:int):void
+			{
+				if (index<0)
+					this.dataProvider.addItem(createItem(this.dataProvider.length+1));
+				else 
+					this.dataProvider.addItemAt(createItem(1000+this.dataProvider.length+1),index);
+			}
+    			private function initData():void
+    			{
+    				for (var i:int = 0; i < rowCount; i++)
+    					gridDataCollection.addItem(createItem(i));
+    				this.rowHeight=30;//this force each row height is same
+			}
+			
+		
+    		]]>
+    </fx:Script>
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn dataField="nothing" width="50"/>
+			<s:GridColumn dataField="index" width="40"/>
+			<s:GridColumn dataField="firstName" width="80"/>
+			<s:GridColumn dataField="lastName" width="80"/>
+			<s:GridColumn dataField="food" width="80"/>
+			<s:GridColumn dataField="drink" width="80"/>
+		</s:ArrayList>
+	</s:columns>
+	
+</s:DataGrid>

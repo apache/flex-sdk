@@ -1,0 +1,1080 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DropDownList/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DropDownList_basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+                <TestCase testID="DropDownList_Properties_addItemAtTest1" keywords="[DropDownList, Property, addItemAt]" description="Test adding an item to an ArrayCollection used by a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL3" className="comps.Custom_DDL3" waitEvent="updateComplete" waitTarget="myDDL3"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL3.myDP3.addItemAt('New Item', 0)"/>
+				<SetProperty target="myDDL3" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="myDDL3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedItem" value="New Item"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DropDownList_Properties_addItemAtTest2" keywords="[DropDownList, Property, addItemAt]" description="Test adding an item to an ArrayCollection used by a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL3" className="comps.Custom_DDL3" waitEvent="updateComplete" waitTarget="myDDL3"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL3.myDP3.addItemAt('New Item', 2)"/>
+				
+				<SetProperty target="myDDL3" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="myDDL3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedItem" value="ProductE 1"/>
+				
+				<SetProperty target="myDDL3" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedItem" value="New Item"/>
+				
+				<SetProperty target="myDDL3" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedItem" value="ProductB 2"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DropDownList_Properties_autoSize1" keywords="[DropDownList, Property, Size]" description="Test auto sizing of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>			
+				<ResetComponent target="myDDL2" className="comps.Custom_DDL2" waitEvent="updateComplete" waitTarget="myDDL2"/>				
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.openDropDown()" waitEvent="open" waitTarget="myDDL2"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL2.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="3" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.closeDropDown(false)" waitEvent="close" waitTarget="myDDL2"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_autoSize2" keywords="[DropDownList, Property, Size]" description="Test auto sizing of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL2" className="comps.Custom_DDL2" waitEvent="updateComplete" waitTarget="myDDL2"/>				
+				<SetProperty target="myDDL2" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="myDDL2"/>
+			</setup>
+			<body>						
+				<CompareBitmap target="myDDL2" url="../Properties/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+				<SetProperty target="myDDL2" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="myDDL2"/>
+				<CompareBitmap target="myDDL2" url="../Properties/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true" />				
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_autoSize3" keywords="[DropDownList, Property, Size]" description="Test auto sizing of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL2" className="comps.Custom_DDL2" waitEvent="updateComplete" waitTarget="myDDL2"/>				
+				<SetProperty target="myDDL2" propertyName="width" value="75" waitEvent="updateComplete" waitTarget="myDDL2"/>
+				<SetProperty target="myDDL2" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="myDDL2"/>
+			</setup>
+			<body>						
+				<CompareBitmap target="myDDL2" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DropDownList_Properties_disabled1" keywords="[DropDownList, Property, Disabled]" description="Test disabled DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myDDL2"/>
+				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_caretIndex1" keywords="[DropDownList, Property, caretIndex]" description="Test caretIndex property on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" />
+				<Pause timeout="200"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="2"/>
+				<DispatchKeyEvent keys="[UP]" />
+				<Pause timeout="200"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="1"/>
+				<DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="-1"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_caretIndex2" keywords="[DropDownList, Property, caretIndex]" description="Test caretIndex property on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN, DOWN]" />
+				<Pause timeout="200"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="1"/>				
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="close" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductB"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_caretIndex3" keywords="[DropDownList, Property, caretIndex]" description="Test caretIndex property on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+			</setup>
+			<body>													
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>				
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DropDownList_Properties_caretIndex4" keywords="[DropDownList, Property, caretIndex]" description="Test caretIndex property on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedItem" value="ProductE" waitEvent="updateComplete"/>
+			</setup>
+			<body>													
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="4"/>
+				<AssertPropertyValue target="myDDL1" propertyName="caretIndex" value="4"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductE"/>				
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DropDownList_Properties_disabled2" keywords="[DropDownList, Property, Disabled]" description="Test disabled DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID.png"/>
+				
+				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="140" localY="10" waitEvent="rollOver" waitTarget="myDDL1"/>
+			    <DispatchMouseEvent type="mouseDown" target="myDDL1" localX="140" localY="10" waitEvent="mouseDown" waitTarget="myDDL1"/>
+				<DispatchMouseEvent type="mouseUp" target="myDDL1" localX="140" localY="10" waitEvent="mouseUp" waitTarget="myDDL1"/>				
+				
+				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>								
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_disabled3" keywords="[DropDownList, Property, Disabled]" description="Test disabled DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1_disabled" className="comps.Custom_DDL1_disabled" waitEvent="updateComplete" waitTarget="myDDL1_disabled"/>				
+			</setup>
+			<body>			
+				<CompareBitmap target="myDDL1_disabled" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myDDL1_disabled" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="myDDL1_disabled"/>
+				<AssertPropertyValue target="myDDL1_disabled" propertyName="enabled" value="true"/>
+				<CompareBitmap target="myDDL1_disabled" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<DispatchMouseEvent type="rollOver" target="myDDL1_disabled" localX="140" localY="10" waitEvent="rollOver" waitTarget="myDDL1_disabled"/>
+			    <DispatchMouseEvent type="mouseDown" target="myDDL1_disabled" localX="140" localY="10" waitEvent="mouseDown" waitTarget="myDDL1_disabled"/>
+				<DispatchMouseEvent type="mouseUp" target="myDDL1_disabled" localX="140" localY="10" waitEvent="open" waitTarget="myDDL1_disabled"/>				
+				<CompareBitmap target="myDDL1_disabled.dropDown" url="../Properties/Baselines/$testID_3.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1_disabled.closeDropDown(true)" waitEvent="close" waitTarget="myDDL1_disabled"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DropDownList_Properties_dataProvider" keywords="[DropDownList, Property, dataProvider]" description="Test changing dataProvider at runTime DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.changeDP();" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>			
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="Array for n2"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.changeDP();"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="Array for n2"/>				
+			</body>
+		</TestCase>		
+			
+		<TestCase testID="DropDownList_Properties_emptyAC" keywords="[DropDownList, Property]" description="Test using an empty ArrayCollection with a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL5" className="comps.Custom_DDL5" waitEvent="updateComplete" waitTarget="myDDL5"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myDDL5" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL5" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_focus" keywords="[DropDownList, Property, Focus]" description="Test focus on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<CompareBitmap target="focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_height1" keywords="[DropDownList, Property, Height]" description="Test height property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<CompareBitmap target="myDDL1" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DropDownList_Properties_height2" keywords="[DropDownList, Property, Height]" description="Test height property with item selected of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<CompareBitmap target="myDDL1" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection1" keywords="[DropDownList, Property]" description="Test making keyboard selections on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" />
+				<Pause timeout="200"/>
+				<DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="DropDownList_Properties_keyboardSelection2" keywords="[DropDownList, Property]" description="Test making keyboard selections on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN, DOWN]" />
+				<Pause timeout="200"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="close" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection3" keywords="[DropDownList, Property]" description="Test making keyboard selections on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN, UP, UP]" />
+				<Pause timeout="200"/>
+				<DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection4" keywords="[DropDownList, Property]" description="Test making keyboard selections on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN, UP]" />
+				<Pause timeout="200"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="close" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductB"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection5" keywords="[DropDownList, Property, END]" description="Test END key on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[END]" />
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(true)" waitEvent="close" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection6" keywords="[DropDownList, Property, HOME]" description="Test HOME key on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[HOME]" />
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(true)" waitEvent="close" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductA"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection7" keywords="[DropDownList, Property, PAGE DOWN]" description="Test PAGE DOWN key on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[PAGE_DOWN]" />
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(true)" waitEvent="close" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection8" keywords="[DropDownList, Property, PAGE UP]" description="Test PAGE UP key on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[PAGE_UP]" />
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(true)" waitEvent="close" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductA"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DropDownList_Properties_keyboardSelection_closed1" keywords="[DropDownList, Property]" description="Test making keyboard selections on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>				
+				<DispatchKeyEvent key="DOWN" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="DOWN" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="DOWN" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection_closed2" keywords="[DropDownList, Property]" description="Test making keyboard selections on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>				
+				<DispatchKeyEvent key="DOWN" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="DOWN" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="DOWN" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent key="UP" />
+				<Pause timeout="100"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductB"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection_closed3" keywords="[DropDownList, Property, END]" description="Test END key on a closed DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>				
+				<DispatchKeyEvent keys="[END]" />				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>			
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection_closed4" keywords="[DropDownList, Property, HOME]" description="Test HOME key on a closed DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>				
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>								
+				<DispatchKeyEvent keys="[HOME]" />				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductA"/>				
+			</body>
+		</TestCase>					
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection_closed5" keywords="[DropDownList, Property, PAGE_DOWN]" description="Test PAGE_DOWN key on a closed DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>								
+				<DispatchKeyEvent keys="[PAGE_DOWN]" />
+				<Pause timeout="200"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_keyboardSelection_closed6" keywords="[DropDownList, Property, PAGE_UP]" description="Test PAGE_UP key on a closed DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>				
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myDDL1"/>								
+				<DispatchKeyEvent keys="[PAGE_UP]" />				
+				<Pause timeout="200"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductA"/>				
+			</body>
+		</TestCase>			
+					
+		<TestCase testID="DropDownList_Properties_labelField1" keywords="[DropDownList, Property, labelField]" description="Test labelField property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_LF" className="comps.Custom_DDL_LabelField" waitEvent="updateComplete" waitTarget="myDDL_LF"/>
+			</setup>
+			<body>			
+				<SetProperty target="myDDL_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL_LF"/>								
+				<CompareBitmap target="myDDL_LF" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_labelField2" keywords="[DropDownList, Property, labelField]" description="Test labelField property at runtime of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_LF" className="comps.Custom_DDL_LabelField" waitEvent="updateComplete" waitTarget="myDDL_LF"/>
+				<SetProperty target="myDDL_LF" propertyName="labelField" value="price" waitEvent="updateComplete" waitTarget="myDDL_LF"/>
+			</setup>
+			<body>			
+				<SetProperty target="myDDL_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL_LF"/>						
+				<CompareBitmap target="myDDL_LF" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LF.openDropDown();" waitEvent="open" waitTarget="myDDL_LF"/>
+				<CompareBitmap target="myDDL_LF.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LF.closeDropDown(false);" waitEvent="close" waitTarget="myDDL_LF"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_labelField3" keywords="[DropDownList, Property, labelField]" description="Test labelField property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_LF" className="comps.Custom_DDL_LabelField" waitEvent="updateComplete" waitTarget="myDDL_LF"/>
+				<SetProperty target="myDDL_LF" propertyName="labelField" value="fruit"/>
+			</setup>
+			<body>			
+				<SetProperty target="myDDL_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL_LF"/>								
+				<CompareBitmap target="myDDL_LF" url="../Properties/Baselines/DropDownList_Properties_labelField1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_labelFunction" keywords="[DropDownList, Property, labelFunction]" description="Test labelFunction property at runtime of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_LFnc" className="comps.Custom_DDL_LabelFunc" waitEvent="updateComplete" waitTarget="myDDL_LFnc"/>				
+			</setup>
+			<body>			
+				<SetProperty target="myDDL_LFnc" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL_LFnc"/>
+				<CompareBitmap target="myDDL_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.openDropDown();" waitEvent="open" waitTarget="myDDL_LFnc"/>
+				<CompareBitmap target="myDDL_LFnc.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.closeDropDown(false);" waitEvent="close" waitTarget="myDDL_LFnc"/>
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="DropDownList_Properties_labelFunction2" keywords="[DropDownList, Property, labelFunction]" description="Test labelFunction property at runtime of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_LFnc" className="comps.Custom_DDL_LabelFunc" waitEvent="updateComplete" waitTarget="myDDL_LFnc"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.changeLabelFunc();" waitEvent="updateComplete" waitTarget="myDDL_LFnc"/>
+			</setup>
+			<body>			
+				<SetProperty target="myDDL_LFnc" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL_LFnc"/>				
+				<CompareBitmap target="myDDL_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.openDropDown();" waitEvent="open" waitTarget="myDDL_LFnc"/>
+				<CompareBitmap target="myDDL_LFnc.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.closeDropDown(false);" waitEvent="close" waitTarget="myDDL_LFnc"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_LFnc.changeLabelFunc();"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="20" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_layoutHorizontal1" keywords="[DropDownList, Property, Layout, Horizontal]" description="Test horizontal layout on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<ResetComponent target="myDDL4H" className="comps.Custom_DDL4H" waitEvent="updateComplete" waitTarget="myDDL4H"/>				
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL4H.openDropDown()" waitEvent="open" waitTarget="myDDL4H"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL4H.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_layoutHorizontal2" keywords="[DropDownList, Property, Layout, Horizontal]" description="Test horizontal layout on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL4H" className="comps.Custom_DDL4H" waitEvent="updateComplete" waitTarget="myDDL4H"/>				
+				<SetProperty target="myDDL4H" propertyName="selectedItem" value="13" waitEvent="updateComplete" waitTarget="myDDL4H"/>
+			</setup>
+			<body>							
+				<AssertPropertyValue target="myDDL4H" propertyName="selectedIndex" value="12"/>
+				<CompareBitmap target="myDDL4H" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="DropDownList_Properties_layoutTile1" keywords="[DropDownList, Property, Layout, Tile]" description="Test tile layout on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL4T" className="comps.Custom_DDL4T" waitEvent="updateComplete" waitTarget="myDDL4T"/>				
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL4T.openDropDown()" waitEvent="open" waitTarget="myDDL4T"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL4T.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_layoutTile2" keywords="[DropDownList, Property, Layout, Tile]" description="Test tile layout on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL4T" className="comps.Custom_DDL4T" waitEvent="updateComplete" waitTarget="myDDL4T"/>				
+				<SetProperty target="myDDL4T" propertyName="selectedItem" value="9" waitEvent="updateComplete" waitTarget="myDDL4T"/>
+			</setup>
+			<body>							
+				<AssertPropertyValue target="myDDL4T" propertyName="selectedIndex" value="8"/>							
+				<CompareBitmap target="myDDL4T" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DropDownList_Properties_mouseSelection1" keywords="[DropDownList, Property]" description="Test making a selection using the mouse on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>		
+				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="140" localY="10" waitEvent="rollOver" waitTarget="myDDL1"/>
+			    <DispatchMouseEvent type="mouseDown" target="myDDL1" localX="140" localY="10" waitEvent="mouseDown" waitTarget="myDDL1"/>
+				<DispatchMouseEvent type="mouseUp" target="myDDL1" localX="140" localY="10" waitEvent="mouseUp" waitTarget="myDDL1"/>				
+				<DispatchMouseClickEvent target="stage" stageX="140" stageY="135" waitEvent="click" waitTarget="stage"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>											
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Properties_mouseSelection2" keywords="[DropDownList, Property]" description="Test making two selections using the mouse on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>						
+				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="140" localY="10" waitEvent="rollOver" waitTarget="myDDL1"/>
+			    <DispatchMouseEvent type="mouseDown" target="myDDL1" localX="140" localY="10" waitEvent="mouseDown" waitTarget="myDDL1"/>
+				<DispatchMouseEvent type="mouseUp" target="myDDL1" localX="140" localY="10" waitEvent="mouseUp" waitTarget="myDDL1"/>				
+				
+				<DispatchMouseClickEvent target="stage" stageX="140" stageY="155" waitEvent="click" waitTarget="stage"/>				
+				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductD"/>					
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>
+				<DispatchMouseClickEvent target="stage" stageX="140" stageY="135" waitEvent="click" waitTarget="stage"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_mouseWheel" keywords="[DropDownList, Property, mouseWheel]" description="Test using the scroll wheel on a DropDownList">
+			<setup>		
+				<ResetComponent target="myDDL9" className="comps.Custom_DDL9" waitEvent="updateComplete" waitTarget="myDDL9"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL9.openDropDown();" waitEvent="open" waitTarget="myDDL9"/>				
+				<DispatchMouseEvent type="mouseWheel" target="myDDL9.dropDown" localX="40" localY="20" delta="-3" waitEvent="mouseWheel" waitTarget="myDDL9.dropDown"/>				
+			</setup>
+			<body>	
+				<CompareBitmap target="myDDL9.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10"/>
+			</body>
+		</TestCase>	
+		
+
+		<TestCase testID="DropDownList_Properties_noDP1" keywords="[DropDownList, Property]" description="Test with no DataProvider for a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL" className="spark.components.DropDownList" waitEvent="updateComplete" waitTarget="myDDL"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myDDL" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL" propertyName="selectedItem" value="null"/>				
+				<CompareBitmap target="myDDL" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_noDP2" keywords="[DropDownList, Property]" description="Test with no DataProvider for a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL" className="spark.components.DropDownList" waitEvent="updateComplete" waitTarget="myDDL"/>
+				<SetProperty target="myDDL" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL"/>
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myDDL" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL" propertyName="selectedItem" value="null"/>								
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_noPrompt" keywords="[DropDownList, Property, Prompt]" description="Test with no prompt on a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL9" className="comps.Custom_DDL9" waitEvent="updateComplete" waitTarget="myDDL9"/>
+				<SetProperty target="myDDL9" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="myDDL9"/>
+			</setup>
+			<body>											
+				<AssertPropertyValue target="myDDL9" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL9" propertyName="selectedItem" value="ProductE 1"/>				
+				<SetProperty target="myDDL9" propertyName="selectedIndex" value="-1" waitEvent="updateComplete" waitTarget="myDDL9"/>
+				<AssertPropertyValue target="myDDL9" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL9" propertyName="selectedItem" value="null"/>
+				<CompareBitmap target="myDDL9" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_numericStepper" keywords="[DropDownList, Property]" description="Test with selectedIndex bound to Numeric Stepper DropDownList">
+			<setup>
+				<ResetComponent target="myDDL9" className="comps.Custom_DDL9" waitEvent="updateComplete" waitTarget="myDDL9"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myDDL9" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL9" propertyName="selectedItem" value="null"/>								
+				<SetProperty target="myNS" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="myNS"/>
+				<AssertPropertyValue target="myDDL9" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL9" propertyName="selectedItem" value="ProductB 2"/>
+			</body>
+		</TestCase>			
+	
+		<TestCase testID="DropDownList_Properties_open1" keywords="[DropDownList, Property]" description="Test using a mouse click to open a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="135" localY="10" waitEvent="rollOver" waitTarget="myDDL1"/>
+			    <DispatchMouseEvent type="mouseDown" target="myDDL1" localX="135" localY="10" waitEvent="mouseDown" waitTarget="myDDL1"/>
+				<DispatchMouseEvent type="mouseUp" target="myDDL1" localX="135" localY="10" waitEvent="mouseUp" waitTarget="myDDL1"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Properties_prompt1" keywords="[DropDownList, Property, Prompt]" description="Test prompt property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="prompt" value="Select One"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_prompt2" keywords="[DropDownList, Property, Prompt]" description="Test prompt property of DropDownList">		
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="-1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_prompt3" keywords="[DropDownList, Property, Prompt]" description="Test prompt property identical to item in DP of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL2" className="comps.Custom_DDL2" waitEvent="updateComplete" waitTarget="myDDL2"/>			
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedItem" value="null"/>
+				<SetProperty target="myDDL2" propertyName="selectedItem" value="Select One" waitEvent="updateComplete" waitTarget="myDDL2"/>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedItem" value="Select One"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DropDownList_Properties_prompt4" keywords="[DropDownList, Property, Prompt]" description="Test changing prompt at runtime of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL2" className="comps.Custom_DDL2" waitEvent="updateComplete" waitTarget="myDDL2"/>			
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedItem" value="null"/>
+				<CompareBitmap target="myDDL2" url="../Properties/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myDDL2" propertyName="prompt" value="New Prompt" waitEvent="updateComplete" waitTarget="myDDL2"/>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL2" propertyName="selectedItem" value="null"/>
+				<CompareBitmap target="myDDL2" url="../Properties/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_rollOver1" keywords="[DropDownList, Property, rollOver]" description="Test rollOver on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="140" stageY="155" waitEvent="rollOver" waitTarget="stage"/>			
+				<CompareBitmap target="myDDL1.dropDown" url="../Properties/Baselines/$testID.png"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" waitEvent="close" waitTarget="myDDL1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_rollOver2" keywords="[DropDownList, Property, rollOver]" description="Test rollOver on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="rollOver" target="myDDL1" localX="140" localY="10" waitEvent="rollOver" waitTarget="myDDL1"/>			
+				<CompareBitmap target="myDDL1.dropDown" url="../Properties/Baselines/$testID.png"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" waitEvent="close" waitTarget="myDDL1"/>
+			</body>
+		</TestCase>		
+						
+		<TestCase testID="DropDownList_Properties_removeItemAtTest1" keywords="[DropDownList, Property, removeItemAt]" description="Test removing an item from an ArrayCollection used by a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL3" className="comps.Custom_DDL3" waitEvent="updateComplete" waitTarget="myDDL3"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL3.myDP3.removeItemAt(0)"/>
+				<SetProperty target="myDDL3" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="myDDL3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedIndex" value="0"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedItem" value="ProductE 1"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DropDownList_Properties_removeItemAtTest2" keywords="[DropDownList, Property, removeItemAt]" description="Test removing an item from an ArrayCollection used by a DropDownList">
+			<setup>
+				<ResetComponent target="myDDL3" className="comps.Custom_DDL3" waitEvent="updateComplete" waitTarget="myDDL3"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL3.myDP3.removeItemAt(2)"/>
+				<SetProperty target="myDDL3" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL3"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL3" propertyName="selectedItem" value="ProductC 3"/>
+			</body>
+		</TestCase>					
+					
+		<TestCase testID="DropDownList_Properties_selectedIndex1" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex2" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductC"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex3" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="10" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex4" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property set to -1 on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="-1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex5" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property set to -5 on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="4"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductE"/>
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="-5" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex6" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property set to 50000 on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="50000" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+			</body>
+		</TestCase>	
+		
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex7" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property set to 50000 with an item selected on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="4"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductE"/>			
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="50000" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="5"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductF"/>
+			</body>
+		</TestCase>			
+				
+		<TestCase testID="DropDownList_Properties_selectedIndex_MXML1" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property set in MXML of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL7" className="comps.Custom_DDL7" waitEvent="updateComplete" waitTarget="myDDL7"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Four"/>
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex_MXML2" keywords="[DropDownList, Property, selectedIndex]" description="Test with selectedIndex property set in MXML and selectedItem is changed at runtime on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL7" className="comps.Custom_DDL7" waitEvent="updateComplete" waitTarget="myDDL7"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Four"/>
+				<SetProperty target="myDDL7" propertyName="selectedItem" value="Two" waitEvent="updateComplete" waitTarget="myDDL7"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Two"/>				
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DropDownList_Properties_selectedIndex_MXML3" keywords="[DropDownList, Property, selectedIndex]" description="Test with selectedIndex property set in MXML and selectedIndex is changed at runtime on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL7" className="comps.Custom_DDL7" waitEvent="updateComplete" waitTarget="myDDL7"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Four"/>
+				<SetProperty target="myDDL7" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="myDDL7"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="4"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Five"/>				
+			</body>
+		</TestCase>				
+				
+		<TestCase testID="DropDownList_Properties_selectedIndex_button" keywords="[DropDownList, Property, selectedIndex]" description="Test selectedIndex property set by a button click on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL7" className="comps.Custom_DDL7" waitEvent="updateComplete" waitTarget="myDDL7"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Four"/>
+				<DispatchMouseClickEvent target="myBtn1" localX="10" localY="10" waitEvent="click" waitTarget="myBtn1"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="myDDL7" propertyName="selectedItem" value="Three"/>								
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_selectedItem1" keywords="[DropDownList, Property, selectedItem]" description="Test selectedItem property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_selectedItem2" keywords="[DropDownList, Property, selectedItem]" description="Test selectedItem property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedItem" value="ProductD" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="3"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_selectedItem3" keywords="[DropDownList, Property, selectedItem]" description="Test selectedItem property of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="selectedItem" value="ProductD" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="3"/>
+				<SetProperty target="myDDL1" propertyName="selectedItem" value="NoExist" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<AssertPropertyValue target="myDDL1" propertyName="selectedItem" value="null"/>
+				<AssertPropertyValue target="myDDL1" propertyName="selectedIndex" value="-1"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_selectedItem_MXML1" keywords="[DropDownList, Property, selectedItem]" description="Test selectedItem property set in MXML of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL8" className="comps.Custom_DDL8" waitEvent="updateComplete" waitTarget="myDDL8"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Six"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="5"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_selectedItem_MXML2" keywords="[DropDownList, Property, selectedItem]" description="Test with selectedItem property set in MXML and selectedIndex changed at runtime on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL8" className="comps.Custom_DDL8" waitEvent="updateComplete" waitTarget="myDDL8"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Six"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="5"/>
+				<SetProperty target="myDDL8" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="myDDL8"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Five"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="4"/>				
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Properties_selectedItem_MXML3" keywords="[DropDownList, Property, selectedItem]" description="Test with selectedItem property set in MXML and selectedItem changed at runtime on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL8" className="comps.Custom_DDL8" waitEvent="updateComplete" waitTarget="myDDL8"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Six"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="5"/>
+				<SetProperty target="myDDL8" propertyName="selectedItem" value="Three" waitEvent="updateComplete" waitTarget="myDDL8"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Three"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="2"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_selectedItem_button" keywords="[DropDownList, Property, selectedItem]" description="Test selectedItem property set by a button click on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL8" className="comps.Custom_DDL8" waitEvent="updateComplete" waitTarget="myDDL8"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Six"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="5"/>			
+				<DispatchMouseClickEvent target="myBtn2" localX="10" localY="10" waitEvent="click" waitTarget="myBtn2"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedItem" value="Two"/>
+				<AssertPropertyValue target="myDDL8" propertyName="selectedIndex" value="1"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="DropDownList_Properties_baselinePosition_preValidation" keywords="[DropDownList, Property, baselinePosition]" description="Test baselinePosition property on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL" className="spark.components.DropDownList" />				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL" propertyName="baselinePosition" value="14.35"/>
+			</body>
+		</TestCase>			
+		<TestCase testID="DropDownList_Properties_baselinePosition_postValidation" keywords="[DropDownList, Property, baselinePosition]" description="Test baselinePosition property on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL" className="spark.components.DropDownList" waitEvent="creationComplete" waitTarget="myDDL"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDDL" propertyName="baselinePosition" value="14.35"/>
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

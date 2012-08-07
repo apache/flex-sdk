@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml" xmlns:txt="flash.text.*">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+
+	<!--
+		config1 == single line of text; wordWrap:true; autoSize:none;
+		config2 == single line of text; wordWrap:true; autoSize:left;
+		config3 == single line of text; wordWrap:false; autoSize:none;
+		config4 == single line of text; wordWrap:false; autoSize:left;
+		config5 == mulitple lines of htmlText; wordWrap:true; autoSize:none;
+		config6 == mulitple lines of htmlText; wordWrap:true; autoSize:left;
+		config7 == mulitple lines of htmlText; wordWrap:false; autoSize:none;
+		config8 == mulitple lines of htmlText; wordWrap:false; autoSize:left;
+	-->
+
+
+	<fx:Script source="../SWFs/global.as" />
+	<fx:Script>
+		<![CDATA[
+			public const dummyTxt_br:String = "The quick brown fox\r jumps over the lazy dog.";
+		
+			public const htmlTxtIn:String = "<html><body><p><span>The quick brown fox jumps over the lazy dog.</span></p></body></html>";
+			public const htmlTxtOut:String = '<HTML><BODY><P ALIGN="left"><FONT FACE="Arial" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="1">The quick brown fox jumps over the lazy dog.</FONT></P></BODY></HTML>';
+		]]>
+	</fx:Script>
+	
+    <fx:Declarations>
+        <txt:TextFormat id="fmt_align_left" align="left" />
+        <txt:TextFormat id="fmt_align_center" align="center" />
+        <txt:TextFormat id="fmt_align_right" align="right" />
+        <txt:TextFormat id="fmt_align_justify" align="justify" />
+        <txt:TextFormat id="fmt_blockIndent_20" blockIndent="20" />
+        <txt:TextFormat id="fmt_bold_true" bold="true" />
+        <txt:TextFormat id="fmt_bold_false" bold="false" />
+        <txt:TextFormat id="fmt_bullet_true" bullet="true" />
+        <txt:TextFormat id="fmt_bullet_false" bullet="false" />
+        <txt:TextFormat id="fmt_color_0xRed" color="0xFF0000" />
+        <txt:TextFormat id="fmt_color_0xBlack" color="0x000000" />
+        <txt:TextFormat id="fmt_indent_20" indent="20" />
+        <txt:TextFormat id="fmt_indent_neg20" indent="-20" />
+        <txt:TextFormat id="fmt_italic_true" italic="true" />
+        <txt:TextFormat id="fmt_italic_false" italic="false" />
+        <txt:TextFormat id="fmt_kerning_true" kerning="true" />
+        <txt:TextFormat id="fmt_kerning_false" kerning="false" />
+        <txt:TextFormat id="fmt_kerning_1" kerning="1" />
+        <txt:TextFormat id="fmt_kerning_0" kerning="0" />
+        <txt:TextFormat id="fmt_leading_10" leading="10" />
+        <txt:TextFormat id="fmt_leading_neg10" leading="-10" />
+        <txt:TextFormat id="fmt_leftMargin_10" leftMargin="10" />
+        <txt:TextFormat id="fmt_letterSpacing_10" letterSpacing="10" />
+        <txt:TextFormat id="fmt_letterSpacing_neg5" letterSpacing="-5" />
+        <txt:TextFormat id="fmt_rightMargin_10" rightMargin="10" align="justify" />
+        <txt:TextFormat id="fmt_size_16" size="16" />
+        <txt:TextFormat id="fmt_tabStops_50_100_150" tabStops="50 100 150" />
+        <txt:TextFormat id="fmt_target" target="newWin" />
+        <txt:TextFormat id="fmt_underline_true" underline="true" />
+        <txt:TextFormat id="fmt_underline_false" underline="false" />
+        <txt:TextFormat id="fmt_url" url="http://www.adobe.com/" />
+    </fx:Declarations>
+
+	<testCases>
+
+		<TestCase testID="textWidth8" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="230" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="31" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_span" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_span" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="htmlText_setter_p" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_p" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_p2" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_p_align" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_p3" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_p_align2" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_p4" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_p_align3" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_textformat_indent" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_textformat_indent_pos" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_textformat_leftmargin" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_textformat_leftmargin" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_textformat_rightmargin" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_textformat_rightmargin" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_u" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_u" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="numLines_getter_htmlText_wordWrap3" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true"/>
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=dummyHTMLTxt3" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="88" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="numLines_getter_htmlText_wordWrap4" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true"/>
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=dummyHTMLTxt4" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="7" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="122" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="numLines_getter_htmlText_wordWrap" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true"/>
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=dummyHTMLTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="numLines_getter_htmlText" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=dummyHTMLTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="228" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="34" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

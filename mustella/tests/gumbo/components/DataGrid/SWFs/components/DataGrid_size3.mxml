@@ -1,0 +1,205 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	dataProvider="{gridDataCollection}" selectionMode="{GridSelectionMode.MULTIPLE_CELLS}"  variableRowHeight="true"
+     >
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import spark.components.gridClasses.GridSelectionMode;
+			include "../assets/nameData.as";
+			use namespace mx_internal;
+			
+			 
+			private var rowCount:int=100;
+			
+			private function randomArrayItem(a:Array):String
+			{
+				return (a.length == 0) ? "<empty>" : a[Math.round(Math.random() * (a.length - 1))];
+			}
+			public function selectIndices2(v:Vector.<int>):Boolean
+			{
+				
+				if (v==null || v.length<0) return false;
+				var len:int=v.length;
+				var rowIndex:int=-1;
+				var flag:Boolean=true;
+				for (var i:int=0;i<len;i++)
+				{
+					rowIndex=v[i];
+					if (i == 0)
+						setSelectedIndex(rowIndex);
+					else
+						if (!addSelectedIndex(rowIndex))
+							flag=false;
+				}
+				return flag;
+			}
+			//need set up fixed item for image comparision
+			public function createItem(index:int):Object
+			{
+				var t:int=index;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = humanNamesData[index];
+				const lastName:String = humanNamesData[rowCount-index];
+				const food:String = foodNamesData[index];
+				const drink:String = drinkNamesData[index];
+				const image:String="../../../../../Assets/Images/smallbluerect.jpg"
+				return {index:t, firstName: firstName, lastName: lastName, food: food, drink: drink, imageURL:image,numberValue:(index+100)%99, birthDay:"2004/08/08"};
+			}
+			public function addItem(index:int):void
+			{
+				if (index<0)
+					this.dataProvider.addItem(createItem(this.dataProvider.length+1));
+				else 
+					this.dataProvider.addItemAt(createItem(1000+this.dataProvider.length+1),index);
+			}
+    			private function initData():void
+    			{
+    				for (var i:int = 0; i < rowCount; i++)
+    					gridDataCollection.addItem(createItem(i));
+    				this.rowHeight=30;//this force each row height is same
+			}
+			
+			public function resetDP():void
+			{
+				gridDataCollection.removeAll();
+				var t:ArrayCollection=new ArrayCollection();
+				for (var i:int = 100; i < rowCount+100; i++)
+					gridDataCollection.addItem(createItem(i));
+				this.dataProvider=gridDataCollection;
+
+			}
+			public function resetDP2():void
+			{
+
+				var t:ArrayCollection=new ArrayCollection();
+				for (var i:int = 100; i < rowCount+100; i++)
+					t.addItem(createItem(i));
+				this.dataProvider=t;
+
+			}
+			public function resetEmptyDP():void
+			{
+				var t:ArrayCollection=new ArrayCollection();
+				gridDataCollection.source=t.source;
+				this.dataProvider=gridDataCollection;
+								
+			}
+    		]]>
+    </fx:Script>
+	<s:columns>
+		<s:ArrayList><!-- dataGrid has NO width,height set, column also has NO width set
+				size should use default rowHeight, columnWidth, requestedMinRowCount, requestedMinColumnCOunt-->
+			<s:GridColumn dataField="index"  />
+			<s:GridColumn dataField="firstName" />
+			<s:GridColumn dataField="lastName" />
+			<s:GridColumn dataField="food" />
+			<s:GridColumn dataField="drink" />
+		</s:ArrayList>
+	</s:columns>
+   <fx:Declarations>
+	<s:ArrayCollection id="gridDataCollection">
+	<s:DataItem index="0" firstName="JamFN" lastName="DanFN" food="Alligator" drink="DrinkA" />
+	<s:DataItem index="1" firstName="JohFN" lastName="AntFN" food="Candy Apples" drink="DrinkB" />
+	<s:DataItem index="2" firstName="RobFN" lastName="JimFN" food="Coleslaw" drink="DrinkC" />
+	<s:DataItem index="3" firstName="MicFN" lastName="EarFN" food="Almonds" drink="DrinkD" />
+	<s:DataItem index="4" firstName="WilFN" lastName="JohFN" food="Candy Bar (Popcorn)" drink="DrinkE" />
+	<s:DataItem index="5" firstName="DavFN" lastName="ChrFN" food="Cones" drink="DrinkF" />
+	<s:DataItem index="6" firstName="RicFN" lastName="PhiFN" food="DrinkD" drink="DrinkG" />
+	<s:DataItem index="7" firstName="ChaFN" lastName="SeaFN" food="Cantaloupe" drink="DrinkH" />
+	<s:DataItem index="8" firstName="JosFN" lastName="ClaFN" food="Cookies" drink="DrinkI" />
+	<s:DataItem index="9" firstName="ThoFN" lastName="ShaFN" food="Andouille Sausage" drink="DrinkJ" />
+	<s:DataItem index="10" firstName="ChrFN" lastName="AlaFN" food="Cappuccino" drink="DrinkK" />
+	<s:DataItem index="11" firstName="DanFN" lastName="CraFN" food="Coolers" drink="DrinkL" />
+	<s:DataItem index="12" firstName="PauFN" lastName="JesFN" food="Antelope (Meat Snack Sticks)" drink="DrinkM" />
+	<s:DataItem index="13" firstName="MarFN" lastName="TodFN" food="Caramel Apples" drink="DrinkN" />
+	<s:DataItem index="14" firstName="DonFN" lastName="PhiFN" food="Corn" drink="DrinkO" />
+	<s:DataItem index="15" firstName="GeoFN" lastName="ErnFN" food="Apples" drink="DrinkP" />
+	<s:DataItem index="16" firstName="KenFN" lastName="MarFN" food="Caramel Corn" drink="DrinkQ" />
+	<s:DataItem index="17" firstName="SteFN" lastName="VicFN" food="Cornbread" drink="DrinkR" />
+	<s:DataItem index="18" firstName="EdwFN" lastName="BobFN" food="Arabica Coffee" drink="DrinkS" />
+	<s:DataItem index="19" firstName="BriFN" lastName="RusFN" food="Caribbean Chicken" drink="DrinkT" />
+	<s:DataItem index="20" firstName="RonFN" lastName="CarFN" food="Corndogs" drink="DrinkU" />
+	<s:DataItem index="21" firstName="AntFN" lastName="EugFN" food="Artichoke" drink="DrinkV" />
+	<s:DataItem index="22" firstName="KevFN" lastName="HowFN" food="Caribou" drink="Beer1" />
+	<s:DataItem index="23" firstName="JasFN" lastName="RanFN" food="Corned Beef" drink="DrinkW" />
+	<s:DataItem index="24" firstName="MatFN" lastName="AarFN" food="Asparagus" drink="DrinkX" />
+	<s:DataItem index="25" firstName="GarFN" lastName="JerFN" food="Carob" drink="DrinkY" />
+	<s:DataItem index="26" firstName="TimFN" lastName="LouFN" food="Cornita" drink="DrinkZ" />
+	<s:DataItem index="27" firstName="JosFN" lastName="SteFN" food="Bacon" drink="Drink100" />
+	<s:DataItem index="28" firstName="LarFN" lastName="BilFN" food="Carolina Smoked Pork" drink="Drink101" />
+	<s:DataItem index="29" firstName="JefFN" lastName="WayFN" food="Cotton Candy" drink="Drink102" />
+	<s:DataItem index="30" firstName="FraFN" lastName="FreFN" food="Bagels" drink="Drink103" />
+	<s:DataItem index="31" firstName="ScoFN" lastName="HarFN" food="Carrots" drink="Drink104" />
+	<s:DataItem index="32" firstName="EriFN" lastName="AdaFN" food="Crabmeat" drink="Drink105" />
+	<s:DataItem index="33" firstName="SteFN" lastName="BraFN" food="Baklava" drink="Drink106" />
+	<s:DataItem index="34" firstName="AndFN" lastName="BruFN" food="Cashews" drink="Drink107" />
+	<s:DataItem index="35" firstName="RayFN" lastName="BenFN" food="Crackers" drink="Drink108" />
+	<s:DataItem index="36" firstName="GreFN" lastName="RoyFN" food="Banana Split" drink="Drink109" />
+	<s:DataItem index="37" firstName="JosFN" lastName="NicFN" food="Catfish" drink="Drink110" />
+	<s:DataItem index="38" firstName="JerFN" lastName="LawFN" food="Cranberries" drink="Drink111" />
+	<s:DataItem index="39" firstName="DenFN" lastName="RalFN" food="Bananas" drink="Drink112" />
+	<s:DataItem index="40" firstName="WalFN" lastName="WilFN" food="Cauliflower" drink="Drink113" />
+	<s:DataItem index="41" firstName="PatFN" lastName="SamFN" food="Crawfish" drink="Drink114" />
+	<s:DataItem index="42" firstName="PetFN" lastName="KeiFN" food="Beans" drink="Drink115" />
+	<s:DataItem index="43" firstName="HarFN" lastName="GerFN" food="Celery" drink="Drink116" />
+	<s:DataItem index="44" firstName="DouFN" lastName="TerFN" food="Cream (Puffs)" drink="Drink117" />
+	<s:DataItem index="45" firstName="HenFN" lastName="JusFN" food="Beef" drink="Drink118" />
+	<s:DataItem index="46" firstName="CarFN" lastName="JonFN" food="Cereal" drink="Drink119" />
+	<s:DataItem index="47" firstName="ArtFN" lastName="AlbFN" food="Creole (Sausage)" drink="Drink120" />
+	<s:DataItem index="48" firstName="RyaFN" lastName="JacFN" food="Beer" drink="Drink121" />
+	<s:DataItem index="49" firstName="RogFN" lastName="JuaFN" food="Chai Tea" drink="Drink122" />
+	<s:DataItem index="50" firstName="JoeFN" lastName="JoeFN" food="Crepes" drink="DrinkA" />
+	<s:DataItem index="51" firstName="JuaFN" lastName="RogFN" food="Beer Batter Brat" drink="Drink123" />
+	<s:DataItem index="52" firstName="JacFN" lastName="RyaFN" food="Chaurice Sausage" drink="Drink124" />
+	<s:DataItem index="53" firstName="AlbFN" lastName="ArtFN" food="Criss Cross (Fries)" drink="Drink125" />
+	<s:DataItem index="54" firstName="JonFN" lastName="CarFN" food="Belgium Waffles" drink="Drink126" />
+	<s:DataItem index="55" firstName="JusFN" lastName="HenFN" food="Cheddar Cheese" drink="Drink127" />
+	<s:DataItem index="56" firstName="TerFN" lastName="DouFN" food="Croissants" drink="Drink128" />
+	<s:DataItem index="57" firstName="GerFN" lastName="HarFN" food="Berries" drink="Drink129" />
+	<s:DataItem index="58" firstName="KeiFN" lastName="PetFN" food="Cheese" drink="Drink130" />
+	<s:DataItem index="59" firstName="SamFN" lastName="PatFN" food="Crystal Light Beverage" drink="Drink131" />
+	<s:DataItem index="60" firstName="WilFN" lastName="WalFN" food="Berry" drink="Drink132" />
+	<s:DataItem index="61" firstName="RalFN" lastName="DenFN" food="Cheese Cake (Chocolate Covered)" drink="Drink133" />
+	<s:DataItem index="62" firstName="LawFN" lastName="JerFN" food="Cucumbers" drink="Drink134" />
+	<s:DataItem index="63" firstName="NicFN" lastName="JosFN" food="Biscuits" drink="Drink135" />
+	<s:DataItem index="64" firstName="RoyFN" lastName="GreFN" food="Cheeseburger" drink="Drink136" />
+	<s:DataItem index="65" firstName="BenFN" lastName="RayFN" food="Curds" drink="Drink137" />
+	<s:DataItem index="66" firstName="BruFN" lastName="AndFN" food="Bison Meat" drink="Beer3" />
+	<s:DataItem index="67" firstName="BraFN" lastName="SteFN" food="Cheesecake" drink="DrinkB" />
+	<s:DataItem index="68" firstName="AdaFN" lastName="EriFN" food="Curly Fries" drink="Drink138" />
+	<s:DataItem index="69" firstName="HarFN" lastName="ScoFN" food="Black Berries" drink="Drink139" />
+	<s:DataItem index="70" firstName="FreFN" lastName="FraFN" food="Cherry Coke" drink="Drink140" />
+	<s:DataItem index="71" firstName="WayFN" lastName="JefFN" food="Currants" drink="Drink141" />
+	<s:DataItem index="72" firstName="BilFN" lastName="LarFN" food="Blackened Steak" drink="Drink142" />
+	<s:DataItem index="73" firstName="SteFN" lastName="JosFN" food="Chestnut" drink="Drink143" />
+	<s:DataItem index="74" firstName="LouFN" lastName="TimFN" food="Custard" drink="Drink144" />
+	<s:DataItem index="75" firstName="JerFN" lastName="GarFN" food="Blizzards" drink="Drink145" />
+	<s:DataItem index="76" firstName="AarFN" lastName="MatFN" food="Drink115 Dog" drink="Drink146" />
+	<s:DataItem index="77" firstName="RanFN" lastName="JasFN" food="Cyclones" drink="Drink147" />
+	<s:DataItem index="78" firstName="HowFN" lastName="KevFN" food="Blooming Onion" drink="Drink148" />
+	<s:DataItem index="79" firstName="EugFN" lastName="AntFN" food="Chicken" drink="Drink149" />
+	<s:DataItem index="80" firstName="CarFN" lastName="RonFN" food="Czech (Sausage)" drink="Drink150" />
+	<s:DataItem index="81" firstName="RusFN" lastName="BriFN" food="Blueberries" drink="Drink151" />
+	<s:DataItem index="82" firstName="BobFN" lastName="EdwFN" food="Chicken Popcorn Bowls" drink="Drink152" />
+	<s:DataItem index="83" firstName="VicFN" lastName="SteFN" food="Danish" drink="Drink153" />
+	<s:DataItem index="84" firstName="MarFN" lastName="KenFN" food="Boar" drink="Drink154" />
+	<s:DataItem index="85" firstName="ErnFN" lastName="GeoFN" food="Chickitos" drink="Drink155" />
+	<s:DataItem index="86" firstName="PhiFN" lastName="DonFN" food="Decaffeinated Coffee" drink="Drink156" />
+	<s:DataItem index="87" firstName="TodFN" lastName="MarFN" food="Bohemian Chicken" drink="Drink157" />
+	<s:DataItem index="88" firstName="JesFN" lastName="PauFN" food="Chicory Coffee" drink="Beer2" />
+	<s:DataItem index="89" firstName="CraFN" lastName="DanFN" food="Dessert" drink="Drink158" />
+	<s:DataItem index="90" firstName="AlaFN" lastName="ChrFN" food="Bomb Pops" drink="Drink159" />
+	<s:DataItem index="91" firstName="ShaFN" lastName="ThoFN" food="Chili" drink="Drink160" />
+	<s:DataItem index="92" firstName="ClaFN" lastName="JosFN" food="Diet (Soft drinks)" drink="Drink161" />
+	<s:DataItem index="93" firstName="SeaFN" lastName="ChaFN" food="Bratwurst" drink="Drink162" />
+	<s:DataItem index="94" firstName="PhiFN" lastName="RicFN" food="Chilitos" drink="Drink163" />
+	<s:DataItem index="95" firstName="ChrFN" lastName="DavFN" food="Dippin Dots" drink="Drink164" />
+	<s:DataItem index="96" firstName="JohFN" lastName="WilFN" food="Bread" drink="Drink165" />
+	<s:DataItem index="97" firstName="EarFN" lastName="MicFN" food="Chipolte (seasoning)" drink="Drink166" />
+	<s:DataItem index="98" firstName="JimFN" lastName="RobFN" food="Dole (Whip)" drink="Drink167" />
+	<s:DataItem index="99" firstName="AntFN" lastName="JohFN" food="Brisket Hash" drink="Drink168" />
+
+	</s:ArrayCollection>
+   </fx:Declarations>	
+</s:DataGrid>

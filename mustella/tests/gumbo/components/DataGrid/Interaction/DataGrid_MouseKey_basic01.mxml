@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Interaction/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_basic_001.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+    		import mx.utils.ObjectUtil;
+    		
+		import spark.components.DataGrid;
+		import spark.components.Grid;
+		
+		import mx.core.FlexGlobals;
+		import flash.events.MouseEvent;
+		
+		import spark.components.gridClasses.GridColumn;
+		import spark.components.gridClasses.GridSelectionMode;
+		import spark.components.gridClasses.GridSelection;
+		import components.*;
+		
+		public var grid:Grid;
+		public var anchorY:int, anchorX:int;
+		
+		//this is debug method
+		public function showCaretAnchorPos():void
+		{
+			trace("caretRowColumn="+grid.caretRowIndex+","+grid.caretColumnIndex);
+			trace("AnchorRowColumn="+grid.anchorRowIndex+","+grid.anchorColumnIndex);	
+		}
+		
+	]]>
+	</mx:Script>
+
+<!-- mouse and key combination -->	
+	<testCases>
+
+        <TestCase testID="MC_ctrol_click_test01" keywords="[selection,controlClick]" description="Test toggles the selection of the clicked item ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<!-- move the focus on the first row -->
+            	<RunCode code="grid.caretRowIndex=0"/>
+            	<RunCode code="grid.caretColumnIndex=0"/>
+            	<RunCode code="grid.anchorRowIndex=0"/>
+            	<RunCode code="grid.anchorColumnIndex=0"/>
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		<!-- verify the caret, anchor is updated -->
+		<RunCode code="showCaretAnchorPos()"/>
+		<AssertMethodValue method="value=grid.caretColumnIndex" value="1"/>
+		<AssertMethodValue method="value=grid.anchorColumnIndex" value="1"/>
+		<AssertMethodValue method="value=grid.caretRowIndex" value="6"/>
+		<AssertMethodValue method="value=grid.anchorRowIndex" value="6"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="MC_ctrol_click_test02" keywords="[selection,controlClick]" description="Test toggles the selection of the clicked item, add the cell ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)" value="true" />
+            	<!-- move the focus on the first row -->
+            	<RunCode code="grid.caretRowIndex=0"/>
+            	<RunCode code="grid.caretColumnIndex=0"/>
+            	<RunCode code="grid.anchorRowIndex=0"/>
+            	<RunCode code="grid.anchorColumnIndex=0"/>
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		<AssertMethodValue method="value=grid.caretColumnIndex" value="1"/>
+		<AssertMethodValue method="value=grid.anchorColumnIndex" value="1"/>
+		<AssertMethodValue method="value=grid.caretRowIndex" value="6"/>
+		<AssertMethodValue method="value=grid.anchorRowIndex" value="6"/>
+		<!-- verify the selection is updated -->
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="2" />
+            	
+            </body>
+        </TestCase>
+
+        <TestCase testID="MC_ctrol_click_test03" keywords="[selection,controlClick]" description="Test toggles the selection of the clicked item, remove the selected cell ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(6,1)" value="true" />
+            	<!-- move the focus on the first row -->
+            	<RunCode code="grid.caretRowIndex=0"/>
+            	<RunCode code="grid.caretColumnIndex=0"/>
+            	<RunCode code="grid.anchorRowIndex=0"/>
+            	<RunCode code="grid.anchorColumnIndex=0"/>
+            	<!-- make sure the click is on selected cell -->
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0" />
+            	
+            </body>
+        </TestCase>
+        
+        
+        <TestCase testID="SC_ctrol_click_test01" keywords="[selection,controlClick]" description="Test toggles the selection of the clicked item ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)" value="true" />
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+            	<!-- click another cell, verify old cell is deselected -->
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		<AssertMethodValue method="value=grid.caretColumnIndex" value="1"/>
+		<AssertMethodValue method="value=grid.anchorColumnIndex" value="1"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(6,1)" value="true" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(4,3)" value="false" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="MC_click_test04" keywords="[selection,click]" description="Test click the selection of the item has no effect on selection ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(6,1)" value="true" />
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(6,1)" value="true" />
+            	
+            </body>
+        </TestCase>
+        
+         <TestCase testID="MC_click_test05" keywords="[selection,click]" description="Test click other location, previous selection is reset ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)" value="true" />
+            	<!-- move the focus on the first row -->
+            	<RunCode code="grid.caretRowIndex=0"/>
+            	<RunCode code="grid.caretColumnIndex=0"/>
+            	<RunCode code="grid.anchorRowIndex=0"/>
+            	<RunCode code="grid.anchorColumnIndex=0"/>
+            	
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210"  waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		<AssertMethodValue method="value=grid.caretColumnIndex" value="1"/>
+		<AssertMethodValue method="value=grid.anchorColumnIndex" value="1"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(6,1)" value="true" />
+            	
+            </body>
+        </TestCase>
+  
+  	 <!-- api doesn't set caret/anchor -->
+         <TestCase testID="MC_shift_click_test01" keywords="[selection,shiftClick]" description=" extends the selection from the anchor item to the clicked item ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(4,3)" value="true" />
+            	<!-- api doesn't set caret/anchor -->
+            	<DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="14" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,7,2)" value="true" />
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.clearSelection()" />
+            	<RunCode code="grid.anchorColumnIndex=3"/>
+		<RunCode code="grid.anchorRowIndex=4"/>
+		<RunCode code="grid.caretColumnIndex=3"/>
+		<RunCode code="grid.caretRowIndex=4"/>
+                <DispatchMouseClickEvent target="dataGrid" localX="40" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="9" />
+		<RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(4,1,3,3)" value="true" />
+            	
+            </body>
+        </TestCase>
+         <TestCase testID="MC_shift_click_test01_2" keywords="[selection,shiftClick]" description=" extends the selection from the anchor item to the clicked item ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				
+                <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS;"/>				
+		<RunCode code="grid=FlexGlobals.topLevelApplication.dataGrid.grid"/>
+            </setup>
+            <body>
+            	<RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid.grid.getCellBounds(4,3))"/>
+            	<DispatchMouseClickEvent target="dataGrid" localX="195" localY="130" waitEvent="selectionChange" waitTarget="dataGrid"/>
+                <DispatchMouseClickEvent target="dataGrid" localX="50" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		<WaitForEffectsToEnd/> 
+		<RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="12" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(3,1,4,3)" value="true" />
+            	
+            </body>
+        </TestCase>
+         <!-- control+A, comment out following tests as different browser, platform response differently-->
+      
+        
+         <TestCase testID="MR_ctrl_A_test01" keywords="[selection,shiftClick]" description=" extends the selection from the anchor item to the clicked item ">
+            <setup>
+            	
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" waitEvent="enterFrame" waitTarget="stage"/>			
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>		
+            	<DispatchKeyEvent keys="[A]" waitTarget="dataGrid" ctrlKey="true" waitEvent="keyUp" />
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="100" />
+            </body>
+        </TestCase>
+	<TestCase testID="MC_ctrl_A_test01" keywords="[selection,shiftClick]" description=" extends the selection from the anchor item to the clicked item ">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS"  waitEvent="enterFrame" waitTarget="stage"/>
+	  
+            </setup>
+            <body>
+           	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>			
+            	<DispatchKeyEvent keys="[A]" waitTarget="dataGrid" ctrlKey="true" waitEvent="keyUp" />
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="500" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(0,0,99,4)" value="true" />
+            </body>
+        </TestCase>
+        
+       
+        
+       
+        
+        
+	</testCases>                
+	     
+</UnitTester>

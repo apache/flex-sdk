@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/SkinnableComponent/Properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="SkinnableComponentApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+	<![CDATA[
+        private var hostComponent_custom_result1:String = "name=\"assets::SkinnedMXMLComponent\"";
+        private var hostComponent_custom_result2:String = "base=\"assets::SkinnedComponent\"";
+        
+        private var hostComponent_default_result1:String = "name=\"spark.components::Button\"";
+        private var hostComponent_default_result2:String = "base=\"spark.components.supportClasses::ButtonBase\"";
+
+        
+        // I tire of trying to escape double quotes, etc... in XML in an indexOf()
+        // call within AssertMethodValue, so here it is in AS.
+        private function myIndexOf(findMe:String, searchMe:String):int{
+            return searchMe.indexOf(findMe);
+        }
+	]]>
+	</fx:Script>
+
+	<testCases>
+
+<TestCase testID="hostComponent_default" keywords="[States]" description="Verify the hostComponent property of a default skin.">
+    <setup>
+        <ResetComponent target="btn1" className="spark.components.Button" waitEvent="updateComplete" waitTarget=""/>
+    </setup>
+    <body>
+        <AssertMethodValue method="value = myIndexOf(hostComponent_default_result1, flash.utils.describeType(application.btn1.skin.hostComponent)) != -1" value="true" />
+        <AssertMethodValue method="value = myIndexOf(hostComponent_default_result2, flash.utils.describeType(application.btn1.skin.hostComponent)) != -1" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="hostComponent_custom" keywords="[States]" description="Verify the hostComponent property of a custom skin.">
+    <setup>
+        <ResetComponent target="sc1" className="assets.SkinnedMXMLComponent" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = myIndexOf(hostComponent_custom_result1, flash.utils.describeType(application.sc1.skin.hostComponent)) != -1" value="true" />
+        <AssertMethodValue method="value = myIndexOf(hostComponent_custom_result2, flash.utils.describeType(application.sc1.skin.hostComponent)) != -1" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="hostComponent_none" keywords="[States]" description="Verify that there is no hostComponent property in a custom skin if the skin does not contain that metadata.">
+    <setup>
+        <ResetComponent target="sc2" className="assets.SkinnedMXMLComponent2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="try{application.sc2.skin.hostComponent}catch(e:Error){value = e.toString()}" value="ReferenceError: Error #1069: Property hostComponent not found on assets.HostlessSkin and there is no default value." />
+    </body>
+</TestCase>
+
+<TestCase testID="hostComponent_binding" keywords="[States]" description="Verify that a skin can refer to its hostComponent in a binding expression in MXML.">
+    <setup>
+        <ResetComponent target="sc1" className="assets.SkinnedMXMLComponent" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sc1.skin.btn1.label" value="a bindable string" />
+    </body>
+</TestCase>
+
+<TestCase testID="hostComponent_script" keywords="[States]" description="Verify that a skin can refer to its hostComponent in a script block.">
+    <setup>
+        <ResetComponent target="sc1" className="assets.SkinnedMXMLComponent" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sc1.skin.accessHostComponent()" value="a bindable string" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

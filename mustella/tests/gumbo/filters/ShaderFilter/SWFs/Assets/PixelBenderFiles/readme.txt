@@ -1,0 +1,1 @@
+Note that booleans parameters are not supported in the Flash player yet.

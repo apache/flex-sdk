@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ScrollBar/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollBar_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+            public function convertXY():Point
+            {
+                 var tmp:Point = new Point(application.hsb.thumb.x, application.hsb.thumb.y);
+                 var globalPT:Point = application.hsb.thumb.localToGlobal(tmp);
+                           
+                 return globalPT;
+            }
+
+    ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="HScrollBar_properties_default" keywords="[HScrollBar,property,default]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="0" />
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="100" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="20" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="1" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="0" />
+                <AssertPropertyValue target="hsb" propertyName="snapInterval"    value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_positive_negative_values" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="9999"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="-9999" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="999"   />
+                <SetProperty    target="hsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="hsb" propertyName="stepSize" value="-99"   />
+                <SetProperty    target="hsb" propertyName="value"    value="-999"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="9999" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="-9999" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="999" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="-99" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="-999" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_negative" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="-9999" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="-99"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="999.5"   />
+                <SetProperty    target="hsb" propertyName="snapInterval"    value="1" />
+                
+                <SetProperty    target="hsb" propertyName="stepSize" value="99.5"   />
+                <SetProperty    target="hsb" propertyName="value"    value="-100.5"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="snapInterval"    value="0.5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="-99" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="-9999" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="1000" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="100" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="-100" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_minimum_greater_than_maximum" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="-100"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="100"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="7"     />
+                <SetProperty    target="hsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="hsb" propertyName="stepSize" value="-12"   />
+                <SetProperty    target="hsb" propertyName="value"    value="-9"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="0" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="0" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="7" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="-12" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_maximum_less_than_minimum" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="59"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="-99"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="70"     />
+                <SetProperty    target="hsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="hsb" propertyName="stepSize" value="0"   />
+                <SetProperty    target="hsb" propertyName="value"    value="-999"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="59" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="59" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="70" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="1" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="59" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_value_less_than_minimum" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="-1"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="-0"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="snapInterval"    value="0.1" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="0.12"     />
+                <SetProperty    target="hsb" propertyName="stepSize" value="0.1"   />
+                <SetProperty    target="hsb" propertyName="value"    value="-1.001"  waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="0" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="-1" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="0.1" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="0.1" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_value_greater_than_maximum" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="-1"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="500"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="snapInterval"    value="0.1" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="-0.12"     />
+                <SetProperty    target="hsb" propertyName="stepSize" value="-0.1"   />
+                <SetProperty    target="hsb" propertyName="value"    value="501"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="500" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="-1" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="-0.1" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="-0.1" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="500" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_NaN_maximum" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="59"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="99"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="70"     />
+                <SetProperty    target="hsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="hsb" propertyName="stepSize" value="10"   />
+                <SetProperty    target="hsb" propertyName="value"    value="60"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="59" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="70" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="10" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="60" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_NaN_minimum" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="59"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="99"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="700"     />
+                <SetProperty    target="hsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="hsb" propertyName="stepSize" value="100"   />
+                <SetProperty    target="hsb" propertyName="value"    value="0"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="99" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="700" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="100" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_NaN_value" keywords="[HScrollBar,Range, property]" description="">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="minimum"  value="+59"  waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="maximum"  value="+99"   waitEvent="updateComplete" />
+                <SetProperty    target="hsb" propertyName="pageSize" value="700"     />
+                <SetProperty    target="hsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="hsb" propertyName="stepSize" value="100"   />
+                <SetProperty    target="hsb" propertyName="value"    value="0"  waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="hsb" propertyName="maximum"  value="99" />
+                <AssertPropertyValue target="hsb" propertyName="minimum"  value="59" />
+                <AssertPropertyValue target="hsb" propertyName="pageSize" value="700" />
+                <AssertPropertyValue target="hsb" propertyName="stepSize" value="100" />
+                <AssertPropertyValue target="hsb" propertyName="value"    value="59" />
+            </body>
+        </TestCase>
+
+    <TestCase testID="HScrollBar_thumbDrag1" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="150" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="100" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="94" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="2" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+    <TestCase testID="HSBar_event_thumbDrag2" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="100" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="HScrollBar_thumbDrag3" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="hsb"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="HScrollBar_thumbDrag4" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="hsb"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_thumbDrag5" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="300" waitEvent="updateComplete"/>
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="hsb"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="300" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_thumbDrag6" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="false"  />
+            <SetProperty    target="hsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+            <SetProperty    target="hsb" propertyName="width"  value="300" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="300" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+
+    <TestCase testID="HScrollBar_event_thumbDrag1" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="150" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="100" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="94" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="130" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+    <TestCase testID="HScrollBar_event_event_thumbDrag2" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="100" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="185" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+    <TestCase testID="HScrollBar_event_thumbDrag2" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="185" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_event_thumbDrag3" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="hsb"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="170" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="HScrollBar_event_thumbDrag4" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="200" waitEvent="updateComplete"/>
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="hsb"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="200" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="170" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_event_thumbDrag5" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="hsb" propertyName="width"  value="300" waitEvent="updateComplete"/>
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="hsb"/>
+            <SetProperty    target="hsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="300" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="280" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_event_thumbDrag6" keywords="[HScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+            <SetStyle target="hsb" styleName="fixedThumbSize" value="false"  />
+            <SetProperty    target="hsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+            <SetProperty    target="hsb" propertyName="width"  value="300" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="hsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="300" localY="5" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="hsb" />
+            <AssertPropertyValue target="hsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="hsb.thumb" />
+                <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="hsb.thumb" />
+            <DispatchMouseEvent target="hsb" localX="280" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="hsb" />
+            <DispatchMouseEvent target="hsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="hsb.thumb" />
+            <AssertEvent target="hsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="hsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="HScrollBar_properties_layoutDirection_RTL" keywords="[HScrollBar,property,Mirroring]" description="Ensure that thumb is positioned far right when layoutDirection=RTL">
+            <setup>
+                <ResetComponent target="hsb" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+                <SetProperty propertyName="layoutDirection" value="rtl" target="hsb" waitEvent="updateComplete" waitTarget="hsb" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=convertXY().x" value="53" />
+                <AssertMethodValue method="value=convertXY().y" value="0" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+
+</UnitTester>

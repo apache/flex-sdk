@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichText/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="RichText_StatesIntegration.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </fx:Script>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+    <![CDATA[
+        import mx.core.FlexGlobals;
+
+        use namespace mx_internal;
+    ]]>
+    </fx:Script>
+
+    <testCases>
+
+
+<TestCase testID="RichText_state1" keywords="[States]" description="">
+     <setup>
+         <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+     </setup>
+     <body>
+        <SetProperty target="{FlexGlobals.topLevelApplication}" propertyName="currentState" value="state1" waitTarget="{FlexGlobals.topLevelApplication}" waitEvent="currentStateChange" />
+
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="gr" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="RichText_defaultState" keywords="[States]" description="">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+     </setup>
+    <body>
+         <CompareBitmap url="../Integration/baselines/$testID.png" target="gr" />
+    </body>
+</TestCase>
+
+<TestCase testID="RichText_state2" keywords="[States]" description="Check the button's label in state1.">
+    <setup>
+        <RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{FlexGlobals.topLevelApplication}" propertyName="currentState" value="state2" waitTarget="{FlexGlobals.topLevelApplication}" waitEvent="currentStateChange" />
+
+        <CompareBitmap url="../Integration/baselines/$testID.png" target="gr" />
+    </body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

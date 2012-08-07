@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/Group/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="GroupBasic.mxml">
+
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+      import mx.core.ClassFactory;
+	  import spark.components.Group;
+	  import mx.graphics.*;
+	  import flash.display.BlendMode;
+
+	]]>
+  </fx:Script>
+  <testCases>
+
+<!-- blendMode property
+
++ check that the default value 
++ test a transparent group (SDK-16167)
++ visual checks on all of the BlendMode values:
+	BlendMode.NORMAL
+	BlendMode.LAYER
+	BlendMode.MULTIPLY
+	BlendMode.SCREEN
+	BlendMode.LIGHTEN
+	BlendMode.DARKEN
+	BlendMode.DIFFERENCE
+	BlendMode.ADD
+	BlendMode.SUBTRACT
+	BlendMode.INVERT
+	BlendMode.ALPHA
+	BlendMode.ERASE
+	BlendMode.OVERLAY
+	BlendMode.HARDLIGHT
+
+
+
+-->
+
+    <TestCase testID="Group_property_blendMode_default" keywords="[Group, property, blendMode]" description="check default">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+    	</setup>
+    	<body>
+	        <AssertPropertyValue target="group1" propertyName="blendMode" valueExpression="value='auto'" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_property_blendMode_transparency" keywords="[Group, property, transparency]" description="check default blendmode works on translucent items">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="alpha" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="blendMode" value="layer" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.addCustomRect(application.group1, 50, 50, 0xFF0000,  0,  0)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.addCustomRect(application.group1, 50, 50, 0xFF0000, 25, 25)" waitEvent="updateComplete" waitTarget="group1" />
+    	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_transparency.png" target="group1" timeout="2000" />
+	        <AssertPropertyValue target="group1" propertyName="blendMode" valueExpression="value=BlendMode.LAYER" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_normal" keywords="[Group, property, normal]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('normal');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_normal.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_layer" keywords="[Group, property, layer]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('layer');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_layer.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_multiply" keywords="[Group, property, multiply]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('multiply');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_multiply.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_screen" keywords="[Group, property, screen]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('screen');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_screen.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_lighten" keywords="[Group, property, lighten]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('lighten');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_lighten.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_darken" keywords="[Group, property, darken]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('darken');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_darken.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_difference" keywords="[Group, property, difference]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('difference');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_difference.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_add" keywords="[Group, property, add]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('add');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_add.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_subtract" keywords="[Group, property, subtract]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('subtract');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_subtract.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_invert" keywords="[Group, property, invert]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('invert');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_invert.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_alpha" keywords="[Group, property, alpha]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('alpha');" />
+			<Pause timeout="200" />
+	   	</setup>
+    	<body>
+			 <AssertPixelValue target="group1" x="29" y="29" valueExpression="value=NaN" />
+			 <AssertPixelValue target="group1" x="48" y="29" valueExpression="value=NaN" />
+			 <AssertPixelValue target="group1" x="29" y="48" valueExpression="value=NaN" />
+			 <AssertPixelValue target="group1" x="48" y="48" valueExpression="value=NaN" />
+
+			 <AssertPixelValue target="group1" x="28" y="28" value="0x333431" />
+			 <AssertPixelValue target="group1" x="49" y="28" value="0xE4CA4A" />
+			 <AssertPixelValue target="group1" x="28" y="49" value="0x719316" />
+			 <AssertPixelValue target="group1" x="49" y="49" value="0xE3C947" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_erase" keywords="[Group, property, erase]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('erase');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			 <AssertPixelValue target="group1" x="29" y="29" valueExpression="value=NaN" />
+			 <AssertPixelValue target="group1" x="48" y="29" valueExpression="value=NaN" />
+			 <AssertPixelValue target="group1" x="29" y="48" valueExpression="value=NaN" />
+			 <AssertPixelValue target="group1" x="48" y="48" valueExpression="value=NaN" />
+
+			 <AssertPixelValue target="group1" x="28" y="28" value="0x333431" />
+			 <AssertPixelValue target="group1" x="49" y="28" value="0xE4CA4A" />
+			 <AssertPixelValue target="group1" x="28" y="49" value="0x719316" />
+			 <AssertPixelValue target="group1" x="49" y="49" value="0xE3C947" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_overlay" keywords="[Group, property, overlay]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('overlay');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_overlay.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="Group_property_blendMode_hardlight" keywords="[Group, property, hardlight]" description="check each blend mode value">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createBlendedGroup('hardlight');" />
+			<Pause timeout="100" />
+	   	</setup>
+    	<body>
+			<CompareBitmap url="../properties/baselines/group_property_blendMode_hardlight.png" target="group1" timeout="2000" />
+		</body>
+    </TestCase>
+
+  </testCases>
+</UnitTester>

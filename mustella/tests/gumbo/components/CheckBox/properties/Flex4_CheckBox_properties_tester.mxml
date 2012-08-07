@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/CheckBox/properties/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="Flex4_CheckBox_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            import spark.components.CheckBox;
+            import mx.core.FlexGlobals;
+        ]]>
+    </fx:Script>
+
+    <fx:Style>
+        .myStyle{
+            color: #FF0000
+        }
+        .myStyle2{
+            color: #0000FF
+        }
+    </fx:Style>
+    
+    <testCases>
+
+        <TestCase testID="CheckBox_selected_property_true" description="Checks that when selected is true, the CheckBox shows it is selected" keywords="[CheckBox, selected, property]">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="myCB" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_selected_property_default" description="Checks that default selected is false for CheckBox" keywords="[CheckBox, selected, property]">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="false" target="myCB"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBox_selected_property_by_click_true" description="Checks that when clicking the CheckBox, it becomes selected" keywords="[CheckBox, selected, property]">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <DispatchMouseEvent target="myCB" localX="5" localY="5" type="rollOver" />
+                <DispatchMouseClickEvent target="myCB" localX="5" localY="5" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="true" target="myCB"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CheckBox_selected_property_by_spacebar" description="Checks that clicking the CheckBox selects it" keywords="[CheckBox, selected, property]">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myCB"/>
+                <DispatchKeyEvent keys="[SPACE]" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="true" target="myCB"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CheckBox_deselect_by_click" description="Checks that when you click a selected CheckBox, the CheckBox becomes unselected" keywords="[ToggleButton, selected, property]">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="myCB" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="myCB"/>
+                <DispatchMouseEvent target="myCB" localX="5" localY="5" type="rollOver" />
+                <DispatchMouseClickEvent target="myCB" localX="5" localY="5" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="false" target="myCB"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBox_enabled_false_select_by_click" description="Checks that when you click a disabled CheckBox, you cannot select it" keywords="[ToggleButton, selected, property]">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="myCB" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="myCB"/>
+                <RunCode code="FlexGlobals.topLevelApplication.myCB.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OVER,true,false , 5, 5));"/>
+                <RunCode code="FlexGlobals.topLevelApplication.myCB.dispatchEvent(new MouseEvent(MouseEvent.CLICK, true, false, 5, 5));"/>                                          
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="selected" value="false" target="myCB"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_focusRing" keywords="[CheckBox, focus, ring]" description="Focus ring should only appear around the checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>              
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_focusEnabled_false" keywords="[CheckBox, focusEnabled, focus, ring]" description="FxCheckBox focus ring should not appear">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>              
+                <SetProperty target="myCB" propertyName="focusEnabled" value="false"/>
+                <DispatchKeyEvent key="TAB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue propertyName="focusEnabled" value="false" target="myCB"/>
+                <CompareBitmap url="../properties/baselines/$testID_1.png" target="box1"/>
+                <SetProperty target="myCB" propertyName="focusEnabled" value="true"/>
+                <AssertPropertyValue propertyName="focusEnabled" value="true" target="myCB"/>
+                <DispatchKeyEvent keys="[TAB,TAB,TAB,TAB,TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="myCB" />
+                <CompareBitmap url="../properties/baselines/$testID_2.png" target="box1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_focusRing_scaleX_scaleY" keywords="[CheckBox, focus, ring]" description="Focus ring should only appear around the checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="scaleX" value="2"/>
+                <SetProperty target="myCB" propertyName="scaleY" value="2" waitEvent="updateComplete" waitTarget="myCB"/>               
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_label" keywords="[CheckBox, label]" description="Label should appear right of checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB.skin"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_label_scaleX" keywords="[CheckBox, label]" description="Label should appear right of checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="scaleX" value="2"/>
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB.skin"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_label_scaleX_focus" keywords="[CheckBox, label]" description="Label should appear right of checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="scaleX" value="2"/>
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB.skin"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_label_scaleY" keywords="[CheckBox, label]" description="Label should appear right of checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="scaleY" value="2"/>
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB.skin"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_label_scaleY_focus" keywords="[CheckBox, label]" description="Label should appear right of checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="scaleY" value="2"/>
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB.skin"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+    
+        <TestCase testID="CheckBox_label_scaleZ" keywords="[CheckBox, label]" description="Label should appear right of checkbox">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="scaleZ" value="4"/>
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB.skin"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB" numColorVariances="15" maxColorVariance="10"/>
+            </body>
+        </TestCase>     
+
+        <TestCase testID="CheckBox_styleName" keywords="[FxCheckBox, CheckBox, styleName, property]" description="Label color should be red">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="styleName" value="myStyle"/>
+                <SetProperty target="myCB" propertyName="label" value="styleName CheckBox" waitTarget="myCB" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="CheckBox_toolTip" keywords="[FxCheckBox, CheckBox, toolTip, property]" description="Ensure the toolTip property gets set">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="toolTip" value="FxCheckBox tool tip" waitEvent="toolTipChanged" waitTarget="myCB"/>
+                <DispatchMouseEvent target="myCB" localX="5" localY="5" type="rollOver"/>                   
+                <DispatchMouseEvent target="myCB" localX="5" localY="5" type="mouseOver" waitEvent="toolTipShow" waitTarget="myCB"/>    
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CheckBox_visibleDefault" keywords="[FxCheckBox, CheckBox, visible, property]" description="FxCheckBox should not be visible">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>              
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="visible" value="true"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>         
+
+        <TestCase testID="CheckBox_visibleFalse" keywords="[FxCheckBox, CheckBox, visible, property]" description="FxCheckBox should not be visible">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="visible" value="false"/>               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="visible" value="false"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB"/>
+            </body>
+        </TestCase>                 
+
+        <TestCase testID="CheckBox_default_x_y_Position" keywords="[FxCheckBox, CheckBox, x, y, default, property]" description="FxCheckBox should have 5,5">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="Label" waitEvent="updateComplete" waitTarget="myCB"/>                        
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="x" value="5"/>
+                <AssertPropertyValue target="myCB" propertyName="y" value="5"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_xPosition" keywords="[FxCheckBox, CheckBox, x, property]" description="FxCheckBox should be at x coordinate">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="x 25" waitEvent="updateComplete" waitTarget="myCB"/>     
+                <SetProperty target="myCB" propertyName="x" value="25" waitEvent="updateComplete" waitTarget="myCB"/>               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="x" value="25"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CheckBox_xPosition2" keywords="[FxCheckBox, CheckBox, x, property]" description="FxCheckBox should be at x coordinate">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="x -5" waitEvent="updateComplete" waitTarget="myCB"/>     
+                <SetProperty target="myCB" propertyName="x" value="-5" waitEvent="updateComplete" waitTarget="myCB"/>               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="x" value="-5"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>     
+
+        <TestCase testID="CheckBox_yPosition" keywords="[FxCheckBox, CheckBox, y, property]" description="FxCheckBox should be at y coordinate">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="y 25" waitEvent="updateComplete" waitTarget="myCB"/>     
+                <SetProperty target="myCB" propertyName="y" value="25" waitEvent="updateComplete" waitTarget="myCB"/>               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="y" value="25"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="CheckBox_yPosition2" keywords="[FxCheckBox, CheckBox, y, property]" description="FxCheckBox should be at y coordinate">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="y -5" waitEvent="updateComplete" waitTarget="myCB"/>     
+                <SetProperty target="myCB" propertyName="y" value="-5" waitEvent="updateComplete" waitTarget="myCB"/>               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="y" value="-5"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>             
+
+        <TestCase testID="CheckBox_x_y_Position" keywords="[FxCheckBox, CheckBox, x, property]" description="FxCheckBox should be at x and y coordinates">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value=" x y 25" waitEvent="updateComplete" waitTarget="myCB"/>      
+                <SetProperty target="myCB" propertyName="x" value="25" waitEvent="updateComplete" waitTarget="myCB"/>               
+                <SetProperty target="myCB" propertyName="y" value="25" waitEvent="updateComplete" waitTarget="myCB"/>               
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="x" value="25"/>
+                <AssertPropertyValue target="myCB" propertyName="y" value="25"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+            </body>
+        </TestCase>             
+
+        <TestCase testID="CheckBox_xRotation" keywords="[FxCheckBox, CheckBox, rotationX]" description="FxCheckBox should be rotated to x=45">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="rotation x 45" waitEvent="updateComplete" waitTarget="myCB"/>        
+                <SetProperty target="myCB" propertyName="rotationX" value="45" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="rotationX" value="45"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="5" maxColorVariance="10" />
+                <SetProperty target="myCB" propertyName="rotationX" value="0" waitEvent="updateComplete" waitTarget="myCB"/>
+            </body>
+        </TestCase>         
+
+        <TestCase testID="CheckBox_zRotation" keywords="[FxCheckBox, CheckBox, rotationY]" description="FxCheckBox should be rotated to y=45">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="rotation y 45" waitEvent="updateComplete" waitTarget="myCB"/>    
+                <SetProperty target="myCB" propertyName="x" value="30" />               
+                <SetProperty target="myCB" propertyName="y" value="30" />               
+                <SetProperty target="myCB" propertyName="rotationZ" value="45" waitEvent="updateComplete" waitTarget="myCB" />  
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="rotationZ" value="45"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+                <SetProperty target="myCB" propertyName="rotationZ" value="0" waitEvent="updateComplete" waitTarget="myCB" />
+            </body>
+        </TestCase>     
+
+        <TestCase testID="CheckBox_yRotation" keywords="[FxCheckBox, CheckBox, rotationY]" description="FxCheckBox should be rotated to y=45">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="rotation y 45" waitEvent="updateComplete" waitTarget="myCB"/>    
+                <SetProperty target="myCB" propertyName="x" value="30" />               
+                <SetProperty target="myCB" propertyName="y" value="30" />               
+                <SetProperty target="myCB" propertyName="rotationY" value="45" waitEvent="updateComplete" waitTarget="myCB" />  
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="rotationY" value="45"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1" numColorVariances="4" maxColorVariance="10" />
+                <SetProperty target="myCB" propertyName="rotationY" value="0" waitEvent="updateComplete" waitTarget="myCB" />
+            </body>
+        </TestCase>         
+
+        <TestCase testID="CheckBox_Rotation" keywords="[FxCheckBox, CheckBox, rotation]" description="FxCheckBox should be rotated to 45">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="label" value="rotation 45" waitEvent="updateComplete" waitTarget="myCB"/>      
+                <SetProperty target="myCB" propertyName="rotation" value="45" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myCB" propertyName="rotation" value="45"/>             
+                <CompareBitmap url="../properties/baselines/$testID.png" target="box1"/>
+                <SetProperty target="myCB" propertyName="rotation" value="0" waitEvent="updateComplete" waitTarget="myCB"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="CheckBox_skinned" keywords="[FxCheckBox, CheckBox, Skin]" description="FxCheckBox skin should be visible">
+            <setup>
+                <ResetComponent target="myCB_skinned" className="comps.mySkinComp" waitEvent="updateComplete" waitTarget="myCB_skinned"/>
+            </setup>
+            <body>                          
+                <CompareBitmap url="../properties/baselines/$testID_1.png" target="myCB_skinned"/>
+                <DispatchMouseClickEvent target="myCB_skinned" stageX="167" stageY="150" waitEvent="updateComplete" waitTarget="myCB_skinned"/>
+                <CompareBitmap url="../properties/baselines/$testID_2.png" target="myCB_skinned"/>
+            </body>
+        </TestCase>     
+
+        <TestCase testID="CheckBox_click" keywords="[FxCheckBox, CheckBox, Click, Selected]" description="Verify that selected property can be checked upon mouse click">
+            <setup>
+                <ResetComponent target="myCB3" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB3"/>
+                <SetProperty target="myCB3" propertyName="label" value="myCB3" waitEvent="updateComplete" waitTarget="myCB3"/>      
+            </setup>
+            <body>                                          
+                <CompareBitmap url="../properties/baselines/$testID_1.png" target="myCB3"/>
+                <DispatchMouseClickEvent target="myCB3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="myCB3"/>
+                <CompareBitmap url="../properties/baselines/$testID_2.png" target="myCB3"/>
+                <DispatchMouseClickEvent target="myCB3" localX="5" localY="5" waitEvent="updateComplete" waitTarget="myCB3"/>
+                <CompareBitmap url="../properties/baselines/$testID_3.png" target="myCB3"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="CheckBox_baseline1" keywords="[FxCheckBox, CheckBox, baseline]" description="Verify that the baseline property works on CheckBox">
+            <setup>
+                <ResetComponent target="myCB4" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="myCB4" propertyName="baseline" value="50"/>
+                <SetProperty target="myCB4" propertyName="label" value="CB baseline = 50" waitEvent="updateComplete"/>                      
+            </setup>
+            <body>                                          
+                <CompareBitmap url="../properties/baselines/$testID_1.png" target="myBrdGrp" numColorVariances="3" maxColorVariance="10"/>
+                <SetProperty target="myCB4" propertyName="baseline" value="25"/>
+                <SetProperty target="myCB4" propertyName="label" value="CB baseline = 25" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID_2.png" target="myBrdGrp" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="CheckBox_baseline2" keywords="[FxCheckBox, CheckBox, baseline]" description="Verify that the baseline property works on CheckBox when fontSize is changed">
+            <setup>
+                <ResetComponent target="myCB4" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="myCB4" propertyName="baseline" value="50"/>
+                <SetProperty target="myCB4" propertyName="label" value="CB baseline = 50" waitEvent="updateComplete"/>                      
+            </setup>
+            <body>                                          
+                <CompareBitmap url="../properties/baselines/$testID_1.png" target="myBrdGrp" numColorVariances="3" maxColorVariance="10"/>
+                <SetStyle target="myCB4" styleName="fontSize" value="25" waitEvent="updateComplete"/>
+                <SetProperty target="myCB4" propertyName="label" value="CB fontSize = 25" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID_2.png" target="myBrdGrp" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="CheckBox_baseline3" keywords="[FxCheckBox, CheckBox, baseline]" description="Verify that the baseline property works on CheckBox when parent container height is changed">
+            <setup>
+                <ResetComponent target="myCB4" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+                <SetProperty target="myCB4" propertyName="baseline" value="15"/>
+                <SetProperty target="myCB4" propertyName="label" value="CB baseline = 15" waitEvent="updateComplete"/>                      
+            </setup>
+            <body>                                          
+                <CompareBitmap url="../properties/baselines/$testID_1.png" target="myBrdGrp" numColorVariances="3" maxColorVariance="10"/>
+                <SetProperty target="myBorder" propertyName="height" value="50" waitEvent="updateComplete"/>                
+                <CompareBitmap url="../properties/baselines/$testID_2.png" target="myBrdGrp" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase>     
+        <TestCase testID="CheckBox_baselinePosition_preValidation" keywords="[CheckBox, baselinePosition]" description="Checkbox baselinePosition property">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" />
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" />
+            </setup>
+            <body>
+                <AssertPropertyValue value="13.35" target="myCB" propertyName="baselinePosition"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBox_baselinePosition_postValidation" keywords="[CheckBox, baselinePosition]" description="CheckBox baselinePosition property">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" />
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <AssertPropertyValue value="13.35" target="myCB" propertyName="baselinePosition"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBox_layoutDirection_rtl" keywords="[CheckBox, layoutDirection, Mirroring]" description="CheckBox layoutDirection property">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" />
+                <SetProperty target="myCB" propertyName="layoutDirection" value="rtl" />
+                <SetStyle target="myCB" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="width" value="85" />
+                <SetProperty target="myCB" propertyName="selected" value="true" />
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase>
+        <TestCase testID="CheckBox_layoutDirection_rtl_focusRing" keywords="[CheckBox, layoutDirection, Mirroring]" description="CheckBox layoutDirection property">
+            <setup>
+                <ResetComponent target="myCB" className="spark.components.CheckBox" />
+                <SetProperty target="myCB" propertyName="layoutDirection" value="rtl" />
+                <SetStyle target="myCB" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="myCB"/>
+                <SetProperty target="myCB" propertyName="width" value="85" />
+                <SetProperty target="myCB" propertyName="selected" value="true" />
+                <SetProperty target="myCB" propertyName="label" value="CheckBox Label" waitEvent="updateComplete" waitTarget="myCB"/>
+            </setup>
+            <body>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="myCB" waitEvent="focusIn" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="myCB" numColorVariances="3" maxColorVariance="10"/>
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>
+
+
+

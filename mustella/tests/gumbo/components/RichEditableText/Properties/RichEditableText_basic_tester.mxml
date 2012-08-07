@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Properties/"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="RichEditableText_Basic004.mxml"
+			xmlns="*">
+
+    <fx:Script>
+        <![CDATA[
+			import mx.core.FlexGlobals;
+			[Bindable]
+			public var simpleText:String = "1234567890123456789012345678901234567890";
+			[Bindable]
+			public var expectedText:String = "123456789012345678901234567890123456789";
+			
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+
+        ]]>
+    </fx:Script>
+
+    
+	<fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+
+
+	<fx:Declarations>
+		<s:TextFlow id="tf" fontSize="15" fontFamily="Comic Sans MS">
+			<s:p fontFamily="CourierCFF">courier [embedded]</s:p>
+			<s:p fontFamily="myArial">arial [embedded]</s:p>
+			<s:p fontFamily="Verdana">verdana [device]</s:p>
+			<s:p>comic sans ms [device]</s:p>
+		</s:TextFlow>
+	</fx:Declarations>
+	
+	<!-- ################################################################## -->
+
+	
+
+
+    <testCases>
+
+		<!-- http://bugs.adobe.com/jira/browse/SDK-20966 Spark TextArea double-deletes text when pressing the backspace or delete key -->
+		<TestCase testID="RichEditableText_backspace" description="Ensure that backspacing over text deletes one char at a time." keywords="[RichEditableText,Backspace]">
+			<setup>
+				<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+				<SetProperty propertyName="text" target="ret1" value="{simpleText}"  waitTarget="ret1" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+				<DispatchKeyEvent keys="[END]" waitTarget="ret1" />
+				<DispatchKeyEvent keys="[BACKSPACE]"  waitEvent="change" waitTarget="ret1" />
+				<AssertPropertyValue target="ret1" propertyName="text" value="{expectedText}" /> 
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_short.png" target="ret1" />
+			</body>
+		</TestCase>
+
+		
+  </testCases>
+</UnitTester>
+
+

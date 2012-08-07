@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:local="*" xmlns:comps="components.*"
+			   xmlns:spark="spark.skins.spark.*"
+			   width="800" height="800">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVeraHalo;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVeraHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVeraHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}				
+
+
+		s|DataGrid s|GridColumnHeaderGroup{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+			 fontLookup: "embeddedCFF";		
+		}
+		mx|DateField, 
+		mx|ColorPicker
+		{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVeraHalo;
+			fontLookup: "embeddedCFF";		
+		}
+  
+   		.style1
+   		{
+   			color: #990000;
+   			
+   		}
+ 		.style2
+   		{
+   			color: #990000;
+   			chromeColor: #000000; 
+   		}
+   		.style3
+   		{
+   			
+   			chromeColor: #000000;
+   			contentBackgroundColor: #FF0000;
+   		}
+   		.style4
+   		{
+   			color: #FFFFFF;
+   			chromeColor: #000000;
+   			contentBackgroundColor: #FF0000;
+   		}
+		global{
+		    fontFamily: MyVera;
+		    fontAntiAliasType: normal;
+		    kerning: "off";
+        	}
+	 		
+	</fx:Style>
+	<fx:Declarations>
+		<fx:Component id="myRowBackground">
+				<s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+					<fx:Script>
+						<![CDATA[
+							import spark.components.Grid;
+							
+							public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+							{
+								if (rowIndex >3)
+									rowBackgroundFill.color = 0x1BE01E;
+								else 
+									rowBackgroundFill.color = 0xFFFFFF;
+							}
+						]]>
+					</fx:Script>
+					
+					<s:fill>
+						<s:SolidColor id="rowBackgroundFill" />
+					</s:fill>                
+				</s:Rect>
+		</fx:Component> 
+		<fx:Component id="imageRowBackground">
+			<s:Group>
+				<s:Image id="img" width="100%" height="100%" source="@Embed('../../../../../Assets/Images/smallredrect.jpg')" />
+			</s:Group>
+		</fx:Component> 
+		<fx:Component className="MyDataGridSkin">
+			<spark:DataGridSkin>
+				<fx:Declarations>
+					<fx:Component id="rowBackground">
+						<s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+							<fx:Script>
+								<![CDATA[
+									import spark.components.Grid;
+									
+									public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+									{
+										if (rowIndex >5)
+											rowBackgroundFill.color = 0xCCCCCC;
+										else 
+											rowBackgroundFill.color = 0xFFFFFF;
+									}
+								]]>
+							</fx:Script>
+							
+							<s:fill>
+								<s:SolidColor id="rowBackgroundFill" />
+							</s:fill>                
+						</s:Rect>
+					</fx:Component>     
+					
+					<fx:Component id="caretIndicator">
+						<s:Rect>
+							<s:stroke>
+								<s:SolidColorStroke color="0xFF0000" weight="2"/>
+							</s:stroke>
+						</s:Rect>
+					</fx:Component>
+
+					<fx:Component id="selectionIndicator">
+						<s:Rect>
+							<s:fill>
+								<s:SolidColor color="0x00FF00"/>
+							</s:fill>
+						</s:Rect>
+					</fx:Component>
+					<fx:Component id="editorIndicator">
+						<s:Rect>
+							<s:fill>
+								<s:SolidColor color="0xFFFF00"/>
+							</s:fill>                
+						</s:Rect>
+					</fx:Component>     
+				</fx:Declarations>
+			</spark:DataGridSkin>    
+		</fx:Component>
+		<fx:Component className="dgTextAreaIE">
+			<s:GridItemEditor>
+				<s:TextArea id="ta" fontSize="24" editable="true"  width="100%" height="100%">
+					<fx:Script>
+						<![CDATA[
+							override public function get value():Object
+							{
+								return ta.text;            
+							}
+							
+							override public function set value(newValue:Object):void
+							{
+								ta.text = newValue.toString();
+							}                                        
+						]]>
+					</fx:Script>
+				</s:TextArea>
+			</s:GridItemEditor>
+		</fx:Component>
+		<fx:Component   className="dgPanelIE">
+			<s:GridItemEditor>
+				<s:Panel id="panel">
+					
+					<s:VGroup left="10" right="10" top="10" bottom="10">
+						<s:Label id="label" width="100%" color="blue"
+								 text="test label"/>
+						<s:TextArea id="ta" width="100" height="30"/>
+						<s:Button label="test button"/>
+					</s:VGroup>
+					
+					<fx:Script>
+						<![CDATA[
+							
+							/**
+							     *  @private
+							     */ 
+							    override public function prepare():void
+							    {
+								super.prepare();
+				
+									    }
+							
+							override public function get value():Object
+							{
+								return ta.text;         
+							}
+							
+							override public function set value(newValue:Object):void
+							{
+									ta.text = newValue.toString();
+							}       
+							override public function setFocus():void
+							{
+								ta.setFocus();
+							}
+							
+						]]>
+					</fx:Script>
+					
+				</s:Panel>
+				
+			</s:GridItemEditor>
+		</fx:Component>	
+	</fx:Declarations>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.skins.spark.DataGridSkin;
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+	<s:VGroup>
+		 
+		<comps:DataGrid_colorPicker_dateField id="dataGrid" />
+		<comps:DataGrid_rowBackground id="dataGrid2" />
+	</s:VGroup>
+	<s:VGroup id="vg">
+			 
+		<comps:DataGrid_comp_styleBasic id="dataGrid3" />
+		<comps:DataGrid_comp_styleBasic2 id="dataGrid4" />
+	</s:VGroup>
+</s:Application>

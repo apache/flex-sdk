@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Canvas  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+                width="100%" height="100%"
+    xmlns:comps="components.*" xmlns:flex="mx.components.*" >
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+            import mx.effects.EffectManager;
+
+            import mx.core.UIComponent;
+
+            private var centerX:Number;
+
+            private var centerY:Number;
+
+
+
+            // This rotation code was shamelessly ripped off from the
+
+            // Rotate effect, for rotating around an arbitrary point. Here,
+
+            // the aribtrary point is the center of the panel component.
+
+
+
+            // Set up the rotation to start from the current rotation value
+
+            private function setup(target:UIComponent):void
+
+            {
+
+                var radVal:Number = Math.PI * target.rotation / 180;
+
+                var originX:Number = target.width / 2;
+
+                var originY:Number = target.height / 2;
+
+                // Find the about point
+
+                centerX = target.x +
+
+                          originX * Math.cos(radVal) -
+
+                          originY * Math.sin(radVal);
+
+                centerY = target.y +
+
+                          originX * Math.sin(radVal) +
+
+                          originY * Math.cos(radVal);
+
+                var angleFrom:Number = target.rotation;
+
+
+
+                target.rotation = angleFrom;
+
+                radVal = Math.PI * angleFrom/180;
+
+                var originalOffsetX:Number = originX * Math.cos(radVal) -
+
+                                             originY * Math.sin(radVal);
+
+                var originalOffsetY:Number = originX * Math.sin(radVal) +
+
+                                             originY * Math.cos(radVal);
+
+
+
+                var newX:Number = centerX - originalOffsetX;
+
+                var newY:Number = centerY - originalOffsetY;
+
+                newX = Number(newX.toFixed(1)); // use a precision of 1
+
+                newY = Number(newY.toFixed(1)); // use a precision of 1
+
+                target.move(newX, newY);
+
+            }
+
+            private function rotate(angle:Number):void
+
+            {
+
+                EffectManager.suspendEventHandling();
+
+                setup(panel);
+
+
+
+                var origX:Number = panel.width / 2;
+
+                var origY:Number = panel.height / 2;
+
+
+
+                var radVal:Number = Math.PI * angle / 180;
+
+
+
+                panel.rotation = angle;
+
+
+
+                var newX:Number = centerX - origX * Math.cos(radVal) +
+
+                                  origY * Math.sin(radVal);
+
+                var newY:Number = centerY - origX * Math.sin(radVal) -
+
+                                  origY * Math.cos(radVal);
+
+
+
+                newX = Number(newX.toFixed(1)); // use a precision of 1
+
+                newY = Number(newY.toFixed(1)); // use a precision of 1
+
+
+
+                panel.move(newX, newY);
+
+                EffectManager.resumeEventHandling();
+
+            }
+
+        ]]>
+
+    </fx:Script>
+
+    <s:VScrollBar id="panelHeight" x="10" y="10" height="100"
+
+        enabled="{enabler.selected}" minimum="200" maximum="300" pageSize="10"/>
+
+    <s:HScrollBar id="panelWidth" x="25" y="110" width="100"
+
+        enabled="{enabler.selected}" minimum="250" maximum="400" pageSize="10"/>
+
+    <comps:CircularScrollBar id="cScroller" x="30" y="10"
+
+        enabled="{enabler.selected}" width="90" height="90"
+
+        pageSize="15" stepSize="5"
+
+        minimum="0" maximum="360"
+
+        valueCommit="rotate(Number(cScroller.value))"/>
+
+    <mx:CheckBox id="enabler" x="150" y="50" label="enable Scrollbars"
+
+        selected="true"/>
+
+    <mx:Panel id="panel" x="50" y="150"
+
+        width="{panelWidth.value}" height="{panelHeight.value}" >
+
+        <s:Group  id="group">
+
+        <s:layout><s:HorizontalLayout/></s:layout>
+
+        <s:VScrollBar id="f4VScroller" height="100%"
+
+            enabled="{enabler.selected}"
+
+            minimum="100" maximum="200" pageSize="20"/>
+
+        <s:VScrollBar id="f4VScrollerSkinned" styleName="vscroller"
+
+            height="100%"
+
+            enabled="{enabler.selected}"
+
+            pageSize="20" minimum="100" maximum="200"/>
+
+        <s:VScrollBar/>
+
+        <s:HScrollBar/>
+
+        </s:Group>
+
+        <s:HScrollBar id="f4HScroller" width="90%"
+
+            enabled="{enabler.selected}" minimum="1000" maximum="2000" pageSize="20"/>
+
+    </mx:Panel>
+
+
+
+</mx:Canvas>

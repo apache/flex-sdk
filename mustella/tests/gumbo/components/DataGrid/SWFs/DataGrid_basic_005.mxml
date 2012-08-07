@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:local="*" xmlns:comps="components.*"
+			   width="1200" height="800">
+	 
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+			
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVeraHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVeraHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVeraHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}				
+		.parent1 {
+			fontSize: 32;
+			color:#ff0000;
+		}
+		.child1 {
+			fontSize: 12;
+			color:#00ff00;
+			fontStyle:italic;
+			fontWeight:bold;
+			
+		}
+		.child2 {
+			fontSize: 24;
+			color:#E851E3;
+			
+		}
+		.mystyle1 {
+			fontSize: 24;
+			color:#0000ff;
+		}			           			
+		
+		s|DataGrid s|GridColumnHeaderGroup{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+           		 fontLookup: "embeddedCFF";		
+		}
+		mx|TextInput, mx|ComboBox
+		{
+		    fontFamily: MyVeraHalo;
+		    fontAntiAliasType: normal;
+		    kerning: "off";
+        	}
+
+		.style1{
+		borderColor:#00ff00;
+		contentBackgroundColor:#8DE851;
+		alternatingRowColors:#77E851,#F00AE8;
+		}
+
+		.style2{
+		alternatingRowColors:#FF0000;
+		}
+		
+		.style3{
+		direction:"rtl";
+		locale:"fr-FR";
+		}
+		.style4{
+		caretColor:#E01B3C;
+		symbolColor:#2BE01B;
+		rollOverColor:#F58122;
+		selectionColor:#6DD5E3;
+		}
+		.style5{
+		caretColor:#E09B1B;
+		symbolColor:#000000;
+		rollOverColor:#F224F2;
+		selectionColor:#24E8F2;
+		}
+		
+		global{
+		    fontFamily: MyVera;
+		    fontAntiAliasType: normal;
+		    kerning: "off";
+        	}
+	 		
+	</fx:Style>	
+	
+	<fx:Script>
+		<![CDATA[		
+		include "assets/common.as";
+		import spark.components.gridClasses.GridColumn;
+		import spark.components.gridClasses.GridItemRenderer;
+		import mx.collections.ArrayCollection;
+		import spark.components.DataGrid;
+		
+		public function setRenderOnColumnIndex(IRClassIndex:int,index:int=1):void
+		{
+			var cls:Class=getItemRender(IRClassIndex);
+			GridColumn(dataGrid.columns.getItemAt(index)).itemRenderer=new ClassFactory(cls);
+		}
+
+		public function setRenderOnColumnIndex2(dg:DataGrid, IRClassIndex:int,index:int=1):void
+		{
+			var cls:Class=getItemRender(IRClassIndex);
+			GridColumn(dg.columns.getItemAt(index)).itemRenderer=new ClassFactory(cls);
+		}
+		
+		public function getItemRender(n:int):Class
+		{
+			var IRClass:Class=dgIR1;
+			var IRClassColl:Array=[dgIR0,dgIR1,dgIR2,dgIR3,dgIR4,dgIR5,dgIR6,dgIR7,dgIR8,dgIR9,dgIR10,dgIR11,dgIR12,
+					       dgIR13,dgIR14,dgIR15];
+			if (n<0 || n>IRClassColl.length)
+				n=0;
+			return IRClassColl[n];
+			
+		}
+		public function refreshUI():void
+		{
+			ArrayCollection(dataGrid.dataProvider).refresh();
+		}
+		public function checkIR(dataGrid:DataGrid, rowIndex:int, columnIndex:int):String
+		{
+			var ir:GridItemRenderer=GridItemRenderer(dataGrid.grid.getItemRendererAt(rowIndex,columnIndex));
+			var boundsH:Number=ir.getLayoutBoundsHeight();
+			var boundsW:Number=ir.getLayoutBoundsWidth();
+			var h:Number=ir.height;
+			var w:Number=ir.width;
+			trace("boundsH="+boundsH+";boundsW="+boundsW+";direct height="+h+";direct width="+w);
+			var r2:Rectangle=dataGrid.grid.getCellBounds(rowIndex,columnIndex);
+			var h2:Number=r2.height;
+			var w2:Number=r2.width;
+			trace("cellbounds: h="+h2+";w="+w2);
+			var rh:Number=dataGrid.grid.getRowBounds(rowIndex).height;
+			var rh2:Number=dataGrid.rowHeight;
+			var cw:Number=dataGrid.grid.getColumnBounds(columnIndex).width;
+			var g2:GridColumn=GridColumn(dataGrid.columns.getItemAt(columnIndex));
+			var cw2:Number=GridColumn(dataGrid.columns.getItemAt(columnIndex)).width;
+			var errMsg:String="";
+			trace("dataGrid.rowHeight="+rh2+";columnBounds.width="+cw);
+			if (h!=h2 || w!=w2)
+				errMsg+="ItemRenderer.boundsHeight/width not expected comparing cell bounds: ("+h+","+w+");("+h2+","+w2+")"+"\n";
+
+			if (h!=rh || w!=cw)
+				errMsg+="ItemRenderer.boundsHeight/width not expected, comparing row/columnBounds("+h+","+w+");("+rh+","+cw+")"+"\n";
+
+			return errMsg;
+
+		}
+	
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:ArrayList id="column4">
+			<s:GridColumn dataField="index"/>
+			<s:GridColumn dataField="firstName"/>
+			<s:GridColumn dataField="lastName"/>
+			<s:GridColumn dataField="food"/>
+			<s:GridColumn dataField="drink"/>
+		</s:ArrayList>
+
+			<fx:Component className="dgIR13">
+				<s:DefaultGridItemRenderer fontSize="24" />
+			</fx:Component>
+			<fx:Component className="dgIR14">
+				<s:GridItemRenderer>
+					<s:Label id="labelDisplay" fontSize="24" />
+				</s:GridItemRenderer>
+			</fx:Component>
+			<fx:Component   className="dgIR15">
+				<s:GridItemRenderer showsCaret="true" styleName="parent1" selected="true" left="5" right="5">
+					<s:VGroup paddingLeft="5" paddingTop="5">
+					<s:Label text="from child1"  styleName="child1"/>
+					<s:CheckBox  label="itself" selected="true"  color="0x0000ff"/>
+					<s:Label text="from child2" styleName="child2"/>
+					<s:Label text="from parent1"/>
+					</s:VGroup>
+				</s:GridItemRenderer>
+			</fx:Component>	
+			
+		 	<fx:Component  className="dgIR0">
+				<s:GridItemRenderer>
+					<s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10" width="100%" height="100%"/> 
+				</s:GridItemRenderer>
+			</fx:Component>
+			<fx:Component className="dgIR1">
+				<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+					<s:CheckBox  id="cxb" selected="{data.firstName.indexOf('j')>=0}"    left="20"/> 
+				</s:GridItemRenderer>
+			</fx:Component>
+			<fx:Component className="dgIR1WithStyle">
+				<s:GridItemRenderer  dataChange="dataChangeHandler(event);" showsCaret="true"  selected="true" left="5" right="5">
+					<fx:Script>
+						<![CDATA[
+							import mx.events.FlexEvent;
+						
+							protected function dataChangeHandler(evt:FlexEvent):void {
+							
+									setStyle("symbolColor", "blue");
+									setStyle("rollOverColor", "green");
+									setStyle("selectionColor", "red");
+									trace("update style");
+							}
+						]]>
+					</fx:Script>
+					<s:CheckBox  id="cxb" selected="{data.firstName.indexOf('j')>=0}"    left="20"/> 
+				</s:GridItemRenderer>
+			</fx:Component>
+		<fx:Component className="dgIR2"><!-- data.imageURL "@Embed('ks10726.jpg')" -->
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:Image id="image" source="@Embed('../../../../../Assets/Images/smallorangerect.jpg')"   width="100%" height="100%" /> 
+			</s:GridItemRenderer>
+		</fx:Component>
+
+		<fx:Component  className="dgIR3">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+			<mx:ComboBox id="cb1" width="100%" height="100%" prompt="choose" change="data.firstName=cb1.selectedLabel;">
+				<mx:dataProvider>
+					<mx:ArrayCollection>
+						<fx:String>ProductD</fx:String>
+						<fx:String>ProductP</fx:String>
+						<fx:String>ProductF</fx:String>
+						<fx:String>ProductT</fx:String>
+						<fx:String>ProductC</fx:String>
+					</mx:ArrayCollection>
+				</mx:dataProvider>
+			</mx:ComboBox>
+			</s:GridItemRenderer>
+		</fx:Component>
+		
+		<fx:Component  className="dgIR4">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:Button id="btn" label="{data.drink}" width="100%" height="100%"/> 
+			</s:GridItemRenderer>
+		</fx:Component>
+	
+		<fx:Component className="dgIR5">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:NumericStepper  id="ns" minimum="0" maximum="100" value="{data.numberValue}" width="100%" height="100%"/> 
+			</s:GridItemRenderer>
+		</fx:Component>
+		
+		<fx:Component   className="dgIR6">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:HSlider id="hs" minimum="0" maximum="100" value="{data.numberValue}" minWidth="0" width="100%" height="100%"/> 
+			</s:GridItemRenderer>
+		</fx:Component>
+	
+		<fx:Component  className="dgIR7">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:TextInput id="ti" text="{data.firstName}" width="100%" height="100%"/> 
+			</s:GridItemRenderer>
+		</fx:Component>
+		
+		<fx:Component  className="dgIR8">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:TextArea id="ta" text="{data.lastName}" width="100%" height="100%"/> 
+			</s:GridItemRenderer>
+		</fx:Component>
+		<!-- dateField -->
+		<fx:Component  className="dgIR9">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:DateField id="df" width="100%" height="100%" selectedDate="{new Date(2010,8,10)}"/>
+			</s:GridItemRenderer>
+		</fx:Component>
+
+		<!-- colorPicker -->
+		<fx:Component   className="dgIR10">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:ColorPicker id="cp" width="100%" height="100%" selectedColor="0x9933FF"/>
+			</s:GridItemRenderer>
+		</fx:Component>
+
+		<!-- popupButton -->
+		<fx:Component  className="dgIR11">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:PopUpButton id="pb" label="select a destination: " width="100%" height="100%">
+					<mx:popUp >
+						<mx:List selectedIndex="1">
+							<mx:dataProvider>
+								<fx:Array>
+									<fx:Object label="Italy" data="icon11"/>
+									<fx:Object label="Japan" data="icon12"/>
+									<fx:Object label="Ireland" data="icon13"/>
+								</fx:Array>
+							</mx:dataProvider>
+						</mx:List>
+					</mx:popUp>
+				</mx:PopUpButton>
+			</s:GridItemRenderer>
+		</fx:Component>
+		<!-- with contentBackgroundColor, borderColor set -->
+		<fx:Component  className="dgIR12">
+			<s:GridItemRenderer   showsCaret="true"  selected="true" left="5" right="5">
+				<mx:TextInput text="{data.firstName}" width="100%" height="100%" contentBackgroundColor="0x9999ff"  borderColor="0x00ff00"/> 
+			</s:GridItemRenderer>
+		</fx:Component>
+		<fx:Component  className="dgIE01">
+			<s:GridItemEditor  >
+				<s:ComboBox id="cb1" width="100%" height="100%" prompt="choose" >
+					<s:dataProvider>
+						<s:ArrayCollection>
+							<fx:String>ProductD</fx:String>
+							<fx:String>ProductP</fx:String>
+							<fx:String>ProductF</fx:String>
+							<fx:String>ProductT</fx:String>
+							<fx:String>ProductC</fx:String>
+						</s:ArrayCollection>
+					</s:dataProvider>
+				</s:ComboBox>
+			</s:GridItemEditor>
+		</fx:Component>
+ 	<fx:Component id="MyRowBackGround">
+            <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.dataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            if ((rowIndex % 2)==0)
+                            {
+                                rowBackgroundFillColor.color = 0xFF0000;
+                            }
+                            else
+                            {          
+                                rowBackgroundFillColor.color = 0x00FF00;
+                            }
+                        }
+                    ]]>
+                </fx:Script>  
+                <s:fill>
+                    <s:SolidColor id="rowBackgroundFillColor" color="0x00FF00"/>
+                </s:fill>
+            </s:Rect>
+        </fx:Component>
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:HGroup id="hg1">
+		<comps:DataGrid_comp4	id="dataGrid" />
+		<s:VGroup id="vg1" paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10">
+			<comps:DataGrid_comp5	id="dataGrid2" />
+		</s:VGroup>
+	</s:HGroup>
+	
+	<s:HGroup>
+		<comps:DataGrid_size1	id="dg_default" />
+		<comps:DataGrid_size2	id="dataGrid3" />
+		<comps:DataGrid_comp6	id="dataGrid4"/>
+	</s:HGroup>
+	
+	
+	<s:HGroup><!-- with requestedRows/columns set -->
+		<comps:DataGrid_size5	id="dataGrid5"  />
+		<comps:DataGrid_size52	id="dataGrid52"  />
+		<comps:DataGrid_size6	id="dataGrid6"  />
+	</s:HGroup>
+	
+	<s:HGroup>
+		<comps:DataGrid_TypicalItem_comp2 id="dataGrid7"/>
+		<comps:DataGrid_TypicalItem_comp1 id="dataGrid8" />
+	</s:HGroup>
+	<s:HGroup>
+		<comps:DataGrid_TypicalItem_comp3 id="dataGrid9"/>
+		<comps:DataGrid_TypicalItem_comp4 id="dataGrid10" />
+	</s:HGroup>
+	<s:HGroup>
+		<comps:DataGrid_size7 id="dataGrid11"/>
+		<comps:DataGrid_size3 id="dataGrid12"/>
+	</s:HGroup>
+
+	
+</s:Application>

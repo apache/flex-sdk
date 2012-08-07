@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" height="600">
+	<fx:Script>
+	<![CDATA[
+			[Embed(source="assets/check48x48.png")]
+			[Bindable]
+			public var CheckClassPNG:Class;
+
+			[Embed(source="assets/pencil48x48.png")]
+			[Bindable]
+			public var PencilClassPNG:Class;
+
+			[Embed(source="assets/trash48x48.png")]
+			[Bindable]
+			public var TrashClassPNG:Class;
+	]]>
+	</fx:Script>
+	
+ 	<fx:Style>
+			@namespace s "library://ns.adobe.com/flex/spark";
+			@namespace mx "library://ns.adobe.com/flex/mx";
+	
+			@font-face{
+				src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+				fontFamily: myArial;
+				embedAsCFF: true;
+			}
+	
+	
+			@font-face{
+				src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+				fontWeight: bold;
+				fontFamily: myArial;
+				embedAsCFF: true;
+			}
+	
+			@font-face{
+				src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+				fontStyle: italic;
+				fontFamily: myArial;
+				embedAsCFF: true;
+	
+			}
+	
+			global{
+				fontAntiAliasType: "normal";
+				fontFamily: myArial;
+				fontSize: 12;
+	            fontLookup: "embeddedCFF";
+			}
+	
+	</fx:Style>
+ 	
+	<fx:Declarations>
+		<s:ArrayCollection id="ac1">
+			<fx:Object theData="checkpng" theIcon="{CheckClassPNG}" />						
+			<fx:Object theData="pencilpng" theIcon="{PencilClassPNG}" />
+			<fx:Object theData="trashpng" theIcon="{TrashClassPNG}" />
+		</s:ArrayCollection>	
+	</fx:Declarations>
+	
+ 	<s:VGroup x="20" y="20" gap="20">
+		<s:HGroup>
+			<s:CheckBox label="Disabled" id="cb" />
+		</s:HGroup>
+		<s:Rect width="500" height="1">
+			<s:fill>
+				<mx:SolidColor color="0x666666" />
+			</s:fill>
+		</s:Rect>
+		<s:HGroup gap="12">
+			<s:VGroup width="200">
+				<s:Button id="btn" label="Button" enabled="{!cb.selected}" />
+				<s:ToggleButton id="togBtn" label="Toggle Button" enabled="{!cb.selected}" />
+				<s:CheckBox id="ckBox" label="Check Box" enabled="{!cb.selected}" />
+				<s:RadioButton id="radBtn" label="RadioButton" enabled="{!cb.selected}" />
+				<s:HSlider id="hslide" enabled="{!cb.selected}" />			
+				<s:HScrollBar id="hscroll" enabled="{!cb.selected}" />
+				<s:NumericStepper id="ns" enabled="{!cb.selected}" />
+				<s:Spinner id="spin" enabled="{!cb.selected}" />
+				<s:TextInput id="ti" height="24" text="Text Input" enabled="{!cb.selected}" />
+				<s:TextArea id="ta" height="155" text="Text Area" enabled="{!cb.selected}" />				
+			</s:VGroup>
+			<s:VSlider id="vslide" enabled="{!cb.selected}" />
+			<s:VScrollBar id="vscroll" enabled="{!cb.selected}" />
+			<s:List id="myList" enabled="{!cb.selected}">
+				<mx:ArrayCollection>
+					<fx:String>1. Alabama</fx:String>
+					<fx:String>2. Alaska</fx:String>
+					<fx:String>3. Arizona</fx:String>
+					<fx:String>4. Arkansas</fx:String>
+					<fx:String>5. California is the best state in the union</fx:String>
+				</mx:ArrayCollection>
+			</s:List>													
+		</s:HGroup>
+		<s:ButtonBar width="280" height="42"
+		     id="buttonbar1" dataProvider="{new ArrayCollection(['Holiday', 'Snow', 'Kwanza', 'Snowman'])}" />		
+		<s:TabBar width="280" height="42"
+		     id="tabbar1" />		
+		<s:DropDownList id="myDDL" enabled="{!cb.selected}" prompt="DropDownList">
+			<mx:ArrayCollection>
+				<fx:String>One</fx:String>
+				<fx:String>Two</fx:String>
+				<fx:String>Three</fx:String>
+				<fx:String>Four</fx:String>
+				<fx:String>Five with a really long item</fx:String>
+			</mx:ArrayCollection>
+		</s:DropDownList>		     
+	</s:VGroup>
+</s:Application>

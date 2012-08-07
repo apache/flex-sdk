@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/HaloIntegration/integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="HaloIntegration_main.mxml">
+
+
+
+        <!-- this set of lines form a template that must be in each unit test -->
+
+        <fx:Script>
+
+            <![CDATA[
+
+                  public static function init(o:DisplayObject):void {}
+
+            ]]>
+
+        </fx:Script>
+
+        <fx:Metadata>
+
+            <![CDATA[
+
+               [Mixin]
+
+            ]]>
+
+        </fx:Metadata>
+
+        <!-- end of set of lines that must be in each unit test -->
+
+
+
+	<testCases>
+
+		<!--We just care that these don't RTE with SystemManager-->		
+
+		<TestCase testID="PopUpMenuButton_open_close_HaloAndGumbo" keywords="[PopUpMenuButton, HaloAndGumbo]" description="Verify Halo component in Gumbo Application does not RTE">
+			<body>
+				<Pause timeout="1000"/>
+				<DispatchMouseClickEvent target="pmb" localY="8" localX="48"/>				
+				<DispatchMouseClickEvent target="" stageX="45" stageY="53"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PopUpButton_open_close_HaloAndGumbo" keywords="[PopUpButton, HaloAndGumbo]" description="Verify Halo component in Gumbo Application does not RTE">
+			<body>
+				<Pause timeout="1000"/>
+				<DispatchMouseClickEvent target="pub" localY="9" localX="47"/>
+				<DispatchMouseClickEvent target="pub" localY="9" localX="47"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_open_close_HaloAndGumbo" keywords="[ComboBox, HaloAndGumbo]" description="Verify Halo component in Gumbo Application does not RTE">
+			<body>
+				<Pause timeout="1000"/>				
+				<RunCode code="application.cb.open()" />
+				<DispatchMouseClickEvent target="" stageX="46" stageY="137"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="MenuBar_open_close_HaloAndGumbo" keywords="[MenuBar, HaloAndGumbo]" description="Verify Halo component in Gumbo Application does not RTE">
+			<body>
+				<Pause timeout="1000"/>				
+				<DispatchMouseClickEvent target="mb" localX="33" localY="8"/>
+				<DispatchMouseClickEvent target="" stageX="36" stageY="117"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ColorPicker_open_close_HaloAndGumbo" keywords="[ColorPicker, HaloAndGumbo]" description="Verify Halo component in Gumbo Application does not RTE">
+			<setup>
+				<Pause timeout="1000"/>				
+				<ResetComponent target="cp" className="mx.controls.ColorPicker" waitEvent="updateComplete" waitTarget="cp"/>
+			</setup>
+			<body>
+				<RunCode code="application.cp.open()" />
+				<DispatchMouseClickEvent target="cp" localY="15" localX="11"/>
+			</body>
+		</TestCase>	
+
+	</testCases>
+
+</UnitTester>

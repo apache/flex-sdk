@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_IRColWidths.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Properties_IR_WidthAll100" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_all100" className="components.basicDG_IRColWidthAll100" waitEvent="enterFrame" waitTarget="stage"/>	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_all100" propertyName="width" value="616"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthAll100Height" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_all100" className="components.basicDG_IRColWidthAll100" waitEvent="enterFrame" waitTarget="stage"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_all100" propertyName="height" value="159"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR_ExpWidthChangeRunTime1" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_all100" className="components.basicDG_IRColWidthAll100" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myDG_all100.c1_1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_all100" propertyName="width" value="716"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR_ExpWidthRemoveColumn" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_all100" className="components.basicDG_IRColWidthAll100" waitEvent="enterFrame" waitTarget="stage"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_all100.columns1.removeItemAt(2);" waitEvent="enterFrame" waitTarget="stage"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_all100.columns1.removeItemAt(2);" waitEvent="enterFrame" waitTarget="stage"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_all100" propertyName="width" value="416"/>				
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_IR_WidthOne75" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_one75" className="components.basicDG_IRColWidthOne75" waitEvent="enterFrame" waitTarget="stage"/>					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="289"/>								
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthOne75Height" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_one75" className="components.basicDG_IRColWidthOne75" waitEvent="enterFrame" waitTarget="stage"/>		
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_one75" propertyName="height" value="105"/>								
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthOne75ChangeRunTime" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_one75" className="components.basicDG_IRColWidthOne75" waitEvent="enterFrame" waitTarget="stage"/>	
+				<SetProperty target="myDG_one75.c1_1" propertyName="width" value="150" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="364"/>								
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthOne75RemoveColumn" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_one75" className="components.basicDG_IRColWidthOne75" waitEvent="enterFrame" waitTarget="stage"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>							
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="289"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_one75.columns1.removeItemAt(0);" waitEvent="enterFrame" waitTarget="stage"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>			
+				<AssertPropertyValue target="myDG_one75" propertyName="width" value="214"/>								
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthMultiWidth" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_mult" className="components.basicDG_IRColWidthMult" waitEvent="enterFrame" waitTarget="stage"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_mult" propertyName="width" value="516"/>								
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthMultiWidthHeight" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_mult" className="components.basicDG_IRColWidthMult" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_mult" propertyName="height" value="114"/>								
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthMultiSetChangeRunTime" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_mult" className="components.basicDG_IRColWidthMult" waitEvent="enterFrame" waitTarget="stage"/>	
+				<SetProperty target="myDG_mult.c1_5" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myDG_mult"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_mult" propertyName="width" value="566"/>								
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_IR_WidthMultiWidthRemoveColumn" keywords="[DataGrid, Property, column]" description="Test setting all IR widths to 100 on DataGrid">			
+			<setup>
+				<ResetComponent target="myDG_mult" className="components.basicDG_IRColWidthMult" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_mult.columns1.removeItemAt(5);" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDG_mult.columns1.removeItemAt(0);" waitEvent="enterFrame" waitTarget="stage"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myDG_mult" propertyName="width" value="416"/>								
+			</body>
+		</TestCase>			
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp2_states.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test TileLayout and states.
+========================================================
+-->
+
+<TestCase testID="integration_states_test1a" keywords="[TileLayout,States]" description="Some of the Group's items are included in state1, others in state2, and one always present." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state1a" waitTarget="group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test1b" keywords="[TileLayout,States]" description="Some of the Group's items are included in state1, others in state2, and one always present." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state1b" waitTarget="group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test1c" keywords="[TileLayout,States]" description="Some of the Group's items are included in state1, others in state2, and one always present." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state1b" waitTarget="group1" waitEvent="updateComplete" />
+        <SetProperty target="{application}" propertyName="currentState" value="state1a" waitTarget="group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test2a" keywords="[TileLayout,States]" description="Use states to point to a dataProvider with fewer items." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state2a" waitTarget="group2" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test2b" keywords="[TileLayout,States]" description="Use states to point to a dataProvider with fewer items." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state2b" waitTarget="group2" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test3a" keywords="[TileLayout,States]" description="Use states to point to a dataProvider with more items." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state3a" waitTarget="group3" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test3b" keywords="[TileLayout,States]" description="Use states to point to a dataProvider with more items." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state3b" waitTarget="group3" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test4a" keywords="[TileLayout,States]" description="Use a dataProvider containing items which are only present in state2. State1." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state4a" waitTarget="group4" waitEvent="updateComplete" />
+        <AssertPropertyValue target="group4" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test4b" keywords="[TileLayout,States]" description="Use a dataProvider containing items which are only present in state2. State2." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state4b" waitTarget="group4" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test5a" keywords="[TileLayout,States]" description="Change rowCount. State1." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state5a" waitTarget="group5" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box5" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test5b" keywords="[TileLayout,States]" description="Change rowCount. State2." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state5b" waitTarget="group5" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box5" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test6a" keywords="[TileLayout,States]" description="Change columnCount." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state6a" waitTarget="group6" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box6" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test6b" keywords="[TileLayout,States]" description="Change columnCount." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state6b" waitTarget="group6" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box6" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test7a" keywords="[TileLayout,States]" description="Change rowHeight." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state7a" waitTarget="group7" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box7" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test7b" keywords="[TileLayout,States]" description="Change rowHeight." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state7b" waitTarget="group7" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box7" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test8a" keywords="[TileLayout,States]" description="Change columnWidth." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state8a" waitTarget="group8" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box8" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test8b" keywords="[TileLayout,States]" description="Change columnWidth." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state8b" waitTarget="group8" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box8" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test9a" keywords="[TileLayout,States]" description="Change horizontalAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state9a" waitTarget="group9" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box9" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test9b" keywords="[TileLayout,States]" description="Change horizontalAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state9b" waitTarget="group9" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box9" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test10a" keywords="[TileLayout,States]" description="Change verticalAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state10a" waitTarget="group10" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box10" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test10b" keywords="[TileLayout,States]" description="Change verticalAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state10b" waitTarget="group10" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box10" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test11a" keywords="[TileLayout,States]" description="Change horizontalGap." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state11a" waitTarget="group11" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box11" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test11b" keywords="[TileLayout,States]" description="Change horizontalGap." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state11b" waitTarget="group11" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box11" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test12a" keywords="[TileLayout,States]" description="Change verticalGap." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state12a" waitTarget="group12" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box12" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test12b" keywords="[TileLayout,States]" description="Change verticalGap." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state12b" waitTarget="group12" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box12" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test13a" keywords="[TileLayout,States]" description="Change rowAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state13a" waitTarget="group13" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box13" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test13b" keywords="[TileLayout,States]" description="Change rowAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state13b" waitTarget="group13" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box13" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test14a" keywords="[TileLayout,States]" description="Change columnAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state14a" waitTarget="group14" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box14" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test14b" keywords="[TileLayout,States]" description="Change columnAlign." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state14b" waitTarget="group14" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box14" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test15a" keywords="[TileLayout,States]" description="Change orientation." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state15a" waitTarget="group15" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box15" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_states_test15b" keywords="[TileLayout,States]" description="Change orientation." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state15a" waitTarget="group15" waitEvent="updateComplete" />
+        <SetProperty target="{application}" propertyName="currentState" value="state15b" waitTarget="group15" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box15" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>
+
+

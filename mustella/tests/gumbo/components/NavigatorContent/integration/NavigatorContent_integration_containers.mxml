@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="gumbo/components/NavigatorContent/integration/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+	xmlns:assets="assets.*"
+    testSWF="NavigatorContent_Integration_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.*;           // Includes INavigatorContent, Container, FlexGlobals.
+        import mx.containers.*;     // Includes Panel, Accordion, etc...
+        import spark.components.*;  // Includes NavigatorContent.
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!-- We take a quick look at HBox and VBox to be sure we didn't break anything. -->
+
+<TestCase testID="integration_tabnav_test1" keywords="[NavigatorContent]" description="TabNav, first tab, VerticalLayout" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_tabnav_test2" keywords="[NavigatorContent]" description="TabNav, second tab, HorizontalLayout" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_tabnav_test3" keywords="[NavigatorContent]" description="TabNav, third tab, BasicLayout" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_tabnav_test4" keywords="[NavigatorContent]" description="TabNav, fourth tab, Scroller" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_tabnav_test5" keywords="[NavigatorContent]" description="TabNav, fifth tab, HBox" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1" propertyName="selectedIndex" value="4" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_tabnav_test6" keywords="[NavigatorContent]" description="TabNav, sixth tab, VBox" >
+    <setup>
+        <ResetComponent target="tn1" className="assets.TabNav1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="tn1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" />
+		<CompareBitmap target="tn1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+
+
+
+<TestCase testID="integration_acc_test1" keywords="[NavigatorContent]" description="Acc, first tab, VerticalLayout" >
+    <setup>
+        <ResetComponent target="acc1" className="assets.Accordion1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_acc_test2" keywords="[NavigatorContent]" description="Acc, second tab, HorizontalLayout" >
+    <setup>
+        <ResetComponent target="acc1" className="assets.Accordion1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="acc1" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_acc_test3" keywords="[NavigatorContent]" description="Acc, third tab, BasicLayout" >
+    <setup>
+        <ResetComponent target="acc1" className="assets.Accordion1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="acc1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_acc_test4" keywords="[NavigatorContent]" description="Acc, fourth tab, Scroller" >
+    <setup>
+        <ResetComponent target="acc1" className="assets.Accordion1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="acc1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" />
+		<Pause timeout="500"/>
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_acc_test5" keywords="[NavigatorContent]" description="Acc, fifth tab, HBox" >
+    <setup>
+        <ResetComponent target="acc1" className="assets.Accordion1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="acc1" propertyName="selectedIndex" value="4" waitEvent="updateComplete" />
+		<Pause timeout="500"/>
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_acc_test6" keywords="[NavigatorContent]" description="Acc, sixth tab, VBox" >
+    <setup>
+        <ResetComponent target="acc1" className="assets.Accordion1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="acc1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" />
+		<Pause timeout="500"/>
+		<CompareBitmap target="acc1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_viewstack_test1" keywords="[NavigatorContent]" description="ViewStack, first tab, VerticalLayout" >
+    <setup>
+        <ResetComponent target="vs1" className="assets.ViewStack1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_viewstack_test2" keywords="[NavigatorContent]" description="ViewStack, second tab, HorizontalLayout" >
+    <setup>
+        <ResetComponent target="vs1" className="assets.ViewStack1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="vs1.bb1" propertyName="selectedIndex" value="1" waitTarget="vs1.vs1" waitEvent="updateComplete" />
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_viewstack_test3" keywords="[NavigatorContent]" description="ViewStack, third tab, BasicLayout" >
+    <setup>
+        <ResetComponent target="vs1" className="assets.ViewStack1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="vs1.bb1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" />
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_viewstack_test4" keywords="[NavigatorContent]" description="ViewStack, fourth tab, Scroller" >
+    <setup>
+        <ResetComponent target="vs1" className="assets.ViewStack1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="vs1.bb1" propertyName="selectedIndex" value="3" waitTarget="vs1.vs1" waitEvent="updateComplete" />
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_viewstack_test5" keywords="[NavigatorContent]" description="ViewStack, fifth tab, HBox" >
+    <setup>
+        <ResetComponent target="vs1" className="assets.ViewStack1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="vs1.bb1" propertyName="selectedIndex" value="4"  waitTarget="vs1.vs1" waitEvent="updateComplete" />
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_viewstack_test6" keywords="[NavigatorContent]" description="ViewStack, sixth tab, VBox" >
+    <setup>
+        <ResetComponent target="vs1" className="assets.ViewStack1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<SetProperty target="vs1.bb1" propertyName="selectedIndex" value="5" waitTarget="vs1.vs1" waitEvent="updateComplete" />
+		<CompareBitmap target="vs1.vs1" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+</testCases>
+</UnitTester>

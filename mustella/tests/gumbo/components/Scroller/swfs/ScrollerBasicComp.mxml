@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<s:Application height="600" width="800"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="comps.*"
+
+    backgroundColor="0xFFFFFF" >
+
+    <s:layout> <s:HorizontalLayout/> </s:layout>
+
+        <fx:Style source="assets/myStyles.css" />
+    <fx:Script>
+
+    <![CDATA[
+    import comps.*;
+    import mx.collections.ArrayCollection;
+    import spark.skins.spark.*;
+    import spark.components.*;
+    import spark.primitives.*;
+    import spark.primitives.supportClasses.*;
+    import mx.events.FlexMouseEvent;
+
+
+    public function mixItemRendererFunction(item:*):IFactory
+
+    {
+
+        if (item is DisplayObject || item is GraphicElement)
+
+        return new ClassFactory(DefaultComplexItemRenderer);
+
+        else
+
+        return new ClassFactory(DefaultItemRenderer);
+
+    }
+	/*
+	 * Assert that these methods throw errors
+	 */
+	public function assertScrollerError(method:String, myScroller:Scroller):String {
+
+		try {
+
+			switch (method) {
+
+				case "removeElementAt":
+					myScroller.removeElementAt(0);
+					break;
+				case "addElementAt":
+					myScroller.addElementAt(new DataGroup(), 0);
+					break;
+				case "removeElement":
+					myScroller.removeElement(new DataGroup());
+					break;
+				case "removeAllElements":
+					myScroller.removeAllElements();
+					break;
+				case "addElement":
+					myScroller.addElement(new DataGroup());
+					break;
+				case "setElementIndex":
+					myScroller.setElementIndex(new DataGroup(), 0);
+					break;
+				case "swapElements":
+					myScroller.swapElements(new DataGroup(), new DataGroup());
+					break;
+				case "swapElementsAt":
+					myScroller.swapElementsAt(0, 0);
+					break;
+
+
+			}
+
+		} catch (error:Error) {
+			return "This operation is not supported in Scroller.";
+		}
+
+		return "no error";
+
+	}
+			private function mouseWheelPreventDefault(event:FlexMouseEvent):void {
+				event.preventDefault();
+
+			}
+			private function mouseWheelChangingHandler(event:FlexMouseEvent):void {
+				event.delta *= 4;
+			}
+    ]]>
+
+    </fx:Script>
+
+
+
+    <s:Scroller id="sc1" height="200">
+
+        <comps:DataGroupAbcComp id="dg" />
+
+    </s:Scroller>
+
+    <s:Scroller id="sc2" height="300">
+
+        <comps:VGroupButtonsComp id="vg" />
+
+    </s:Scroller>
+
+    <s:Scroller id="sc3" width="500">
+
+        <comps:HGroupButtonsComp id="hg" />
+
+    </s:Scroller>
+
+    <s:Scroller  id="sc4" focusEnabled="true" hasFocusableChildren="false" height="200" width="100"/>
+
+    <s:Group height="110" width="110" chromeColor="#FFFF00" id="gr5">
+    	<s:Scroller  id="sc5"  height="100" width="100">
+    		<comps:VGroupButtonsComp  />
+    	</s:Scroller>
+    </s:Group>
+    <s:Scroller id="sc6" height="200" width="100" mouseWheelChanging="mouseWheelPreventDefault(event)">
+        <comps:DataGroupAbcComp2 id="dg1" />
+    </s:Scroller>
+    <s:Scroller id="sc7" height="200" width="100" mouseWheelChanging="mouseWheelChangingHandler(event)">
+        <comps:DataGroupAbcComp2 id="dg2" />
+    </s:Scroller>
+</s:Application>

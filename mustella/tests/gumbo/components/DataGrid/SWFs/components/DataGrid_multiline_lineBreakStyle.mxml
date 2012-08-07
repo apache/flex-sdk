@@ -1,0 +1,57 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" showDataTips="true"
+	 selectionMode="singleCell" editable="true"
+	requestedRowCount="4" variableRowHeight="true"  >
+    <fx:Script>
+	   <![CDATA[
+		    [Bindable]
+		    private var multiline:String = "Multiline\nProperty";
+		    [Bindable]
+		    public var text:String = "The multiline property\n is used by the item editor\n to set newline characters."
+		            
+           ]]>
+    </fx:Script>
+   <fx:Declarations>
+	
+   </fx:Declarations>
+ <s:columns>
+            <s:ArrayList>
+                <s:GridColumn dataField="dataField1" headerText="multineline=true, explicit linebreak" width="150">
+			<s:itemRenderer>
+				<fx:Component>
+				    <s:DefaultGridItemRenderer lineBreak="explicit" color="0x9966FF" multiline="true"/>
+				</fx:Component>
+			</s:itemRenderer>
+                </s:GridColumn>
+               <s:GridColumn dataField="dataField2" headerText="multineline=true,tofit" width="200">
+			<s:itemRenderer>
+				<fx:Component>
+				    <s:DefaultGridItemRenderer multiline="true" lineBreak="toFit" />
+				</fx:Component>
+			</s:itemRenderer>
+                </s:GridColumn>
+                  
+                <s:GridColumn dataField="dataField3" headerText="explicit linebreak,then multiline=true" width="150">
+			<s:itemRenderer>
+				<fx:Component>
+				    <s:DefaultGridItemRenderer lineBreak="explicit" color="0x9966FF"/>
+				</fx:Component>
+			</s:itemRenderer>
+                </s:GridColumn>
+                <s:GridColumn dataField="dataField4" headerText="toFit linebreak,default multine=false" width="200">
+			<s:itemRenderer>
+				<fx:Component>
+				    <s:DefaultGridItemRenderer  lineBreak="toFit" />
+				</fx:Component>
+			</s:itemRenderer>	    
+                </s:GridColumn>
+                
+                   
+            </s:ArrayList>
+        </s:columns>
+        <s:ArrayList>
+            <s:DataItem dataField1="{multiline}" dataField2="{multiline}" dataField3="{multiline}" dataField4="{multiline}"  ></s:DataItem>
+            <s:DataItem dataField1="{text}" dataField2="{text}" dataField3="{text}" dataField4="{text}" ></s:DataItem>
+        </s:ArrayList>
+	
+</s:DataGrid>

@@ -1,0 +1,39 @@
+<s:List
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	
+	itemRenderer="Assets.VirtualizationItemRenderer"
+	width="400"
+	height="300"
+	>
+
+    <fx:Script>
+    <![CDATA[
+		import mx.collections.ArrayCollection;
+	
+		public function fillDataProvider(numItems:int, objMinor:int, objMajor:int, axis:String):ArrayCollection {
+			var items:ArrayCollection = new ArrayCollection();
+		
+			for (var i:int = 0; i < numItems; i++){
+				items.addItem({myItemIndex: i, majorAxis: axis, minorSize: objMinor, majorSize: objMajor});
+			}
+		
+			return items;
+		}	  	
+
+
+    ]]>
+    </fx:Script>
+
+	<s:layout>
+		<s:TileLayout useVirtualLayout="true" />
+	</s:layout>
+	
+	<s:dataProvider>
+		<mx:ArrayCollection>
+			<fx:Object myItemIndex="0" majorAxis="vertical" minorSize="100" majorSize="100" />
+		</mx:ArrayCollection>
+	</s:dataProvider>
+
+</s:List>

@@ -1,0 +1,1146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+        <TestCase testID="ComboBox_Properties_addItemAtTest1" keywords="[ComboBox, Property, addItemAt]" description="Test adding an item to an ArrayCollection used by a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB3.myDP3.addItemAt('New Item', 0)"/>
+                <SetProperty target="mainGroup.myCB3" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="mainGroup.myCB3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedItem" value="New Item"/>
+            </body>
+        </TestCase>         
+
+        <TestCase testID="ComboBox_Properties_addItemAtTest2" keywords="[ComboBox, Property, addItemAt]" description="Test adding an item to an ArrayCollection used by a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB3.myDP3.addItemAt('New Item', 2)"/>
+                
+                <SetProperty target="mainGroup.myCB3" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mainGroup.myCB3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedItem" value="Product E 1"/>
+                
+                <SetProperty target="mainGroup.myCB3" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedItem" value="New Item"/>
+                
+                <SetProperty target="mainGroup.myCB3" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="mainGroup.myCB3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedItem" value="Product B 2"/>
+            </body>
+        </TestCase>         
+
+        <TestCase testID="ComboBox_Properties_autoSize1" keywords="[ComboBox, Property, Size]" description="Test auto sizing of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB2.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB2"/>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mainGroup.myCB2.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB2.closeDropDown(false)" waitTarget="mainGroup.myCB2" waitEvent="close"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_autoSize2" keywords="[ComboBox, Property, Size]" description="Test auto sizing of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+                <SetProperty target="mainGroup.myCB2" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="mainGroup.myCB2"/>
+            </setup>
+            <body>                      
+                <CompareBitmap target="mainGroup.myCB2" url="../Properties/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+                <SetProperty target="mainGroup.myCB2" propertyName="selectedIndex" value="1" waitEvent="updateComplete" waitTarget="mainGroup.myCB2"/>
+                <CompareBitmap target="mainGroup.myCB2" url="../Properties/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true" />              
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_autoSize3" keywords="[ComboBox, Property, Size]" description="Test auto sizing of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+                <SetProperty target="mainGroup.myCB2" propertyName="width" value="75" waitEvent="updateComplete" waitTarget="mainGroup.myCB2"/>
+                <SetProperty target="mainGroup.myCB2" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="mainGroup.myCB2"/>
+            </setup>
+            <body>                      
+                <CompareBitmap target="mainGroup.myCB2" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>             
+            </body>
+        </TestCase>         
+        
+    <TestCase testID="ComboBox_Properties_caretIndex1" keywords="[ComboBox, Property, caretIndex]" description="Test caretIndex property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" />
+                <Pause timeout="200"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="2"/>
+                <DispatchKeyEvent keys="[UP]" />
+                <Pause timeout="200"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="1"/>
+                <DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="mainGroup.myCB1"/>              
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="-1"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_caretIndex2" keywords="[ComboBox, Property, caretIndex]" description="Test caretIndex property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[DOWN, DOWN]" />
+                <Pause timeout="200"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="1"/>             
+                <DispatchKeyEvent keys="[ENTER]" waitEvent="close" waitTarget="mainGroup.myCB1"/>               
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product B"/>               
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_caretIndex3" keywords="[ComboBox, Property, caretIndex]" description="Test caretIndex property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                                  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>                
+            </body>
+        </TestCase>         
+
+        <TestCase testID="ComboBox_Properties_caretIndex4" keywords="[ComboBox, Property, caretIndex]" description="Test caretIndex property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB1" className="comps.Custom_CB1" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedItem" value="Product E" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                                  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="4"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="caretIndex" value="4"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product E"/>                
+            </body>
+        </TestCase>         
+        
+        <TestCase testID="ComboBox_Properties_disabled1" keywords="[ComboBox, Property, Disabled]" description="Test disabled ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="mainGroup.myCB2"/>
+                <CompareBitmap target="mainGroup.myCB" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <SetProperty target="mainGroup.myCB" propertyName="enabled" value="true" waitEvent="updateComplete"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_disabled2" keywords="[ComboBox, Property, Disabled]" description="Test disabled ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>          
+                <CompareBitmap target="mainGroup.focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>              
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseUp" waitTarget="mainGroup.myCB1"/>               
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <CompareBitmap target="mainGroup.focusBox" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>                                
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_disabled3" keywords="[ComboBox, Property, Disabled]" description="Test disabled ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete" />
+            </setup>
+            <body>          
+                <AssertPropertyValue target="mainGroup.myCB1_disabled" propertyName="enabled" value="false"/>
+                <CompareBitmap target="mainGroup.myCB1_disabled" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <SetProperty target="mainGroup.myCB1_disabled" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="mainGroup.myCB1_disabled"/>
+                <AssertPropertyValue target="mainGroup.myCB1_disabled" propertyName="enabled" value="true"/>
+                <CompareBitmap target="mainGroup.myCB1_disabled" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1_disabled.openButton" localX="10" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1_disabled"/>
+                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1_disabled.openButton" localX="10" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1_disabled"/>
+                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1_disabled.openButton" localX="10" localY="10" waitEvent="open" waitTarget="mainGroup.myCB1_disabled"/>             
+                <CompareBitmap  target="mainGroup.myCB1_disabled.dropDown" url="../Properties/Baselines/$testID_3.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1_disabled.closeDropDown(true)" waitTarget="mainGroup.myCB1_disabled" waitEvent="close"/>
+            </body>
+        </TestCase>     
+    
+        <TestCase testID="ComboBox_Properties_dataProvider" keywords="[ComboBox, Property, dataProvider]" description="Test changing dataProvider at runTime ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.changeDP();" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>             
+            </setup>
+            <body>          
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Array for n2"/>                
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.changeDP();"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Array for n2"/>                
+            </body>
+        </TestCase>     
+            
+        <TestCase testID="ComboBox_Properties_emptyAC" keywords="[ComboBox, Property]" description="Test using an empty ArrayCollection with a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <AssertPropertyValue target="mainGroup.myCB5" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB5" propertyName="selectedItem" value="null"/>
+            </body>
+        </TestCase>           
+        
+        <TestCase testID="ComboBox_Properties_height1" keywords="[ComboBox, Property, Height]" description="Test height property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>          
+                <CompareBitmap target="mainGroup.myCB1" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>         
+
+        <TestCase testID="ComboBox_Properties_height2" keywords="[ComboBox, Property, Height]" description="Test height property with item selected of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>          
+                <CompareBitmap target="mainGroup.myCB1" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>             
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection1" keywords="[ComboBox, Property]" description="Test making keyboard selections on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" />
+                <Pause timeout="200"/>
+                <DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+            </body>
+        </TestCase>
+            
+        <TestCase testID="ComboBox_Properties_keyboardSelection2" keywords="[ComboBox, Property]" description="Test making keyboard selections on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[DOWN, DOWN]" />
+                <Pause timeout="200"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="close" waitTarget="mainGroup.myCB1"/> 
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product B"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection3" keywords="[ComboBox, Property]" description="Test making keyboard selections on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, UP, UP]" />
+                <Pause timeout="200"/>
+                <DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="mainGroup.myCB1"/>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection4" keywords="[ComboBox, Property]" description="Test making keyboard selections on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[DOWN, DOWN, DOWN, UP]" />
+                <Pause timeout="200"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="close" waitTarget="mainGroup.myCB1"/>     
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product B"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection5" keywords="[ComboBox, Property, END]" description="Test END key on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[END]" />
+                <Pause timeout="200"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(true)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection6" keywords="[ComboBox, Property, HOME]" description="Test HOME key on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>               
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[HOME]" />
+                <Pause timeout="200"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(true)"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product A"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection7" keywords="[ComboBox, Property, PAGE DOWN]" description="Test PAGE DOWN key on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[PAGE_DOWN]" />
+                <Pause timeout="200"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(true)"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection8" keywords="[ComboBox, Property, PAGE UP]" description="Test PAGE UP key on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>               
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <Pause timeout="100"/>              
+                <DispatchKeyEvent keys="[PAGE_UP]" />
+                <Pause timeout="200"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(true)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product A"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="ComboBox_Properties_keyboardSelection_closed1" keywords="[ComboBox, Property]" description="Test making keyboard selections on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>               
+                <DispatchKeyEvent key="DOWN"/>
+                <Pause timeout="100"/>
+                <DispatchKeyEvent key="DOWN"/>
+                <Pause timeout="100"/>
+                <DispatchKeyEvent key="DOWN"/>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection_closed2" keywords="[ComboBox, Property]" description="Test making keyboard selections on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>               
+                <DispatchKeyEvent key="DOWN" />
+                <Pause timeout="100"/>
+                <DispatchKeyEvent key="DOWN" />
+                <Pause timeout="100"/>
+                <DispatchKeyEvent key="DOWN" />
+                <Pause timeout="100"/>
+                <DispatchKeyEvent key="UP" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product B"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection_closed3" keywords="[ComboBox, Property, END]" description="Test END key on a closed ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>               
+                <DispatchKeyEvent keys="[END]" />               
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>           
+            </body>
+        </TestCase>         
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection_closed4" keywords="[ComboBox, Property, HOME]" description="Test HOME key on a closed ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>               
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>                               
+                <DispatchKeyEvent keys="[HOME]" />              
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product A"/>             
+            </body>
+        </TestCase>                 
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection_closed5" keywords="[ComboBox, Property, PAGE_DOWN]" description="Test PAGE_DOWN key on a closed ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>                               
+                <DispatchKeyEvent keys="[PAGE_DOWN]" />
+                <Pause timeout="200"/>              
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_keyboardSelection_closed6" keywords="[ComboBox, Property, PAGE_UP]" description="Test PAGE_UP key on a closed ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>               
+            </setup>
+            <body>                                  
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>                               
+                <DispatchKeyEvent keys="[PAGE_UP]" />               
+                <Pause timeout="200"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product A"/>             
+            </body>
+        </TestCase>         
+                    
+        <TestCase testID="ComboBox_Properties_labelField1" keywords="[ComboBox, Property, labelField]" description="Test labelField property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <SetProperty target="mainGroup.myCB_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LF"/>                              
+                <CompareBitmap target="mainGroup.myCB_LF" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>               
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_labelField2" keywords="[ComboBox, Property, labelField]" description="Test labelField property at runtime of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB_LF" propertyName="labelField" value="price" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LF"/>
+            </setup>
+            <body>          
+                <SetProperty target="mainGroup.myCB_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LF"/>                      
+                <CompareBitmap target="mainGroup.myCB_LF" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LF.openDropDown();" waitEvent="open" waitTarget="mainGroup.myCB_LF"/>
+                <CompareBitmap target="mainGroup.myCB_LF.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LF.closeDropDown(false);" waitEvent="close" waitTarget="mainGroup.myCB_LF"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_labelField3" keywords="[ComboBox, Property, labelField]" description="Test labelField property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB_LF" propertyName="labelField" value="fruit"/>
+            </setup>
+            <body>          
+                <SetProperty target="mainGroup.myCB_LF" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LF"/>                              
+                <CompareBitmap target="mainGroup.myCB_LF" url="../Properties/Baselines/ComboBox_Properties_labelField1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>               
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_labelFunction" keywords="[ComboBox, Property, labelFunction]" description="Test labelFunction property at runtime of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <SetProperty target="mainGroup.myCB_LFnc" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LFnc"/>
+                <CompareBitmap target="mainGroup.myCB_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LFnc.openDropDown();" waitEvent="open" waitTarget="mainGroup.myCB_LFnc"/>
+                <CompareBitmap target="mainGroup.myCB_LFnc.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LFnc.closeDropDown(false);" waitEvent="close" waitTarget="mainGroup.myCB_LFnc"/>
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="ComboBox_Properties_labelFunction2" keywords="[ComboBox, Property, labelFunction]" description="Test labelFunction property at runtime of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB_LFnc" className="comps.Custom_CB_LabelFunc" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LFnc"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LFnc.changeLabelFunc();" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LFnc"/>
+            </setup>
+            <body>          
+                <SetProperty target="mainGroup.myCB_LFnc" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB_LFnc"/>              
+                <CompareBitmap target="mainGroup.myCB_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LFnc.openDropDown();" waitEvent="open" waitTarget="mainGroup.myCB_LFnc"/>
+                <CompareBitmap target="mainGroup.myCB_LFnc.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LFnc.closeDropDown(false);" waitEvent="close" waitTarget="mainGroup.myCB_LFnc"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_LFnc.changeLabelFunc();"/>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mainGroup.myCB_LFnc" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>               
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_layoutHorizontal1" keywords="[ComboBox, Property, Layout, Horizontal]" description="Test horizontal layout on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete" />
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB4H.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB4H"/>
+                <Pause timeout="100"/>
+                <CompareBitmap target="mainGroup.myCB4H.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB4H.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB4H"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_layoutHorizontal2" keywords="[ComboBox, Property, Layout, Horizontal]" description="Test horizontal layout on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete" />
+                <SetProperty target="mainGroup.myCB4H" propertyName="selectedItem" value="13" waitEvent="updateComplete" waitTarget="mainGroup.myCB4H"/>
+            </setup>
+            <body>                          
+                <AssertPropertyValue target="mainGroup.myCB4H" propertyName="selectedIndex" value="12"/>
+                <CompareBitmap target="mainGroup.myCB4H" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+                
+        <TestCase testID="ComboBox_Properties_layoutTile1" keywords="[ComboBox, Property, Layout, Tile]" description="Test tile layout on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB4T.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB4T"/>    
+                <Pause timeout="100"/>
+                <CompareBitmap target="mainGroup.myCB4T.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB4T.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB4T"/> 
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_layoutTile2" keywords="[ComboBox, Property, Layout, Tile]" description="Test tile layout on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB4T" propertyName="selectedItem" value="9" waitEvent="updateComplete" waitTarget="mainGroup.myCB4T"/>
+            </setup>
+            <body>                          
+                <AssertPropertyValue target="mainGroup.myCB4T" propertyName="selectedIndex" value="8"/>                         
+                <CompareBitmap target="mainGroup.myCB4T" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>     
+
+        <TestCase testID="ComboBox_Properties_mouseSelection1" keywords="[ComboBox, Property]" description="Test making a selection using the mouse on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>      
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="open" waitTarget="mainGroup.myCB1"/>              
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <DispatchMouseClickEvent target="stage" stageX="140" stageY="140" waitEvent="click" waitTarget="stage"/>                
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>                                            
+            </body>
+        </TestCase>
+
+        <TestCase testID="ComboBox_Properties_mouseSelection2" keywords="[ComboBox, Property]" description="Test making two selections using the mouse on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>                      
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseUp" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <DispatchMouseClickEvent target="stage" stageX="140" stageY="160" waitEvent="click" waitTarget="stage"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product D"/>                                  
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>  
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <Pause timeout="100"/>
+                <DispatchMouseClickEvent target="stage" stageX="140" stageY="140" waitEvent="click" waitTarget="stage"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>    
+            </body>
+        </TestCase>
+
+        <TestCase testID="ComboBox_Properties_mouseWheel" keywords="[ComboBox, Property, mouseWheel]" description="Test using the scroll wheel on a ComboBox">
+            <setup>     
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB9.openDropDown();" waitEvent="open" waitTarget="mainGroup.myCB9"/>             
+                <DispatchMouseEvent type="mouseWheel" target="mainGroup.myCB9.dropDown" localX="40" localY="20" delta="-3" waitEvent="mouseWheel" waitTarget="mainGroup.myCB9.dropDown"/>
+            </setup>
+            <body>  
+                <CompareBitmap target="mainGroup.myCB9.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB9.closeDropDown(false);" waitEvent="close" waitTarget="mainGroup.myCB9"/>              
+            </body>
+        </TestCase> 
+    
+        <TestCase testID="ComboBox_Properties_noDP1" keywords="[ComboBox, Property]" description="Test with no DataProvider for a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <AssertPropertyValue target="mainGroup.myCB_noDP" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB_noDP" propertyName="selectedItem" value="null"/>                
+                <CompareBitmap target="mainGroup.myCB_noDP" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_noDP2" keywords="[ComboBox, Property]" description="Test with no DataProvider for a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB_noDP" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <AssertPropertyValue target="mainGroup.myCB_noDP" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB_noDP" propertyName="selectedItem" value="null"/>                                
+            </body>
+        </TestCase>     
+            
+        <TestCase testID="ComboBox_Properties_boundToNs" keywords="[ComboBox, Property]" description="Test with selectedIndex bound to Numeric Stepper ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <AssertPropertyValue target="mainGroup.myCB9" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB9" propertyName="selectedItem" value="null"/>                                
+                <SetProperty target="mainGroup.myNS" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myNS"/>
+                <AssertPropertyValue target="mainGroup.myCB9" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB9" propertyName="selectedItem" value="Product B 2"/>
+            </body>
+        </TestCase>         
+    
+        <TestCase testID="ComboBox_Properties_open1" keywords="[ComboBox, Property]" description="Test using a mouse click to open a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
+                <DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1.openButton" localX="10" localY="10" waitEvent="mouseUp" waitTarget="mainGroup.myCB1"/>               
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+                <CompareBitmap target="mainGroup.myCB1.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="ComboBox_Properties_rollOver1" keywords="[ComboBox, Property, rollOver]" description="Test rollOver on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>
+                <Pause timeout="100"/>
+                <DispatchMouseEvent type="rollOver" target="stage" stageX="140" stageY="160" waitEvent="rollOver" waitTarget="stage"/>          
+                <CompareBitmap target="mainGroup.myCB1.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="ComboBox_Properties_rollOver2" keywords="[ComboBox, Property, rollOver]" description="Test rollOver on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>
+                <Pause timeout="100"/>
+                <DispatchMouseEvent type="rollOver" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>           
+                <CompareBitmap target="mainGroup.myCB1.dropDown" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+            </body>
+        </TestCase>     
+                        
+        <TestCase testID="ComboBox_Properties_removeItemAtTest1" keywords="[ComboBox, Property, removeItemAt]" description="Test removing an item from an ArrayCollection used by a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB3.myDP3.removeItemAt(0)"/>
+                <SetProperty target="mainGroup.myCB3" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="mainGroup.myCB3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedIndex" value="0"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedItem" value="Product E 1"/>
+            </body>
+        </TestCase>         
+        
+        <TestCase testID="ComboBox_Properties_removeItemAtTest2" keywords="[ComboBox, Property, removeItemAt]" description="Test removing an item from an ArrayCollection used by a ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>          
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB3.myDP3.removeItemAt(2)"/>
+                <SetProperty target="mainGroup.myCB3" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB3"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB3" propertyName="selectedItem" value="Product C 3"/>
+            </body>
+        </TestCase>                 
+                    
+        <TestCase testID="ComboBox_Properties_selectedIndex1" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex2" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex3" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="10" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex4" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property set to -1 on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+            </setup>
+            <body>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="5" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+                <CompareBitmap target="mainGroup.focusBox" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="-1" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+                <CompareBitmap target="mainGroup.focusBox" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>   
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex5" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property set to -5 on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+            </setup>
+            <body>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="4"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product E"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="-5" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex6" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property set to 50000 on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+            </setup>
+            <body>              
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="50000" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+            </body>
+        </TestCase> 
+        
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex7" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property set to 50000 with an item selected on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>              
+            </setup>
+            <body>              
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="4"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product E"/>            
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="50000" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="5"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product F"/>
+            </body>
+        </TestCase>         
+                
+        <TestCase testID="ComboBox_Properties_selectedIndex_MXML1" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property set in MXML of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Four"/>
+            </body>
+        </TestCase>             
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex_MXML2" keywords="[ComboBox, Property, selectedIndex]" description="Test with selectedIndex property set in MXML and selectedItem is changed at runtime on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB7" className="comps.Custom_CB7" waitEvent="updateComplete" waitTarget="mainGroup.myCB7"/>             
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Four"/>
+                <SetProperty target="mainGroup.myCB7" propertyName="selectedItem" value="Two" waitEvent="updateComplete" waitTarget="mainGroup.myCB7"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="1"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Two"/>             
+            </body>
+        </TestCase>             
+        
+        <TestCase testID="ComboBox_Properties_selectedIndex_MXML3" keywords="[ComboBox, Property, selectedIndex]" description="Test with selectedIndex property set in MXML and selectedIndex is changed at runtime on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Four"/>
+                <SetProperty target="mainGroup.myCB7" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="mainGroup.myCB7"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="4"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Five"/>                
+            </body>
+        </TestCase>             
+                
+        <TestCase testID="ComboBox_Properties_selectedIndex_button" keywords="[ComboBox, Property, selectedIndex]" description="Test selectedIndex property set by a button click on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="3"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Four"/>
+                <DispatchMouseClickEvent target="mainGroup.myBtn1" localX="10" localY="10" waitEvent="click" waitTarget="mainGroup.myBtn1"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedIndex" value="2"/>
+                <AssertPropertyValue target="mainGroup.myCB7" propertyName="selectedItem" value="Three"/>                               
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_selectedItem1" keywords="[ComboBox, Property, selectedItem]" description="Test selectedItem property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+                <CompareBitmap target="mainGroup.myCB1" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/> 
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_selectedItem2" keywords="[ComboBox, Property, selectedItem]" description="Test selectedItem property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedItem" value="Product D" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product D"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="3"/>
+                <CompareBitmap target="mainGroup.myCB1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>    
+            </body>
+        </TestCase>
+        
+        <TestCase testID="ComboBox_Properties_selectedItem3" keywords="[ComboBox, Property, selectedItem]" description="Test selectedItem property of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedItem" value="Product D" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product D"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="3"/>
+                <SetProperty target="mainGroup.myCB1" propertyName="selectedItem" value="NoExist" waitEvent="updateComplete" waitTarget="mainGroup.myCB1"/>             
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="NoExist"/>
+                <AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-3"/> 
+                <CompareBitmap target="mainGroup.myCB1" url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/> 
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_selectedItem_MXML1" keywords="[ComboBox, Property, selectedItem]" description="Test selectedItem property set in MXML of ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Six"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="5"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_selectedItem_MXML2" keywords="[ComboBox, Property, selectedItem]" description="Test with selectedItem property set in MXML and selectedIndex changed at runtime on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Six"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="5"/>
+                <SetProperty target="mainGroup.myCB8" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="mainGroup.myCB8"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Five"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="4"/>              
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="ComboBox_Properties_selectedItem_MXML3" keywords="[ComboBox, Property, selectedItem]" description="Test with selectedItem property set in MXML and selectedItem changed at runtime on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Six"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="5"/>
+                <SetProperty target="mainGroup.myCB8" propertyName="selectedItem" value="Three" waitEvent="updateComplete" waitTarget="mainGroup.myCB8"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Three"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="2"/>              
+            </body>
+        </TestCase>     
+        
+        <TestCase testID="ComboBox_Properties_selectedItem_button" keywords="[ComboBox, Property, selectedItem]" description="Test selectedItem property set by a button click on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Six"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="5"/>          
+                <DispatchMouseClickEvent target="mainGroup.myBtn2" localX="10" localY="10" waitEvent="click" waitTarget="mainGroup.myBtn2"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedItem" value="Two"/>
+                <AssertPropertyValue target="mainGroup.myCB8" propertyName="selectedIndex" value="1"/>
+            </body>
+        </TestCase>         
+        <TestCase testID="ComboBox_Properties_baselinePosition_preValidation" keywords="[ComboBox, Property, baselinePosition]" description="Test baselinePosition property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB" className="spark.components.ComboBox" />                
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB" propertyName="baselinePosition" value="15.320313"/>
+            </body>
+        </TestCase>         
+        <TestCase testID="ComboBox_Properties_baselinePosition_postValidation" keywords="[ComboBox, Property, baselinePosition]" description="Test baselinePosition property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup.myCB" className="spark.components.ComboBox" waitEvent="creationComplete" waitTarget="mainGroup.myCB"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB" propertyName="baselinePosition" value="15.320313"/>
+            </body>
+        </TestCase> 
+ 
+   		 <TestCase testID="ComboBox_Properties_typicalItem1" keywords="[ComboBox, Property, typicalItem]" description="Test typicalItem property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB_array" propertyName="width" value="146"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_array.setTI_22()"/>
+                <Pause timeout="50"/>                
+                <AssertPropertyValue target="mainGroup.myCB_array" propertyName="width" value="110"/>
+            </body>
+        </TestCase>         
+        
+		<TestCase testID="ComboBox_Properties_typicalItem2" keywords="[ComboBox, Property, typicalItem]" description="Test typicalItem property on ComboBox">
+            <setup>
+                <ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target="mainGroup.myCB_array" propertyName="width" value="146"/>
+                <RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB_array.setTI_13()"/>
+                <Pause timeout="50"/>                
+                <AssertPropertyValue target="mainGroup.myCB_array" propertyName="width" value="170"/>
+            </body>
+        </TestCase>                 
+
+		<!-- ******************** prompt ******************** -->
+		
+		<TestCase testID="ComboBox_Properties_prompt_basic" description="Check that the prompt shows up when there is no text in the input" keywords="[ComboBox,prompt,property]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainGroup.myCB1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<!-- Bug SDK-28328: No disabled state-->
+		<TestCase testID="ComboBox_Properties_prompt_disabled" description="Check that the prompt shows up correctly when disabled" keywords="[ComboBox,prompt,property,style,disabled]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="enabled" value="false" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainGroup.myCB1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ComboBox_Properties_prompt_removed_w_selection" description="Check that the prompt goes away when there is text in the input" keywords="[ComboBox,prompt,property,text]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+				<DispatchMouseEvent type="buttonDown" target="mainGroup.myCB1.openButton" buttonDown="true" localX="5" localY="5" waitTarget="mainGroup.myCB1" waitEvent="open"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>          
+				<DispatchKeyEvent keys="[DOWN, DOWN]" waitEvent="keyUp" waitTarget="mainGroup.myCB1"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="close" waitTarget="mainGroup.myCB1"/> 
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product B"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusOut" waitTarget="mainGroup.myCB2"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainGroup.myCB1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_prompt_returned_w_null_selection" description="Check that the prompt goes away when there is an empty string in the input" keywords="[ComboBox,prompt,property,string,empty]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="mainGroup.myCB1" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+				<DispatchMouseEvent type="buttonDown" target="mainGroup.myCB1.openButton" buttonDown="true" localX="5" localY="5" waitTarget="mainGroup.myCB1" waitEvent="open"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" waitEvent="keyUp" waitTarget="mainGroup.myCB1"/>
+				<DispatchKeyEvent keys="[ESCAPE]" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="-1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="null"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusOut" waitTarget="mainGroup.myCB1"/>
+				<CompareBitmap numColorVariances="10" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="mainGroup.myCB1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_prompt_retain_width" description="Check that adding a prompt doesn't resize the box." keywords="[ComboBox,prompt,property,resize,width]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="prompt" value="I'm an extremely long prompt value, used in testing to ensure that this box will not resize." target="mainGroup.myCB" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainGroup.myCB" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_prompt_retain_height" description="Check that adding a prompt doesn't resize the box when width is explicit." keywords="[ComboBox,prompt,property,resize,width,height,explicit]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="50" target="mainGroup.myCB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="mainGroup.myCB" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainGroup.myCB" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Properties_prompt_direction_changed_at_runtime" description="Check that the prompt's direction and layout direction can be changed at runtime." keywords="[ComboBox,prompt,property,direction,layout,runtime]">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="mainGroup.myCB" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="mainGroup.myCB" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="layoutDirection" value="rtl" target="mainGroup.myCB.textInput.promptDisplay" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="mainGroup.myCB" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>

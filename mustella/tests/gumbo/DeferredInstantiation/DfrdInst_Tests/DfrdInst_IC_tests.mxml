@@ -1,0 +1,90 @@
+<UnitTester testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="DfrdInst_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+       
+    <testCases>
+                                 
+		<TestCase testID="DfrdInst_default_IC_1" keywords="[Deferred, Instantiation, FxContainer]" description="Test Default Deferred Instantiation Mode of FxContainer" >
+            <setup>
+                <ResetComponent target="myIC" className="comps.CustomIC" waitEvent="updateComplete" />                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myIC" propertyName="numElements" value="7" />
+                <AssertPropertyValue target="myIC.myVBox" propertyName="numChildren" value="1" />
+                <AssertPropertyValue target="myIC.myGroup" propertyName="numElements" value="3" />                
+                <AssertPropertyValue target="myIC.myAccordion" propertyName="numChildren" value="2" />                                
+                <AssertPropertyValue target="myIC" propertyName="creationPolicy" value="auto" />
+                <CompareBitmap target="myIC" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+            </body>
+        </TestCase>         
+        
+		<TestCase testID="DfrdInst_default_nestedIC_1" keywords="[Deferred, Instantiation, FxContainer]" description="Test Default Deferred Instantiation Mode of a Nested FxContainer" >
+            <setup>
+                <ResetComponent target="myNestedIC" className="comps.CustomIC" waitEvent="updateComplete" />                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myNestedIC" propertyName="numElements" value="7" />
+                <AssertPropertyValue target="myNestedIC.myVBox" propertyName="numChildren" value="1" />
+                <AssertPropertyValue target="myNestedIC.myGroup" propertyName="numElements" value="3" />
+                <AssertPropertyValue target="myNestedIC.myAccordion" propertyName="numChildren" value="2" />
+                <AssertPropertyValue target="myNestedIC" propertyName="creationPolicy" value="auto" />
+                <CompareBitmap target="myNestedIC" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+            </body>
+        </TestCase>   
+                      
+		<TestCase testID="DfrdInst_CP_None_IC_1" keywords="[Deferred, Instantiation, FxContainer]" description="Test creationPolicy of None Deferred Instantiation Mode of FxContainer" >
+            <setup>                
+                <ResetComponent target="myIC3" className="comps.CustomIC2" waitEvent="updateComplete" />                                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myIC3" propertyName="numElements" value="0" />        
+                <AssertPropertyValue target="myIC3" propertyName="creationPolicy" value="none" />
+                <CompareBitmap target="myIC3" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+                <RunCode code="application.myIC3.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myIC3"/>
+                <Pause timeout="50"/>
+                <CompareBitmap target="myIC3" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+				<AssertPropertyValue target="myIC3" propertyName="numElements" value="7" />
+                <AssertPropertyValue target="myIC3.myVBox" propertyName="numChildren" value="1" />
+                <AssertPropertyValue target="myIC3.myGroup" propertyName="numElements" value="3" />                
+                <AssertPropertyValue target="myNestedIC.myAccordion" propertyName="numChildren" value="2" />
+                <AssertPropertyValue target="myIC3" propertyName="creationPolicy" value="none" />                
+            </body>
+        </TestCase>     
+        
+		<TestCase testID="DfrdInst_CP_None_nestedIC_1" keywords="[Deferred, Instantiation, FxContainer]" description="Test creationPolicy of None Deferred Instantiation Mode of a Nested FxContainer" >
+            <setup>                
+                <ResetComponent target="myNestedIC2" className="comps.CustomIC2" waitEvent="updateComplete" />                                
+            </setup>
+            <body>                
+                <AssertPropertyValue target="myNestedIC2" propertyName="numElements" value="0" />       
+                <AssertPropertyValue target="myNestedIC2" propertyName="creationPolicy" value="none" />
+                <CompareBitmap target="myNestedIC2" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+				<RunCode code="application.myNestedIC2.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myNestedIC2"/>
+				<Pause timeout="50"/>
+				<CompareBitmap target="myNestedIC2" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+				<AssertPropertyValue target="myNestedIC2" propertyName="numElements" value="7" />
+                <AssertPropertyValue target="myNestedIC2.myVBox" propertyName="numChildren" value="1" />
+                <AssertPropertyValue target="myNestedIC2.myGroup" propertyName="numElements" value="3" />                
+                <AssertPropertyValue target="myNestedIC2.myAccordion" propertyName="numChildren" value="2" />                
+                <AssertPropertyValue target="myNestedIC2" propertyName="creationPolicy" value="none" />                
+            </body>
+        </TestCase>
+               
+    </testCases>
+    
+</UnitTester>  

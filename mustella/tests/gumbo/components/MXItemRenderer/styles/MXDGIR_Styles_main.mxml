@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"  
+	xmlns:m="http://ns.adobe.com/mxml/2009" 
+	xmlns="*" 
+	testDir="gumbo/components/MXItemRenderer/styles/"  
+	testSWF="DataGridBasic.mxml">
+	
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+	
+  <fx:Script>
+    <![CDATA[
+    	import comps.*
+    	import spark.skins.spark.*;
+    ]]>
+  </fx:Script>
+	
+  <testCases>
+<!--
+MXItemRenderer Testing - DataGrid - Styles tests
+=====================================================
+-->
+	  
+	  <TestCase testID="MXDGIR_Styles_chromeColor" keywords="[MXDataGridItemRenderer, Styles, chromeColor]" description="Test the chromeColor style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>	
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="chromeColor" value="0x00FF00" />
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="25" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="MXDGIR_Styles_color" keywords="[MXDataGridItemRenderer, Styles, color]" description="Test the color style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="color" value="0xFF0000" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>		
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="color" value="0xFF0000" /> 
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	 	  
+	  <TestCase testID="MXDGIR_Styles_fontSize" keywords="[MXDataGridItemRenderer, Styles, fontSize]" description="Test the fontSize style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="fontSize" value="16" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="fontSize" value="16" />
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="10" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="MXDGIR_Styles_fontSize2" keywords="[MXDataGridItemRenderer, Styles, fontSize]" description="Test the fontSize style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="editable" value="true"/>
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="fontSize" value="16" waitEvent="updateComplete" />			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="fontSize" value="16" />
+			  <DispatchMouseClickEvent target="dgRoot.dataGrid1" localX="70" localY="34" waitEvent="click"/>
+			  <Pause timeout="100"/>
+			  <DispatchKeyEvent char="Size Jacob"/>
+			  <Pause timeout="100"/>
+			  <DispatchMouseClickEvent target="stage" localX="400" localY="10" waitEvent="click"/>
+			  <Pause timeout="100"/>
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="10" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="MXDGIR_Styles_fontStyle" keywords="[MXDataGridItemRenderer, Styles, fontStyle]" description="Test the fontStyle style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="editable" value="true"/>
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="fontStyle" value="italic" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="fontStyle" value="italic" />
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+
+	  <TestCase testID="MXDGIR_Styles_fontStyle2" keywords="[MXDataGridItemRenderer, Styles, fontStyle]" description="Test the fontStyle style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="editable" value="true"/>
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="fontStyle" value="italic" waitEvent="updateComplete" />			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="fontStyle" value="italic" />
+			  <DispatchMouseClickEvent target="dgRoot.dataGrid1" localX="70" localY="34" waitEvent="click"/>
+			  <DispatchKeyEvent char="Italic Jacob"/>
+			  <DispatchMouseClickEvent target="stage" localX="400" localY="10" waitEvent="click"/>	
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="8" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>	  
+	  
+	  <TestCase testID="MXDGIR_Styles_fontWeight" keywords="[MXDataGridItemRenderer, Styles, fontWeight]" description="Test the fontWeight style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="fontWeight" value="bold" />
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="10" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>	  
+	  
+  	  <TestCase testID="MXDGIR_Styles_fontWeight2" keywords="[MXDataGridItemRenderer, Styles, fontWeight]" description="Test the fontWeight style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="editable" value="true"/>
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="fontWeight" value="bold" />			  
+			  <DispatchMouseClickEvent target="dgRoot.dataGrid1" localX="70" localY="40" waitEvent="click"/>
+			  <DispatchKeyEvent char="Bold Jacob"/>
+			  <DispatchMouseClickEvent target="stage" localX="400" localY="10" waitEvent="click"/>
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="10" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="MXDGIR_Styles_styledIR" keywords="[MXDataGridItemRenderer, Styles]" description="Test setting styles directly on the MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns8" waitEvent="updateComplete" />			  			  			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>						  
+		  	<CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="15" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>  	  
+	  	  
+	  <TestCase testID="MXDGIR_Styles_symbolColor" keywords="[MXDataGridItemRenderer, Styles, symbolColor]" description="Test the symbolColor style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="symbolColor" value="0x0000FF" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="symbolColor" value="0x0000FF"  />
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>	  
+	  
+	  <TestCase testID="MXDGIR_Styles_textAlign" keywords="[MXDataGridItemRenderer, Styles, textAlign]" description="Test the textAlign style on the DataGrid using MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  			  
+			  <SetStyle target="dgRoot.dataGrid1" styleName="textAlign" value="center" waitEvent="updateComplete" />
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			
+			  <AssertStyleValue target="dgRoot.dataGrid1" styleName="textAlign" value="center"/>
+			  <CompareBitmap url="../styles/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>	
+
+  </testCases>
+</UnitTester>

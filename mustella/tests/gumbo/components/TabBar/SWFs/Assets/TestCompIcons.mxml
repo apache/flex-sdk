@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:VBox  width="100%" height="100%"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark">
+<mx:Script>
+	<![CDATA[
+
+        import spark.components.*;
+	[Bindable]
+	[Embed (source="../../../../../../Assets/Images/smallredrect.jpg")]
+	public var icon1:Class;
+
+	[Bindable]
+	[Embed (source="../../../../../../Assets/Images/smallgreenrect.jpg")]
+	public var icon2:Class;
+
+	[Bindable]
+	[Embed (source="../../../../../../Assets/Images/smallbluerect.jpg")]
+	public var icon3:Class;
+
+	]]>
+	</mx:Script>
+
+	<s:TabBar id="tb" dataProvider="{vs1}" skinClass = "Assets.MyTabBarSkin"/>
+
+	<mx:ViewStack id="vs1" width="300" height="200" x="0" y="0">
+		<mx:HBox backgroundColor="red" id="Box1" icon="{icon1}"> <!-- icon, then remove icon-->
+			<mx:Label text="This is Box 1"/>
+		</mx:HBox>
+		<s:NavigatorContent backgroundColor="green" id="Nav1" icon="{icon2}"> <!--icon, then different icon-->
+			<s:Button label="This is Nav 1" />
+		</s:NavigatorContent>
+		<mx:HBox backgroundColor="blue" id="Box2" > <!--no icon, then add icon-->
+			<mx:Label text="This is Box 2"/>
+		</mx:HBox>
+		<mx:HBox label="Box 3" backgroundColor="red" id="Box3" icon="{icon1}"> <!-- icon & label, then remove icon-->
+			<mx:Label text="This is Box 3"/>
+		</mx:HBox>
+		<s:NavigatorContent label="Nav 2 has a long label" backgroundColor="green" id="Nav2" icon="{icon2}" ><!--icon & label, then different icon-->
+			<s:Button label="This is Nav 2" />
+		</s:NavigatorContent>
+		<mx:HBox label="Box 4" backgroundColor="blue" id="Box4">  <!-- no icon no label, then add icon & label-->
+			<mx:Label text="This is Box 4"/>
+		</mx:HBox>
+	</mx:ViewStack>
+</mx:VBox>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:s="library://ns.adobe.com/flex/spark"  
+	xmlns:m="http://ns.adobe.com/mxml/2009" 
+	xmlns="*" 
+	testDir="gumbo/components/MXItemRenderer/properties/"  
+	testSWF="DataGridBasic.mxml">
+	
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+	
+  <fx:Script>
+    <![CDATA[
+    	import comps.*
+    	import spark.skins.spark.*;
+    ]]>
+  </fx:Script>
+	
+  <testCases>
+<!--
+MXItemRenderer Testing - DataGrid - Property tests
+=====================================================
+-->
+
+	  <TestCase testID="MXDGIR_Properties_enabled" keywords="[MXDataGridItemRenderer, Properties, enabled]" description="Test the enabled property on MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />			  
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="editable" value="true"/>
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns9" waitEvent="updateComplete" />			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			
+			  <AssertMethodValue method="value=application.dgRoot.dataGrid1.dataProvider.getItemAt(0).booleanValue" valueExpression="value=true"/>			 			 
+			  <DispatchMouseClickEvent target="dgRoot.dataGrid1" localX="208" localY="37" waitEvent="click"/>
+			  <DispatchMouseClickEvent target="stage" localX="890" localY="590" waitEvent="click"/>			  
+			  <AssertMethodValue method="value=application.dgRoot.dataGrid1.dataProvider.getItemAt(0).booleanValue" valueExpression="value=true"/>			  
+			  <CompareBitmap url="../properties/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="MXDGIR_Properties_focus" keywords="[MXDataGridItemRenderer, Properties, focus]" description="Test setting focus on MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />			  
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="editable" value="true"/>			  
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			
+			  <DispatchKeyEvent key="TAB" waitEvent="itemFocusIn" waitTarget="dgRoot.dataGrid1" />			  
+		  </body>
+	  </TestCase>	  
+	  
+	  <TestCase testID="MXDGIR_Properties_height" keywords="[MXDataGridItemRenderer, Properties, height]" description="Test the height property on MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="height" value="400" waitEvent="updateComplete" />			  			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			  			  
+			  <CompareBitmap url="../properties/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>
+	  
+	  <TestCase testID="MXDGIR_Properties_width" keywords="[MXDataGridItemRenderer, Properties, width]" description="Test the width property on MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns3" waitEvent="updateComplete" />			  
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="width" value="400" waitEvent="updateComplete" />			  			  
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			  			  
+			  <CompareBitmap url="../properties/baselines/$testID.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>	 
+
+	  <TestCase testID="MXDGIR_Properties_states" keywords="[MXDataGridItemRenderer, Properties, States]" description="Test itemRenderers assigned to specific states with MXDataGridItemRenderer">
+		  <setup>
+			  <ResetComponent target="dgRoot" className="comps.DataGridIntegration" waitEvent="updateComplete" />
+			  <SetProperty target="dgRoot.dataGrid1" propertyName="columns" valueExpression="value=application.dgRoot.columns10" waitEvent="updateComplete" />			    			 
+			  <Pause timeout="100"/>
+		  </setup>
+		  <body>			  			  
+			  <CompareBitmap url="../properties/baselines/$testID_1.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+			  <SetProperty target="dgRoot" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+			  <CompareBitmap url="../properties/baselines/$testID_2.png" target="dgRoot.dataGrid1" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		  </body>
+	  </TestCase>	  
+
+	
+
+  </testCases>
+</UnitTester>

@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/Group/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="GroupBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+
+        }
+        ]]>
+    </fx:Script>
+	
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+			
+        ]]>
+    </fx:Metadata>
+	
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+    <![CDATA[
+
+        import comps.*;
+        import mx.collections.ArrayCollection;
+        import spark.layouts.*;
+        import spark.components.DataGroup;
+        import mx.graphics.SolidColorStroke;
+        import mx.graphics.SolidColor;
+        import mx.graphics.GradientEntry;
+        import spark.primitives.*;
+        import spark.components.Group;
+        import mx.graphics.*;
+
+     public function addEllipseAtDataGroup(myDataGroup:DataGroup, i:int):void	{
+		var myEllipse:Ellipse = new Ellipse();
+		myEllipse.width=40;
+		myEllipse.height=30;
+		var myFill:SolidColor = new SolidColor();
+		myFill.color = 0x9966FF;
+		myEllipse.fill = myFill;
+		
+		// wrap the GraphicElement with a Group
+		var wrapperGroup:Group = new Group();
+		wrapperGroup.x = myEllipse.x;
+		wrapperGroup.y = myEllipse.y;
+		wrapperGroup.width = myEllipse.width;
+		wrapperGroup.height = myEllipse.height;
+		wrapperGroup.addElement(myEllipse);
+		
+		myDataGroup.dataProvider.addItemAt(wrapperGroup, i);			
+	}
+
+
+
+	public function addRectDataGroup(myDataGroup:DataGroup):void{
+		var myRect:Rect = new Rect();
+		myRect.top = 0; myRect.left = 0;
+		myRect.bottom=0; myRect.right=0;
+		var myFill:SolidColor = new SolidColor();
+		myFill.color = 0x123456;
+		myRect.fill = myFill;
+		
+		// wrap the GraphicElement with a Group
+		var wrapperGroup:Group = new Group();
+		wrapperGroup.x = 30;
+		wrapperGroup.y = 40;
+		wrapperGroup.width = 15;
+		wrapperGroup.height = 30;
+		wrapperGroup.addElement(myRect);
+		
+		myDataGroup.dataProvider.addItem(wrapperGroup);
+	}
+
+
+
+    ]]>
+    </fx:Script>
+
+
+    <testCases>
+
+
+        <TestCase testID="Group_method_addItem_same_comp" keywords="[Group, method, addItem]" description="">
+
+            <setup>
+
+                <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+
+                <ResetComponent target="group2" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group2" />
+
+                <SetProperty    target="group1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" />
+
+                <SetProperty    target="group2" propertyName="layout"  valueExpression="value=new VerticalLayout()"   waitEvent="updateComplete" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="application.group1.addElement(new comps.SelectorComp)" waitEvent="updateComplete" waitTarget="group1"/>
+
+                <RunCode code="application.group2.addElement(new comps.SelectorComp)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group2.addElement(new comps.SelectorComp)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group2.addElement(new comps.SelectorComp)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group2.addElement(new comps.SelectorComp)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group2.addElement(new comps.SelectorComp)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group2.removeElementAt(0)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group2.removeElementAt(3)" waitEvent="updateComplete" waitTarget="group2"/>
+
+                <RunCode code="application.group1.removeElementAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+
+                <AssertPropertyValue target = "group2" propertyName="numElements" value="3" />
+
+                <AssertPropertyValue target = "group1" propertyName="numElements" value="0" />
+
+                <CompareBitmap url="../methods/baselines/$testID.png" target="group2" />
+
+
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Group_method_addItem_graphics_comps" keywords="[Group, method, addItem]" description="">
+
+            <setup>
+
+                <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+
+                <ResetComponent target="group2" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group2" />
+
+                <SetProperty    target="group1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="group1"  />
+
+                <SetProperty    target="group2" propertyName="layout"  valueExpression="value=new VerticalLayout()"   waitEvent="updateComplete" waitTarget="group2"  />
+
+
+
+            </setup>
+
+            <body>
+
+                <RunCode code="application.group1.addElement(new comps.EllipseBasic)"      waitEvent="updateComplete" waitTarget="group1"/>
+
+                <RunCode code="application.group1.addElement(new comps.SelectorComp)"      waitEvent="updateComplete" waitTarget="group1"/>
+
+                <AssertPropertyValue target="group1" propertyName="numElements" value="2" />
+
+                <AssertPropertyValue target="group2" propertyName="numElements" value="0" />
+
+                <CompareBitmap url="../methods/baselines/$testID.png" target="group1" />
+
+
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Group_method_addItem_mix_graphics_elements_array" keywords="[Group, method, addItem, elements, array]" description="">
+
+            <setup>
+
+                <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+
+                <ResetComponent target="group2" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group2" />
+
+                <SetProperty    target="group1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="group1" />
+
+                <SetProperty    target="group2" propertyName="layout"  valueExpression="value=new VerticalLayout()"   waitEvent="updateComplete" waitTarget="group2" />
+
+            </setup>
+
+            <body>
+
+
+
+                <RunCode code="application.addLine(application.group1);" waitTarget="group1" waitEvent="updateComplete"  />
+
+                <RunCode code="application.addRect(application.group1);" waitTarget="group1" waitEvent="updateComplete"  />
+
+                <RunCode code="application.addRect(application.group2);" waitTarget="group2" waitEvent="updateComplete"  />
+
+                <RunCode code="application.addRect(application.group2);" waitTarget="group2" waitEvent="updateComplete"  />
+
+                <AssertPropertyValue target = "group1" propertyName="numElements" value="2" />
+
+                <AssertPropertyValue target = "group2" propertyName="numElements" value="2" />
+
+                <AssertMethodValue   method="value=application.group1.getElementAt(0).xFrom" value="10" />
+
+                <AssertMethodValue   method="value=application.group2.getElementAt(1).width" value="15" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Group_method_addItem_string_elements_array" keywords="[Group, method, dataProvider.addItem, array]" description="">
+
+            <setup>
+
+                <ResetComponent target="dgroup1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <ResetComponent target="dgroup2" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <SetProperty    target="dgroup1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <SetProperty    target="dgroup2" propertyName="layout"  valueExpression="value=new VerticalLayout()"   waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <RunCode code="application.dgroup1.itemRendererFunction=application.mixItemRendererFunction"  />
+
+                <RunCode code="application.dgroup2.itemRendererFunction=application.mixItemRendererFunction"  />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetProperty    target="dgroup1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['a','b','c'])"   waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <SetProperty    target="dgroup2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([1,2,3,4])"   waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <AssertPropertyValue target = "dgroup1.dataProvider" propertyName="length" value="3" />
+
+                <AssertPropertyValue target = "dgroup2.dataProvider" propertyName="length" value="4" />
+
+                <AssertMethodValue   method="value=application.dgroup1.dataProvider.getItemAt(0)" value="a" />
+
+                <AssertMethodValue   method="value=application.dgroup2.dataProvider.getItemAt(1)" value="2" />
+
+                <RunCode code="application.dgroup1.dataProvider.addItem('d');"  waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <RunCode code="application.dgroup1.dataProvider.addItemAt('e',0);"  waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <AssertMethodValue   method="value=application.dgroup1.dataProvider.getItemAt(0)" value="e" />
+
+                <RunCode code="application.dgroup2.dataProvider.addItem('d');"  waitEvent="updateComplete" waitTarget="dgroup2"/>
+
+                <RunCode code="addRectDataGroup(application.dgroup2);"  />
+
+                <AssertPropertyValue target = "dgroup2.dataProvider" propertyName="length" value="6" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Group_method_addItemAt_elements_array" keywords="[Group, method, dataProvider.addItemAt, array]" description="">
+
+            <setup>
+
+                <ResetComponent target="dgroup1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <ResetComponent target="dgroup2" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <SetProperty    target="dgroup1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+
+                <SetProperty    target="dgroup2" propertyName="layout"  valueExpression="value=new VerticalLayout()"    />
+
+                <RunCode code="application.dgroup1.itemRendererFunction=application.mixItemRendererFunction"  />
+
+                <RunCode code="application.dgroup2.itemRendererFunction=application.mixItemRendererFunction"  />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetProperty    target="dgroup1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['a','b','c'])"   waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <SetProperty    target="dgroup2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([1,2,3,4])"   waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <RunCode code="application.dgroup1.dataProvider.addItemAt('d',0);"  waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <RunCode code="application.dgroup1.dataProvider.addItemAt('e',4);"  waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <AssertMethodValue   method="value=application.dgroup1.dataProvider.getItemAt(0)" value="d" />
+
+                <AssertMethodValue   method="value=application.dgroup1.dataProvider.getItemAt(4)" value="e" />
+
+                <RunCode code="application.dgroup2.dataProvider.addItemAt('abc',4);"  waitEvent="updateComplete" waitTarget="dgroup2"/>
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup2,0);"  />
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup2,0);"  />
+                <SetProperty    target="dgroup2" propertyName="width"  value="50"   waitEvent="updateComplete"  />
+
+                <AssertPropertyValue target = "dgroup1.dataProvider" propertyName="length" value="5" />
+
+                <AssertPropertyValue target = "dgroup2.dataProvider" propertyName="length" value="7" />
+
+                <CompareBitmap url="../methods/baselines/$testID.png" target="dgroup2" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Group_method_removeItemAt_elements_array" keywords="[Group, method, dataProvider.removeItemAt, array]" description="">
+
+            <setup>
+
+                <ResetComponent target="dgroup1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <ResetComponent target="dgroup2" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <SetProperty    target="dgroup1" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <SetProperty    target="dgroup2" propertyName="layout"  valueExpression="value=new VerticalLayout()"   waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <RunCode code="application.dgroup1.itemRendererFunction=application.mixItemRendererFunction"  />
+
+                <RunCode code="application.dgroup2.itemRendererFunction=application.mixItemRendererFunction"  />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetProperty    target="dgroup1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['a','b','c'])"   waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <SetProperty    target="dgroup2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([1,2,3,4])"   waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <RunCode code="application.dgroup1.dataProvider.removeItemAt(0);application.dgroup1.dataProvider.removeItemAt(0);application.dgroup1.dataProvider.removeItemAt(0);"  waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <AssertPropertyValue target = "dgroup1.dataProvider" propertyName="length" value="0" />
+
+
+
+                <RunCode code="application.dgroup1.dataProvider.addItem('e');"  waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup1,0);" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <RunCode code="application.dgroup2.dataProvider.removeItemAt(0);application.dgroup2.dataProvider.removeItemAt(2);"  waitEvent="updateComplete" waitTarget="dgroup2"/>
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup2,0);"  />
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup2,3);"  />
+                <SetProperty    target="dgroup2" propertyName="width"  value="50"   waitEvent="updateComplete"  />
+
+                <AssertPropertyValue target = "dgroup1.dataProvider" propertyName="length" value="2" />
+
+                <AssertPixelValue    target = "dgroup1" x="10"  y="10"  value="0x9966FF" />
+
+                <AssertPropertyValue target = "dgroup2.dataProvider" propertyName="length" value="4" />
+
+                <CompareBitmap url="../methods/baselines/$testID.png" target="dgroup2" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Group_method_getElementAt_array" keywords="[Group, method, getElementAt, array]" description="">
+
+            <setup>
+
+                <ResetComponent target="dgroup1" className="spark.components.DataGroup" waitEvent="updateComplete"  />
+
+                <ResetComponent target="dgroup2" className="spark.components.DataGroup" waitEvent="updateComplete"  />
+
+                <SetProperty    target="dgroup1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+
+                <SetProperty    target="dgroup2" propertyName="layout"  valueExpression="value=new VerticalLayout()"    />
+
+                <RunCode code="application.dgroup1.itemRendererFunction=application.mixItemRendererFunction"  />
+
+                <RunCode code="application.dgroup2.itemRendererFunction=application.mixItemRendererFunction"  />
+
+
+
+            </setup>
+
+            <body>
+
+                <SetProperty    target="dgroup1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(['a','b','c'])"   waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <SetProperty    target="dgroup2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([1,2,3,4])"   waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <AssertMethodValue   method="value=application.dgroup1.dataProvider.getItemAt(0)" value="a" />
+
+                <AssertMethodValue   method="value=application.dgroup2.dataProvider.getItemAt(3)" value="4" />
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup1,0);" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <RunCode code="addEllipseAtDataGroup(application.dgroup2,2);" waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <AssertPropertyValue target = "dgroup2.dataProvider" propertyName="length" value="5" />
+
+                <AssertMethodValue   method="value=application.dgroup2.dataProvider.getItemAt(0)" value="1" />
+
+                <AssertMethodValue   method="value=application.dgroup2.dataProvider.getItemAt(2).width" value="40" />
+
+                <AssertMethodValue   method="value=application.dgroup1.dataProvider.getItemAt(0).height" value="30" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Group_method_addItem_buttons_comp" keywords="[Group, method, dataProvider.addItem]" description="">
+
+            <setup>
+
+                <ResetComponent target="dgroup1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+                <ResetComponent target="dgroup2" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="dgroup2" />
+
+                <SetProperty    target="dgroup1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+
+                <RunCode code="application.dgroup1.itemRendererFunction=application.useDefaultComplexItemRenderer"  />
+                <SetProperty target="dgroup1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])" waitEvent="updateComplete" waitTarget="dgroup1" />
+
+            </setup>
+
+            <body>
+
+                <RunCode code="application.dgroup1.dataProvider.addItem(new comps.GroupButtonsComp)" waitEvent="updateComplete" waitTarget="dgroup1"/>
+
+                <AssertPropertyValue target = "dgroup1.dataProvider" propertyName="length" value="1" />
+
+                <CompareBitmap url="../methods/baselines/group_buttons.png"  target="dgroup1"  />
+
+
+
+            </body>
+
+        </TestCase>
+
+
+
+        <!-- TODO: Temporary Reset - Group/DataGroup split - Use this reset while we change tests over to the DataGroup directory -->
+
+        <TestCase testID="Group_methods_tester_reset" keywords="[Group, reset, TODO]" description="Reset groups that weren't reset already">
+
+            <body>
+
+                <ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" />
+
+                <ResetComponent target="group2" className="spark.components.Group" waitEvent="updateComplete" />
+
+                <ResetComponent target="subgroup1" className="spark.components.Group" waitEvent="updateComplete" />
+
+                <ResetComponent target="subgroup2" className="spark.components.Group" waitEvent="updateComplete" />
+
+                <ResetComponent target="dgroup1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+
+                <ResetComponent target="dgroup2" className="spark.components.DataGroup" waitEvent="updateComplete" />
+
+            </body>
+
+        </TestCase>
+
+
+
+    </testCases>
+
+
+
+</UnitTester>
+
+
+

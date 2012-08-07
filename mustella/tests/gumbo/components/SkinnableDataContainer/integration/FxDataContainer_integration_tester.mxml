@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableDataContainer/integration/"   xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*"
+ testSWF="FxDataContainerBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import spark.layouts.*;
+        import comps.*;
+
+
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="FxDataContainer_integration_skin" keywords="[FxContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" />
+                <SetStyle target="dc" styleName="skinClass" valueExpression="value=FdcSkinWithScroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.dc.itemRenderer=new ClassFactory(comps.ColorEllipseRenderer);"  />
+                <RunCode code="application.createEllipseAC()" />
+                <SetProperty target="dc" propertyName="dataProvider" valueExpression="value=application.ellipseAC" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="dc.dataGroup"/>
+                <AssertPropertyValue target = "dc.dataProvider" propertyName="length" value="7" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="dc" />
+            </body>
+        </TestCase>
+        <TestCase testID="SkDataContainer_integration_changeSkin_Bug22703" keywords="[SkinnableDataContainer, integration]" description="">
+            <setup>
+                <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+             </setup>
+            <body>
+ 		<SetStyle target="dc" styleName="skinClass" valueExpression="value=SquareSkin" waitEvent="updateComplete" />
+		<AssertPixelValue  target="dc" x="10" y="10" value="0xFF0000" />
+
+            </body>
+        </TestCase>
+
+     </testCases>
+</UnitTester>

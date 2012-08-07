@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/PopUpAnchor/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="PopUpAnchor_basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="PopUpAnchor_Properties_popUpHeightMatchesAnchorHeight1" keywords="[PopUpAnchor, popUpHeightMatchesAnchorHeight]" description="Test default popUpHeightMatchesAnchorHeight on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>				
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="false"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Properties_popUpHeightMatchesAnchorHeight2" keywords="[PopUpAnchor, popUpHeightMatchesAnchorHeight]" description="Test popUpHeightMatchesAnchorHeight=true on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="PopUpAnchor_Properties_popUpHeightMatchesAnchorHeight3" keywords="[PopUpAnchor, popUpHeightMatchesAnchorHeight]" description="Test popUpHeightMatchesAnchorHeight=true and new height at set runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Properties_popUpHeightMatchesAnchorHeight4" keywords="[PopUpAnchor, popUpHeightMatchesAnchorHeight]" description="Test popUpHeightMatchesAnchorHeight=false and new height set at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="false"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="PopUpAnchor_Properties_popUpWidthMatchesAnchorWidth1" keywords="[PopUpAnchor, popUpWidthMatchesAnchorWidth]" description="Test default popUpWidthMatchesAnchorWidth on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>				
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="false"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Properties_popUpWidthMatchesAnchorWidth2" keywords="[PopUpAnchor, popUpWidthMatchesAnchorWidth]" description="Test popUpWidthMatchesAnchorWidth=true on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+			</setup>
+			<body>			
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>		
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PopUpAnchor_Properties_popUpWidthMatchesAnchorWidth3" keywords="[PopUpAnchor, popUpWidthMatchesAnchorWidth]" description="Test popUpWidthMatchesAnchorWidth=true and new width set at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Properties_popUpWidthMatchesAnchorWidth4" keywords="[PopUpAnchor, popUpWidthMatchesAnchorWidth]" description="Test popUpWidthMatchesAnchorWidth=false and new width set at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+			</setup>
+			<body>	
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="false"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP.panelPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="PopUpAnchor_Properties_displayPopUp" keywords="[PopUpAnchor, displayPopUp]" description="Test displayPopUp on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>							
+			</setup>
+			<body>	
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID_1.png"/>				
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID_2.png"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID_3.png"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="PopUpAnchor_Properties_displayPopUp_btn" keywords="[PopUpAnchor, displayPopUp]" description="Test displayPopUp using a button on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>							
+			</setup>
+			<body>	
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID_1.png"/>				
+				<DispatchMouseClickEvent target="myPUP.pupOpenBtn" localX="5" localY="5" waitEvent="click" waitTarget="myPUP.pupOpenBtn"/>
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="displayPopUp" value="true"/>
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID_2.png"/>
+				<DispatchMouseClickEvent target="myPUP.pupExitBtn" localX="5" localY="5"/>
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="displayPopUp" value="false"/>
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID_3.png"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Properties_displayPopUp_states" keywords="[PopUpAnchor, displayPopUp]" description="Test displayPopUp using states on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUF" className="comps.Custom_PUF" waitEvent="updateComplete" waitTarget="myPUF"/>
+			</setup>
+			<body>					
+				<SetProperty target="myPUF" propertyName="currentState" value="formOpen" waitEvent="updateComplete" waitTarget="myPUF.formPUA.popUp"/>
+				<AssertPropertyValue target="myPUF.formPUA" propertyName="displayPopUp" value="true"/>
+				<Pause timeout="250"/>
+				<CompareBitmap target="myPUF.formPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUF" propertyName="currentState" value="normal"/>				
+				<AssertPropertyValue target="myPUF.formPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Properties_images" keywords="[PopUpAnchor, displayPopUp]" description="Test popUp containing images on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUB" className="comps.Custom_PUB" waitEvent="updateComplete" waitTarget="myPUB"/>
+			</setup>
+			<body>					
+				<SetProperty target="myPUB.picPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUB.picPUA.popUp"/>				
+				<CompareBitmap target="myPUB.picPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUB.picPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Properties_multiAssign" keywords="[PopUpAnchor]" description="Test setting properties twice on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+			</setup>
+			<body>			
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>				
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>		
+				<Pause timeout="50"/>
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true"/>
+				
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true"/>				
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true"/>		
+				<Pause timeout="50"/>
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpHeightMatchesAnchorHeight" value="true"/>				
+				
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="above" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpPosition" value="above"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="above"/>
+				<Pause timeout="50"/>
+				<AssertPropertyValue target="myPUP.panelPUA" propertyName="popUpPosition" value="above"/>				
+			</body>
+		</TestCase>				
+
+		<TestCase testID="PopUpAnchor_Properties_popUpPosition_top" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to top on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="83" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="above" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Properties_popUpPosition_right" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to right on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP" propertyName="width" value="400" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="83" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="right" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Properties_popUpPosition_left" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to left on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP" propertyName="width" value="400" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="83" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="left" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Properties_popUpPosition_below" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to below on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="83" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>				
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="PopUpAnchor_Properties_popUpPosition_center" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to center on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="83" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="center" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>						
+		
+		<TestCase testID="PopUpAnchor_Properties_popUpPosition_exact" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to exact on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUP" className="comps.Custom_PUP" waitEvent="updateComplete" waitTarget="myPUP"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.pupGroup" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUP.pupGroup"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="width" value="83" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpPosition" value="exact" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="popUpWidthMatchesAnchorWidth" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA"/>
+				<SetProperty target="myPUP.panelPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUP.panelPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="myPUP" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="PopUpAnchor_Properties_validator_valid" keywords="[PopUpAnchor, validator]" description="Test validator in a PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUF" className="comps.Custom_PUF" waitEvent="updateComplete" waitTarget="myPUF"/>
+				<SetProperty target="myPUF" propertyName="currentState" value="formOpen"/>
+				<Pause timeout="500"/>
+			</setup>
+			<body>									
+				<RunCode code="FlexGlobals.topLevelApplication.myPUF.setTI_valid();"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myPUF.formPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUF" propertyName="currentState" value="normal"/>
+			</body>
+		</TestCase>				
+	
+		<TestCase testID="PopUpAnchor_Properties_validator_invalid" keywords="[PopUpAnchor, validator]" description="Test validator in a PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUF" className="comps.Custom_PUF" waitEvent="updateComplete" waitTarget="myPUF"/>
+				<SetProperty target="myPUF" propertyName="currentState" value="formOpen"/>
+				<Pause timeout="500"/>
+			</setup>
+			<body>					
+				<RunCode code="FlexGlobals.topLevelApplication.myPUF.setTI_invalid();"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myPUF.formPUA.popUp" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPUF" propertyName="currentState" value="normal"/>
+			</body>
+		</TestCase>			
+
+	</testCases>
+	
+</UnitTester>

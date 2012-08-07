@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import spark.components.TabBar;
+	import mx.styles.StyleManager;
+	import mx.managers.SystemManager;
+	import mx.core.FlexGlobals;
+	import mx.events.ListEvent;
+
+    [Bindable]
+    private var myDP:Array=[{label:"Italy", data:"ITALY"},{label:"England", data:"ENGLAND"},{label:"Slovenia", data:"SLOVENIA"}];
+	]]>
+	</mx:Script>
+	<testCases>
+		<TestCase testID="TabBar_Events_change_Mouse" description="Test clicking on a TabBar and ensure the change event is launched" keywords="[change, TabBar]">
+		    <setup>
+			    <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" waitTarget="tb1" />
+			    <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="5" localY="2" />
+                <AssertEvent target="tb1" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Events_change_index" description="Verify the index property of the change event for TabBar." keywords="[change, TabBar]">
+		    <setup>
+			    <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" waitTarget="tb1" />
+			    <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(2)" localX="5" localY="2" />
+                <AssertEvent target="tb1" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertEventPropertyValue propertyName="newIndex" value="2" />
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Events_change_item" description="Verify the item property of the change event for TabBar." keywords="[change, TabBar]">
+		    <setup>
+			    <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" waitTarget="tb1" />
+			    <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(1)" localX="5" localY="2" />
+                <AssertEvent target="tb1" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertEventPropertyValue propertyName="oldIndex" value="0" />
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Events_change_relatedObject" description="Verify the relatedObject property of the change event for TabBar." keywords="[change, TabBar]">
+		    <setup>
+			    <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" waitTarget="tb1" />
+			    <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+			    <RunCode code="FlexGlobals.topLevelApplication.addListener()" />
+			</setup>
+			<body>
+			    <DispatchMouseClickEvent target="tb1.dataGroup.getElementAt(2)" localX="5" localY="2" />
+                <AssertEvent target="tb1" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+                <AssertStyleValue value="0xFF0000" target="tb1.dataGroup.getElementAt(2)" styleName="chromeColor" />
+			</body>
+		</TestCase>
+		<TestCase testID="TabBar_Events_change_SpaceBar" description="Test pressing the spacebar on a TabBar triggers the change event" keywords="[change, TabBar]">
+		    <setup>
+			    <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" waitTarget="tb1" />
+			    <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+			    <RunCode code="FlexGlobals.topLevelApplication.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="tb1" />
+			    <DispatchKeyEvent key="RIGHT" waitEvent="keyUp" waitTarget="tb1" />
+			    <DispatchKeyEvent key="SPACE" />
+                <AssertEvent target="tb1" eventName="change" eventClass="spark.events::IndexChangeEvent" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

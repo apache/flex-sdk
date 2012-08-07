@@ -1,0 +1,950 @@
+<UnitTester testDir="gumbo/components/NumericStepper/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="NumericStepper_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}
+
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <testCases>
+
+		<TestCase testID="NumericStepper_defaultValue" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		        <AssertPropertyValue target="myNS" propertyName="minimum" value="0" />
+		        <AssertPropertyValue target="myNS" propertyName="maximum" value="10" />
+		        <AssertPropertyValue target="myNS" propertyName="stepSize" value="1" />
+		        <AssertPropertyValue target="myNS" propertyName="snapInterval" value="1" />
+		        <AssertPropertyValue target="myNS" propertyName="allowValueWrap" value="false" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="2" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_defaultValue2" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="4" />
+		    </setup>
+		    <body>
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="4" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="5" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_defaultValue3" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="150" waitTarget="myNS" waitEvent="valueCommit"/>
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="9" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_defaultValue4" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="-3" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="1" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_defaultValue5" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="4" />
+				<SetProperty target="myNS" propertyName="stepSize" value="5" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_defaultValue6" keywords="[NumericStepper, Default]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="2" />
+				<SetProperty target="myNS" propertyName="stepSize" value="5" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="5" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_valueFormatFunction" keywords="[NumericStepper, valueFormatFunction]" description="Test valueFormatFunction for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS_dff" className="comps.myComp2" waitEvent="updateComplete" waitTarget="myNS_dff"/>
+		    </setup>
+		    <body>
+				<CompareBitmap target="myNS_dff" url="../Properties/Baselines/$testID_1.png"/>
+
+				<DispatchMouseEvent type="rollOver" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_dff.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_dff"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_dff.incrementButton"/>
+
+				<DispatchMouseEvent type="rollOver" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_dff.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_dff"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_dff.incrementButton"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS_skinned"/>
+
+				<CompareBitmap target="myNS_dff" url="../Properties/Baselines/$testID_2.png"/>
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_valueParseFunction" keywords="[NumericStepper, valueParseFunction]" description="Test valueParseFunction for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS_dff" className="comps.myComp2" waitEvent="updateComplete" waitTarget="myNS_dff"/>
+		    </setup>
+		    <body>
+				<CompareBitmap target="myNS_eff_label" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_dff.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_dff"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_dff.incrementButton"/>
+
+				<DispatchMouseEvent type="rollOver" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_dff.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_dff"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS_dff.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_dff.incrementButton"/>
+
+				<CompareBitmap target="myNS_eff_label" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMinimum1" keywords="[NumericStepper, Minimum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="-10" />
+				<SetProperty target="myNS" propertyName="value" value="-10" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-9" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMinimum2" keywords="[NumericStepper, Minimum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="-10" />
+				<SetProperty target="myNS" propertyName="value" value="-9" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-10" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMinimum3" keywords="[NumericStepper, Minimum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="7" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="7" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="8" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMaximum1" keywords="[NumericStepper, Maximum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="9" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMaximum2" keywords="[NumericStepper, Maximum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="maximum" value="42" />
+				<SetProperty target="myNS" propertyName="value" value="41" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="42" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="42" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMaximum3" keywords="[NumericStepper, Maximum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="maximum" value="402" />
+				<SetProperty target="myNS" propertyName="value" value="401" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="402" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="402" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_CustomMaximum4" keywords="[NumericStepper, Maximum]" description="Test Default Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="-150" />
+				<SetProperty target="myNS" propertyName="maximum" value="-50" />
+				<SetProperty target="myNS" propertyName="value" value="-49" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-50" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-50" />
+	    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_customValue" keywords="[NumericStepper]" description="Test Custom Values for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="-50" />
+				<SetProperty target="myNS" propertyName="maximum" value="50" />
+				<SetProperty target="myNS" propertyName="value" value="-50" />
+				<SetProperty target="myNS" propertyName="stepSize" value="5" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myNS" propertyName="value" value="-50" />
+		        <AssertPropertyValue target="myNS" propertyName="minimum" value="-50" />
+		        <AssertPropertyValue target="myNS" propertyName="maximum" value="50" />
+		        <AssertPropertyValue target="myNS" propertyName="stepSize" value="5" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-45" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-40" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-45" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-50" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="-50" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_stepSize" keywords="[NumericStepper, stepSize]" description="Test Custom decimal stepSize for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="stepSize" value="5.5" />
+				<SetProperty target="myNS" propertyName="snapInterval" value="5.5" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="5.5" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="5.5" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_stepSize2" keywords="[NumericStepper, stepSize, snapInterval]" description="Test Custom decimal stepSize that is not a multiple of snapInterval for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="stepSize" value="1.5" />
+				<SetProperty target="myNS" propertyName="snapInterval" value="1" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="2" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="4" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="2" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_stepSize3" keywords="[NumericStepper, stepSize, snapInterval]" description="Test Custom stepSize that is not a multiple of snapInterval for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="stepSize" value="0" />
+				<SetProperty target="myNS" propertyName="snapInterval" value="1" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="2" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_stepSize4" keywords="[NumericStepper, stepSize, snapInterval]" description="Test Custom stepSize with value of 0 for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="stepSize" value="0" />
+				<SetProperty target="myNS" propertyName="snapInterval" value="0" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_stepSize5" keywords="[NumericStepper, stepSize, snapInterval]" description="Test Custom stepSize with value of 0 for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="maximum" value="30" />
+				<SetProperty target="myNS" propertyName="stepSize" value="30" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="30" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="NumericStepper_stepSize6" keywords="[NumericStepper, stepSize, snapInterval]" description="Test Custom stepSize with value of 0 for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="snapInterval" value="0.1"/>
+				<SetProperty target="myNS" propertyName="stepSize" value="0.1"/>
+				<SetProperty target="myNS" propertyName="value" value="0.5"/>
+				<SetProperty target="myNS" propertyName="minimum" value="0"/>
+				<SetProperty target="myNS" propertyName="maximum" value="1"/>								
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0.6" />
+                
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0.7" />                
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0.6" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0.5" />
+                
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+                <AssertPropertyValue target="myNS" propertyName="value" value="0.4" />                
+		    </body>
+    	</TestCase>    	
+            	
+
+		<TestCase testID="NumericStepper_skin1" keywords="[NumericStepper, Skin]" description="Test Skinned NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS_skinned" className="comps.mySkinComp" waitEvent="updateComplete" waitTarget="myNS_skinned"/>
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_skinned.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_skinned" />
+				<DispatchMouseEvent type="mouseUp" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_skinned.incrementButton"/>
+
+                <AssertPropertyValue target="myNS_skinned" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_skinned.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_skinned" />
+				<DispatchMouseEvent type="mouseUp" target="myNS_skinned.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_skinned.incrementButton"/>
+
+                <AssertPropertyValue target="myNS_skinned" propertyName="value" value="2" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS_skinned.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_skinned.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_skinned.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_skinned" />
+				<DispatchMouseEvent type="mouseUp" target="myNS_skinned.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_skinned.decrementButton"/>
+
+                <AssertPropertyValue target="myNS_skinned" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS_skinned.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS_skinned.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS_skinned.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS_skinned" />
+				<DispatchMouseEvent type="mouseUp" target="myNS_skinned.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS_skinned.decrementButton"/>
+
+                <AssertPropertyValue target="myNS_skinned" propertyName="value" value="0" />
+                
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+                
+                <CompareBitmap target="myNS_skinned" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_allowValueWrap1" keywords="[NumericStepper, allowValueWrap]" description="Test allowValueWrap past max for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="allowValueWrap" value="true" />
+				<SetProperty target="myNS" propertyName="value" value="8" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="9" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="0" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="1" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_allowValueWrap2" keywords="[NumericStepper, allowValueWrap]" description="Test allowValueWrap below min for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="allowValueWrap" value="true" />
+				<SetProperty target="myNS" propertyName="value" value="1" />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="value" value="1" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+				<AssertPropertyValue target="myNS" propertyName="value" value="0" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="9" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_allowValueWrap3" keywords="[NumericStepper, allowValueWrap]" description="Test allowValueWrap with a custom Minimum and Maximum for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="15" />
+				<SetProperty target="myNS" propertyName="maximum" value="17" />
+				<SetProperty target="myNS" propertyName="allowValueWrap" value="true" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="16" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="17" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="15" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="16" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="15" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="17" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_allowValueWrap5" keywords="[NumericStepper, allowValueWrap]" description="Test allowValueWrap with user defined min and max for Spark NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		        <SetProperty target="myNS" propertyName="stepSize" value="5" />
+		        <SetProperty target="myNS" propertyName="maximum" value="155" />
+		        <SetProperty target="myNS" propertyName="minimum" value="-10" />
+		        <SetProperty target="myNS" propertyName="allowValueWrap" value="true" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+		        <AssertPropertyValue target="myNS" propertyName="value" value="-5" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+		        <AssertPropertyValue target="myNS" propertyName="value" value="-10" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+		        <AssertPropertyValue target="myNS" propertyName="value" value="155" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+			    <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+		        <AssertPropertyValue target="myNS" propertyName="value" value="150" />
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_custom_min_max" keywords="[NumericStepper, Minimum, Maximum]" description="Test Custom Minimum and Maximum for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="minimum" value="15" />
+				<SetProperty target="myNS" propertyName="maximum" value="17" />
+		    </setup>
+		    <body>
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="16" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="17" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="17" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="16" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="15" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+
+                <AssertPropertyValue target="myNS" propertyName="value" value="15" />
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="NumericStepper_focus" keywords="[NumericStepper,focus]" description="Test NumericStepper focus from TAB key">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+				<CompareBitmap target="myVbox" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+		</TestCase>
+
+		<TestCase testID="NumericStepper_disabled" keywords="[NumericStepper,Disabled]" description="Test NumericStepper Disabled Property">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="enabled" value="false" />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="enabled" value="false" />
+
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" />
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" />
+				<Pause timeout="100"/>
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" />
+				<Pause timeout="100"/>
+				
+				<AssertPropertyValue target="myNS" propertyName="value" value="0" />
+
+				<CompareBitmap target="myNS" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_width" keywords="[NumericStepper, Width]" description="Test NumericStepper Width Property">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="width" value="200" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="width" value="200" />
+				<CompareBitmap target="myNS" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_height" keywords="[NumericStepper, Height]" description="Test NumericStepper Height Property">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="height" value="100" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="height" value="100" />
+				<CompareBitmap target="myNS" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_valueDisplay" keywords="[NumericStepper]" description="Test NumericStepper Value as displayed by a label">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="maximum" value="69" waitTarget="myNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="value" value="69" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="value" value="69" />
+				<CompareBitmap target="myLabel" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_autoResize" keywords="[NumericStepper, resize]" description="Test NumericStepper auto-resize for a large number">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="maximum" value="200000000" waitTarget="myNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="value" value="123456789" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="value" value="123456789" />
+				<CompareBitmap target="myNS" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_maxChars" keywords="[NumericStepper,maxChars]" description="Test NumericStepper without maxChars property set">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="width" value="100" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myNS" />
+				<DispatchKeyEvent char="12345" waitEvent="keyUp" waitTarget="myNS" />
+				<RunCode code="application.myNS.skin.textDisplay.selectRange(0,2)" waitTarget="myNS.skin.textDisplay" waitEvent="selectionChange"/>
+				<CompareBitmap target="myNS" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_maxChars2" keywords="[NumericStepper,maxChars]" description="Test NumericStepper with maxChars property set to 4">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="width" value="100" waitTarget="myNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="maxChars" value="4" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myNS" propertyName="maxChars" value="4" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myNS" />
+				<DispatchKeyEvent char="12345" waitEvent="keyUp" waitTarget="myNS" />
+				<RunCode code="application.myNS.skin.textDisplay.selectRange(0,1)" waitTarget="stage" waitEvent="enterFrame"/>
+				<CompareBitmap target="myNS" url="../Properties/Baselines/$testID.png"/>
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_textInput" keywords="[NumericStepper]" description="Test NumericStepper textInput">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>
+		        <SetProperty target="myNS" propertyName="maximum" value="1000" waitTarget="myNS" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+		    	<SetProperty target="myNS" propertyName="value" value="235" waitEvent="updateComplete"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myNS" />
+				<DispatchKeyEvent char="235" waitEvent="keyUp" waitTarget="myNS" />
+				<DispatchKeyEvent key="ENTER"/>
+				<Pause timeout="50"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="235" />
+		    </body>
+        </TestCase>
+ 
+		<TestCase testID="NumericStepper_imeMode" keywords="[NumericStepper, imeMode]" description="Test imeMode property on NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>				
+		    	<SetProperty target="myNS" propertyName="imeMode" value="Chinese" waitTarget="myNS" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myNS" propertyName="imeMode" value="Chinese" />
+				<SetProperty target="myNS" propertyName="imeMode" value="Japanese" waitTarget="myNS" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myNS" propertyName="imeMode" value="Japanese" />
+				<SetProperty target="myNS" propertyName="imeMode" value="Korean" waitTarget="myNS" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myNS" propertyName="imeMode" value="Korean" />
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="NumericStepper_UpKey" keywords="[NumericStepper, UP]" description="Test UP arrow key on NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>		        
+		    </setup>
+		    <body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myNS" />			
+				<DispatchKeyEvent keys="[UP, UP, UP]" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="3" />
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="NumericStepper_DownKey" keywords="[NumericStepper, Down]" description="Test DOWN arrow key on NumericStepper">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete"/>		        
+		        <SetProperty target="myNS" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myNS"/>
+		    </setup>
+		    <body>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myNS" />							
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="2" />
+		    </body>
+        </TestCase>               	
+        
+        <TestCase testID="NumericStepper_baselinePosition_preValidation" keywords="[NumericStepper, baselinePosition]" description="Test baselinePosition for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" />
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="myNS" propertyName="baselinePosition" value="15.320313" />
+		    </body>
+    	</TestCase>              	
+    	
+        <TestCase testID="NumericStepper_baselinePosition_postValidation" keywords="[NumericStepper, baselinePosition]" description="Test baselinePosition for Spark NumericStepper">
+		    <setup>
+				<ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		    </setup>
+		    <body>
+                <AssertPropertyValue target="myNS" propertyName="baselinePosition" value="15.320313" />
+		    </body>
+    	</TestCase>
+
+    </testCases>
+
+</UnitTester>

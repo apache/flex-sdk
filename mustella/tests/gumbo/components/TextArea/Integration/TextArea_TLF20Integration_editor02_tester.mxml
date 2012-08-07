@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextArea/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="TextArea_TLF20Integration.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.elements.IConfiguration;
+			import flashx.textLayout.formats.LineBreak;
+			import spark.utils.TextFlowUtil;
+			import mx.core.FlexGlobals;
+			
+
+			
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		
+		<!-- ******************** ******************* ******************** -->
+		<!-- ******************** TextArea INTEGRATION LISTS AND FLOATS ******************** -->
+		<!-- ******************** ******************* ******************** -->
+		
+		<!-- ******************** FLOAT  ******************** -->
+		<TestCase testID="TA_02_FLOAT_ImgFloatEnd" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEnd]" 
+				  description="Ensure float for img  - ImgFloatEnd.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEnd.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeft]" 
+				  description="Ensure float for img  - ImgFloatLeft.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNone]" 
+				  description="Ensure float for img  - ImgFloatNone.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRight]" 
+				  description="Ensure float for img  - ImgFloatRight.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatStart" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatStart]" 
+				  description="Ensure float for img  - ImgFloatStart.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatStart.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		
+		<!-- ClearFloats -->
+		<TestCase testID="TA_02_FLOAT_ImgFloatRightClearBoth" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearBoth]" 
+				  description="Ensure float for img  - ImgFloatRightClearBoth.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatRightClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearLeft]" 
+				  description="Ensure float for img  - ImgFloatRightClearLeft.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatRightClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearNone]" 
+				  description="Ensure float for img  - ImgFloatRightClearNone.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatRightClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatRightClearRight]" 
+				  description="Ensure float for img  - ImgFloatRightClearRight.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatRightClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_02_FLOAT_ImgFloatEndClearBoth" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearBoth]" 
+				  description="Ensure float for img  - ImgFloatEndClearBoth.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatEndClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearLeft]" 
+				  description="Ensure float for img  - ImgFloatEndClearLeft.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatEndClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearNone]" 
+				  description="Ensure float for img  - ImgFloatEndClearNone.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatEndClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatEndClearRight]" 
+				  description="Ensure float for img  - ImgFloatEndClearRight.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatEndClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TA_02_FLOAT_ImgFloatLeftClearBoth" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearBoth]" 
+				  description="Ensure float for img  - ImgFloatLeftClearBoth.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatLeftClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearLeft]" 
+				  description="Ensure float for img  - ImgFloatLeftClearLeft.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatLeftClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearNone]" 
+				  description="Ensure float for img  - ImgFloatLeftClearNone.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatLeftClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatLeftClearRight]" 
+				  description="Ensure float for img  - ImgFloatLeftClearRight.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatLeftClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="TA_02_FLOAT_ImgFloatNoneClearBoth" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearBoth]" 
+				  description="Ensure float for img  - ImgFloatNoneClearBoth.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearBoth.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatNoneClearLeft" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearLeft]" 
+				  description="Ensure float for img  - ImgFloatLeftClearLeft.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearLeft.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatNoneClearNone" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearNone]" 
+				  description="Ensure float for img  - ImgFloatNoneClearNone.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearNone.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_FLOAT_ImgFloatNoneClearRight" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearRight]" 
+				  description="Ensure float for img  - ImgFloatNoneClearRight.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatNoneClearRight.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+		<TestCase testID="TA_02_ImgFloatAndClearFloatsRuntime" keywords="[TLF 2.0 Integration, RichEditableText, ImgFloatNoneClearRight]" 
+				  description="Ensure float for img at runtime - ImgFloatAndClearFloatsRuntime.">
+			<setup>
+				<ResetComponent target="customTAEditor" className="TLF.comp.CustomTAEditor" waitEvent="updateComplete" waitTarget="customTAEditor"/>
+				<SetProperty target="customTAEditor.editor" propertyName="height" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="width" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxHeight" value="600" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customTAEditor.editor" propertyName="maxWidth" value="500" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				
+				<SetProperty target="customTAEditor.editor" propertyName="textFlow" valueExpression="value=application.ImgFloatAndClearFloatsRuntime.shallowCopy() as TextFlow" waitTarget="customTAEditor.editor" waitEvent="updateComplete" />
+				<RunCode code="application.customTAEditor.editor.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.editor" />
+				<RunCode code="application.customTAEditor.btnDummy.setFocus()" waitEvent="focusIn" waitTarget="customTAEditor.btnDummy" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customTAEditor.editor" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>		
+

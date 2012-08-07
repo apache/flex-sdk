@@ -1,0 +1,36 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_styles_Position.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="Panel_Styles_position" keywords="[Panel, left, right, top, bottom]" description="Test position styles on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePosPanel" className="Comps.CustomStylePosPanel" waitEvent="updateComplete" waitTarget="myCustomStylePosPanel"/>
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="stage" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+            </body>
+        </TestCase> 
+
+    </testCases>
+    
+</UnitTester>
+

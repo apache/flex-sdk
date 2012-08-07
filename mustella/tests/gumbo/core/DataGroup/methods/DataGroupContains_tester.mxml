@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			xmlns:comps="comps.*"
+			testDir="gumbo/core/DataGroup/methods/"
+			testSWF="DataGroupContains.mxml">
+	<fx:Script>
+		<![CDATA[ 
+			import mx.core.FlexGlobals;
+			import spark.components.*;
+			public static function init(o:DisplayObject):void { } ]]>
+	</fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+	
+	<testCases>
+
+		<TestCase testID="DataGroup_Methods_containsElement_true" keywords="[Group, containsElement]" description="Checks for myLabel, myFXG and myRect inside a DataGroup">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.containsElement(application.myDataGroup.getElementAt(0).myLabel)" value="true" />
+				<AssertMethodValue method="value=application.myDataGroup.containsElement(application.myDataGroup.getElementAt(0).myFXG)" value="true" />
+				<AssertMethodValue method="value=application.myDataGroup.containsElement(application.myDataGroup.getElementAt(0).myRect)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_null_false" keywords="[DataGroup, containsElement]" description="Checks containsElement when null is passed">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.containsElement(null)" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_wrong_element_false" keywords="[DataGroup, containsElement]" description="Checks for an element that doesn't exist.">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.getElementAt(0)['myDataGroupLevel1'].containsElement((application.myDataGroup.getElementAt(0)).myLabel)" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_DataGroup_Group_true" keywords="[DataGroup, Group, containsElement]" description="Checks for nestedButton which is inside a Group which is inside a DataGroup">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.containsElement(application.myDataGroup.getElementAt(0).nestedButton)" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_remove_IR" keywords="[DataGroup, containsElement, ItemRenderer]" description="Checks for an ItemRenderer after removing it">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.removeIR()" value="false" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_Nested_DataGroup_true" keywords="[DataGroup, containsElement]" description="Checks for DataGroup which is inside another DataGroup">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.containsElement
+								   (application.myDataGroup.getElementAt(0)['myDataGroupLevel1'])" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_Nested_DataGroup_Label_true" keywords="[DataGroup, containsElement]" description="Checks for a lable which is nested insider a DataGroup">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.containsElement
+								   (application.myDataGroup.getElementAt(0)['myDataGroupLevel1'].getElementAt(0)['nestedLabel'])" value="true" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGroup_Methods_containsElement_Nested_2Levels_DataGroup_true" keywords="[DataGroup, containsElement]" description="Checks for elements that are deep nested 2 levels inside the DataGroup">
+			<setup>
+				<ResetComponent target="myDataGroup" className="comps.myCompDataGroup" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=application.myDataGroup.containsElement
+								   (application.myDataGroup.getElementAt(0)['myDataGroupLevel1'].getElementAt(0)['nestedDataGroupLevel2'].getElementAt(0)['nestedRectLevel2'])" value="true" />
+				<AssertMethodValue method="value=application.myDataGroup.containsElement
+								   (application.myDataGroup.getElementAt(0)['myDataGroupLevel1'].getElementAt(0)['nestedDataGroupLevel2'].getElementAt(0)['nestedButtonLevel2'])" value="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>
+		

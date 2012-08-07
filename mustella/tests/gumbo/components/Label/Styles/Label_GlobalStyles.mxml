@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Styles/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_Styles_basic.mxml">
+
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</mx:Metadata>
+
+	<!-- ################################################################## -->
+
+
+	<mx:Script>
+		<![CDATA[
+			import comps.LabelBasic;
+
+			import flash.text.engine.BreakOpportunity;
+			import flash.text.engine.CFFHinting;
+			import flash.text.engine.DigitCase;
+			import flash.text.engine.DigitWidth;
+			import flash.text.engine.FontPosture;
+			import flash.text.engine.FontWeight;
+			import flash.text.engine.JustificationStyle;
+			import flash.text.engine.Kerning;
+			import flash.text.engine.LigatureLevel;
+			import flash.text.engine.RenderingMode;
+			import flash.text.engine.TextBaseline;
+
+			import flashx.textLayout.formats.BaselineShift;
+			import flashx.textLayout.formats.Direction;
+			import flashx.textLayout.formats.JustificationRule;
+			import flashx.textLayout.formats.LineBreak;
+
+			public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+			public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+			public var singleLineNumbers:String = "The quick brown fox jumps over the lazy dog. 1234567890";
+			public var ligatureLevelText:String = "fi fj fl ft ffi ffj ffl ct st Th";
+			public var kerningText:String = "YMMVAWAWAWAWA";
+
+		]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="Label_IDSelector" description="Be sure that Label can match an id selector like #tb" keywords="[TextBox, ID Selector, Graphic]">
+			<setup>
+				<SetProperty target="textBoxComp2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp2" styleName="textDecoration" value="underline" />
+				<AssertStyleValue target="textBoxComp2" styleName="fontSize" value="15" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="10"  url="../Styles/baselines/$testID.png" target="textBoxComp2" />
+			</body>
+		</TestCase>
+		<TestCase testID="Label_TypeIDSelector" description="Be sure that Label can match a type and id selector like TextBox#tb" keywords="[TextBox, Type Selector, ID Selector, Graphic]">
+			<setup>
+				<SetProperty target="textBoxComp3" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp3" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp3" styleName="color" value="0xff0000" />
+				<AssertStyleValue target="textBoxComp3" styleName="fontSize" value="20" />
+				<CompareBitmap numColorVariances="20" maxColorVariance="20" url="../Styles/baselines/$testID.png" target="textBoxComp3" />
+			</body>
+		</TestCase>
+		<TestCase testID="Label_DescendantSelector" description="Be sure that Label can match a descendant selector like HBox TextBox" keywords="[TextBox, Descendant Selector, Graphic]">
+			<setup>
+				<SetProperty target="textBoxComp4" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp4" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp4" styleName="color" value="0x0000ff" />
+				<AssertStyleValue target="textBoxComp4" styleName="fontWeight" value="bold" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="10"  url="../Styles/baselines/$testID.png" target="textBoxComp4" />
+			</body>
+		</TestCase>
+		<TestCase testID="Label_DescendantClassSelector_halo" description="Be sure that Label can match a descendant selector like HBox .greenText" keywords="[TextBox, Descendant Selector, Class Selector, Graphic]">
+			<setup>
+				<SetProperty target="textBoxComp5" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp5" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp5" styleName="color" value="0x00DD00" />
+				<AssertStyleValue target="textBoxComp5" styleName="fontSize" value="8" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="10"  url="../Styles/baselines/$testID.png" target="textBoxComp5" />
+			</body>
+		</TestCase>
+		<TestCase testID="Label_DescendantClassSelector_spark" description="Be sure that Label can match a descendant selector like SkinnableContainer .greenText" keywords="[TextBox, Descendant Selector, Class Selector Graphic]">
+			<setup>
+				<SetProperty target="textBoxComp6" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp6" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textBoxComp6" styleName="textAlpha" value="0.5" />
+				<AssertStyleValue target="textBoxComp6" styleName="fontSize" value="22" />
+				<CompareBitmap numColorVariances="10" maxColorVariance="10"  url="../Styles/baselines/$testID.png" target="container3" />
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>
+

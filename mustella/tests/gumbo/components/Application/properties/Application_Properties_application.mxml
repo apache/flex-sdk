@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Application/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Application_Properties_App4.mxml">
+
+<!-- this set of lines form a template that must be in each unit test -->
+<mx:Script>
+<![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    
+    }
+    
+]]>
+</mx:Script>
+
+<mx:Metadata>
+<![CDATA[
+    [Mixin]
+]]>
+</mx:Metadata>
+
+<!-- end of set of lines that must be in each unit test -->
+
+<mx:Script>
+<![CDATA[
+    
+    import assets.*;
+    import mx.controls.*;
+    import mx.core.*;
+    import mx.events.*;
+    import mx.managers.PopUpManager;
+    
+]]>
+</mx:Script>
+
+<!--
+No setup is needed for some of these.  We're just checking return values from API calls.
+-->
+
+<testCases>
+    <TestCase testID="Application_Properties_topLevelApplication_test1" keywords="[Application,topLevelApplication]" description="Get FlexGlobals.topLevelApplication from a custom control in a group.">
+        <body>
+            <AssertMethodValue method="value = application.btn1.getTopLevelApplication()" valueExpression="value = FlexGlobals.topLevelApplication.theIdentifier" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_topLevelApplication_test2" keywords="[Application,topLevelApplication]" description="Call from an Application in a SWFLoader.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplication.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value = application.bx1.sl2.content.document.getTopLevelApplication()" valueExpression="value = FlexGlobals.topLevelApplication.theIdentifier" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_topLevelApplication_test3" keywords="[Application,topLevelApplication]" description="Get FlexGlobals.topLevelApplication from a pop-up.">
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.showPopUp()" />
+            <WaitForEffectsToEnd />
+            <AssertMethodValue method="value = FlexGlobals.topLevelApplication.thePopUp.getTopLevelApplication()" valueExpression="value = FlexGlobals.topLevelApplication.theIdentifier" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_dismissPopUp" keywords="[Application,topLevelApplication]" description="Dismiss the popup.  If we try to remove the pop-up above, and the test case fails, the pop-up will never get removed.  So we have this fake test case.">
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.hidePopUp()" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_verifyClass" keywords="[Application,topLevelApplication]" description="Dismiss the popup.  If we try to remove the pop-up above, and the test case fails, the pop-up will never get removed.  So we have this fake test case.">
+        <body>
+            <RunCode code="FlexGlobals.topLevelApplication.verifyClass()" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_ApplicationDotApplication_test1" keywords="[Application,topLevelApplication]" description="Application.application will return null if the top-level is not of type Application or a subclass of Application.  A UnitTester is not, so we'll test it right here.">
+        <body>
+            <AssertMethodValue method="value = Application.application" valueExpression="value = FlexGlobals.topLevelApplication" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="Application_Properties_ApplicationDotApplication_test2" keywords="[Application,topLevelApplication]" description="Call Application.application from a Flex 3.4 SWF loaded into a Flex 4 app.">
+        <setup>
+            <ResetComponent target="bx1" className="assets.BoxComp1" waitEvent="updateComplete" />
+            <SetProperty target="bx1.sl2" propertyName="loadForCompatibility" value="true" />            
+            <SetProperty target="bx1.sl2" propertyName="autoLoad" value="true" />
+            <SetProperty target="bx1.sl2" propertyName="source" value="assets/BasicApplicationFlex34.swf" waitEvent="complete" waitTarget="bx1.sl2" />
+            <DispatchMouseEvent target="" type="mouseMove" localX="12" localY="55" waitTarget="bx1.sl2.content" waitEvent="applicationComplete"/>
+        </setup>
+        <body>
+            <AssertMethodValue method="value = application.bx1.sl2.content.document.checkApplication()" value="true" />
+        </body>
+    </TestCase>
+
+</testCases>
+</UnitTester>

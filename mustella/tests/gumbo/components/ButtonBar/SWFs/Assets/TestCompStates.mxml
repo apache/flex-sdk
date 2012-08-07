@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:s="library://ns.adobe.com/flex/spark" width="500" height="700" currentState="state1">
+
+	<s:states>
+		<s:State name="state0" />
+		<s:State name="state1" />
+		<s:State name="state2" />
+		<s:State name="state3" />
+	</s:states>
+
+	<s:ButtonBar id="bb_States" dataProvider.state0="{child0}"
+				 dataProvider.state1="{child1}"
+				 dataProvider.state2="{child2}"
+				 dataProvider.state3="{child3}"/>
+
+	<mx:ViewStack id="child0" width="300" height="100" x="0" y="0" label="child0">
+
+	</mx:ViewStack>
+
+	<mx:ViewStack id="child1" width="300" height="100" x="0" y="0" label="child1">
+		<mx:HBox label="Halo 1" backgroundColor="red" id="halo1">
+			<mx:Label text="halo1"/>
+		</mx:HBox>
+	</mx:ViewStack>
+
+	<mx:ViewStack id="child2" width="300" height="100" x="0" y="0" label="child2">
+		<s:NavigatorContent label="Spark 1" backgroundColor="green" id="spark1">
+			<s:Button label="spark1" />
+		</s:NavigatorContent>
+		<s:NavigatorContent label="Spark 2" backgroundColor="yellow" id="spark2">
+			<s:Button label="spark2" />
+		</s:NavigatorContent>
+	</mx:ViewStack>
+
+	<mx:ViewStack id="child3" width="300" height="100" x="0" y="0" label="child3">
+		<s:NavigatorContent label="SparkHalo 1" backgroundColor="green" id="sparkhalo1">
+			<s:Button label="sparkhalo1" />
+		</s:NavigatorContent>
+		<s:NavigatorContent label="SparkHalo 2" backgroundColor="yellow" id="sparkhalo2">
+			<s:Button label="sparkhalo2" />
+		</s:NavigatorContent>
+		<mx:Box label="SparkHalo 3" backgroundColor="purple" id="sparkhalo3">
+			<mx:Button label="sparkhalo3" />
+		</mx:Box>
+	</mx:ViewStack>
+
+
+</s:VGroup>

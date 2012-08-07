@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_panel_default.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+        import mx.core.UIComponent;
+        
+	]]>
+	</mx:Script>
+	<testCases>
+
+<!--
+========================================================
+panel container 
+========================================================
+-->
+<TestCase testID="container_panel_default_test1" keywords="[BasicLayout,intergration,container,panel,default]" description="parent container is panel, with BasicLayout, verify it calculates size, place children correctly" >
+    <setup>
+        <ResetComponent target="childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="childBtn"/>
+     	<SetProperty propertyName="percentWidth" value="75" target="panel1"/>
+        <SetProperty propertyName="percentHeight" value="75" target="panel1"/>
+	<RunCode code="application.setLayoutBoundsSize(400,400)" waitEvent="updateComplete" waitTarget="panel1"/>
+    </setup>
+    <body>
+	<AssertPropertyValue propertyName="width" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="height" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="width" value="70" target="childBtn"/>
+	<AssertPropertyValue propertyName="height" value="21" target="childBtn"/>
+	<AssertPropertyValue propertyName="width" value="70" target="parentGroup"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="container_panel_default_test2" keywords="[BasicLayout,intergration,container,panel,default]" description="parent container is panel, with BasicLayout, verify its size depends on its children's explicit size" >
+    <setup>
+        <ResetComponent target="childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="childBtn"/>
+        <SetProperty propertyName="width" value="200" target="childBorder"/>
+        <SetProperty propertyName="height" value="200" target="childBorder" waitEvent="updateComplete" waitTarget="childBorder"/>
+
+    </setup>
+    <body>
+	<AssertPropertyValue propertyName="width" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="height" value="300" target="panel1"/>
+    </body>
+</TestCase>
+
+<TestCase testID="container_panel_resize_test1" keywords="[BasicLayout,intergration,container,panel,resize]" description="parent container is panel, with BasicLayout, verify its size depends on its children's explicit size" >
+    <setup>
+        <ResetComponent target="childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="childBtn"/>
+        <SetProperty propertyName="width" value="200" target="childBorder"/>
+        <SetProperty propertyName="height" value="200" target="childBorder"/>
+
+    </setup>
+    <body>
+	<AssertPropertyValue propertyName="width" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="height" value="300" target="panel1"/>
+	<SetProperty propertyName="width" value="300" target="childBorder"/>
+        <SetProperty propertyName="height" value="300" target="childBorder"  waitEvent="updateComplete" waitTarget="childBorder"/>
+	<AssertPropertyValue propertyName="width" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="height" value="300" target="panel1"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="container_panel_resize_test2" keywords="[BasicLayout,intergration,container,panel,resize]" description="parent container is panel, with BasicLayout, verify child with dynamic setting will have width|height changed" >
+    <setup>
+        <ResetComponent target="childBtn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="childBtn"/>
+	<SetProperty propertyName="percentWidth" value="75" target="panel1"/>
+        <SetProperty propertyName="percentHeight" value="75" target="panel1"/>
+	<SetProperty propertyName="percentWidth" value="50" target="parentGroup"/>
+        <SetProperty propertyName="percentHeight" value="50" target="parentGroup"/>        
+
+	<SetProperty propertyName="top" value="0" target="childBorder"/>
+        <SetProperty propertyName="left" value="0" target="childBorder"/>
+	<SetProperty propertyName="right" value="0" target="childBorder"/>
+        <SetProperty propertyName="bottom" value="0" target="childBorder" waitEvent="updateComplete" waitTarget="childBorder"/>
+	<RunCode code="application.setLayoutBoundsSize(400,400)" />
+    </setup>
+    <body>
+    	<AssertPropertyValue propertyName="width" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="height" value="300" target="panel1"/>
+	<AssertPropertyValue propertyName="width" value="301" target="parentGroup"/>
+	<AssertPropertyValue propertyName="height" value="301" target="parentGroup"/>
+	<AssertPropertyValue propertyName="width" value="300" target="childBorder"/>
+	<AssertPropertyValue propertyName="height" value="300" target="childBorder"/>
+    </body>
+</TestCase>
+
+
+
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

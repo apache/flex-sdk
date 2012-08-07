@@ -1,0 +1,372 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_styles_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+  		<TestCase testID="Panel_Styles_backgroundColor1" keywords="[Panel, backgroundColor]" description="Test backgroundColor on Panel">
+        	<setup>            
+        		<ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+        		<SetStyle target="myCustomStylePanel" styleName="backgroundColor" value="0x00FF00" waitEvent="updateComplete"/>
+              </setup>
+              <body>            	            	
+              	<AssertStyleValue target="myCustomStylePanel" styleName="backgroundColor" value="0x00FF00"/>
+              	<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+              </body>
+        </TestCase>     
+ 
+  		<TestCase testID="Panel_Styles_backgroundColor2" keywords="[Panel, backgroundColor]" description="Test backgroundColor on Panel">
+		  <setup>            
+			  <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+		  </setup>
+		  <body>            	            	
+			<AssertStyleValue target="myCustomStylePanel" styleName="backgroundColor" value="0xFF0000"/>
+			<AssertStyleValue target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF"/>
+			<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+		  </body>
+        </TestCase>     
+
+  		<TestCase testID="Panel_Styles_backgroundColor3" keywords="[Panel, backgroundColor]" description="Test backgroundColor on Panel">
+		  <setup>            
+			  <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="backgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="color" value="0xFF0000" waitEvent="updateComplete"/>
+		  </setup>
+		  <body>            	            	
+			<AssertStyleValue target="myCustomStylePanel" styleName="backgroundColor" value="0x0000FF"/>
+			<AssertStyleValue target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF"/>
+			<AssertStyleValue target="myCustomStylePanel" styleName="color" value="0xFF0000"/>
+			<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+		  </body>
+        </TestCase>
+        
+  		<TestCase testID="Panel_Styles_backgroundColor4" keywords="[Panel, backgroundColor]" description="Test backgroundColor on Panel">
+		  <setup>            
+			  <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="backgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="color" value="0xFF0000" waitEvent="updateComplete"/>
+			  <SetStyle target="myCustomStylePanel" styleName="backgroundAlpha" value="0.1" waitEvent="updateComplete"/>
+		  </setup>
+		  <body>            	            	
+			<AssertStyleValue target="myCustomStylePanel" styleName="backgroundColor" value="0x0000FF"/>
+			<AssertStyleValue target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF"/>
+			<AssertStyleValue target="myCustomStylePanel" styleName="color" value="0xFF0000"/>
+			<AssertStyleValue target="myCustomStylePanel" styleName="backgroundAlpha" value="0.1"/>
+			<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+		  </body>
+        </TestCase> 
+        
+		<TestCase testID="Panel_Styles_baseColor" keywords="[borderColor, Panel]">
+			<setup>
+				<ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel"  waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>
+				<SetProperty target="myCustomStylePanel" propertyName="title" value="baseColor should be red"/>
+ 				<SetStyle target="myCustomStylePanel" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/> 				
+			</setup>
+			<body>
+ 				<AssertStyleValue target="myCustomStylePanel" styleName="chromeColor" value="0xFF0000" />
+ 				<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+ 			</body>
+		</TestCase>
+		
+ 		<TestCase testID="Panel_Styles_borderVisible1" keywords="[Panel, borderVisible]" description="Test dropShadowVisible = false on Panel">
+             <setup>            
+                 <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+                 <SetStyle target="myCustomStylePanel" styleName="borderVisible" value="false" waitEvent="updateComplete"/>
+             </setup>
+             <body>            	       
+             	<AssertStyleValue target="myCustomStylePanel" styleName="borderVisible" value="false"/>
+             	<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+             </body>
+        </TestCase>  
+        
+ 		<TestCase testID="Panel_Styles_borderVisible2" keywords="[Panel, borderVisible]" description="Test dropShadowVisible = false on Panel">
+             <setup>            
+                 <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+                 <SetStyle target="myCustomStylePanel" styleName="borderVisible" value="false" waitEvent="updateComplete"/>
+                 <SetStyle target="myCustomStylePanel" styleName="dropShadowVisible" value="false" waitEvent="updateComplete"/>
+             </setup>
+             <body> 
+             	<AssertStyleValue target="myCustomStylePanel" styleName="dropShadowVisible" value="false"/>
+             	<AssertStyleValue target="myCustomStylePanel" styleName="borderVisible" value="false"/>
+             	<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+             </body>
+        </TestCase>  		
+
+		<TestCase testID="Panel_Styles_contentBackgroundAlpha" keywords="[Panel, contentBackgroundColor]" description="Test contentBackgroundColor style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>
+                <SetStyle target="myCustomStylePanel" styleName="contentBackgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+         
+		<TestCase testID="Panel_Styles_contentBackgroundColor" keywords="[Panel, contentBackgroundColor]" description="Test contentBackgroundColor style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="contentBackgroundColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="Panel_Styles_cornerRadius1" keywords="[Panel, cornerRadius]" description="Test cornerRadius style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>           
+                <SetProperty target="myCustomStylePanel" propertyName="title" value="A title on the panel to see how it looks with cornerRadius"/>                
+                <SetStyle target="myCustomStylePanel" styleName="cornerRadius" value="10" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Styles_cornerRadius2" keywords="[Panel, cornerRadius]" description="Test cornerRadius style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetProperty target="myCustomStylePanel" propertyName="title" value="A title on the panel to see how it looks with cornerRadius"/>
+                <SetStyle target="myCustomStylePanel" styleName="cornerRadius" value="50" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Styles_cornerRadius3" keywords="[Panel, cornerRadius]" description="Test cornerRadius style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>  
+                <SetProperty target="myCustomStylePanel" propertyName="title" value="A title on the panel to see how it looks with cornerRadius" />                
+                <SetStyle target="myCustomStylePanel" styleName="cornerRadius" value="200" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>        
+ 
+ 		<TestCase testID="Panel_Styles_dropShadowVisible1" keywords="[Panel, dropShadowVisible]" description="Test default dropShadow on Panel">
+             <setup>            
+                 <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                      
+             </setup>
+             <body>            	            
+             	<AssertStyleValue target="myCustomStylePanel" styleName="dropShadowVisible" value="true"/>
+             	<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+             </body>
+        </TestCase>
+        
+ 		<TestCase testID="Panel_Styles_dropShadowVisible2" keywords="[Panel, dropShadowVisible]" description="Test dropShadowVisible = false on Panel">
+             <setup>            
+                 <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>
+                 <SetStyle target="myCustomStylePanel" styleName="dropShadowVisible" value="false" waitEvent="updateComplete"/>
+             </setup>
+             <body>
+             	<AssertStyleValue target="myCustomStylePanel" styleName="dropShadowVisible" value="false"/>
+             	<CompareBitmap target="myGrp" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+             </body>
+        </TestCase>
+        
+        
+		<TestCase testID="Panel_Styles_fontSize1" keywords="[Panel, fontSize]" description="Test fontSize on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body>            	            	
+            	<AssertStyleValue target="myCustomStylePanel" styleName="fontSize" value="16"/>
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>              
+
+		<TestCase testID="Panel_Styles_fontSize2" keywords="[Panel, fontSize]" description="Test fontSize on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetProperty target="myCustomStylePanel" propertyName="title" value="Panel Title"/>                
+                <SetStyle target="myCustomStylePanel" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body>  
+                <AssertPropertyValue target="myCustomStylePanel" propertyName="title" value="Panel Title"/>                
+                <AssertStyleValue target="myCustomStylePanel" styleName="fontSize" value="16"/>            
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Styles_fontStyle1" keywords="[Panel, fontStyle]" description="Test fontSize on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="fontStyle" value="italic" waitEvent="updateComplete"/>                
+            </setup>
+            <body>            	            	
+            	<AssertStyleValue target="myCustomStylePanel" styleName="fontStyle" value="italic"/>                
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>              
+
+		<TestCase testID="Panel_Styles_fontStyle2" keywords="[Panel, fontStyle]" description="Test fontSize on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetProperty target="myCustomStylePanel" propertyName="title" value="Panel Title" />                
+                <SetStyle target="myCustomStylePanel" styleName="fontStyle" value="italic" waitEvent="updateComplete"/>                
+            </setup>
+            <body> 
+				<AssertPropertyValue target="myCustomStylePanel" propertyName="title" value="Panel Title"/>                
+                <AssertStyleValue target="myCustomStylePanel" styleName="fontStyle" value="italic"/>                            
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>          
+
+		<TestCase testID="Panel_Styles_fontStyle3" keywords="[Panel, fontStyle]" description="Test fontSize on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetProperty target="myCustomStylePanel" propertyName="title" value="Panel Title" />                
+                <SetStyle target="myCustomStylePanel" styleName="fontStyle" value="italic" waitEvent="updateComplete"/>                
+                <SetStyle target="myCustomStylePanel" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body> 
+				<AssertPropertyValue target="myCustomStylePanel" propertyName="title" value="Panel Title"/>                
+                <AssertStyleValue target="myCustomStylePanel" styleName="fontStyle" value="italic"/>
+                <AssertStyleValue target="myCustomStylePanel" styleName="fontSize" value="16"/>
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>         
+        
+		<TestCase testID="Panel_Styles_fontWeight" keywords="[Panel, fontWeight]" description="Test fontWeight style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>      
+        
+		<TestCase testID="Panel_Styles_fontWeight2" keywords="[Panel, fontWeight]" description="Test fontWeight style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+                <SetStyle target="myCustomStylePanel" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body>            	        
+            	<AssertStyleValue target="myCustomStylePanel" styleName="fontSize" value="16"/>
+            	<AssertStyleValue target="myCustomStylePanel" styleName="fontWeight" value="bold"/>
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>        
+        
+		<TestCase testID="Panel_Styles_lineThrough" keywords="[Panel, lineThrough]" description="Test lineThrough style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Styles_lineThrough_airOnly" keywords="[Panel, lineThrough]" description="Test lineThrough style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>            
+          
+         <TestCase testID="Panel_Styles_misc" keywords="[Panel, Color, fontSize, fontStyle, fontWeight, selectionColor]" description="Test styles on Panel">
+             <setup>            
+                 <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>
+                 <SetProperty target="myCustomStylePanel" propertyName="toolTip" value=""/>
+                 <SetStyle target="myCustomStylePanel" styleName="color" value="red" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>
+                 <SetStyle target="myCustomStylePanel" styleName="fontSize" value="14" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+                 <SetStyle target="myCustomStylePanel" styleName="selectionColor" value="yellow" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+             </setup>
+             <body>            	
+             	<DispatchMouseClickEvent target="myCustomStylePanel.myDG" localX="40" localY="70" waitEvent="focusIn" waitTarget="myCustomStylePanel.myDG"/>
+             	<Pause timeout="500"/>
+             	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+             </body>
+         </TestCase> 
+      
+		<TestCase testID="Panel_Styles_symbolColor" keywords="[Panel, symbolColor]" description="Test symbolColor style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>               
+                <SetStyle target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myCustomStylePanel"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+		<TestCase testID="Panel_Styles_symbolColor2" keywords="[Panel, symbolColor, baseColor]" description="Test symbolColor with baseColor style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>    
+                <SetProperty target="myCustomStylePanel" propertyName="toolTip" value=""/>
+                <SetStyle target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete"/>
+                <SetStyle target="myCustomStylePanel" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete"/>
+            </setup>
+            <body>            	      
+				<AssertStyleValue target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000"/>
+                <AssertStyleValue target="myCustomStylePanel" styleName="chromeColor" value="0xFF0000"/>            
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Styles_symbolColor3" keywords="[Panel, symbolColor, baseColor, backgroundColor]" description="Test symbolColor with baseColor and backgroundColor style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>               
+                <SetStyle target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete"/>                
+                <SetStyle target="myCustomStylePanel" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete"/>
+                <SetStyle target="myCustomStylePanel" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete"/>
+            </setup>
+            <body>            	        
+				<AssertStyleValue target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000"/>                
+                <AssertStyleValue target="myCustomStylePanel" styleName="chromeColor" value="0xFF0000" />
+                <AssertStyleValue target="myCustomStylePanel" styleName="backgroundColor" value="0xFF0000"/>            
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Styles_symbolColor4" keywords="[Panel, symbolColor, baseColor, backgroundColor]" description="Test symbolColor with baseColor and backgroundColor style on Panel">
+            <setup>            
+                <ResetComponent target="myCustomStylePanel" className="Comps.CustomStylePanel" waitEvent="updateComplete"/>               
+                <SetStyle target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete"/>                
+                <SetStyle target="myCustomStylePanel" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete"/>
+                <SetStyle target="myCustomStylePanel" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete"/>
+            </setup>
+            <body>            	        
+				<AssertStyleValue target="myCustomStylePanel" styleName="symbolColor" value="0xFF0000"/>                
+                <AssertStyleValue target="myCustomStylePanel" styleName="chromeColor" value="0x00FF00" />
+                <AssertStyleValue target="myCustomStylePanel" styleName="backgroundColor" value="0xFF0000"/>            
+            	<CompareBitmap target="myCustomStylePanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" maxColorVariance="20"/>
+            </body>
+        </TestCase>        
+                
+    </testCases>
+    
+</UnitTester>
+
+
+

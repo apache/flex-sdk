@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Grid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Grid_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="Grid_Properties_addColumn1" keywords="[Grid, Property, column, addItemAt]" description="Test adding a column to a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="7"/>
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Grid_Properties_addColumn2" keywords="[Grid, Property, column, addItemAt]" description="Test adding a column to a custom Grid when a with and height are set">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myGrid" propertyName="width" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="400" />
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="7"/>				
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="400" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="Grid_Properties_addColumn3" keywords="[Grid, Property, column, addItemAt]" description="Test adding columns that will require scroll bars to be added to a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myGrid" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="9"/>
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="Grid_Properties_addColumnFixedSize1" keywords="[Grid, Property, column, addItemAt]" description="Test adding a column with an explicit width to a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myGrid" propertyName="width" value="251" />
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addFixedSizeColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="7"/>								
+				<AssertPropertyValue target="myGrid" propertyName="width" value="351" />
+			</body>
+		</TestCase>	
+  		
+		<TestCase testID="Grid_Properties_addColumnFixedSize2" keywords="[Grid, Property, column, addItemAt]" description="Test adding a column to a custom Grid and verify all column widths">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(1).width" value="37"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(2).width" value="55"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3).width" value="33"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4).width" value="60"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5).width" value="27"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.addFixedSizeColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="7"/>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(1).width" value="100"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(2).width" value="37"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(3).width" value="55"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(4).width" value="33"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(5).width" value="60"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getColumnBounds(6).width" value="27"/>															
+			</body>
+		</TestCase>			
+					
+		<TestCase testID="Grid_Properties_dataChange1" keywords="[Grid, Property]" description="Test changing data at runtime on a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myGrid" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myGrid" propertyName="rowHeight" value="110" waitEvent="enterFrame" waitTarget="stage"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase> 	
+						
+		<TestCase testID="Grid_Properties_defaultWidth" keywords="[Grid, Property, default, width]" description="Test the default width of the custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myGrid" propertyName="width" value="251"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Grid_Properties_defaultHeight" keywords="[Grid, Property, default, height]" description="Test the default height of the custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myGrid" propertyName="height" value="270"/>
+            </body>
+        </TestCase>        
+
+		<TestCase testID="Grid_Properties_height1" keywords="[Grid, Property, height]" description="Test setting the height of a custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myGrid" propertyName="height" value="600" waitEvent="enterFrame" waitTarget="stage"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myGrid" propertyName="height" value="600"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Grid_Properties_height_width" keywords="[Grid, Property, height, width]" description="Test setting the height and width of a custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myGrid" propertyName="height" value="550" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myGrid" propertyName="width" value="450" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myGrid" propertyName="height" value="550"/>
+                <AssertPropertyValue target="myGrid" propertyName="width" value="450"/>
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Grid_Properties_removeColumn1" keywords="[Grid, Property, column, removeItAt]" description="Test removing a column from a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.columns1.removeItemAt(0)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="5"/>
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>   
+		
+		<TestCase testID="Grid_Properties_removeColumn2" keywords="[Grid, Property, column, removeItemAt]" description="Test removing a column from a custom Grid with width and height explicitly set">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myGrid" propertyName="width" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="400" />
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.columns1.removeItemAt(0)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="5"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="400" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Grid_Properties_removeColumn3" keywords="[Grid, Property, column, removeAll]" description="Test removing columns that remove scroll bars from a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myGrid" propertyName="width" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myGrid" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="300" />				
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.columns1.removeItemAt(1)" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.columns1.removeItemAt(1)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="4"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="300" />
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="Grid_Properties_removeAllColumns" keywords="[Grid, Property, column, removeAll]" description="Test removing all columns from a custom Grid">			
+			<setup>
+				<ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myGrid" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myGrid" propertyName="width" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="400" />
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.columns1.removeAll()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myGrid.columns" propertyName="length" value="0"/>
+				<AssertPropertyValue target="myGrid" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myGrid" propertyName="width" value="400" />
+				<CompareBitmap target="myGrid" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="Grid_Properties_reqRowCol_default" keywords="[Grid, Property, requestedRow, requestedColumn]" description="Test requestedRows and requestedColumns on a custom Grid">
+            <setup>
+                <ResetComponent target="myGridTypItemReqRowRol" className="components.customGrid_TypItem_ReqRowCol" waitEvent="updateComplete"/>                                                                
+            </setup>
+            <body>
+                <CompareBitmap target="myGridTypItemReqRowRol" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>		
+		
+		<TestCase testID="Grid_Properties_rowHeight1" keywords="[Grid, Property, rowHeight]" description="Test setting rowHeight of the custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                
+                <SetProperty target="myGrid" propertyName="rowHeight" value="125" waitEvent="enterFrame" waitTarget="stage"/>                
+                <SetProperty target="myGrid" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myGrid" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                                
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myGrid" propertyName="rowHeight" value="125"/>
+            	<AssertPropertyValue target="myGrid" propertyName="width" value="500"/>                
+                <AssertPropertyValue target="myGrid" propertyName="height" value="300"/>				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0)" value="(x=0, y=0, w=81, h=125)"/>              
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,3)" value="(x=257, y=250, w=75, h=125)"/>              
+            </body>
+        </TestCase>
+        		        
+  		<TestCase testID="Grid_Properties_typicalItem_changedAtRuntime" keywords="[Grid, Property, typicalItem]" description="Test changing typicalItem at runtime on a custom Grid">
+              <setup>
+                  <ResetComponent target="myGridTypItem" className="components.customGrid_TypItem" waitEvent="updateComplete"/> 
+                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myGridTypItem.changeTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myGridTypItem.addTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+              </setup>
+              <body>
+                  <CompareBitmap target="myGridTypItem" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+              </body>
+        </TestCase> 
+               
+  		<TestCase testID="Grid_Properties_typicalItem_changedAtRuntimeExpWidth" keywords="[Grid, Property, typicalItem]" description="Test changing typicalItem at runtime with a explicit width Grid">
+              <setup>
+                  <ResetComponent target="myGridTypItem" className="components.customGrid_TypItem" waitEvent="updateComplete"/>  
+                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                  <SetProperty target="myGridTypItem" propertyName="width" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myGridTypItem.changeTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myGridTypItem.addTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+              </setup>
+              <body>
+                  <CompareBitmap target="myGridTypItem" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+              </body>
+        </TestCase>          
+
+		<TestCase testID="Grid_Properties_typicalItem_default" keywords="[Grid, Property, typicalItem]" description="Test typicalItem on Grid">
+            <setup>
+                <ResetComponent target="myGridTypItem" className="components.customGrid_TypItem" waitEvent="updateComplete"/>  
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myGridTypItem" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase> 
+			
+ 		<TestCase testID="Grid_Properties_variableRowHeight1" keywords="[Grid, Property, variableRowHeight]" description="Test setting variableRowHeight on a custom Grid">
+             <setup>
+                 <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                 
+                 <SetProperty target="myGrid" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+                 <SetProperty target="myGrid" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                 <SetProperty target="myGrid" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                                
+             </setup>
+             <body>             	
+             	<AssertPropertyValue target="myGrid" propertyName="width" value="500"/>                
+                <AssertPropertyValue target="myGrid" propertyName="height" value="300"/>				
+                <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,2).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(1,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,0).height" value="27"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,0).height" value="153"/>  
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(0,2).height" value="153"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(1,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getCellBounds(2,0).height" value="27"/>                
+             </body>
+        </TestCase>
+ 	        
+ 		<TestCase testID="Grid_Properties_variableRowHeightTrueRuntime1" keywords="[Grid, Property, variableRowHeight]" description="Test setting variableRowHeight at runtime on a custom Grid">
+             <setup>
+                 <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>   
+                 <SetProperty target="myGrid" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                                 
+             </setup>
+             <body>             	             	
+                <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="27"/>                
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myGrid.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="459"/>
+                <SetProperty target="myGrid" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" />
+                <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="false"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="27"/>                
+                <SetProperty target="myGrid" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" />
+                <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="true"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="459"/>
+             </body>
+        </TestCase>    
+         	          
+		<TestCase testID="Grid_Properties_width1" keywords="[Grid, Property, width]" description="Test the width of the custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myGrid" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myGrid" propertyName="width" value="500"/>
+            </body>
+        </TestCase>       
+        
+		<TestCase testID="Grid_Properties_rowHeightRunTimeChange" keywords="[Grid, Property, rowHeight]" description="Test setting rowHeight at runtime on a custom Grid">
+            <setup>
+                <ResetComponent target="myGrid" className="components.customGrid" waitEvent="updateComplete" />                
+                <SetProperty target="myGrid" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myGrid" propertyName="rowHeight" value="125" waitEvent="enterFrame" waitTarget="stage"/>                  
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>  
+            </setup>
+            <body>
+                <AssertPropertyValue target="myGrid" propertyName="variableRowHeight" value="false"/>
+            	<AssertPropertyValue target="myGrid" propertyName="rowHeight" value="125"/>            				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="125"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(3).height" value="125"/>
+				<SetProperty target="myGrid" propertyName="rowHeight" value="60" waitEvent="enterFrame" waitTarget="stage"/>  				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(0).height" value="60"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myGrid.getRowBounds(3).height" value="60"/>
+            </body>
+        </TestCase>        
+        
+    </testCases>
+</UnitTester>

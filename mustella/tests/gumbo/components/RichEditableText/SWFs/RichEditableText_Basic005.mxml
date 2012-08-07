@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF"
+			   xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:comps="comps.*"
+			   width="800" height="600" 
+			   creationComplete="(CONFIG::skaha){import qa.Skaha;Skaha.enable()}">
+	<fx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		
+		
+		
+		s|RichEditableText
+		{
+			
+			fontFamily: MyVeraSpark;
+			fontLookup: embeddedCFF;
+			fontAntiAliasType: normal;
+			backgroundColor:#00FF00;
+		}
+		global{
+			fontFamily: MyVeraHalo;
+			fontAntiAliasType: normal;
+			kerning: "off";
+		}
+		
+	</fx:Style>
+	
+	<fx:Declarations>
+		<!-- Skaha settings object that defines what test file we are currently working on -->
+		<fx:Object id="skahaSettings" testDir="gumbo/components/RichEditableText/properties/" testFileName="RichEditableText_properties_main.mxml" />
+		<!-- Skaha favorite properties -->
+		<s:ArrayCollection id="propertiesToInspect">
+			<fx:Object propName="width" />
+			<fx:Object propName="height" />
+			<fx:Object propName="x" />
+			<fx:Object propName="y" />
+			<fx:Object propName="enabled" />
+			<fx:Object propName="emphasized" />
+		</s:ArrayCollection>
+	</fx:Declarations>
+	
+	<s:VGroup x="20" y="20" width="200">
+		<s:Rect width="100%" height="10">
+			<s:fill>
+				<s:SolidColor color="red" />
+			</s:fill>
+		</s:Rect>
+		
+		<s:RichEditableText id="wOnly" width="150" text="Hello"/>
+		
+		<s:Rect width="100%" height="10">
+			<s:fill>
+				<s:SolidColor color="red" />
+			</s:fill>
+		</s:Rect>
+		
+		<s:RichEditableText id="hOnly" height="100" text="World"/>
+		
+		<s:Rect width="100%" height="10">
+			<s:fill>
+				<s:SolidColor color="red" />
+			</s:fill>
+		</s:Rect>
+	</s:VGroup>
+</s:Application>

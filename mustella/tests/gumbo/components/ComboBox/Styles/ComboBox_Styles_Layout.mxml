@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_layout.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+
+	<testCases>
+	
+		<TestCase testID="ComboBox_Styles_Layout_baseline" keywords="[ComboBox, Style, Baseline]" description="Test setting Baseline on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete"/>				
+				<SetStyle target="myLayoutComp.myCB_pos1" styleName="baseline" value="150" waitEvent="updateComplete"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+			</setup>
+			<body>													
+				<AssertStyleValue target="myLayoutComp.myCB_pos1" styleName="baseline" value="150"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>	
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="ComboBox_Styles_Layout_bottom" keywords="[ComboBox, Style, Right]" description="Test setting Bottom on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete"/>				
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="bottom" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>					
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitTarget="myLayoutComp.myCB_pos1" waitEvent="close" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Styles_Layout_bottom_right" keywords="[ComboBox, Style, Right, Bottom]" description="Test setting Bottom and Right on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="bottom" value="10" waitEvent="updateComplete"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="right" value="10" waitEvent="updateComplete"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitTarget="myLayoutComp.myCB_pos1" waitEvent="close" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_Layout_horizontalCenter" keywords="[ComboBox, Style, horizontalCenter]" description="Test setting horizontalCenter on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="horizontalCenter" value="0" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Styles_Layout_left" keywords="[ComboBox, Style, Left]" description="Test setting Left on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="left" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Styles_Layout_right" keywords="[ComboBox, Style, Right]" description="Test setting Right on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="right" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="ComboBox_Styles_Layout_top" keywords="[ComboBox, Style, Top]" description="Test setting Top on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="top" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_Layout_top_left" keywords="[ComboBox, Style, Top, Left]" description="Test setting Top on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="top" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="left" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_Layout_left_right" keywords="[ComboBox, Style, Right, Left]" description="Test setting Right and Left on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="right" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="left" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_Layout_top_bottom" keywords="[ComboBox, Style, Top, Bottom]" description="Test setting Top and Bottom on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="top" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="bottom" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="ComboBox_Styles_Layout_top_bottom_right_left" keywords="[ComboBox, Style, Top, Bottom, Right, Left]" description="Test setting Top, Bottom, Right, Left on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="top" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="bottom" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="right" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="left" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>			
+						
+		<TestCase testID="ComboBox_Styles_Layout_verticalCenter" keywords="[ComboBox, Style, verticalCenter]" description="Test setting verticalCenter on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Styles_Layout_v_h_Center" keywords="[ComboBox, Style, verticalCenter]" description="Test setting verticalCenter on ComboBox">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_CB_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+				<SetProperty target="myLayoutComp.myCB_pos1" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myCB_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myCB_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myLayoutComp" url="../Styles/Baselines/$testID.png" numColorVariances="10" maxColorVariance="10"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myCB_pos1.closeDropDown(false)" waitEvent="close" waitTarget="myLayoutComp.myCB_pos1"/>
+			</body>
+		</TestCase>		
+		
+	</testCases>
+</UnitTester> 

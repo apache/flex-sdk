@@ -1,0 +1,14 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  >
+
+	<s:Group id="innerGroup" clipAndEnableScrolling="true">
+		<s:Rect x="0" y="0" width="50" height="40"><s:fill><mx:SolidColor color="0xFF00FF" /></s:fill></s:Rect>
+		<s:Rect x="100" y="100" width="50" height="40"><s:fill><mx:SolidColor color="0xEE00EE" /></s:fill></s:Rect>
+	</s:Group>
+
+	<mx:Label id="dependentLabel1" text="{innerGroup.horizontalScrollPosition}" />
+	<mx:Label id="dependentLabel2" text="{innerGroup.verticalScrollPosition}" />
+	<mx:Label id="dependentLabel3" text="{innerGroup.contentWidth}" />
+	<mx:Label id="dependentLabel4" text="{innerGroup.contentHeight}" />	
+				
+	
+</s:Group>

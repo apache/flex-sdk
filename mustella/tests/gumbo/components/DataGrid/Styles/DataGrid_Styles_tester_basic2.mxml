@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_regression.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import spark.components.DataGrid;
+           	
+     
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+	<!--chromeColor test--> 		
+	<TestCase testID="chromeColor_color_test" keywords="[DataGrid,Style,chromeColor]" description="Test setting chromeColor with color, verify all color styles are set correctly">			
+		<setup>
+			<ResetComponent target="dataGrid3" className="components.DataGrid_comp_styleBasic" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<!-- set only color -->
+			<SetStyle target="dataGrid3" styleName="styleName" value="style1" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_only.png"/>
+			<!-- set color and chromeColor -->
+			<SetStyle target="dataGrid3" styleName="styleName" value="style2" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID.png"/>
+		
+		</body>
+	</TestCase>
+	<!--chromeColor test--> 		
+	<TestCase testID="chromeColor_contentBGC_test" keywords="[DataGrid,Style,chromeColor]" description="Test setting chromeColor with color, contentBackgroundColor, verify all color styles are set correctly">			
+		<setup>
+			<ResetComponent target="dataGrid3" className="components.DataGrid_comp_styleBasic" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<!-- set only contentBackground and chrome color -->
+			<SetStyle target="dataGrid3" styleName="styleName" value="style3" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID.png"/>
+			<!-- set color and chromeColor, contentBackgroundColor -->
+			<SetStyle target="dataGrid3" styleName="styleName" value="style4" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_all.png"/>
+		
+		</body>
+	</TestCase>
+	
+	<!-- test other inheritated styles -->
+	<TestCase testID="style_lineThrough_test" keywords="[DataGrid,Style,lineThrough]" description="Test setting inheritated style lineThrough work correctly">			
+		<setup>
+			<ResetComponent target="dataGrid3" className="components.DataGrid_comp_styleBasic" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<!-- set lineThrough=true-->
+			<SetStyle target="dataGrid3" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_true.png"/>
+			<!-- set lineThrough=false-->
+			<SetStyle target="dataGrid3" styleName="lineThrough" value="false" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_false.png"/>
+			
+		</body>
+	</TestCase>
+	<TestCase testID="style_fonts_test" keywords="[DataGrid,Style,fonts]" description="Test setting inheritated font related styles work correctly">			
+		<setup>
+			<ResetComponent target="dataGrid3" className="components.DataGrid_comp_styleBasic" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<!-- set fontSize="20"  fontStyle="italic" fontWeight="bold"  -->
+			<SetStyle target="dataGrid3" styleName="fontSize" value="20" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<SetStyle target="dataGrid3" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<SetStyle target="dataGrid3" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_bold_italic_large.png"/>
+			<SetStyle target="dataGrid3" styleName="fontSize" value="12" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<SetStyle target="dataGrid3" styleName="fontStyle" value="normal" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<SetStyle target="dataGrid3" styleName="fontWeight" value="normal" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_normal.png"/>
+			
+		</body>
+	</TestCase>
+	<!-- text align tests -->
+	<TestCase testID="style_textAlign_test" keywords="[DataGrid,Style,textAlign]" description="Test setting various textAlign style work correctly">			
+		<setup>
+			<ResetComponent target="dataGrid3" className="components.DataGrid_comp_styleBasic" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<!-- set  -->
+			<SetStyle target="dataGrid3" styleName="textAlign" value="start"  waitEvent="enterFrame" waitTarget="stage"/>	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_start.png"/>
+			<SetStyle target="dataGrid3" styleName="textAlign" value="left" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_left.png"/>
+			<SetStyle target="dataGrid3" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_right.png"/>
+			<SetStyle target="dataGrid3" styleName="textAlign" value="center" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_center.png"/>
+			
+		</body>
+	</TestCase>	
+	
+	<!-- text decoration tests -->
+	<TestCase testID="style_textDecoration_test" keywords="[DataGrid,Style,textDecoration]" description="Test setting textDecoration=underline style work correctly">			
+		<setup>
+			<ResetComponent target="dataGrid3" className="components.DataGrid_comp_styleBasic" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<!-- set textDecoration=underline, default value=none  -->
+			<SetStyle target="dataGrid3" styleName="textDecoration" value="underline" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_underline.png"/>
+			<SetStyle target="dataGrid3" styleName="textDecoration" value="none" waitEvent="updateComplete" waitTarget="dataGrid3" />	
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid3" url="../Styles/Baselines/$testID_none.png"/>
+			
+		</body>
+	</TestCase>
+	<!-- test other styles -->
+	<TestCase testID="style_others_test" keywords="[DataGrid,Style,textDecoration]" description="Test setting other inheritated style work correctly">			
+		<setup>
+			<ResetComponent target="dataGrid4" className="components.DataGrid_comp_styleBasic2" waitEvent="updateComplete"/>
+			<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid4" url="../Styles/Baselines/$testID.png"/>
+			<SetStyle target="dataGrid4" styleName="textJustify" value="interWord"  />	
+			<SetStyle target="dataGrid4" styleName="kerning" value="off"  />	
+			<SetStyle target="dataGrid4" styleName="lineHeight" value="5" waitEvent="updateComplete" waitTarget="dataGrid4" />	
+			<SetStyle target="dataGrid4" styleName="justificationStyle" value="prioritizeLeastAdjustment" waitEvent="updateComplete" waitTarget="dataGrid4" />	
+			
+			<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid4" url="../Styles/Baselines/$testID_set2.png"/>
+			
+		</body>
+	</TestCase>	
+	
+	
+	
+    </testCases>
+</UnitTester>

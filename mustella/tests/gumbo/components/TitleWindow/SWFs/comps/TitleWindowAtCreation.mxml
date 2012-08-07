@@ -1,0 +1,39 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    title="empty TitleWindow" width="400" height="300"
+    creationComplete="showAPopUp()">
+
+    <fx:Script>
+    	<![CDATA[
+
+    		import mx.controls.Alert;
+    		import spark.components.TitleWindow;
+    		import spark.components.Button;
+    		import spark.components.Panel;
+    		import mx.managers.PopUpManager;
+    		import mx.core.IFlexDisplayObject;
+    		 
+    		public var twWindow:TitleWindow=new TitleWindow();
+    		
+		public function showAPopUp():void
+		{
+			twWindow.x=this.x+50;
+			twWindow.y=this.y+50;
+			twWindow.title="a popup inside another titleWindow";
+			var btn:Button=new Button();
+			btn.label="button";
+			twWindow.addElement(btn);
+			PopUpManager.addPopUp(twWindow, this, false);
+			twWindow.addEventListener("close", closeHandler);
+		}
+		public function closeHandler(event:Event):void
+		{
+			event.target.removeEventListener("close", closeHandler);
+			PopUpManager.removePopUp(event.target as IFlexDisplayObject);
+			twWindow=null;
+            	}
+    	]]>
+    </fx:Script>
+</s:TitleWindow>

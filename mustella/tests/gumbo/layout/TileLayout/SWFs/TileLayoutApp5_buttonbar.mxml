@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	         xmlns:custom="Assets.*"
+	         width="800" height="600"
+             >
+
+<fx:Script>
+<![CDATA[
+    import spark.components.supportClasses.ItemRenderer;
+    import mx.events.StateChangeEvent;
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		fontFamily: EmbeddedArno;
+		embedAsCFF: true;
+	}
+        
+    s|Button{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|Label{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    global{
+        kerning: "off";
+    }
+</fx:Style>
+
+<s:states>
+    <s:State name="state1" />
+    
+    <s:State name="state1a" />
+    <s:State name="state1b" />
+    <s:State name="state2a" />
+    <s:State name="state2b" />
+    <s:State name="state3a" />
+    <s:State name="state3b" />
+    <s:State name="state3c" />
+    <s:State name="state3d" />
+    <s:State name="state4a" />
+    <s:State name="state4b" />
+    <s:State name="state4c" />
+    <s:State name="state5a" />
+    <s:State name="state5b" />
+    <s:State name="state6a" />
+    <s:State name="state6b" />
+</s:states>
+
+<!-- 
+    The reason for defining everything in MXML for the integration
+    test is so that we can test states too.
+    Use TileLayout as the button bar skin's layout.  Don't bother
+    testing button bar's layout property because if it doesn't look
+    good we're just going to tell users to edit the skin anyway. So
+    let's test the skin's.
+    
+-->
+
+<s:layout>
+    <s:HorizontalLayout />
+</s:layout>
+
+<mx:Button label="set state" click="bb2.skin.currentState = tiState.text" />
+<mx:TextInput id="tiState" />
+
+<s:ButtonBar id="bb1" skinClass="Assets.TestFxButtonBarSkin1">
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:String>1</fx:String>
+            <fx:String>2</fx:String>
+            <fx:String>3</fx:String>
+            <fx:String>4</fx:String>
+            <fx:String>5</fx:String>
+            <fx:String>6</fx:String>
+            <fx:String>7</fx:String>
+            <fx:String>8</fx:String>
+            <fx:String>9</fx:String>
+            <fx:String>10</fx:String>
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:ButtonBar>
+
+<s:ButtonBar id="bb2" skinClass="Assets.TestFxButtonBarSkin2">
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:String>1</fx:String>
+            <fx:String>2</fx:String>
+            <fx:String>3</fx:String>
+            <fx:String>4</fx:String>
+            <fx:String>5</fx:String>
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:ButtonBar>
+
+<s:ButtonBar id="bb3" skinClass="Assets.TestFxButtonBarSkin3">
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:String>1</fx:String>
+            <fx:String>2</fx:String>
+            <fx:String>3</fx:String>
+            <fx:String>4</fx:String>
+            <fx:String>5</fx:String>
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:ButtonBar>
+
+<s:ButtonBar id="bb4" skinClass="Assets.TestFxButtonBarSkin4">
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:String>1</fx:String>
+            <fx:String>2</fx:String>
+            <fx:String>3</fx:String>
+            <fx:String>4</fx:String>
+            <fx:String>5</fx:String>
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:ButtonBar>
+
+<s:ButtonBar id="bb5" skinClass="Assets.TestFxButtonBarSkin5">
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:String>1</fx:String>
+            <fx:String>2</fx:String>
+            <fx:String>3</fx:String>
+            <fx:String>4</fx:String>
+            <fx:String>5</fx:String>
+            <fx:String>6</fx:String>
+            <fx:String>7</fx:String>
+            <fx:String>8</fx:String>
+            <fx:String>9</fx:String>
+            <fx:String>10</fx:String>
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:ButtonBar>
+
+<s:ButtonBar id="bb6" skinClass="Assets.TestFxButtonBarSkin6">
+    <s:dataProvider>
+        <mx:ArrayCollection>
+            <fx:String>1</fx:String>
+            <fx:String>2</fx:String>
+            <fx:String>3</fx:String>
+            <fx:String>4</fx:String>
+            <fx:String>5</fx:String>
+            <fx:String>6</fx:String>
+            <fx:String>7</fx:String>
+            <fx:String>8</fx:String>
+            <fx:String>9</fx:String>
+            <fx:String>10</fx:String>
+        </mx:ArrayCollection>
+    </s:dataProvider>
+</s:ButtonBar>
+
+</s:Application>

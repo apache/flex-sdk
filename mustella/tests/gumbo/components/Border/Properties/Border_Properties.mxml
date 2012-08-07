@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Border/Properties/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"  
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="Border_basic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import spark.layouts.VerticalLayout;
+    	import spark.layouts.HorizontalLayout;
+    	import mx.core.FlexGlobals;
+    ]]>
+  </fx:Script>
+  <testCases>
+
+	<TestCase testID="Border_Properties_addElement" keywords="[Border, Properties, addElement]" description="Test adding an element to a BorderContainer at runtime">
+		<setup>
+			<ResetComponent target="mySimpleBorder" className="spark.components.BorderContainer" waitEvent="updateComplete" />
+			<SetStyle target="mySimpleBorder" styleName="borderColor" value="blue" waitEvent="updateComplete"/>
+			<SetStyle target="mySimpleBorder" styleName="borderWeight" value="5" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=FlexGlobals.topLevelApplication.addSomething()" value="true"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" target="mySimpleBorder" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_alpha1" keywords="[Border,Properties,Alpha]" description="Test alpha=0.5 on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="alpha" value="0.5" waitEvent="alphaChanged"/>
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="alpha" value="0.5" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_alpha2" keywords="[Border,Properties,Alpha]" description="Test alpha=0 on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="alpha" value="0" waitEvent="alphaChanged" />
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="alpha" value="0" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_alpha3" keywords="[Border,Properties,Alpha]" description="Test alpha and backgroundColor on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="myBorderGrp.myBorder" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete" />
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="backgroundColor" value="0xFF0000" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />			
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_alpha4" keywords="[Border,Properties,Alpha]" description="Test alpha and borderAlpha on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetStyle target="myBorderGrp.myBorder" styleName="borderAlpha" value="0.5" waitEvent="updateComplete" />
+			<AssertStyleValue target="myBorderGrp.myBorder" styleName="borderAlpha" value="0.5" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="alpha" value="0.5" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />			
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_RG" keywords="[Border,Properties,backgroundFill,RadialGradient]" description="Test backgroundFill with RadialGradient on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRG" className="comps.customBorderRG" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRG" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_backgroundFill_RG2" keywords="[Border,Properties,backgroundFill,RadialGradient]" description="Test backgroundFill with RadialGradient and resize at runtime on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRG" className="comps.customBorderRG" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRG" />
+			<SetProperty target="myBorderGrpRG.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpRG.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRG" />
+			<ResetComponent target="myBorderGrpRG" className="comps.customBorderRG" waitEvent="updateComplete" />			
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_LG" keywords="[Border,Properties,backgroundFill,LinearGradient]" description="Test backgroundFill with LinearGradient on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLG" className="comps.customBorderLG" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLG" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_backgroundFill_LG2" keywords="[Border,Properties,backgroundFill,LinearGradient]" description="Test backgroundFill with LinearGradient and resize at runtime on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLG" className="comps.customBorderLG" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLG" />
+			<SetProperty target="myBorderGrpLG.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpLG.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>	
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLG" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_backgroundFill_SC" keywords="[Border,Properties,backgroundFill,SolidColor]" description="Test backgroundFill with SolidColor on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSC" className="comps.customBorderSC" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSC" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_SC2" keywords="[Border,Properties,backgroundFill,SolidColor]" description="Test backgroundFill with SolidColor and resize at runtime on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSC" className="comps.customBorderSC" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSC" />
+			<SetProperty target="myBorderGrpSC.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpSC.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>	
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSC" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_BF1" keywords="[Border,Properties,backgroundFill,BitmapFill]" description="Test backgroundFill with BitmapFill on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="width" value="300" waitEvent="updateComplete"/>
+		</setup>
+		<body>				
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpBF" />
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_BF2" keywords="[Border,Properties,backgroundFill,BitmapFill]" description="Test backgroundFill with BitmapFill and styles set on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="width" value="300" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrpBF.myBorder" styleName="backgroundColor" value="red" waitEvent="updateComplete"/>
+			<SetStyle target="myBorderGrpBF.myBorder" styleName="backgroundAlpha" value="0.2" waitEvent="updateComplete"/>			
+		</setup>
+		<body>				
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpBF" />
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_BF3" keywords="[Border,Properties,backgroundFill,BitmapFill]" description="Test backgroundFill with BitmapFill on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="width" value="300" waitEvent="updateComplete"/>
+		</setup>
+		<body>				
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpBF" />
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="height" value="200" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="width" value="200" waitEvent="updateComplete"/>			
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpBF" />
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_backgroundFill_BF4" keywords="[Border,Properties,backgroundFill,BitmapFill]" description="Test backgroundFill with BitmapFill on a rotated Border">
+		<setup>
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="width" value="300" waitEvent="updateComplete"/>
+		</setup>
+		<body>				
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="50" ignoreMaxColorVariance="true" target="myBorderGrpBF" />
+			<SetProperty target="myBorderGrpBF.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+			<ResetComponent target="myBorderGrpBF" className="comps.customBorderBF" waitEvent="updateComplete" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="Border_Properties_borderStroke_LGS1" keywords="[Border,Properties,borderStroke,LinearGradientStroke]" description="Test borderStroke with LinearGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />			
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLGS" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_borderStroke_LGS2" keywords="[Border,Properties,borderStroke,LinearGradientStroke]" description="Test borderStroke with LinearGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />
+		</setup>
+		<body>									
+			<SetProperty target="myBorderGrpLGS.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLGS" />
+			<SetProperty target="myBorderGrpLGS.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="Border_Properties_borderStroke_LGS3" keywords="[Border,Properties,borderStroke,LinearGradientStroke]" description="Test borderStroke with LinearGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="myBorderGrpLGS.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>			
+			<SetProperty target="myBorderGrpLGS.myBorder.borderStroke" propertyName="weight" value="8" waitEvent="updateComplete" waitTarget="myBorderGrpLGS.myBorder"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLGS" />
+			<SetProperty target="myBorderGrpLGS.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_borderStroke_LGS4" keywords="[Border,Properties,borderStroke,LinearGradientStroke]" description="Test borderStroke with LinearGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<SetProperty target="myBorderGrpLGS.myBorder.borderStroke" propertyName="weight" value="8" waitEvent="updateComplete" waitTarget="myBorderGrpLGS.myBorder"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLGS" />
+			<SetProperty target="myBorderGrpLGS.myBorder" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpLGS.myBorder" propertyName="width" value="200" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLGS" />
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_borderStroke_LGS5" keywords="[Border,Properties,borderStroke,LinearGradientStroke]" description="Test borderStroke with LinearGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpLGS.myBorder.borderStroke" propertyName="weight" value="8" waitEvent="updateComplete" waitTarget="myBorderGrpLGS.myBorder"/>
+			<SetStyle target="myBorderGrpLGS.myBorder" styleName="borderColor" value="blue" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrpLGS.myBorder" styleName="borderAlpha" value="0" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrpLGS.myBorder" styleName="borderWeight" value="80" waitEvent="updateComplete" />
+			<SetStyle target="myBorderGrpLGS.myBorder" styleName="borderStyle" value="inset" waitEvent="updateComplete" />			
+		</setup>
+		<body>									
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpLGS" />
+			<ResetComponent target="myBorderGrpLGS" className="comps.customBorderLGS" waitEvent="updateComplete" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_borderStroke_RGS1" keywords="[Border,Properties,borderStroke,RadialGradientStroke]" description="Test borderStroke with RadialGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRGS" className="comps.customBorderRGS" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_borderStroke_RGS2" keywords="[Border,Properties,borderStroke,RadialGradientStroke]" description="Test borderStroke with RadialGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRGS" className="comps.customBorderRGS" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
+			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_borderStroke_RGS3" keywords="[Border,Properties,borderStroke,RadialGradientStroke]" description="Test borderStroke with RadialGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRGS" className="comps.customBorderRGS" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpRGS.myBorder.borderStroke" propertyName="weight" value="8" waitEvent="updateComplete" waitTarget="myBorderGrpRGS.myBorder"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
+			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_borderStroke_RGS4" keywords="[Border,Properties,borderStroke,RadialGradientStroke]" description="Test borderStroke with RadialGradientStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRGS" className="comps.customBorderRGS" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<SetProperty target="myBorderGrpRGS.myBorder.borderStroke" propertyName="weight" value="80" waitEvent="updateComplete" waitTarget="myBorderGrpRGS.myBorder"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
+			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="height" value="300" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpRGS.myBorder" propertyName="width" value="300" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRGS" />
+			<ResetComponent target="myBorderGrpRGS" className="comps.customBorderRGS" waitEvent="updateComplete" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="Border_Properties_borderStroke_SCS1" keywords="[Border,Properties,borderStroke,SolidColorStroke]" description="Test borderStroke with SolidColorStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_borderStroke_SCS2" keywords="[Border,Properties,borderStroke,SolidColorStroke]" description="Test borderStroke with SolidColorStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+		</setup>
+		<body>	
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Properties_borderStroke_SCS3" keywords="[Border,Properties,borderStroke,SolidColorStroke]" description="Test borderStroke with SolidColorStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+		</setup>
+		<body>	
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="rotation" value="60" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpSCS.myBorder.borderStroke" propertyName="weight" value="8" waitEvent="updateComplete" waitTarget="myBorderGrpSCS.myBorder"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+		</body>
+	</TestCase>		
+
+	<TestCase testID="Border_Properties_borderStroke_SCS4" keywords="[Border,Properties,borderStroke,SolidColorStroke]" description="Test borderStroke with SolidColorStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+		</setup>
+		<body>				
+			<SetProperty target="myBorderGrpSCS.myBorder.borderStroke" propertyName="weight" value="8" waitEvent="updateComplete" waitTarget="myBorderGrpSCS.myBorder"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="width" value="200" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_clipAndEnableScrolling1" keywords="[Border,Properties,clipAndEnableScrolling]" description="Test default clipAndEnableScrolling on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS" propertyName="width" value="300" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBtn" propertyName="width" value="200" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpSCS.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_clipAndEnableScrolling2" keywords="[Border,Properties,clipAndEnableScrolling]" description="Test default clipAndEnableScrolling with large borderStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS" propertyName="width" value="300" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpSCS.myBorder.borderStroke" propertyName="weight" value="20" waitEvent="updateComplete" waitTarget="myBorderGrpSCS.myBorder"/>
+			<SetProperty target="myBorderGrpSCS.myBtn" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_clipAndEnableScrolling3" keywords="[Border,Properties,clipAndEnableScrolling]" description="Test clipAndEnableScrolling=true on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<SetProperty target="myBorderGrpSCS" propertyName="width" value="300" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBtn" propertyName="width" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_clipAndEnableScrolling4" keywords="[Border,Properties,clipAndEnableScrolling]" description="Test clipAndEnableScrolling=true on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCS" className="comps.customBorderSCS" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<SetProperty target="myBorderGrpSCS" propertyName="width" value="300" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.borderStroke" propertyName="weight" value="20" waitEvent="updateComplete" waitTarget="myBorderGrpSCS.myBorder"/>
+			<SetProperty target="myBorderGrpSCS.myBtn" propertyName="width" value="200" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpSCS.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCS" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_clipAndEnableScrolling5" keywords="[Border,Properties,clipAndEnableScrolling, ScrollBar]" description="Test clipAndEnableScrolling=true with Scroller on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCR" className="comps.customBorderSCR" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCR" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_clipAndEnableScrolling6" keywords="[Border,Properties,clipAndEnableScrolling, ScrollBar]" description="Test clipAndEnableScrolling=true with Scroller on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCR" className="comps.customBorderSCR" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpSCR.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+			<Pause timeout="100"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCR" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_clipAndEnableScrolling7" keywords="[Border,Properties,clipAndEnableScrolling, ScrollBar]" description="Test clipAndEnableScrolling=true with Scroller on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCR" className="comps.customBorderSCR" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCR.myBtn" propertyName="width" value="200" waitEvent="updateComplete" />			
+			<Pause timeout="100"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCR" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Properties_clipAndEnableScrolling8" keywords="[Border,Properties,clipAndEnableScrolling, ScrollBar]" description="Test clipAndEnableScrolling=true with Scroller on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCR" className="comps.customBorderSCR" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCR.myBtn" propertyName="height" value="300" waitEvent="updateComplete" />	
+			<SetProperty target="myBorderGrpSCR.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+			<Pause timeout="100"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpSCR" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_clipAndEnableScrolling9" keywords="[Border,Properties,clipAndEnableScrolling, ScrollBar]" description="Test clipAndEnableScrolling=true with Scroller on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpSCR" className="comps.customBorderSCR" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCS.myBorder.contentGroup" propertyName="clipAndEnableScrolling" value="true"/>
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="height" value="200" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCR.myBorder" propertyName="rotation" value="15" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpSCR.myBtn" propertyName="height" value="300" waitEvent="updateComplete" />	
+			<SetProperty target="myBorderGrpSCR.myST" propertyName="text" value="Text inside Border Text inside Border" waitEvent="updateComplete" />
+			<Pause timeout="100"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true" target="myBorderGrpSCR" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_defaultAutoSize" keywords="[Border,Properties,]" description="Test default auto size on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_default_height_width" keywords="[Border,Properties,Default]" description="Test default height and width on Border">
+		<setup>
+			<ResetComponent target="myEmptyBorderGrp" className="comps.customEmptyBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="height" value="30" />
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="width" value="30" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_enabled1" keywords="[Border,Properties,Enabled]" description="Test enabled on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="enabled" value="false" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_enabled2" keywords="[Border,Properties,Enabled]" description="Test on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="enabled" value="false" waitEvent="updateComplete" />
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="enabled" value="false" />
+			<SetProperty target="myBorderGrp.myBorder" propertyName="enabled" value="true" waitEvent="updateComplete" />
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="enabled" value="true" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_enabled3" keywords="[Border,Properties,backgroundFill,RadialGradient,enabled]" description="Test backgroundFill with RadialGradient on disabled Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRG" className="comps.customBorderRG" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpRG.myBorder" propertyName="enabled" value="false" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRG" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_enabled4" keywords="[Border,Properties,backgroundFill,RadialGradient,enabled]" description="Test backgroundFill with RadialGradient on disabled Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRG" className="comps.customBorderRG" waitEvent="updateComplete" />						
+		</setup>
+		<body>			
+			<DispatchMouseClickEvent target="myBorderGrpRG.myBtn" localX="5" localY="5" waitEvent="click"/>
+			<SetProperty target="myBorderGrpRG.myBorder" propertyName="enabled" value="false" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="myBorderGrpRG.myBtn" localX="5" localY="5"/>
+			<Pause timeout="100"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRG.myBorder" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_enabled5" keywords="[Border,Properties,backgroundFill,RadialGradient,enabled]" description="Test backgroundFill with RadialGradient on disabled Border">
+		<setup>
+			<ResetComponent target="myBorderGrpRG" className="comps.customBorderRG" waitEvent="updateComplete" />						
+		</setup>
+		<body>			
+			<DispatchMouseClickEvent target="myBorderGrpRG.myBtn" localX="5" localY="5" waitEvent="click"/>
+			<SetProperty target="myBorderGrpRG.myBorder" propertyName="enabled" value="false" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="myBorderGrpRG.myBtn" localX="5" localY="5"/>
+			<Pause timeout="100"/>
+			<SetProperty target="myBorderGrpRG.myBorder" propertyName="enabled" value="true" waitEvent="updateComplete" />
+			<DispatchMouseClickEvent target="myBorderGrpRG.myBtn" localX="5" localY="5"/>
+			<Pause timeout="100"/>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpRG.myBorder" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="Border_Properties_focusEnable" keywords="[Border,Properties,focusEnable]" description="Test focusEnable on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="focusEnabled" value="false" />			
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="focusEnabled" value="false" />
+			<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myBorderGrp.myBtn"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="Border_Properties_height" keywords="[Border,Properties,Height,Width]" description="Test height and width on Border">
+		<setup>
+			<ResetComponent target="myEmptyBorderGrp" className="comps.customEmptyBorder" waitEvent="updateComplete" />
+			<SetProperty target="myEmptyBorderGrp.myBorder" propertyName="height" value="150" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="height" value="150" />						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myEmptyBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_height_width" keywords="[Border,Properties,Height,Width]" description="Test height and width on Border">
+		<setup>
+			<ResetComponent target="myEmptyBorderGrp" className="comps.customEmptyBorder" waitEvent="updateComplete" />
+			<SetProperty target="myEmptyBorderGrp.myBorder" propertyName="height" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myEmptyBorderGrp.myBorder" propertyName="width" value="200" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="height" value="150" />			
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="width" value="200" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myEmptyBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_height_width2" keywords="[Border,Properties,Height,Width,borderStroke]" description="Test height and width with a large borderStroke on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpVL" className="comps.customBorderVL" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpVL.myBorder" propertyName="height" value="150" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpVL.myBorder" propertyName="width" value="200" waitEvent="updateComplete" />			
+			<SetProperty target="myBorderGrpVL.myBorder.borderStroke" propertyName="weight" value="30" waitEvent="updateComplete" waitTarget="myBorderGrpVL.myBorder.skin"/>
+		</setup>
+		<body>						
+			<AssertPropertyValue target="myBorderGrpVL.myBorder" propertyName="height" value="150" />			
+			<AssertPropertyValue target="myBorderGrpVL.myBorder" propertyName="width" value="200" />			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpVL" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_layout" keywords="[Border,Properties,Layout,HorizontalLayout]" description="Test HorizontalLayout on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpHL" className="comps.customBorderHL" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpHL" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_layout2" keywords="[Border,Properties,Layout,HorizontalLayout]" description="Test HorizontalLayout with padding on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpHL2" className="comps.customBorderHL2" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpHL2" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_layout3" keywords="[Border,Properties,Layout,VerticalLayout]" description="Test VerticalLayout with padding on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpVL" className="comps.customBorderVL" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpVL" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_layout4" keywords="[Border,Properties,Layout,VerticalLayout]" description="Test VerticalLayout with padding on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpVL" className="comps.customBorderVL" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpVL.myBorder.borderStroke" propertyName="weight" value="10" waitEvent="updateComplete" waitTarget="myBorderGrpVL.myBorder"/>
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpVL" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_layout5" keywords="[Border,Properties,Layout,HorizontalLayout]" description="Test HorizontalLayout wih padding on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpHL2" className="comps.customBorderHL2" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpHL2.myBorder.borderStroke" propertyName="weight" value="10" waitEvent="updateComplete" waitTarget="myBorderGrpHL2.myBorder"/>
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpHL2" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_layout6" keywords="[Border,Properties,Layout,HorizontalLayout]" description="Test HorizontalLayout with padding on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpHL2" className="comps.customBorderHL2" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpHL2" />
+			<SetProperty target="myBorderGrpHL2.myBorder" propertyName="height" value="300" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpHL2.myBorder" propertyName="layout" valueExpression="value=new spark.layouts.VerticalLayout()" />
+			<Pause timeout="50"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpHL2" />
+			<ResetComponent target="myBorderGrpHL2" className="comps.customBorderHL2" waitEvent="updateComplete" />			
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_layout7" keywords="[Border,Properties,Layout,VerticalLayout]" description="Test VerticalLayout with padding on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpVL" className="comps.customBorderVL" waitEvent="updateComplete" />			
+		</setup>
+		<body>						
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpVL" />
+			<SetProperty target="myBorderGrpVL.myBorder" propertyName="width" value="350" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpVL.myBorder" propertyName="layout" valueExpression="value=new spark.layouts.HorizontalLayout()"/>
+			<Pause timeout="50"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpVL" />
+			<ResetComponent target="myBorderGrpVL" className="comps.customBorderVL" waitEvent="updateComplete" />			
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Properties_minHeight_minWidth" keywords="[Border,Properties,minHeight,minWidth]" description="Test minHeight and minWidth on Border">
+		<setup>
+			<ResetComponent target="myEmptyBorderGrp" className="comps.customEmptyBorder" waitEvent="updateComplete" />
+			<SetProperty target="myEmptyBorderGrp.myBorder" propertyName="minHeight" value="225" waitEvent="updateComplete" />
+			<SetProperty target="myEmptyBorderGrp.myBorder" propertyName="minWidth" value="175" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="minHeight" value="225" />			
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="minWidth" value="175" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myEmptyBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_minHeight_minWidth2" keywords="[Border,Properties,minHeight,minWidth,borderStroke]" description="Test minWidth and minHeight with a large borderStroke Border">
+		<setup>
+			<ResetComponent target="myBorderGrpVL" className="comps.customBorderVL" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpVL.myBorder.borderStroke" propertyName="weight" value="10" waitEvent="updateComplete" waitTarget="myBorderGrpVL.myBorder"/>
+			<SetProperty target="myBorderGrpVL.myBorder" propertyName="minHeight" value="250" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpVL.myBorder" propertyName="minWidth" value="225" waitEvent="updateComplete" />
+		</setup>
+		<body>						
+			<AssertPropertyValue target="myBorderGrpVL.myBorder" propertyName="minHeight" value="250" />
+			<AssertPropertyValue target="myBorderGrpVL.myBorder" propertyName="minWidth" value="225" />		
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrpVL" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_rotation1" keywords="[Border,Properties,Rotation]" description="Test rotation on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="rotation" value="45" waitEvent="updateComplete" />
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="rotation" value="45" />
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_rotation2" keywords="[Border,Properties,Rotation]" description="Test rotation on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBorder" propertyName="rotation" value="145" waitEvent="updateComplete" />
+			<AssertPropertyValue target="myBorderGrp.myBorder" propertyName="rotation" value="145" />
+			<SetProperty target="myBorderGrp.myBtn" propertyName="label" value="new text" waitEvent="updateComplete" waitTarget="myBorderGrp.myBtn.skin"/>
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_rotation3" keywords="[Border,Properties,Rotation]" description="Test rotation on Border">
+		<setup>
+			<ResetComponent target="myBorderGrp" className="comps.customBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myBorderGrp.myBtn" propertyName="rotation" value="5" waitEvent="updateComplete" />
+			<AssertPropertyValue target="myBorderGrp.myBtn" propertyName="rotation" value="5" />			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_width" keywords="[Border,Properties,Height,Width]" description="Test height and width on Border">
+		<setup>
+			<ResetComponent target="myEmptyBorderGrp" className="comps.customEmptyBorder" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="myEmptyBorderGrp.myBorder" propertyName="width" value="150" waitEvent="updateComplete" />
+			<AssertPropertyValue target="myEmptyBorderGrp.myBorder" propertyName="width" value="150" />						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" target="myEmptyBorderGrp" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_x" keywords="[Border,Properties,x]" description="Test x on Border">
+		<setup>
+			<ResetComponent target="mySimpleBorder" className="spark.components.BorderContainer" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mySimpleBorder" propertyName="width" value="30" waitEvent="updateComplete" />
+			<SetProperty target="mySimpleBorder" propertyName="height" value="30" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="mySimpleBorderGrp" />
+			<SetProperty target="mySimpleBorder" propertyName="x" value="30" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="mySimpleBorderGrp" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_y" keywords="[Border,Properties,y]" description="Test y on Border">
+		<setup>
+			<ResetComponent target="mySimpleBorder" className="spark.components.BorderContainer" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mySimpleBorder" propertyName="width" value="30" waitEvent="updateComplete" />
+			<SetProperty target="mySimpleBorder" propertyName="height" value="30" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="mySimpleBorderGrp" />
+			<SetProperty target="mySimpleBorder" propertyName="y" value="40" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="mySimpleBorderGrp" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_y_x" keywords="[Border,Properties,y,x]" description="Test x and y on Border">
+		<setup>
+			<ResetComponent target="mySimpleBorder" className="spark.components.BorderContainer" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="mySimpleBorder" propertyName="width" value="30" waitEvent="updateComplete" />
+			<SetProperty target="mySimpleBorder" propertyName="height" value="30" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" numColorVariances="5" ignoreMaxColorVariance="true" target="mySimpleBorderGrp" />
+			<SetProperty target="mySimpleBorder" propertyName="y" value="25" waitEvent="updateComplete" />
+			<SetProperty target="mySimpleBorder" propertyName="x" value="15" waitEvent="updateComplete" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" numColorVariances="5" ignoreMaxColorVariance="true" target="mySimpleBorderGrp" />
+		</body>
+	</TestCase>		
+
+  </testCases>
+</UnitTester>

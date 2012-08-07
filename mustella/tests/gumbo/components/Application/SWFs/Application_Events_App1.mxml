@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:custom="Assets.*"
+             backgroundColor="0xffffff"
+	         width="800" height="600"
+	         applicationComplete="doAppComplete(event)">
+
+<fx:Script>
+<![CDATA[
+
+    import flash.events.Event;
+    import mx.core.FlexGlobals;
+    import mx.events.*;
+    import spark.components.*;
+
+    private var mxBoxUpdateComplete:Boolean = false;
+    private var mxButtonUpdateComplete:Boolean = false;
+    private var sGroupUpdateComplete:Boolean = false;
+    private var sButtonUpdateComplete:Boolean = false;
+    private var testButton:spark.components.Button;
+        
+    /**
+    * These public variables are read by tests.
+    **/
+    public var appCompleteCameLast:Boolean = false;
+    
+    /**
+    * These methods will all run on startup, so there are no test 
+    * steps.  The test case will verify that applicationComplete
+    * came only after the updateComplete events of various
+    * components.
+    **/
+
+    private function doMxBox1UpdateComplete(e:FlexEvent):void{
+        mxBoxUpdateComplete = true;
+    }
+    
+    private function doMxButton1UpdateComplete(e:FlexEvent):void{
+        mxButtonUpdateComplete = true;
+    }
+    
+    private function doSGroup1UpdateComplete(e:FlexEvent):void{
+        sGroupUpdateComplete = true;
+    }
+    
+    private function doSButton1UpdateComplete(e:FlexEvent):void{
+        sButtonUpdateComplete = true;
+    }
+    
+    private function doAppComplete(e:FlexEvent):void{
+        appCompleteCameLast = mxBoxUpdateComplete && 
+                            mxButtonUpdateComplete && 
+                            sGroupUpdateComplete && 
+                            sButtonUpdateComplete;
+    }
+
+    /**
+    * These are used to test the added and removed events.
+    **/    
+    public function addAButton():void{
+        testButton = new spark.components.Button();
+        addElement(testButton);
+    }
+
+    public function removeAButton():void{
+        removeElement(testButton);
+    }
+    
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    mx|Button{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+
+</fx:Style>
+
+<fx:Declarations>
+    <mx:HTTPService id="theHTTPService" />
+</fx:Declarations>
+
+<s:layout> 
+    <s:VerticalLayout/>
+</s:layout>
+
+<mx:Box id="mxBox1" updateComplete="doMxBox1UpdateComplete(event)">
+    <mx:Button id="mxBtn1" updateComplete="doMxButton1UpdateComplete(event)" />
+</mx:Box>
+
+<s:Group id="sGroup1" updateComplete="doSGroup1UpdateComplete(event)">
+    <s:Button id="sBtn1" updateComplete="doSButton1UpdateComplete(event)" />
+</s:Group>
+
+
+</s:Application>

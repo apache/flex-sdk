@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Image/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ImageMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+     ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="ContentCache_methods_addCacheEntry" keywords="[ContentCache, addCacheEntry]" description="Test addCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <AssertMethodValue method="value=(application.ccr.cc1.getCacheEntry('logo')==application.imageBytes )" value= "true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_addCacheEntry2" keywords="[ContentCache, addCacheEntry]" description="Test addCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <AssertMethodValue method="value=(application.ccr.cc1.getCacheEntry('logo')==application.imageBytes )" value= "true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_addCacheEntry2ContentCaches" keywords="[ContentCache, addCacheEntry]" description="Test addCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc2.addCacheEntry('logo',application.imageBytes)"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <AssertPropertyValue target="ccr.cc2" propertyName="numCacheEntries" value="1" />
+                <AssertMethodValue method="value=(application.ccr.cc1.getCacheEntry('logo')==application.imageBytes )" value= "true" />
+                <AssertMethodValue method="value=(application.ccr.cc2.getCacheEntry('logo')==application.imageBytes )" value= "true" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="ContentCache_methods_removeCacheEntry" keywords="[ContentCache, removeCacheEntry]" description="Test removeCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <RunCode code="application.ccr.cc1.removeCacheEntry('logo')"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_removeCacheEntry2" keywords="[ContentCache, removeCacheEntry]" description="Test removeCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc1.removeCacheEntry('logo')"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_addRemoveCacheEntry2ContentCaches" keywords="[ContentCache, addCacheEntry, removeCacheEntry]" description="Test removeCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc2.addCacheEntry('logo',application.imageBytes)"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <AssertPropertyValue target="ccr.cc2" propertyName="numCacheEntries" value="1" />
+                <RunCode code="application.ccr.cc1.removeCacheEntry('logo')"/>
+                <RunCode code="application.ccr.cc2.removeCacheEntry('logo')"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="0" />
+                <AssertPropertyValue target="ccr.cc2" propertyName="numCacheEntries" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_addCacheEntry2keys" keywords="[ContentCache, addCacheEntry,removeCacheEntry]" description="Test addCacheEntry,removeCacheEntry method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo2',application.imageBytes)"/>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <AssertMethodValue method="value=(application.ccr.cc1.getCacheEntry('logo')==application.imageBytes )" value= "true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_removeAllCacheEntries" keywords="[ContentCache, addCacheEntry,removeAllCacheEntries]" description="Test addCacheEntry,removeAllCacheEntries method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo',application.imageBytes)"/>
+                <RunCode code="application.ccr.cc1.addCacheEntry('logo2',application.imageBytes)"/>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <AssertMethodValue method="value=(application.ccr.cc1.getCacheEntry('logo')==application.imageBytes )" value= "true" />
+                <RunCode code="application.ccr.cc1.removeAllCacheEntries()"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_load" keywords="[ContentCache, load]" description="Test load method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg')"/>
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete" />
+                <Pause timeout="100"/>
+                <CompareBitmap target="ccr.im1" url="../methods/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_load_group" keywords="[ContentCache, load]" description="Test load, grouping method">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.prioritize('gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/greenrect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/bluerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg', 'gr2')"/>
+                <Pause timeout="300"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="3" />
+
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete" />
+
+                <Pause timeout="300"/>
+                <CompareBitmap target="ccr" url="../methods/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_load_group_prioritize" keywords="[ContentCache, load,prioritize]" description="Test load, grouping,prioritize, methods">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.prioritize('gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/greenrect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/bluerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/orangerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/purplerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg', 'gr2')"/>
+                <Pause timeout="500"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="5" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="2" />
+                <RunCode code="application.ccr.cc1.prioritize('gr1')"/>
+                <SetProperty target="ccr.im3" propertyName="source" value="../../../../../Assets/Images/purplerect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.im4" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="updateComplete" />
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/orangerect.jpg', 'gr1')"/>
+
+                <Pause timeout="500"/>
+                <CompareBitmap target="ccr" url="../methods/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_methods_load_group_prioritize_null" keywords="[ContentCache, load,prioritize]" description="Test load, grouping,prioritize, methods">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.prioritize('gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/brownrect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/greenrect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/bluerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/orangerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/purplerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/cyanrect.jpg', 'gr2')"/>
+                <Pause timeout="300"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="5" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/bwrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="2" />
+                <Pause timeout="3000"/>
+                <RunCode code="application.ccr.cc1.prioritize('gr1')"/>
+                <SetProperty target="ccr.im1" propertyName="source" value="null" waitEvent="updateComplete" />
+                <SetProperty target="ccr.im2" propertyName="source" value="null" waitEvent="updateComplete" />
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/magentarect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/greenrect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/bluerect.jpg', 'gr2')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/orangerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/purplerect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/magentarect.jpg', 'gr1')"/>
+                <Pause timeout="3000"/>
+                <SetProperty target="ccr.im3" propertyName="source" value="../../../../../Assets/Images/ltgrayrect.jpg" waitEvent="complete" timeout="30000"/>
+                <SetProperty target="ccr.im4" propertyName="source" value="../../../../../Assets/Images/purplerect.jpg" waitEvent="complete" timeout="30000"/>
+		        <Pause timeout="3000"/>
+                <CompareBitmap target="ccr" url="../methods/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="ContentCache_methods_load_group_BI_repeat" keywords="[ContentCache, load,repeat]" description="Test load, method, repeat">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.ccr.cc1.prioritize('gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/redrect.jpg', 'gr1')"/>
+                <RunCode code="application.ccr.cc1.load('../../../../../Assets/Images/greenrect.jpg', 'gr1')"/>
+ 		<Pause timeout="100"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <SetProperty target="ccr.bi1" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.bi2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete" />
+                <SetProperty target="ccr.bi1" propertyName="fillMode" value="repeat"/>
+                <SetProperty target="ccr.bi2" propertyName="fillMode" value="repeat"/>
+                <SetProperty target="ccr.bi1" propertyName="width" value="300" waitEvent="updateComplete" />
+                <SetProperty target="ccr.bi1" propertyName="height" value="300" waitEvent="updateComplete" />
+                <SetProperty target="ccr.bi2" propertyName="width" value="200" waitEvent="updateComplete" />
+                <SetProperty target="ccr.bi2" propertyName="height" value="200" waitEvent="updateComplete" />
+                <Pause timeout="100"/>
+                <CompareBitmap target="ccr" url="../methods/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+
+  </testCases>
+
+
+</UnitTester>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp5_buttonbar.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test TileLayout when it is used as a buttonbar's skin's
+layout.
+========================================================
+-->
+
+<TestCase testID="integration_buttonbar_test1a" keywords="[TileLayout,ButtonBar]" description="Change columnCount and rowCount." >
+    <setup>
+        <RunCode code="application.bb1.skin.ensureNormalState()" waitTarget="bb1.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb1.skin" propertyName="currentState" value="state1a" waitTarget="bb1.skin" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.skin.dataGroup.layout" propertyName="columnCount" value="10" />
+        <AssertPropertyValue target="bb1.skin.dataGroup.layout" propertyName="rowCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test1b" keywords="[TileLayout,ButtonBar]" description="Change columnCount and rowCount." >
+    <setup>
+        <RunCode code="application.bb1.skin.ensureNormalState()" waitTarget="bb1.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb1.skin" propertyName="currentState" value="state1b" waitTarget="bb1.skin" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1.skin.dataGroup.layout" propertyName="columnCount" value="1" />
+        <AssertPropertyValue target="bb1.skin.dataGroup.layout" propertyName="rowCount" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test2a" keywords="[TileLayout,ButtonBar]" description="Change columnWidth and rowHeight with state changes." >
+    <setup>
+        <RunCode code="application.bb2.skin.ensureNormalState()" waitTarget="bb2.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb2.skin" propertyName="currentState" value="state2a" waitTarget="bb2.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test2b" keywords="[TileLayout,ButtonBar]" description="Change columnWidth and rowHeight with state changes." >
+    <setup>
+        <RunCode code="application.bb2.skin.ensureNormalState()" waitTarget="bb2.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb2.skin" propertyName="currentState" value="state2b" waitTarget="bb2.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test3a" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb3.skin.ensureNormalState()" waitTarget="bb3.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb3.skin" propertyName="currentState" value="state3a" waitTarget="bb3.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test3b" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb3.skin.ensureNormalState()" waitTarget="bb3.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb3.skin" propertyName="currentState" value="state3b" waitTarget="bb3.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test3c" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb3.skin.ensureNormalState()" waitTarget="bb3.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb3.skin" propertyName="currentState" value="state3c" waitTarget="bb3.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test3d" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb3.skin.ensureNormalState()" waitTarget="bb3.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb3.skin" propertyName="currentState" value="state3a" waitTarget="bb3.skin.dataGroup" waitEvent="updateComplete" />
+        <SetProperty target="bb3.skin" propertyName="currentState" value="state3d" waitTarget="bb3.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test4a" keywords="[TileLayout,ButtonBar]" description="Change rowAlign and columnAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb4.skin.ensureNormalState()" waitTarget="bb4.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb4.skin" propertyName="currentState" value="state4b" waitTarget="bb4.skin.dataGroup" waitEvent="updateComplete" />
+        <SetProperty target="bb4.skin" propertyName="currentState" value="state4a" waitTarget="bb4.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test4b" keywords="[TileLayout,ButtonBar]" description="Change rowAlign and columnAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb4.skin.ensureNormalState()" waitTarget="bb4.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb4.skin" propertyName="currentState" value="state4b" waitTarget="bb4.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test4c" keywords="[TileLayout,ButtonBar]" description="Change rowAlign and columnAlign with state changes." >
+    <setup>
+        <RunCode code="application.bb4.skin.ensureNormalState()" waitTarget="bb4.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb4.skin" propertyName="currentState" value="state4c" waitTarget="bb4.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test5a" keywords="[TileLayout,ButtonBar]" description="Change horizontalGap and verticalGap with state changes." >
+    <setup>
+        <RunCode code="application.bb5.skin.ensureNormalState()" waitTarget="bb5.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb5.skin" propertyName="currentState" value="state5a" waitTarget="bb5.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb5" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test5b" keywords="[TileLayout,ButtonBar]" description="Change horizontalGap and verticalGap with state changes." >
+    <setup>
+        <RunCode code="application.bb5.skin.ensureNormalState()" waitTarget="bb5.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb5.skin" propertyName="currentState" value="state5b" waitTarget="bb5.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb5" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test6a" keywords="[TileLayout,ButtonBar]" description="Change orientation with state changes." >
+    <setup>
+        <RunCode code="application.bb6.skin.ensureNormalState()" waitTarget="bb6.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb6.skin" propertyName="currentState" value="state6a" waitTarget="bb6.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb6" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_buttonbar_test6b" keywords="[TileLayout,ButtonBar]" description="Change orientation with state changes." >
+    <setup>
+        <RunCode code="application.bb6.skin.ensureNormalState()" waitTarget="bb6.skin" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="bb6.skin" propertyName="currentState" value="state6a" waitTarget="bb6.skin.dataGroup" waitEvent="updateComplete" />
+        <SetProperty target="bb6.skin" propertyName="currentState" value="state6b" waitTarget="bb6.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="bb6" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

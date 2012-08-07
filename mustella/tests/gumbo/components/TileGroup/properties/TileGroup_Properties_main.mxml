@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TileGroup/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="TileGroupBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import mx.core.IVisualElement;
+    ]]>
+  </fx:Script>
+  <testCases>
+
+<!-- 
+
+TileGroup Testing
+========================
+
+TileGroup is simply a subclass of Group with a TileLayout that exposes each property of TileLayout.
+
++ Check that each property passes down properly to the layout (at runtime)
++ Check that each settable property can be set in MXML 
++ Check that adding and removing items from the TileGroup works
++ Check that data binding works
++ Check the default values
++ Check that RTE thrown if you try to set layout
+
+-->
+
+<!--
+ 
+Property sanity tests (runtime)
+
+-->
+
+<TestCase testID="TileGroup_property_columnAlign" keywords="[TileGroup, property]" description="sanity test that columnAlign works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="columnAlign" value="justifyUsingGap" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="columnAlign" value="justifyUsingGap" />
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="requestedColumnCount" value="2" waitEvent="updateComplete" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_columnCount" keywords="[TileGroup, property]" description="sanity test that columnCount works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="requestedColumnCount" value="7" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="columnCount" value="7" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_columnWidth" keywords="[TileGroup, property]" description="sanity test that columnWidth works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="columnWidth" value="33" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="columnWidth" value="33" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_horizontalAlign" keywords="[TileGroup, property]" description="sanity test that horizontalAlign works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="horizontalAlign" value="right" waitEvent="updateComplete" />
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="columnWidth" value="90" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="horizontalAlign" value="right" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_horizontalGap" keywords="[TileGroup, property]" description="sanity test that horizonalGap works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="horizontalGap" value="39" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="horizontalGap" value="39" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_orientation" keywords="[TileGroup, property]" description="sanity test that orientation works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="orientation" value="columns" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="orientation" value="columns" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_requestedColumnCount" keywords="[TileGroup, property]" description="sanity test that requestedColumnCount works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="requestedColumnCount" value="2" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="requestedColumnCount" value="2" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_requestedRowCount" keywords="[TileGroup, property]" description="sanity test that requestedRowCount works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="requestedRowCount" value="5" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="requestedRowCount" value="5" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_rowAlign" keywords="[TileGroup, property]" description="sanity test that rowAlign works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="rowAlign" value="justifyUsingGap" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="rowAlign" value="justifyUsingGap" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_rowCount" keywords="[TileGroup, property]" description="sanity test that rowCount works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="requestedRowCount" value="5" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="rowCount" value="5" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_rowHeight" keywords="[TileGroup, property]" description="sanity test that rowHeight works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="rowHeight" value="55" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="rowHeight" value="55" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_verticalAlign" keywords="[TileGroup, property]" description="sanity test that verticalAlign works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="verticalAlign" value="bottom" waitEvent="updateComplete" />
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="rowHeight" value="76" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="rowHeight" value="76" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="verticalAlign" value="bottom" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_verticalGap" keywords="[TileGroup, property]" description="sanity test that verticalGap works">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="tileGroupRoot.targetTileGroup" propertyName="verticalGap" value="34" waitEvent="updateComplete" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="verticalGap" value="34" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+      
+      
+<TestCase testID="TileGroup_property_paddingLeft" keywords="[TileGroup, property]" description="sanity test that paddingLeft works">
+    <bugs>
+        <Bug bugID="SDK-23159" />
+    </bugs>
+    <setup>
+        <ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tileGroupRoot.targetTileGroup" propertyName="paddingLeft" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="paddingLeft" value="100" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+    </body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_paddingRight" keywords="[TileGroup, property]" description="sanity test that paddingRight works">
+    <bugs>
+        <Bug bugID="SDK-23159" />
+    </bugs>
+    <setup>
+        <ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tileGroupRoot.targetTileGroup" propertyName="paddingRight" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="paddingRight" value="100" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+    </body>
+</TestCase>
+      
+<TestCase testID="TileGroup_property_paddingTop" keywords="[TileGroup, property]" description="sanity test that paddingTop works">
+    <bugs>
+        <Bug bugID="SDK-23159" />
+    </bugs>
+    <setup>
+        <ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tileGroupRoot.targetTileGroup" propertyName="paddingTop" value="100" waitEvent="updateComplete" />
+        <AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="paddingTop" value="100" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+    </body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_paddingBottom" keywords="[TileGroup, property]" description="sanity test that paddingBottom works">
+    <bugs>
+        <Bug bugID="SDK-23159" />
+    </bugs>
+    <setup>
+        <ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tileGroupRoot.targetTileGroup" propertyName="rowAlign" value="justifyUsingGap" waitEvent="propertyChange" />
+        <SetProperty target="tileGroupRoot.targetTileGroup" propertyName="paddingBottom" value="100" waitEvent="propertyChange" />
+        <AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="paddingBottom" value="100" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+    </body>
+</TestCase>
+      
+<!-- 
+
+Property Sanity Tests (mxml)
+
+-->
+
+<TestCase testID="TileGroup_property_mxml_columnAlign" keywords="[TileGroup, property]" description="sanity test that columnAlign works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group1" propertyName="columnAlign" value="justifyUsingGap" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group1" />
+	</body>
+</TestCase> 
+
+<TestCase testID="TileGroup_property_mxml_columnWidth" keywords="[TileGroup, property]" description="sanity test that columnWidth works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group2" propertyName="columnWidth" value="33" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group2" />
+	</body>
+</TestCase> 
+
+<TestCase testID="TileGroup_property_mxml_horizontalAlign" keywords="[TileGroup, property]" description="sanity test that horizontalAlign works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group3" propertyName="horizontalAlign" value="right" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group3" />
+	</body>
+</TestCase> 
+
+<TestCase testID="TileGroup_property_mxml_horizontalGap" keywords="[TileGroup, property]" description="sanity test that horizontalGap works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group4" propertyName="horizontalGap" value="39" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group4" />
+	</body>
+</TestCase> 
+
+<TestCase testID="TileGroup_property_mxml_orientation" keywords="[TileGroup, property]" description="sanity test that orientation works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group5" propertyName="orientation" value="columns" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group5" />
+	</body>
+</TestCase>  
+
+<TestCase testID="TileGroup_property_mxml_requestedColumnCount" keywords="[TileGroup, property]" description="sanity test that requestedColumnCount works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group6" propertyName="requestedColumnCount" value="2" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group6" />
+	</body>
+</TestCase> 
+
+<TestCase testID="TileGroup_property_mxml_requestedRowCount" keywords="[TileGroup, property]" description="sanity test that requestedRowCount works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group7" propertyName="requestedRowCount" value="5" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group7" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_mxml_rowAlign" keywords="[TileGroup, property]" description="sanity test that rowAlign works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group8" propertyName="rowAlign" value="justifyUsingGap" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group8" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_mxml_rowHeight" keywords="[TileGroup, property]" description="sanity test that rowHeight works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group9" propertyName="rowHeight" value="55" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group9" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_mxml_verticalAlign" keywords="[TileGroup, property]" description="sanity test that verticalAlign works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group10" propertyName="verticalAlign" value="bottom" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group10" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_mxml_verticalGap" keywords="[TileGroup, property]" description="sanity test that verticalGap works via mxml">
+	<setup>
+		<ResetComponent target="mxmlTileGroup" className="comps.MXMLTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertPropertyValue target="mxmlTileGroup.group11" propertyName="verticalGap" value="34" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="mxmlTileGroup.group11" />
+	</body>
+</TestCase>
+
+<!--
+
+Add/remove elements
+
+-->
+
+<TestCase testID="TileGroup_property_addElement" keywords="[TileGroup, property]" description="check you can add elements">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="application.tileGroupRoot.targetTileGroup.addElement(application.tileGroupRoot.createButton())" />
+		<Pause timeout="50" /><!-- mustella doesn't see the elementAdd/elementRemove for some reason -->
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="numElements" value="11" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_removeElement" keywords="[TileGroup, property]" description="check you can remove elements">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="application.tileGroupRoot.targetTileGroup.removeElementAt(0)" />
+		<Pause timeout="50" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="numElements" value="9" />
+		
+		<AssertMethodValue method="application.tileGroupRoot.targetTileGroup.removeElementAt(8)" />
+		<Pause timeout="50" />
+		<AssertPropertyValue target="tileGroupRoot.targetTileGroup" propertyName="numElements" value="8" />
+		
+		<CompareBitmap url="../properties/baselines/$testID.png" target="tileGroupRoot.targetTileGroup" />
+	</body>
+</TestCase>
+
+<!-- 
+
+Data Binding
+
+-->
+
+<TestCase testID="TileGroup_property_dataBinding" keywords="[TileGroup, databinding]" description="check data binding works">
+	<setup>
+		<ResetComponent target="bindingGroup" className="comps.BindingGroup" waitEvent="updateComplete" />
+
+		<AssertMethodValue method="value=application.bindingGroup.txt_columnCount.text" value="2" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_columnWidth.text" value="50" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_horizontalGap.text" value="6" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_rowCount.text" value="2" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_rowHeight.text" value="50" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_verticalGap.text" value="6" />
+
+		<SetProperty target="bindingGroup.innerGroup" propertyName="verticalGap" value="0" waitEvent="updateComplete" />
+		<SetProperty target="bindingGroup.innerGroup" propertyName="horizontalGap" value="0" waitEvent="updateComplete" />
+		<SetProperty target="bindingGroup.innerGroup" propertyName="columnWidth" value="80" waitEvent="updateComplete" />
+		<SetProperty target="bindingGroup.innerGroup" propertyName="rowHeight" value="80" waitEvent="updateComplete" />		
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.bindingGroup.txt_columnCount.text" value="1" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_columnWidth.text" value="80" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_horizontalGap.text" value="0" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_rowCount.text" value="4" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_rowHeight.text" value="80" />
+		<AssertMethodValue method="value=application.bindingGroup.txt_verticalGap.text" value="0" />
+	</body>
+</TestCase>	
+
+<!--
+
+Default Values
+
+-->
+
+<TestCase testID="TileGroup_property_defaultValues" keywords="[TileGroup]" description="check default values of each property it exposes">
+	<body>
+		<AssertPropertyValue target="defaultTileGroup" propertyName="columnAlign" value="left" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="columnCount" value="-1" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="columnWidth" value="0" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="horizontalAlign" value="justify" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="horizontalGap" value="6" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="orientation" value="rows" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="requestedColumnCount" value="-1" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="requestedRowCount" value="-1" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="rowAlign" value="top" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="rowCount" value="-1" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="rowHeight" value="0" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="verticalAlign" value="justify" />
+		<AssertPropertyValue target="defaultTileGroup" propertyName="verticalGap" value="6" />
+        <AssertPropertyValue target="defaultTileGroup" propertyName="paddingLeft" value="0" />
+        <AssertPropertyValue target="defaultTileGroup" propertyName="paddingRight" value="0" />
+        <AssertPropertyValue target="defaultTileGroup" propertyName="paddingTop" value="0" />
+        <AssertPropertyValue target="defaultTileGroup" propertyName="paddingBottom" value="0" />
+	</body>
+</TestCase>
+
+<TestCase testID="TileGroup_property_layout" keywords="[TileGroup, property]" description="trying to set layout should throw an RTE">
+	<setup>
+		<ResetComponent target="tileGroupRoot" className="comps.CompTileGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<AssertMethodValue method="value=application.assertError(function():void { application.tileGroupRoot.targetTileGroup.layout = null })" 
+			value="Error: You are not allowed to change the layout for this class.  It is read-only." />
+	</body>
+</TestCase>
+
+
+
+  </testCases>
+</UnitTester>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/CheckBox/styles/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"     
+    xmlns="*" 
+    testSWF="Flex4_CheckBox_styles.mxml">
+    
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.CheckBox;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+		<TestCase testID="FxCheckBox_Style_baseline_default" keywords="[FxCheckBox, baseColor, style]" description="Test baseColor default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="baseline" value="null"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_horizontalCenter_default" keywords="[FxCheckBox, horizontalCenter, style]" description="Test horizontalCenter default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="horizontalCenter" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_horizontalCenter_20" keywords="[FxCheckBox, horizontalCenter, style]" description="Test horizontalCenter 20 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="horizontalCenter" value="20" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="horizontalCenter" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_horizontalCenter_50" keywords="[FxCheckBox, horizontalCenter, style]" description="Test horizontalCenter 50 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="horizontalCenter" value="50" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="horizontalCenter" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_verticalCenter_default" keywords="[FxCheckBox, verticalCenter, style]" description="Test verticalCenter default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="verticalCenter" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_verticalCenter_20" keywords="[FxCheckBox, verticalCenter, style]" description="Test verticalCenter 20 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="verticalCenter" value="20" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="verticalCenter" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_verticalCenter_50" keywords="[FxCheckBox, verticalCenter, style]" description="Test verticalCenter 50 FxCheckBox" >
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="verticalCenter" value="50" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="verticalCenter" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="FxCheckBox_Style_left_default" keywords="[FxCheckBox, left, style]" description="Test left default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="left" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_left_20" keywords="[FxCheckBox, left, style]" description="Test left 20 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="left" value="20" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="left" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_left_50" keywords="[FxCheckBox, left, style]" description="Test left 50 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="left" value="50" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="left" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_right_default" keywords="[FxCheckBox, right, style]" description="Test right default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="right" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_right_20" keywords="[FxCheckBox, right, style]" description="Test right 20 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="right" value="20" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="right" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_right_50" keywords="[FxCheckBox, right, style]" description="Test right 50 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="right" value="50" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="right" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_top_default" keywords="[FxCheckBox, top, style]" description="Test top default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="top" value="null"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_top_20" keywords="[FxCheckBox, top, style]" description="Test top 20 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="top" value="20" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="top" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_top_50" keywords="[FxCheckBox, top, style]" description="Test top 50 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="top" value="50" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="top" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_bottom_default" keywords="[FxCheckBox, bottom, style]" description="Test bottom default style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="bottom" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_Style_bottom_20" keywords="[FxCheckBox, bottom, style]" description="Test bottom 20 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="bottom" value="20" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="bottom" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_bottom_50" keywords="[FxCheckBox, bottom, style]" description="Test bottom 50 style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetProperty target="myCB2" propertyName="label" value="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="bottom" value="50" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="bottom" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="stage"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_Style_color" keywords="[FxCheckBox, color, styles]" description="Test color style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>	
+				<SetProperty target="myCB2" propertyName="label" value="Checkbox Label" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="color" value="0x00DD00" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="color" value="0x00DD00"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_Style_fontSize" keywords="[FxCheckBox, fontSize, styles]" description="Test fontSize style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>	
+				<SetProperty target="myCB2" propertyName="label" value="Checkbox Label" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="fontSize" value="30" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="fontSize" value="30"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB2" numColorVariances="1" maxColorVariance="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_Style_fontWeight" keywords="[FxCheckBox, fontWeight, styles]" description="Test fontWeight style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>	
+				<SetProperty target="myCB2" propertyName="label" value="Checkbox Label" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="fontWeight" value="bold" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="fontWeight" value="bold"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB2" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_Style_lineThrough" keywords="[FxCheckBox, lineThrough, styles]" description="Test lineThrough style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>	
+				<SetProperty target="myCB2" propertyName="label" value="Checkbox Label" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="lineThrough" value="true" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="lineThrough" value="true"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB2"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_Style_Style_textDecoration" keywords="[FxCheckBox, textDecoration, styles]" description="Test textDecoration style for FxCheckBox">
+			<setup>
+				<ResetComponent target="myCB2" className="comps.customFxCB" waitEvent="updateComplete" waitTarget="myCB2"/>	
+				<SetProperty target="myCB2" propertyName="label" value="Checkbox Label" waitEvent="updateComplete" waitTarget="myCB2"/>
+				<SetStyle styleName="textDecoration" value="underline" target="myCB2" waitEvent="updateComplete" waitTarget="myCB2"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB2" styleName="textDecoration" value="underline"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB2"/>
+			</body>
+		</TestCase>
+
+
+
+	</testCases>
+</UnitTester>

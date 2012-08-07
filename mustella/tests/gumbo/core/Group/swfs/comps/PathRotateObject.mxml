@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IVisualElement;
+			import mx.core.mx_internal;
+			import spark.primitives.supportClasses.GraphicElement;
+
+			public function runTest():void
+			{
+				var ge:GraphicElement = path;
+				var sp:Sprite = new Sprite();
+				var elementSize:Point = new Point(ge.getLayoutBoundsWidth(), ge.getLayoutBoundsHeight());
+				var pos:Point = new Point(ge.getLayoutBoundsX(), ge.getLayoutBoundsY());
+				var tempBitmap: BitmapData;
+				tempBitmap = ge.mx_internal::captureBitmapData(true,0);
+				var matrix: Matrix = new Matrix();
+				matrix.translate(pos.x, pos.y);
+				sp.graphics.beginBitmapFill(tempBitmap, matrix, true, false);
+				sp.graphics.drawRect(pos.x, pos.y, elementSize.x, elementSize.y);
+				sp.graphics.endFill();
+				vessel.rawChildren.addChild(sp);
+
+			}
+		]]>
+
+	</fx:Script>
+
+	<s:Group x="296" y="161">
+	<s:Group id="group5">
+	<s:Path id="path" winding="nonZero" data="M 217.762 23.899 L 7.244 87.793 L -0.016 63.87 L 210.502 -0.023 L 217.762 23.899 Z" x="19" y="-61" rotation="16.934" >
+	<s:fill>
+	<s:LinearGradient rotation="225">
+	<s:GradientEntry color="#010f0d" ratio="0" alpha="0.8"/>
+	<s:GradientEntry color="#15eaa7" alpha="0.8" ratio="0.19215686274509805"/>
+	<s:GradientEntry color="#ffffff" alpha="0.8" ratio="0.29411764705882354"/>
+	<s:GradientEntry color="#15eaa7" ratio="0.49019607843137253" alpha="0.8"/>
+	<s:GradientEntry color="#ffffff" ratio="0.6941176470588235" alpha="0.8"/>
+	<s:GradientEntry color="#15eaa7" ratio="0.9058823529411765" alpha="0.8"/>
+	<s:GradientEntry color="#010f0d" ratio="1" alpha="0.8"/>
+	</s:LinearGradient>
+	</s:fill>
+	</s:Path>
+	</s:Group>
+	</s:Group>
+
+	<mx:Canvas id="vessel" x="21" y="95" width="200" height="200">
+	</mx:Canvas>
+
+	<!--<s:Button x="377" y="292" label="Button" click="runTest()" /> -->
+
+</s:Group>

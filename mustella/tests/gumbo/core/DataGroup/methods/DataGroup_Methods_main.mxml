@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DataGroup/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DataGroupBasic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		import comps.*;
+		import spark.layouts.*;
+		import spark.components.DataGroup;
+		import spark.components.Group;
+		import spark.primitives.*;
+        import spark.skins.spark.*;
+		import mx.controls.Label;
+		import mx.collections.ArrayCollection;
+
+	]]>
+	</fx:Script>
+	<testCases>
+
+<!-- addItem method -->
+
+	<!-- Note: see DataGroup_Methods_tester for Ella's additional addItem tests -->
+
+	<TestCase testID="DataGroup_method_addItem_data_single" keywords="[DataGroup, method, addItemAt]" description="add single data item to a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection(['data'])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItem('new data')" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="data" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="new data" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItem_data" keywords="[DataGroup, method, addItem]" description="add multiple data items to a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+			<SetProperty target="group1" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItem(88)" valueExpression="value=null"  />
+			<AssertMethodValue method="value=application.group1.dataProvider.addItem('string')" valueExpression="value=null"  />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0)" value="88" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="string" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItem_repeated_objects" keywords="[DataGroup, method, addItem]" description="add an element multiple times to a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItem(application.graphicArray)" valueExpression="value=null"  />
+			<AssertMethodValue method="value=application.group1.dataProvider.addItem(application.graphicArray)" valueExpression="value=null"  />
+			<AssertMethodValue method="value=application.group1.dataProvider.addItem(application.graphicArray)" valueExpression="value=null"  />
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0)" valueExpression="value=application.graphicArray" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" valueExpression="value=application.graphicArray" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" valueExpression="value=application.graphicArray" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="3" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItem_subgroups" keywords="[DataGroup, method, addItem]" description="add subgroups to a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.getItemAt(0).width = 50" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.getItemAt(1).width = 60" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).width" value="50" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).width" value="60" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+
+
+<!-- addItemAt method -->
+
+	<TestCase testID="DataGroup_method_addItemAt_data_single" keywords="[DataGroup, method, addItemAt]" description="add single data item to end of a single element group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection(['data'])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('new data',1)" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="data" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="new data" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_data_0" keywords="[DataGroup, method, addItemAt]" description="add single data item to start of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('data',0)" valueExpression="value=null" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="data" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="3" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_data_1" keywords="[DataGroup, method, addItemAt]" description="add single data item to middle of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('data',1)" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="data" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="3" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_data_2" keywords="[DataGroup, method, addItemAt]" description="add single data item to end of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('data',2)" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="data" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="3" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_mix_0" keywords="[DataGroup, method, addItemAt]" description="add single data item to start of a mix content group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('data',0)" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="data" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(3).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(4).width" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_mix_middle" keywords="[DataGroup, method, addItemAt]" description="add single data item to middle of a mix content group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('data',2)" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="data" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(3).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(4).width" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_mix_end" keywords="[DataGroup, method, addItemAt]" description="add single data item to end of a mix content group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.addItemAt('data',4)" valueExpression="value=null"  />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(3).width" value="200" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(4)" value="data" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_subgroups_0" keywords="[DataGroup, method, addItemAt]" description="add subgroup to start of a mix content group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 200, 200, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.createSubgroupAt(application.group1, 33, 0);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="33" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(3).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(4).width" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_subgroups_middle" keywords="[DataGroup, method, addItemAt]" description="add subgroup to middle of a mix content group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.createSubgroupAt(application.group1, 44, 2);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2).width" value="44" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(3).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(4).width" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_addItemAt_subgroups_end" keywords="[DataGroup, method, addItemAt]" description="add subgroup to end of a mix content group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.createSubgroupAt(application.group1, 55, 4);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(3).width" value="200" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(4).width" value="55" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="5" />
+		</body>
+	</TestCase>
+
+
+
+<!-- getItemAt method -->
+
+<!-- getItemAt data -->
+
+	<TestCase testID="DataGroup_method_getItemAt_data_0" keywords="[DataGroup, method, getItemAt]" description="get data item at start of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_data_1" keywords="[DataGroup, method, getItemAt]" description="get data item at middle of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_data_2" keywords="[DataGroup, method, getItemAt]" description="get data item at end of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="3" />
+		</body>
+	</TestCase>
+
+<!-- getItemAt graphics -->
+
+	<TestCase testID="DataGroup_method_getItemAt_graphics_0" keywords="[DataGroup, method, getItemAt]" description="get graphic item at start of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="100" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_graphics_1" keywords="[DataGroup, method, getItemAt]" description="get graphic item at middle of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="200" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_graphics_2" keywords="[DataGroup, method, getItemAt]" description="get graphic item at end of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2).width" value="300" />
+		</body>
+	</TestCase>
+
+<!-- getItemAt mix -->
+
+	<TestCase testID="DataGroup_method_getItemAt_mix_0" keywords="[DataGroup, method, getItemAt]" description="get mix item at start of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_mix_1" keywords="[DataGroup, method, getItemAt]" description="get mix item at middle of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_mix_2" keywords="[DataGroup, method, getItemAt]" description="get mix item at end of a group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2).width" value="100" />
+		</body>
+	</TestCase>
+
+<!-- getItemAt subgroups -->
+
+	<TestCase testID="DataGroup_method_getItemAt_subgroups_empty" keywords="[DataGroup, method, getItemAt]" description="get subgroup items that are empty">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).width = 11" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(1).width = 22" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="11" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemAt_subgroups_not_empty" keywords="[DataGroup, method, getItemAt]" description="get subgroup items that are not empty">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).itemRendererFunction = application.dataGroupItemRendererFunction" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider = new ArrayCollection([55])" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1.dataProvider.getItemAt(0), 100, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />
+
+			<RunCode code="application.group1.dataProvider.getItemAt(1).itemRendererFunction = application.dataGroupItemRendererFunction"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(1).dataProvider = new ArrayCollection([66])" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1.dataProvider.getItemAt(1), 200, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1" />
+
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).dataProvider.getItemAt(0)" value="55" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).dataProvider.getItemAt(0)" value="66" />
+		</body>
+	</TestCase>
+
+
+
+<!-- getItemIndex method -->
+
+	<TestCase testID="DataGroup_method_getItemIndex_data" keywords="[DataGroup, method, getItemIndex]" description="get index of data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(0))" value="0" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(1))" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(2))" value="2" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(0))" value="0" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(1))" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(2))" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemIndex_graphics" keywords="[DataGroup, method, getItemIndex]" description="get index of graphic items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(0))" value="0" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(1))" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(2))" value="2" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(0))" value="0" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(1))" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(2))" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getItemIndex_mix" keywords="[DataGroup, method, getItemIndex]" description="get index of mix items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(0))" value="0" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(1))" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(2))" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(3))" value="3" />
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(0))" value="0" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(1))" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(2))" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemIndex(application.group1.dataProvider.getItemAt(3))" value="3" />
+		</body>
+	</TestCase>
+
+
+<!-- getElementAt method -->
+
+	<TestCase testID="DataGroup_method_getElementAt_data" keywords="[DataGroup, method, getElementAt]" description="should return basic item renderers">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupDefaultItemRenderer" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1) is DataGroupDefaultItemRenderer" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2) is DataGroupDefaultItemRenderer" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="21" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_graphics" keywords="[DataGroup, method, getElementAt]" description="should return a complex item renderer">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection();" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupDefaultItemRendererComplex" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="10" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1) is DataGroupDefaultItemRendererComplex" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="20" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2) is DataGroupDefaultItemRendererComplex" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="30" />
+		</body>
+    </TestCase>
+
+
+	<TestCase testID="DataGroup_method_getElementAt_mix" keywords="[DataGroup, method, getElementAt]" description="should return different itemRenderers because of the itemRendererFunction">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1]);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupDefaultItemRenderer" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1) is DataGroupDefaultItemRendererComplex" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="20" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2) is DataGroupDefaultItemRendererComplex" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="30" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_subgroups" keywords="[DataGroup, method, getElementAt]" description="should return DataGroup as itemRenderer type">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.createSubgroup(application.group1);" waitEvent="updateComplete" waitTarget="group1"  />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroup" value="{true}" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_null" keywords="[DataGroup, method, getElementAt]" description="should return the item if no itemRenderer set and the item a visual object">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1]);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0) is DataGroupJustifyItemRenderer" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="21" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1) is Group" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1).width" value="20" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2) is Group" value="{true}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(2).width" value="30" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_bad_index" keywords="[DataGroup, method, getElementAt]" description="should return null on garbage indices">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1]);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(-1)" value="{null}" />
+			<AssertMethodValue method="value=application.group1.getElementAt(1)" value="{null}" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_bad_dataProvider" keywords="[DataGroup, method, getElementAt]" description="should return null if no dataProvider defined">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0)" value="{null}" />
+		</body>
+    </TestCase>
+
+
+<!-- getElementIndex() method -->
+
+	<TestCase testID="DataGroup_method_getElementIndex_data" keywords="[DataGroup, method, getElementIndex]" description="should return correct indices of data items">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(0))" value="0" />
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(1))" value="1" />
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(2))" value="2" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementIndex_graphics" keywords="[DataGroup, method, getElementIndex]" description="should return correct indices of graphic items">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(0))" value="0" />
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(1))" value="1" />
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(2))" value="2" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementIndex_mix" keywords="[DataGroup, method, getElementIndex]" description="should return correct indices of mixed items">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1]);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(0))" value="0" />
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(1))" value="1" />
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(2))" value="2" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementIndex_null" keywords="[DataGroup, method, getElementIndex]" description="null renderer should return -1">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementIndex(null)" value="-1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="DataGroup_method_getElementIndex_bad_dataProvider" keywords="[DataGroup, method, getElementIndex]" description="shouuld return -1 when no dataProvider defined">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.group1.getElementIndex(application.group1.getElementAt(0))" value="-1" />
+		</body>
+    </TestCase>
+
+
+
+
+<!-- getElementAt method -->
+
+<!-- getElementAt data -->
+
+	<TestCase testID="DataGroup_method_getElementAt_data_0" keywords="[DataGroup, method, getElementAt]" description="get data item at start">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(0).customDataRenderingLabel.text" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_data_1" keywords="[DataGroup, method, getElementAt]" description="get data item at middle">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(1).customDataRenderingLabel.text" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_data_2" keywords="[DataGroup, method, getElementAt]" description="get data item at end">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).customDataRenderingLabel.text" value="3" />
+		</body>
+	</TestCase>
+
+<!-- getElementAt graphics -->
+
+	<TestCase testID="DataGroup_method_getElementAt_graphics_0" keywords="[DataGroup, method, getElementAt]" description="get graphic item at start">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(0).width" value="10" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_graphics_1" keywords="[DataGroup, method, getElementAt]" description="get graphic item at middle">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="20" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_graphics_2" keywords="[DataGroup, method, getElementAt]" description="get graphic item at end">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 30, 30, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(2).width" value="30" />
+		</body>
+	</TestCase>
+
+<!-- getElementAt mix -->
+
+	<TestCase testID="DataGroup_method_getElementAt_mix_0" keywords="[DataGroup, method, getElementAt]" description="get mix item at start">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(0).customDataRenderingLabel.text" value="1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_mix_1" keywords="[DataGroup, method, getElementAt]" description="get graphic item at middle">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(1).customDataRenderingLabel.text" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_getElementAt_mix_2" keywords="[DataGroup, method, getElementAt]" description="get graphic item at end">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.getElementAt(2).customDataRenderingGroup.getElementAt(0).width" value="100" />
+		</body>
+	</TestCase>
+
+<!-- getElementAt subgroups -->
+
+	<TestCase testID="DataGroup_method_getElementAt_subgroups_empty" keywords="[DataGroup, method, getElementAt]" description="get empty subgroups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).width = 11" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(1).width = 22" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.getElementAt(0).width" value="11" />
+			<AssertMethodValue   method="value=application.group1.getElementAt(1).width" value="22" />
+		</body>
+	</TestCase>
+
+
+
+
+
+
+<!-- removeItem method -->
+
+<!-- removeItem data -->
+
+	<TestCase testID="DataGroup_method_removeItem_data_0" keywords="[DataGroup, method, removeItem]" description="remove data item at start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((0))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="3" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_data_1" keywords="[DataGroup, method, removeItem]" description="remove data item at middle of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((1))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="3" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_data_2" keywords="[DataGroup, method, removeItem]" description="remove data item at end of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((2))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+<!-- removeItem graphics -->
+
+	<TestCase testID="DataGroup_method_removeItem_graphics_0" keywords="[DataGroup, method, removeItem]" description="remove graphic item at start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((0))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="200" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="300" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_graphics_1" keywords="[DataGroup, method, removeItem]" description="remove graphic item at middle of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((1))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="300" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_graphics_2" keywords="[DataGroup, method, removeItem]" description="remove graphic item at end of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((2))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="100" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+<!-- removeItem mix -->
+
+	<TestCase testID="DataGroup_method_removeItem_mix_0" keywords="[DataGroup, method, removeItem]" description="remove item from start of mixed group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((0))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_mix_1" keywords="[DataGroup, method, removeItem]" description="remove item from middle of mixed group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((1))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_mix_2" keywords="[DataGroup, method, removeItem]" description="remove data item from end of mixed group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((2))" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+<!-- removeItem subgroups -->
+
+	<TestCase testID="DataGroup_method_removeItem_subgroups_empty" keywords="[DataGroup, method, removeItem]" description="remove empty subgroup">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((0))" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_subgroups_not_empty" keywords="[DataGroup, method, removeItem]" description="remove non-empty subgroup">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<RunCode code="application.group1.dataProvider.getItemAt(0).itemRendererFunction = application.dataGroupItemRendererFunction" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider = new ArrayCollection([55])"  waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_subgroups_nested_empty" keywords="[DataGroup, method, removeItem]" description="remove empty nested subgroup">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1.dataProvider.getItemAt(0))" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_subgroups_nested_data" keywords="[DataGroup, method, removeItem]" description="remove non-empty nested subgroup">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1.dataProvider.getItemAt(0))" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider = new ArrayCollection();" />
+			<RunCode code="application.addCustomRect(application.group1.dataProvider.getItemAt(0),100,100,0xFF0000)" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItem_subgroups_nested_graphics" keywords="[DataGroup, method, removeItem]" description="remove graphic item from group with subgroups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1.dataProvider.getItemAt(0))" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+			<RunCode code="application.addCustomRect(application.group1.dataProvider.getItemAt(0).dataProvider.getItemAt(0),100,100,0xFF0000)" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt((0))" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+
+
+<!-- removeItemAt method -->
+
+<!-- removeItemAt data -->
+
+	<TestCase testID="DataGroup_method_removeItemAt_empty_group_0" keywords="[DataGroup, method, removeItemAt]" description="check removing at an item from group returns the item">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([5])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue   method="value=application.group1.dataProvider.removeItemAt(0)" valueExpression="value=5" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_data_0" keywords="[DataGroup, method, removeItemAt]" description="remove data item from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="3" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_data_1" keywords="[DataGroup, method, removeItemAt]" description="remove data item from middle of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(1)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="3" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_data_2" keywords="[DataGroup, method, removeItemAt]" description="remove data item from end of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitTarget="group1"  waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(2)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+<!-- removeItemAt graphics -->
+
+
+	<TestCase testID="DataGroup_method_removeItemAt_graphics_0" keywords="[DataGroup, method, removeItemAt]" description="remove graphic item from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="200" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="300" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_graphics_1" keywords="[DataGroup, method, removeItemAt]" description="remove graphic item from middle of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(1)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).width" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).width" value="300" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_graphics_2" keywords="[DataGroup, method, removeItemAt]" description="remove graphic item from end of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 200, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 300, 100, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(2)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).width" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).width" value="200" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+<!-- removeItemAt mix -->
+
+	<TestCase testID="DataGroup_method_removeItemAt_mix_0" keywords="[DataGroup, method, removeItemAt]" description="remove item from start of mixed group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_mix_1" keywords="[DataGroup, method, removeItemAt]" description="remove item from middle of mixed group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(1)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="100" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_mix_2" keywords="[DataGroup, method, removeItemAt]" description="remove item from end of mixed group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2])}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000);" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(2)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="2" />
+		</body>
+	</TestCase>
+
+<!-- removeItemAt subgroups -->
+
+	<TestCase testID="DataGroup_method_removeItemAt_subgroups_empty" keywords="[DataGroup, method, removeItemAt]" description="remove empty subgroup item from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_subgroups_not_empty" keywords="[DataGroup, method, removeItemAt]" description="remove non-empty subgroup item from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).itemRendererFunction = application.dataGroupItemRendererFunction" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider = new ArrayCollection([55])"  waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_subgroups_nested_empty" keywords="[DataGroup, method, removeItemAt]" description="remove nested subgroup item from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1.dataProvider.getItemAt(0))" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_subgroups_nested_data" keywords="[DataGroup, method, removeItemAt]" description="remove non-empty nested subgroup from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1.dataProvider.getItemAt(0))" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider.getItemAt(0).itemRenderer = new ClassFactory(DataGroupDefaultItemRenderer)" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider.getItemAt(0).dataProvider = new ArrayCollection([555])" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_removeItemAt_subgroups_nested_graphics" keywords="[DataGroup, method, removeItemAt]" description="remove nested subgroup with graphic from start of group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.createSubgroup(application.group1.dataProvider.getItemAt(0))" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+			<RunCode code="application.addCustomRect(application.group1.dataProvider.getItemAt(0).dataProvider.getItemAt(0), 100, 100, 0xFF0000)" />
+			<!-- note: must timeout because cant access appropriate wait target -->
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue method="value=application.group1.dataProvider.length" value="0" />
+		</body>
+	</TestCase>
+
+
+
+
+<!-- setItemIndex method -->
+
+<!-- setItemIndex - data -->
+
+	<TestCase testID="DataGroup_method_setItemIndex_data_0_1" keywords="[DataGroup, method, setItemIndex]" description="change index of data item from 0 to 1">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.setItemAt(application.group1.dataProvider.getItemAt(0),1)" waitEvent="collectionChange" waitTarget="group1.dataProvider"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="3" />
+
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_setItemIndex_data_1_0" keywords="[DataGroup, method, setItemIndex]" description="change index of data item from 1 to 0">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.setItemAt(application.group1.dataProvider.getItemAt(1),0)" waitEvent="collectionChange" waitTarget="group1.dataProvider"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="3" />
+
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_setItemIndex_data_0_2" keywords="[DataGroup, method, setItemIndex]" description="change index of data item from 0 to 2">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.setItemAt(application.group1.dataProvider.getItemAt(0),2)" waitEvent="collectionChange" waitTarget="group1.dataProvider"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="1" />
+
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_setItemIndex_data_2_0" keywords="[DataGroup, method, setItemIndex]" description="change index of data item from 2 to 0">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.setItemAt(application.group1.dataProvider.getItemAt(2),0)" waitEvent="collectionChange" waitTarget="group1.dataProvider"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="3" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="3" />
+
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_setItemIndex_data_0_0" keywords="[DataGroup, method, setItemIndex]" description="change index of data item from 0 to 0">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.setItemAt(application.group1.dataProvider.getItemAt(0),0)" waitEvent="collectionChange" waitTarget="group1.dataProvider"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="3" />
+
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_setItemIndex_data_2_2" keywords="[DataGroup, method, setItemIndex]" description="change index of data item from 2 to 2">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1,2,3])}" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.setItemAt(application.group1.dataProvider.getItemAt(2),2)" waitEvent="collectionChange" waitTarget="group1.dataProvider"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0)" value="1" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1)" value="2" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(2)" value="3" />
+
+		</body>
+	</TestCase>
+
+
+<!-- swapItems method (using a custom swapping method) -->
+
+
+	<TestCase testID="DataGroup_method_swapItems_data" keywords="[DataGroup, method, swapItems]" description="swap data items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.group1.dataProvider.addItem('string 0');" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.addItem('string 1');" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.addItem('string 2');" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.addItem('string 3');" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+
+			<RunCode code="application.customSwap(application.group1, 0, 3)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.customSwap(application.group1, 1, 2)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.customSwap(application.group1, 3, 2)" waitEvent="updateComplete" waitTarget="group1" />
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0)" value="string 3" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="string 2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2)" value="string 0" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3)" value="string 1" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_data.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_swapItems_mix" keywords="[DataGroup, method, swapItems]" description="swap mixed items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="74" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.group1.dataProvider.addItem('test');" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 20, 0x330000);" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.addItem('test2');" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+
+			<RunCode code="application.customSwap(application.group1, 0, 1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.customSwap(application.group1, 0, 2)" waitEvent="updateComplete" waitTarget="group1" />
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0)" value="test2" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="test" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).width" value="100" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_mix.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_swapItems_buttons" keywords="[DataGroup, method, swapItems]" description="swap mixed items with halo/gumbo">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.group1.dataProvider.addItem(application.createButton('halo button 1'));" />
+			<RunCode code="application.group1.dataProvider.addItem(application.createButton('halo button 2'));" />
+			<RunCode code="application.group1.dataProvider.addItem('data string 3');" />
+			<RunCode code="application.group1.dataProvider.addItem(application.createFxButton('spark button 4', 99, 21));" />
+			<Pause timeout="100" />
+		</setup>
+		<body>
+
+			<RunCode code="application.customSwap(application.group1, 0, 1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.customSwap(application.group1, 1, 2)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.customSwap(application.group1, 0, 3)" waitEvent="updateComplete" waitTarget="group1" />
+
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).label" value="spark button 4" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1)" value="data string 3" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).label" value="halo button 1" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(3).label" value="halo button 2" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_buttons.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_swapItems_subgroups_empty" keywords="[DataGroup, method, swapItems]" description="swap empty subgroups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitTarget="group1"  waitEvent="updateComplete" />
+
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.getItemAt(0).width = 80" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.getItemAt(1).width = 90" waitEvent="updateComplete" waitTarget="group1"/>
+
+		</setup>
+		<body>
+			<RunCode code="application.customSwap(application.group1, 0,1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).width" value="90" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).width" value="80" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_swapItems_subgroups_nonempty" keywords="[DataGroup, method, swapItems]" description="swap non-empty subgroups">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunctionSendingNulls" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.createSubgroup(application.group1)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider = new ArrayCollection()" />
+			<RunCode code="application.group1.dataProvider.getItemAt(1).dataProvider = new ArrayCollection()" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).itemRendererFunction = application.dataGroupItemRendererFunction" />
+			<RunCode code="application.group1.dataProvider.getItemAt(1).itemRendererFunction = application.dataGroupItemRendererFunction" />
+			<Pause timeout="100" />
+
+			<RunCode code="application.group1.dataProvider.getItemAt(0).dataProvider.addItem(50)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.getItemAt(1).dataProvider.addItem(60)" waitEvent="updateComplete" waitTarget="group1"/>
+
+		</setup>
+		<body>
+			<RunCode code="application.customSwap(application.group1, 0,1)" waitEvent="updateComplete" waitTarget="group1"/>
+
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(0).dataProvider.getItemAt(0)" value="60" />
+			<AssertMethodValue   method="value=application.group1.dataProvider.getItemAt(1).dataProvider.getItemAt(0)" value="50" />
+			<CompareBitmap url="../methods/baselines/datagroup_method_swapItems_subgroups_nonempty.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- getItemIndicesInView() -->
+
+    <TestCase testID="DataGroup_method_getItemIndicesInView_default" keywords="[DataGroup, method, getItemIndicesInView]" description="get the default value">
+        <!-- bugs>
+            <Bug bugID="SDK-24787" />
+        </bugs-->
+        <setup>
+            <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_method_getItemIndicesInView_emptyDP" keywords="[DataGroup, method, getItemIndicesInView]" description="with an empty data provider">
+        <setup>
+            <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection()" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_method_getItemIndicesInView_scroll" keywords="[DataGroup, method, getItemIndicesInView]" description="scroll to different locations">
+        <setup>
+            <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createSimpleIncreasingItems(100)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="width" value="100" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="height" value="100" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
+            <SetProperty target="group1" propertyName="verticalScrollPosition" value="656" waitEvent="propertyChange" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="23,24,25,26" />
+            <SetProperty target="group1" propertyName="verticalScrollPosition" value="-50" waitEvent="propertyChange" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1" />
+            <SetProperty target="group1" propertyName="verticalScrollPosition" value="2750" waitEvent="propertyChange" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="98,99" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_method_getItemIndicesInView_size" keywords="[DataGroup, method, getItemIndicesInView]" description="change size of the DataGroup">
+        <setup>
+            <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createSimpleIncreasingItems(100)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="width" value="100" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="height" value="100" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3" />
+            <SetProperty target="group1" propertyName="height" value="200" waitEvent="updateComplete" />
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6,7" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_method_getItemIndicesInView_noClipping" keywords="[DataGroup, method, getItemIndicesInView]" description="no clipping should show all items">
+        <setup>
+            <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createSimpleIncreasingItems(20)" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="width" value="100" waitEvent="updateComplete" />
+            <SetProperty target="group1" propertyName="height" value="100" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.group1.getItemIndicesInView()" value="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" />
+        </body>
+    </TestCase>
+
+</testCases>
+
+
+</UnitTester>

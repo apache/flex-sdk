@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:local="*" xmlns:comps="components.*"
+			   width="800" height="800">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVeraHalo;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVeraHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVeraHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}				
+
+
+		s|DataGrid s|GridColumnHeaderGroup {
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+			 fontLookup: "embeddedCFF";		
+		}
+
+
+		global{
+		    fontFamily: MyVera;
+		    fontAntiAliasType: normal;
+		    kerning: "off";
+        	}
+	 		
+	</fx:Style>	
+	
+	<fx:Declarations>
+		  
+		
+		<s:ArrayList id="column1">
+			<s:GridColumn dataField="index" />
+			<s:GridColumn dataField="firstName" />
+			<s:GridColumn dataField="lastName" />
+		</s:ArrayList>
+			<s:ArrayList id="column2">
+				<s:GridColumn dataField="index" />
+				<s:GridColumn dataField="firstName" />
+				<s:GridColumn dataField="lastName" />
+				<s:GridColumn dataField="unmatch field" />
+			</s:ArrayList>
+			<s:ArrayList id="column3">
+				
+			</s:ArrayList>
+		<s:ArrayList id="column4">
+			<s:GridColumn dataField="index"  />
+			<s:GridColumn dataField="firstName" />
+			<s:GridColumn dataField="lastName" />
+			<s:GridColumn dataField="food" />
+			<s:GridColumn dataField="drink"/>
+		</s:ArrayList>
+		<s:ArrayList id="column5">
+			<s:GridColumn dataField="@index"/>
+			<s:GridColumn dataField="@firstName"/>
+			<s:GridColumn dataField="@lastName"/>
+			<s:GridColumn dataField="@food"/>
+			<s:GridColumn dataField="@drink"/>
+		</s:ArrayList>
+	</fx:Declarations>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			include "assets/common.as";
+			import spark.components.DataGrid;
+			import spark.components.Grid;
+			import spark.components.gridClasses.CellPosition;
+			import mx.collections.ArrayCollection;
+			import spark.collections.Sort;
+			import spark.collections.SortField;
+			import components.*;
+			use namespace mx_internal;
+			[Bindable]
+			public var gridDataCollection:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			public var dataGridDataCollection:ArrayCollection = new ArrayCollection();
+			
+			public var filterText:String;
+			public var testDG:DataGrid;
+			
+			public function getPartialDataGridData(len:Number, dg:DataGrid):ArrayCollection
+			{
+				var tmp:ArrayCollection=new ArrayCollection();
+				for (var i:int=0;i<len;i++)
+					tmp.addItem(dg.dataProvider.getItemAt(i));
+				return tmp;
+			}
+			public function insertNewColumns(grid:DataGrid,columnIndex:int, columnCount:int):void
+			{
+				
+				for (var i:int=1;i<=columnCount;i++)
+					createColumn2(grid,columnIndex+i);
+				
+			}				
+			public function insertItems(dataGrid:DataGrid,startIndex:int):void
+			{	
+				if (dataGrid.dataProvider==null)
+					dataGrid.dataProvider=new ArrayCollection();
+				for (var i:int = 0; i < 5; i++)
+				    dataGrid.dataProvider.addItemAt(createItem(100 + i), startIndex);
+				
+			}
+			
+
+			public function removeItems(dataGrid:DataGrid,startIndex:int):void
+			{
+
+				for (var i:int = 4; i >=0; i--)
+				    dataGrid.dataProvider.removeItemAt(i + startIndex);
+			}
+			public function updateItems(grid:DataGrid,index:int):void
+			{
+				grid.dataProvider.getItemAt(index)['firstName']="blablabla";
+				grid.dataProvider.itemUpdated(grid.dataProvider.getItemAt(index),"firstName",grid.dataProvider.getItemAt(index)['firstName'],"blablabla");
+			}
+			public function replaceItems(grid:DataGrid,index:int):void
+			{
+				grid.dataProvider.setItemAt(this.createItem(index+1000),index);
+
+			}
+			public function applySort(grid:DataGrid,fieldName:String):void
+			{
+				
+				ArrayCollection(grid.dataProvider).sort = new Sort();
+				trace("fieldName="+fieldName);
+				var sortField:SortField=new SortField(fieldName);
+				sortField.setStyle("locale", "en-US");
+				ArrayCollection(grid.dataProvider).sort.fields = [sortField ];
+				ArrayCollection(grid.dataProvider).refresh();
+
+			}
+			
+			public function includeFirstNameContain( item:Object ):Boolean
+			{
+				if( String(item["firstName"]).indexOf(filterText))
+					return false;
+				else return true;
+			}
+			
+			// set the filter function on the collection
+			public function applyFilter(grid:DataGrid):void
+			{
+				ArrayCollection(grid.dataProvider).filterFunction = includeFirstNameContain;
+				ArrayCollection(grid.dataProvider).refresh();
+			}
+			
+			public function addSelectedCellRegion(rows:Vector.<int>, columnIndex:int, columnCount:int):ArrayList
+			{
+				var selectedCellInfo:ArrayList=new ArrayList();
+				var len:int=rows.length;
+				var rowIndex:int;
+				for (var i:int=0;i<len;i++)
+				{
+						rowIndex=rows.pop();
+						for (var j:int=0;j<columnCount;j++)
+						selectedCellInfo.addItem({"rowIndex":rowIndex, "columnIndex":(columnIndex+j)});
+				}
+				return selectedCellInfo;
+				
+			}			
+			//get row item based on row indices vector
+			public function getItems(grid:DataGrid,v:Vector.<int>):ArrayList
+			{
+				var rowsHolder:ArrayList=new ArrayList();
+				var len:int=v.length;
+				var obj:Object;
+				for (var i:int =0;i<len;i++)
+				{
+					obj=grid.dataProvider.getItemAt(v.pop());
+					trace("##row index="+obj["index"]);
+					rowsHolder.addItem(obj);
+				}
+				return rowsHolder;
+
+											
+			}
+			//get new row indices based on row object
+			public function getNewIndices(grid:DataGrid,items:ArrayList):Vector.<int>
+			{
+				var v:Vector.<int>=new Vector.<int>;
+				var t:int;
+				var obj:Object;
+				for (var i:int =0;i<items.length;i++){
+					obj=items.getItemAt(i);
+					t=grid.dataProvider.getItemIndex(obj);
+					trace("###"+obj["index"]+";new index="+t);
+					v.push(t);
+				}
+				return v;
+			}
+			
+			
+			//get new row indices based on row object
+			public function getNewIndices2(grid:DataGrid,items:ArrayList):Vector.<Object>
+			{
+				var v:Vector.<Object>=new Vector.<Object>;
+				var t:int;
+				var obj:Object;
+				for (var i:int =0;i<items.length;i++){
+					obj=items.getItemAt(i);
+					t=grid.dataProvider.getItemIndex(obj);
+					trace("###"+obj["index"]+";new index="+t);
+					v.push({oldIndex:obj["index"], newIndex:t});
+				}
+				return v;
+			}		
+			public function setCollectionChangeListener(grid:DataGrid):void
+			{
+				grid.addEventListener("collectionChange",collectionChangeHandler);
+			}
+			public function removeCollectionChangeListener(grid:DataGrid):void
+			{
+				grid.removeEventListener("collectionChange",collectionChangeHandler);
+			}
+            		public function collectionChangeHandler(e:mx.events.CollectionEvent):void
+			{
+				if (e.currentTarget is DataGrid)
+				{
+					DataGrid(e.currentTarget).grid.gridSelection.dataProviderCollectionChanged(e);
+					dispatchEvent(new FlexEvent("collectionChanged"));
+				}
+			}
+
+			public function verifySelectedRows(dataGrid:DataGrid,v:Vector.<int>):String
+			{	
+				var t:int;
+				var errMsg:String="";
+				var len:int=v.length;
+			
+				var v1:Vector.<int>=dataGrid.selectedIndices;
+				var len2:int=v1.length;
+				for (var i:int=0;i<len2;i++)
+				trace("$$$$"+v1.pop());
+				for (i=0;i<len;i++)
+				{
+					t=int(v.pop());
+					if (!dataGrid.selectionContainsIndex(t))
+						errMsg+="row "+t+" not in selection\n";
+				}
+				return errMsg;
+
+
+			}	
+			public function verifyAllRowSelected(grid:DataGrid):String
+			{
+				var errMsg:String="";
+				for (var i:int=0;i<grid.dataProvider.length;i++)
+				{
+					if (!grid.selectionContainsIndex(i) )
+					errMsg+="row "+i+" Not in selection, expect to be in selection\n";
+				}
+				return errMsg;
+			}
+		
+
+			
+			
+			public function displayArrayList(arr:ArrayList):void
+			{
+				var n:int=arr.length;
+				var obj:Object;
+				for (var j:int=0;j<n;j++)
+				{
+					obj=arr.getItemAt(j);
+					trace("[rowIndex="+obj["rowIndex"]+",columnIndex="+obj["columnIndex"]+"]");
+				}
+			}
+			//
+			public function verifySelectedCells(dataGrid:DataGrid,tobeCheckedCells:ArrayList):String
+			{	
+				var t:Object;
+				var errMsg:String="";
+				var len:int=tobeCheckedCells.length;
+			
+				var v1:Vector.<CellPosition>=dataGrid.selectedCells;
+				var len2:int=v1.length;
+				var obj:CellPosition;
+				for (var i:int=0;i<len2;i++)
+				{
+					obj=CellPosition(v1.pop());
+					trace("selected cell:["+obj.toString());
+				}
+				for (i=0;i<len;i++)
+				{
+					t=tobeCheckedCells.getItemAt(i);
+					if (!dataGrid.selectionContainsCell(t["rowIndex"],t["columnIndex"]))
+						errMsg+="cell [ "+t["rowIndex"]+","+t["columnIndex"]+"] not in selection\n";
+				}
+				return errMsg;
+
+
+			}
+			public function verifyOnlySelectedCells(dataGrid:DataGrid, tobeCheckedCells:ArrayList):String
+			{	
+				var t:Object;
+				var errMsg:String="";
+				var len:int=tobeCheckedCells.length;
+			
+				var v1:Vector.<CellPosition>=dataGrid.selectedCells;
+				
+				var len2:int=v1.length;
+				if (len2!=len) errMsg+="all cells count is different:"+len2+";passed cell count="+len+"\n";
+				return verifySelectedCells(dataGrid,tobeCheckedCells);
+
+
+			}
+			public function verifyIndices(v1:Vector.<int>,v2:Vector.<int>):String
+			{
+			
+				v1.fixed=false;
+				v2.fixed=false;
+				
+				var tmp1:ArrayCollection=new ArrayCollection();
+				var len:int=v1.length;
+				var len2:int=v2.length;
+				if (len!=len2)
+				{
+					return "two vectors are not equal in lenght, actual len="+len+";expect len="+len2+"\n";
+				}
+				var j:int=len;
+				while(j-->0)
+				{
+					tmp1.addItem({"data":int(v1.pop())});
+				}
+				var tmp2:ArrayCollection=new ArrayCollection();
+				j=len2;
+				while(j-->0)
+				{
+					tmp2.addItem({"data":int(v2.pop())});
+				}
+				var mySort:Sort=new Sort();
+				
+								
+				tmp1.sort=new Sort();
+				var sortField:SortField;
+				sortField=new SortField("data");
+				sortField.setStyle("locale", "en-US");
+				tmp1.sort.fields = [ sortField];
+				tmp1.refresh();
+				var sortField2:SortField;
+
+				tmp2.sort=new Sort();
+				sortField2= new SortField("data");
+				sortField2.setStyle("locale", "en-US");
+				tmp2.sort.fields = [sortField2];
+				tmp2.refresh();
+				
+				var errMsg:String="";
+				
+				var d1:int, d2:int;
+				var i:int;
+				for (i=0;i<len;i++)
+				{	
+					d1=int(tmp1.getItemAt(i).data);
+					d2=int(tmp2.getItemAt(i).data);
+					if (d1!=d2)
+						errMsg+="index "+i+" not expect, actual="+d1+";expect="+d2+"\n";
+				}
+					return errMsg;
+			}
+			
+			//v: is the allCells() return, cells: is the expected selected cells info
+			public function verifyAllCellsResult(v:Vector.<Object>,cells:ArrayList):String
+			{
+				var n:int=v.length;
+				var errMsg:String="";
+				if (n!=cells.length)
+				{
+					errMsg+="length not equal";
+					return errMsg;
+				}
+				var arr:Array=new Array();
+				for (var i:int=0;i<n;i++)
+					arr[i]=v.pop();
+				var found:Boolean=false;
+				var targetObj:Object;
+				for (i=0;i<n;i++)
+				{
+					found=false;
+					for (var j:int=0;j<n;j++)
+					{
+						targetObj=cells.getItemAt(j);
+						if (arr[i].rowIndex==targetObj["rowIndex"] && arr[i].columnIndex==targetObj["columnIndex"])
+						{
+							found=true;
+							cells.removeItemAt(j);
+							break;
+						}
+					}
+					if (!found)
+					errMsg+="["+arr[i].rowIndex+","+arr[i].columnIndex+"] not found \n";
+				}
+				return errMsg;
+			}
+						
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<!-- this one will use small dataProvider, small columns, so requestRowCount has more rows, more columns -->
+	<comps:DataGrid_comp1 id="dg8" requestedColumnCount="4" requestedRowCount="10" requireSelection="true" height="240"/>	
+	
+	<!-- this dataGrid is used for binding update, data/ui change -->
+	<comps:DataGrid_comp2 id="dg9" />
+	<s:Label id="label1" text="label holder" height="100"/>
+	<s:Label text="no dataprovider, no column, just dummy DataGrid tag "/>
+	<s:DataGrid id="dg1"/>
+	<s:Label text="no dataProvider, no column, but with dimension "/>
+	<s:DataGrid width="200" height="150" id="dg2"/>
+	<s:Label text="dataProvider with empty collection" />
+	<s:DataGrid id="dg3" dataProvider="{new ArrayCollection()}" />
+	<s:Label text="dataProvider is null " />
+	<s:DataGrid  id="dg4" dataProvider="{null}" />
+	<s:DataGrid  id="dg7" requireSelection="true"/>
+	<comps:DataGrid_dp_none id="dg5"/>
+	<!-- DG: has more columns, first column has no data matching -->
+	<comps:DataGrid_dp_columns id="dg6"/>	
+	
+	
+</s:Application>

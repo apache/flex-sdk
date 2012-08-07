@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	         backgroundColor="0xffffff"
+	         width="800" height="700" >
+
+<fx:Script>
+<![CDATA[
+
+    // This is so we can pass in FloatShaderClass in MXML.
+    [Embed(source="Assets/PixelBenderFiles/Float.pbj")]
+    public var FloatShaderClass:Class;
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<!--
+To help with verification of colors using Paint, here are approximate conversations from 0-255 to 0-1:
+(note to me: Future tests should be more like the int and floatXxY tests, which don't mix colors.)
+0.2: 51
+0.3: 77
+0.5: 128
+0.7: 179
+-->
+
+<s:layout> <s:VerticalLayout/> </s:layout>
+
+<mx:TabNavigator id="tn" width="100%" height="100%" creationPolicy="all">
+    <!-- index = 0 -->
+    <mx:VBox label="Float" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloatTest1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloatTest2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloatTest3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloatTest4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat=".5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloatTest5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="1" />
+                </mx:filters>
+            </mx:Image>
+
+            <mx:Image id="imgFloatTest6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="1.0" />
+                </mx:filters>
+            </mx:Image>
+
+            <mx:Image id="imgFloatTest7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="2" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>        
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloatTest8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="-1" />
+                </mx:filters> 
+            </mx:Image>
+            <mx:Image id="imgFloatTest9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/FloatWithDefault.pbj')" theFloat="0.3" />
+                </mx:filters> 
+            </mx:Image>
+            <mx:Image id="imgFloatTest10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/FloatWithoutDefault.pbj')" theFloat="0.3" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+    </mx:VBox>
+    
+    <!-- index = 1 -->
+    <mx:VBox label="Float2" width="100%" height="100%">        
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat2Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_r="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_r="0.3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_r="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_g="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_g="0.3" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat2Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_g="1" />
+                </mx:filters>
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_r="1" allFloats_g="0" />
+                </mx:filters>
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2.pbj')" allFloats_r="0" allFloats_g="1" />
+                </mx:filters>
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2WithDefault.pbj')" allFloats_r="0" allFloats_g="0.3" />
+                </mx:filters>
+            </mx:Image>
+
+            <mx:Image id="imgFloat2Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2WithoutDefault.pbj')" allFloats_r="0" allFloats_g="0.3" />
+                </mx:filters>
+            </mx:Image>
+        </mx:HBox>
+    </mx:VBox>
+
+    <!-- index = 2 -->
+    <mx:VBox label="Float3" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat3Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_g="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_g="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_g="1" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat3Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_b="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_b="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="0" allFloats_g="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3Test12" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="1" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat3Test13" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_g="0.3" allFloats_b="0.7" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat3Test14" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="1" allFloats_g="0" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>    
+        </mx:HBox>
+
+        <mx:HBox>
+            <mx:Image id="imgFloat3Test15" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="0" allFloats_g="1" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat3Test16" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="0" allFloats_g="0" allFloats_b="1" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat3Test17" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3.pbj')" allFloats_r="0.3" allFloats_g="0.5" allFloats_b="0.7" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat3Test18" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3WithDefault.pbj')" allFloats_b="0.3" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat3Test19" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3WithoutDefault.pbj')" allFloats_b="0.3" />
+                </mx:filters> 
+            </mx:Image>    
+
+        </mx:HBox>
+    </mx:VBox>
+
+    <!-- index = 3 -->
+    <mx:VBox label="Float4" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat4Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_g="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_g="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_g="1" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat4Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_b="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_b="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_a="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_a="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test12" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_a="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test13" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="0" allFloats_g="1" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+
+        <mx:HBox>
+            <mx:Image id="imgFloat4Test14" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="1" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test15" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="1" allFloats_a="0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test16" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_g="0.3" allFloats_b="0.7" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test17" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_g="0.3" allFloats_a="0.7" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test18" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_b="1.0" allFloats_a="0.0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test19" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="1" allFloats_g="0" allFloats_b="0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test20" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="0" allFloats_g="1" allFloats_a="0.5" />
+                </mx:filters> 
+            </mx:Image>    
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat4Test21" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="0" allFloats_b="1" allFloats_a="0" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test22" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_g="1" allFloats_b="1" allFloats_a="0.5" />
+                </mx:filters> 
+            </mx:Image>    
+
+            <mx:Image id="imgFloat4Test23" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="0.2" allFloats_g="0.5" allFloats_b="1" allFloats_a="0.8" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test24" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4.pbj')" allFloats_r="1" allFloats_g="1" allFloats_b="1" allFloats_a="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test25" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4WithDefault.pbj')" allFloats_r="0.3" allFloats_g="0.3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4Test26" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4WithoutDefault.pbj')" allFloats_r="0.3" allFloats_g="0.3" />
+                </mx:filters> 
+            </mx:Image>
+
+        </mx:HBox>
+    </mx:VBox>
+
+    <!-- index = 4 -->
+    <mx:VBox label="Int" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgIntTest1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int.pbj')" theInt="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgIntTest2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int.pbj')" theInt="5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgIntTest3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int.pbj')" theInt="7" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgIntTest4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int.pbj')" theInt="10" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgIntTest5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/IntWithDefault.pbj')" theInt="7" />
+                </mx:filters> 
+            </mx:Image>
+            
+            <mx:Image id="imgIntTest6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/IntWithoutDefault.pbj')" theInt="7" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgInt2Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int2.pbj')" theInt_x="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt2Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int2.pbj')" theInt_y="2" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt2Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int2.pbj')" theInt_x="3" theInt_y="4" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt2Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int2WithDefault.pbj')" theInt_x="3" theInt_y="4" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt2Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int2WithoutDefault.pbj')" theInt_x="3" theInt_y="4" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgInt3Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_x="7" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_y="6" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_z="5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_x="4" theInt_y="3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_x="2" theInt_z="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_y="2" theInt_z="3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3.pbj')" theInt_x="4" theInt_y="5" theInt_z="6" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>        
+            <mx:Image id="imgInt3Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3WithDefault.pbj')" theInt_x="4" theInt_y="5" theInt_z="6" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt3Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int3WithoutDefault.pbj')" theInt_x="4" theInt_y="5" theInt_z="6" />
+                </mx:filters> 
+            </mx:Image>
+            
+            <mx:Image id="imgInt4Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_x="0" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt4Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_y="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt4Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_z="2" />
+                </mx:filters> 
+            </mx:Image>            
+
+            <mx:Image id="imgInt4Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_w="3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt4Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_x="4" theInt_y="5" />
+                </mx:filters> 
+            </mx:Image>            
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgInt4Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_y="6" theInt_z="7" />
+                </mx:filters> 
+            </mx:Image>            
+
+            <mx:Image id="imgInt4Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_z="6" theInt_w="5" />
+                </mx:filters> 
+            </mx:Image>            
+
+            <mx:Image id="imgInt4Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_x="4" theInt_y="3" theInt_z="2" />
+                </mx:filters> 
+            </mx:Image>            
+
+            <mx:Image id="imgInt4Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_y="1" theInt_z="2" theInt_w="3" />
+                </mx:filters> 
+            </mx:Image>            
+
+            <mx:Image id="imgInt4Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4.pbj')" theInt_x="4" theInt_y="5" theInt_z="6" theInt_w="7" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt4Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4WithDefault.pbj')" theInt_x="4" theInt_y="5" theInt_z="6" theInt_w="7" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgInt4Test12" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Int4WithoutDefault.pbj')" theInt_x="4" theInt_y="5" theInt_z="6" theInt_w="7" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+    </mx:VBox>
+    <!-- index = 5 -->
+    <mx:VBox label="Float2x2" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat2x2Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats="[0.25]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats="[0.25,0.5]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats="[0.25,0.5,0.75]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats="[0.25,.5,.75,1]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats="[0,0.5,0,1]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats_d="0.25" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats_d="0" allFloats_c=".75" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat2x2Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats_c="1" allFloats_d="0.25" allFloats_b="0.25" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2.pbj')" allFloats_c="0.25" allFloats_b="0.75" allFloats_d="0" allFloats_a="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2WithDefault.pbj')" allFloats_c="0.25" allFloats_b="0.75" allFloats_d="0" allFloats_a="1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat2x2Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float2x2WithoutDefault.pbj')" allFloats_c="0.25" allFloats_b="0.75" allFloats_d="0" allFloats_a="1" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+    </mx:VBox>
+    <!-- index = 6 -->    
+    <mx:VBox label="Float3x3" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat3x3Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.25]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.25,0.5]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.25,0.5,0.75]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.25,0.5,0.75,1]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.0000,0.25,0.5,0.75,1]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.1,0.3,.5,.3,0.5,0.07]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.2,.4,.6,.3,0.5,1,1]" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat3x3Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.2,.4,.6,.8,1.0000,.8,.6,.4]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats="[0.4,0.5,0.6,0.5,0.6,0.7,0.6,0.7,0.8]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test12" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test13" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test14" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat3x3Test15" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" allFloats_a="0.1" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test16" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" allFloats_a="0.1" allFloats_g="0.7" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test17" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" allFloats_a="0.1" allFloats_g="0.7" allFloats_i="0.9" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test18" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" allFloats_a="0.1" allFloats_g="0.7" allFloats_i="0.9" allFloats_c="0.3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test19" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3WithDefault.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" allFloats_a="0.1" allFloats_g="0.7" allFloats_i="0.9" allFloats_c="0.3" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat3x3Test20" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float3x3WithoutDefault.pbj')" allFloats_d="0.4" allFloats_f="0.6" allFloats_b="0.2" allFloats_h="0.8" allFloats_e="0.5" allFloats_a="0.1" allFloats_g="0.7" allFloats_i="0.9" allFloats_c="0.3" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+    </mx:VBox>
+    <!-- index = 7 -->    
+    <mx:VBox label="Float4x4" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat4x4Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_a="0.1" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_b="0.2" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test3" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_c="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test4" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_d="0.4" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test5" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_e="0.5" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test6" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_f="0.6" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test7" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_g="0.7" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat4x4Test8" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_h="0.8" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test9" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_i="0.9" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test10" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_j="1" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test11" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_k="0" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test12" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_l="0.1" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test13" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_m="0.2" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test14" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_n="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloat4x4Test15" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_o="0.4" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test16" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_p="0.5" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test17" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test18" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test19" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test20" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test21" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5]" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat4x4Test22" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test23" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test24" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test25" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test26" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test27" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test28" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8]" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat4x4Test29" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test30" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test31" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6,0.5]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test32" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6,0.5,0.4]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test33" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats="[]" />
+                </mx:filters> 
+            </mx:Image>
+
+            <mx:Image id="imgFloat4x4Test34" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4.pbj')" allFloats_a="0.6" allFloats_b="0.5" allFloats_c="0.4" allFloats_d="0.3" allFloats_e="0.2" allFloats_f="0.1" allFloats_g="0" allFloats_h="0.1" allFloats_i="0.2" allFloats_j="0.3" allFloats_k="0.4" allFloats_l="0.5" allFloats_m="0.6" allFloats_n="0.7" allFloats_o="0.8" allFloats_p="0.9" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgFloat4x4Test35" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4WithDefault.pbj')" allFloats_a="0.6" allFloats_b="0.5" allFloats_c="0.4" allFloats_d="0.3" allFloats_e="0.2" allFloats_f="0.1" allFloats_g="0" allFloats_h="0.1" allFloats_i="0.2" allFloats_j="0.3" allFloats_k="0.4" allFloats_l="0.5" allFloats_m="0.6" allFloats_n="0.7" allFloats_o="0.8" allFloats_p="0.9" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgFloat4x4Test36" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4x4WithoutDefault.pbj')" allFloats_a="0.6" allFloats_b="0.5" allFloats_c="0.4" allFloats_d="0.3" allFloats_e="0.2" allFloats_f="0.1" allFloats_g="0" allFloats_h="0.1" allFloats_i="0.2" allFloats_j="0.3" allFloats_k="0.4" allFloats_l="0.5" allFloats_m="0.6" allFloats_n="0.7" allFloats_o="0.8" allFloats_p="0.9" />
+                </mx:filters> 
+            </mx:Image>
+        </mx:HBox>
+    </mx:VBox>
+    <!-- index = 8 -->
+    <mx:VBox label="STPQ and Pixel" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgSTPQFloat4x4Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float4_stpq.pbj')" allFloats_s="0.2" allFloats_t="0.4" allFloats_p="0.6" allFloats_q="0.8" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgPixel1Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel1WithDefault.pbj')" thePixel="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgPixel1Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel1WithoutDefault.pbj')" thePixel="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgPixel2Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel2WithDefault.pbj')" thePixel_g="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgPixel2Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel2WithoutDefault.pbj')" thePixel_g="0.3" />
+                </mx:filters> 
+            </mx:Image>
+            
+            <mx:Image id="imgPixel3Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel3WithDefault.pbj')" thePixel_b="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgPixel3Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel3WithoutDefault.pbj')" thePixel_b="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+        <mx:HBox>
+            <mx:Image id="imgPixel4Test1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel4WithDefault.pbj')" thePixel_r="0.3" thePixel_g="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+
+            <mx:Image id="imgPixel4Test2" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Pixel4WithoutDefault.pbj')" thePixel_r="0.3" thePixel_g="0.3" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+    </mx:VBox>
+    <!-- index = 9 -->
+    <mx:VBox label="No Defaults" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgFloatNoDefaultTest1" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/FloatNoDefault.pbj')" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+    </mx:VBox>
+    <!-- index = 10 -->
+    <mx:VBox label="Other" width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:Image id="imgEmbeddedInScript" source="../../../../../Assets/Images/blackrect.jpg" height="100" width="100">
+                <mx:filters>
+                    <s:ShaderFilter shader="{new FloatShaderClass()}" />
+                </mx:filters> 
+            </mx:Image>        
+        </mx:HBox>
+    </mx:VBox>
+
+    <mx:VBox>
+        <mx:Text text="This page intentionally left blank." />
+    </mx:VBox>
+</mx:TabNavigator>
+</s:Application>

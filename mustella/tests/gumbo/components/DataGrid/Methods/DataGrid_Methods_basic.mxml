@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Methods/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Methods_getCellBounds1" keywords="[DataGrid, Methods, getCellBounds]" description="Test getCellBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=39, h=27)"/>                
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Methods_getCellBounds2" keywords="[DataGrid, Methods, getCellBounds]" description="Test getCellBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                 
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=81, h=27)"/>                
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Methods_getCellBounds3" keywords="[DataGrid, Methods, getCellBounds]" description="Test getCellBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="80" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=39, h=80)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,3)" value="(x=131, y=160, w=33, h=80)"/>
+            </body>
+        </TestCase>   
+        
+		<TestCase testID="DataGrid_Methods_getCellBounds4" keywords="[DataGrid, Methods, getCellBounds]" description="Test getCellBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=100, h=27)"/>                
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_getCellBounds5" keywords="[DataGrid, Methods, getCellBounds]" description="Test getCellBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="80" waitEvent="enterFrame" waitTarget="stage"/>                                
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 125" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=125, h=80)"/>                
+            </body>
+        </TestCase>        
+ 
+		<TestCase testID="DataGrid_Methods_getColumnBounds1" keywords="[DataGrid, Methods, getColumnBounds]" description="Test getColumnBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=39, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=39, y=0, w=46, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=85, y=0, w=46, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=131, y=0, w=33, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=164, y=0, w=46, h=648)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=210, y=0, w=27, h=648)"/>                           
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Methods_getColumnBounds2" keywords="[DataGrid, Methods, getColumnBounds]" description="Test getColumnBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>              
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="300"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=81, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=81, y=0, w=88, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=169, y=0, w=88, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=257, y=0, w=75, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=332, y=0, w=88, h=648)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=420, y=0, w=64, h=648)"/>                           
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_getColumnBounds3" keywords="[DataGrid, Methods, getColumnBounds]" description="Test getColumnBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="50" waitEvent="enterFrame" waitTarget="stage"/>
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=39, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=39, y=0, w=46, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=85, y=0, w=46, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=131, y=0, w=33, h=1200)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=164, y=0, w=46, h=1200)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=210, y=0, w=27, h=1200)"/>                           
+            </body>
+        </TestCase>        
+ 
+		<TestCase testID="DataGrid_Methods_getColumnBounds4" keywords="[DataGrid, Methods, getColumnBounds]" description="Test getColumnBounds method of DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0)" value="(x=0, y=0, w=100, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1)" value="(x=100, y=0, w=46, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2)" value="(x=146, y=0, w=46, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3)" value="(x=192, y=0, w=33, h=648)"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4)" value="(x=225, y=0, w=46, h=648)"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5)" value="(x=271, y=0, w=27, h=648)"/>                                                     
+            </body>
+        </TestCase>           
+ 
+ 		<TestCase testID="DataGrid_Methods_getItemRendererAt1" keywords="[DataGrid, Methods, getItemRendererAt]" description="Test getItemRendererAt method of DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             </setup>
+             <body>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).height" value="20"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="39"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).width" value="29"/>
+             </body>
+         </TestCase>
+         
+ 		<TestCase testID="DataGrid_Methods_getItemRendererAt2" keywords="[DataGrid, Methods, getItemRendererAt]" description="Test getItemRendererAt method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                 
+             </setup>
+             <body>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="81"/>
+             </body>
+         </TestCase>
+         
+ 		<TestCase testID="DataGrid_Methods_getItemRendererAt3" keywords="[DataGrid, Methods, getItemRendererAt]" description="Test getItemRendererAt method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 				
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="80" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="80"/>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="39"/>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(2,3).height" value="73"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(2,3).width" value="23"/>
+             </body>
+         </TestCase>   
+         
+ 		<TestCase testID="DataGrid_Methods_getItemRendererAt4" keywords="[DataGrid, Methods, getItemRendererAt]" description="Test getItemRendererAt method of DataGrid">
+             <setup>             	
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 				<RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 100" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="27"/>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="100"/>
+             </body>
+         </TestCase> 
+         
+ 		<TestCase testID="DataGrid_Methods_getItemRendererAt5" keywords="[DataGrid, Methods, getItemRendererAt]" description="Test getItemRendererAt method of DataGrid">
+             <setup>             	
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 				
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="80" waitEvent="enterFrame" waitTarget="stage"/>                                
+ 				<RunCode code="FlexGlobals.topLevelApplication.myComp1.c1_1.width = 125" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsHeight()" value="80"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getItemRendererAt(0,0).getLayoutBoundsWidth()" value="125"/>
+             </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_bottom" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,0)" value="true"/>
+             </body>
+        </TestCase>
+       
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_bottomRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,5)" value="true"/>
+             </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_bottomMiddle" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>             
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,3)" value="true"/>
+             </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_bottom_top" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>              
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	       
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,0)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(2,1)" value="true"/>
+             </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_bottom_topRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>              
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,0)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,0)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,5)" value="true"/>				
+             </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_columnRemoved1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>								
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20,2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,2)" value="true"/>				
+			</body>
+        </TestCase> 
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_columnRemoved2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>								
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20,4)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,4)" value="true"/>				
+			</body>
+        </TestCase>  
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_columnRemoved3" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>								
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/> 
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(22,2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(22,2)" value="true"/>				
+			</body>
+        </TestCase>          
+   
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_columnRemoved4" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/> 				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(22,2)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(22,2)" value="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(1,4)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(1,4)" value="true"/>				
+			</body>
+        </TestCase> 
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_largeCells" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="330" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(10,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(10,3)" value="true"/>				
+			</body>
+        </TestCase>         
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_middle" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>			
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(10,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(10,3)" value="true"/>				
+			</body>
+        </TestCase> 
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_middle2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="200" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(5,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(5,5)" value="true"/>				
+			</body>
+        </TestCase>         
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_middleRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>				
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(10,4)" waitEvent="enterFrame" waitTarget="stage"/>		
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(10,4)" value="true"/>				
+			</body>
+        </TestCase>         
+   
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_noMove" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+             	<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>             	
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(1,1)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(1,1)" value="true"/>				
+             </body>
+        </TestCase>          
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_right1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>              
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,4)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,4)" value="true"/>				
+             </body>
+        </TestCase> 
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_right2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>               
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,5)" value="true"/>				
+             </body>
+        </TestCase>   
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_scrollDown1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>               
+             </setup>
+             <body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,0)" value="true"/>				 				
+             </body>
+        </TestCase> 
+                       
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_scrollDown2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                
+             </setup>
+             <body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,0)" value="true"/>				
+             </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_scrollDownRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>               
+             </setup>
+             <body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,5)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,5)" value="true"/>				
+             </body>
+        </TestCase>          
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_scrollUp1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                                   
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(3,0)" value="true"/>
+             </body>
+        </TestCase>  
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_scrollUp2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>               
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='XYZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(3,0)" value="true"/>			
+             </body>
+        </TestCase>   
+                      
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_fixedRowHeight_scrollUpLeft" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                                   
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>              
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+             	<DispatchMouseClickEvent target="myComp1.dataGrid1.scroller.verticalScrollBar" localX="5" localY="200" waitEvent="click"/>
+             	<DispatchMouseClickEvent target="myComp1.dataGrid1.scroller.horizontalScrollBar" localX="160" localY="3" waitEvent="click"/>             	
+             	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(4,0)" waitEvent="enterFrame" waitTarget="stage"/>		             	
+             	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>             	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(4,0)" value="true"/>
+             </body>
+        </TestCase>           
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_bottom" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,0)" value="true"/>
+             </body>
+        </TestCase>
+       
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_bottomRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,5)" value="true"/>
+             </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_bottomMiddle" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,3)" value="true"/>
+             </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_bottom_top" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	       
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(20).country='More text to make changes'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Final text change for this test'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,0)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(1).country='Long text to change height'" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(2,1)" value="true"/>
+             </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_bottom_topRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,0)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,0)" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,5)" value="true"/>				
+             </body>
+        </TestCase> 
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_columnRemoved1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>	
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20,2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,2)" value="true"/>				
+			</body>
+        </TestCase> 
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_columnRemoved2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20,4)" waitEvent="enterFrame" waitTarget="stage"/>		
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,4)" value="true"/>				
+			</body>
+        </TestCase>  
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_columnRemoved3" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/> 
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(22).country='Some new text to update cell contents'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(22,2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(22,2)" value="true"/>				
+			</body>
+        </TestCase>          
+   
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_columnRemoved4" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/> 				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(22,2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(22,2)" value="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(1,4)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(1,4)" value="true"/>				
+			</body>
+        </TestCase>  
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_middle" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(10,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(10,3)" value="true"/>				
+			</body>
+        </TestCase> 
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_middle2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="updateComplete"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="200" waitEvent="updateComplete"/>
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(5,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(5,5)" value="true"/>				
+			</body>
+        </TestCase>         
+        
+   		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_middleRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>                
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="updateComplete"/>
+			</setup>
+			<body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(10,4)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(10,4)" value="true"/>				
+			</body>
+        </TestCase>  
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_noMove" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+             	<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(1,1)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(1,1)" value="true"/>				
+             </body>
+        </TestCase>         
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_right1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="updateComplete"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,4)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,4)" value="true"/>				
+             </body>
+        </TestCase> 
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_right2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="updateComplete"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>             	             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,5)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,5)" value="true"/>				
+             </body>
+        </TestCase>   
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollDown1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,0)" value="true"/>				 				
+             </body>
+        </TestCase> 
+                       
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollDown2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(20,0)" value="true"/>				
+             </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollDownRight" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23,5)" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(23,5)" value="true"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Methods/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+             </body>
+        </TestCase>          
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollUp1" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>             	
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(2)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(2,0)" value="true"/>
+             </body>
+        </TestCase>  
+
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollUp2" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>             	
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<CompareBitmap target="myComp1.dataGrid1" url="../Methods/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+             </body>
+        </TestCase>   
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollUp3" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(23)" waitEvent="enterFrame" waitTarget="stage"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0).country='USAAAAAAAAAAAAAAAAX'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(0,3)" waitEvent="enterFrame" waitTarget="stage"/>						
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(0,3)" value="true"/>
+             </body>
+        </TestCase>          
+        
+		<TestCase testID="DataGrid_Methods_ensureCellIsVisible_variableRowHeights_scrollUpLeft" keywords="[DataGrid, Methods, ensureCellIsVisible]" description="Test ensureCellIsVisible method of DataGrid">
+             <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                                   
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="200" waitEvent="updateComplete"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+             </setup>
+             <body>                
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+             	<DispatchMouseClickEvent target="myComp1.dataGrid1.scroller.verticalScrollBar" localX="5" localY="200" waitEvent="click"/>
+             	<DispatchMouseClickEvent target="myComp1.dataGrid1.scroller.horizontalScrollBar" localX="160" localY="3" waitEvent="click"/>
+             	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(4,0)" waitEvent="enterFrame" waitTarget="stage"/>             	
+             	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>             	
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.checkIRinScrollRect(4,0)" value="true"/>
+             </body>
+        </TestCase>         
+
+    </testCases>
+</UnitTester>

@@ -1,0 +1,91 @@
+<s:MXTreeItemRenderer 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    width="100%" height="100%" autoDrawBackground="false" disclosureGroup="{group2}" >
+    
+    <fx:Script>
+        <![CDATA[
+            
+            import mx.controls.treeClasses.*;
+            [Embed(source="../../../../../../Assets/Images/purplerect.jpg")]
+	    	[Bindable]
+	    	public var leafIcon1:Class;
+	    
+	    
+	    	[Embed(source="../../../../../../Assets/Images/orangerect.jpg")]
+	    	[Bindable]
+	    	public var longIcon1:Class;
+            
+            override public function set data(value:Object):void {      
+                if(value != null)  {
+                    super.data = value;
+                    
+                    edt.text = TreeListData(listData).label;
+                }   
+            } 
+            public function setDisclosureGP(n:Number):void {
+            	switch(n)
+            	{
+            		case 1:
+            			disclosureGroup=group1;
+            			break;
+			case 2:
+				disclosureGroup=group2;
+				break;
+			case 3:
+				disclosureGroup=group3;
+				break;	
+            	}
+            }
+        ]]>
+    </fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Group id="group1" width="25%" height="25%">
+			<s:BitmapImage source="{leafIcon1}" width="16" height="16"/>
+		</s:Group>
+		<s:Group id="group2" width="100" height="100">
+			<s:BitmapImage source="{longIcon1}" width="16" height="16"/>
+		</s:Group>
+		<s:Group id="group3" width="25%" height="25%">
+			 
+			<s:Ellipse left="0" right="0" top="0" bottom="0">
+				<s:fill>
+					<s:SolidColor 
+						color="{getStyle('contentBackgroundColor')}"
+						/>
+				</s:fill>
+			</s:Ellipse>
+			<s:HGroup left="0" right="0" verticalCenter="0">
+				<s:Label text="test" color="0xFF0000"  />
+				<s:RichText text="test" color="0xFF0000"  />
+				<s:CheckBox label="test" color="0xFF0000"  />
+			</s:HGroup>
+			
+		</s:Group>
+	</fx:Declarations>
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="hovered" />
+        <s:State name="selected" />
+    </s:states>
+    
+    
+    <s:layout>
+        <s:HorizontalLayout verticalAlign="middle" />
+    </s:layout>
+    
+    <s:Rect id="indentationSpacer" width="{treeListData.indent}" height="22" alpha="0">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Group id="disclosureGroup">
+        <s:BitmapImage source="{treeListData.icon}" width="16" height="16"/>
+    </s:Group>
+    
+    <s:Label id="edt" color="green" width="100%" />
+    
+</s:MXTreeItemRenderer>

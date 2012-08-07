@@ -1,0 +1,83 @@
+<s:Panel
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    rotationX="45">
+
+    <fx:Script>
+    	<![CDATA[
+
+    		import mx.controls.Alert;
+
+    		[Bindable]
+    		public var myListArray:Array =
+    		[
+				"List Item ONE",
+				"List Item TWO",
+				"List Item THREE"
+    		];
+
+    		[Bindable]
+			public var myDGArray:Array =
+    		[
+				{Number: 'ONE', Item: 'Item One'},
+				{Number: 'TWO', Item: 'Item Two'},
+				{Number: 'THREE', Item: 'Item Three'}
+    		];
+
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+
+   	<mx:HBox>
+   		<mx:Button id="myButton" label="Halo Button"/>
+   		<s:Button id="myFxButton" label="FxButton"/>
+   	</mx:HBox>
+
+   	<mx:Label text="Halo Label"/>
+   	<mx:Text text="Halo Text"/>
+
+   	<mx:HBox>
+   		<s:NumericStepper id="myFxNS" height="23"/>
+   		<mx:NumericStepper id="myNS"/>
+   	</mx:HBox>
+
+   	<mx:HSlider id="myHSlider"/>
+   	<s:HSlider id="myFxHSlider"/>
+
+   	<mx:Accordion id="myAccordion" width="75%" height="100" >
+   		<mx:HBox label="Tab 1"><mx:Label text="Text on tab1"/></mx:HBox>
+   		<mx:HBox label="Tab 2"><mx:Label text="Text on tab2"/></mx:HBox>
+   		<mx:HBox label="Tab 3"><mx:Label text="Text on tab3"/></mx:HBox>
+   	</mx:Accordion>
+
+	<s:TextInput text="FxTextInput for name" height="21"/>
+
+   	<mx:HBox>
+   		<mx:RadioButton id="myRB1" groupName="rbg1" label="Option 1"/>
+   		<mx:RadioButton id="myRB2" groupName="rbg1" label="Option 2"/>
+   		<mx:RadioButton id="myRB3" groupName="rbg1" label="Option 3"/>
+   	</mx:HBox>
+
+   	<s:BitmapImage id="myPic" width="100" height="100" source="@Embed('../../../../../../Assets/Images/smallredrect.jpg')" fillMode="repeat"/>
+
+	<s:Ellipse id="myEllipse" height="50" width="50">
+		<s:fill>
+			<mx:SolidColor color="0x0000FF"/>
+		</s:fill>
+	</s:Ellipse>
+
+   	<mx:CheckBox label="This is a Halo CheckBox"/>
+
+   	<mx:HBox>
+   		<mx:List
+   		    id="myList"
+   		    dataProvider="{myListArray}"/>
+
+		<mx:DataGrid
+			id="myDG"
+			dataProvider="{myDGArray}"/>
+	</mx:HBox>
+
+</s:Panel>

@@ -1,0 +1,160 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	 selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" editable="true"
+	height="150"  preinitialize="preinitializeHandler(event)"
+	variableRowHeight="true" >
+	<fx:Script>
+			<![CDATA[
+				import mx.collections.ArrayCollection;
+				import mx.events.FlexEvent;
+				import spark.components.gridClasses.GridSelectionMode;
+				
+				[Bindable]
+				private var holidayCollection:ArrayCollection;
+				private var holidayColors:Array = [
+					{holiday:"New Years", date: new Date('01/01/2011'), color:new Number(0xF00EE8)},
+					{holiday:"St. Patricks Day", date: new Date('03/17/2011'), color:new Number(0x009900)},
+					{holiday:"Easter", date: new Date('04/24/2011'), color:new Number(0x990EF0)},
+					{holiday:"Memorial Day", date: new Date('05/30/2011'), color:new Number(0x00CC00)},
+					{holiday:"Flag Day", date: new Date('06/14/2011'), color:new Number(0x0000CC)},
+					{holiday:"Independence Day", date: new Date('07/04/2011'), color:new Number(0xFF0000)},
+					{holiday:"Labor Day", date: new Date('09/01/2011'), color:new Number(0x7D604D)},
+					{holiday:"Halloween", date: new Date('10/31/2011'), color:new Number(0xFC480C)},
+					{holiday:"Veterans Day", date: new Date('11/11/2011'), color:new Number(0x660066)},
+					{holiday:"Thanksgiving", date: new Date('11/26/2011'), color:new Number(0x996633)},
+					{holiday:"Christmas", date: new Date('12/25/2011'), color:new Number(0xFF0000)}
+				]
+				
+				protected function preinitializeHandler(event:FlexEvent):void
+				{
+					holidayCollection = new ArrayCollection(holidayColors);
+					this.dataProvider=holidayCollection;
+				}
+				
+			]]>
+	</fx:Script>
+	
+   <s:columns>
+	<s:ArrayList>
+		<s:GridColumn id="gc1" sortable="true" dataField="holiday" headerText="Holiday" editable="true">
+		</s:GridColumn>
+
+		<s:GridColumn headerText="date" dataField="date">
+			<s:itemRenderer>
+				<fx:Component>
+					<s:DefaultGridItemRenderer>
+						<fx:Declarations>
+							<mx:DateFormatter id="dateFormatter" formatString="MM/DD/YYYY"/>
+						</fx:Declarations>
+
+						<fx:Script>
+							<![CDATA[
+								override public function prepare(hbr:Boolean):void
+								{
+									label = dateFormatter.format(data.date);
+								}
+							]]>
+						</fx:Script>
+					</s:DefaultGridItemRenderer>
+				</fx:Component>
+			</s:itemRenderer>
+			<s:itemEditor>
+				<fx:Component>
+					<s:GridItemEditor>
+						<fx:Script>
+							<![CDATA[
+								import mx.events.CalendarLayoutChangeEvent;
+
+								protected function datechooser1_changeHandler(event:CalendarLayoutChangeEvent):void
+								{
+									trace("selected date = " + dateField.selectedDate);
+								}
+
+								/**
+								 *  @private
+								 */ 
+								override public function get value():Object
+								{
+									return dateField.selectedDate;            
+								}
+
+								/**
+								 *  @private
+								 */ 
+								override public function set value(newValue:Object):void
+								{
+									dateField.selectedDate = (newValue != null ? newValue as Date : new Date());
+								}
+
+								override public function setFocus():void
+								{
+									dateField.setFocus();
+								}
+							]]>
+						</fx:Script>
+						<mx:DateField id="dateField" change="datechooser1_changeHandler(event)" />                            
+
+					</s:GridItemEditor>
+				</fx:Component>
+			</s:itemEditor>
+		</s:GridColumn>
+
+		<s:GridColumn dataField="color" headerText="Color" width="150">
+			<s:itemRenderer>
+				<fx:Component>
+					<s:GridItemRenderer>
+						<fx:Script>
+							<![CDATA[
+								override public function prepare(hbr:Boolean):void
+								{
+									bgFill.color = data.color;
+								}
+							]]>
+						</fx:Script>
+						<s:Group top="0" left="0" bottom="0" right="0">
+							<s:Rect id="bgRect" top="0" left="0" bottom="0" right="0">
+								<s:fill>
+									<s:SolidColor id="bgFill"/>
+								</s:fill>
+							</s:Rect>                                    
+						</s:Group>
+
+					</s:GridItemRenderer>
+				</fx:Component>
+			</s:itemRenderer>
+			<s:itemEditor>
+				<fx:Component>
+					<s:GridItemEditor>
+						<fx:Script>
+							<![CDATA[
+
+
+								override public function get value():Object
+								{
+									return cp.selectedColor;            
+								}
+
+
+								override public function set value(newValue:Object):void
+								{
+									cp.selectedColor = (newValue != null ? newValue.toString() : 0);
+								}
+
+								override public function setFocus():void
+								{
+									cp.setFocus();
+								}
+
+							]]>
+						</fx:Script>
+
+						<mx:ColorPicker id="cp" showTextField="true" />                            
+
+					</s:GridItemEditor>
+				</fx:Component>
+			</s:itemEditor>
+		</s:GridColumn>
+
+	</s:ArrayList>
+    </s:columns>
+</s:DataGrid>

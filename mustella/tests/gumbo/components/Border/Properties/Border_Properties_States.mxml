@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Border/Properties/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"  
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="Border_States_basic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    	import mx.core.FlexGlobals;
+    ]]>
+  </fx:Script>
+  <testCases>
+  
+	<TestCase testID="Border_Properties_States_borderStates" keywords="[Border,Properties,States]" description="Test states of a Border">
+		<setup>
+			<ResetComponent target="myBorderState" className="comps.customBorderStates3" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="myBorderState.myNS" propertyName="value" value="8" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderState.myNS" propertyName="value" value="8"/>		
+			<SetProperty target="myBorderState.myCB" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderState.myCB" propertyName="selected" value="true"/>						
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderState" numColorVariances="5" ignoreMaxColorVariance="true"/>			
+			
+			<SetProperty target="myBorderState" propertyName="currentState" value="bState2" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderState" propertyName="currentState" value="bState2"/>			
+			
+			<SetProperty target="myBorderState.myVS" propertyName="value" value="10" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderState.myVS" propertyName="value" value="10"/>			
+			<SetProperty target="myBorderState.myRB" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderState.myRB" propertyName="selected" value="true"/>				
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderState" numColorVariances="5" ignoreMaxColorVariance="true"/>			
+			
+			<SetProperty target="myBorderState" propertyName="currentState" value="bState1" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderState" propertyName="currentState" value="bState1"/>			
+			
+			<AssertPropertyValue target="myBorderState.myNS" propertyName="value" value="8"/>
+			<AssertPropertyValue target="myBorderState.myCB" propertyName="selected" value="true"/>			
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderState" numColorVariances="5" ignoreMaxColorVariance="true"/>			
+			
+			<SetProperty target="myBorderState" propertyName="currentState" value="bState2" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderState" propertyName="currentState" value="bState2"/>		
+			
+			<AssertPropertyValue target="myBorderState.myVS" propertyName="value" value="10"/>
+			<AssertPropertyValue target="myBorderState.myRB" propertyName="selected" value="true"/>	
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderState" numColorVariances="5" ignoreMaxColorVariance="true"/>			
+		</body>
+	</TestCase>	  
+
+	<TestCase testID="Border_Properties_States_changes1" keywords="[Border,Properties,States]" description="Test changes made to components while toggling states on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpState2" className="comps.customBorderStates2" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpState2.myNS" propertyName="value" value="1" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myCB" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.mySlider" propertyName="value" value="7" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myRB" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myList" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+		</setup>
+		<body>	
+			<AssertPropertyValue target="myBorderGrpState2.myNS" propertyName="value" value="1" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider" propertyName="value" value="7" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myList" propertyName="selectedIndex" value="2" />
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderGrpState2.myBorder" numColorVariances="10" ignoreMaxColorVariance="true"/>			
+			
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState2" waitEvent="currentStateChange"/>
+			<Pause timeout="50"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderGrpState2.myBorder2" numColorVariances="10" ignoreMaxColorVariance="true"/>			
+			
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState1" waitEvent="currentStateChange"/>
+			<Pause timeout="50"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderGrpState2.myBorder" numColorVariances="10" ignoreMaxColorVariance="true"/>			
+			
+			<AssertPropertyValue target="myBorderGrpState2.myNS" propertyName="value" value="1" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider" propertyName="value" value="7" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myList" propertyName="selectedIndex" value="2" />			
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_States_changes2" keywords="[Border,Properties,States]" description="Test changes made to components while toggling states on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpState2" className="comps.customBorderStates2" waitEvent="updateComplete" />
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState2" waitEvent="currentStateChange"/>
+			<SetProperty target="myBorderGrpState2.myNS2" propertyName="value" value="2" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myCB2" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.mySlider2" propertyName="value" value="4" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myRB2" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myDDL" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+		</setup>
+		<body>	
+			<AssertPropertyValue target="myBorderGrpState2" propertyName="currentState" value="theState2"/>
+			<AssertPropertyValue target="myBorderGrpState2.myNS2" propertyName="value" value="2" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider2" propertyName="value" value="4" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myDDL" propertyName="selectedIndex" value="5" />			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" target="myBorderGrpState2.myBorder2" numColorVariances="5" ignoreMaxColorVariance="true"/>			
+			
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState1" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderGrpState2" propertyName="currentState" value="theState1"/>			
+			
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState2" waitEvent="currentStateChange"/>			
+			<AssertPropertyValue target="myBorderGrpState2" propertyName="currentState" value="theState2"/>
+			
+			<AssertPropertyValue target="myBorderGrpState2.myNS2" propertyName="value" value="2" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider2" propertyName="value" value="4" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myDDL" propertyName="selectedIndex" value="5" />						
+			<CompareBitmap url="../Properties/Baselines/$testID.png" target="myBorderGrpState2.myBorder2" numColorVariances="5" ignoreMaxColorVariance="true"/>			
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_States_changes3" keywords="[Border,Properties,States]" description="Test changes made to components while toggling states on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpState2" className="comps.customBorderStates2" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="myBorderGrpState2.myNS" propertyName="value" value="1" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myCB" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.mySlider" propertyName="value" value="7" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myRB" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myList" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderGrpState2.myNS" propertyName="value" value="1" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider" propertyName="value" value="7" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myList" propertyName="selectedIndex" value="2" />
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderGrpState2.myBorder" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState2" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderGrpState2" propertyName="currentState" value="theState2"/>
+			
+			<SetProperty target="myBorderGrpState2.myNS2" propertyName="value" value="2" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myCB2" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.mySlider2" propertyName="value" value="4" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myRB2" propertyName="selected" value="true" waitEvent="updateComplete"/>
+			<SetProperty target="myBorderGrpState2.myDDL" propertyName="selectedIndex" value="5" waitEvent="updateComplete"/>
+			<AssertPropertyValue target="myBorderGrpState2.myNS2" propertyName="value" value="2" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider2" propertyName="value" value="4" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myDDL" propertyName="selectedIndex" value="5" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderGrpState2.myBorder2" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState1" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderGrpState2" propertyName="currentState" value="theState1"/>
+			
+			<AssertPropertyValue target="myBorderGrpState2.myNS" propertyName="value" value="1" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider" propertyName="value" value="7" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myList" propertyName="selectedIndex" value="2" />
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderGrpState2.myBorder" numColorVariances="10" ignoreMaxColorVariance="true"/>
+					
+			<SetProperty target="myBorderGrpState2" propertyName="currentState" value="theState2" waitEvent="currentStateChange"/>
+			<AssertPropertyValue target="myBorderGrpState2" propertyName="currentState" value="theState2"/>
+			
+			<AssertPropertyValue target="myBorderGrpState2.myNS2" propertyName="value" value="2" />
+			<AssertPropertyValue target="myBorderGrpState2.myCB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.mySlider2" propertyName="value" value="4" />
+			<AssertPropertyValue target="myBorderGrpState2.myRB2" propertyName="selected" value="true" />
+			<AssertPropertyValue target="myBorderGrpState2.myDDL" propertyName="selectedIndex" value="5" />
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderGrpState2.myBorder2" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_States_styles" keywords="[Border,Properties,States]" description="Test styles assigned to specific states on Border">
+		<setup>
+			<ResetComponent target="myBorderGrpState" className="comps.customBorderStates" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID_1.png" target="myBorderGrpState" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			<SetProperty target="myBorderGrpState" propertyName="currentState" value="styleState2" waitEvent="currentStateChange"/>
+			<CompareBitmap url="../Properties/Baselines/$testID_2.png" target="myBorderGrpState" numColorVariances="20" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>	
+
+  </testCases>
+</UnitTester>
+

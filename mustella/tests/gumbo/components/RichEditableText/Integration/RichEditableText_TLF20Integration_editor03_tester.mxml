@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="RichEditableText_States.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.elements.IConfiguration;
+			import flashx.textLayout.formats.LineBreak;
+			import spark.utils.TextFlowUtil;
+			import mx.core.FlexGlobals;
+			import flash.geom.Point;
+			
+			import comps.*;
+			public var startPos:Point, toPos:Point;
+			
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		
+		<!-- ******************** ******************* ******************** -->
+		<!-- ******************** RICHEDITABLETEXT STATES AND TRANSITIONS ******************** -->
+		<!-- ******************** ******************* ******************** -->
+		
+		<!-- STATES -->
+		<TestCase testID="RET_03_States_selectText" keywords="[states, RichEditableText]" 
+				  description="regression test for bug SDK-29633">
+			<bugs>
+				<Bug bugID="SDK-29633"/>
+			</bugs>
+			<setup>
+				<ResetComponent target="customRETEditor" className="comps::StatesRET" waitEvent="updateComplete" waitTarget="customRETEditor"/>
+				<SetProperty target="customRETEditor" propertyName="text" value="highlight this text" waitTarget="customRETEditor" waitEvent="updateComplete" />
+				<RunCode code="application.customRETEditor.setFocus()" waitEvent="focusIn" waitTarget="customRETEditor"/>
+				<RunCode code="application.customRETEditor.selectAll()" waitEvent="selectionChange" waitTarget="customRETEditor" />
+				<SetProperty target="customRETEditor" propertyName="currentState" value="state2" waitTarget="customRETEditor" waitEvent="currentStateChange" />
+				<SetProperty target="customRETEditor" propertyName="currentState" value="state1" waitTarget="customRETEditor" waitEvent="currentStateChange" />
+				<SetProperty target="customRETEditor" propertyName="text" value="current state is state1" waitTarget="customRETEditor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRETEditor"><ConditionalValue os="mac"/></CompareBitmap>
+			</body>
+		</TestCase>	
+		
+		
+
+		<!-- TRANSITIONS -->
+	
+	</testCases>
+
+</UnitTester>		
+

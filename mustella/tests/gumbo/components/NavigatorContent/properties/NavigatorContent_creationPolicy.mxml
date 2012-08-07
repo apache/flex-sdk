@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="gumbo/components/NavigatorContent/properties/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="NavigatorContentApp1.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+
+        import assets.*;
+        import mx.core.*;           // Includes INavigatorContent, Container, FlexGlobals.
+        import mx.containers.*;     // Includes Panel, Accordion, etc...
+        import spark.components.*;  // Includes NavigatorContent.
+        
+        public var theNC:NavigatorContent;
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+<!-- 
+    Note that only "none" works for NavigatorContent.  This is known.  Testing will proceed as if this is correct behavior.
+-->
+
+<TestCase testID="creationPolicy_test1" keywords="[NavigatorContent,creationPolicy]" description="Parent all, NC all." >
+    <setup>
+        <ResetComponent target="vs2" className="assets.VSAll_NCAll" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs2.getChildAt(1)" propertyName="numElements" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test2" keywords="[NavigatorContent,creationPolicy]" description="Parent auto, NC all." >
+    <setup>
+        <ResetComponent target="vs3" className="assets.VSAuto_NCAll" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs3.getChildAt(1)" propertyName="numElements" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test3" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC all, before parent creates children." >
+    <setup>
+        <ResetComponent target="vs4" className="assets.VSNone_NCAll" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs4" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test4" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC all, after parent creates children." >
+    <setup>
+        <ResetComponent target="vs4" className="assets.VSNone_NCAll" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.vs4.createDeferredContent()" waitTarget="vs4" waitEvent="childAdd" />
+        <AssertPropertyValue target="vs4.getChildAt(1)" propertyName="numElements" value="2" />
+    </body>
+</TestCase>
+
+
+
+
+<TestCase testID="creationPolicy_test5" keywords="[NavigatorContent,creationPolicy]" description="Parent all, NC auto." >
+    <setup>
+        <ResetComponent target="vs6" className="assets.VSAll_NCAuto" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs6.getChildAt(1)" propertyName="numElements" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test6" keywords="[NavigatorContent,creationPolicy]" description="Parent auto, NC auto." >
+    <setup>
+        <ResetComponent target="vs7" className="assets.VSAuto_NCAuto" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs7.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test7" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC auto, before parent creates children." >
+    <setup>
+        <ResetComponent target="vs8" className="assets.VSNone_NCAuto" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs8" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test8" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC auto, after parent creates children." >
+    <setup>
+        <ResetComponent target="vs8" className="assets.VSNone_NCAuto" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.vs8.createDeferredContent()" waitTarget="vs8" waitEvent="childAdd" />
+        <AssertPropertyValue target="vs8.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+
+
+<TestCase testID="creationPolicy_test9" keywords="[NavigatorContent,creationPolicy]" description="Parent all, NC none." >
+    <setup>
+        <ResetComponent target="vs10" className="assets.VSAll_NCNone" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs10.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test10" keywords="[NavigatorContent,creationPolicy]" description="Parent auto, NC none." >
+    <setup>
+        <ResetComponent target="vs11" className="assets.VSAuto_NCNone" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs11.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test11" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC none, before parent creates children." >
+    <setup>
+        <ResetComponent target="vs12" className="assets.VSNone_NCNone" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs12" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test12" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC none, after parent creates children." >
+    <setup>
+        <ResetComponent target="vs12" className="assets.VSNone_NCNone" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.vs12.createDeferredContent()" waitTarget="vs12" waitEvent="childAdd" />
+        <AssertPropertyValue target="vs12.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+
+
+<TestCase testID="creationPolicy_test13" keywords="[NavigatorContent,creationPolicy]" description="Parent all, NC unset." >
+    <setup>
+        <ResetComponent target="vs14" className="assets.VSAll_NCUnset" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs14.getChildAt(1)" propertyName="numElements" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test14" keywords="[NavigatorContent,creationPolicy]" description="Parent auto, NC unset." >
+    <setup>
+        <ResetComponent target="vs15" className="assets.VSAuto_NCUnset" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs15.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test15" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC unset, before parent creates children." >
+    <setup>
+        <ResetComponent target="vs16" className="assets.VSNone_NCUnset" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="vs16" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="creationPolicy_test16" keywords="[NavigatorContent,creationPolicy]" description="Parent none, NC unset, after parent creates children." >
+    <setup>
+        <ResetComponent target="vs16" className="assets.VSNone_NCUnset" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="FlexGlobals.topLevelApplication.vs16.createDeferredContent()" waitTarget="vs16" waitEvent="childAdd" />
+        <AssertPropertyValue target="vs16.getChildAt(1)" propertyName="numElements" value="0" />
+    </body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

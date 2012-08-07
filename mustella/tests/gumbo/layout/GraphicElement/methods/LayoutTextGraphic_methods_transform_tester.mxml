@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/GraphicElement/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutGraphicElement_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+        <fx:Script>
+            <![CDATA[
+                import mx.geom.Transform;
+                
+                private var m:Matrix;
+                
+            ]]>
+        </fx:Script>
+
+    <testCases>
+    
+    	<!--*****************-->
+        <!--setLayoutBoundsPosition-->
+        <!--*****************-->
+	<TestCase testID="TextGraphic_transform_translation_setLayoutBoundsPosition" keywords="[transform, methods, layoutGraphicElement]" description="Call actualPosition after setting x and y via transform matrix">
+        	<setup> 
+           		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+           		<RunCode code="application.pan.tg.setLayoutBoundsPosition(20, 30)"/>
+        	</setup>
+            	<body>
+                	<AssertPropertyValue propertyName="x" target="pan.tg" value="20" />
+                	<AssertPropertyValue propertyName="y" target="pan.tg" value="30" />
+            	</body>
+        </TestCase>
+       
+	<TestCase testID="TextGraphic_transform_scalingX_matrix_setLayoutBoundsPosition" keywords="[transform, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" target="pan.tg" value="5"/>
+			<SetProperty propertyName="scaleY" target="pan.tg" value="1" waitEvent="updateComplete" waitTarget="pan"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+	<TestCase testID="TextGraphic_transform_scalingX_matrix_setLayoutBoundsPosition_pretransform" keywords="[transform, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" target="pan.tg" value="5"/>
+			<SetProperty propertyName="scaleY" target="pan.tg" value="1" waitEvent="updateComplete" waitTarget="pan"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+	<TestCase testID="TextGraphic_transform_scalingY_matrix_setLayoutBoundsPosition" keywords="[transform, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="scaleX" target="pan.tg" value="1"/>
+			<SetProperty propertyName="scaleY" target="pan.tg" value="3" waitEvent="updateComplete" waitTarget="pan"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+	<TestCase testID="TextGraphic_transform_scalingY_matrix_setLayoutBoundsPosition_pretransform" keywords="[transform, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+			<SetProperty propertyName="scaleX" target="pan.tg" value="1"/>
+			<SetProperty propertyName="scaleY" target="pan.tg" value="3" waitEvent="updateComplete" waitTarget="pan"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+	<TestCase testID="TextGraphic_transform_scaling_scaleX_setLayoutBoundsPosition" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+		<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="scaleX" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_scaling_scaleX_setLayoutBoundsPosition_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+		<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+			<SetProperty propertyName="scaleX" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+	</TestCase>
+        
+        <TestCase testID="TextGraphic_transform_scaling_scaleY_setLayoutBoundsPosition" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="scaleY" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+         <TestCase testID="TextGraphic_transform_scaling_scaleY_setLayoutBoundsPosition_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+			<SetProperty propertyName="scaleY" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+	<TestCase testID="TextGraphic_transform_rotation_setLayoutBoundsPosition_90degrees" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-3" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+       </TestCase>
+       <TestCase testID="TextGraphic_transform_rotation_setLayoutBoundsPosition_90degrees_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+       		<setup> 
+       			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+       			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+       			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+       			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+       		</setup>
+       		<body>
+       			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-3" />
+       			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+       			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+       			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+       		</body>
+       </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)" />
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="3.736526" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)" />
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="3.736526" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+
+        
+        <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2x" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="3.736526" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+         <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2x_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="3.736526" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        
+         <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2y" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-12.526947" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2y_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-12.526947" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2x_translatex5" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-11.263474" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="5" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2x_translatex5_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="scaleX" value="2" target="pan.tg"/>
+			<SetProperty propertyName="x" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-11.263474" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="30" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="5" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="30" />
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2y_translatey5" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<!--<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>-->
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)" />
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="y" value="5" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-12.526947" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="5" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="5" />
+		</body>
+	</TestCase> 
+	
+	<TestCase testID="TextGraphic_transform_rotating_setLayoutBoundsPosition_45degrees_scale2y_translatey5_pretransform" keywords="[transform, setLayoutBoundsPosition, methods, layoutGraphicElement]" description="Call actualPosition after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<!--<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30)"/>-->
+			<RunCode code="application.pan.tg.setLayoutBoundsPosition(20,30,false)" />
+			<SetProperty propertyName="rotation" value="45" target="pan.tg"/>
+			<SetProperty propertyName="y" value="5" target="pan.tg"/>
+			<SetProperty propertyName="scaleY" value="2" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-12.526947" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="5" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="20" />
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="5" />
+		</body>
+	</TestCase> 
+	
+        <!--*************-->
+	<!--setActualSize-->
+        <!--*************-->
+        
+        <!--actualPosition-->
+        
+        <TestCase testID="TextGraphic_transform_rotate_setActualSize_actualPosition" keywords="[transform, rotate, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and rotate">
+        	<setup>
+        		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+        	</setup>
+        	<body>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-21.213226"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202"/>
+        	</body>
+        </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_rotate_setActualSize_actualPosition_pretransform" keywords="[transform, rotate, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="-21.213226"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202"/>
+		</body>
+        </TestCase>
+        
+        <TestCase testID="TextGraphic_transform_scaling_setActualSize_actualPosition" keywords="[transform, scale, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and scaling">
+        	<setup>
+        		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleX" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="0"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202"/>
+        	</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_scaling_setActualSize_actualPosition_pretransform" keywords="[transform, scale, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and scaling">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="scaleX" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="0"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202"/>
+		</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_translating_setActualSize_actualPosition" keywords="[transform, translate, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and translating">
+        	<setup>
+	      		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="x" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="3"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="3"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202"/>
+        	</body>
+        </TestCase>
+	<TestCase testID="TextGraphic_transform_translating_setActualSize_actualPosition_pretransform" keywords="[transform, translate, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and translating">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="x" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="3"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="202"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="3"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="202"/>
+		</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_skewing_setActualSize_actualPosition" keywords="[transform, skew, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and skewing">
+        	<setup>
+        		<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="m = new Matrix(); m.c = Math.tan(60*Math.PI/180); var t:mx.geom.Transform = new mx.geom.Transform(); t.matrix = m; application.pan.tg.transform = t;"/>
+     			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+	        </setup>
+	        <body>
+	        	<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="0"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="0"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0"/>
+        		<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="0"/>
+        	</body>
+        </TestCase>
+         <TestCase testID="TextGraphic_transform_skewing_setActualSize_actualPosition_pretransform" keywords="[transform, skew, setActualSize, methods, layoutGraphicElement]" description="Check actualPosition after calling setActualSize and skewing">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="m = new Matrix(); m.c = Math.tan(60*Math.PI/180); var t:mx.geom.Transform = new mx.geom.Transform(); t.matrix = m; application.pan.tg.transform = t;"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX()" value="0"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY()" value="0"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsX(false)" value="0"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsY(false)" value="0"/>
+		</body>
+        </TestCase>
+  
+        <!--actualSize-->
+        <TestCase testID="TextGraphic_transform_rotate_45_setActualSize_actualSize" keywords="[transform, rotate, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="35.355377"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="35.355377"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotate_45_setActualSize_actualSize_pretransform" keywords="[transform, rotate, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="35.355377"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="35.355377"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="TextGraphic_transform_rotate_90_setActualSize_actualSize" keywords="[transform, rotate, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth().toFixed(0)" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight().toFixed(0)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_rotate_90_setActualSize_actualSize_pretransform" keywords="[transform, rotate, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and rotate">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="90" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth().toFixed(0)" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight().toFixed(0)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaling_setActualSize_actualSize" keywords="[transform, scale, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaling">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleX" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="60"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaling_setActualSize_actualSize_pretransform" keywords="[transform, scale, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaling">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="scaleX" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="60"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_translating_setActualSize_actualSize" keywords="[transform, translate, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and translating">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="x" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_translating_setActualSize_actualSize_pretransform" keywords="[transform, translate, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and translating">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="x" value="3" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_skewing_setActualSize_actualSize" keywords="[transform, skew, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and skewing">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<RunCode code="m = new Matrix(); m.c = Math.tan(60*Math.PI/180); var t:mx.geom.Transform = new mx.geom.Transform(); t.matrix = m; application.pan.tg.transform = t;" waitEvent="updateComplete" waitTarget="pan.tg"/> 			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="71.961523"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_skewing_setActualSize_actualSize_pretransform" keywords="[transform, skew, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and skewing">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<RunCode code="m = new Matrix(); m.c = Math.tan(60*Math.PI/180); var t:mx.geom.Transform = new mx.geom.Transform(); t.matrix = m; application.pan.tg.transform = t;" waitEvent="updateComplete" waitTarget="pan.tg"/> 			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="71.961523"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaleX_setActualSize_actualSize" keywords="[transform, scaleX, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaleX">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleX" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="100"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaleX_setActualSize_actualSize_pretransform" keywords="[transform, scaleX, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaleX">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="scaleX" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="100"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaleX_setActualSize_explicitWidth_actualSize" keywords="[transform, scaleX, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaleX">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<SetProperty propertyName="height" value="10" target="pan.tg"/>
+			<SetProperty propertyName="width" value="20" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleX" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="100"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaleX_setActualSize_explicitWidth_actualSize_pretransform" keywords="[transform, scaleX, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaleX">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<SetProperty propertyName="height" value="10" target="pan.tg"/>
+			<SetProperty propertyName="width" value="20" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="scaleX" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="100"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="30"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaleY_setActualSize_actualSize" keywords="[transform, scaleY, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaleY">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="scaleY" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="150"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_scaleY_setActualSize_actualSize_pretransform" keywords="[transform, scaleY, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and scaleY">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="scaleY" value="5" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="150"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TextGraphic_transform_rotation_setActualSize_actualSize" keywords="[transform, rotation, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and rotation">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="35.355377"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="35.355377"/> 
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+        </TestCase>
+        <TestCase testID="TextGraphic_transform_rotation_setActualSize_actualSize_pretransform" keywords="[transform, rotation, setActualSize, methods, layoutGraphicElement]" description="Check actualSize after calling setActualSize and rotation">
+		<setup>
+			<ResetComponent target="pan" className="comps.MyGroup" waitEvent="updateComplete" waitTarget="pan"/>
+			<SetProperty propertyName="includeInLayout" value="false" target="pan.tg"/>
+			<RunCode code="application.pan.tg.setLayoutBoundsSize(20,30,false)"/>
+			<SetProperty propertyName="rotation" value="45" target="pan.tg" waitEvent="updateComplete" waitTarget="pan.tg"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth()" value="35.355377"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight()" value="35.355377"/> 
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsWidth(false)" value="20"/>
+			<AssertMethodValue method="value=application.pan.tg.getLayoutBoundsHeight(false)" value="30"/>
+		</body>
+        </TestCase>
+        </testCases>
+</UnitTester>     

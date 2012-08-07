@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<TextFlow whiteSpaceCollapse="preserve" xmlns="library://ns.adobe.com/flex/spark" 
+		  xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			private var _label:String;
+			private var _note:String;
+			
+			public function get label():String
+			{
+				return _label;
+			}
+			
+			public function set label(value:String):void
+			{
+				_label = value;
+			}
+			
+			public function get note():String
+			{
+				return _note;
+			}
+			
+			public function set note(value:String):void
+			{
+				_note = value;
+			}
+			
+		]]>
+	</fx:Script>
+	<p fontSize="36"><span>“School” is written</span></p>
+	<list paddingRight="24" paddingLeft="24">
+		<li listStyleType="arabicIndic"><p direction="rtl"><span fontFamily="Adobe Arabic" locale="ar">مدرسة</span><span> in Arabic</span></p></li>
+		<li><p direction="ltr"><span fontFamily="宋体" locale="zh" id="_school_SpanElement4">學校</span><span> in Chinese</span></p></li>
+		<li><p direction="ltr"><span locale="el">σχολείο</span><span> in Greek</span></p></li>
+		<li><p direction="rtl"><span fontFamily="Adobe Hebrew" locale="he">בֵּית־סֵפֶר</span><span> in Hebrew</span></p></li>
+		<li><p direction="ltr"><span fontFamily="小塚明朝 Pro L" locale="ja" id="_school_SpanElement10">学校</span><span> in Japanese</span></p></li>
+		<li><p direction="ltr"><span fontFamily="Adobe 명조 Std M" locale="ko" id="_school_SpanElement12">학교</span><span> in Korean</span></p></li>
+		<li><p direction="ltr"><span fontFamily="Vrinda" locale="be">স্কুল</span><span> in Bengali</span></p></li>
+		<li><p direction="ltr"><span locale="ru">школа</span><span> in Russian </span></p></li>
+		<li><p direction="ltr"><span fontFamily="Adobe Thai" locale="th">อาศรม</span><span> in Thai</span></p></li>
+	</list>
+
+</TextFlow>
+

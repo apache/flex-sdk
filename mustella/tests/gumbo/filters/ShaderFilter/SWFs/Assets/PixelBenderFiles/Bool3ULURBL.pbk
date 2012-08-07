@@ -1,0 +1,44 @@
+<languageVersion : 1.0;>
+
+kernel Bool3ULURBL
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts a bool3 as a parameter.  The appropriate corners will turn black when true.";
+>
+{
+    parameter bool3 allBools;
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos   = outCoord();    
+        float x      = pos.x;
+        float y      = pos.y;
+        bool upperLeft = allBools.x;
+        bool upperRight = allBools.y;
+        bool bottomLeft = allBools.z;
+        
+        dst.a = float(1);
+        
+        if(upperLeft && x < float(50) && y < float(50)){
+            dst.r = float(0);
+            dst.g = float(0);
+            dst.b = float(0);
+        }else if(upperRight && x > float(50) && y < float(50)){
+            dst.r = float(0);
+            dst.g = float(0);
+            dst.b = float(0);
+        }else if(bottomLeft && x < float(50) && y > float(50)){
+            dst.r = float(0);
+            dst.g = float(0);
+            dst.b = float(0);
+        }else{
+            dst.r = float(1);
+            dst.g = float(1);
+            dst.b = float(1);
+        }
+    }
+}

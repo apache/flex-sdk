@@ -1,0 +1,26 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"  
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    height="24" width="147"
+    dataProvider="{myDP4}">
+    
+    <s:layout>
+    	<s:HorizontalLayout/>
+    </s:layout>
+    
+	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    		    		
+    		public var myDP_Array4:Array =
+    		[
+    			1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+    		];
+    		
+    		[Bindable]
+    		public var myDP4:ArrayCollection = new ArrayCollection(myDP_Array4);
+    	]]>   
+    </fx:Script>    
+        	
+</s:ComboBox>

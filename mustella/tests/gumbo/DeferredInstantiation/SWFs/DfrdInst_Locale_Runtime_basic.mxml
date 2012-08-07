@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+	backgroundColor="0xFFFFFF"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:local="comps.*">     
+    
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		@font-face{			
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+		
+		@font-face{
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");			
+			fontFamily: myArialHalo;
+			embedAsCFF: false;
+		}				
+
+		@font-face{
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}		
+
+		@font-face{
+			src: url("../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+
+		s|global{
+			fontAntiAliasType: "normal";
+			fontFamily: myArial;
+			fontSize: 12;
+            fontLookup: "embeddedCFF";
+		}            
+			
+		mx|ComboBox{
+			fontAntiAliasType: "normal";
+			fontFamily: myArialHalo;
+			fontSize: 12;           	          
+		}	
+		
+		mx|Label{
+			fontAntiAliasType: "normal";
+			fontFamily: myArialHalo;
+			fontSize: 12;           	          
+		}		
+	</fx:Style>     
+    
+    <s:layout>
+    	<s:VerticalLayout/>
+    </s:layout>
+
+    <fx:Metadata>
+        [ResourceBundle("myResources")]
+    </fx:Metadata>
+
+    <fx:Script>
+    <![CDATA[
+    
+        [Bindable]
+        private var locales:Array = [ "Pick Language" , "en_US" , "qa_QA" ];
+           
+        private function localeComboBox_changeHandler(event:Event):void
+        {            
+            resourceManager.localeChain = [ localeComboBox.selectedItem ];
+            createDF();
+        }   
+        
+        private function createDF():void
+        {
+            myLocaleIC_Runtime.createDeferredContent();
+        }
+
+    ]]>
+    </fx:Script>
+                        
+    <mx:ComboBox id="localeComboBox" dataProvider="{locales}" change="localeComboBox_changeHandler(event)"/>                    
+                                  
+    <local:CustomICLocaleRuntime id="myLocaleIC_Runtime" />
+       
+</s:Application>

@@ -1,0 +1,38 @@
+<TextFlow xmlns="library://ns.adobe.com/flex/spark" 
+		  xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			private var _label:String;
+			private var _note:String;
+			
+			public function get label():String
+			{
+				return _label;
+			}
+			
+			public function set label(value:String):void
+			{
+				_label = value;
+			}
+			
+			public function get note():String
+			{
+				return _note;
+			}
+			
+			public function set note(value:String):void
+			{
+				_note = value;
+			}
+			
+		]]>
+	</fx:Script>
+	<span  fontSize="20">Hello, Dear Guest,</span>
+	<p>
+		<img source="@Embed('../../../../../../../Assets/Images/greenrect.jpg')"  float="right"/>
+	</p>
+	<p >
+		Donec sed risus nec risus elementum cursus eget non nulla. Integer dui mauris, lobortis at varius quis, elementum at justo. Ut lacinia arcu vitae ipsum pulvinar feugiat a ut risus. Vivamus nulla nisi, varius vitae commodo ut, volutpat quis magna. Cras posuere quam magna. Aenean felis purus, pellentesque nec fringilla id, dignissim quis elit. Praesent velit libero, laoreet quis dignissim id, varius quis neque. Suspendisse vulputate placerat purus. Fusce euismod fringilla ornare. Nulla et urna est. Proin a tellus et tortor feugiat iaculis. 
+	</p>
+</TextFlow>

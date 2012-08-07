@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_ViewStack.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+	import mx.core.FlexGlobals;
+        import spark.components.*;
+        import mx.core.*;
+        import mx.collections.IList;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+length
+Verify the length property returns the correct value on ViewStack
+
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="length_vs1DP_test1" keywords="[TabBar,ViewStack,length]" description="Test length on ViewStack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+
+    	<AssertPropertyValue target="TC.vs1" propertyName="length" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="length_vs2DP_test1" keywords="[TabBar,ViewStack,length]" description="Test length on ViewStack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+
+    	<AssertPropertyValue target="TC.vs2" propertyName="length" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="length_vs3DP_test1" keywords="[TabBar,ViewStack,length]" description="Test length on ViewStack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+
+    	<AssertPropertyValue target="TC.vs3" propertyName="length" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="length_vs4DP_test1" keywords="[TabBar,ViewStack,length]" description="Test length on empty ViewStack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs4 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+
+    	<AssertPropertyValue target="TC.vs4" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

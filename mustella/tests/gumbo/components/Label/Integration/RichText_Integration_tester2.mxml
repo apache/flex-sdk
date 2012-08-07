@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RichText_basic2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	    import mx.core.FlexGlobals;
+	    import spark.components.Label;
+	    import spark.components.RichText;
+	    private var newStr:String="After the 2008 meltdown, Wall Street's quants were cast as the financial engineers of profit-driven innovation run amok. But the real failure, according to experts, was in the quants' mathematical models of risk that suggested the arcane stuff";
+
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+<!--
+====================================================================================
+Integration tests
+update richText value,verify all changes are correct
+
+====================================================================================
+-->
+
+	<TestCase testID="change_richText_in_mxApp_test1" keywords="[RichText,integration]" description="change richText inside mxApplication,verify its UI" >
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.resetTextValue()"/>
+	        <Pause timeout="40"/>
+	    </setup>
+	    <body>
+	    	<SetProperty target="myRichText0" propertyName="text" value="this is a New richText in mx application" waitTarget="myRichText0" waitEvent="updateComplete"/>
+	        <AssertPropertyValue target="myRichText0" propertyName="text" value="this is a New richText in mx application" />
+	        <CompareBitmap numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myRichText0"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="change_richText_in_HBox_test1" keywords="[RichText,integration]" description="change richText inside mxHBox,verify its UI" >
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.resetTextValue()"/>
+	        <Pause timeout="40"/>
+	    </setup>
+	    <body>
+	     	<SetProperty target="myRichText1" propertyName="text" value="this is a New richText in HBox" waitTarget="myRichText1" waitEvent="updateComplete"/>
+	        <AssertPropertyValue target="myRichText1" propertyName="text" value="this is a New richText in HBox" />
+	        <CompareBitmap   numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myHBox"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="change_richText_in_Panel_test1" keywords="[RichText,integration]" description="change richText inside mxPanel,verify its UI" >
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.resetTextValue()"/>
+	        <Pause timeout="40"/>
+	    </setup>
+	    <body>
+	    	<SetProperty target="myRichText2" propertyName="text" valueExpression="value=newStr" waitTarget="myRichText2" waitEvent="updateComplete"/>
+	        <AssertPropertyValue target="myRichText2" propertyName="text" valueExpression="value=newStr" />
+	        <CompareBitmap   numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myPanel"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="change_richText_in_Form_test1" keywords="[RichText,integration]" description="change richText inside mxForm,verify its UI" >
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.resetTextValue()"/>
+	        <Pause timeout="40"/>
+	    </setup>
+	    <body>
+	    	<SetProperty target="myRichText3" propertyName="text" value="New richText in Form" waitTarget="myRichText3" waitEvent="updateComplete"/>
+	        <AssertPropertyValue target="myRichText3" propertyName="text" value="New richText in Form" />
+	        <CompareBitmap   numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myForm"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="change_richText_in_ControlBar_test1" keywords="[RichText,integration]" description="change richText inside mxControlBar,verify its UI" >
+	    <setup>
+	        <RunCode code="FlexGlobals.topLevelApplication.resetTextValue()"/>
+	        <Pause timeout="40"/>
+	    </setup>
+	    <body>
+		<SetProperty target="myRichText5" propertyName="text" value="New inside of controlBar" waitTarget="myRichText5" waitEvent="updateComplete"/>
+	        <AssertPropertyValue target="myRichText5" propertyName="text" value="New inside of controlBar" />
+	        <CompareBitmap   numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myControlBar"/>
+	    </body>
+	</TestCase>
+	
+    </testCases>
+</UnitTester>

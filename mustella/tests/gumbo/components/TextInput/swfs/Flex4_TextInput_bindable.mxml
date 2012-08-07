@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		backgroundColor="0xFFFFFF"
+		height="375"
+		width="500"
+		preinitialize="init();">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		s|SkinnableTextBase:normalWithPrompt {
+			color: haloOrange;
+		}
+	</fx:Style>
+
+	<fx:Script>
+		<![CDATA[
+import spark.components.TextInput;
+			import mx.managers.ToolTipManager;
+
+			private function init():void {
+				ToolTipManager.showDelay = 100;
+				ToolTipManager.hideDelay = 500;
+			}
+		]]>
+	</fx:Script>
+
+	<mx:Canvas id="panel1" height="150" width="300"
+			backgroundColor="#FF0000" backgroundAlpha="0.2">
+		<s:TextInput id="textInput"/>
+	</mx:Canvas>
+
+	<mx:Canvas id="panel2" height="150" width="300"
+			backgroundColor="#00FF00" backgroundAlpha="0.2">
+		<s:TextInput id="textInput2"
+				text="{textInput.text}"
+				prompt="{textInput3.text}"
+				width="{textInput.width}"
+				height="{textInput.height}" />
+	</mx:Canvas>
+	
+	<mx:Canvas id="panel3" height="150" width="300"
+			   backgroundColor="#FF0000" backgroundAlpha="0.2">
+		<s:TextInput id="textInput3"/>
+	</mx:Canvas>
+
+</s:Application>

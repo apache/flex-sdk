@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:comps="comps.*"
+	width="800" height="700" >
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+
+		s|Label {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            fontLookup: "embeddedCFF";
+		}
+
+		.paddedBox {
+			paddingLeft: 20;
+			paddingRight: 20;
+			paddingTop: 20;
+			paddingBottom: 20;
+			backgroundColor: #CCCCCC;
+			backgroundAlpha: 1.0;
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.events.SliderEvent;
+			
+			
+			import spark.components.Label;
+			private var timer:Timer;
+			public var repeatTimes:Number=0;
+			
+			[Bindable]
+			public var collection : ArrayCollection;
+			
+			private var labels : Vector.<Label>;
+			
+			public function startTimer():void
+			{
+				if (timer==null)
+				{
+					timer = new Timer(100, 30); /* 1000ms == 1second, repeat 30 times */
+					timer.addEventListener(TimerEvent.TIMER, onTimer);
+					timer.addEventListener(TimerEvent.TIMER_COMPLETE,timeStop);
+				}
+				if (!timer.running)
+					timer.start();
+
+			}
+			private function timeStop(evt:TimerEvent):void
+			{
+				trace("###timer stopped" );
+				 dispatchEvent(new FlexEvent("timerDone"));
+			}
+			private function onTimer(evt:TimerEvent):void {
+				var val:uint = slider.value+ int(Math.random()*200) %199;
+				
+				var newValue:uint = val % 200;
+				slider.value=newValue;
+				var se:SliderEvent=new SliderEvent(SliderEvent.CHANGE,false,false,-1,newValue);
+				slider.dispatchEvent(se);
+				trace("onTimer:"+val);
+				repeatTimes++;
+			}
+
+			public function createLabels() : void
+			{
+				vg.removeAllElements();
+				labels = new Vector.<Label>;
+				
+				for ( var i : int = 0; i < 30; i++ )
+				{
+					var date : Date = new Date( 2009, 10, i );
+					var label : Label = new Label();
+					label.maxDisplayedLines = 1;
+					
+					label.text = date.toDateString();
+					
+					labels.push( label );
+					vg.addElement( label );
+				}
+				
+			}
+			
+			protected function hslider1_changeHandler( event : Event ) : void
+			{
+				for each ( var label : Label in labels )
+				{
+					label.width = slider.value;
+					label.height = label.measuredHeight;
+				}
+			}
+			
+		]]>
+	</fx:Script>	
+	<mx:VBox id="container" styleName="paddedBox" x="10" y="10">
+		<comps:LabelBasic id="textBoxComp" />
+	</mx:VBox>
+	
+	<comps:LabelWithTip id="labelWithTT" />
+	
+	
+	
+	<mx:HSlider y="200"
+			id="slider"
+			minimum="0"
+			maximum="200"
+			change="hslider1_changeHandler(event)"
+			liveDragging="true"/>
+	<s:VGroup id="vg" y="300"/>
+	
+</s:Application>

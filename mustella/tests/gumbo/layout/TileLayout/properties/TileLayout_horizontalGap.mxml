@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test setting horizontalGap to various values.
+========================================================
+-->
+
+<TestCase testID="horizontalGap_test1" keywords="[TileLayout,horizontalGap]" description="Defaults to 6." >
+    <body>
+        <AssertMethodValue method="value = new TileLayout().horizontalGap" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test2" keywords="[TileLayout,horizontalGap]" description="Set to a bindable expression in MXML." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout2()" />
+        <SetProperty target="box2.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout2" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 10)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="horizontalGap" value="10" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test3" keywords="[TileLayout,horizontalGap]" description="Set to a bindable expression in MXML and change." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout2()" />
+        <SetProperty target="box2.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout2" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 10)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="horizontalGap" value="10" />
+        <SetProperty target="box2.group1.layout" propertyName="theHorizontalGap" value="20" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="horizontalGap" value="20" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test4" keywords="[TileLayout,horizontalGap]" description="Bind a variable to horizontalGap." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.resetTheBindingTileLayout1()" />
+        <SetProperty target="box2.group1" propertyName="layout" valueExpression="value = application.theBindingTileLayout1" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 10)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 10)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout.resize1" propertyName="perElementOffset" value="25" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test5" keywords="[TileLayout,horizontalGap]" description="Set to a decimal value, then get. Getters should not round." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="40.3" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="horizontalGap" value="40.3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test6" keywords="[TileLayout,horizontalGap]" description="Set to -1." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="-1" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box2.group1.layout" propertyName="horizontalGap" value="-1" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test7" keywords="[TileLayout,horizontalGap]" description="Set to negative width of the items." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="-25" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test8" keywords="[TileLayout,horizontalGap]" description="Set to 0." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="0" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test9" keywords="[TileLayout,horizontalGap]" description="Set to 1." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test10" keywords="[TileLayout,horizontalGap]" description="Make horizontalGap exceed the width of an item." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="30" />
+        <SetProperty target="box2.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test11a" keywords="[TileLayout,horizontalGap]" description="Make horizontalGap exceed the width of the Group." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="150" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test11b" keywords="[TileLayout,horizontalGap]" description="Make horizontalGap exceed the width of the Group and scroll right once." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="150" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test11c" keywords="[TileLayout,horizontalGap]" description="Make horizontalGap exceed the width of the Group and scroll right twice." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="150" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test11d" keywords="[TileLayout,horizontalGap]" description="Make horizontalGap exceed the width of the Group and scroll right all the way." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="150" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test11g" keywords="[TileLayout,horizontalGap]" description="Make horizontalGap exceed the width of the Group, scroll right thrice and left thrice." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="150" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.incrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.incrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="rollOver" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseDown" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <DispatchMouseEvent target="box1.scroller1.horizontalScrollBar.decrementButton" type="mouseUp" localY="2" localX="2" waitTarget="box1.scroller1.horizontalScrollBar.decrementButton.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test12" keywords="[TileLayout,horizontalGap]" description="Check horizontalGap of items outside of the boundary of the Group (without a scroller)." >
+    <setup>
+        <ResetComponent target="box2" className="Assets::Box2" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box2.group1" propertyName="width" value="50" />
+        <SetProperty target="box2.group1.layout" propertyName="horizontalGap" value="25" />
+        <SetProperty target="box2.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box2.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box2.group1, 'height', 25)" waitTarget="box2.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testIDa.png" target="box2" />        
+        <SetProperty target="box2" propertyName="width" value="200" />
+        <CompareBitmap url="../properties/baselines/$testIDb.png" target="box2" />        
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test13" keywords="[TileLayout,horizontalGap]" description="When there is one column of items, horizontalGap should be irrelevent." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="25" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test14" keywords="[TileLayout,horizontalGap]" description="Increase horizontalGap when there are two columns of items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="2" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalGap_test15" keywords="[TileLayout,horizontalGap]" description="Decrease horizontalGap when there are two columns of items." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="2" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="1" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,280 @@
+<UnitTester testDir="gumbo/components/DropDownList/Styles/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="DropDownList_mirroring_basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>   
+       
+    <testCases>
+    
+		<TestCase testID="DropDownList_Mirroring_as_default" keywords="[DropDownList, Mirroring, rtl]" description="Test layoutDirection/direction set to rtl in AS on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.setLdRTL()" />	
+				<Pause timeout="20"/>
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="rtl"/>				
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.setDRTL()" />	
+				<Pause timeout="20"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="rtl"/>				
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.openDropDown()" waitEvent="open" waitTarget="ddl_m1"/>	
+				<CompareBitmap target="ddl_m1.dropDown" url="../Styles/Baselines/$testID_3.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.closeDropDown(false)" waitEvent="close" waitTarget="ddl_m1"/>	
+			</body>		
+		</TestCase>	    
+
+		<TestCase testID="DropDownList_Mirroring_default" keywords="[DropDownList, Mirroring, rtl]" description="Test layoutDirection/direction rtl on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="ltr"/>
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="ltr"/>
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<SetStyle target="ddl_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<Pause timeout="20"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="rtl"/>		
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="rtl"/>
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.openDropDown()" waitEvent="open" waitTarget="ddl_m1"/>					
+				<CompareBitmap target="ddl_m1.dropDown" url="../Styles/Baselines/$testID_3.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.closeDropDown(false)" waitEvent="close" waitTarget="ddl_m1"/>					
+			</body>		
+		</TestCase>
+							
+		<TestCase testID="DropDownList_Mirroring_mxml_default" keywords="[DropDownList, Mirroring, rtl]" description="Test layoutDirection/direction set to rtl in MXML on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m2" className="comps.Custom_DDL_M_RTL" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="ddl_m2" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="ddl_m2" styleName="direction" value="rtl"/>
+				<CompareBitmap target="ddl_m2" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+			</body>		
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Mirroring_mxml_changeDir" keywords="[DropDownList, Mirroring, rtl]" description="Test layoutDirection set to ltr at runtime on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m2" className="comps.Custom_DDL_M_RTL" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="ddl_m2" styleName="layoutDirection" value="rtl"/>				
+				<AssertStyleValue target="ddl_m2" styleName="direction" value="rtl"/>
+				<CompareBitmap target="ddl_m2" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>	
+				<SetStyle target="ddl_m2" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m2" styleName="direction" value="ltr" waitEvent="updateComplete"/>
+				<AssertStyleValue target="ddl_m2" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="ddl_m2" styleName="direction" value="ltr"/>
+				<CompareBitmap target="ddl_m2" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Mirroring_keyboard1" keywords="[DropDownList, Mirroring, rtl]" description="Test keyboard navigation with layoutDirection rtl on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>		
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="ddl_m1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.openDropDown()" waitEvent="open" waitTarget="ddl_m1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[DOWN]" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keys="[DOWN]" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="caretIndex" value="1"/>				
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="close" waitTarget="ddl_m1"/>				
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="caretIndex" value="1"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedItem" value="ProductB"/>					
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Mirroring_keyboard2" keywords="[DropDownList, Mirroring, rtl]" description="Test keyboard navigation with layoutDirection rtl on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>	
+				<SetProperty target="ddl_m1" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="ddl_m1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.openDropDown()" waitEvent="open" waitTarget="ddl_m1"/>	
+				<Pause timeout="100"/>				
+				<DispatchKeyEvent keys="[UP]" />
+				<Pause timeout="100"/>
+				<DispatchKeyEvent keys="[UP]" />
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="caretIndex" value="2"/>				
+				<DispatchKeyEvent keys="[ENTER]" waitEvent="close" waitTarget="ddl_m1"/>				
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="caretIndex" value="2"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedItem" value="ProductC"/>					
+			</body>		
+		</TestCase>	
+				
+		<TestCase testID="DropDownList_Mirroring_parentContainer1" keywords="[DropDownList, Mirroring, rtl]" description="Test setting layDirection on parentContainer of DropDownList">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.openDropDown()" waitEvent="open" waitTarget="myPanel3.theDDL"/>	
+				<CompareBitmap target="myPanel3.theDDL.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.closeDropDown(false)" waitEvent="close" waitTarget="myPanel3.theDDL"/>									
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Mirroring_parentContainer2" keywords="[DropDownList, Mirroring, rtl]" description="Test setting direction on parentContainer of DropDownList">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.openDropDown()" waitEvent="open" waitTarget="myPanel3.theDDL"/>	
+				<CompareBitmap target="myPanel3.theDDL.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.closeDropDown(false)" waitEvent="close" waitTarget="myPanel3.theDDL"/>									
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Mirroring_parentContainer3" keywords="[DropDownList, Mirroring, rtl]" description="Test setting layoutDirection/direction on parentContainer of DropDownList">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.openDropDown()" waitEvent="open" waitTarget="myPanel3.theDDL"/>	
+				<CompareBitmap target="myPanel3.theDDL.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.closeDropDown(false)" waitEvent="close" waitTarget="myPanel3.theDDL"/>									
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Mirroring_parentContainer4" keywords="[DropDownList, Mirroring, rtl]" description="Test setting styles and layoutDirection/direction on parentContainer of DropDownList">
+			<setup>
+				<ResetComponent target="myPanel3" className="comps.myCustomPanel_M" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="color" value="0x00DD00" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="fontSize" value="14" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="chromeColor" value="0x0000DD" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="direction" value="rtl" waitEvent="updateComplete"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myPanel3" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="myPanel3" styleName="color" value="0x00DD00" />
+				<AssertStyleValue target="myPanel3" styleName="fontSize" value="14" />
+				<AssertStyleValue target="myPanel3" styleName="chromeColor" value="0x0000DD" />				
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.openDropDown()" waitEvent="open" waitTarget="myPanel3.theDDL"/>	
+				<CompareBitmap target="myPanel3.theDDL.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myPanel3.theDDL.closeDropDown(false)" waitEvent="close" waitTarget="myPanel3.theDDL"/>									
+			</body>
+		</TestCase>		
+				
+		<TestCase testID="DropDownList_Mirroring_selectedIndex" keywords="[DropDownList, Mirroring, rtl]" description="Test selectedIndex with layoutDirection/direction rtl on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+				<SetStyle target="ddl_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="rtl"/>
+				<SetProperty target="ddl_m1" propertyName="selectedIndex" value="2" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedItem" value="ProductC"/>
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>		
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Mirroring_selectedItem" keywords="[DropDownList, Mirroring, rtl]" description="Test selectedIndex with layoutDirection/direction rtl on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+				<SetStyle target="ddl_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="rtl"/>
+				<SetProperty target="ddl_m1" propertyName="selectedItem" value="ProductD" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedIndex" value="3"/>
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Mirroring_styles" keywords="[DropDownList, Mirroring, rtl]" description="Test styles with layoutDirection/direction rtl on DropDownList">
+			<setup>
+				<ResetComponent target="ddl_m1" className="comps.Custom_DDL_M" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="color" value="0x00FF00" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+				<SetStyle target="ddl_m1" styleName="chromeColor" value="0xDD0000" waitEvent="updateComplete"/>				
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+				<SetStyle target="ddl_m1" styleName="direction" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="rtl"/>
+				<AssertStyleValue target="ddl_m1" styleName="color" value="0x00FF00"/>
+				<AssertStyleValue target="ddl_m1" styleName="fontSize" value="16"/>
+				<AssertStyleValue target="ddl_m1" styleName="chromeColor" value="0xDD0000"/>				
+				<SetProperty target="ddl_m1" propertyName="selectedItem" value="ProductD" waitEvent="updateComplete"/>				
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedIndex" value="3"/>				
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.openDropDown()" waitEvent="open" waitTarget="ddl_m1"/>	
+				<CompareBitmap target="ddl_m1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.ddl_m1.closeDropDown(false)" waitEvent="close" waitTarget="ddl_m1"/>																									
+				<SetStyle target="ddl_m1" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>				
+				<SetStyle target="ddl_m1" styleName="direction" value="ltr" waitEvent="updateComplete"/>					
+				<AssertStyleValue target="ddl_m1" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="ddl_m1" styleName="direction" value="ltr"/>
+				<AssertStyleValue target="ddl_m1" styleName="color" value="0x00FF00"/>
+				<AssertStyleValue target="ddl_m1" styleName="fontSize" value="16"/>
+				<AssertStyleValue target="ddl_m1" styleName="chromeColor" value="0xDD0000"/>				
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedItem" value="ProductD"/>
+				<AssertPropertyValue target="ddl_m1" propertyName="selectedIndex" value="3"/>				
+				<CompareBitmap target="ddl_m1" url="../Styles/Baselines/$testID_3.png" numColorVariances="8" ignoreMaxColorVariance="true"/>								
+			</body>		
+		</TestCase>			
+	
+    </testCases>
+    
+</UnitTester>

@@ -1,0 +1,21 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" width="400" height="400"
+    left="30" right="60" >
+
+    <fx:Script>
+    	<![CDATA[
+    	
+    	]]>
+    </fx:Script>
+
+	<s:VGroup id="myGroup" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+		<s:Panel id="myOutterPanel" backgroundColor="0x00ff00" title="Outter Panel" top="5" bottom="5" left="5" right="5" width="200" height="200" layoutDirection="ltr" direction="ltr">
+			
+			<s:CheckBox id="chk1" x="10" y="50" label="inside test" />
+		</s:Panel>
+	</s:VGroup>   
+	<s:CheckBox id="chk2" x="100" y="300" label="outside test" />
+   	
+</s:TitleWindow>

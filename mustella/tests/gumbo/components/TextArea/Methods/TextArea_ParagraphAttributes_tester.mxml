@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextArea/Methods/" 
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns="*"
+		testSWF="TextArea_attributes.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.*;
+
+			import spark.components.TextArea;
+			import spark.utils.*;
+			import mx.utils.ObjectUtil;
+
+			public var defaultText:String = "<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla metus dui, vehicula ut, porta sit amet, condimentum eget, risus.</p>" + 
+					"<p>Maecenas pretium dolor quis leo. Duis tincidunt neque ac sem. Mauris gravida sapien ac libero. In hac habitasse platea dictumst.</p>" +
+					"<p>Suspendisse eu urna sollicitudin nunc facilisis porttitor. Ut quis orci.</p>" + 
+					"<p>Vivamus imperdiet malesuada arcu. Curabitur commodo aliquet purus. Nulla imperdiet tellus sed magna.</p>" +  
+					"<p>Pellentesque vel massa. Maecenas facilisis massa non lectus. Suspendisse potenti.</p>";
+					
+			public function resetTextArea(target:spark.components.TextArea):void {
+				target.content = TextFlowUtil.importFromString(defaultText);
+				target.percentWidth = 100;
+				target.percentHeight = 100;
+			}
+			
+			public function objectToTextLayoutFormat(obj:Object):TextLayoutFormat {
+				var fmt:TextLayoutFormat = new TextLayoutFormat();
+				for (var item:String in obj) {
+					fmt[item]= obj[item];
+				}
+				return fmt;
+			}
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+		<!-- ******************** **************** ******************** -->
+		<!-- ******************** TEXTAREA METHODS ******************** -->
+		<!-- ******************** **************** ******************** -->
+
+		<!-- ******************** direction ******************** -->
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_direction_ltr" description="..." keywords="[TextArea, setAttributes, method, marginBottom]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['direction']).direction" value="ltr" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="start" />
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({direction:Direction.LTR, textAlign:TextAlign.LEFT}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['direction']).direction" value="ltr" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="left" />
+				<RunCode code="application.textArea.selectRange(0,0)" waitTarget="textArea" waitEvent="selectionChange" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_direction_rtl" description="..." keywords="[TextArea, setAttributes, method, marginBottom]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['direction']).direction" value="ltr" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="start" />
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({direction:Direction.RTL, textAlign:TextAlign.LEFT}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['direction']).direction" value="rtl" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="left" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_direction_rtl_textIndent" description="..." keywords="[TextArea, setAttributes, method, marginBottom]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['direction']).direction" value="ltr" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="start" />
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({direction:Direction.RTL, textAlign:TextAlign.JUSTIFY, textIndent: 20}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['direction']).direction" value="rtl" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textIndent']).textIndent" value="20" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<!-- ******************** textAlign ******************** -->
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlign_center" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.CENTER}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="center" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlign_end" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.END}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="end" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlign_justify" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlign_left" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.LEFT}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="left" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlign_right" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.RIGHT}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="right" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlign_start" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.START}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="start" />				
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** textAlignLast ******************** -->
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_nojustify_center" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.START, textAlignLast:TextAlign.CENTER}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="start" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="center" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_center" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY, textAlignLast:TextAlign.CENTER}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="center" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_end" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY, textAlignLast:TextAlign.END}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="end" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_justify" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY,textAlignLast:TextAlign.JUSTIFY}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="justify" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_left" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY, textAlignLast:TextAlign.LEFT}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="left" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_right" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY, textAlignLast:TextAlign.RIGHT}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="right" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textAlignLast_start" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textAlign:TextAlign.JUSTIFY, textAlignLast:TextAlign.START}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlign']).textAlign" value="justify" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textAlignLast']).textAlignLast" value="start" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<!-- ******************** textIndent ******************** -->
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textIndent_20" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textIndent:20}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textIndent']).textIndent" value="20" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textIndent_pos_marginLeft" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textIndent:25, paragraphStartIndent:15}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textIndent']).textIndent" value="25" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['paragraphStartIndent']).paragraphStartIndent" value="15" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_textIndent_neg_marginLeft" description="..." keywords="[TextArea, setAttributes, method, textAlign]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="resetTextArea(application.textArea)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.selectRange(5,5)" waitTarget="textArea" waitEvent="selectionChange" />
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({textIndent:-15, paragraphStartIndent:15}))" />
+				<RunCode code="application.textArea.selectRange(20,20)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['textIndent']).textIndent" value="-15" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['paragraphStartIndent']).paragraphStartIndent" value="15" />
+				<CompareBitmap url="../Methods/baselines/$testID.png" target="textArea" numColorVariances="15" maxColorVariance="30" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>
+

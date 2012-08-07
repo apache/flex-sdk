@@ -1,0 +1,1425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Events/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="DataGrid_basic_001.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+    		import mx.utils.ObjectUtil;
+    		import spark.events.GridCaretEvent;
+		import spark.events.GridEvent;
+		import spark.events.GridSelectionEvent;
+		import spark.events.GridSortEvent;
+		import spark.components.DataGrid;
+		import mx.core.FlexGlobals;
+		import flash.events.MouseEvent;
+		import mx.events.CollectionEvent;
+		import mx.events.CollectionEventKind;
+		
+		import spark.components.gridClasses.GridColumn;
+		import spark.components.gridClasses.GridSelectionMode;
+		import spark.components.gridClasses.CellRegion;
+		import components.*;
+		
+		
+    		public var gridEvent:GridEvent;
+    		public var gridCaretEvt:GridCaretEvent;
+    		public var gridSelectEvt:GridSelectionEvent;
+    		[Bindable]
+    		public var eventType:String;
+    		public var totalRowCount:int;
+    		public var totalColumnCount:int;
+    		public var expectIndices:Vector.<int>;
+    		public var receivedEventType:String;
+    		
+    		
+    		public function mouseGeneralHandler(e:GridEvent):void
+		{
+			gridEvent=e;	
+		}
+		public function selectionChangeHandler(event:GridSelectionEvent):void
+		{
+			gridSelectEvt=event;
+			
+		}
+		public function cancelSelectionChangeHandler(event:GridSelectionEvent):void
+		{
+			event.preventDefault();
+			
+		}
+		
+		public function caretChangeHandler(event:GridCaretEvent):void
+		{
+			gridCaretEvt=event;
+		}
+		public function collectionEventHandler(evt:mx.events.CollectionEvent):void
+		{	
+			
+			receivedEventType = String(evt.kind);
+		}
+		public function addCollEvtListener(dg:DataGrid, type:String,func:Function):void
+		{
+			dg.dataProvider.addEventListener(type,func);
+		}		
+		public function addEvtListener(dg:DataGrid, type:String,func:Function):void
+		{
+			dg.addEventListener(type,func);
+		}
+		public function removeEvtListener(dg:DataGrid, type:String, func:Function):void
+		{
+			dg.removeEventListener(type,func);
+		}
+		
+		public function createExpectedGridEvent(type:String, rowIndex:int, columnIndex:int, dg:DataGrid):GridEvent
+		{
+			if (rowIndex==-1)
+			    return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, GridColumn(dg.columns.getItemAt(columnIndex)),null);
+		
+			if (columnIndex==-1)
+			    return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, null,dg.dataProvider.getItemAt(rowIndex));
+			
+			return new GridEvent(type,true,true,NaN,NaN,null,false,false,false,false,0,rowIndex,columnIndex, GridColumn(dg.columns.getItemAt(columnIndex)),dg.dataProvider.getItemAt(rowIndex));
+		
+		}
+
+	        public function createExpectedGridCaretEvent(type:String, oldRowIndex:int, oldColumnIndex:int,newRowIndex:int,newColumnIndex:int):GridCaretEvent
+		{
+		
+			return new GridCaretEvent(type,true,true,oldRowIndex,oldColumnIndex, newRowIndex,newColumnIndex);
+		}
+
+	        public function createExpectedGridSelectionEvent(type:String,kind:String, rowIndex:int, columnIndex:int,rowCount:int,columnCount:int):GridSelectionEvent
+		{
+		
+			return new GridSelectionEvent(type,true,true,kind,new CellRegion(rowIndex,columnIndex,rowCount,columnCount));
+		}
+		
+		/**
+		* this method is to verify expected GridEvent, it uses expectEvent comparing with gridEvent set in mouseGeneralHandler().
+		* it returns a string, if comparision result is equal, returns empty string, otherwise returns a string contains failure info.
+		*/
+		public function verifyGridEvent(expectEvent:GridEvent):String
+		{
+			var errMsg:String="";
+			if (gridEvent==null)
+				errMsg+="actual GridEvent=null\n";
+			else
+			{
+				if (expectEvent.columnIndex==-1)
+				{
+					if (gridEvent.rowIndex!=expectEvent.rowIndex || gridEvent.item!=null )
+					errMsg+="rowIndex not expected:actual="+gridEvent.rowIndex+";expect="+expectEvent.rowIndex +"\n";
+					return errMsg;
+				}
+				if ( expectEvent.rowIndex==-1 )
+				{
+					if (gridEvent.columnIndex!=expectEvent.columnIndex  || gridEvent.item!=null)
+					errMsg+="columnIndex not expected:actual="+gridEvent.columnIndex+";expect="+expectEvent.columnIndex +"\n";
+					return errMsg;
+				}
+				
+				 
+					if (gridEvent.type==expectEvent.type && gridEvent.columnIndex==expectEvent.columnIndex &&
+						gridEvent.rowIndex==expectEvent.rowIndex )
+					{
+						if (gridEvent.item[expectEvent.columnIndex]!=expectEvent.item[expectEvent.columnIndex])
+							errMsg+="item value for index="+expectEvent.columnIndex+"\n";
+					}	
+					else
+						errMsg+="value unexpected:type="+gridEvent.type+";rowIndex="+gridEvent.rowIndex+";columnIndex="+gridEvent.columnIndex+ ";expect:type="+expectEvent.type+";rowIndex="+expectEvent.rowIndex+";columnIndex="+expectEvent.columnIndex+"\n";
+				 
+			}
+			return errMsg;
+		}
+		/**
+		* this method is to verify expected GridCaretEvent, it uses expectEvent comparing with gridCaretEvent set in caretChangeHandler().
+		* it returns a string, if comparision result is equal, returns empty string, otherwise returns a string contains failure info.
+		*/
+		public function verifyGridCaretEvent(expectEvent:GridCaretEvent):String
+		{
+			var errMsg:String="";
+			if (gridCaretEvt==null)
+				errMsg+="actual gridCaretEvt=null\n";
+			else
+			{
+				if (!(gridCaretEvt.type==expectEvent.type && gridCaretEvt.oldColumnIndex==expectEvent.oldColumnIndex &&
+					gridCaretEvt.oldRowIndex==expectEvent.oldRowIndex && gridCaretEvt.newColumnIndex==expectEvent.newColumnIndex &&
+					gridCaretEvt.newRowIndex==expectEvent.newRowIndex ))
+					errMsg+="value unexpected:type="+gridCaretEvt.type+";oldRowIndex="+gridCaretEvt.oldRowIndex+";oldColumnIndex="+gridCaretEvt.oldColumnIndex+
+					";newRowIndex="+gridCaretEvt.newRowIndex+";newColumnIndex="+gridCaretEvt.newColumnIndex+
+					";expect:type="+expectEvent.type+";oldRowIndex="+expectEvent.oldRowIndex+";oldColumnIndex="+expectEvent.oldColumnIndex+
+					";newRowIndex="+expectEvent.newRowIndex+";newColumnIndex="+expectEvent.newColumnIndex+"\n";
+				
+			}
+			return errMsg;
+		}
+		/**
+		* this method is to verify expected GridSelectiontEvent, it uses expectEvent comparing with gridSelectionEvent set in selectionChangeHandler().
+		* it returns a string, if comparision result is equal, returns empty string, otherwise returns a string contains failure info.
+		*/		
+		public function verifyGridSelectionEvent(expectEvent:GridSelectionEvent):String
+		{
+			var errMsg:String="";
+			if (gridSelectEvt==null)
+				errMsg+="actual gridSelectEvt=null\n";
+			else
+			{
+				if (!(gridSelectEvt.kind==expectEvent.kind && gridSelectEvt.selectionChange.columnIndex==expectEvent.selectionChange.columnIndex &&
+					gridSelectEvt.selectionChange.rowIndex==expectEvent.selectionChange.rowIndex && gridSelectEvt.selectionChange.rowCount==expectEvent.selectionChange.rowCount &&
+					gridSelectEvt.selectionChange.columnCount==expectEvent.selectionChange.columnCount))
+					errMsg+="value unexpected:kind="+gridSelectEvt.kind+";rowIndex="+gridSelectEvt.selectionChange.rowIndex+";columnIndex="+gridSelectEvt.selectionChange.columnIndex+
+						";rowCount="+gridSelectEvt.selectionChange.rowCount+";columnCount="+gridSelectEvt.selectionChange.columnCount+
+						";expect:kind="+expectEvent.kind+";rowIndex="+expectEvent.selectionChange.rowIndex+";columnIndex="+expectEvent.selectionChange.columnIndex+
+					";rowCount="+expectEvent.selectionChange.rowCount+";columnCount="+expectEvent.selectionChange.columnCount+"\n";
+				
+			}
+			return errMsg;
+		}
+		public function createExpectedIndicesVector(start:int, end:int):Vector.<int>
+		{
+			trace("end:+"+end);
+			var len:int=(start==0?(end-start+1):(end-start));
+			var v:Vector.<int>=new Vector.<int>;
+			for(var i:int=0;i<len;i++)
+				v.push(start+i);
+			return v;
+		}
+		
+
+		
+	]]>
+	</mx:Script>
+	
+	<testCases>
+
+        <TestCase testID="event_gridClick_test01" keywords="['event,gridClick']" description="Test GridClick even when mouse clicks inside dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>	
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="eventType=GridEvent.GRID_CLICK" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="120" />
+                <AssertEvent target="dataGrid.grid" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,4,0,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+            </body>
+        </TestCase>
+        
+        
+       
+         <TestCase testID="event_gridClick_test02" keywords="['event,gridClick']" description="Test GridClick even when mouse clicks inside dataGrid">
+            <setup>
+           
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>	
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                
+                <RunCode code="eventType=GridEvent.GRID_CLICK" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="40" localY="120" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <AssertEvent target="dataGrid.grid" eventName="{eventType}"  numExpectedEvents="1" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,4,1,FlexGlobals.topLevelApplication.dataGrid))" value=""/>	
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </body>
+        </TestCase>
+         <TestCase testID="event_gridClick_test022" keywords="['event,gridClick']" description="Test GridClick even when mouse clicks inside dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <RunCode code="eventType=GridEvent.GRID_CLICK" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dataGrid.grid" localX="80" localY="120" waitEvent="focusIn" waitTarget="dataGrid"/>
+                <AssertEvent target="dataGrid.grid" eventName="{eventType}"  numExpectedEvents="1" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,4,1,FlexGlobals.topLevelApplication.dataGrid))" value=""/>	
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </body>
+        </TestCase>
+
+         <TestCase testID="event_gridClick_test03" keywords="['event,gridClick']" description="Test no GridClick when click outside of dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <RunCode code="eventType=GridEvent.GRID_CLICK" />
+                <RunCode code="gridEvent=null" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="" stageX="100" stageY="50" />
+                <AssertMethodValue method="value=(gridEvent==null)" value="true"/>		
+            </body>
+        </TestCase>
+
+         <TestCase testID="event_gridClick_test04" keywords="['event,gridClick']" description="Test GridClick when click columnHeader of dataGrid">
+            <setup>
+            	
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <RunCode code="eventType=GridEvent.GRID_CLICK" />
+                <RunCode code="gridEvent=null" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="dataGrid" localX="80" localY="2" />
+                <AssertEvent target="dataGrid.columnHeaderGroup" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,-1,1,FlexGlobals.topLevelApplication.dataGrid))" value=""/>			
+            </body>
+        </TestCase>
+
+         <TestCase testID="event_gridClick_test05" keywords="['event,gridClick']" description="Test GridClick when click columnHeader of dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <RunCode code="eventType=GridEvent.GRID_CLICK" />
+                <RunCode code="gridEvent=null" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="dataGrid" localX="280" localY="5" />
+                <AssertEvent target="dataGrid.columnHeaderGroup" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,-1,4,FlexGlobals.topLevelApplication.dataGrid))" value=""/>			
+            </body>
+        </TestCase>
+        
+        
+         <TestCase testID="event_gridRollOver_test01" keywords="['event,gridRollOver']" description="Test mouse rollOver on dataGrid">
+            <setup>
+            	
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                
+                <RunCode code="eventType=GridEvent.GRID_ROLL_OVER" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid.grid" localX="10" localY="20" />
+                <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid.grid" localX="10" localY="30" />
+               
+                <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,1,0,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+            </body>
+        </TestCase>      
+
+        
+         <TestCase testID="event_gridRollOut_test01" keywords="['event,gridRollOut']" description="Test mouse rollOout on dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                
+                <RunCode code="eventType=GridEvent.GRID_ROLL_OUT" />
+                <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="{MouseEvent.MOUSE_OVER}" target="dataGrid.grid" localX="10" localY="60" />
+                <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid.grid" localX="10" localY="60" />
+                <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid.grid" localX="40" localY="80" />
+                <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" target="dataGrid.grid" localX="40" localY="100" />
+                <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
+		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,2,1,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+            </body>
+        </TestCase> 
+ 
+       
+          <TestCase testID="event_gridMouseDown_test01" keywords="['event,gridMouseDown']" description="Test mouse down on dataGrid">
+             <setup>
+             
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                  <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                 <RunCode code="eventType=GridEvent.GRID_MOUSE_DOWN" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="{MouseEvent.MOUSE_DOWN}" target="dataGrid.grid" localX="10" localY="45" />
+              
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
+ 		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,1,0,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+             </body>
+        </TestCase> 
+        
+          <TestCase testID="event_gridMouseUp_test01" keywords="['event,gridMouseUp']" description="Test mouse up on dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                 <RunCode code="eventType=GridEvent.GRID_MOUSE_DOWN" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="{MouseEvent.MOUSE_DOWN}" target="dataGrid.grid" localX="10" localY="20" />
+              	 <DispatchMouseEvent type="{MouseEvent.MOUSE_DOWN}" target="dataGrid.grid" localX="35" localY="20" />
+              
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
+ 		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,0,1,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+             </body>
+        </TestCase> 
+        
+          <TestCase testID="event_gridMouseDrag_test01" keywords="['event,gridMouseDrag']" description="Test mouse drag on dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                 <RunCode code="eventType=GridEvent.GRID_MOUSE_DRAG" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="{MouseEvent.MOUSE_DOWN}" target="dataGrid.grid" localX="10" localY="20" />
+                 <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="dataGrid.grid" localX="10" localY="20"/>
+	         <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="dataGrid.grid" localX="10" localY="30"/>
+              	 
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
+ 		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,1,0,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+             </body>
+        </TestCase>
+       
+         
+          <TestCase testID="event_gridMouseDrag_test02" keywords="['event,gridMouseDrag']" description="Test mouse drag on dataGrid to outside of dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                 <RunCode code="eventType=GridEvent.GRID_MOUSE_DRAG" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,mouseGeneralHandler)" />
+             </setup>
+             <body>
+                 <DispatchMouseEvent type="{MouseEvent.MOUSE_DOWN}" target="dataGrid.grid" localX="10" localY="20" />
+                 <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="dataGrid.grid" localX="10" localY="20"/>
+	         <DispatchMouseEvent type="{MouseEvent.MOUSE_MOVE}" buttonDown="true" target="label1" localX="10" localY="30"/>
+              	 <!-- drag outside of dataGrid -->
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridEvent" />
+ 		<AssertMethodValue method="value=verifyGridEvent(createExpectedGridEvent(eventType,-1,0,FlexGlobals.topLevelApplication.dataGrid))" value=""/>		
+             </body>
+        </TestCase>
+        
+      
+
+          <TestCase testID="event_caretChange_test01" keywords="['event,caretChange']" description="Test caretChange on dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>  
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" />
+                 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="50" />
+                
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridCaretEvent" />
+ 		<AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,1,-1))" value=""/>		
+             </body>
+        </TestCase>
+        
+          <TestCase testID="event_caretChange_test02" keywords="['event,caretChange']" description="Test caretChange on dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	   
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" />
+                 <DispatchMouseClickEvent target="dataGrid.grid" localX="200" localY="150" />
+                
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridCaretEvent" />
+ 		<AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,5,-1))" value=""/>		
+             </body>
+        </TestCase>
+ 
+          <TestCase testID="event_caretChange_test03" keywords="['event,caretChange']" description="Test caretChange outside of dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	   
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+                 <RunCode code="gridCaretEvt=null" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="" stageX="10" stageY="10" />
+                 <AssertMethodValue method="value=(gridCaretEvt==null)" value="true"/>				
+             </body>
+        </TestCase>
+          <TestCase testID="event_caretChange_test04" keywords="['event,caretChange']" description="Test caretChange on dataGrid">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" />
+                 <DispatchMouseClickEvent target="dataGrid.grid" localX="200" localY="150" />
+                
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridCaretEvent" />
+ 		<AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,5,-1))" value=""/>		
+             </body>
+        </TestCase>
+
+          <TestCase testID="event_caretChange_test05" keywords="['event,caretChange']" description="Test caretChange on dataGrid, selectionMode=multiple_cells">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" />
+                 <DispatchMouseClickEvent target="dataGrid.grid" localX="200" localY="150" />
+                
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" eventClass="spark.events::GridCaretEvent" />
+ 		<AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,5,3))" value=""/>		
+             </body>
+        </TestCase>
+
+          <TestCase testID="event_caretChange_test06" keywords="['event,caretChange']" description="Test caretChange on dataGrid, selectionMode=multiple_cells">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="gridCaretEvt=null"/>
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" />
+             	 <!-- default caret is at 0,0 , same column-->
+             	 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             	 <RunCode code="gridCaretEvt=null"/>
+ 		 <DispatchMouseClickEvent target="dataGrid.grid" localX="115" localY="10" />
+                 <AssertEvent target="dataGrid.grid" eventName="{eventType}" numExpectedEvents="-1" eventClass="spark.events::GridCaretEvent" />
+                 <Pause timeout="100"/>
+ 		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,0,2))" value=""/>
+ 		 <!-- same row -->
+ 		 <RunCode code="gridCaretEvt=null"/>
+ 		 <DispatchMouseClickEvent target="dataGrid.grid" localX="315" localY="20" />
+		 <AssertEvent target="dataGrid.grid" eventName="{eventType}" numExpectedEvents="-1" eventClass="spark.events::GridCaretEvent" />
+		  <Pause timeout="100"/>
+		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,2,0,4))" value=""/>
+ 		 
+ 		 <!-- different cell, row -->
+ 		 <RunCode code="gridCaretEvt=null"/>
+ 		 <Pause timeout="100"/>
+ 		 <DispatchMouseClickEvent target="dataGrid.grid" localX="215" localY="150" waitEvent="caretChange" waitTarget="dataGrid"/>
+ 		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,4,5,3))" value=""/>
+ 		
+                
+             </body>
+        </TestCase>
+<!-- add key navigation tests for caretChangeEvents -->
+          <TestCase testID="event_caretChange_test07" keywords="['event,caretChange']" description="Test caretChange on dataGrid, selectionMode=multiple_cells">
+             <setup>
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="gridCaretEvt=null"/>
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="10" localY="10" />
+ 		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+		 <RunCode code="gridCaretEvt=null"/>
+ 		 <DispatchKeyEvent key="RIGHT" waitEvent="caretChange" waitTarget="dataGrid" />
+        	 <WaitForEffectsToEnd />
+		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,0,1))" value=""/>
+ 		 <DispatchKeyEvent key="DOWN"  waitEvent="caretChange" waitTarget="dataGrid" />
+		 <WaitForEffectsToEnd />
+		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,1,1,1))" value=""/>
+		 <DispatchKeyEvent key="LEFT"  waitEvent="caretChange" waitTarget="dataGrid" />
+		 <WaitForEffectsToEnd />
+		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,1,1,1,0))" value=""/>
+		 <DispatchKeyEvent key="UP"  waitEvent="caretChange" waitTarget="dataGrid" />
+		 <WaitForEffectsToEnd />
+		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,1,0,0,0))" value=""/>
+             </body>
+        </TestCase>
+
+        
+        
+
+          <TestCase testID="event_caretChange_test08" keywords="['event,caretChange']" description="Test caretChange on dataGrid, selectionMode=multiple_cells">
+             <setup>
+             	
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+                 <RunCode code="eventType=GridCaretEvent.CARET_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,caretChangeHandler)" />
+             </setup>
+             <body>
+             	 <!-- by default caret is at 0,0 -->
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="35" localY="210" />
+ 		 <AssertEvent target="dataGrid.grid" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridCaretEvent" />
+ 		 <AssertMethodValue method="value=verifyGridCaretEvent(createExpectedGridCaretEvent(eventType,0,0,7,1))" value=""/>
+             </body>
+        </TestCase>
+
+          <TestCase testID="event_SC_selectionChange_test01" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=SINGLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="36" localY="210" waitEvent="selectionChange" waitTarget="dataGrid"/>
+             	
+ 		 <AssertEvent target="dataGrid" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridSelectionEvent" />
+ 		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCell',7,1,1,1))" value=""/>
+             </body>
+        </TestCase>
+        
+
+          <TestCase testID="event_SC_selectionChange_test02" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=SINGLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="30" localY="210" />
+           
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="230" localY="210" waitEvent="selectionChange" waitTarget="dataGrid"/>
+ 		 
+ 		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCell',7,3,1,1))" value=""/>
+             </body>
+        </TestCase>
+ 
+           <TestCase testID="event_SC_selectionChange_test03" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=SINGLE_CELL, kind=removeCell">
+              <setup>
+       
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+         
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"/>
+ 			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+              </setup>
+              <body>
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="35" localY="210" waitEvent="selectionChange" waitTarget="dataGrid"/>
+              	 <WaitForEffectsToEnd/>
+            
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="35" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+  		 <WaitForEffectsToEnd/>
+  		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeCell',7,1,1,1))" value=""/>
+              </body>
+        </TestCase>
+        
+        
+        <TestCase testID="event_MC_selectionChange_test01" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_CELL">
+              <setup>
+              	
+                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 
+                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+                  <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                  <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+              </setup>
+              <body>
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="35" localY="20" waitEvent="caretChange" waitTarget="dataGrid.grid" />
+              	 <WaitForEffectsToEnd/>
+              	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCell',0,1,1,1))" value=""/>
+              </body>
+        </TestCase>
+        
+        <TestCase testID="event_MC_selectionChange_test02" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_CELL">
+              <setup>
+              	
+                  <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                  
+                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+                  <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		   
+                  <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                  <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+              </setup>
+              <body>
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="36" localY="20"  />
+              	 <WaitForEffectsToEnd/>
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="36" localY="20"  waitEvent="caretChange"  ctrlKey="true" waitTarget="dataGrid.grid" />
+              	 <WaitForEffectsToEnd/>
+              	
+              	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeCell',0,1,1,1))" value=""/>
+              </body>
+        </TestCase>
+        
+           <TestCase testID="event_MC_selectionChange_test03" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="36" localY="20" waitEvent="caretChange" waitTarget="dataGrid.grid" />
+             	 <WaitForEffectsToEnd/>
+             	 
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="200"  localY="60" shiftKey="true" waitEvent="caretChange" waitTarget="dataGrid.grid" />
+ 		
+           	 <WaitForEffectsToEnd/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCellRegion',0,1,3,3))" value=""/>
+             </body>
+        </TestCase>
+    
+        <TestCase testID="event_MC_selectionChange_test04" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectAll cells, selectionMode=MULTIPLE_CELL">
+             <setup>
+             
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+             	 
+             	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.width=330" waitEvent="updateComplete" waitTarget="dataGrid.grid"/>
+             	 <WaitForEffectsToEnd/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+                 <!-- add waiting for enterFrame event since more layout runs after updateComplete -->
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="20" localY="20" />
+             	 <WaitForEffectsToEnd/>
+             	 
+		 <!-- scroll to the last row, cell -->
+		 <DispatchMouseEvent target="dataGrid.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.verticalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="100" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="150" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="300" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+	
+		 <DispatchMouseEvent target="dataGrid.scroller.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.horizontalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="50" localY="100" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="160" localY="150" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+		 <DispatchMouseClickEvent target="dataGrid" stageX="300"  stageY="480" shiftKey="true" />
+           	 <WaitForEffectsToEnd/>
+           	 <RunCode code="totalRowCount=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+           	 <RunCode code="totalColumnCount=FlexGlobals.topLevelApplication.dataGrid.columns.length"/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCellRegion',0,0,totalRowCount,totalColumnCount))" value=""/>
+             </body>
+        </TestCase>
+	
+	<!-- kind=addCell -->
+         <TestCase testID="event_MC_selectionChange_test05" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, kind=addCell, selectionMode=MULTIPLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="200"  localY="60" ctrlKey="true" waitEvent="caretChange" waitTarget="dataGrid.grid" />
+ 		
+           	 <WaitForEffectsToEnd/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'addCell',2,3,1,1))" value=""/>
+             </body>
+        </TestCase>
+  
+         <TestCase testID="event_MC_selectionChange_test06" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, kind=addCell, select last cell, selectionMode=MULITPLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.width=330" waitEvent="updateComplete" waitTarget="dataGrid.grid"/>
+             	 <WaitForEffectsToEnd/>	   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="200"  localY="60" ctrlKey="true" waitEvent="caretChange" waitTarget="dataGrid.grid" />
+             	 <!-- scroll to the last row, cell -->
+		 <DispatchMouseEvent target="dataGrid.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="dataGrid.scroller.verticalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="100" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="150" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="300" target="dataGrid.scroller.verticalScrollBar.track"  />
+		
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+
+		 <DispatchMouseEvent target="dataGrid.scroller.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="dataGrid.scroller.horizontalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="50" localY="100" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="150" localY="150" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+
+
+		 <DispatchMouseClickEvent target="dataGrid" stageX="290"  stageY="480" ctrlKey="true" />
+		 <WaitForEffectsToEnd/>
+		 <RunCode code="totalRowCount=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+           	 <RunCode code="totalColumnCount=FlexGlobals.topLevelApplication.dataGrid.columns.length"/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'addCell',totalRowCount-1,totalColumnCount-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+        
+
+       <TestCase testID="event_MC_selectionChange_test07" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, kind=addCell, select upper right corner cell, selectionMode=MULITPLE_CELL">
+             <setup>
+            
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.width=330" waitEvent="updateComplete" waitTarget="dataGrid.grid"/>
+             	 <WaitForEffectsToEnd/>	   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 <!-- 
+             	 <DispatchMouseEvent target="dataGrid.scroller.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.horizontalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="63" localY="100" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="164" localY="150" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+		 -->
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="305"  localY="20" ctrlKey="true" />
+		 <WaitForEffectsToEnd/>
+           	 <RunCode code="totalColumnCount=FlexGlobals.topLevelApplication.dataGrid.columns.length"/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'addCell',0,totalColumnCount-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+
+      <TestCase testID="event_MC_selectionChange_test08" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, kind=addCell, select left, lower cell, selectionMode=MULITPLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 
+             	 <DispatchMouseClickEvent target="dataGrid" localX="210"  localY="60" ctrlKey="true" waitEvent="caretChange" waitTarget="dataGrid.grid" />
+             	 <!-- scroll to the last row, cell -->
+		 <DispatchMouseEvent target="dataGrid.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.verticalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="100" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="150" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="300" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="350" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+		 <DispatchMouseClickEvent target="dataGrid" stageX="30"  stageY="480" ctrlKey="true" />
+		 <WaitForEffectsToEnd/>
+		 <RunCode code="totalRowCount=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'addCell',totalRowCount-1,0,1,1))" value=""/>
+             </body>
+        </TestCase>
+        <!-- multiple_cells, setCells event -->
+       <TestCase testID="event_MC_selectionChange_test09" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, kind=setCellRegion, select couple cells, selectionMode=MULITPLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="25"  localY="20" />
+		 <WaitForEffectsToEnd/>
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="65"  localY="120" shiftKey="true" />
+		 <WaitForEffectsToEnd/>
+           	 <RunCode code="totalColumnCount=FlexGlobals.topLevelApplication.dataGrid.columns.length"/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCellRegion',0,0,5,2))" value=""/>
+             </body>
+        </TestCase>        
+ 
+       <TestCase testID="event_MC_selectionChange_test10" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, kind=setCellRegion, set all cells,selectionMode=MULITPLE_CELL">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.width=330" waitEvent="updateComplete" waitTarget="dataGrid.grid"/>
+             	 <WaitForEffectsToEnd/>	
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="25"  localY="20" />
+		 <WaitForEffectsToEnd/>
+		 <!-- scroll to the last row, cell -->
+		 <DispatchMouseEvent target="dataGrid.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.verticalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="100" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="150" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="300" target="dataGrid.scroller.verticalScrollBar.track"  />
+
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+
+		 <DispatchMouseEvent target="dataGrid.scroller.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.horizontalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="65" localY="100" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="165" localY="150" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+
+
+		 <DispatchMouseClickEvent target="dataGrid" stageX="305"  stageY="480" shiftKey="true" />
+		 <WaitForEffectsToEnd/>
+		 <RunCode code="totalRowCount=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+           	 <RunCode code="totalColumnCount=FlexGlobals.topLevelApplication.dataGrid.columns.length"/>
+             	 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setCellRegion',0,0,totalRowCount,totalColumnCount))" value=""/>
+             </body>
+        </TestCase>
+        
+          <TestCase testID="event_SR_selectionChange_test01" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=SINGLE_ROW, kind=setRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+             	 <DispatchMouseClickEvent target="dataGrid.grid" localX="36" localY="210" waitEvent="selectionChange" waitTarget="dataGrid"/>
+             	
+ 		 <AssertEvent target="dataGrid" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridSelectionEvent" />
+ 		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setRow',7,-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+          <TestCase testID="event_SR_selectionChange_test02" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=SINGLE_ROW, kind=setRow, set last row">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 <!-- scroll to the last row, cell -->
+		 <DispatchMouseEvent target="dataGrid.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.verticalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="100" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="300" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="350" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+		 <DispatchMouseClickEvent target="dataGrid" stageX="130"  stageY="480" ctrlKey="true" />
+		 <WaitForEffectsToEnd/>
+             	 <RunCode code="totalRowCount=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+ 		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setRow',totalRowCount-1,-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+        <TestCase testID="event_SR_selectionChange_test03" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=SINGLE_ROW, kind=removeRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeRow',7,-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+        <TestCase testID="event_SR_selectionChange_test04" keywords="['event,selectionChange']" description="Test click on selected row, verify no selectionChange on dataGrid">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"/>
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" />
+		 <AssertEvent target="dataGrid" eventName="{eventType}" numExpectedEvents="1" eventClass="spark.events::GridSelectionEvent" />
+		 <RunCode code="trace('testset')"/>
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" />
+		 <AssertNoEvent  target="dataGrid" eventName="{eventType}" eventClass="spark.events::GridSelectionEvent" />
+		
+	    </body>
+        </TestCase>
+        
+        <TestCase testID="event_MR_selectionChange_test01" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=addRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'addRow',7,-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+        <TestCase testID="event_MR_selectionChange_test02" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=setRows">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setRows',0,-1,8,0))" value=""/>
+             </body>
+        </TestCase>
+
+        <TestCase testID="event_MR_selectionChange_test03" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=setRows, select all rows">
+             <setup>
+             	 
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+             	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.width=330" waitEvent="updateComplete" waitTarget="dataGrid.grid"/>
+             	 <WaitForEffectsToEnd/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <!-- scroll to the last row -->
+		 <DispatchMouseEvent target="dataGrid.scroller.verticalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.verticalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="100" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="300" target="dataGrid.scroller.verticalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.verticalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+
+		 <DispatchMouseEvent target="dataGrid.scroller.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		 <DispatchMouseEvent type="mouseDown" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="15" localY="50" target="dataGrid.scroller.horizontalScrollBar.track" />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="65" localY="100" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="165" localY="150" target="dataGrid.scroller.horizontalScrollBar.track"  />
+		 <DispatchMouseEvent type="mouseUp" target="dataGrid.scroller.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="mouseUp" />
+
+
+		 <DispatchMouseClickEvent target="dataGrid" stageX="305"  stageY="480" shiftKey="true" />
+		 <WaitForEffectsToEnd/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <RunCode code="totalRowCount=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setRows',0,-1,100,0))" value=""/>
+             </body>
+        </TestCase>
+       <TestCase testID="event_MR_selectionChange_test04" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=removeRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeRow',7,-1,1,1))" value=""/>
+             </body>
+        </TestCase>        
+ 
+       <TestCase testID="event_MR_selectionChange_test05" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=removeRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="20" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'setRows',0,-1,8,0))" value=""/>
+             </body>
+        </TestCase> 
+ 
+       <TestCase testID="event_MR_selectionChange_test06" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=removeRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="20" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="120" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeRow',4,-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+       <TestCase testID="event_MR_selectionChange_test07" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=removeRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGE" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="20" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" shiftKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="20" ctrlKey="true" waitEvent="selectionChange" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="7"/>
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeRow',0,-1,1,1))" value=""/>
+           
+             	 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="false"/>
+             	 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="7"/>
+                 </body>
+        </TestCase>
+        
+        
+       <TestCase testID="event_MR_selectionChanging_test01" keywords="['event,selectionChange']" description="Test selectionChange on dataGrid, selectionMode=MULTIPLE_ROWS, kind=removeRow">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGING" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,selectionChangeHandler)" />
+             </setup>
+             <body>
+              	 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="20" ctrlKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" shiftKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="120" ctrlKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=verifyGridSelectionEvent(createExpectedGridSelectionEvent(eventType,'removeRow',4,-1,1,1))" value=""/>
+             </body>
+        </TestCase>
+       <TestCase testID="event_veto_selectionChanging_test01" keywords="['event,selectionChange']" description="Test cancel selection change on dataGrid, selectionMode=MULTIPLE_ROWS">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGING" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,cancelSelectionChangeHandler)" />
+             </setup>
+             <body>
+              	 <!-- will not add selection -->
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="20" ctrlKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0"/>
+          	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectAll()" />
+          	 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+          	
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="210" shiftKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <!-- will not cancel/remove selection -->
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length"/>
+          	
+		 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.clearSelection()" />
+		 <!-- still be able to remove in api -->
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0"/>
+          	
+          	
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="120" shiftKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <!-- shift key not add rows -->
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="0"/>
+             </body>
+        </TestCase>
+        
+       <TestCase testID="event_veto_selectionChanging_test02" keywords="['event,selectionChange']" description="Test cancel selection change on dataGrid,verify it doesn't affect requireSelection, selection done in API">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=GridSelectionEvent.SELECTION_CHANGING" />
+                 <RunCode code="addEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,cancelSelectionChangeHandler)" />
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.requireSelection=true"/>
+		
+             </setup>
+             <body>
+             	<!-- requireSelection should select first row -->
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+             	<AssertPropertyValue target="dataGrid.grid" propertyName="caretRowIndex" value="0"/>
+              	 <!-- will not add selection -->
+		 <DispatchMouseClickEvent target="dataGrid.grid" localX="45" localY="60" ctrlKey="true" waitEvent="selectionChanging" waitTarget="dataGrid"/>
+		 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="1"/>
+		 <AssertPropertyValue target="dataGrid.grid" propertyName="caretRowIndex" value="0"/>
+		 <!-- remove first row -->
+          	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(0)" />
+          	 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(3)" value="true"/>
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedIndices.length" value="2"/>
+		 
+             </body>
+        </TestCase>
+        
+
+       <TestCase testID="event_collectionEvt_test01" keywords="['event,collectionEvent']" description="Test add collectionEvent type">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=CollectionEvent.COLLECTION_CHANGE" />
+                 <RunCode code="addCollEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,collectionEventHandler)" />
+             </setup>
+             <body>
+              	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addItem(0)"/>
+              	 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=receivedEventType" valueExpression="value=CollectionEventKind.ADD"/>
+             </body>
+        </TestCase>
+        
+       <TestCase testID="event_collectionEvt_test02" keywords="['event,collectionEvent']" description="Test remove collectionEvent type">
+             <setup>
+             	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+			   
+                 <RunCode code="eventType=CollectionEvent.COLLECTION_CHANGE" />
+                 <RunCode code="addCollEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,collectionEventHandler)" />
+             </setup>
+             <body>
+              	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(0)"/>
+              	 <WaitForEffectsToEnd/> 
+		 <AssertMethodValue method="value=receivedEventType" valueExpression="value=CollectionEventKind.REMOVE"/>
+             </body>
+        </TestCase>
+ 
+        <TestCase testID="event_collectionEvt_test03" keywords="['event,collectionEvent']" description="Test replace collectionEvent type">
+              <setup>
+              	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+ 			   
+                  <RunCode code="eventType=CollectionEvent.COLLECTION_CHANGE" />
+                  <RunCode code="addCollEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,collectionEventHandler)" />
+              </setup>
+              <body>
+               	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.setItemAt(FlexGlobals.topLevelApplication.dataGrid.createItem(1111),0)"/>
+               	 <WaitForEffectsToEnd/> 
+ 		 <AssertMethodValue method="value=receivedEventType" valueExpression="value=CollectionEventKind.REPLACE"/>
+              </body>
+        </TestCase>
+        <TestCase testID="event_collectionEvt_test04" keywords="['event,collectionEvent']" description="Test refresh collectionEvent type">
+              <setup>
+              	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+ 			   
+                  <RunCode code="eventType=CollectionEvent.COLLECTION_CHANGE" />
+                  <RunCode code="addCollEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,collectionEventHandler)" />
+              </setup>
+              <body>
+               	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.refresh()"/>
+                 <WaitForEffectsToEnd/> 
+ 		 <AssertMethodValue method="value=receivedEventType" valueExpression="value=CollectionEventKind.REFRESH"/>
+              </body>
+        </TestCase>
+        
+        <TestCase testID="event_collectionEvt_test05" keywords="['event,collectionEvent']" description="Test refresh collectionEvent type">
+              <setup>
+              	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+ 			   
+                  <RunCode code="eventType=CollectionEvent.COLLECTION_CHANGE" />
+                  <RunCode code="addCollEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,collectionEventHandler)" />
+              </setup>
+              <body>
+               	 <RunCode code="FlexGlobals.topLevelApplication.updateItems(FlexGlobals.topLevelApplication.dataGrid,0)"/>
+               	 <WaitForEffectsToEnd/> 
+ 		 <AssertMethodValue method="value=receivedEventType" valueExpression="value=CollectionEventKind.UPDATE"/>
+              </body>
+        </TestCase>
+         <TestCase testID="event_collectionEvt_test06" keywords="['event,collectionEvent']" description="Test reset collectionEvent type">
+              <setup>
+              	 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+ 			   
+                  <RunCode code="eventType=CollectionEvent.COLLECTION_CHANGE" />
+                  <RunCode code="addCollEvtListener(FlexGlobals.topLevelApplication.dataGrid,eventType,collectionEventHandler)" />
+              </setup>
+              <body>
+               	 <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeAll()"/>
+               	 <AssertMethodValue method="value=receivedEventType" valueExpression="value=CollectionEventKind.RESET"/>
+              </body>
+        </TestCase>       
+
+      	    	 <TestCase testID="event_sortChanging_clickColumnHeader" keywords="[DataGrid, event,gridSortEvent]" description="verify clicking on columnHeader, with sortChange event listener set, gridSortEvent will be triggered">
+	    	       <setup>
+	    		<ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addEventListener(GridSortEvent.SORT_CHANGING,FlexGlobals.topLevelApplication.dataGrid.sortChangingHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+                       </setup>
+	    	       <body>  
+	    	         
+	    	       	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+	    	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(2)" value="false"/>
+		
+	    	       	  <DispatchMouseClickEvent target="dataGrid.columnHeaderGroup" localX="130" localY="10" waitEvent="click" waitTarget="dataGrid"/>
+			  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(2)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.type" valueExpression="value=GridSortEvent.SORT_CHANGING"/>
+
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices.length" value="1"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[0]" value="2"/>
+	    	      </body>
+	   	</TestCase>      
+      	    	 <TestCase testID="event_sortChange_clickColumnHeader" keywords="[DataGrid, event,gridSortEvent]" description="verify clicking on columnHeader, with sortChange event listener set, gridSortEvent will be triggered">
+	    	       <setup>
+	    		<ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addEventListener(GridSortEvent.SORT_CHANGE,FlexGlobals.topLevelApplication.dataGrid.sortChangeHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+                       </setup>
+	    	       <body>  
+	    	         
+	    	       	  <RunCode code="FlexGlobals.topLevelApplication.dataGrid.setFocus()" waitEvent="focusIn" waitTarget="dataGrid"/>
+	    	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(2)" value="false"/>
+		
+	    	       	  <DispatchMouseClickEvent target="dataGrid.columnHeaderGroup" localX="130" localY="10" waitEvent="click" waitTarget="dataGrid"/>
+			  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(2)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.type" valueExpression="value=GridSortEvent.SORT_CHANGE"/>
+
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices.length" value="1"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[0]" value="2"/>
+	    	      </body>
+	   	</TestCase>  
+
+ 	    	 <TestCase testID="event_sortChanging_sortByColumns" keywords="[DataGrid, event,gridSortEvent]" description="verify sortByColumns(isInteractive=true), with sortChange event listener added, gridSortEvent will be triggered">
+	    	       <setup>
+	    		<ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addEventListener(GridSortEvent.SORT_CHANGING,FlexGlobals.topLevelApplication.dataGrid.sortChangingHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+                       </setup>
+	    	       <body>  
+	    	          
+	    	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(0)" value="false"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.sortByColumns(new &lt;int&gt;[0],true)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(0)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.type" valueExpression="value=GridSortEvent.SORT_CHANGING"/>
+
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices.length" value="1"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[0]" value="0"/>
+	    	      </body>
+	   	</TestCase>      
+      	    	 <TestCase testID="event_sortChange_sortByColumns" keywords="[DataGrid, event,gridSortEvent]" description="verify sortByColumns(isInteractive=true), with sortChange event listener added, gridSortEvent will be triggered">
+	    	       <setup>
+	    		<ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addEventListener(GridSortEvent.SORT_CHANGE,FlexGlobals.topLevelApplication.dataGrid.sortChangeHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+                       </setup>
+	    	       <body>  
+	    	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices.length" value="0"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.sortByColumns(new &lt;int&gt;[0,2,3],true)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices.length" value="3"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(0)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(2)" value="true"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(3)" value="true"/>
+		 	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.type" valueExpression="value=GridSortEvent.SORT_CHANGE"/>
+
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices.length" value="3"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[0]" value="0"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[1]" value="2"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[2]" value="3"/>
+	    	      </body>
+	   	</TestCase> 	   	
+	   	
+      	    	 <TestCase testID="event_sort_cancelled" keywords="[DataGrid, event,gridSortEvent]" description="verify gridSortEvent.preventDefault() called in sortChanging event, the sort will be cancelled">
+	    	       <setup>
+	    		<ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitTarget="dataGrid" waitEvent="updateComplete"/>
+                        <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addEventListener(GridSortEvent.SORT_CHANGING,FlexGlobals.topLevelApplication.dataGrid.cancelSortHandler)" waitEvent="enterFrame" waitTarget="stage"/>
+                       </setup>
+	    	       <body>  
+	    	       	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices.length" value="0"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.sortByColumns(new &lt;int&gt;[0,2,3],true)" value="false"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices.length" value="0"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(0)" value="false"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(2)" value="false"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.columnHeaderGroup.isSortIndicatorVisible(3)" value="false"/>
+		 	  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.type" valueExpression="value=GridSortEvent.SORT_CHANGING"/>
+
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices.length" value="3"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[0]" value="0"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[1]" value="2"/>
+			  <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.gridSortEvent.columnIndices[2]" value="3"/>
+	    	      </body>
+	   	</TestCase> 
+	   	
+	</testCases>                
+	     
+</UnitTester>

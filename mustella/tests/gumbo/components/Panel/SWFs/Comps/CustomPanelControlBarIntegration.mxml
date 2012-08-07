@@ -1,0 +1,137 @@
+<s:Group 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+    	<![CDATA[
+    		/**
+    		 *  Keeps track of btns that have been clicked
+    		 */
+    		public var clickString:String = "";
+    	    
+    	    /**
+    	     * Update the value of clickString when something is clicked
+    	     */
+    		private function handleClick(event:Event):void {
+    			var ic:String = "";
+    			
+    			if (event.target.id == null){
+    				ic = "no id";
+    			} else {
+    				ic = event.target.id;
+    			}
+    			
+    			clickString += "[" + ic + "]";	
+    		}
+    		
+    	]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+    	<fx:Array id="contentArray1">
+    		<s:Button id="btn1" click="handleClick(event)" label="1" width="30" />
+    		<s:Button id="btn2" click="handleClick(event)" label="2" width="30" />
+    		<s:Button id="btn3" click="handleClick(event)" label="3" width="30" />
+    		<s:Button id="btn4" click="handleClick(event)" label="4" width="30" />
+    	</fx:Array>
+    	
+    	<fx:Array id="contentArray2">
+    		<s:Button label="1" />
+    		<s:Button label="2" />
+    		<s:Button label="3" />
+    		<s:Button label="4" />
+    	</fx:Array>
+    	
+    	<s:VerticalLayout id="vLayout" />
+    	<s:HorizontalLayout id="hLayout" />
+    	
+    	<s:Button id="bigButton" label="Big Button" width="300" height="300" />
+    </fx:Declarations>
+      
+    <s:states>
+    	<s:State name="defaultState" />
+    	<s:State name="state1" />
+    	<s:State name="state2" />
+    	<s:State name="state3" />
+    	<s:State name="state4" />
+    </s:states>
+      
+    <s:layout>
+    	<s:HorizontalLayout />
+    </s:layout>
+    
+    <s:Group id="screen1">
+	    <s:Panel id="panel1" title="ControlBar 1">
+		    
+	    </s:Panel>
+    </s:Group>
+    
+    <s:Group id="screen2">
+       	<s:Panel id="panel2" title="ControlBar 2"
+	    		 controlBarLayout.state1="{vLayout}"
+	    		 controlBarLayout.state2="{hLayout}"
+	    		 
+	    		 controlBarVisible.state3="true"
+	    		 controlBarVisible.state4="false">
+		    <s:controlBarContent>
+		    	<s:Button label="A" width="35" />
+		    	<s:Button label="B" width="35" />
+		    	<s:Button label="C" width="35" />
+		    </s:controlBarContent>
+		   
+		    <s:Rect width="100" height="100">
+		    	<s:fill><s:SolidColor color="0xe3e3ff" /></s:fill>
+		    </s:Rect>
+	    </s:Panel>
+    </s:Group>
+    
+    <s:Group id="screen3">
+       	<s:Panel id="panel3" title="ControlBar 3">
+		    <s:controlBarContent>
+		    	<s:Button label="A" id="btnA" click="handleClick(event)" width="35" />
+		    	<s:Button label="B" id="btnB" click="handleClick(event)" width="35" />
+		    	<s:Button label="C" id="btnC" click="handleClick(event)" width="35" />
+		    </s:controlBarContent>
+		   
+		    <s:Rect width="100" height="100">
+		    	<s:fill><s:SolidColor color="0xe3e3ff" /></s:fill>
+		    </s:Rect>
+	    </s:Panel>
+    </s:Group>
+    
+    <s:Group id="screen4">
+    	<s:layout><s:VerticalLayout /></s:layout>
+    
+    	<s:Button id="btnFocusEntry" />
+    	
+       	<s:Panel id="panel4" title="ControlBar 4">
+		    <s:controlBarContent>
+		    	<s:Button label="A" width="35" />
+		    	<s:Button label="B" width="35" />
+		    	<s:Button label="C" width="35" />
+		    </s:controlBarContent>
+			<s:controlBarContent.state4>
+				<s:Button label="D" width="35" />
+				<s:Button label="E" width="35" />
+				<s:Button label="F" width="35" />
+			</s:controlBarContent.state4>
+		   
+		    <s:Button label="content" />
+	    </s:Panel>
+	    
+	    <s:Button id="btnFocusExit" />
+    </s:Group>
+    
+    <s:Group id="screen5">
+    	<s:Panel id="panel5" chromeColor="0x0000FF" backgroundColor="0x0000FF">
+			<s:controlBarContent>
+				<s:Button label="control button - expecting red" chromeColor="0xFF0000" />
+			</s:controlBarContent>
+			
+			<s:Button label="content button - expecting red" chromeColor="0xFF0000"/>
+		</s:Panel>
+    </s:Group>
+    
+    
+</s:Group>

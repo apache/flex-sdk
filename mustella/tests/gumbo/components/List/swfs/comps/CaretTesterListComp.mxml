@@ -1,0 +1,62 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayList;
+
+			public function createIdenticalItems(numItems:int):ArrayList {
+				var tempArray:Array = new Array(numItems);
+
+				for (var i:int = 0; i < numItems; i++)
+					tempArray[i] = (i);
+
+				return new ArrayList(tempArray);
+			}
+		]]>
+	</fx:Script>
+
+	<s:List id="list1" width="500" height="300"
+			dataProvider="{createIdenticalItems(100)}" >
+		<s:layout>
+			<s:VerticalLayout useVirtualLayout="true" gap="1"/>
+		</s:layout>
+		<s:itemRenderer>
+			<fx:Component>
+				<s:ItemRenderer clipAndEnableScrolling="true"
+								height="50"
+								width="100%" autoDrawBackground="false" >
+
+					<s:states>
+						<s:State name="normal" />
+						<s:State name="hovered" />
+						<s:State name="selected" />
+						<s:State name="normalAndShowsCaret" />
+						<s:State name="selectedAndShowsCaret" />
+					</s:states>
+
+					<s:Rect left="0" top="0" bottom="0" right="0">
+						<s:fill>
+							<s:SolidColor id="myFill" color="0xC3C3C3" color.hovered="0xFF0000" color.selected="0x00FF00" color.normalAndShowsCaret="0x0000FF" color.selectedAndShowsCaret="0xFFFF00"  />
+						</s:fill>
+					</s:Rect>
+
+					<fx:Script>
+						<![CDATA[
+							override public function set showsCaret(value:Boolean):void
+							{
+								super.showsCaret = value;
+							}
+						]]>
+					</fx:Script>
+
+					<s:Label text="{data} - Item Name" left="10" top="10" />
+
+
+				</s:ItemRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+
+</s:Group>
+

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp4_list.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.*;
+        import spark.layouts.*;
+
+        use namespace mx_internal;
+        
+        public var mxmlContentItem:*;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test TileLayout when it is used as a Graphic's
+layout.  Toggle states as well.
+========================================================
+-->
+
+<TestCase testID="integration_list_test1a" keywords="[TileLayout,List]" description="Change columnCount and rowCount." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state1a" waitTarget="list1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test1b" keywords="[TileLayout,List]" description="Change columnCount and rowCount." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state1b" waitTarget="list1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test2a" keywords="[TileLayout,List]" description="Change columnWidth and rowHeight with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state2a" waitTarget="list2.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test2b" keywords="[TileLayout,List]" description="Change columnWidth and rowHeight with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state2b" waitTarget="list2.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test3a" keywords="[TileLayout,List]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list3.skin.scroller.skin.getElementAt(0)" />
+        <!--SetProperty target="{application}" propertyName="currentState" value="state3a" waitTarget="list3.skin.scroller.skin.getElementAt(0)" waitEvent="updateComplete" /-->
+        <SetProperty target="{application}" propertyName="currentState" value="state3a" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test3b" keywords="[TileLayout,List]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list3.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state3b" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test3c" keywords="[TileLayout,List]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list3.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state3c" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test3d" keywords="[TileLayout,List]" description="Change verticalAlign and horizontalAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list3.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state3a" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <SetProperty target="{application}" propertyName="currentState" value="state3d" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test4a" keywords="[TileLayout,List]" description="Change rowAlign and columnAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list4.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state4b" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <SetProperty target="{application}" propertyName="currentState" value="state4a" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test4b" keywords="[TileLayout,List]" description="Change rowAlign and columnAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list4.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state4b" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test4c" keywords="[TileLayout,List]" description="Change rowAlign and columnAlign with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list4.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state4c" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list4" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test5a" keywords="[TileLayout,List]" description="Change horizontalGap and verticalGap with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state5a" waitTarget="list5.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list5" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test5b" keywords="[TileLayout,List]" description="Change horizontalGap and verticalGap with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <SetProperty target="{application}" propertyName="currentState" value="state5b" waitTarget="list5.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list5" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test6a" keywords="[TileLayout,List]" description="Change orientation with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list6.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state6a" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list6" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_list_test6b" keywords="[TileLayout,List]" description="Change orientation with state changes." >
+    <setup>
+        <RunCode code="application.ensureState1()" waitEvent="manualResetComplete" />
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.list6.skin.scroller.skin.getElementAt(0)" />
+        <SetProperty target="{application}" propertyName="currentState" value="state6a" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <SetProperty target="{application}" propertyName="currentState" value="state6b" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="list6" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

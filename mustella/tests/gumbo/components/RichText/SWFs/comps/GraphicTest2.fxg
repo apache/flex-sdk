@@ -1,0 +1,5 @@
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" >
+	<RichText color="#000000"  kerning="on" lineHeight="120%" whiteSpaceCollapse="preserve">
+		<content><p><span fontFamily="ArnoEmbedded">Text </span><span fontFamily="ArnoEmbedded" color="#ffd819">with </span><span fontFamily="ArnoEmbedded" fontWeight="bold">some </span><span fontFamily="ArnoEmbedded" fontStyle="italic">formatting </span><span fontFamily="ArnoEmbedded">in it</span></p></content>
+	</RichText>
+</Graphic>

@@ -1,0 +1,40 @@
+<UnitTester testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="DfrdInst_CustomIC_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+       
+    <testCases>
+                                 
+		<TestCase testID="DfrdInst_CustomIC_1" keywords="[Deferred, Instantiation, FxContainer]" description="Test" >
+            <setup>
+                <ResetComponent target="myCustIC" className="comps.CustomIC5" waitEvent="updateComplete" />                                                
+            </setup>
+            <body>                 
+				<AssertPropertyValue target="myCustIC.myAuto" propertyName="numElements" value="1" /> 
+				<AssertPropertyValue target="myCustIC.myNone" propertyName="numElements" value="0" /> 				
+				<CompareBitmap target="textCount" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+		
+                <RunCode code="application.myCustIC.myNone.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myCustIC.myNone" />
+                
+                <AssertPropertyValue target="myCustIC.myNone" propertyName="numElements" value="1" />                                                                
+                <CompareBitmap target="textCount" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+            </body>
+        </TestCase>   
+
+    </testCases>
+    
+</UnitTester>  

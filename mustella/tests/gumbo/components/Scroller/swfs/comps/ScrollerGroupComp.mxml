@@ -1,0 +1,31 @@
+<s:Scroller xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+height="100" width="300" >
+
+
+    <s:Group  id="gr">
+        <s:layout><s:HorizontalLayout/></s:layout>
+        <s:Rect width="120" height="10">
+            <s:fill>
+                <mx:SolidColor color="0x0000FF" />
+            </s:fill>
+        </s:Rect>
+
+        <s:Ellipse width="140" height="60">
+            <s:fill>
+                <mx:SolidColor color="0xFFFF00" />
+            </s:fill>
+        </s:Ellipse>
+        <s:Rect width="80" height="80">
+            <s:fill>
+                <mx:SolidColor color="0xFF00FF" />
+            </s:fill>
+        </s:Rect>
+
+        <s:Ellipse width="70" height="70">
+            <s:fill>
+                <mx:SolidColor color="0xFF00" />
+            </s:fill>
+        </s:Ellipse>
+    </s:Group>
+
+ </s:Scroller>

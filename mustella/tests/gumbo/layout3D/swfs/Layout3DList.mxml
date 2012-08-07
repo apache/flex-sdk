@@ -1,0 +1,28 @@
+<s:Application backgroundColor="0xFFFFFF" height="700" width="700"
+
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="comps.*">
+    <s:layout><s:BasicLayout/></s:layout>
+    <fx:Style source="assets/myStyles.css" />
+<fx:Script>
+<![CDATA[
+    import mx.geom.TransformOffsets;
+    import mx.core.IVisualElement;
+    import spark.components.List;
+
+
+    public function getSelectedItemRenderer(list:List):IVisualElement
+    {
+        return (list.dataGroup.getElementAt(list.selectedIndex) );
+    }
+]]>
+</fx:Script>
+<mx:Canvas id="iBox">
+    <local:ListIconsComp id="icons" y="100" x="100"/>
+</mx:Canvas >
+<mx:Canvas id="bBox" y="300" x="100">
+    <local:FxListButtonsComp id="buttons" />
+</mx:Canvas>
+<mx:Canvas id="nBox" y="300" x="500">
+    <local:ListButtonsNullRenderer id="nullRend" />
+</mx:Canvas>
+</s:Application>

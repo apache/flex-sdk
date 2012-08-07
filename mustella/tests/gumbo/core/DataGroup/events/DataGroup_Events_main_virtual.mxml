@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DataGroup/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DataGroupBasic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+
+			import mx.collections.ArrayCollection;
+			import mx.events.CollectionEventKind;
+			import mx.events.CollectionEvent;
+			import flash.events.Event;
+			import spark.skins.spark.*;
+			import spark.components.Button;
+			import mx.controls.Button;
+			import spark.layouts.*;
+
+			[Bindable] public var twentyItems:ArrayCollection = new ArrayCollection([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]);
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+
+<!-- assert errors on DataGroup -->
+
+	<TestCase testID="DataGroup_method_error_addChild_virtual" keywords="[DataGroup, method, addChild]" description="assert error when calling addChild">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('addChild', application.group1)" value="DataGroup manages its own display objects, and you should not call addChild() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_error_addChildAt_virtual" keywords="[DataGroup, method, addChildAt]" description="assert error when calling addChildAt">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('addChildAt', application.group1)" value="DataGroup manages its own display objects, and you should not call addChildAt() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_error_removeChild_virtual" keywords="[DataGroup, method, removeChild]" description="assert error when calling removeChild">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('removeChild', application.group1)" value="DataGroup manages its own display objects, and you should not call removeChild() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_error_removeChildAt_virtual" keywords="[DataGroup, method, removeChildAt]" description="assert error when calling removeChildAt">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('removeChildAt', application.group1)" value="DataGroup manages its own display objects, and you should not call removeChildAt() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_error_setChildIndex_virtual" keywords="[DataGroup, method, setChildIndex]" description="assert error when calling setChildIndex">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('setChildIndex', application.group1)" value="DataGroup manages its own display objects, and you should not call setChildIndex() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_error_swapChildren_virtual" keywords="[DataGroup, method, swapChildren]" description="assert error when calling swapChildren">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('swapChildren', application.group1)" value="DataGroup manages its own display objects, and you should not call swapChildren() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_method_error_swapChildrenAt_virtual" keywords="[DataGroup, method, swapChildrenAt]" description="assert error when calling swapChildrenAt">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection()}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.assertGroupError('swapChildrenAt', application.group1)" value="DataGroup manages its own display objects, and you should not call swapChildrenAt() directly. To add, remove, or swap items, modify the dataProvider."  />
+		</body>
+	</TestCase>
+
+<!-- rendererAdd -->
+
+	<TestCase testID="DataGroup_event_rendererAdd_changingDataProvider_virtual" keywords="[DataGroup, event]" description="assert add events are thrown for each item when changing dataProviders">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([0])}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1, 2, 3])}" />
+			<AssertEvent eventName="rendererAdd" numExpectedEvents="3" eventClass="spark.events::RendererExistenceEvent" target="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererAdd_addingItems_virtual" keywords="[DataGroup, event]" description="assert add events are thrown when adding items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItem(5)" waitEvent="rendererAdd" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererAdd_addingItems_duplicates_virtual" keywords="[DataGroup, event]" description="assert add events are thrown when adding duplicate items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItem(0)" waitEvent="rendererAdd" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.addItem(1)" waitEvent="rendererAdd" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererAdd_addingItemsAt_virtual" keywords="[DataGroup, event]" description="assert add events are thrown when adding items at">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItemAt(5, 1)" waitEvent="rendererAdd" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererAdd_itemRendererFunction_virtual" keywords="[DataGroup, event]" description="assert add events are thrown when adding items with an itemRendererFunction">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItem(5)" waitEvent="rendererAdd" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererAdd_sparkComponent_virtual" keywords="[DataGroup, event]" description="assert add events are thrown when adding a spark component">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItem(new spark.components.Button())" waitEvent="rendererAdd" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererAdd_haloComponent_virtual" keywords="[DataGroup, event]" description="assert add events are thrown when adding a halo component">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItem(new mx.controls.Button())" waitEvent="rendererAdd" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+<!-- rendererRemove -->
+
+	<TestCase testID="DataGroup_event_rendererRemove_changingDataProvider_virtual" keywords="[DataGroup, event]" description="assert remove events are thrown for each item when changing dataProviders">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10,11,12])}" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([1])}" />
+			<AssertNoEvent target="group1" eventName="rendererRemove" eventClass="spark.events::RendererExistenceEvent" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererRemove_removingItems_virtual" keywords="[DataGroup, event]" description="assert remove events are thrown when removing items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererRemove_removingItems_duplicates_virtual" keywords="[DataGroup, event]" description="assert remove events are thrown when removing duplicate items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererRemove_itemRendererFunction_virtual" keywords="[DataGroup, event]" description="assert remove events are thrown when removing items with an itemRendererFunction">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([10, 11])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererRemove_sparkComponent_virtual" keywords="[DataGroup, event]" description="assert remove events are thrown when removing a spark component">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([new spark.components.Button()])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_event_rendererRemove_haloComponent_virtual" keywords="[DataGroup, event]" description="assert remove events are thrown when removing a halo component">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" value="{new ArrayCollection([new spark.components.Button()])}" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="group1" />
+		</body>
+	</TestCase>
+
+
+<!--
+
+dataProviderChanged
+
+-->
+
+	<TestCase testID="DataGroup_event_dataProviderChanged" keywords="[DataGroup, event, dataProviderChanged]" description="assert dataProviderChanged event thrown when setting dataProvider">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="dataProviderChanged" />
+		</body>
+	</TestCase>
+
+
+<!--
+
+Check that the appropriate CollectionEvent's fire on the dataProvider arrayCollection.
+
+-->
+
+    <TestCase testID="DataGroup_events_collectionKind_add_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (add)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.addItem(2);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.ADD}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_add_before_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (add before viewport)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=twentyItems;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.group1.layout.verticalScrollPosition = 50" />
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.addItemAt(20, 0);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.ADD}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_add_after_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (add after viewport)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=twentyItems;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.addItemAt(20, 5);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.ADD}" />
+		</body>
+    </TestCase>
+
+
+    <TestCase testID="DataGroup_events_collectionKind_remove_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (remove)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REMOVE}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_remove_before_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (remove before viewport)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=twentyItems;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.group1.layout.verticalScrollPosition = 50" />
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REMOVE}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_remove_after_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (remove after viewport)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=twentyItems;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(10);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REMOVE}" />
+		</body>
+    </TestCase>
+
+
+    <TestCase testID="DataGroup_events_collectionKind_replace_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (replace)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.setItemAt('new', 0);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REPLACE}" />
+		</body>
+    </TestCase>
+
+
+    <TestCase testID="DataGroup_events_collectionKind_replace_before_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (replace before viewport)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=twentyItems;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<RunCode code="application.group1.layout.verticalScrollPosition = 50" />
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.setItemAt('new', 0);" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REPLACE}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_replace_after_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (replace after viewport)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=twentyItems;" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.setItemAt('new', 10);" waitTarget="group1.dataProvider" waitEvent="collectionChange" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REPLACE}" />
+		</body>
+    </TestCase>
+
+
+    <TestCase testID="DataGroup_events_collectionKind_reset_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (reset)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.removeAll();" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.RESET}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_update_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (update)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection();" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000)" waitEvent="updateComplete" waitTarget="group1"  />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0x00FF00)" waitEvent="updateComplete" waitTarget="group1"  />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+			<RunCode code="application.group1.dataProvider.getItemAt(0).width = 30;" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.UPDATE}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_refresh_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (refresh)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+		 	<RunCode code="application.group1.dataProvider.refresh();" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REFRESH}" />
+		</body>
+    </TestCase>
+
+    <TestCase testID="DataGroup_events_collectionKind_move_virtual" keywords="[DataGroup, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (move)">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.group1.layout = new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.dataGroupItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([{value:'hello1'},{value:'jello1'},{value:'aello1'}]);" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+		 	<RunCode code="application.group1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+		 	<AssertMethodValue method="value=application.kickoffCollectionChangeMoveEvent(application.group1);" value="1" />
+	   	</setup>
+    	<body>
+			<AssertMethodValue method="value=application.collectionChangeResults" value="refreshmove" />
+		</body>
+    </TestCase>
+
+	</testCases>
+</UnitTester>

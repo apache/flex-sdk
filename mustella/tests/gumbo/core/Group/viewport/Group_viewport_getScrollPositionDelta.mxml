@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/core/Group/viewport/" testSWF="GroupBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+	  import spark.components.Group;
+	  import mx.graphics.*;
+	  import spark.core.NavigationUnit;
+	  
+	]]>
+  </fx:Script>
+  <testCases>
+ 
+<!-- 
+
+- - - - - - - - - - - - 
+These tests aren't part of the viewport spec, but rather an additional convenience method introduced: getScrollPositionDelta(index:int):Point
+
+This method returns the minimum distance it would take to bring an item into view.  If an item is already in view it should return null.
+
+getScrollPositionDelta(index:int) Testing
+- - - - - - - - - - - - - - - - - - - - -
+
+- perform tests on BasicLayout, HorizontalLayout, VerticalLayout
+
+Vectors:
+
++ items smaller than viewport
++ items larger than viewport
++ items same size as viewport
+
++ items completely inside viewport
++ items partially inside viewport
++ items outside of viewport
+
++ requires moving x and y
++ requires moving only x
++ requires moving only y
+
+Test Cases:
+
+On all Layouts:
+
++ should return null if clipAndEnableScrolling is false (default)
++ should return null if index is invalid
++ should return null if item has includeInLayout=false
++ items completely inside viewport should return null
+
++ items outside of viewport (smaller) should return minimum distance to bring it completely into view
++ items outside of viewport (larger) should return minimum distance to bring it partially in view
+	+ BasicLayout: put the item to the right, left, top, bottom, and diagonals of viewport, ensure each works
++ ensure horizontallayout only moves x position
++ ensure verticallayout only moves y position
+
+On BasicLayout
+
++ items partially inside viewport and smaller than viewport should return the minimum number of pixels to bring it completely into view
++ items partially inside viewport and greater than viewport size should try to fit as much of the item in as possible
+
++ check that a tall or wide item in view (BasicLayout) returns null
++ ensure basiclayout moves x position, y position, or both as required
+
+-->
+
+<!-- null cases -->
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_clipAndEnableScrollingFalse" keywords="[Group, viewport, getScrollPositionDelta]" description="should always return null when clipAndEnableScrolling is false">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="false"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_HorizontalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(2)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(3)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value=null" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Group_viewport_getScrollPositionDelta_invalidIndex" keywords="[Group, viewport, getScrollPositionDelta]" description="should return null on garbage indexes">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_HorizontalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(-1)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(7)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(-100)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(100)" valueExpression="value=null" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Group_viewport_getScrollPositionDelta_includeInLayout" keywords="[Group, viewport, getScrollPositionDelta]" description="should return null if includeInLayout is false">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_HorizontalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.group1.getElementAt(0).includeInLayout = false;" />
+			<RunCode code="value=application.group1.getElementAt(4).includeInLayout = false;" />			
+			<RunCode code="value=application.group1.getElementAt(6).includeInLayout = false;" />			
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value=null" />
+		</body>
+	</TestCase>		
+	
+				
+<!-- HorizontalLayout Tests -->
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_horizontal_main" keywords="[Group, viewport, getScrollPositionDelta]" description="check distances for various sized items (horizontal)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />	
+			<RunCode code="value=application.group1.layout.gap = 0;" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_HorizontalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(2)" valueExpression="value='(x=70, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(3)" valueExpression="value='(x=380, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value='(x=405, y=0)'" />	
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value='(x=605, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value='(x=855, y=0)'" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_horizontal_change_scrollPosition" keywords="[Group, viewport, getScrollPositionDelta]" description="change scroll position on horizontal">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="855" />
+			<RunCode code="value=application.group1.layout.gap = 0;" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_HorizontalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value='(x=-855, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value='(x=-805, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(2)" valueExpression="value='(x=-485, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(3)" valueExpression="value='(x=-285, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value='(x=-275, y=0)'" />	
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value='(x=-200, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value=null" />
+		</body>
+	</TestCase>	
+				
+				
+<!-- VerticalLayout Tests -->
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_vertical_main" keywords="[Group, viewport, getScrollPositionDelta]" description="check distances for various sized items (vertical)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />	
+			<RunCode code="value=application.group1.layout.gap = 0;" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_VerticalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>  
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(2)" valueExpression="value='(x=0, y=70)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(3)" valueExpression="value='(x=0, y=380)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value='(x=0, y=405)'" />	
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value='(x=0, y=605)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value='(x=0, y=855)'" />
+		</body> 
+	</TestCase>	
+	
+	<TestCase testID="Group_viewport_getScrollPositionDelta_vertical_change_scrollPosition" keywords="[Group, viewport, getScrollPositionDelta]" description="change scroll position on vertical">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="855" />
+			<RunCode code="value=application.group1.layout.gap = 0;" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_VerticalLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value='(x=0, y=-855)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value='(x=0, y=-805)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(2)" valueExpression="value='(x=0, y=-485)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(3)" valueExpression="value='(x=0, y=-285)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value='(x=0, y=-275)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value='(x=0, y=-200)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value=null" />
+		</body>
+	</TestCase>						
+			
+			
+<!-- BasicLayout tests -->
+
+				
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_smallItems" keywords="[Group, viewport, getScrollPositionDelta]" description="small items in/partial/out of view">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition"   value="0" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value='(x=25, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(2)" valueExpression="value=null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(3)" valueExpression="value='(x=0, y=75)'" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_largeItems" keywords="[Group, viewport, getScrollPositionDelta]" description="large items partial and out of view">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition"   value="0" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value='(x=50, y=100)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value='(x=300, y=200)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value='(x=350, y=25)'" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_largeItemInView" keywords="[Group, viewport, getScrollPositionDelta]" description="large item already in view">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="75" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition"   value="125" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4)" valueExpression="value=null" />
+		</body>
+	</TestCase>						
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_viewportSizedItem" keywords="[Group, viewport, getScrollPositionDelta]" description="an item size of the viewport in view should return null">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition"   value="200" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5)" valueExpression="value=null" />
+		</body>
+	</TestCase>	
+				
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_wideItemInView" keywords="[Group, viewport, getScrollPositionDelta]" description="a wide item partially in view should return null">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="450" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition"   value="100" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(6)" valueExpression="value='(x=0, y=0)'" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_tallItemInView" keywords="[Group, viewport, getScrollPositionDelta]" description="a tall item partially in view should return null">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true"  />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition"   value="450" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(7)" valueExpression="value='(x=0, y=0)'" />
+		</body>
+	</TestCase>
+				
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_outside_edge_corner" keywords="[Group, viewport, getScrollPositionDelta]" description="an item on the edge of the viewport (corner)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="225" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="75" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value='(x=-75, y=-50)'" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_outside_edge_side" keywords="[Group, viewport, getScrollPositionDelta]" description="an item on the edge of the viewport (side)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="225" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="25" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(1)" valueExpression="value='(x=-75, y=0)'" />
+		</body>
+	</TestCase>
+
+
+<!-- Containment regression tests (SDK-18217) -->
+
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_elementContainsScrollRect" keywords="[Group, viewport, getScrollPositionDelta]" description="should return something if element contains scrolLRect in one direction">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(8)" valueExpression="value='(x=10, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(9)" valueExpression="value='(x=0, y=10)'" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Group_viewport_getScrollPositionDelta_basic_scrollRectContainsElement" keywords="[Group, viewport, getScrollPositionDelta]" description="should return nothing if scroll rect contains element in one direction">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width"  value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="200" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="value=application.setupGetScrollPositionDeltaTest_BasicLayout(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(10)" valueExpression="value='(x=0, y=0)'" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(11)" valueExpression="value='(x=0, y=0)'" />
+		</body>
+	</TestCase>
+
+
+
+
+
+				
+  </testCases>
+</UnitTester>

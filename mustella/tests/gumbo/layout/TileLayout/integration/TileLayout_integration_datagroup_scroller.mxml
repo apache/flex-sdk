@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp7_datagroup_scroller.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.*;
+        import spark.layouts.*;
+	    import mx.skins.spark.*;
+
+        use namespace mx_internal;
+        
+        public var mxmlContentItem:*;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test TileLayout when it is used as a datagroup's layout
+when the datagroup is in a scroller.
+========================================================
+-->
+
+<TestCase testID="integration_datagroup_scroller_test1a" keywords="[TileLayout,ButtonBar]" description="Change columnCount." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).requestedColumnCount = 9" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test1b" keywords="[TileLayout,ButtonBar]" description="Change rowCount." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).requestedRowCount = 9" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test2a" keywords="[TileLayout,ButtonBar]" description="Change columnWidth" >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).columnWidth = 50" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test2b" keywords="[TileLayout,ButtonBar]" description="Change rowHeight." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).rowHeight = 50" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test3a" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).columnWidth = 375" />
+        <RunCode code="TileLayout(application.group1.layout).rowHeight = 275" />
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'top'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'left'" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test3b" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).columnWidth = 375" />
+        <RunCode code="TileLayout(application.group1.layout).rowHeight = 275" />
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'middle'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'center'" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test3c" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).columnWidth = 375" />
+        <RunCode code="TileLayout(application.group1.layout).rowHeight = 275" />
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'bottom'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'right'" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test3d" keywords="[TileLayout,ButtonBar]" description="Change verticalAlign and horizontalAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).columnWidth = 375" />
+        <RunCode code="TileLayout(application.group1.layout).rowHeight = 275" />
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'justify'" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test4a" keywords="[TileLayout,ButtonBar]" description="Change rowAlign and columnAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <SetProperty target="group1" propertyName="width" value="40" />
+        <SetProperty target="group1" propertyName="height" value="40" /> 
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).verticalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).requestedRowCount = 3" />
+        <RunCode code="TileLayout(application.group1.layout).requestedColumnCount = 3" />
+        <RunCode code="TileLayout(application.group1.layout).rowAlign = 'none'" />
+        <RunCode code="TileLayout(application.group1.layout).columnAlign = 'none'" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test4b" keywords="[TileLayout,ButtonBar]" description="Change rowAlign and columnAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <SetProperty target="group1" propertyName="width" value="40" />
+        <SetProperty target="group1" propertyName="height" value="40" /> 
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).verticalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).requestedRowCount = 2" />
+        <RunCode code="TileLayout(application.group1.layout).requestedColumnCount = 2" />
+        <RunCode code="TileLayout(application.group1.layout).rowAlign = RowAlign.JUSTIFY_USING_GAP" />
+        <RunCode code="TileLayout(application.group1.layout).columnAlign = ColumnAlign.JUSTIFY_USING_GAP" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test4c" keywords="[TileLayout,ButtonBar]" description="Change rowAlign and columnAlign." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <SetProperty target="group1" propertyName="width" value="40" />
+        <SetProperty target="group1" propertyName="height" value="40" /> 
+        <RunCode code="TileLayout(application.group1.layout).verticalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalAlign = 'justify'" />
+        <RunCode code="TileLayout(application.group1.layout).horizontalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).verticalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).requestedRowCount = 2" />
+        <RunCode code="TileLayout(application.group1.layout).requestedColumnCount = 2" />
+        <RunCode code="TileLayout(application.group1.layout).rowAlign = RowAlign.JUSTIFY_USING_HEIGHT" />
+        <RunCode code="TileLayout(application.group1.layout).columnAlign = ColumnAlign.JUSTIFY_USING_WIDTH" waitTarget="scroller1.skin" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test5a" keywords="[TileLayout,ButtonBar]" description="Change horizontalGap and verticalGap." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="width" value="50" />
+        <SetProperty target="group1" propertyName="height" value="50" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).horizontalGap = 0" />
+        <RunCode code="TileLayout(application.group1.layout).verticalGap = 20" waitTarget="group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test5b" keywords="[TileLayout,ButtonBar]" description="Change horizontalGap and verticalGap." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="width" value="50" />
+        <SetProperty target="group1" propertyName="height" value="50" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="TileLayout(application.group1.layout).horizontalGap = 20" />
+        <RunCode code="TileLayout(application.group1.layout).verticalGap = 0" waitTarget="group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test6a" keywords="[TileLayout,ButtonBar]" description="Change orientation." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="width" value="50" />
+        <SetProperty target="group1" propertyName="height" value="50" />         
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.scroller1.skin.getElementAt(0)" />
+        <RunCode code="TileLayout(application.group1.layout).orientation = 'columns'" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_datagroup_scroller_test6b" keywords="[TileLayout,ButtonBar]" description="Change orientation with state changes." >
+    <setup>
+        <ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" />
+        <SetProperty target="group1" propertyName="dataProvider" valueExpression="value = application.createAC(9)" /> 
+        <SetProperty target="group1" propertyName="width" value="50" />
+        <SetProperty target="group1" propertyName="height" value="50" /> 
+        <SetProperty target="group1" propertyName="layout" valueExpression="value = new TileLayout()" waitTarget="scroller1.skin" waitEvent="updateComplete" /> 
+    </setup>
+    <body>
+        <RunCode code="mxmlContentItem = FlexGlobals.topLevelApplication.scroller1.skin.getElementAt(0)" />
+        <RunCode code="TileLayout(application.group1.layout).orientation = 'columns'" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <RunCode code="TileLayout(application.group1.layout).orientation = 'rows'" waitTarget="script:mxmlContentItem" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png"  />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

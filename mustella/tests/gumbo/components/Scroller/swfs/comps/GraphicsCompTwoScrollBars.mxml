@@ -1,0 +1,10 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:local="comps.*" >
+<s:layout><s:HorizontalLayout/></s:layout>
+    <local:GraphicsComp id="gc1" />
+    <local:GraphicsComp id="gc2" />
+    <local:GraphicsComp id="gc3" />
+    <local:GraphicsComp id="gc4" />
+    <local:GraphicsComp id="gc5" />
+    <local:GraphicsComp id="gc6" />
+ </s:Group>

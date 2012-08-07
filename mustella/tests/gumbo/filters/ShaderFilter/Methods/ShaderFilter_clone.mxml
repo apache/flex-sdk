@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/filters/ShaderFilter/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ShaderFilterApp2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import flash.display.Shader;
+        import spark.filters.ShaderFilter;
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+Clone should create a new flash.filters.ShaderFilter with the following values:
+precisionHint
+bottomExtension
+topExtension
+leftExtension
+rightExtension
+-->
+
+
+<TestCase testID="clone_test1" keywords="[ShaderFilter,clone]" description="Be sure the clone method creates a flash.filters.ShaderFilter." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sf1.clone() is flash.filters.ShaderFilter" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="clone_test2" keywords="[ShaderFilter,clone]" description="Be sure the clone method copies precisionHint." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="precisionHint" valueExpression="value = application.sf1.precisionHint == 'fast' ? 'full' : 'fast'" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sf1.clone().shader.precisionHint == application.sf1.precisionHint" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="clone_test3" keywords="[ShaderFilter,clone]" description="Be sure the clone method copies bottomExtension." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="bottomExtension" value="5" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sf1.clone().bottomExtension" value="5" />
+    </body>
+</TestCase>
+
+<TestCase testID="clone_test4" keywords="[ShaderFilter,clone]" description="Be sure the clone method copies topExtension." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="topExtension" value="6" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sf1.clone().topExtension" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="clone_test5" keywords="[ShaderFilter,clone]" description="Be sure the clone method copies leftExtension." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="leftExtension" value="7" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sf1.clone().leftExtension" value="7" />
+    </body>
+</TestCase>
+
+<TestCase testID="clone_test6" keywords="[ShaderFilter,clone]" description="Be sure the clone method copies rightExtension." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="rightExtension" value="8" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.sf1.clone().rightExtension" value="8" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

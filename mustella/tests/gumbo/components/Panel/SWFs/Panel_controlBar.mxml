@@ -1,0 +1,62 @@
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="Comps.*"
+    backgroundColor="0xFFFFFF"
+    width="800" height="600">
+    
+    <fx:Script>    
+    	<![CDATA[
+    	]]>        
+    </fx:Script>
+        
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace c "Comps.*";
+	
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;	
+			fontWeight: bold;		
+			embedAsCFF: true;
+		}
+				
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVeraHalo;
+			embedAsCFF: false;
+		}
+		
+		global {
+			fontAntiAliasType: "normal";
+			fontFamily: MyVeraHalo;
+		}
+			
+		s|Panel,
+		s|Button {
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+            fontLookup: "embeddedCFF";
+		}	
+		
+		s|Panel {
+			dropShadowVisible: false;	
+		}
+	</fx:Style>
+    
+    <s:layout>
+    	<s:VerticalLayout />
+    </s:layout>
+    
+   	<local:CustomPanelControlBar id="controlBarRoot" />  
+   	<local:CustomPanelControlBarIntegration id="controlBarIntegration" />    
+                        
+</s:Application>

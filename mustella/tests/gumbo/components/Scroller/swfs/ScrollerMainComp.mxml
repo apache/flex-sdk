@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="700" width="700"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:comps="comps.*"
+    backgroundColor="0xFFFFFF" >
+    <s:layout> <s:VerticalLayout/> </s:layout>
+        <fx:Style source="assets/myStyles.css" />
+
+    <fx:Script>
+
+    <![CDATA[
+
+
+
+    import comps.*;
+    import spark.primitives.*;
+    import mx.collections.ArrayCollection;
+    import spark.components.Group;
+    import spark.skins.spark.*;
+    import mx.graphics.*;
+
+
+
+        public function addCustomRect(myGroup:Group, width:int, height:int, color:Number, xPos:int = 0, yPos:int = 0):void
+
+            {
+
+            var myRect:Rect = new Rect();
+
+            myRect.x = xPos; myRect.y = yPos;
+
+            myRect.width=width; myRect.height=height;
+
+            var myFill:SolidColor = new SolidColor();
+
+            myFill.color = color;
+
+            myRect.fill = myFill;
+
+            myGroup.addElement(myRect);
+
+        }
+
+        public function addCustomEllipseAt(myGroup:Group, i:int, width:int=40, height:int=30, color:Number=0x9966FF):void
+
+            {
+
+            var myEllipse:Ellipse = new Ellipse();
+
+            myEllipse.width=width; myEllipse.height=height;
+
+            var myFill:SolidColor = new SolidColor();
+
+            myFill.color = color;
+
+            myEllipse.fill = myFill;
+
+            myGroup.addElementAt(myEllipse, i);
+
+            }
+
+    public function changeDP():void
+
+    {
+
+        sc1.dg.dataProvider= new ArrayCollection([1,2,3]);
+
+    }
+
+    ]]>
+
+    </fx:Script>
+
+
+
+    <comps:ScrollerDataGroupComp id="sc1"  />
+    <comps:ScrollerGroupComp     id="sc2"  />
+    <comps:ScrollerVarTextComp   id="sc3"  />
+    <comps:ScrollerButtonComp    id="sc4"  />
+    <comps:ScrollBarCreationComp id="sc5"  />
+
+
+
+</s:Application>

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableContainer/properties/"   xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*"
+ testSWF="FxContainerBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import spark.layouts.*;
+        import comps.*;
+        import mx.collections.*;
+        import spark.components.supportClasses.*;
+	import spark.components.SkinnableContainer;
+        public var sc:SkinnableContainer;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+       <TestCase testID="FxDataContainer_property_default_newContainer" keywords="[SkinnableContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+
+                    <SetProperty target = "newC" propertyName="autoLayout" value="true" />
+                    <SetProperty target = "newC" propertyName="layout" valueExpression="value=new HorizontalLayout()" />
+
+                    <SetProperty target = "newC" propertyName="height" value="0" />
+                    <SetProperty target = "newC" propertyName="width" value="0" />
+
+                </setup>
+                <body>
+                    <AssertPropertyValue target = "newC" propertyName="autoLayout" value="true" />
+                    <AssertPropertyValue target = "newC" propertyName="height" value="0" />
+                    <AssertPropertyValue target = "newC" propertyName="width" value="0" />
+
+                </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_property_default_clipAndEnableScrolling" keywords="[SkinnableContainer, property, default,clipAndEnableScrolling]" description="">
+                <setup>
+                    <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                </setup>
+                <body>
+                    <AssertPropertyValue target = "fc.contentGroup" propertyName="clipAndEnableScrolling" value="false" />
+                </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_graphics" keywords="[SkinnableContainer, property,clipAndEnableScrolling]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+
+                <SetProperty target = "fc" propertyName="creationPolicy" value="auto" />
+                <SetProperty target = "fc" propertyName="width" value="30" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc,0,0x00FF00);"  />
+                <RunCode code="application.addEllipseAt(application.fc,1,0xFF0000);"  />
+                <SetProperty target = "fc" propertyName="height" value="30" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="2" />
+                <AssertMethodValue   method="value=application.fc.getElementAt(0).width" value="40" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_visible_component" keywords="[SkinnableContainer, property, visible]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+             </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup" />
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup" />
+                <RunCode code="application.fc.getElementAt(0).visible=false" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_property_graphics_elements_layout" keywords="[SkinnableContainer, property, elements, layout, bug15885]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.addRectAt(application.fc,0,0xFF0000);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty    target="fc" propertyName="layout"  valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty    target="fc" propertyName="width"  value="100" waitEvent="updateComplete" />
+                <SetProperty    target="fc" propertyName="height"  value="100" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_length_addItem" keywords="[SkinnableContainer, property, numElements]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.removeElementAt(0)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.removeElementAt(1)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="1" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_comp_layout_change" keywords="[SkinnableContainer, property, layout]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <SetProperty target="fc" propertyName="layout" valueExpression="value=new BasicLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty target="fc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_verticalScrollPosition" keywords="[SkinnableContainer, property, FxContainer_property_verticalScrollPosition]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.addRectAt(application.fc,0,0xFF0000);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.addRectAt(application.fc,1,0xFFFF00);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+
+                <SetProperty    target="fc" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty    target="fc" propertyName="height"  value="100" waitEvent="updateComplete" />
+
+                <SetProperty    target="fc" propertyName="width"  value="200" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_verticalScrollPosition_clip" keywords="[SkinnableContainer, property, FxContainer_property_verticalScrollPosition]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.addRectAt(application.fc,0,0xFF0000);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.addElement(new comps.EllipseBasic)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.addRectAt(application.fc,1,0xFFFF00);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+
+                <SetProperty    target="fc" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty    target="fc" propertyName="height"  value="100" waitEvent="updateComplete" />
+
+                <SetProperty    target="fc" propertyName="width"  value="200" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+         <TestCase testID="FxContainer_property_contentHeight_contentWidth" keywords="[SkinnableContainer, property, contentHeight]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <AssertPropertyValue target = "fc.contentGroup" propertyName="contentHeight" value="406" />
+                <AssertPropertyValue target = "fc.contentGroup" propertyName="contentWidth"  value="300" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_get_layout" keywords="[SkinnableContainer, property, layout]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <AssertMethodValue method="value=application.fc.layout" valueExpression="value=new VerticalLayout()" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_get_contentGroup" keywords="[SkinnableContainer, property, contentGroup]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <AssertPropertyValue target = "fc.contentGroup" propertyName="numElements" value="2" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_creationPolicy_auto" keywords="[SkinnableContainer, property, creationPolicy]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <AssertPropertyValue target = "fc" propertyName="creationPolicy" value="auto" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_creationPolicy_all" keywords="[SkinnableContainer, property, creationPolicy]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <SetProperty target = "fc" propertyName="creationPolicy" value="all" />
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <AssertPropertyValue target = "fc" propertyName="creationPolicy" value="all" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_creationPolicy_none" keywords="[SkinnableContainer, property, creationPolicy]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <SetProperty target = "fc" propertyName="creationPolicy" value="none" />
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <AssertPropertyValue target = "fc" propertyName="creationPolicy" value="none" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_get_numElements_remove0" keywords="[SkinnableContainer, property, numElements]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.removeElementAt(0)" waitEvent="updateComplete" waitTarget="fc"/>
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_get_numElements_remove1" keywords="[SkinnableContainer, property, numElements]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc"/>
+                <RunCode code="application.fc.addElement(new comps.ScrollerGroupComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <RunCode code="application.fc.removeElementAt(1)" waitEvent="updateComplete" waitTarget="fc"/>
+                <AssertPropertyValue target = "fc" propertyName="numElements" value="1" />
+                <AssertPropertyValue target = "fc" propertyName="autoLayout" value="true" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainer_property_autoLayout_false1" keywords="[SkinnableContainer, property, autoLayout]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <SetStyle target = "fc" styleName="chromeColor" value="#FFCC99" />
+                <SetStyle target = "fc" styleName="contentBackgroundColor" value="#CC6699" />
+                <SetProperty    target="fc" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty target = "fc" propertyName="height" value="300" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty target = "fc.getElementAt(0)" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <RunCode code="application.addRectAt(application.fc,1,0xFF0000);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty target = "fc" propertyName="autoLayout" value="false" />
+                <SetProperty target = "fc.getElementAt(0)" propertyName="height" value="100" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_property_autoLayout_false2" keywords="[SkinnableContainer, property, autoLayout]" description="">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+		<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <SetProperty target = "fc" propertyName="height" value="300" />
+                <SetStyle target = "fc" styleName="contentBackgroundColor" value="#CC6699" />
+                <SetProperty    target="fc" propertyName="layout"  valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+             </setup>
+            <body>
+                <RunCode code="application.addRectAt(application.fc,0,0xFF0000);"  waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+
+                <RunCode code="application.fc.addElement(new comps.FxListComp)" waitEvent="updateComplete" waitTarget="fc.contentGroup"/>
+                <SetProperty target = "fc" propertyName="autoLayout" value="false" />
+                <SetProperty target = "fc.getElementAt(0)" propertyName="height" value="80" waitEvent="updateComplete"/>
+                <SetProperty target = "fc.getElementAt(0)" propertyName="width" value="50" waitEvent="updateComplete"/>
+
+                <SetProperty target = "fc.getElementAt(1)" propertyName="height" value="120" waitEvent="updateComplete"/>
+                <SetProperty target = "fc.getElementAt(1)" propertyName="width" value="120" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "fc" propertyName="autoLayout" value="false" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="fc" />
+            </body>
+        </TestCase>
+       <TestCase testID="SkinnableContainer_property_ac_newContainer" keywords="[SkinnableContainer, property, clipAndEnableScrolling]" description="">
+                <setup>
+                    <RunCode code="sc=new SkinnableContainer(); sc.autoLayout=false;" />
+                    <SetProperty target = "script:sc" propertyName="height" value="10" />
+                    <SetProperty target = "script:sc" propertyName="width" value="10" />
+                </setup>
+                <body>
+
+                    <AssertPropertyValue target = "script:sc" propertyName="autoLayout" value="false" />
+                    <AssertPropertyValue target = "script:sc" propertyName="height" value="10" />
+                    <AssertPropertyValue target = "script:sc" propertyName="width" value="10" />
+
+                </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

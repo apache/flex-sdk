@@ -1,0 +1,30 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" title="{titleStr}" 
+    width="300" height="400" controlBarVisible="true">
+
+    <fx:Script>
+    	<![CDATA[
+    	[Bindable]
+    	public var titleStr:String="TitleWindow Resize Test";
+    	 
+    	]]>
+    </fx:Script>
+	<s:Group width="100%" height="100%">
+	    <s:layout>
+		    <s:BasicLayout/>
+	    </s:layout>
+	    <s:Button id="childBtn" label="child" width="80%" height="40%" />
+	    <s:Rect id="childBorder" left="0" top="0" right="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x00FF00"/>
+		</s:stroke>
+	    </s:Rect>  
+	</s:Group> 
+	<s:controlBarContent>
+	
+	    <s:Button id="button2" label="button1" width="50%"/>
+        </s:controlBarContent>
+        
+</s:TitleWindow>

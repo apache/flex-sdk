@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Button/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Flex4_Button_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.Button;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="FxButton_Style_baseColor_mxml" keywords="[FxButton, baseColor]" description="Ensure that baseColor works in mxml.">
+			<body>
+				<AssertStyleValue target="baseColor_btn" styleName="chromeColor" value="0xFFFF00"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_color_mxml" keywords="[FxButton, color]" description="Ensure that color works in mxml.">
+			<body>
+				<AssertStyleValue target="color_btn" styleName="color" value="0xFF0000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="color_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_focusColor_mxml" keywords="[FxButton, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+			    <DispatchMouseClickEvent target="outButton" localX="5" localY="5" waitEvent="click"
+			        waitTarget="outButton" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_btn" />
+			</setup>
+			<body>
+				<AssertStyleValue target="focusColor_btn" styleName="focusColor" value="0xCC0033"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="focusColor_btn_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_baseColor_as" keywords="[FxButton, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_btn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+		        <SetProperty target="baseColor_btn" propertyName="x" value="103" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			    <SetProperty target="baseColor_btn" propertyName="label" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_btn" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+				<CompareBitmap url="../styles/baselines/FxButton_Style_baseColor_mxml.png" target="baseColor_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_baseColor_mouseOver" keywords="[FxButton, baseColor]" description="Ensure that baseColor works when you mouseOver a button.">
+			<setup>
+				<ResetComponent target="baseColor_btn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+		        <SetProperty target="baseColor_btn" propertyName="x" value="103" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			    <SetProperty target="baseColor_btn" propertyName="label" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_btn" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+				<DispatchMouseClickEvent target="baseColor_btn" localX="5" localY="5" waitEvent="mouseUp"
+					waitTarget="baseColor_btn" />
+				<DispatchMouseEvent type="mouseMove" target="baseColor_btn" localX="9" localY="10" waitEvent="mouseMove"
+					waitTarget="baseColor_btn" />
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_baseColor_disabled" keywords="[FxButton, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_btn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+		        <SetProperty target="baseColor_btn" propertyName="x" value="103" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			    <SetProperty target="baseColor_btn" propertyName="label" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_btn" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+				<SetProperty target="baseColor_btn" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_btn"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_color_as" keywords="[FxButton, color]" description="Ensure that baseColor still works when a Button is disabled.">
+			<setup>
+				<ResetComponent target="color_btn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="color_btn"/>
+		        <SetProperty target="color_btn" propertyName="x" value="203" />
+			    <SetProperty target="color_btn" propertyName="label" value="color" waitEvent="updateComplete" waitTarget="color_btn"/>
+			</setup>
+			<body>
+				<SetStyle target="color_btn" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_btn"/>
+				<CompareBitmap url="../styles/baselines/FxButton_Style_color_mxml.png" target="color_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_color_disabled" keywords="[FxButton, color]" description="Ensure that color still works when a Button is disabled.">
+			<setup>
+				<ResetComponent target="color_btn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="color_btn"/>
+		        <SetProperty target="color_btn" propertyName="x" value="203" />
+			    <SetProperty target="color_btn" propertyName="label" value="color" waitEvent="updateComplete" waitTarget="color_btn"/>
+			</setup>
+			<body>
+				<SetStyle target="color_btn" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_btn"/>
+				<SetProperty target="color_btn" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="color_btn"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="color_btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxButton_Style_focusColor_as" keywords="[FxButton, focusColor]" description="Ensure that focusColor works at runtime.">
+			<setup>
+			    <ResetComponent target="focusColor_btn" className="spark.components.Button" waitEvent="updateComplete" waitTarget="focusColor_btn"/>
+		        <DispatchMouseClickEvent target="outButton" localX="5" localY="5" waitEvent="click"
+			        waitTarget="outButton" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_btn" />
+			    <SetProperty target="focusColor_btn" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="focusColor_btn"/>
+			    <SetProperty target="focusColor_btn" propertyName="label" value="focusColor" waitEvent="updateComplete" waitTarget="focusColor_btn"/>
+			</setup>
+			<body>
+				<SetStyle target="focusColor_btn" styleName="focusColor" value="0xCC0033" waitTarget="focusColor_btn" waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/FxButton_Style_focusColor_mxml.png" target="focusColor_btn_box"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

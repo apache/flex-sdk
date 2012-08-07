@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout3D/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="Layout3DBasic.mxml">
+
+
+
+
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+
+        import comps.*;
+
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="Layout3D_property_layer_rect_redTop" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1" propertyName="depth" value="1" />
+                <SetProperty target="rg.r2" propertyName="depth" value="0" />
+                <SetProperty target="rg.r3" propertyName="width" value="50" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_property_layer_rect_redTop_scale" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1" propertyName="scaleX" value="1.2" />
+                <SetProperty target="rg.r1" propertyName="scaleY" value="1.2" />
+                <SetProperty target="rg.r1" propertyName="depth" value="1" />
+
+                <SetProperty target="rg.r3" propertyName="width" value="50" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_property_layer_rect_green_scale" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r2" propertyName="scaleX" value="1.2" />
+                <SetProperty target="rg.r2" propertyName="scaleY" value="1.2" />
+                <SetProperty target="rg.r2" propertyName="depth" value="2" />
+
+                <SetProperty target="rg.r3" propertyName="width" value="50" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_property_layer_rect_greenTop" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1" propertyName="depth" value="-1" />
+                <SetProperty target="rg.r3" propertyName="depth" value="-1" />
+                <SetProperty target="rg.r3" propertyName="x" value="50" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_rect_redTop_negative" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" />
+            </setup>
+            <body>
+                <SetProperty target="rg.r2" propertyName="depth" value="-1" />
+                <SetProperty target="rg.r3" propertyName="depth" value="-1" />
+                <SetProperty target="rg.r1" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" waitEvent="updateComplete"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_rect_redTop_increaseLayer" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1" propertyName="depth" value="1" />
+                <SetProperty target="rg.r2" propertyName="x" value="50" waitEvent="updateComplete"/>
+                <SetProperty target="rg.r3" propertyName="x" value="45" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_rect_redTop_visible" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1" propertyName="depth" value="10" />
+                <SetProperty target="rg.r2" propertyName="visible" value="false" waitEvent="updateComplete"/>
+                <SetProperty target="rg.r3" propertyName="x" value="45" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_rect_greenTop_visible" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="500" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1" propertyName="depth" value="-1.0" />
+                <SetProperty target="rg.r2" propertyName="depth" value="-1.0" />
+                <SetProperty target="rg.r3" propertyName="visible" value="false" waitEvent="updateComplete"/>
+                <SetProperty target="rg.r2" propertyName="x" value="25" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_FxList_top" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="x" value="100" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="y" value="100" waitEvent="updateComplete"/>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="90" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="90" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="depth" value="1" />
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete"/>
+                <CompareBitmap maxColorVariance="30" url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_FxList_bottom" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <ResetComponent target="gr1" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="x" value="300" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="y" value="300" waitEvent="updateComplete"/>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="290" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="290" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="depth" value="-1" />
+                <SetProperty target="list1" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_graphics_PathTop" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="gr1" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="400" waitEvent="updateComplete"/>
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="y" value="400" waitEvent="updateComplete"/>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="icons" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="icons" propertyName="y" value="400" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="gr1.path1" propertyName="depth" value="1" />
+                <SetProperty target="gr1.e1" propertyName="depth" value="2" />
+                <SetProperty target="gr1.bg" propertyName="width" value="40" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="gr1" numColorVariances="6" maxColorVariance="15"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_graphics_EllipseBottom" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="gr1" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="400" waitEvent="updateComplete"/>
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="y" value="400" waitEvent="updateComplete"/>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="icons" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="icons" propertyName="y" value="400" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="gr1.bg" propertyName="depth" value="5" />
+                <SetProperty target="gr1.bg" propertyName="x" value="0" waitEvent="updateComplete"/>
+                <SetProperty target="gr1.e1" propertyName="depth" value="-1" />
+                <SetProperty target="gr1.e1" propertyName="width" value="100" waitEvent="updateComplete"/>
+                <CompareBitmap url="../properties/baselines/$testID.png" target="gr1" numColorVariances="6" maxColorVariance="15"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_property_layer_graphics_LineBottom" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="gr1" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="400" waitEvent="updateComplete"/>
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="y" value="400" waitEvent="updateComplete"/>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <SetProperty target="icons" propertyName="x" value="400" waitEvent="updateComplete"/>
+                <SetProperty target="icons" propertyName="y" value="400" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="gr1.l1" propertyName="depth" value="-5" />
+                <SetProperty target="gr1.bg" propertyName="x" value="10" waitEvent="updateComplete" />
+                <SetProperty target="gr1.l2" propertyName="depth" value="-1" />
+                <SetProperty target="gr1.l2" propertyName="xFrom" value="100" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="gr1" numColorVariances="6" maxColorVariance="15"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_property_layer_graphics_ListIcons" keywords="[Layout3D,property,depth]" description="">
+            <setup>
+                <ResetComponent target="gr1" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="icons" propertyName="depth" value="-3" />
+                <SetProperty target="icons" propertyName="x" value="0"  />
+                <SetProperty target="icons" propertyName="y" value="0"  />
+                <SetProperty target="icons" propertyName="width" value="200" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="icons" />
+                <SetProperty target="icons" propertyName="depth" value="3" />
+                <SetProperty target="icons" propertyName="width" value="210" waitEvent="updateComplete" />
+                <CompareBitmap url="../properties/baselines/Layout3D_property_layer_graphics_ListIconsTop.png" target="icons" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>
+

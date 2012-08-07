@@ -1,0 +1,26 @@
+<s:DataGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="*"
+creationComplete="createDP()" itemRendererFunction="mixItemRendererFunction" >
+<s:layout> <s:HorizontalLayout/> </s:layout>
+    <fx:Script>
+    <![CDATA[
+    import mx.collections.ArrayCollection;
+    import mx.skins.spark.*;
+
+    public function mixItemRendererFunction(item:*):IFactory
+    {
+        if (item is DisplayObject || item is GraphicElement)
+        return new ClassFactory(FxDefaultComplexItemRenderer);
+        else
+        return new ClassFactory(FxDefaultItemRenderer);
+    }
+
+        private function  createDP():void
+        {
+            this.dataProvider=new ArrayCollection([]);
+    }
+    ]]>
+    </fx:Script>
+        <local:VGroupButtonsComp id="vg" />
+        <local:HGroupButtonsComp id="hg" />
+        <local:DataGroupAbcComp  id="dg" />
+</s:DataGroup>

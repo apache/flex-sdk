@@ -1,0 +1,24 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    width="300" height="400"  toolTip="This is the TitleWindow toolTip">
+
+    <fx:Script>
+    	<![CDATA[
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+
+   	<s:VGroup layoutDirection="ltr">
+   		<mx:Button id="myButton" label="Halo Button"/>
+   		<s:Button id="mySparkButton" label="Spark Button"/>
+   	</s:VGroup>
+	<s:VGroup layoutDirection="rtl">
+		<mx:Label text="Halo Label"/>
+   		<s:Label text="Spark Label"/>
+	</s:VGroup>
+   	
+   	
+</s:TitleWindow>

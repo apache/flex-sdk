@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextArea/Properties/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:m="http://ns.adobe.com/mxml/2009"
+		xmlns="*" testSWF="TextArea_main.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			[Bindable]
+			public var simpleText:String = "Simple Text.";
+			[Bindable]
+			public var expectedText:String = "Simple Text";
+			public static function init(o:DisplayObject):void
+			{
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.TextArea;
+
+		]]>
+	</fx:Script>
+
+
+
+	<fx:Declarations>
+		<fx:XML id="someNodes">
+			<s:div>
+				<s:p>The quick brown</s:p>
+				<s:p>Fox jumps over</s:p>
+				<s:p>The lazy dog</s:p>
+			</s:div>
+		</fx:XML>
+
+		<s:TextFlow id="flow1">
+			<s:p>The quick brown</s:p>
+			<s:p>Fox jumps over</s:p>
+			<s:p>The lazy dog</s:p>
+		</s:TextFlow>
+		
+		<s:TextFlow id="tf" fontSize="15" fontFamily="Comic Sans MS">
+			<s:p fontFamily="MyriadWebPro">myriad [embedded]</s:p>
+			<s:p fontFamily="myVera">vera [embedded]</s:p>
+			<s:p fontFamily="Verdana">verdana [device]</s:p>
+			<s:p>comic sans ms [device]</s:p>
+		</s:TextFlow>
+    </fx:Declarations>
+
+
+    <fx:Script>
+        <![CDATA[
+            import spark.utils.TextFlowUtil;
+            
+            /*
+            import comps.*;
+            public var dummy:Array = [CustomTextArea1];
+            */
+            
+            
+            public var outputFlow1:String = '<TextFlow whiteSpaceCollapse="preserve" version="3.0.0" xmlns="http://ns.adobe.com/textLayout/2008">\n' + 
+											'  <div>\n'+
+											'    <p>\n'+
+											'      <span>The quick brown</span>\n'+
+											'    </p>\n'+
+											'    <p>\n'+
+											'      <span>Fox jumps over</span>\n'+
+											'    </p>\n'+
+											'    <p>\n'+
+											'      <span>The lazy dog</span>\n'+
+											'    </p>\n'+
+											'  </div>\n'+
+											'</TextFlow>';
+											
+			public var outputText1:String = 'The quick brown\n'+
+											'Fox jumps over\n'+
+											'The lazy dog';
+			[Bindable]
+			public var longText:String = "Dispatched when a display _bject is ab_ut t_ be rem_ved fr_m the display list.play _bject is ab_ut t_ be rem_ved fr_m the display listplay _bject is ab_ut t_ be rem_ved fr_m the display list";
+        ]]>
+    </fx:Script>
+
+
+	<testCases>
+
+		<!-- ******************** ******************* ******************** -->
+		<!-- ******************** TEXTAREA PROPERTIES ******************** -->
+		<!-- ******************** ******************* ******************** -->
+
+
+		<!-- ******************** defaults ******************** -->
+		
+		<TestCase testID="Spark_TextArea_Property_defaults" description="..." keywords="[TextArea, property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="heightInLines" value="10"/>
+				<AssertPropertyValue target="textArea" propertyName="widthInChars" value="15" />
+				
+				<AssertPropertyValue target="textArea" propertyName="displayAsPassword" value="false" />
+				<AssertPropertyValue target="textArea" propertyName="editable" value="true" />
+				<AssertPropertyValue target="textArea" propertyName="enableIME" value="true" />
+				<AssertPropertyValue target="textArea" propertyName="imeMode" value="{null}" />
+				<AssertPropertyValue target="textArea" propertyName="maxChars" value="0" />
+				<AssertPropertyValue target="textArea" propertyName="restrict" value="null" />
+				<AssertPropertyValue target="textArea" propertyName="selectable" value="true" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="-1" />
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="-1" />
+				<AssertPropertyValue target="textArea" propertyName="selectionHighlighting" value="whenFocused" />
+				<AssertPropertyValue target="textArea" propertyName="text" value="" />
+			</body>
+		</TestCase>
+		
+
+		<!-- heightInLines -->
+		<TestCase testID="Spark_TextArea_heightInLines1" description="Set the heightInLines property" keywords="[TextArea, heightInLines, property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TexArea" waitEvent="enterFrame" />
+				<SetProperty target="textArea" propertyName="text" value="1234567890" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="heightInLines" value="4" waitEvent="resize" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="heightInLines" value="4" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<!-- https://bugs.adobe.com/jira/browse/SDK-19807 Infinite loop with scroller and FxTextArea if heightInLines is 1 or 2 -->
+		<TestCase testID="Spark_TextArea_heightInLines_bug_SDK19807_1" description="Set the heightInLines property to 1" keywords="[TextArea, heightInLines, property, SDK-19807]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TexArea" waitEvent="enterFrame" />
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"  waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="heightInLines" value="1" waitEvent="resize" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="heightInLines" value="1" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_TextArea_heightInLines_bug_SDK19807_2" description="Set the heightInLines property to 2" keywords="[TextArea, heightInLines, property, SDK-19807]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TexArea" waitEvent="enterFrame" />
+				<SetProperty target="textArea" propertyName="heightInLines" value="2" waitEvent="resize" />
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"  waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="heightInLines" value="2" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+
+		<!-- widthInChars -->
+		<TestCase testID="Spark_TextArea_widthInChars1" description="Set the widthInChars property" keywords="[TextArea, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="enterFrame" />
+				<SetProperty target="textArea" propertyName="text" value="1234567890" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="widthInChars" value="4" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<Pause timeout="200" />
+				<AssertPropertyValue target="textArea" propertyName="widthInChars" value="4" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** content ******************** -->
+		
+		<TestCase testID="Spark_TextArea_content1" description="Set the content property to a TextFlow object" keywords="[TextArea, content, property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="content" valueExpression="value=flow1" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="textFlow" valueExpression="value=flow1"/>
+				<AssertPropertyValue target="textArea" propertyName="text" valueExpression="value=outputText1" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Spark_TextArea_content2" description="Set the content property to a markup object" keywords="[TextArea, content, property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="content" valueExpression="value=TextFlowUtil.importFromXML(someNodes)" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="text" valueExpression="value=outputText1" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Properties/baselines/$testID.png" target="textArea" />
+				<RunCode code="application.textArea.text = TextFlowUtil.export(application.textArea.textFlow).toXMLString();" waitTarget="textArea" waitEvent="updateComplete" />
+				<AssertPropertyValue target="textArea" propertyName="text" valueExpression="value=outputFlow1" />
+			</body>
+		</TestCase>
+
+	
+		<TestCase testID="TextArea_baselinePosition_preValidation" keywords="[TextArea, baselinePosition]" 
+		    description="Ensure that baselinePosition for TextArea is correct.">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea"/>
+				<SetProperty target="textArea" propertyName="width" value="188" waitEvent="updateComplete"/>
+				<SetProperty target="textArea" propertyName="height" value="188" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="baselinePosition" value="15.117188"/>
+			</body>
+		</TestCase>
+		<!-- ******************** errorString ******************** -->
+		<!-- http://bugs.adobe.com/jira/browse/SDK-21077-->
+		<TestCase testID="Spark_TextArea_errorString_property" description="checks that there is a visual indication of an error" keywords="[TextInput, errorString, property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="errorString" value="Lorem ipsum" />
+				<SetProperty target="textArea" propertyName="height" value="151"/>
+				<SetProperty target="textArea" propertyName="width" value="188" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="mouseOver" target="textArea" localX="5" localY="5" />
+				<AssertEvent target="textArea" eventName="toolTipStart" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+				<AssertEvent target="textArea" eventName="toolTipCreate" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+				<AssertEvent target="textArea" eventName="toolTipShow" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+				<AssertEvent target="textArea" eventName="toolTipShown" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+				<AssertPropertyValue target="textArea" propertyName="errorString" value="Lorem ipsum" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_default_width" keywords="[TextArea, width]" 
+				  description="Ensure that default width for TextArea is correct.">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea"/>
+				<SetProperty target="textArea" propertyName="text" value="{this.longText}" />
+				<SetProperty target="textArea" propertyName="height" value="90" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="width" value="188"/>
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_default_textFlow_mixedFonts" keywords="[TextArea, textFlow]" 
+				  description="Ensure that default width for TextArea is correct.">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea"/>
+				<SetProperty target="textArea" propertyName="height" value="250"/>
+				<SetStyle target="textArea" styleName="fontWeight" value="bold" waitTarget="textArea" waitEvent="updateComplete"/>
+				<SetStyle target="textArea" styleName="fontSize" value="20" waitTarget="textArea" waitEvent="updateComplete"/>
+				<SetStyle target="textArea" styleName="fontFamily" value="MyriadWebPro"/>
+				<SetProperty target="textArea" propertyName="textFlow" value="{tf}" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="textArea" styleName="fontFamily" value="MyriadWebPro"/>
+				<AssertPropertyValue target="textArea" propertyName="width" value="308"/>
+			</body>
+		</TestCase>
+		
+		<!-- http://bugs.adobe.com/jira/browse/SDK-20966 Spark TextArea double-deletes text when pressing the backspace or delete key -->
+		<TestCase testID="Spark_TextArea_backspace" description="Ensure that backspacing over text deletes one char at a time." keywords="[TextArea,Backspace]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea"/>
+				<SetProperty propertyName="text" target="textArea" value="{simpleText}"/>
+				<SetProperty target="textArea" propertyName="width" value="188" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<DispatchKeyEvent keys="[END]" waitTarget="textArea" />
+				<DispatchKeyEvent keys="[BACKSPACE]"  waitEvent="change" waitTarget="textArea" />
+				<AssertPropertyValue target="textArea" propertyName="text" value="{expectedText}" /> 
+				<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_short.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** prompt ******************** -->
+		
+		<TestCase testID="TextArea_prompt_basic" description="Check that the prompt shows up when there is no text in the area" keywords="[TextArea,prompt,property]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<SetProperty propertyName="width" value="250" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<RunCode code="application.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<RunCode code="application.focusColor_ta.setFocus()" waitEvent="focusOut" waitTarget="textArea"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_removed_w_text" description="Check that the prompt goes away when there is text in the Area" keywords="[TextArea,prompt,property,text]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<SetProperty propertyName="width" value="250" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<RunCode code="application.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<RunCode code="application.focusColor_ta.setFocus()" waitEvent="focusOut" waitTarget="textArea"/>
+				<SetProperty propertyName="text" value="There'd better not be a prompt here!" target="textArea" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_returned_w_empty_string" description="Check that the prompt goes away when there is an empty string in the Area" keywords="[TextArea,prompt,property,string,empty]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<SetProperty propertyName="width" value="250" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<RunCode code="application.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<RunCode code="application.focusColor_ta.setFocus()" waitEvent="focusOut" waitTarget="textArea"/>
+				<SetProperty propertyName="text" value="This had better not be showing up!" target="textArea" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="text" valueExpression="value = new String('')" target="textArea" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_passwordDisplay" description="Check that the prompt shows up as text when 'displayAsPassword' is true" keywords="[TextArea,prompt,property,displayAsPassword,password]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textArea" waitEvent="updateComplete"/>
+				<SetProperty propertyName="displayAsPassword" value="true" target="textArea" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="textArea" waitEvent="updateComplete" waitTarget="textArea"  />
+				<RunCode code="application.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<RunCode code="application.focusColor_ta.setFocus()" waitEvent="focusOut" waitTarget="textArea"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_retain_width" description="Check that adding a prompt doesn't resize the box." keywords="[TextArea,prompt,property,resize,width]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="prompt" value="I'm an extremely long prompt value, used in testing to ensure that this box will not resize." target="textArea" waitEvent="updateComplete"/>
+				<RunCode code="application.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<RunCode code="application.focusColor_ta.setFocus()" waitEvent="focusOut" waitTarget="textArea"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_retain_height" description="Check that adding a prompt doesn't resize the box when width is explicit." keywords="[TextArea,prompt,property,resize,width,height,explicit]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="50" target="textArea" waitEvent="updateComplete" waitTarget="textArea"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textArea" waitEvent="updateComplete"/>
+				<RunCode code="application.textArea.setFocus()" waitEvent="focusIn" waitTarget="textArea"/>
+				<RunCode code="application.focusColor_ta.setFocus()" waitEvent="focusOut" waitTarget="textArea"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_direction_changed_at_runtime" description="Check that the prompt's direction and layout direction can be changed at runtime." keywords="[TextArea,prompt,property,direction,layout,runtime]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textArea" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="textArea" waitEvent="updateComplete" waitTarget="textArea"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="layoutDirection" value="rtl" target="textArea.promptDisplay" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextArea_prompt_state_switch" description="Check that prompts defined with states change when the state changes." keywords="[TextArea,prompt,property,state]">
+			<setup>
+				<RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="state_ta" propertyName="prompt" value="default prompt"/>
+				<SetProperty value="state_one" propertyName="currentState" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="state_ta" propertyName="prompt" value="prompt 1"/>
+				<SetProperty value="state_two" propertyName="currentState" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="state_ta" propertyName="prompt" value="prompt 2"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

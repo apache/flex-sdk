@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	         xmlns:custom="Assets.*"
+	         width="800" height="600"
+             >
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.ArrayCollection;
+    import spark.components.Group;
+    import spark.layouts.TileLayout;
+    import Assets.*;
+
+    public var theBindingTileLayout1:BindingTileLayout1;
+    public var theBindingTileLayout2:BindingTileLayout2;
+
+    public function resetTheBindingTileLayout1():void{
+        theBindingTileLayout1 = new BindingTileLayout1();
+    }
+    
+    public function resetTheBindingTileLayout2():void{
+        theBindingTileLayout2 = new BindingTileLayout2();
+    }
+
+    /**
+    * This will add different types of items to the group.
+    * g: The Group to work with.
+    * numItems: The number of items to add.
+    * classType: We can make different kinds of Rects, etc...
+    * clean: Whether to remove all items from the Group first, defaults to false.
+    **/
+    public function addItemsToGroup(g:Group, numItems:int, clean:Boolean = false):void{
+        var i:int;
+        var j:int = 0;
+        
+        if(clean){
+            while(g.numElements > 0){
+                g.removeElementAt(0);
+            }
+        }
+
+        for(i = 0; i < numItems; ++i){
+            switch (j++){
+                case 0:
+                    g.addElement(new TestRect1());
+                    break;
+                case 1:
+                    g.addElement(new TestBitmapGraphic1());
+                    break;
+                case 2:
+                    g.addElement(new TestTextBox1());
+                    break;
+                case 3:
+                    g.addElement(new TestButton1());
+                    j = 0;
+                    break;
+            }
+        }
+    }
+
+
+    /**
+    * This will set a property for all items in a group.
+    * g: The Group to work with.
+    * prop: The property.
+    * val: The value.
+    **/
+    public function setPropsOnGroupElements(g:Group, prop:String, val:*):void{
+        var i:int;
+        var curItem:*;
+        
+        for(i = 0; i < g.numElements; ++i){
+            curItem = g.getElementAt(i);
+            curItem[prop] = val;
+        }
+    }
+
+    /**
+    * This will set a property for one item in a group.
+    * g: The Group to work with.
+    * prop: The property.
+    * val: The value.
+    * idx: The index of the item to change.
+    **/
+    public function setPropOnOneGroupElement(g:Group, prop:String, val:*, idx:int):void{
+        g.getElementAt(idx)[prop] = val;
+    }
+
+    /**
+    * This will remove items from a group.
+    * g: The Group to work with.
+    * numItems: The number of items to remove.
+    * clean: Whether to remove all items from the Group, ignoring numItems.  Defaults to false.
+    **/
+    public function removeItemsFromGroup(g:Group, numItems:int, clean:Boolean = false):void{
+        var i:int;
+        
+        if(clean){
+            while(g.numElements > 0){
+                g.removeElementAt(0);
+            }
+        }else{
+            i = 0;
+            while(i++ < numItems){
+                g.removeElementAt(0);
+            }
+        }
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		fontFamily: EmbeddedArno;
+		embedAsCFF: true;
+	}
+        
+    s|Button{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|Label{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+    
+    global{
+        kerning: "off";
+    }
+</fx:Style>
+
+<custom:Box1 id="box1" />
+<custom:Box2 id="box2" />
+<custom:BoxWithPadding id="box3" x="325" y="300" />
+</s:Application>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

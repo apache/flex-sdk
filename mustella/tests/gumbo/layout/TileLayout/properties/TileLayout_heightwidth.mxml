@@ -1,0 +1,1135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test that various things cause width/height to increase,
+or cause scrollbars to appear (data, columnCount, 
+rowCount, columnWidth, rowHeight, horizontalGap, 
+verticalGap).
+
+Note that in several tests, one item is added at a time
+instead of all at once.  This is to work around
+SDK-19208.  One test in here is left so it will fail
+due to that, and is excluded.  For the rest, I worked
+around it by doing multiple adds.
+========================================================
+-->
+
+<TestCase testID="widthheight_test1" keywords="[TileLayout]" description="Get the width/height of a group when there is one item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="26" />
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="26" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test2" keywords="[TileLayout]" description="rowCount=1, add items. width increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="26" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="154" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test3" keywords="[TileLayout]" description="rowCount=1, add many items, then delete them. width decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="154" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="26" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!-- SDK-19208 -->
+<TestCase testID="widthheight_test4a" keywords="[TileLayout]" description="rowCount=1, width is set, add items incrementally, making sure the width stays the same." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />        
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!-- This bypasses SDK-19208 by adding items incrementally w/o checking the width at each step. -->
+<TestCase testID="widthheight_test4b" keywords="[TileLayout]" description="rowCount=1, width is set, add items.  h scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test5" keywords="[TileLayout]" description="rowCount=1, width is set, add items, then delete them.  h. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test6" keywords="[TileLayout]" description="columnCount=1, add items. height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="26" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="154" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test7" keywords="[TileLayout]" description="columnCount=1, add many items, then delete them.  height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="154" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="26" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test8" keywords="[TileLayout]" description="columnCount=1, height is set, add items.  v. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test9" keywords="[TileLayout]" description="columnCount=1, height is set, add items, then delete them.  v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test10" keywords="[TileLayout]" description="add 5 items, increase columnCount.  width increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="154" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test11" keywords="[TileLayout]" description="add 5 items, increase columnCount, then decrease it.  width decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="154" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!-- Setting the columnCount three times is the messy workaround due to SDK-19208. -->
+<TestCase testID="widthheight_test12" keywords="[TileLayout]" description="add 5 items, width is set, increase columnCount.  h. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="3" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test13" keywords="[TileLayout]" description="add 5 items, width is set, increase columnCount then decrease.  h. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test14" keywords="[TileLayout]" description="add 5 items, decrease columnCount.  height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="154" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test15" keywords="[TileLayout]" description="add 5 items, decrease columnCount, then increase it.  height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="154" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test16" keywords="[TileLayout]" description="add 5 items, height is set, decrease columnCount. v. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test17" keywords="[TileLayout]" description="add 5 items, height is set, decrease columnCount then increase.  v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test18" keywords="[TileLayout]" description="add 5 items, decrease rowCount. width increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="154" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test19" keywords="[TileLayout]" description="add 5 items, decrease rowCount, then increase it. width decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="154" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="3" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test20" keywords="[TileLayout]" description="add 5 items, width is set, decrease rowCount. h. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="3" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test21" keywords="[TileLayout]" description="add 5 items, width is set, decrease rowCount then increase.  h. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test22" keywords="[TileLayout]" description="add 5 items, increase rowCount. height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="154" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test23" keywords="[TileLayout]" description="add 5 items, increase rowCount, then decrease it.   height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="154" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="26" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test24" keywords="[TileLayout]" description="add 5 items, height is set, increase rowCount.  v. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test25" keywords="[TileLayout]" description="add 5 items, height is set, increase rowCount then decrease.  v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="4" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="5" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="3" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="2" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test26" keywords="[TileLayout]" description="add 1 item, increase columnWidth. width increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="50" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test27" keywords="[TileLayout]" description="add 1 item, increase columnWidth, then decrease it. width decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="50" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="25" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test28" keywords="[TileLayout]" description="add 1 item, width is set, increase columnWidth.  h. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="80" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="81" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test29" keywords="[TileLayout]" description="add 1 item, width is set, increase columnWidth, then decrease it.   h. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="80" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="81" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="24" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test30" keywords="[TileLayout]" description="add 6 items, increase columnWidth.  height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="115" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="186" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test31" keywords="[TileLayout]" description="add 6 items, increase columnWidth, then decrease it. height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="115" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="186" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test32" keywords="[TileLayout]" description="add 6 items, height is set, increase columnWidth.  v. scroll does not appear." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="115" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="100" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test33" keywords="[TileLayout]" description="add 6 items, height is set, increase columnWidth, then decrease it.  v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="115" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="100" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="100" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="100" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test34" keywords="[TileLayout]" description="add 6 items, increase rowHeight.  width increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="108" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="186" />
+        <AssertPropertyValue target="box1.group1.getElementAt(1)" propertyName="height" value="108" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test35a" keywords="[TileLayout]" description="add 6 items, increase rowHeight, then decrease it. width decreases when only 2 rows of 3 will form." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="108" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="186" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="107" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="186" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test35b" keywords="[TileLayout]" description="add 6 items, increase rowHeight, then decrease it. width decreases when only 2 rows of 3 will form." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="108" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="186" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="89" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test36" keywords="[TileLayout]" description="add 6 items, orientation=cols, width is set, increase rowHeight. h. scroll does not appear." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="115" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test38" keywords="[TileLayout]" description="add 1 item, increase rowHeight. height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="50" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test39" keywords="[TileLayout]" description="add 1 item, increase rowHeight, then decrease it. height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="50" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="40" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test40" keywords="[TileLayout]" description="add 1 item, height is set, increase rowHeight.  v. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="100" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="widthheight_test41" keywords="[TileLayout]" description="add 1 item, height is set, increase rowHeight, then decrease it. v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="100" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="29" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="50" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test42" keywords="[TileLayout]" description="add 2 items, rowCount=1, increase horizontalGap. width increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="72" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test43" keywords="[TileLayout]" description="add 2 items, rowCount=1, increase horizontalGap, then decrease it. width decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="72" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test44" keywords="[TileLayout]" description="add 2 items, width set, rowCount=1, increase horizontalGap. h. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="30" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="31" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="60" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test45" keywords="[TileLayout]" description="add 2 items, width set, rowCount=1, increase horizontalGap, then decrease it. h. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 2)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="30" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="31" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="60" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test46" keywords="[TileLayout]" description="add 6 items, increase horizontalGap. height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test47" keywords="[TileLayout]" description="add 6 items, increase horizontalGap, then decrease it. height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="90" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test48" keywords="[TileLayout]" description="add 6 items, height set, increase horizontalGap. v. scroll does not appear." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="60" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="60" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test49" keywords="[TileLayout]" description="add 6 items, height set, increase horizontalGap, then decrease it.  v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="60" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="60" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test50a" keywords="[TileLayout]" description="add 6 items, increase verticalGap. width increases only when the gap has increased enough to have one row (compacting behavior)." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="83" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test50b" keywords="[TileLayout]" description="add 6 items, increase verticalGap. width increases only when the gap has increased enough to have one row (compacting behavior)." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="86" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="186" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test51" keywords="[TileLayout]" description="add 6 items, increase verticalGap, then decrease it. width decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="86" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="186" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="85" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="137" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<!-- SDK-19231 -->
+<TestCase testID="widthheight_test52" keywords="[TileLayout]" description="add 9 items, width set, increase verticalGap. h. scroll does not appear." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test53" keywords="[TileLayout]" description="add 9 items, width set, increase verticalGap, then decrease it. h. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="90" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="90" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test54" keywords="[TileLayout]" description="add 6 items, increase verticalGap. height increases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="72" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test55" keywords="[TileLayout]" description="add 6 items, increase verticalGap, then decrease it. height decreases." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="72" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!-- SDK-19231 -->
+<TestCase testID="widthheight_test56" keywords="[TileLayout]" description="add 6 items, height set, increase verticalGap. v. scroll appears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="58" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test57" keywords="[TileLayout]" description="add 6 items, height set, increase verticalGap, then decrease it. v. scroll disappears." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="58" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>        
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="20" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalGap" value="6" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="58" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test58" keywords="[TileLayout]" description="add 1 item, set columnWidth/rowHeight so that the item is larger than width/height. both scrollbars." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="40" />
+        <SetProperty target="box1.group1" propertyName="width" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="60" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="40" />
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="40" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test59" keywords="[TileLayout]" description="Do the above, then decrease columnWidth/rowHeight.  no scrollbars." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="40" />
+        <SetProperty target="box1.group1" propertyName="width" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="60" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="60" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="40" />
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="box1.group1" propertyName="height" value="40" />
+        <AssertPropertyValue target="box1.group1" propertyName="width" value="40" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test60" keywords="[TileLayout]" description="add 16 items, columnCount=4, width=98, height=120.  both scrollbars." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="120" />
+        <SetProperty target="box1.group1" propertyName="width" value="98" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="4" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 16)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>                
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+    </body>
+</TestCase>
+
+<TestCase testID="widthheight_test61" keywords="[TileLayout]" description="add 16 items, columnCount=4, width=98, height=120, increase width/height.   no scrollbars ." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="height" value="120" />
+        <SetProperty target="box1.group1" propertyName="width" value="98" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="4" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 16)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete"/>
+        <SetProperty target="box1.group1" propertyName="height" value="128" />
+        <SetProperty target="box1.group1" propertyName="width" value="128" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" waitTarget="box1.group1" waitEvent="updateComplete"/>
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

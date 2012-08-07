@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:DataGrid 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    requestedRowCount="10"
+    requestedColumnCount="5"    
+    dataProvider="{dp1}"
+    columns="{cols}">
+	<!-- re-insert these attributes when testing against DG that supports locked rows and columns
+	lockedRowCount.state1="2"
+	lockedColumnCount.state1="2"
+	lockedRowCount.state2="4"
+	lockedColumnCount.state3="3"
+	lockedRowCount.state3="1"
+	     re-insert these attributes when testing against DG that supports locked rows and columns -->
+        
+    <s:states>
+    	<s:State name="state1"/>
+    	<s:State name="state2"/>
+    	<s:State name="state3"/>    	
+    </s:states>
+    	
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem col0="R00C0" col1="R00C1" col2="R00C2" col3="R00C3" col4="R00C4" col5="R00C5" col6="R00C6" col7="R00C7" col8="R00C8" col9="R00C9"/>
+			<s:DataItem col0="R01C0" col1="R01C1" col2="R01C2" col3="R01C3" col4="R01C4" col5="R01C5" col6="R01C6" col7="R01C7" col8="R01C8" col9="R01C9"/>
+			<s:DataItem col0="R02C0" col1="R02C1" col2="R02C2" col3="R02C3" col4="R02C4" col5="R02C5" col6="R02C6" col7="R02C7" col8="R02C8" col9="R02C9"/>
+			<s:DataItem col0="R03C0" col1="R03C1" col2="R03C2" col3="R03C3" col4="R03C4" col5="R03C5" col6="R03C6" col7="R03C7" col8="R03C8" col9="R03C9"/>
+			<s:DataItem col0="R04C0" col1="R04C1" col2="R04C2" col3="R04C3" col4="R04C4" col5="R04C5" col6="R04C6" col7="R04C7" col8="R04C8" col9="R04C9"/>
+			<s:DataItem col0="R05C0" col1="R05C1" col2="R05C2" col3="R05C3" col4="R05C4" col5="R05C5" col6="R05C6" col7="R05C7" col8="R05C8" col9="R05C9"/>
+			<s:DataItem col0="R06C0" col1="R06C1" col2="R06C2" col3="R06C3" col4="R06C4" col5="R06C5" col6="R06C6" col7="R06C7" col8="R06C8" col9="R06C9"/>
+			<s:DataItem col0="R07C0" col1="R07C1" col2="R07C2" col3="R07C3" col4="R07C4" col5="R07C5" col6="R07C6" col7="R07C7" col8="R07C8" col9="R07C9"/>
+			<s:DataItem col0="R08C0" col1="R08C1" col2="R08C2" col3="R08C3" col4="R08C4" col5="R08C5" col6="R08C6" col7="R08C7" col8="R08C8" col9="R08C9"/>
+			<s:DataItem col0="R09C0" col1="R09C1" col2="R09C2" col3="R09C3" col4="R09C4" col5="R09C5" col6="R09C6" col7="R09C7" col8="R09C8" col9="R09C9"/>
+			<s:DataItem col0="R10C0" col1="R10C1" col2="R10C2" col3="R10C3" col4="R10C4" col5="R10C5" col6="R10C6" col7="R10C7" col8="R10C8" col9="R10C9"/>
+			<s:DataItem col0="R11C0" col1="R11C1" col2="R11C2" col3="R11C3" col4="R11C4" col5="R11C5" col6="R11C6" col7="R11C7" col8="R11C8" col9="R11C9"/>
+			<s:DataItem col0="R12C0" col1="R12C1" col2="R12C2" col3="R12C3" col4="R12C4" col5="R12C5" col6="R12C6" col7="R12C7" col8="R12C8" col9="R12C9"/>
+			<s:DataItem col0="R13C0" col1="R13C1" col2="R13C2" col3="R13C3" col4="R13C4" col5="R13C5" col6="R13C6" col7="R13C7" col8="R13C8" col9="R13C9"/>
+			<s:DataItem col0="R14C0" col1="R14C1" col2="R14C2" col3="R14C3" col4="R14C4" col5="R14C5" col6="R14C6" col7="R14C7" col8="R14C8" col9="R14C9"/>
+			<s:DataItem col0="R15C0" col1="R15C1" col2="R15C2" col3="R15C3" col4="R15C4" col5="R15C5" col6="R15C6" col7="R15C7" col8="R15C8" col9="R15C9"/>
+			<s:DataItem col0="R16C0" col1="R16C1" col2="R16C2" col3="R16C3" col4="R16C4" col5="R16C5" col6="R16C6" col7="R16C7" col8="R16C8" col9="R16C9"/>
+			<s:DataItem col0="R17C0" col1="R17C1" col2="R17C2" col3="R17C3" col4="R17C4" col5="R17C5" col6="R17C6" col7="R17C7" col8="R17C8" col9="R17C9"/>
+			<s:DataItem col0="R18C0" col1="R18C1" col2="R18C2" col3="R18C3" col4="R18C4" col5="R18C5" col6="R18C6" col7="R18C7" col8="R18C8" col9="R18C9"/>
+			<s:DataItem col0="R19C0" col1="R19C1" col2="R19C2" col3="R19C3" col4="R19C4" col5="R19C5" col6="R19C6" col7="R19C7" col8="R19C8" col9="R19C9"/>					
+		</s:ArrayCollection>
+		
+		<s:ArrayCollection id="cols">
+			<s:GridColumn id="c0" dataField="col0" headerText="Col 0"/>
+			<s:GridColumn id="c1" dataField="col1" headerText="Col 1"/>
+			<s:GridColumn id="c2" dataField="col2" headerText="Col 2"/>
+			<s:GridColumn id="c3" dataField="col3" headerText="Col 3"/>
+			<s:GridColumn id="c4" dataField="col4" headerText="Col 4"/>
+			<s:GridColumn id="c5" dataField="col5" headerText="Col 5"/>
+			<s:GridColumn id="c6" dataField="col6" headerText="Col 6"/>
+			<s:GridColumn id="c7" dataField="col7" headerText="Col 7"/>
+			<s:GridColumn id="c8" dataField="col8" headerText="Col 8"/>
+			<s:GridColumn id="c9" dataField="col9" headerText="Col 9"/>
+		</s:ArrayCollection>	
+		
+		<s:DataItem id="myDI_1" col0="NEW01" col1="R00C1" col2="R00C2" col3="R00C3" col4="R00C4" col5="R00C5" col6="R00C6" col7="R00C7" col8="R00C8" col9="R00C9"/>
+		<s:DataItem id="myDI_2" col0="NEW02" col1="R00C1" col2="R00C2" col3="R00C3" col4="R00C4" col5="R00C5" col6="R00C6" col7="R00C7" col8="R00C8" col9="R00C9"/>		
+		<s:GridColumn id="myGC_1" headerText="New Col 1" width="60"/>
+		<s:GridColumn id="myGC_2" headerText="New Col 2" width="60"/>
+	</fx:Declarations>
+
+</s:DataGrid>	

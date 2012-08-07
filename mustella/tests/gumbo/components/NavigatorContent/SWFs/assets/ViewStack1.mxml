@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx">
+
+<fx:Script>
+<![CDATA[
+
+    [Embed(source="../../../../../../Assets/Images/redrect.jpg")]
+    [Bindable]
+    public var RedSquare:Class;
+
+    [Embed(source="../../../../../../Assets/Images/greenrect.jpg")]
+    [Bindable]
+    public var GreenSquare:Class;
+
+    [Embed(source="../../../../../../Assets/Images/bluerect.jpg")]
+    [Bindable]
+    public var BlueSquare:Class;
+
+]]>
+</fx:Script>
+
+<s:ButtonBar id="bb1" dataProvider="{vs1}" />
+
+<mx:ViewStack id="vs1" width="200" height="200">
+<s:NavigatorContent backgroundColor="0xff0000" id="child1" label="nc: v" icon="{RedSquare}" width="100%" height="100%" top="0" bottom="0">
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" >
+	    <s:stroke>
+	        <s:SolidColorStroke weight="1" color="0x880000" />
+	    </s:stroke>
+	    <s:fill>
+	        <s:SolidColor alpha="1" color="0x008800" />
+	    </s:fill>
+	</s:Rect>
+	<s:Button id="sButton1" width="30" height="20"/>
+	<mx:Button id="hButton1" width="30" height="20" />
+	<s:CheckBox id="sCk1" width="30" height="20" />
+</s:NavigatorContent>
+<s:NavigatorContent backgroundColor="0x0000ff" id="child2" label="nc: h" icon="{BlueSquare}" width="100%" height="100%" top="0" bottom="0">
+	<s:layout>
+		<s:HorizontalLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" >
+	    <s:stroke>
+	        <s:SolidColorStroke weight="1" color="0x880000" />
+	    </s:stroke>
+	    <s:fill>
+	        <s:SolidColor alpha="1" color="0x008800" />
+	    </s:fill>
+	</s:Rect>
+	<s:Button id="sButton2" width="30" height="20"/>
+	<mx:Button id="hButton2" width="30" height="20" />
+	<s:CheckBox id="sCk2" width="30" height="20" />
+</s:NavigatorContent>
+<s:NavigatorContent backgroundColor="0x00ff00" id="child3" label="nc: b" icon="{GreenSquare}" width="100%" height="100%" top="0" bottom="0">
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" x="0" y="0" >
+	    <s:stroke>
+	        <s:SolidColorStroke weight="1" color="0x880000" />
+	    </s:stroke>
+	    <s:fill>
+	        <s:SolidColor alpha="1" color="0x008800" />
+	    </s:fill>
+	</s:Rect>
+	<s:Button id="sButton3" x="20" y="0" width="30" height="20"/>
+	<mx:Button id="hButton3" x="0" y="30" width="30" height="20" />
+	<s:CheckBox id="sCk3" x="80" y="30" width="30" height="20" />
+</s:NavigatorContent>
+<s:NavigatorContent backgroundColor="0xff0000" id="child4" label="nc: scroll" icon="{RedSquare}" width="100%" height="100%" top="0" bottom="0">
+	<s:Scroller width="100%" height="100%">
+		<s:Group>
+			<s:Rect width="20" height="20" x="0" y="0" >
+			    <s:stroke>
+			        <s:SolidColorStroke weight="1" color="0x880000" />
+			    </s:stroke>
+			    <s:fill>
+			        <s:SolidColor alpha="1" color="0x008800" />
+			    </s:fill>
+			</s:Rect>
+			<s:Button id="sButton4" x="300" y="0" width="30" height="20"/>
+			<mx:Button id="hButton4" x="0" y="300" width="30" height="20" />
+		</s:Group>
+	</s:Scroller>
+</s:NavigatorContent>
+<mx:HBox id="child5" backgroundColor="0x0000ff" label="hbox" icon="{BlueSquare}" width="100%" height="100%">
+	<s:Button id="sButton5" width="30" height="20"/>
+	<mx:Button id="hButton5" width="30" height="20" />
+	<s:CheckBox id="sCk5" width="30" height="20" />
+</mx:HBox>
+<mx:VBox id="child6" backgroundColor="0x00ff00" label="vbox" icon="{GreenSquare}" width="100%" height="100%">
+	<s:Button id="sButton6" width="30" height="20"/>
+	<mx:Button id="hButton6" width="30" height="20" />
+	<s:CheckBox id="sCk6" width="30" height="20" />
+</mx:VBox>
+</mx:ViewStack>
+
+</s:VGroup>

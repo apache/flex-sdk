@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Properties/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:comps="comps.*"
+		xmlns="*" testSWF="TabBarIconMain.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import comps.*;
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+		<TestCase testID="TabBar_icon_test1" keywords="[TabBar,icon]" description="Basic first/middle/last test.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test2" keywords="[TabBar,icon]" description="First is larger.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac2" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test3" keywords="[TabBar,icon]" description="Middle is larger.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac3" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test4" keywords="[TabBar,icon]" description="Last is larger.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac4" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test5" keywords="[TabBar,icon]" description="Change to larger icon at run time.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac2" waitEvent="updateComplete" />				
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test6" keywords="[TabBar,icon]" description="Make TabBar larger at run time.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<SetProperty target="comp1.bb1" propertyName="width" value="600" />
+				<SetProperty target="comp1.bb1" propertyName="height" value="100" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test7" keywords="[TabBar,icon]" description="Make TabBar smaller at run time.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<SetProperty target="comp1.bb1" propertyName="width" value="100" />
+				<SetProperty target="comp1.bb1" propertyName="height" value="40" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test8" keywords="[TabBar,icon]" description="Add a pencil at the beginning.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.comp1.ac1.addItemAt(FlexGlobals.topLevelApplication.comp1.pencilPNGObject, 0)" waitTarget="comp1.bb1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test9" keywords="[TabBar,icon]" description="Add a check in the middle.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.comp1.ac1.addItemAt(FlexGlobals.topLevelApplication.comp1.checkPNGObject, 1)" waitTarget="comp1.bb1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test10" keywords="[TabBar,icon]" description="Add a check at the end.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.comp1.ac1.addItemAt(FlexGlobals.topLevelApplication.comp1.checkPNGObject, 3)" waitTarget="comp1.bb1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test11" keywords="[TabBar,icon]" description="Remove first item (a check).">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.comp1.ac1.removeItemAt(0)" waitTarget="comp1.bb1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test12" keywords="[TabBar,icon]" description="Remove middle item (a pencil).">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.comp1.ac1.removeItemAt(1)" waitTarget="comp1.bb1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test13" keywords="[TabBar,icon]" description="Remove last item (a trash can).">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<RunCode code="FlexGlobals.topLevelApplication.comp1.ac1.removeItemAt(2)" waitTarget="comp1.bb1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test14" keywords="[TabBar,icon]" description="Set iconField to null.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<SetProperty target="comp1.bb1" propertyName="iconField" valueExpression="value = null" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test15" keywords="[TabBar,icon]" description="First item in the dataProvider doesn't have an icon.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac5" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test16" keywords="[TabBar,icon]" description="Middle item in the dataProvider doesn't have an icon.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac6" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test17" keywords="[TabBar,icon]" description="Last item in the dataProvider doesn't have an icon.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac7" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test18" keywords="[TabBar,icon]" description="First item in the dataProvider doesn't have a label.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac8" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test19" keywords="[TabBar,icon]" description="Middle item in the dataProvider doesn't have a label.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac9" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test20" keywords="[TabBar,icon]" description="Last item in the dataProvider doesn't have a label.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac10" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test21" keywords="[TabBar,icon]" description="Basic iconFunction test.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconFunction" valueExpression="value = FlexGlobals.topLevelApplication.comp1.theIconFunction" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test22" keywords="[TabBar,icon]" description="iconFunction returns null for an item.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconFunction" valueExpression="value = FlexGlobals.topLevelApplication.comp1.theIconFunction" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac5" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test23" keywords="[TabBar,icon]" description="Set iconFunction to null.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconFunction" valueExpression="value = FlexGlobals.topLevelApplication.comp1.theIconFunction" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<SetProperty target="comp1.bb1" propertyName="iconFunction" valueExpression="value = null" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test24" keywords="[TabBar,icon]" description="Try different types of files for the icon(jpg, jpg, nonworking swf).">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac11" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test25" keywords="[TabBar,icon]" description="Set iconPlacement to top.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetStyle target="comp1.bb1" styleName="iconPlacement" value="top" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test26" keywords="[TabBar,icon]" description="Set iconPlacement to right.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetStyle target="comp1.bb1" styleName="iconPlacement" value="right" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test27" keywords="[TabBar,icon]" description="Set iconPlacement to bottom.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetStyle target="comp1.bb1" styleName="iconPlacement" value="bottom" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test28" keywords="[TabBar,icon]" description="Set iconPlacement to left.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetStyle target="comp1.bb1" styleName="iconPlacement" value="left" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="TabBar_icon_test29" keywords="[TabBar,icon]" description="Set layoutDirection to rtl.">
+			<setup>
+			    <ResetComponent target="comp1" className="comps.TBIconComp1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="comp1.bb1" propertyName="iconField" value="theIcon" />
+				<SetProperty target="comp1.bb1" propertyName="labelField" value="theData" />
+				<SetStyle target="comp1.bb1" styleName="iconPlacement" value="right" />
+				<SetStyle target="comp1.bb1" styleName="layoutDirection" value="rtl" />
+				<SetProperty target="comp1.bb1" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.comp1.ac1" waitEvent="updateComplete" />
+				<CompareBitmap target="comp1.bb1" url="../Properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

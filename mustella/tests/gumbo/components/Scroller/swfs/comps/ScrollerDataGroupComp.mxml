@@ -1,0 +1,23 @@
+<s:Scroller xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" height="300" width="100">
+
+    <fx:Script>
+    <![CDATA[
+    import mx.collections.ArrayCollection;
+    import spark.skins.spark.*;
+    import spark.components.*;
+
+        private function  createDP():void
+        {
+            dg.dataProvider=new ArrayCollection(['A','B','C','D','E','F','G','H','I','J',' ','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+    }
+    private function myItemRendererFunction(item:*):IFactory
+    {
+        return new ClassFactory(DefaultItemRenderer);
+    }
+    ]]>
+    </fx:Script>
+    <s:DataGroup creationComplete="createDP()" id="dg" itemRendererFunction="myItemRendererFunction" >
+        <s:layout><s:VerticalLayout/></s:layout>
+    </s:DataGroup>
+
+ </s:Scroller>

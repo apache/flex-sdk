@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/layoutUIC/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutUIC_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+        <fx:Script>
+            <![CDATA[
+import mx.core.ILayoutElement;
+            ]]>
+        </fx:Script>
+
+    <testCases>
+
+	<!--*************************-->
+	<!-- minSize property testing-->
+	<!--*************************-->
+	
+	
+		<!--***********-->
+		<!-- One factor-->
+		<!--***********-->
+	
+	<TestCase testID="minSize_properties_measuredWidth" keywords="[minSize, properties, layoutUIC]" description="Call minSize after setting measuredWidth">
+        	<setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredWidth" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+        </TestCase>
+
+	<TestCase testID="minSize_properties_measuredWidth_5000" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth to 5000">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredWidth" value="5000"/>
+
+        	</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+	          	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>	
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredHeight" value="100"/>
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+	          	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight_5000" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight to 5000">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredHeight" value="5000"/>
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+	          	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredMinWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredMinWidth">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredMinWidth" value="100"/>
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="100" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="100" />
+	          	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredMinHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredMinHeight">
+		<setup>
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredMinHeight" value="100"/>
+
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="100" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+	          	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="100" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitWidth">
+        	<setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitWidth" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+        </TestCase>
+
+	<TestCase testID="minSize_properties_explicitHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitHeight">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitHeight" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+        </TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMinWidth">
+	        <setup> 
+          		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+          		<SetProperty target="b1" propertyName="explicitMinWidth" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="100" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="100" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinWidth_0" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMinWidth to 0">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMinWidth" value="0"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="0" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="0" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinWidth_5000" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMinWidth to 5000">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMinWidth" value="5000"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="5000" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="5000" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMinHeight">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMinHeight" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="100" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="100" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinHeight_0" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMinHeight to 0">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMinHeight" value="0"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="0" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="0" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinHeight_5000" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMinHeight to 5000">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMinHeight" value="5000"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="5000" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="5000" />
+            	</body>
+	</TestCase>
+
+	<!-- Why does setting explicitMax cause minSize to be set?-->
+	<TestCase testID="minSize_properties_explicitMaxWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMaxWidth">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMaxWidth" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitMaxHeight">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="explicitMaxHeight" value="100"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight150_measuredWidth100" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and measuredWidth">
+	        <setup> 
+           		<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+           		<SetProperty target="b1" propertyName="measuredWidth" value="100"/>
+           		<SetProperty target="b1" propertyName="measuredHeight" value="150"/>
+
+        	</setup>
+            	<body>
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+            	</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredHeight0_measuredWidth0" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and measuredWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="0"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="0"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight60_explicitMinWidth110" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and explicitMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="110"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="110" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="110" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredHeight30_explicitMinHeight0" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and explicitMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="0"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="0" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+                	<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="0" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredHeight0_explicitMinHeight30" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and explicitMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="0"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="30" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredHeight50_explicitMinHeight80" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and explicitMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="80"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="80" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight60_explicitMinHeight50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and measuredMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="50" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredWidth60_explicitMinHeight110" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth and explicitMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="110"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="110" />
+		</body>		
+	</TestCase>
+	<TestCase testID="minSize_properties_measuredWidth30_explicitMinWidth0" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth and explicitMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="0"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="0" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredWidth0_explicitMinWidth30" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth and explicitMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="30"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="0"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="30" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredWidth50_explicitMinWidth80" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth and measuredMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="80"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="80" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredWidth60_explicitMinWidth50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth and measuredMinWidtht">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitWidth40_explicitMinWidth50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitWidth and explicitMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitHeight40_explicitMinHeight50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitHeight and explicitMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="50" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitWidth40_measuredWidth30" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitWidth and measuredWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitHeight40_measuredHeight30" keywords="[minSize, properties, layoutUIC]" description="minSize after setting explicitHeight and measuredHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="30"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredMinWidth_measuredMinHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredMinWidth and measuredMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredMinWidth" value="30"/>
+			<SetProperty target="b1" propertyName="measuredMinHeight" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="30" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="40" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitMinWidth_explicitMinHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredMinWidth and measuredMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="60"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="60" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="60" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight_explicitWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after measuredHeight and explicitWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight_explicitMaxWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after measuredHeight and explicitMaxWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="60"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after measuredHeight and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredWidth_explicitHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after measuredWidth and explicitHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredWidth_explicitMaxWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after measuredWidth and explicitMaxWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="50"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredWidth_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after measuredWidth and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="5"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="5" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitHeight_explicitWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitHeight and explicitWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitHeight_explicitMinWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitHeight and explicitMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitHeight_explicitMaxWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitHeight and explicitMaxWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="30" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitHeight_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitHeight and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="10"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="10" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitMinHeight10_explicitMaxHeight20" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitHeight and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="10"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="10" />
+		</body>		
+	</TestCase>
+
+	<!--explicitWidth is taken over all other settings so getMinBoundsWidth() and getMaxBoundsWidth() = explicitWidth-->
+	<TestCase testID="minSize_properties_explicitWidth_explicitMinWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinWidth and explicitWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="20" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitWidth_explicitMinHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinHeight and explicitWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="30" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_explicitWidth_explicitMaxWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitWidth_explicitMaxWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="20" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<!--WRONG-->
+	<TestCase testID="minSize_properties_explicitWidth_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitWidth_explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="15"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="15" />
+		</body>		
+	</TestCase>
+
+	<!--WRONG-->
+	<TestCase testID="minSize_properties_explicitMinWidth15_explicitMaxWidth30" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinWidth and explicitMaxWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="15"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="15" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<!--WRONG-->
+	<TestCase testID="minSize_properties_explicitMinWidth_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinWidth and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="15"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="15" />
+		</body>		
+	</TestCase>
+
+	<!--WRONG-->
+	<TestCase testID="minSize_properties_explicitMinHeight_explicitMaxWidth" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinHeight and explicitMaxWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="15"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="15" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="30" />
+		</body>		
+	</TestCase>
+
+	
+	<TestCase testID="minSize_properties_explicitMinHeight_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinHeight and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="10"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="10" />
+		</body>		
+	</TestCase>
+
+	<!--WRONG-->
+	<TestCase testID="minSize_properties_explicitMaxWidth_explicitMaxHeight" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinHeight and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="30" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="20" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_explicitMinWidth20_explicitMaxWidth30" keywords="[minSize, properties, layoutUIC]" description="minSize after explicitMinHeight and explicitMaxHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="20"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="20" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredWidth60_explicitWidth70_explicitMinWidth50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth, explicitMinWidth and explicitWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="70"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_measuredWidth60_explicitWidth40_explicitMinWidth50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredWidth, explicitWidth and explicitMinWidth">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+			<SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+			<SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="50" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="22" />
+		</body>		
+	</TestCase>
+
+	<TestCase testID="minSize_properties_measuredHeight60_explicitHeight40_explicitMinHeight50" keywords="[minSize, properties, layoutUIC]" description="minSize after setting measuredHeight and measuredMinHeight">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+			<SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+			<SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="50" />
+		</body>		
+	</TestCase>
+	
+	<TestCase testID="minSize_properties_rotation_postTransform" keywords="[minSize, properties, layoutUIC]" description="minSize after rotating">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<SetProperty target="b1" propertyName="rotation" value="90"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth()" value="22" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight()" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsWidth(false)" value="40" />
+			<AssertMethodValue method="value=application.b1.getMinBoundsHeight(false)" value="22" />
+		</body>		
+	</TestCase>
+	
+<!-- To be written
+
+1measuredHeight_explicitWidth
+1measuredHeight_explicitMaxWidth
+1measuredHeight_explicitMaxHeight
+1measuredWidth_explicitHeight
+1measuredWidth_explicitMaxWidth
+1measuredWidth_explicitMaxHeight
+1explicitHeight_explicitWidth
+1explicitHeight_explicitMinWidth
+1explicitHeight_explicitMaxWidth
+
+1explicitHeight_explicitMaxHeight
+1explicitWidth_explicitMinWidth
+1explicitWidth_explicitMinHeight
+1explicitWidth_explicitMaxWidth
+1explicitWidth_explicitMaxHeight
+1explicitMinWidth_explicitMaxWidth
+1explicitMinWidth_explicitMaxHeight
+1explicitMinHeight_explicitMaxWidth
+1explicitMinHeight_explicitMaxHeight
+
+1expliciMaxWidth_explicitMaxHeight
+
+-->
+
+    </testCases>
+</UnitTester>    

@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_ViewStack.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+               import Assets.*;
+       	       import mx.core.FlexGlobals;
+               import spark.components.*;
+               import mx.containers.VBox;
+               import mx.controls.Alert;
+               import mx.core.*;
+               import mx.collections.IList;
+
+		public var a:int = 0;
+		public var b:int = 0;
+
+		public function resetVars():void{
+			a = 0;
+			b = 0;
+		}
+
+		public function addVB():void{
+			var myVB:VBox = new VBox
+			myVB.setStyle('backgroundColor', 0xFF0000);
+			myVB.width = 200;
+			myVB.height = 200;
+			myVB.id = 'VB'+ a;
+			myVB.label = 'VBox #' + a++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItem(myVB);
+
+		}
+		public function addNav():void{
+			var myNav:NavigatorContent = new NavigatorContent;
+			myNav.setStyle('backgroundColor', 0xCCCCCC);
+			myNav.width = 200;
+			myNav.height = 200;
+			myNav.id = 'Nav' + b;
+			myNav.label = 'Nav #' + b++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItem(myNav);
+		}
+
+		public function addVBAt(z:int):void{
+			var myVB:VBox = new VBox
+			myVB.setStyle('backgroundColor', 0xFF0000);
+			myVB.width = 200;
+			myVB.height = 200;
+			myVB.id = 'VB'+ a;
+			myVB.label = 'VBox #' + a++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItemAt(myVB, z);
+		}
+		public function addNavAt(z:int):void{
+			var myNav:NavigatorContent = new NavigatorContent;
+			myNav.setStyle('backgroundColor', 0xCCCCCC);
+			myNav.width = 200;
+			myNav.height = 200;
+			myNav.id = 'Nav' + b;
+			myNav.label = 'Nav #' + b++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItemAt(myNav, z);
+
+		}
+
+		public function createAnItem():Object{
+			var myVB:VBox = new VBox
+			myVB.setStyle('backgroundColor', 0xFF0000);
+			myVB.width = 200;
+			myVB.height = 200;
+			myVB.id = 'VB_special'
+			myVB.label = 'VB_special';
+			return myVB;
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Methods
+Verify methods of ViewStack with spark TabBar
+    * addItem
+    * addItemAt
+    * getItemAt
+    * getItemIndex
+    * itemUpdated
+    * removeAll
+    * removeItemAt
+    * setItemAt
+    * toArray
+
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="addItem_test1" keywords="[TabBar,ViewStack,addItem]" description="Test addItem on ViewStack.  Check ViewStack and TabBar" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="resetVars()"/>
+    </setup>
+    <body>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="6"/>
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(4)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(5)" propertyName="label" value="Nav #2" />
+    </body>
+</TestCase>
+
+<TestCase testID="addItemAt_test1" keywords="[TabBar,ViewStack,addItemAt]" description="Test addItemAt on ViewStack between 2 items.  Check ViewStack and TabBar" >
+    <setup>
+        <RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<RunCode code="addNavAt(1)" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3"/>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Nav #0" />
+    </body>
+</TestCase>
+
+<TestCase testID="addItemAt_test2" keywords="[TabBar,ViewStack,addItemAt]" description="Test addItemAt 0 on ViewStack.  Check ViewStack and TabBar" >
+    <setup>
+    	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<RunCode code="addVBAt(0)" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3"/>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Nav #0" />
+    </body>
+</TestCase>
+
+<TestCase testID="addItemAt_test3" keywords="[TabBar,ViewStack,addItemAt]" description="Test addItemAt at last item on ViewStack.  Check ViewStack and TabBar" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<RunCode code="addNavAt(2)" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3"/>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Nav #1" />
+    </body>
+</TestCase>
+
+
+<TestCase testID="addItemAt_test4" keywords="[TabBar,ViewStack,addItemAt]" description="Test addItemAt on index greater than length" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertMethodValue method="try{addNavAt(4)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="addItemAt_test5" keywords="[TabBar,ViewStack,addItemAt]" description="Test addItemAt on index smaller than 0" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertMethodValue method="try{addNavAt(-1)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="addItemAt_test6" keywords="[TabBar,ViewStack,addItemAt,selectedIndex]" description="Test addItemAt with selectedIndex">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="selectedIndex" value="2" waitTarget="TC.tb" waitEvent="updateComplete" />
+    	<RunCode code="addNavAt(2)" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<AssertPropertyValue target="TC.newVS" propertyName="selectedIndex" value="2" />
+
+    </body>
+</TestCase>
+
+<TestCase testID="getItemAt_test1" keywords="[TabBar,ViewStack,getItemAt]" description="Test getItemAt on first item in ViewStack.  Check ViewStack and TabBar" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.tb.dataProvider.getItemAt(0).label" value="VBox #0" />
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.getItemAt(0).label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="4"/>
+    </body>
+</TestCase>
+
+<TestCase testID="getItemAt_test2" keywords="[TabBar,ViewStack,getItemAt]" description="Test getItemAt on middle item in ViewStack.  Check ViewStack and TabBar" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.tb.dataProvider.getItemAt(1).label" value="Nav #0" />
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.getItemAt(1).label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="4"/>
+    </body>
+</TestCase>
+
+<TestCase testID="getItemAt_test3" keywords="[TabBar,ViewStack,getItemAt]" description="Test getItemAt on last item in ViewStack.  Check ViewStack and TabBar" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.tb.dataProvider.getItemAt(3).label" value="Nav #1" />
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.getItemAt(3).label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="4"/>
+    </body>
+</TestCase>
+
+<TestCase testID="getItemAt_test4" keywords="[TabBar,ViewStack,getItemAt]" description="Test getItemAt index greater than length" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.getItemAt(5)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="getItemAt_test5" keywords="[TabBar,ViewStack,getItemAt]" description="Test getItemAt index less than 0" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.getItemAt(-1)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="getItemIndex_test1" keywords="[TabBar,ViewStack,getItemIndex]" description="Test getItemIndex for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataProvider.getElementAt(1)" propertyName="id" value="halo2" />
+
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.tb.dataProvider.getItemIndex(FlexGlobals.topLevelApplication.TC.halo2)" value="1" />
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.vs1.getItemIndex(FlexGlobals.topLevelApplication.TC.halo2)" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="getItemIndex_test2" keywords="[TabBar,ViewStack,getItemIndex]" description="Test getItemIndex for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataProvider.getElementAt(0)" propertyName="id" value="spark1" />
+
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.tb.dataProvider.getItemIndex(FlexGlobals.topLevelApplication.TC.spark1)" value="0" />
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.vs2.getItemIndex(FlexGlobals.topLevelApplication.TC.spark1)" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="getItemIndex_test3" keywords="[TabBar,ViewStack,getItemIndex]" description="Test getItemIndex for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataProvider.getElementAt(2)" propertyName="id" value="sparkhalo3" />
+
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.tb.dataProvider.getItemIndex(FlexGlobals.topLevelApplication.TC.sparkhalo3)" value="2" />
+	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.vs3.getItemIndex(FlexGlobals.topLevelApplication.TC.sparkhalo3)" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeAll_test1" keywords="[TabBar,ViewStack,removeAll]" description="Test removeAll for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="6" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="6" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeAll()"/>
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeAll_test2" keywords="[TabBar,ViewStack,removeAll]" description="Test removeAll on empty ViewStack for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="0" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeAll()"/>
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test1" keywords="[TabBar,ViewStack,removeItemAt]" description="Test removeItemAt on first item for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(4)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(5)" propertyName="label" value="Nav #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(4)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(5)" propertyName="label" value="Nav #2" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="6" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="6" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(0)" value="VB0"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="5" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="5" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(4)" propertyName="label" value="Nav #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(4)" propertyName="label" value="Nav #2" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test2" keywords="[TabBar,ViewStack,removeItemAt]" description="Test removeItemAt on middle item for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(4)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(5)" propertyName="label" value="Nav #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(4)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(5)" propertyName="label" value="Nav #2" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="6" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="6" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(4)" value="Nav1"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="5" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="5" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(4)" propertyName="label" value="Nav #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="VBox #2" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(4)" propertyName="label" value="Nav #2" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test3" keywords="[TabBar,ViewStack,removeItemAt]" description="Test removeItemAt on last item for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Nav #0" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #1" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="VBox #1" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="4" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="4" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(3)" value="VB1"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="3" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3" />
+
+   	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Nav #0" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #1" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #0" />
+
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test4" keywords="[TabBar,ViewStack,removeItemAt]" description="Test removeItemAt on only item for TabBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="1" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="1" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(0)" value="VB0"/>
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test5" keywords="[TabBar,ViewStack,removeItemAt]" description="Test removeItemAt index less than 0" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test6" keywords="[TabBar,ViewStack,removeItemAt]" description="Test removeItemAt on index greater than length" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(5)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="setItemAt_test1" keywords="[TabBar,ViewStack,setItemAt]" description="Test setItemAt replacing 1st item for TabBar and ViewStack">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="Nav #1" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="4" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="4" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.setItemAt(createAnItem(),0)" value="VB0"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="4" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="4" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VB_special" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(3)" propertyName="label" value="Nav #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VB_special" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(3)" propertyName="label" value="Nav #1" />
+    </body>
+</TestCase>
+
+<TestCase testID="setItemAt_test2" keywords="[TabBar,ViewStack,setItemAt]" description="Test setItemAt replacing middle item for TabBar and ViewStack">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="3" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.setItemAt(createAnItem(),1)" value="Nav0"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="3" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="VB_special" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="VB_special" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+    </body>
+</TestCase>
+
+<TestCase testID="setItemAt_test3" keywords="[TabBar,ViewStack,setItemAt]" description="Test setItemAt replacing last item for TabBar and ViewStack">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VBox #1" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VBox #1" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="3" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.setItemAt(createAnItem(),2)" value="VB1"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="3" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="VB_special" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Nav #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="VB_special" />
+    </body>
+</TestCase>
+
+<TestCase testID="setItemAt_test4" keywords="[TabBar,ViewStack,setItemAt]" description="Test setItemAt replacing only item in ViewStack for TabBar and ViewStack">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="1" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="1" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.setItemAt(createAnItem(),0)" value="VB0"/>
+    	<SetProperty target="TC.tb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.tb.width + 1" waitEvent="updateComplete" />
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="1" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="1" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="VB_special" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VB_special" />
+    </body>
+</TestCase>
+
+<TestCase testID="setItemAt_test5" keywords="[TabBar,ViewStack,setItemAt]" description="Test setItemAt with index less than 0">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="setItemAt_test6" keywords="[TabBar,ViewStack,setItemAt]" description="Test setItemAt with index greater than length">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(4)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+<TestCase testID="toArray_test1" keywords="[TabBar,ViewStack,toArray]" description="Test toArray on ViewStack">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="3" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="3" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.toArray()[0].id" value="VB0"/>
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.toArray()[1].id" value="Nav0"/>
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.toArray()[2].id" value="VB1"/>
+    </body>
+</TestCase>
+
+<TestCase testID="toArray_test2" keywords="[TabBar,ViewStack,toArray]" description="Test toArray on empty ViewStack">
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.tb.dataProvider" propertyName="length" value="0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="0" />
+
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.toArray()" value="[]"/>
+
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

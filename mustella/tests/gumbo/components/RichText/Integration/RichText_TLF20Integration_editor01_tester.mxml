@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichText/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+			xmlns="*" testSWF="RichText_TLF20Integration.mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Metadata>
+		<![CDATA[
+		[Mixin]
+		]]>
+	</mx:Metadata>
+	
+	<!-- ################################################################## -->
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.*;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.elements.IConfiguration;
+			import flashx.textLayout.formats.LineBreak;
+			import spark.utils.TextFlowUtil;
+			import mx.core.FlexGlobals;
+			import flash.geom.Point;
+			
+			import comps.*;
+			public var startPos:Point, toPos:Point;
+			
+		]]>
+	</mx:Script>
+	
+	<testCases>
+		
+		<!-- ******************** ******************* ******************** -->
+		<!-- ******************** RichText INTEGRATION LISTS  ******************** -->
+		<!-- ******************** ******************* ******************** -->
+		
+		
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="RT_01_CC_2_LSP_OUTSIDE_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+				
+		<TestCase testID="RT_01_LSP_OUTSIDE_pos_outside_default_padding_true" keywords="[RichText, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_LSP_OUTSIDE_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor" propertyName="testID" value="RT_01_LSP_OUTSIDE_last_position"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_LSP_OUTSIDE_add_empty_items" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_LSP_OUTSIDE_edit_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+			
+	
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="RT_01_LSP_OUTSIDE_list_in_list_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_LSP_OUTSIDE_edit_multiple_nested_ordered_list" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Ensure that TextFlow with multiple ordered lists numbering regenerates correctly">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.MultipleNestedOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+				
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=inside  ******************** -->
+		<TestCase testID="RT_01_LSP_INSIDE_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_LSP_INSIDE_pos_outside_default_padding_true" keywords="[RichText, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_LSP_INSIDE_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_LSP_INSIDE_add_empty_items" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_LSP_INSIDE_edit_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+
+		
+		<TestCase testID="RT_01_LSP_INSIDE_list_in_list_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_LSP_INSIDE_edit_multiple_nested_ordered_list" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Ensure that TextFlow with multiple ordered lists numbering regenerates correctly">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="2"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.MultipleNestedOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<!-- -->
+		<!-- ******************** LIST - cc=3 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_pos_outside_default_padding_true" keywords="[RichText, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="170"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_add_empty_items" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor"/>
+				<WaitForEvent numExpectedEvents="1" eventName="updateComplete" target="customRTEditor" timeout="2000" />
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_edit_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<!-- ******************** LIST - cc=2 cw=140 cg=0 lst=none lsp=outside  ******************** -->
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_list_in_list_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_CC_3_LSP_OUTSIDE_edit_multiple_nested_ordered_list" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Ensure that TextFlow with multiple ordered lists numbering regenerates correctly">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="outside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.MultipleNestedOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<!-- ******************** LIST - cc=3 cw=140 cg=0 lst=none lsp=inside  ******************** -->
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType is Order List. Compile and display an ordered list using various language elements.">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_pos_outside_default_padding_true" keywords="[RichText, ordered, list, listStylePosition, Outside]" 
+				  description="listStylePosition is Outside. Compile and display an ordered list using various language elements with default listStylePosition and default autopadding">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListStylePositionOutsideAutoPaddingEnforced.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+				
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.TextFlowTLFFormat.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_add_empty_items" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_edit_ordered_list" keywords="[RichText, ordered, list, listStyleType]" 
+				  description="listStyleType == Order List. Add items to the list and ensure that they're in the correct order">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.listStyleTypeOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+
+		
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_list_in_list_last_position" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Add an item at last position and ENTER 2 times ensuring that there are no new items added beyond that">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.ListOrderedParentAlphaChildDecimal.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RT_01_CC_3_LSP_INSIDE_edit_multiple_nested_ordered_list" keywords="[RichText, ordered, list, last item, listStyleType]" 
+				  description="Ensure that TextFlow with multiple ordered lists numbering regenerates correctly">
+			<setup>
+				<ResetComponent target="customRTEditor" className="TLF.comp.CustomRTEditor" waitEvent="updateComplete" waitTarget="customRTEditor"/>
+				<SetProperty target="customRTEditor" propertyName="cc" value="3"/>
+				<SetProperty target="customRTEditor" propertyName="cw" value="140"/>
+				<SetProperty target="customRTEditor" propertyName="cg" value="0"/>
+				<SetProperty target="customRTEditor" propertyName="lst" value="none"/>
+				<SetProperty target="customRTEditor" propertyName="lsp" value="inside"/>
+				<SetProperty target="customRTEditor.editor" propertyName="height" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="width" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxHeight" value="200" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				<SetProperty target="customRTEditor.editor" propertyName="maxWidth" value="500" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+
+				<SetProperty target="customRTEditor.editor" propertyName="textFlow" valueExpression="value=FlexGlobals.topLevelApplication.MultipleNestedOrderedList.shallowCopy() as TextFlow" waitTarget="customRTEditor.editor" waitEvent="updateComplete" />
+				
+			</setup>
+			<body>
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="customRTEditor.editor"/>
+			</body>
+		</TestCase>
+		
+		
+	</testCases>
+	
+</UnitTester>		
+

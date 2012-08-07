@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_bindableProps.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Properties_Bindable_selectedIndex" keywords="[DataGrid, Property, Bindable, selectedIndex]" description="Test that selectedIndex is bindable on DataGrid">			
+			<setup>
+				<ResetComponent target="myComp" className="components.DataGrid_Custom_BindableProps" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp.dg.setSelectedIndex(3)" value="true"/>
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myComp.dg" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myComp.selIndx" propertyName="text" value="3"/>												
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_Bindable_selectedItem" keywords="[DataGrid, Property, Bindable, selectedIndex]" description="Test that selectedIndex is bindable on DataGrid">			
+			<setup>
+				<ResetComponent target="myComp" className="components.DataGrid_Custom_BindableProps" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp.dg.setSelectedIndex(3)" value="true"/>
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myComp.dg" propertyName="selectedIndex" value="3"/>				
+				<AssertPropertyValue target="myComp.selItem_n" propertyName="text" value="Mary Jones"/>				
+				<AssertPropertyValue target="myComp.selItem_e" propertyName="text" value="mjones@fictitious.com"/>	
+				<AssertPropertyValue target="myComp.selItem_p" propertyName="text" value="555-219-2000"/>				
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_Bindable_caretRowIndex" keywords="[DataGrid, Property, Bindable, caretRowIndex]" description="Test that caretRowIndex is bindable on DataGrid">			
+			<setup>
+				<ResetComponent target="myComp" className="components.DataGrid_Custom_BindableProps" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp.dg.setSelectedIndex(3)" value="true"/>
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myComp.dg" propertyName="selectedIndex" value="3"/>
+				<AssertPropertyValue target="myComp.crtRowIn" propertyName="text" value="3"/>
+				<AssertPropertyValue target="myComp.crtColIn" propertyName="text" value="-1"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_Bindable_caretColumnIndex" keywords="[DataGrid, Property, Bindable, caretColumnIndex]" description="Test that caretColumnIndex is bindable on DataGrid">			
+			<setup>
+				<ResetComponent target="myComp" className="components.DataGrid_Custom_BindableProps" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp.dg" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp.dg.setSelectedCell(2,2)" value="true"/>
+			</setup>
+			<body>								
+				<AssertPropertyValue target="myComp.crtRowIn" propertyName="text" value="2"/>
+				<AssertPropertyValue target="myComp.crtColIn" propertyName="text" value="2"/>				
+			</body>
+		</TestCase>			
+	  		         
+    </testCases>
+</UnitTester>

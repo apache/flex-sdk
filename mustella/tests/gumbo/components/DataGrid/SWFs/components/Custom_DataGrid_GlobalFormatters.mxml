@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" 
+			variableRowHeight="true"
+			showDataTips="true"
+			dataProvider="{dp}">
+			
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.ToolTipManager;
+			ToolTipManager.showDelay = 0;
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:ArrayCollection id="dp">
+			<s:DataItem car="B Fast Car" price="45800" date="01/15/2011"/>
+			<s:DataItem car="A Nice Car" price="45200" date="02/10/2011"/>
+			<s:DataItem car="A Midsize Car" price="46830" date="06/20/2011"/>
+			<s:DataItem car="M Expensive Car" price="53200" date="12/30/2011"/>
+		</s:ArrayCollection>		
+	</fx:Declarations>
+	
+	<s:itemRenderer>
+		<fx:Component>
+			<s:DefaultGridItemRenderer width="100"/>
+		</fx:Component>
+	</s:itemRenderer>		
+	
+	<s:columns>
+		<s:ArrayCollection id="columns1">
+			<s:GridColumn id="c1" dataField="car" headerText="Car"/>
+									
+			<s:GridColumn id="c2" dataField="price" headerText="es_ES Price">
+				<s:formatter>
+					<s:CurrencyFormatter id="cf_es" locale="es_ES"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:CurrencyFormatter id="dt_es" locale="es_ES"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>
+			
+			<s:GridColumn id="c3" dataField="date" headerText="es_ES Date">
+				<s:formatter>					
+					<s:DateTimeFormatter locale="es_ES"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:DateTimeFormatter locale="es_ES"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>
+			
+			<s:GridColumn id="c4" dataField="price" headerText="ja_JP Price">
+				<s:formatter>
+					<s:CurrencyFormatter locale="ja_JP"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:CurrencyFormatter locale="ja_JP"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>
+			
+			<s:GridColumn id="c5" dataField="date" headerText="nl_NL Date">
+				<s:formatter>
+					<s:DateTimeFormatter locale="nl_NL"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:DateTimeFormatter locale="nl_NL"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>			
+
+			<s:GridColumn id="c6" dataField="price" headerText="en_US Price">
+				<s:formatter>
+					<s:CurrencyFormatter locale="en_US"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:CurrencyFormatter locale="en_US"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>
+			
+			<s:GridColumn id="c7" dataField="date" headerText="en_US Date">
+				<s:formatter>
+					<s:DateTimeFormatter locale="en_US"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:DateTimeFormatter locale="en_US"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>
+			
+			<s:GridColumn id="c8" dataField="price" headerText="da_DK Price">
+				<s:formatter>
+					<s:CurrencyFormatter locale="da_DK"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:CurrencyFormatter locale="da_DK"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>
+			
+			<s:GridColumn id="c9" dataField="date" headerText="da_DK Date">
+				<s:formatter>
+					<s:DateTimeFormatter locale="da_DK"/>
+				</s:formatter>
+				<s:dataTipFormatter>
+					<s:DateTimeFormatter locale="da_DK"/>
+				</s:dataTipFormatter>
+			</s:GridColumn>			
+			
+		</s:ArrayCollection>
+	</s:columns>		
+</s:DataGrid>

@@ -1,0 +1,108 @@
+<languageVersion : 1.0;>
+
+kernel Float3x3
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts a float3x3 as a parameter, which sets shades of red, green, and blue.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float3x3 allFloats
+    <
+        minValue:float3x3(0,0,0,0,0,0,0,0,0);
+        maxValue:float3x3(1,1,1,1,1,1,1,1,1);
+        defaultValue:float3x3(0,0,0,0,0,0,0,0,0);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos = outCoord();
+        float x = pos.x;
+        float y = pos.y;
+
+        int4 box1bounds;
+        int4 box2bounds;
+        int4 box3bounds;
+        int4 box4bounds;
+        int4 box5bounds;
+        int4 box6bounds;
+        int4 box7bounds;
+        int4 box8bounds;
+        int4 box9bounds;
+        
+        box1bounds.x = 0;    //minX
+        box1bounds.y = 33;   //maxX
+        box1bounds.z = 0;    //minY
+        box1bounds.w = 33;   //maxY
+
+        box2bounds.x = 34;   //minX
+        box2bounds.y = 66;  //maxX
+        box2bounds.z = 0;    //minY
+        box2bounds.w = 33;   //maxY
+
+        box3bounds.x = 67;    //minX
+        box3bounds.y = 100;   //maxX
+        box3bounds.z = 0;   //minY
+        box3bounds.w = 33; //maxY
+
+        box4bounds.x = 0;   //minX
+        box4bounds.y = 33;  //maxX
+        box4bounds.z = 34;   //minY
+        box4bounds.w = 66;  //maxY
+
+        box5bounds.x = 34;   //minX
+        box5bounds.y = 66;  //maxX
+        box5bounds.z = 34;   //minY
+        box5bounds.w = 66;  //maxY
+        
+        box6bounds.x = 67;   //minX
+        box6bounds.y = 100;  //maxX
+        box6bounds.z = 34;   //minY
+        box6bounds.w = 66;  //maxY
+        
+        box7bounds.x = 0;   //minX
+        box7bounds.y = 33;  //maxX
+        box7bounds.z = 67;   //minY
+        box7bounds.w = 100;  //maxY
+        
+        box8bounds.x = 34;   //minX
+        box8bounds.y = 66;  //maxX
+        box8bounds.z = 67;   //minY
+        box8bounds.w = 100;  //maxY
+        
+        box9bounds.x = 67;   //minX
+        box9bounds.y = 100;  //maxX
+        box9bounds.z = 67;   //minY
+        box9bounds.w = 100;  //maxY
+
+        dst.g = float(0);
+        dst.b = float(0);
+        dst.a = sampleNearest(src, outCoord()).a;
+        
+        if(x >= float(box1bounds.x) && x <= float(box1bounds.y) && y >= float(box1bounds.z) && y <= float(box1bounds.w)){
+            dst.r = allFloats[0][0];
+        }else if(x >= float(box2bounds.x) && x <= float(box2bounds.y) && y >= float(box2bounds.z) && y <= float(box2bounds.w)){
+            dst.r = allFloats[0][1];
+        }else if(x >= float(box3bounds.x) && x <= float(box3bounds.y) && y >= float(box3bounds.z) && y <= float(box3bounds.w)){
+            dst.r = allFloats[0][2];
+       }else if(x >= float(box4bounds.x) && x <= float(box4bounds.y) && y >= float(box4bounds.z) && y <= float(box4bounds.w)){
+            dst.r = allFloats[1][0];
+        }else if(x >= float(box5bounds.x) && x <= float(box5bounds.y) && y >= float(box5bounds.z) && y <= float(box5bounds.w)){
+            dst.r = allFloats[1][1];
+        }else if(x >= float(box6bounds.x) && x <= float(box6bounds.y) && y >= float(box6bounds.z) && y <= float(box6bounds.w)){
+            dst.r = allFloats[1][2];
+        }else if(x >= float(box7bounds.x) && x <= float(box7bounds.y) && y >= float(box7bounds.z) && y <= float(box7bounds.w)){
+            dst.r = allFloats[2][0];
+        }else if(x >= float(box8bounds.x) && x <= float(box8bounds.y) && y >= float(box8bounds.z) && y <= float(box8bounds.w)){
+            dst.r = allFloats[2][1];
+        }else if(x >= float(box9bounds.x) && x <= float(box9bounds.y) && y >= float(box9bounds.z) && y <= float(box9bounds.w)){
+            dst.r = allFloats[2][2];
+        }else{
+            dst.r = float(0);
+        }
+    }
+}

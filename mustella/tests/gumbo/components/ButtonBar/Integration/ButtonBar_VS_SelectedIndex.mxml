@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UnitTester testDir="gumbo/components/ButtonBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarVS.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.components.*;
+        import mx.core.*;
+        import mx.collections.IList;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+selectedIndex
+Verify that the selectedIndex is correct for ButtonBar
+and ViewStack when setting property on ViewStack or ButtonBar
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="selectedIndex_SetVSSelectedIndexFirst" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Set selectedIndex of VS before attaching to BB" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<!-- HALO COMPONENTS IN VIEWSTACK -->
+
+<TestCase testID="selectedIndex_vs1DP_test0" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test1" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="1" waitTarget="TC.vs1" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="0" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test2" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="1" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test3" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test4" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.bb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.bb.width + 1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test5" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ButtonBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs1 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.bb" propertyName="selectedIndex" value="1" waitTarget="TC.bb" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<!-- END HALO COMPONENTS IN VIEWSTACK -->
+
+
+
+<!-- SPARK COMPONENTS IN VIEWSTACK -->
+<TestCase testID="selectedIndex_vs2DP_test0" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test1" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="1" waitTarget="TC.vs2" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="0" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test2" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="1" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test3" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="2" waitTarget="TC.vs2" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test4" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="2" waitTarget="TC.vs2" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs2" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.bb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.bb.width + 1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs2DP_test5" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ButtonBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs2 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.bb" propertyName="selectedIndex" value="1" waitTarget="TC.bb" waitEvent="updateComplete" />
+        <SetProperty target="TC.bb" propertyName="selectedIndex" value="0" waitTarget="TC.bb" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs2" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<!-- END SPARK COMPONENTS IN VIEWSTACK -->
+
+
+
+
+
+<!-- SPARK AND HALO COMPONENTS IN VIEWSTACK -->
+<TestCase testID="selectedIndex_vs3DP_test0" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test1" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="1" waitTarget="TC.vs3" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="0" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test2" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="1" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test3" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" waitTarget="TC.vs3" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test4" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" waitTarget="TC.vs3" waitEvent="updateComplete" />
+        <SetProperty target="TC.vs3" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.bb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.bb.width + 1" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs3DP_test5" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ButtonBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs3 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <SetProperty target="TC.bb" propertyName="selectedIndex" value="2" waitTarget="TC.bb" waitEvent="updateComplete" />
+
+        <AssertPropertyValue target="TC.vs3" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+<!-- END SPARK AND HALO COMPONENTS IN VIEWSTACK -->
+
+
+<!-- EMPTY VIEWSTACK -->
+<TestCase testID="selectedIndex_VSEmpty" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Set to empty viewstack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.vs4 as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+        <AssertPropertyValue target="TC.vs4" propertyName="selectedIndex" value="-1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="-1" />
+    </body>
+</TestCase>
+<!-- EMPTY VIEWSTACK -->
+	</testCases>
+</UnitTester>

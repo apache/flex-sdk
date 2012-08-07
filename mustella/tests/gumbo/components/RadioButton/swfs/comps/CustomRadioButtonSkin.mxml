@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" width="100">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.RadioButton")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+        
+        <s:State name="upAndSelected" />
+        <s:State name="overAndSelected" />
+        <s:State name="downAndSelected" />
+        <s:State name="disabledAndSelected" />
+    </s:states>
+        
+	<fx:Script>
+		<![CDATA[
+
+		]]>
+	</fx:Script>    
+
+	<s:Rect width="20" height="20">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<mx:GradientEntry 	color.up					="0xc2c2c2"
+								color.over					="0x919191"
+								color.down					="0x666666"
+								color.disabled				="0xffffff"
+								color.upAndSelected			="0x666666"
+								color.overAndSelected		="0x666666"
+								color.downAndSelected		="0x666666"
+								color.disabledAndSelected	="0x666666"
+							/>
+							
+
+				<mx:GradientEntry 	color.up					="0xFFFFFF"
+								color.over					="0xFFFFFF"
+								color.down					="0xFFFFFF"
+								color.disabled				="0xFFFFFF"
+								color.upAndSelected			="0x000000"
+								color.overAndSelected		="0x000000"
+								color.downAndSelected		="0x000000"
+								color.disabledAndSelected	="0x000000"
+							/>
+							
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<mx:SolidColorStroke color="#666666" />
+		</s:stroke>
+	</s:Rect>
+
+	<s:Label x="25" top="5" text="{hostComponent.label}" color="0x990000" />
+
+
+</s:Skin>

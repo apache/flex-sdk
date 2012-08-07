@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/TextInput/Properties/" 
+
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+
+
+		xmlns="*"
+
+		testSWF="Flex4_TextInput_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<fx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</fx:Script>
+
+	
+
+	<fx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</fx:Metadata>	
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<fx:Script>
+
+		<![CDATA[
+
+			import flash.text.engine.*;
+
+			import flashx.textLayout.formats.*;
+
+		]]>
+
+	</fx:Script>
+
+
+
+
+
+	<testCases>
+
+		<!-- ******************** ******************* ******************** -->
+
+		<!-- ******************** TEXTVIEW PROPERTIES ******************** -->
+
+		<!-- ******************** ******************* ******************** -->
+
+
+
+		<!-- ******************** blockProgression ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_blockProgression_property_default" description="Checks the default value of the textView.blockProgression property on a TextInput control" keywords="[TextInput, textView, blockProgression, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="blockProgression" valueExpression="value=BlockProgression.TB" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** color ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_color_property_default" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+				<Pause timeout="50" />
+			</setup>
+			<body>
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="textInput.textDisplay" styleName="color" value="0" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_color_property_RGB_pre" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="color" value="0xFF0000" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+				<Pause timeout="50" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="color" value="0xFF0000" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_color_property_RGB_post" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="color" value="0xFF0000" />
+				<Pause timeout="50" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="color" value="0xFF0000" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+<!-- named colors not supported
+		<TestCase testID="Gumbo_TextInput_textView_color_property_named_pre" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property, SDK-15953]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+				<SetProperty target="textInput.textDisplay" propertyName="color" value="purple" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+
+				<Pause timeout="100" />
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="color" value="0xFF00FF" />
+
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextInput_textView_color_property_named_post" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property, SDK-15953]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>	
+				<SetProperty target="textInput.textDisplay" propertyName="color" value="purple" />
+
+				<Pause timeout="100" />
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="color" value="0xFF00FF" />
+
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+			</body>
+
+		</TestCase>
+
+-->
+
+
+
+		<TestCase testID="Gumbo_TextInput_textView_color_property_pound_pre" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="color" value="#99CCFF" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="color" value="0x99CCFF" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_color_property_pound_post" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="color" value="#99CCFF" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="color" value="0x99CCFF" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** direction ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_direction_property_default" description="Checks the default value of the textView.direction property on a TextInput control" keywords="[TextInput, textView, direction, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="direction" valueExpression="value=Direction.LTR" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** fontFamily ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_fontFamily_property_default" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontFamily" value="myVerdana2" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** fontSize ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_fontSize_property_default" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontSize" value="12" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_fontSize_property_16" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="fontSize" value="16" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontSize" value="16" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Gumbo_TextInput_textView_fontSize_property_16_widthInChars" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontSize, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="0000000000000001" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="fontSize" value="16" />
+				<SetProperty target="textInput" propertyName="widthInChars" value="22" waitEvent="resize" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput" propertyName="text" value="0000000000000001" />
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontSize" value="16" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** fontStyle ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_fontStyle_property_default" description="Checks the default value of the textView.fontStyle property on a TextInput control" keywords="[TextInput, textView, fontStyle, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontStyle" value="normal" />
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="Gumbo_TextInput_textView_fontStyle_property_italic" description="Checks the default value of the textView.fontStyle property on a TextInput control" keywords="[TextInput, textView, fontStyle, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" />
+				<SetStyle target="textInput.textDisplay" styleName="fontStyle" value="italic" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontStyle" value="italic" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** fontWeight ******************** -->
+
+		<TestCase testID="Gumbo_TextInput_textView_fontWeight_property_default" description="Checks the default value of the textView.fontWeight property on a TextInput control" keywords="[TextInput, textView, fontWeight, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontWeight" value="normal" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_fontWeight_property_bold_pre" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontWeight, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="fontWeight" value="bold" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontWeight" value="bold" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_fontWeight_property_bold_post" description="Checks the default value of the textView.fontSize property on a TextInput control" keywords="[TextInput, textView, fontWeight, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" />
+				<SetStyle target="textInput.textDisplay" styleName="fontWeight" value="bold" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="fontWeight" value="bold" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+
+
+		<!-- ******************** heightInLines ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_heightInLines_property_default" description="Checks the default value of the textView.heightInLines property on a TextInput control" keywords="[TextInput, textView, heightInLines, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="heightInLines" value="1" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** kerning ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_kerning_property_default" description="Checks the default value of the textView.kerning property on a TextInput control" keywords="[TextInput, textView, kerning, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="kerning" value="default" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** lineBreak ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_lineBreak_property_default" description="Checks the default value of the textView.lineBreak property on a TextInput control" keywords="[TextInput, textView, lineBreak, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="lineBreak" valueExpression="value=LineBreak.EXPLICIT" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** lineHeight ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_lineHeight_property_default" description="Checks the default value of the textView.lineBreak property on a TextInput control" keywords="[TextInput, textView, lineBreak, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="lineHeight" value="120%" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** lineThrough ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_lineThrough_property_default" description="Checks the default value of the textView.lineThrough property on a TextInput control" keywords="[TextInput, textView, lineThrough, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="lineThrough" value="false" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_lineThrough_property_true" description="Checks the default value of the textView.lineThrough property on a TextInput control" keywords="[TextInput, textView, lineThrough, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="lineThrough" value="true" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="textInput.textDisplay" styleName="lineThrough" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_lineThrough_property_false" description="Checks the default value of the textView.lineThrough property on a TextInput control" keywords="[TextInput, textView, lineThrough, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="lineThrough" value="true" />
+				<SetProperty target="textInput" propertyName="text" value="dummy text" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="lineThrough" value="false" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="textInput.textDisplay" styleName="lineThrough" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** marginBottom ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_marginBottom_property_default" description="Checks the default value of the textView.marginBottom property on a TextInput control" keywords="[TextInput, textView, marginBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="marginBottom" value="null" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** marginLeft ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_marginLeft_property_default" description="Checks the default value of the textView.marginLeft property on a TextInput control" keywords="[TextInput, textView, marginLeft, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="marginLeft" value="null" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** marginRight ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_marginRight_property_default" description="Checks the default value of the textView.marginRight property on a TextInput control" keywords="[TextInput, textView, marginRight, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="marginRight" value="null" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** marginTop ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_marginTop_property_default" description="Checks the default value of the textView.marginTop property on a TextInput control" keywords="[TextInput, textView, marginTop, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="marginTop" value="null" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** multiline ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_multiline_property_default" description="Checks the default value of the textView.multiline property on a TextInput control" keywords="[TextInput, textView, multiline, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="multiline" value="null" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** paddingBottom ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_paddingBottom_property_default" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingBottom" value="3" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingBottom_property_0" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingBottom" value="0" />
+				<SetProperty target="textInput" propertyName="height" value="40" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingBottom" value="0" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingBottom_property_10" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingBottom" value="10" />
+				<SetProperty target="textInput" propertyName="height" value="40" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingBottom" value="10" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** paddingLeft ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_paddingLeft_property_default" description="Checks the default value of the textView.paddingLeft property on a TextInput control" keywords="[TextInput, textView, paddingLeft, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingLeft" value="3" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingLeft_property_0" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingLeft" value="0" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingLeft" value="0" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingLeft_property_10" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingLeft" value="10" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingLeft" value="10" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** paddingRight ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_paddingRight_property_default" description="Checks the default value of the textView.paddingRight property on a TextInput control" keywords="[TextInput, textView, paddingRight, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingRight" value="3" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingRight_property_0" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingRight" value="0" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingRight" value="0" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingRight_property_10" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingRight" value="10" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingRight" value="10" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** paddingTop ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_paddingTop_property_default" description="Checks the default value of the textView.paddingTop property on a TextInput control" keywords="[TextInput, textView, paddingTop, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingTop" value="5" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingTop_property_0" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingTop" value="0" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingTop" value="0" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_paddingTop_property_10" description="Checks the default value of the textView.paddingBottom property on a TextInput control" keywords="[TextInput, textView, paddingBottom, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="paddingTop" value="10" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="paddingTop" value="10" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** selectionActivePosition ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_selectionActivePosition_property_default" description="Checks the default value of the textView.selectionActivePosition property on a TextInput control" keywords="[TextInput, textView, selectionActivePosition, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** text ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_text_default" description="Checks the default value of the textView.text property on a TextInput control" keywords="[TextInput, textView, text, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput" propertyName="text" value="" />
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="text" value="" />
+			</body>
+		</TestCase>
+
+<!--
+
+		<TestCase testID="Gumbo_TextInput_textView_text_set" description="Checks that setting textView.text property also sets the text property on a TextInput control" keywords="[TextInput, textView, text, property, SDK-15954]">
+
+			<setup>
+
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+				<SetProperty target="textInput.textDisplay" propertyName="text" value="Silver Musican" />
+
+				<Pause timeout="100" />
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="text" value="Silver Musican" />
+
+			</body>
+
+		</TestCase>
+
+-->
+
+
+
+
+
+		<!-- ******************** textAlign ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_default" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" value="start" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_center" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlign" value="center" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" valueExpression="value=TextAlign.CENTER" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_end" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlign" value="end" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" valueExpression="value=TextAlign.END" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_justify" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlign" value="justify" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" valueExpression="value=TextAlign.JUSTIFY" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_left" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlign" value="left" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" valueExpression="value=TextAlign.LEFT" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_right" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlign" value="right" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" valueExpression="value=TextAlign.RIGHT" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlign_start" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlign" value="start" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlign" valueExpression="value=TextAlign.START" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** textAlignLast ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_textAlignLast_default" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlignLast" valueExpression="value=TextAlign.START" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** textAlpha ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_textAlpha_default" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlpha" value="1" />
+			</body>
+		</TestCase>
+
+		<!-- commented out selection* properties because they are read only now-->
+		<TestCase testID="Gumbo_TextInput_textView_textAlpha_0" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlpha" value="0" /> 
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+				<!--<SetProperty target="textInput" propertyName="selectionAnchorPosition" value="0" waitTarget="textInput" waitEvent="selectionChange" />-->
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<!--<SetProperty target="textInput" propertyName="selectionActivePosition" value="10" waitTarget="textInput" waitEvent="selectionChange" />-->
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlpha" value="0" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlpha_05" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlpha" value="0.5" /> 
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlpha" value="0.5" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textAlpha_1" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textAlpha" value="1" /> 
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textAlpha" value="1" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<!-- ******************** textDecoration ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_textDecoration_default" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textDecoration" value="none" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textDecoration_none" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textDecoration" value="none" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textDecoration" valueExpression="value=TextDecoration.NONE" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textDecoration_underline" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textDecoration" value="underline" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textDecoration" valueExpression="value=TextDecoration.UNDERLINE" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** textIndent ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_textIndent_default" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textIndent" value="0" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textIndent_negative" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textIndent" value="-5" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textIndent" value="-5" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_textIndent_positive" description="Checks the default value of the textView.textAlign property on a TextInput control" keywords="[TextInput, textView, textAlign, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="textIndent" value="15" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="textIndent" value="15" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** tracking ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_tracking_default" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="tracking" value="null" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_tracking_negative" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="tracking" value="-2" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="tracking" value="-2" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_tracking_negative_percent" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="tracking" value="-20%" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="tracking" value="-20%" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_tracking_positive" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="tracking" value="10" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="tracking" value="10" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_tracking_positive_percent" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="tracking" value="100%" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="tracking" value="100%" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** verticalAlign ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_verticalAlign_default" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="verticalAlign" value="middle" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_verticalAlign_bottom" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="40" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="verticalAlign" value="bottom" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="verticalAlign" valueExpression="value=VerticalAlign.BOTTOM" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_verticalAlign_justify" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="40" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="verticalAlign" value="justify" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="verticalAlign" valueExpression="value=VerticalAlign.JUSTIFY" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_verticalAlign_middle" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="40" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="verticalAlign" value="middle" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="verticalAlign" valueExpression="value=VerticalAlign.MIDDLE" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_verticalAlign_top" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="40" waitTarget="textInput" waitEvent="updateComplete" />
+				<SetStyle target="textInput.textDisplay" styleName="verticalAlign" value="top" />
+				<SetProperty target="textInput" propertyName="text" value="Silver Musican" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="verticalAlign" valueExpression="value=VerticalAlign.TOP" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** whiteSpaceCollapse ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_whiteSpaceCollapse_default" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="whiteSpaceCollapse" value="collapse" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_whiteSpaceCollapse_collapse" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="whiteSpaceCollapse" value="collapse" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="whiteSpaceCollapse" valueExpression="value=WhiteSpaceCollapse.COLLAPSE" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_whiteSpaceCollapse_preserve" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetStyle target="textInput.textDisplay" styleName="whiteSpaceCollapse" value="preserve" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped" waitTarget="textInput" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput.textDisplay" styleName="whiteSpaceCollapse" valueExpression="value=WhiteSpaceCollapse.PRESERVE" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** widthInChars ******************** -->
+		<TestCase testID="Gumbo_TextInput_textView_widthInChars_default" description="Checks the default value of the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput" propertyName="widthInChars" value="10" />
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="widthInChars" value="10" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_widthInChars_5" description="Sets the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property, SDK-15927]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput.textDisplay" propertyName="widthInChars" value="5" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput" propertyName="widthInChars" value="5" />
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="widthInChars" value="5" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_textView_widthInChars_25" description="Sets the textView.widthInChars property on a TextInput control" keywords="[TextInput, textView, widthInChars, property, SDK-15927]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput.textDisplay" propertyName="widthInChars" value="15" />
+				<Pause timeout="100" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textInput" propertyName="widthInChars" value="15" />
+				<AssertPropertyValue target="textInput.textDisplay" propertyName="widthInChars" value="15" />
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

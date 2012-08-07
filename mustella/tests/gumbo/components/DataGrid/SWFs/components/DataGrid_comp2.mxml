@@ -1,0 +1,129 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	dataProvider="{gridDataCollection}"
+        width="366" height="400" rowHeight="30" variableRowHeight="false">
+    <fx:Script>
+    		<![CDATA[
+			import mx.collections.ArrayCollection;
+			include "../assets/nameData.as";
+			use namespace mx_internal;
+			
+			 
+			private var rowCount:int=10;
+			public function selectIndices2(v:Vector.<int>):Boolean
+			{
+
+				if (v==null || v.length<0) return false;
+				var len:int=v.length;
+				var rowIndex:int=-1;
+				var flag:Boolean=true;
+				for (var i:int=0;i<len;i++)
+				{
+					rowIndex=v[i];
+					if (i == 0)
+						setSelectedIndex(rowIndex);
+					else
+						if (!addSelectedIndex(rowIndex))
+							flag=false;
+				}
+				return flag;
+			}
+			 
+			public function createItem(index:int):Object
+		        {
+		        	var t:int=index;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = humanNamesData[index];
+				const lastName:String = humanNamesData[rowCount-index];
+				const food:String = foodNamesData[index];
+				const drink:String = drinkNamesData[index];
+				return {index:t, firstName: firstName, lastName: lastName, food: food, drink: drink};
+			}
+			public function addItem(index:int):void
+			{
+				if (index<0 || index>gridDataCollection.length)
+					gridDataCollection.addItem(createItem(this.dataProvider.length+1));
+				else 
+					gridDataCollection.addItemAt(createItem(1000+this.dataProvider.length+1),index);
+			}
+			
+			public function removeItem(index:int):void
+			{
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				gridDataCollection.removeItemAt(index);
+			}
+			
+			public function insertNewColumns(columnIndex:int, columnCount:int):void
+			{
+				
+				for (var i:int=0;i<columnCount;i++)
+					createColumn2(columnIndex+i);
+				
+			}
+			
+			public function removeColumn(columnIndex:int):void
+			{
+				var o:Object;
+				for (var i:int=0;i<gridDataCollection.length;i++)
+				{
+					o=gridDataCollection.getItemAt(i);
+					delete o[columnIndex];
+					
+				}
+				
+			}
+			private function createColumn2(index:int):void
+			{
+				const columnName:String = "colmn_"+index;
+				var obj:Object;
+				var columnObj:GridColumn;
+				for (var i:int=0;i<gridDataCollection.length;i++)
+				{
+					obj=gridDataCollection.getItemAt(i);
+					obj[columnName]="value_"+i;
+				}
+				columnObj=new GridColumn();
+				columnObj.dataField=columnName;
+				if (this.columns.length==0)
+					this.columns.addItem(columnObj);
+				else 
+					this.columns.addItemAt(columnObj,this.columns.length-1);
+			}
+	
+	
+			
+    			public function initData():void
+    			{
+    				for (var i:int = 0; i < rowCount; i++)
+    					gridDataCollection.addItem(createItem(i));
+    					//this.dataProvider=gridDataCollection;
+    				this.rowHeight=30;//this force each row height is same
+			}
+			
+    		]]>
+    </fx:Script>
+    <fx:Declarations>
+		<s:ArrayCollection id="gridDataCollection">
+			<fx:Object index="0" firstName="JamFN" lastName="ChrFN" food="Alligator" drink="DrinkA" />
+			<fx:Object index="1" firstName="JohFN" lastName="ThoFN" food="Candy Apples" drink="DrinkB" />
+			<fx:Object index="2" firstName="RobFN" lastName="JosFN" food="Coleslaw" drink="DrinkC" />
+			<fx:Object index="3" firstName="MicFN" lastName="ChaFN" food="Almonds" drink="DrinkD" />
+			<fx:Object index="4" firstName="WilFN" lastName="RicFN" food="Candy Bar (Popcorn)" drink="DrinkE" />
+			<fx:Object index="5" firstName="DavFN" lastName="DavFN" food="Cones" drink="DrinkF" />
+			<fx:Object index="6" firstName="RicFN" lastName="WilFN" food="DrinkD" drink="DrinkG" />
+			<fx:Object index="7" firstName="ChaFN" lastName="MicFN" food="Cantaloupe" drink="DrinkH" />
+			<fx:Object index="8" firstName="JosFN" lastName="RobFN" food="Cookies" drink="DrinkI" />
+			<fx:Object index="9" firstName="ThoFN" lastName="JohFN" food="Andouille Sausage" drink="DrinkJ" />
+		</s:ArrayCollection>
+   </fx:Declarations>
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn dataField="index" width="30"/>
+			<s:GridColumn dataField="firstName" width="80"/>
+			<s:GridColumn dataField="lastName" width="80"/>
+			<s:GridColumn dataField="food" width="80"/>
+			<s:GridColumn dataField="drink" width="80"/>
+		</s:ArrayList>
+	</s:columns>
+	
+</s:DataGrid>

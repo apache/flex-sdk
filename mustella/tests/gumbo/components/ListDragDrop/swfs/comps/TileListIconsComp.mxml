@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:List
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" dataProvider="{createIconsAC()}"
+    dragEnabled="true" dropEnabled="true"  allowMultipleSelection="true" height="200" width="230"
+    creationComplete="layout.dragScrollInitialDelay = 0">
+	<s:layout>
+		<s:TileLayout id="tileLayout"  columnWidth="50" requestedColumnCount="4"
+		  horizontalGap="2"  verticalGap="2" orientation="columns"  />
+	</s:layout>
+
+<fx:Script>
+<![CDATA[
+	import mx.core.mx_internal;
+	use namespace mx_internal;
+	import mx.collections.ArrayCollection;
+
+           public function createIconsAC():ArrayCollection
+            {
+                var acIcons:ArrayCollection = new ArrayCollection
+                    ([  {label:"1", data:0xFFFF00},
+                {label:"2",  data:0xFF0000},
+                {label:"3",  data:0x00FF00},
+                {label:"4",  data:0xFFAA00},
+                {label:"5",  data:0xAAFF00},
+                {label:"6",  data:0xBBFF00},
+                {label:"7",  data:0xFFEE00},
+                {label:"8",  data:0xFF1100},
+                {label:"9",  data:0xFFCC00},
+		{label:"20",  data:0xFCCF00},
+                {label:"30",  data:0xCCFF00},
+                {label:"40",  data:0x222200},
+                {label:"50",  data:0x22FF00},
+                {label:"60",  data:0x44FF00},
+                {label:"70",  data:0x66FF00},
+                {label:"80",  data:0x66FF00},
+                {label:"90",  data:0x66FF00},
+                {label:"22",  data:0x66FF00},
+                {label:"23",  data:0x66FF00},
+                {label:"24",  data:0xFFAA00},
+                {label:"25",  data:0xFFFF00},
+                {label:"26",  data:0xBBFF00},
+                {label:"27",  data:0xFFBB00},
+                {label:"28",  data:0xFFFFBB},
+                {label:"29",  data:0xFFAA00},
+		{label:"t20",  data:0xAAFF00},
+                {label:"t30",  data:0xFFFFBB},
+                {label:"t40",  data:0xBBFF00},
+                {label:"t50",  data:0x22FF00},
+                {label:"t60",  data:0x33FF00},
+                {label:"t70",  data:0x44FF00},
+                {label:"t80",  data:0x55FF00},
+                {label:"t90",  data:0x66FF00},
+                {label:"a0",  data:0x77FF00}] );
+                return acIcons;
+           }
+]]>
+</fx:Script>
+<s:itemRenderer>
+	<fx:Component>
+	<s:ItemRenderer autoDrawBackground ="false">
+<!-- This 'set data' override replaces the bindings in the s:Label and mx:Image. -->
+            <fx:Script>
+                <![CDATA[
+                        override public function set data(value:Object):void
+                        {
+                            super.data = value;
+                            if (!value)
+                                return;
+                            labelDisplay.text = value.label;
+                            col.color=value.data;
+
+                        }
+                ]]>
+            </fx:Script>
+
+		<s:states>
+		    <s:State name="normal" />
+		    <s:State name="hovered" />
+		    <s:State name="selected" />
+		    <s:State name="dragging"/>
+		</s:states>
+	    <s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0xCDCDCD" weight="1"/>
+		</s:stroke>
+		<s:fill>
+		    <mx:SolidColor color="0x00FFFF" alpha="0.1" alpha.hovered="0.2" alpha.selected="0.8" alpha.dragging="0.5"/>
+		</s:fill>
+	    </s:Rect>
+	    <s:HGroup >
+
+                    <s:Label id="labelDisplay"  width="20"/>
+                    <s:Rect width="20" height="20" id="rect" >
+		    	<s:fill>
+		        	<mx:SolidColor color="0xFF0000" id="col"/>
+		        </s:fill>
+                    </s:Rect>
+	    </s:HGroup>
+	</s:ItemRenderer>
+	</fx:Component>
+</s:itemRenderer>
+
+</s:List>

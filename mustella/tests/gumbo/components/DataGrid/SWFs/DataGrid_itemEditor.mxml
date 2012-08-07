@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:local="*" xmlns:comps="components.*"
+			   width="1200" height="800">
+	 
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+			
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVeraHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVeraHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVeraHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}				
+		.parent1 {
+			fontSize: 32;
+			color:#ff0000;
+		}
+		.child1 {
+			fontSize: 12;
+			color:#00ff00;
+			fontStyle:italic;
+			fontWeight:bold;
+			
+		}
+		.child2 {
+			fontSize: 24;
+			color:#E851E3;
+			
+		}
+		.mystyle1 {
+			fontSize: 24;
+			color:#0000ff;
+		}			           			
+		
+		s|DataGrid s|GridColumnHeaderGroup{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+           		 fontLookup: "embeddedCFF";		
+		}
+		
+
+		.style1{
+		borderColor:#00ff00;
+		contentBackgroundColor:#8DE851;
+		alternatingRowColors:#77E851,#F00AE8;
+		}
+		
+		global{
+		    fontFamily: MyVera;
+		    fontAntiAliasType: normal;
+		    kerning: "off";
+        	}
+	 		
+	</fx:Style>	
+	
+	<fx:Script>
+		<![CDATA[		
+		include "assets/common.as";
+		import spark.components.gridClasses.GridColumn;
+		import spark.components.gridClasses.GridItemEditor;
+		import spark.components.gridClasses.GridItemEditor;
+		import spark.components.gridClasses.DefaultGridItemEditor;
+		import spark.components.gridClasses.ComboBoxGridItemEditor;
+		import spark.events.GridItemEditorEvent;
+		import mx.collections.ArrayCollection;
+		import spark.components.DataGrid;
+		import flash.events.Event;
+		
+		public var gridItemEditEvent:GridItemEditorEvent=null;
+		public var cancelEditEvent:Boolean=false;
+		public var dbClickEvent:Event=null;
+		public var testEditorsList:ArrayCollection=createEditors();
+		
+		/*
+		* this method is to put itemEditor class into an array, so the list can be used for search or reference itemEditor
+		*/
+		public function createEditors():ArrayCollection
+		{
+			var gsm:ArrayCollection=new ArrayCollection();
+			gsm.addItem({"name":"default text editor", "value":dgDefaultIE1});
+			gsm.addItem({"name":"default combo editor", "value":dgDefaultIE2});
+			gsm.addItem({"name":"checkbox", "value": dgIE1});
+			gsm.addItem({"name":"comboBox","value": dgIE3});
+			gsm.addItem({"name":"button","value": dgIE4});
+			gsm.addItem({"name":"numericStepper","value":dgIE5 });
+			gsm.addItem({"name":"hSlider","value":dgIE6 });
+			gsm.addItem({"name":"textInput","value": dgIE7});
+			gsm.addItem({"name":"textArea","value":dgIE8 });
+			gsm.addItem({"name":"DateField","value": dgIE9});
+			gsm.addItem({"name":"colorPicker","value":dgIE10 });
+			gsm.addItem({"name":"PopupButton","value": dgIE11});
+			gsm.addItem({"name":"with style","value": dgIE12});
+			gsm.addItem({"name":"panel","value": dgIE13});
+			gsm.addItem({"name":"binding validation","value": components.DGIE_BindingValidation});
+			return gsm;
+						
+		}
+		/*
+		* this method is to create a new gridColumn after columnIndex=index on dataGrid
+		*/
+		public function createADataGridColumn(dataGrid:DataGrid,index:int):void
+		{
+			const columnName:String = "column_"+index;
+			var obj:Object;
+			var columnObj:GridColumn;
+
+			if (dataGrid.dataProvider.length==0)
+			{
+
+				//create 10 data
+				for (var j:int=0;j<10;j++)
+				{
+					obj={str:"testest_"+j,num:j,bool:true};
+					obj[columnName]="value_"+j;
+					dataGrid.dataProvider.addItem(obj);
+				}
+			}else{
+
+				for (var i:int=0;i<dataGrid.dataProvider.length;i++)
+				{
+					obj=dataGrid.dataProvider.getItemAt(i);
+					//add the new column data
+					obj[columnName]="value_"+i;
+				}
+			}
+			trace("columns.length="+dataGrid.columns.length);
+			columnObj=new GridColumn();
+			columnObj.dataField=columnName;
+			if (dataGrid.columns.length==0)
+				dataGrid.columns.addItem(columnObj);
+			else 
+				dataGrid.columns.addItemAt(columnObj,dataGrid.columns.length-1);
+		}			
+		
+		/*
+		* this method is to set an itemEditor with passed arguments on a columnIndex, the editor is from 
+		* the editorList
+		*/
+		public function setEditorOnColumnIndex(dg:DataGrid, IEClassIndex:int,index:int=0):void
+		{
+			var cls:Class=getItemEditor(IEClassIndex);
+			GridColumn(dg.columns.getItemAt(index)).itemEditor=new ClassFactory(cls);
+		}
+		/*
+		* this method is to set an itemEditor based on itemEditor class on a column
+		*/
+		public function setEditorOnColumnIndex2(dg:DataGrid, cls:Class, index:int=0):void
+		{
+			GridColumn(dg.columns.getItemAt(index)).itemEditor=new ClassFactory(cls);
+		}
+		
+		/*
+		* a helper method to find out the itemEditor from the editorList
+		*/
+		public function getItemEditor(n:int):Class
+		{
+			if (n<0 || n>testEditorsList.length)
+				n=0;
+			return testEditorsList[n].value;
+			
+		}
+		/*
+		* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_STARTING
+		*/
+		public function editStartingHandler(event:spark.events.GridItemEditorEvent):void
+		{
+			trace(event);
+			gridItemEditEvent=event;
+			if (cancelEditEvent) event.preventDefault();
+		}
+		/*
+		* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_START
+		*/
+		public function editStartHandler(event:GridItemEditorEvent):void
+		{
+			trace(event);
+			gridItemEditEvent=event;
+
+		}
+		/*
+		* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_SAVE
+		*/
+		public function editSaveHandler(event:GridItemEditorEvent):void
+		{
+			trace(event);
+			gridItemEditEvent=event;
+		}
+		/*
+		* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_CANCEL
+		*/
+		public function editCancelHandler(event:GridItemEditorEvent):void
+		{
+			trace(event);
+			gridItemEditEvent=event;
+		}
+		/*
+		* an event handler for double click when doubleClickEnabled=true
+		*/
+		public function dbtClickHandler(event:Event):void
+		{
+			trace(event);
+			dbClickEvent=event;
+		}
+		/*
+		 * this method is hook up an itemEditor event handler with itemEditor event type
+		*/
+		public function setDGEditEventHandlers(dg:DataGrid, eventType:String, eventHandler:Function):void
+		{
+			dg.addEventListener(eventType, eventHandler);
+		}
+	
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:ArrayList id="column4">
+			<s:GridColumn dataField="index"/>
+			<s:GridColumn dataField="firstName"/>
+			<s:GridColumn dataField="lastName"/>
+			<s:GridColumn dataField="food"/>
+			<s:GridColumn dataField="drink"/>
+		</s:ArrayList>
+		<fx:Component  className="dgDefaultIE1">
+			<s:DefaultGridItemEditor />
+		</fx:Component>
+		<fx:Component  className="dgDefaultIE2">
+			<s:ComboBoxGridItemEditor />
+		</fx:Component>	
+
+
+		<fx:Component className="dgIE1">
+			<s:GridItemEditor  >
+				<s:CheckBox  id="cxb" selected="{data}"    left="20"/> 
+				</s:GridItemEditor>
+		</fx:Component>
+
+		<fx:Component  className="dgIE3">
+			<s:GridItemEditor  >
+				<s:ComboBox id="cb1" width="100%" height="100%" prompt="choose" >
+					<s:dataProvider>
+						<s:ArrayCollection>
+							<fx:String>ProductD</fx:String>
+							<fx:String>ProductP</fx:String>
+							<fx:String>ProductF</fx:String>
+							<fx:String>ProductT</fx:String>
+							<fx:String>ProductC</fx:String>
+						</s:ArrayCollection>
+					</s:dataProvider>
+				</s:ComboBox>
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<fx:Component  className="dgIE4">
+			<s:GridItemEditor  >
+				<s:Button id="btn" label="{value}" width="100%" height="100%"/> 
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<fx:Component className="dgIE5">
+			<s:GridItemEditor  ><!-- use two way binding -->
+				<s:NumericStepper  id="ns" minimum="0"  maximum="10000" value="@{value}" width="100%" height="100%">
+				</s:NumericStepper>
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<fx:Component   className="dgIE6">
+			<s:GridItemEditor  >
+				<s:HSlider id="hs" minimum="0" maximum="100" value="{data.numberValue}"  width="100%" /> 
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<fx:Component  className="dgIE7">
+			<s:GridItemEditor  >
+				<s:TextInput id="ti" text="@{value}" width="100%" height="100%">
+				</s:TextInput>
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<fx:Component  className="dgIE8">
+			<s:GridItemEditor  >
+				<s:TextArea id="ta" text="{data.lastName}" width="100%" height="100%"/> 
+			</s:GridItemEditor>
+		</fx:Component>
+		<!-- dateField -->
+		<fx:Component  className="dgIE9">
+			<s:GridItemEditor  >
+				<mx:DateField id="df" width="100%" height="100%" selectedDate="{new Date(2010,8,10)}"/>
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<!-- colorPicker -->
+		<fx:Component   className="dgIE10">
+			<s:GridItemEditor  >
+				<mx:ColorPicker id="cp" width="100%" height="100%" selectedColor="0x9933FF"/>
+			</s:GridItemEditor>
+		</fx:Component>
+
+		<!-- popupButton -->
+		<fx:Component  className="dgIE11">
+			<s:GridItemEditor  >
+				<mx:PopUpButton id="pb" label="select a destination: " width="100%" height="100%">
+					<mx:popUp >
+						<mx:List selectedIndex="1">
+							<mx:dataProvider>
+								<fx:Array>
+									<fx:Object label="Italy" data="icon11"/>
+									<fx:Object label="Japan" data="icon12"/>
+									<fx:Object label="Ireland" data="icon13"/>
+								</fx:Array>
+							</mx:dataProvider>
+						</mx:List>
+					</mx:popUp>
+				</mx:PopUpButton>
+			</s:GridItemEditor>
+		</fx:Component>
+		<!-- with contentBackgroundColor, borderColor set -->
+		<fx:Component  className="dgIE12">
+			<s:GridItemEditor  >
+				<s:TextInput text="{data.firstName}" width="100%" height="100%" contentBackgroundColor="0x9999ff"  borderColor="0x00ff00"/> 
+			</s:GridItemEditor>
+		</fx:Component>
+		<fx:Component   className="dgIE13">
+			<s:GridItemEditor >
+				<s:Panel  id="panel1" left="10" top="10">
+					<s:layout>
+						<s:VerticalLayout/>
+					</s:layout>
+					<s:TextInput text="TextInput child1" color="0x00ff00"/>
+					<s:CheckBox  label="itself" selected="true"  color="0x0000ff"/>
+					<s:TextArea  text="TextArea child1"  color="0xff0000" height="30"/>
+					<s:TextInput text="TextInput child3"  color="0x0000ff"/>
+				</s:Panel>
+			</s:GridItemEditor>
+		</fx:Component>	
+		<fx:Component   className="comboxIE">
+			<s:GridItemEditor>
+				<s:ComboBox id="comboBox"  >
+				<s:dataProvider>
+					<s:ArrayCollection>
+						<fx:String>ProductD</fx:String>
+						<fx:String>ProductP</fx:String>
+						<fx:String>ProductF</fx:String>
+						<fx:String>ProductT</fx:String>
+						<fx:String>ProductC</fx:String>
+					</s:ArrayCollection>
+				</s:dataProvider>
+				<fx:Script>
+					<![CDATA[
+						override public function get value():Object
+						{
+						   	trace(outerDocument);
+						   	trace(parentDocument);
+							return comboBox.selectedItem;
+
+						}
+
+						/**
+						 *  @private
+						 * 
+						 *  Set the selected item of the combo box with the data from the
+						 *  item. 
+						 */ 
+						override public function set value(newValue:Object):void
+						{
+							comboBox.selectedIndex=1;
+						}
+
+					]]>
+				</fx:Script>
+				</s:ComboBox>
+				</s:GridItemEditor>
+			</fx:Component>
+			<fx:Component className="dgTextAreaIR">
+				<s:GridItemRenderer>
+					<s:TextArea id="labelDisplay2" width="100%" height="100%" editable="true" text="{label}"/>
+				</s:GridItemRenderer>
+		</fx:Component>
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	
+	<s:HGroup id="hg1">
+		
+		<!-- default one, editable is turned off -->
+		<comps:DataGrid_comp1	id="dataGrid" />
+		<comps:DataGrid_editable_comp1	id="dataGrid2" />
+		<comps:DataGrid_editable_size   id="dataGrid3" />
+	</s:HGroup>
+	<s:HGroup id="hg2">
+		<comps:DataGrid_editable_comp2	id="dataGrid4" />
+		<comps:DataGrid_editable_comp3	id="dataGrid5" />
+	</s:HGroup>
+	 
+	<comps:DataGrid_multiline_lineBreakStyle id="dataGrid6" />
+	<comps:DataGrid_ComboBoxEditor id="dataGrid7" />
+	
+</s:Application>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:custom="Assets.*" width="800" height="800">
+
+<fx:Script>
+<![CDATA[
+
+    import mx.collections.IList;
+    import spark.components.ToggleButton;
+    import mx.core.Application;
+    import mx.core.IFlexDisplayObject;
+    import mx.managers.PopUpManager;
+    import mx.utils.ObjectUtil;
+    import spark.events.IndexChangeEvent;
+    import spark.components.ButtonBarButton;
+    import spark.skins.spark.ButtonBarSkin;
+
+    public var thePopUp:IFlexDisplayObject;
+
+
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    global{
+        kerning: "off";
+    }
+
+    s|ButtonBar{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|ToggleButton{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<s:layout> <s:VerticalLayout/> </s:layout>
+
+
+<custom:TestComp_bug23528 id="TC" />
+
+</s:Application>

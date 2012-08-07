@@ -1,0 +1,164 @@
+<languageVersion : 1.0;>
+
+kernel Float4x4
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "Float4x4 with default.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float4x4 allFloats
+    <
+        minValue:float4x4(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+        maxValue:float4x4(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+        defaultValue:float4x4(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        float2 pos = outCoord();
+        float x = pos.x;
+        float y = pos.y;
+
+        int4 box1bounds;
+        int4 box2bounds;
+        int4 box3bounds;
+        int4 box4bounds;
+        int4 box5bounds;
+        int4 box6bounds;
+        int4 box7bounds;
+        int4 box8bounds;
+        int4 box9bounds;
+        int4 box10bounds;
+        int4 box11bounds;
+        int4 box12bounds;
+        int4 box13bounds;
+        int4 box14bounds;
+        int4 box15bounds;
+        int4 box16bounds;
+        
+        box1bounds.x = 0;    //minX
+        box1bounds.y = 25;   //maxX
+        box1bounds.z = 0;    //minY
+        box1bounds.w = 25;   //maxY
+
+        box2bounds.x = 26;   //minX
+        box2bounds.y = 50;  //maxX
+        box2bounds.z = 0;    //minY
+        box2bounds.w = 25;   //maxY
+
+        box3bounds.x = 51;    //minX
+        box3bounds.y = 75;   //maxX
+        box3bounds.z = 0;   //minY
+        box3bounds.w = 25; //maxY
+
+        box4bounds.x = 76;   //minX
+        box4bounds.y = 100;  //maxX
+        box4bounds.z = 0;   //minY
+        box4bounds.w = 25;  //maxY
+
+        box5bounds.x = 0;   //minX
+        box5bounds.y = 25;  //maxX
+        box5bounds.z = 26;   //minY
+        box5bounds.w = 50;  //maxY
+        
+        box6bounds.x = 26;   //minX
+        box6bounds.y = 50;  //maxX
+        box6bounds.z = 26;   //minY
+        box6bounds.w = 50;  //maxY
+        
+        box7bounds.x = 51;   //minX
+        box7bounds.y = 75;  //maxX
+        box7bounds.z = 26;   //minY
+        box7bounds.w = 50;  //maxY
+        
+        box8bounds.x = 76;   //minX
+        box8bounds.y = 100;  //maxX
+        box8bounds.z = 26;   //minY
+        box8bounds.w = 50;  //maxY
+        
+        box9bounds.x = 0;   //minX
+        box9bounds.y = 25;  //maxX
+        box9bounds.z = 51;   //minY
+        box9bounds.w = 75;  //maxY
+
+        box10bounds.x = 26;   //minX
+        box10bounds.y = 50;  //maxX
+        box10bounds.z = 51;   //minY
+        box10bounds.w = 75;  //maxY
+        
+        box11bounds.x = 51;   //minX
+        box11bounds.y = 75;  //maxX
+        box11bounds.z = 51;   //minY
+        box11bounds.w = 75;  //maxY
+        
+        box12bounds.x = 76;   //minX
+        box12bounds.y = 100;  //maxX
+        box12bounds.z = 51;   //minY
+        box12bounds.w = 75;  //maxY
+        
+        box13bounds.x = 0;   //minX
+        box13bounds.y = 25;  //maxX
+        box13bounds.z = 76;   //minY
+        box13bounds.w = 100;  //maxY
+        
+        box14bounds.x = 26;   //minX
+        box14bounds.y = 50;  //maxX
+        box14bounds.z = 76;   //minY
+        box14bounds.w = 100;  //maxY
+        
+        box15bounds.x = 51;   //minX
+        box15bounds.y = 75;  //maxX
+        box15bounds.z = 76;   //minY
+        box15bounds.w = 100;  //maxY
+        
+        box16bounds.x = 76;   //minX
+        box16bounds.y = 100;  //maxX
+        box16bounds.z = 76;   //minY
+        box16bounds.w = 100;  //maxY
+
+        dst.g = float(0);
+        dst.b = float(0);
+        dst.a = sampleNearest(src, outCoord()).a;
+        
+        if(x >= float(box1bounds.x) && x <= float(box1bounds.y) && y >= float(box1bounds.z) && y <= float(box1bounds.w)){
+            dst.r = allFloats[0][0];
+        }else if(x >= float(box2bounds.x) && x <= float(box2bounds.y) && y >= float(box2bounds.z) && y <= float(box2bounds.w)){
+            dst.r = allFloats[0][1];
+        }else if(x >= float(box3bounds.x) && x <= float(box3bounds.y) && y >= float(box3bounds.z) && y <= float(box3bounds.w)){
+            dst.r = allFloats[0][2];
+       }else if(x >= float(box4bounds.x) && x <= float(box4bounds.y) && y >= float(box4bounds.z) && y <= float(box4bounds.w)){
+            dst.r = allFloats[0][3];
+        }else if(x >= float(box5bounds.x) && x <= float(box5bounds.y) && y >= float(box5bounds.z) && y <= float(box5bounds.w)){
+            dst.r = allFloats[1][0];
+        }else if(x >= float(box6bounds.x) && x <= float(box6bounds.y) && y >= float(box6bounds.z) && y <= float(box6bounds.w)){
+            dst.r = allFloats[1][1];
+        }else if(x >= float(box7bounds.x) && x <= float(box7bounds.y) && y >= float(box7bounds.z) && y <= float(box7bounds.w)){
+            dst.r = allFloats[1][2];
+        }else if(x >= float(box8bounds.x) && x <= float(box8bounds.y) && y >= float(box8bounds.z) && y <= float(box8bounds.w)){
+            dst.r = allFloats[1][3];
+        }else if(x >= float(box9bounds.x) && x <= float(box9bounds.y) && y >= float(box9bounds.z) && y <= float(box9bounds.w)){
+            dst.r = allFloats[2][0];
+        }else if(x >= float(box10bounds.x) && x <= float(box10bounds.y) && y >= float(box10bounds.z) && y <= float(box10bounds.w)){
+            dst.r = allFloats[2][1];
+        }else if(x >= float(box11bounds.x) && x <= float(box11bounds.y) && y >= float(box11bounds.z) && y <= float(box11bounds.w)){
+            dst.r = allFloats[2][2];
+        }else if(x >= float(box12bounds.x) && x <= float(box12bounds.y) && y >= float(box12bounds.z) && y <= float(box12bounds.w)){
+            dst.r = allFloats[2][3];
+        }else if(x >= float(box13bounds.x) && x <= float(box13bounds.y) && y >= float(box13bounds.z) && y <= float(box13bounds.w)){
+            dst.r = allFloats[3][0];
+        }else if(x >= float(box14bounds.x) && x <= float(box14bounds.y) && y >= float(box14bounds.z) && y <= float(box14bounds.w)){
+            dst.r = allFloats[3][1];
+        }else if(x >= float(box15bounds.x) && x <= float(box15bounds.y) && y >= float(box15bounds.z) && y <= float(box15bounds.w)){
+            dst.r = allFloats[3][2];
+        }else if(x >= float(box16bounds.x) && x <= float(box16bounds.y) && y >= float(box16bounds.z) && y <= float(box16bounds.w)){
+            dst.r = allFloats[3][3];
+        }else{
+            dst.r = float(0);
+        }
+    }
+}

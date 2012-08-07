@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/properties/"
+			testSWF="ImageMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+        <TestCase testID="Image_FillMode_Scale_stretch" keywords="[Image, scale, stretch]" description="Scale image stretch">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="height" value="400" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_Percent_Scale_stretch" keywords="[Image, scale, stretch]" description="Scale image, stretch  image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="pr.im" />
+            </setup>
+            <body>
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete"  />
+                <SetProperty target="pr" propertyName="height" value="400" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="percentWidth" value="50" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="percentHeight" value="80" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_stretch_align_top_left" keywords="[Image, scale, align]" description="Strech image , change to letter box, align top left">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+             </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="left" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="top" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="percentWidth" value="90" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_stretch_bottom_right" keywords="[Image, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="350" waitEvent="updateComplete" waitTarget="pr" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="width" value="200" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="percentHeight" value="110" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+		<SetProperty target="pr.im" propertyName="fillMode" value="scale" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_stretch_bottom_right_trusted" keywords="[Image, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+            </setup>
+            <body>
+
+                <SetProperty target="pr.im" propertyName="percentHeight" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="scale" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Image_FillModeScale_stretch_align_top_center_percentWidth" keywords="[Image, scale, align]" description="Strech image , change to letter box, align top center">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr.im" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="top" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_stretch_bottom_left_percentHeight" keywords="[Image, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="pr" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="percentHeight" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="left" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_stretch_bottom_right_trusted_width" keywords="[Image, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="width" value="150" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_letterbox_bottom_right_trusted_width" keywords="[Image, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="width" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="clip" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_letterbox_bottom_right_trusted_height" keywords="[Image, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="height" value="150" waitEvent="updateComplete"  />
+                <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_letterbox_bottom_right_align_width" keywords="[Image, scale, align]" description="Strech image">
+        <setup>
+            <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+            <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+            <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+            <SetProperty target="pr.im" propertyName="top" value="10" />
+            <SetProperty target="pr.im" propertyName="bottom" value="10" />
+        </setup>
+        <body>
+
+            <SetProperty target="pr.im" propertyName="percentHeight" value="100"   />
+            <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+            <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+            <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+            <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+             <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+        </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_letterbox_bottom_right_align_height" keywords="[Image, scale, align]" description="Strech image">
+        <setup>
+        <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+            <SetProperty target="pr" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr" />
+            <SetProperty target="pr" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="pr" />
+            <SetProperty target="pr.im" propertyName="left" value="10" />
+            <SetProperty target="pr.im" propertyName="right" value="10" />
+        </setup>
+        <body>
+            <SetProperty target="pr.im" propertyName="height" value="100"   />
+            <SetProperty target="pr.im" propertyName="percentWidth" value="100"   />
+            <SetProperty target="pr.im" propertyName="horizontalAlign" value="right" />
+            <SetProperty target="pr.im" propertyName="verticalAlign" value="bottom" />
+            <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            <SetProperty target="pr.im" propertyName="scaleMode" value="letterbox" />
+            <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+            <Pause timeout="100"/>
+		<CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+        </body>
+        </TestCase>
+        <TestCase testID="Image_FillModeScale_SDK-26600" keywords="[Image, scale, SDK-26600]" description="Bug-Odd gaps in Spark Image when using scaleMode=stretch and high quality smoothing and setting image smaller than original source">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="smooth" value="true" />
+                <SetStyle target="pr.im" styleName="smoothingQuality" value="high" />
+
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="pr.im" propertyName="width" value="399" />
+                <SetProperty target="pr.im" propertyName="height" value="31" />
+                <SetProperty target="pr.im" propertyName="fillMode" value="repeat" />
+
+                <Pause timeout="100"/>
+                <CompareBitmap target="pr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Image_FillModescale_ScaleModezoom" keywords="[BitmapImage, scale, zoom]" description="Zoom image">
+          <setup>
+            <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+            <SetProperty target="bitmapImage.im" propertyName="width" value="400" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+            <SetProperty target="bitmapImage.im" propertyName="height" value="400" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+            <SetProperty target="bitmapImage.im" propertyName="fillMode" value="scale" />
+            <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="zoom" />
+            <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="bitmapImage.im" />
+          </setup>
+          <body>
+		        <CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+          </body>
+        </TestCase>
+	 </testCases>
+</UnitTester>

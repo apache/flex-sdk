@@ -1,0 +1,643 @@
+<UnitTester testDir="gumbo/components/Spinner/Properties/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns="*" testSWF="Gumbo_Spinner_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <!-- Test Cases -->
+    <testCases>
+
+        <TestCase testID="Spinner_defaultValues" keywords="[FxSpinner, Default]" description="Test Spinner Default Values for value, minimum, maximum, snapInterval and stepSize">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+                <AssertPropertyValue target="mySpinner" propertyName="minimum" value="0" />
+                <AssertPropertyValue target="mySpinner" propertyName="maximum" value="100" />     
+                <AssertPropertyValue target="mySpinner" propertyName="stepSize" value="1" />
+                <AssertPropertyValue target="mySpinner" propertyName="snapInterval" value="1" />
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="1" />
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="1" />                
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" />         
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />                
+            </body>
+        </TestCase>   
+                     
+        <TestCase testID="Spinner_stepSize1" keywords="[FxSpinner, stepSize]" description="Test Spinner stepSize Property with a user defined value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>           
+            </setup>
+            <body>                      
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="5" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="10" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="5" />
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+            
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+       
+        <TestCase testID="Spinner_stepSize2" keywords="[FxSpinner, stepSize]" description="Test Spinner stepSize Property with a decimal value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="snapInterval" value="1.5" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="stepSize" value="1.5" />                      
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="1.5" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>            
+
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="3" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>            
+
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="4.5" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="3.0" />     
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>        
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="1.5" />     
+
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>            
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />               
+            </body>
+        </TestCase>        
+       
+        <TestCase testID="Spinner_stepSize3" keywords="[FxSpinner, stepSize]" description="Test Spinner stepSize Property with a value of zero">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="snapInterval" value="0" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="0" waitEvent="updateComplete" waitTarget="mySpinner"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="mySpinner" propertyName="stepSize" value="0" />
+                                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>            
+
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>            
+
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.decrementButton" />
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />               
+            </body>
+        </TestCase>        
+       
+        <TestCase testID="Spinner_minimum1" keywords="[FxSpinner, minimum]" description="Test Spinner Minimum Property Default">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>       
+            </setup>
+            <body>                                       
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Spinner_minimum2" keywords="[FxSpinner, minimum]" description="Test Spinner Minimum Property with user defined negative value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>       
+                <SetProperty target="mySpinner" propertyName="minimum" value="-5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+            </setup>
+            <body>                               
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="-5" />      
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="-5" />              
+            </body>
+        </TestCase>        
+        
+        <TestCase testID="Spinner_minimum3" keywords="[FxSpinner, minimum]" description="Test Spinner Minimum Property with user defined even-multiple value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="stepSize" value="7" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="28" waitEvent="updateComplete" waitTarget="mySpinner"/>      
+                <SetProperty target="mySpinner" propertyName="minimum" value="7" waitEvent="updateComplete" waitTarget="mySpinner"/>
+            </setup>
+            <body>                            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="21" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="14" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="7" />       
+
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="7" />       
+            </body>
+        </TestCase>        
+       
+        <TestCase testID="Spinner_minimum4" keywords="[FxSpinner, minimum]" description="Test Spinner Minimum Property with user defined non-even-multiple value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="snapInterval" value="1" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="15" waitEvent="updateComplete" waitTarget="mySpinner"/>      
+                <SetProperty target="mySpinner" propertyName="minimum" value="2" waitEvent="updateComplete" waitTarget="mySpinner"/>
+            </setup>
+            <body>                            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="10" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="5" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="2" />       
+
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="2" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="7" />               
+            </body>
+        </TestCase>                
+                     
+        <TestCase testID="Spinner_maximum1" keywords="[FxSpinner, maximum]" description="Test Spinner Maximum Property Default">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="90" waitEvent="updateComplete" waitTarget="mySpinner"/>
+            </setup>
+            <body>                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="95" />          
+                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="100" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="100" />     
+            </body>
+        </TestCase>
+                   
+        <TestCase testID="Spinner_maximum2" keywords="[FxSpinner, maximum]" description="Test Spinner Maximum Property with a user defined value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>           
+                <SetProperty target="mySpinner" propertyName="maximum" value="205" waitEvent="updateComplete" waitTarget="mySpinner"/>          
+                <SetProperty target="mySpinner" propertyName="value" value="195" waitEvent="updateComplete" waitTarget="mySpinner"/>
+            </setup>
+            <body>                   
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="200" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="205" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.incrementButton"/>            
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="205" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Spinner_maximum3" keywords="[FxSpinner, maximum]" description="Test Spinner Maximum Property with a user defined non-even-multiple value">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="stepSize" value="6" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="snapInterval" value="1" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="6" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="maximum" value="20" waitEvent="updateComplete" waitTarget="mySpinner"/>           
+            </setup>
+            <body>                       
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                  <AssertPropertyValue target="mySpinner" propertyName="value" value="12" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="18" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="20" />
+
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="mySpinner.incrementButton" />      
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="20" />                  
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>           
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="14" />
+
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>           
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="8" />                       
+            </body>
+        </TestCase>
+             
+        <TestCase testID="Spinner_allowValueWrap1" keywords="[FxSpinner, allowValueWrap]" description="Test Spinner Value Wrap with Increment">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="90" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />           
+            </setup>
+            <body>                      
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="95" />          
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="100" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="5" />           
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Spinner_allowValueWrap2" keywords="[FxSpinner, allowValueWrap]" description="Test Spinner Value Wrap with Decrement">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />           
+            </setup>
+            <body>                      
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="5" />           
+            
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="100" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/> 
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/> 
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="95" />          
+            </body>
+        </TestCase>        
+
+        <TestCase testID="Spinner_allowValueWrap3" keywords="[FxSpinner, allowValueWrap]" description="Test Spinner Maximum Property with a user defined value and allowValueWrap = true">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="maximum" value="335" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="value" value="325" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="330" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="335" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="5" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="Spinner_allowValueWrap4" keywords="[FxSpinner, allowValueWrap]" description="Test Spinner allowValueWrap with user defined min and max and incrementButton">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="maximum" value="155" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="minimum" value="-10" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />
+                <SetProperty target="mySpinner" propertyName="value" value="145" waitEvent="updateComplete" waitTarget="mySpinner"/>            
+            </setup>
+            <body>                                 
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="150" />     
+        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="155" />
+                           
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="-10" />
+                        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+            
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="-5" />
+            </body>
+        </TestCase>
+            
+        <TestCase testID="Spinner_allowValueWrap5" keywords="[FxSpinner, allowValueWrap]" description="Test Spinner allowValueWrap with user defined min and max and decrementButton">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="stepSize" value="5" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="maximum" value="155" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="minimum" value="-10" waitEvent="updateComplete" waitTarget="mySpinner" />
+                <SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />                   
+            </setup>
+            <body>                                 
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="-5" />
+                       
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="-10" />
+                        
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="155" />
+
+                <DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="change" waitTarget="mySpinner"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+        
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="150" />                     
+            </body>
+        </TestCase>                    
+
+        <TestCase testID="Spinner_disabled" keywords="[FxSpinner, Disabled]" description="Test Spinner Disabled">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+                <SetProperty target="mySpinner" propertyName="enabled" value="false" />             
+            </setup>
+            <body>
+                <AssertPropertyValue target="mySpinner" propertyName="enabled" value="false" />
+                                
+                <DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" />
+                <Pause timeout="100"/>
+                <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5"/>
+                <Pause timeout="100"/>
+                <DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5"/>
+                <Pause timeout="100"/>
+                                
+                <AssertPropertyValue target="mySpinner" propertyName="value" value="0" />    
+            
+                <CompareBitmap target="mySpinner" url="../Properties/Baselines/$testID_1.png" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="Spinner_width" keywords="[FxSpinner, Width]" description="Test Spinner Width Property">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>        
+                <SetProperty target="mySpinner" propertyName="width" value="200" waitTarget="mySpinner" waitEvent="updateComplete"/>                
+            </setup>
+            <body>              
+                <AssertPropertyValue target="mySpinner" propertyName="width" value="200" />             
+                                
+                <CompareBitmap target="mySpinner" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="Spinner_height" keywords="[FxSpinner, Height]" description="Test Spinner Height Property">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>        
+                <SetProperty target="mySpinner" propertyName="height" value="100" waitTarget="mySpinner" waitEvent="updateComplete"/>               
+            </setup>
+            <body>              
+                <AssertPropertyValue target="mySpinner" propertyName="height" value="100" />                
+                                
+                <CompareBitmap target="mySpinner" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>   
+        
+        <TestCase testID="Spinner_layoutDirection_RTL" keywords="[Spinner, Mirroring, layoutDirection]" description="Test Spinner with layoutDirection='rtl'">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>        
+                <SetProperty target="mySpinner" propertyName="layoutDirection" value="rtl" waitTarget="mySpinner" waitEvent="updateComplete"/>               
+            </setup>
+            <body>                   
+                <CompareBitmap target="mySpinner" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>    
+        <TestCase testID="Spinner_layoutDirection_RTL_onParent" keywords="[Spinner, Mirroring, layoutDirection]" description="Test Spinner with layoutDirection='rtl'">
+            <setup>
+                <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete"/>        
+                <SetProperty target="" propertyName="layoutDirection" value="rtl" waitTarget="" waitEvent="updateComplete"/>               
+            </setup>
+            <body>                   
+                <CompareBitmap target="mySpinner" url="../Properties/Baselines/$testID.png"/>
+                <SetProperty target="" propertyName="layoutDirection" value="ltr" />               
+            </body>
+        </TestCase>   
+     
+    </testCases>
+
+</UnitTester>

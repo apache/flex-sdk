@@ -1,0 +1,122 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Integration/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic3.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import comps.*;
+        	import skins.*;
+        	
+        	 
+        	public static function init(o:DisplayObject):void {}
+        	
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!--
+    test state/skin
+    -->
+    
+    <testCases>  
+    	
+        <TestCase testID="TitleWindow_states_test1" keywords="[TitleWindow,states]" description="Test a titleWindow's state">
+	    <setup>            
+	        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowStates,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>
+    		<AssertPropertyValue target="twObject" propertyName="currentState" value="state01"/>
+		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+         <TestCase testID="TitleWindow_states_test2" keywords="[TitleWindow,states]" description="Test change a titleWindow's state">
+	    <setup>            
+	        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowStates,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	        <SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+    	    </setup>
+    	    <body>
+    		<SetProperty target="twObject" propertyName="currentState" value="state02"/>
+		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>       
+ 
+         <TestCase testID="TitleWindow_states_test3" keywords="[TitleWindow,states]" description="Test value when a titleWindow's state is changed">
+ 	    <setup>            
+ 	        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+ 	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowStates,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+     	        <SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+     	    </setup>
+     	    <body>
+     		<SetProperty target="twObject.ta" propertyName="text" value="text updated in state02" waitEvent="updateComplete"/>
+     		<SetProperty target="twObject" propertyName="currentState" value="state01" waitTarget="twObject" waitEvent="currentStateChange"/>				
+     		<AssertPropertyValue target="twObject" propertyName="currentState" value="state01"/>
+     		<!-- value will be back to the initial value in state01 -->
+     		<AssertPropertyValue target="twObject.ta" propertyName="text" value="State One"/>
+     		<!-- switch back to state02 again -->
+     		<SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+		<AssertPropertyValue target="twObject" propertyName="currentState" value="state02"/>
+     		<AssertPropertyValue target="twObject.ta" propertyName="text" value="State Two"/>
+             </body>
+        </TestCase>  
+  
+         <TestCase testID="TitleWindow_states_test4" keywords="[TitleWindow,states]" description="Test value when a titleWindow's state is changed">
+ 	    <setup>            
+ 	        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+ 	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowStates,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+     	        <SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+     	    </setup>
+     	    <body>
+     		<SetProperty target="twObject.dg1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+     		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jeena"/>
+     		<!-- switch back to state01 again -->
+     		<SetProperty target="twObject" propertyName="currentState" value="state01" waitTarget="twObject" waitEvent="currentStateChange"/>				
+		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jeena"/>
+		
+     		<!-- switch back to state02 again -->
+		<SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jeena"/>
+		
+             </body>
+        </TestCase>  
+
+         <TestCase testID="TitleWindow_states_test5" keywords="[TitleWindow,states]" description="Test value when a titleWindow's state is changed">
+ 	    <setup>            
+ 	        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+ 	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowStates,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+     	        <SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+     	    </setup>
+     	    <body>
+     		<SetProperty target="twObject.dg1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+     		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jeena"/>
+     		<!-- switch back to state01 again -->
+     		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jeena"/>
+     		<SetProperty target="twObject" propertyName="currentState" value="state01" waitTarget="twObject" waitEvent="currentStateChange"/>				
+		<SetProperty target="twObject.dg1" propertyName="selectedIndex" value="2"/>
+		<Pause timeout="40"/>
+		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jerry"/>
+		
+     		<!-- switch back to state02 again -->
+		<SetProperty target="twObject" propertyName="currentState" value="state02" waitTarget="twObject" waitEvent="currentStateChange"/>				
+		<AssertPropertyValue target="twObject.dg1" propertyName="selectedIndex" value="2"/>
+		<AssertPropertyValue target="twObject.dg1.selectedItem" propertyName="name" value="Jerry"/>
+		
+             </body>
+        </TestCase>  
+        
+    </testCases>
+    
+</UnitTester>
+

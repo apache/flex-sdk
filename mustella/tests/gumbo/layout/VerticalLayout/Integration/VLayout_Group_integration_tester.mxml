@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/VerticalLayout/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VerticalLayout_Group_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        [Bindable]
+		private var textString:String = new String("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis nisi. Duis at turpis. Sed hendrerit porttitor est. Ut et eros. Nullam risus lacus, semper ut, gravida vitae, tempus ac, ligula. Nulla mollis. Curabitur neque nibh, pretium quis, hendrerit sit amet, molestie non, sem. Pellentesque quis arcu quis odio hendrerit aliquam. Nam ligula. Phasellus a nisi eu justo pretium accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ac metus. Nulla dignissim elit id dolor. Curabitur elit. Phasellus tempus nisi sed eros. Fusce ac ipsum sed ligula volutpat molestie. ");
+		
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<!--Scrolling tests-->
+		<TestCase testID="VLayout_group_parent_scroll_down" keywords="[VerticalLayout, scrolling]" description="Scrolling down shows the entire item">
+					<setup>
+						<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+						<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+						<SetProperty propertyName="visible" value="false" target="grp"/>
+					</setup>
+					<body>
+						<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.grp.vl"/>
+						<SetProperty propertyName="width" value="70" target="myScroll.grp" waitEvent="updateComplete" />
+						<SetProperty propertyName="height" value="70" target="myScroll.grp" waitEvent="updateComplete"/>
+		
+						<RunCode code="application.addRect(application.myScroll.grp)"/>
+						<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+						<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+		
+						<RunCode code="application.addSparkBtn(application.myScroll.grp)" waitEvent="updateComplete" waitTarget="myScroll.skin"/>
+		
+						<SetProperty propertyName="verticalScrollPosition" value="80" target="myScroll.grp.vl" waitEvent="updateComplete" waitTarget="myScroll.verticalScrollBar" />
+		
+						<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+		
+						<DispatchMouseEvent type="rollOver" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" />
+						<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" />
+						<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" />
+						<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+						<DispatchMouseEvent type="mouseUp" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+		
+						<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+					</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_parent_scroll_thumb" keywords="[VerticalLayout, scrolling]" description="Scrolling thumb shows the entire item">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.grp.vl"/>
+				<SetProperty propertyName="width" value="70" target="myScroll.grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="90" target="myScroll.grp" waitEvent="updateComplete"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(2)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(2)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+				
+				<DispatchMouseEvent type="rollOver" target="myScroll.verticalScrollBar.thumb" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.thumb" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseMove" target="myScroll.verticalScrollBar.thumb" stageX="75" stageY="62" />
+				<DispatchMouseEvent type="mouseMove" target="myScroll.verticalScrollBar.thumb" stageX="75" stageY="65" />
+				<DispatchMouseEvent type="mouseMove" target="myScroll.verticalScrollBar.thumb" stageX="75" stageY="67" />
+				<DispatchMouseEvent type="mouseUp" target="myScroll.verticalScrollBar.thumb" localX="5" localY="10" waitEvent="updateComplete" />
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_parent_scroll_down_GraphicElement" keywords="[VerticalLayout, scrolling]" description="Scrolling down shows the entire item">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.grp.vl"/>
+				<SetProperty propertyName="width" value="70" target="myScroll.grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="70" target="myScroll.grp" waitEvent="updateComplete"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="verticalScrollPosition" value="45" target="myScroll.grp.vl" waitEvent="updateComplete" waitTarget="myScroll.verticalScrollBar" />
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<DispatchMouseEvent type="rollOver" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="mouseUp" target="myScroll.verticalScrollBar.incrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+
+		
+		
+		<TestCase testID="VLayout_group_parent_scroll_up" keywords="[VerticalLayout, scrolling]" description="Scrolling up shows the entire item">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.grp.vl"/>
+				<SetProperty propertyName="width" value="70" target="myScroll.grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="70" target="myScroll.grp" waitEvent="updateComplete"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSimpleText(application.myScroll.grp)"/>
+				<SetStyle styleName="textAlign" target="myScroll.grp.getElementAt(2)" value="justify" />
+				<SetProperty propertyName="text" target="myScroll.grp.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="verticalScrollPosition" value="18" target="myScroll.grp.vl" waitEvent="updateComplete" waitTarget="myScroll.verticalScrollBar" />
+				
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+				
+				<DispatchMouseEvent type="rollOver" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="mouseUp" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+				
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_parent_scroll_up_GraphicElement" keywords="[VerticalLayout, scrolling]" description="Scrolling up shows the entire item">
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.grp.vl"/>
+				<SetProperty propertyName="width" value="70" target="myScroll.grp" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" value="70" target="myScroll.grp" waitEvent="updateComplete"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				
+				<RunCode code="application.addSimpleText(application.myScroll.grp)"/>
+				<SetStyle styleName="textAlign" target="myScroll.grp.getElementAt(2)" value="justify" />
+				<SetProperty propertyName="text" target="myScroll.grp.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="verticalScrollPosition" value="40" target="myScroll.grp.vl" waitEvent="updateComplete" waitTarget="myScroll.verticalScrollBar" />
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<DispatchMouseEvent type="rollOver" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" />
+				<DispatchMouseEvent type="mouseDown" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+				<DispatchMouseEvent type="mouseUp" target="myScroll.verticalScrollBar.decrementButton" localX="5" localY="10" waitEvent="updateComplete" />
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_parent_percentHeight_childGroup_percentHeight" keywords="[VerticalLayout, percentHeight, children]" description="Layout of parent with percentHeight and child with explicit size set lays out correctly">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="myScroll.grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="grp"/>
+				<SetProperty propertyName="percentHeight" value="75" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addGroup(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentHeight" target="grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="400" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<AssertPropertyValue propertyName="height" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="188" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="400" target="grp"/>
+
+				<AssertPropertyValue propertyName="x" value="0" target="grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="grp.getElementAt(0)"/>
+
+				<AssertPropertyValue propertyName="height" value="188" target="grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="400" target="grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="161" target="grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="200" target="grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="21" target="grp.getElementAt(0).getElementAt(1)"/>
+				<AssertPropertyValue propertyName="width" value="70" target="grp.getElementAt(0).getElementAt(1)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VLayout_group_parent_percentHeight_childGroup_explicit" keywords="[VerticalLayout, percentHeight, children]" description="Layout of parent with percentHeight and child with explicit size set lays out correctly">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="myScroll.grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="grp"/>
+				<SetProperty propertyName="percentHeight" value="75" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addGroup(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="300" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="400" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<Pause timeout="1000"/>
+
+				<AssertPropertyValue propertyName="height" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="400" target="grp"/>
+
+				<AssertPropertyValue propertyName="x" value="0" target="grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="grp.getElementAt(0)"/>
+
+				<AssertPropertyValue propertyName="height" value="300" target="grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="400" target="grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="273" target="grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="200" target="grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="21" target="grp.getElementAt(0).getElementAt(1)"/>
+				<AssertPropertyValue propertyName="width" value="70" target="grp.getElementAt(0).getElementAt(1)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_percentSize_children" keywords="[VerticalLayout, percentWidth, percentHeight]" description="children percentage sizing in VerticalLayout">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="myScroll.grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="percentWidth" value="75" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentHeight" value="75" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="percentHeight" target="grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="percentHeight" target="grp.getElementAt(1)" value="25" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(1)" value="25" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentHeight" target="grp.getElementAt(2)" value="25" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(2)" value="25" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<Pause timeout="1000"/>
+
+				<AssertPropertyValue propertyName="height" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="188" target="grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="VLayout_group_percentSize_change_parent" keywords="[VerticalLayout,percentSize]" description="Change parent size">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="myScroll.grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="percentWidth" value="75" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentHeight" value="75" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="percentHeight" target="grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="percentHeight" target="grp.getElementAt(1)" value="25" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="percentWidth" target="grp.getElementAt(1)" value="25" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addSparkBtn(application.grp)" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<Pause timeout="1000"/>
+
+				<AssertPropertyValue propertyName="height" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="375" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="314" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="188" target="grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+
+				<SetProperty propertyName="height" value="600" target="" waitEvent="updateComplete" waitTarget=""/>
+				<SetProperty propertyName="width" value="600" target="" waitEvent="updateComplete" waitTarget=""/>
+
+				<AssertPropertyValue propertyName="height" value="450" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="450" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="371" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="225" target="grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+				
+				<SetProperty propertyName="height" value="500" target="" waitEvent="updateComplete" waitTarget=""/>
+				<SetProperty propertyName="width" value="500" target="" waitEvent="updateComplete" waitTarget=""/>
+
+			</body>
+		</TestCase>
+		
+		
+		
+		
+		
+		<TestCase testID="VLayout_group_clipAndEnableScrolling_clip_change_runtime_larger" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs at startup and change size at runtime no more clipping">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="grp"/>
+				<SetProperty propertyName="width" value="200" target="grp"/>
+				<SetProperty propertyName="height" value="200" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+
+				<SetProperty propertyName="width" value="300" target="grp"/>
+				<SetProperty propertyName="height" value="300" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+								
+				<AssertPropertyValue propertyName="height" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="250" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="250" target="grp"/>
+				
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_clipAndEnableScrolling_clip_change_runtime_smaller" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Clipping occurs at startup and change size at runtime no more clipping">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="myScroll"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="grp"/>
+				<SetProperty propertyName="width" value="300" target="grp"/>
+				<SetProperty propertyName="height" value="300" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+
+				<SetProperty propertyName="width" value="200" target="grp"/>
+				<SetProperty propertyName="height" value="200" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="250" target="grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="250" target="grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_clipAndEnableScrolling_toggle_scrollbars" keywords="[VerticalLayout,clipAndEnableScrolling]" description="Scrollbars appear after toggling clipAndEnableScrolling at runtime">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="250" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="250" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="250" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_includeInLayout_toggle" keywords="[VerticalLayout,includeInLayout]" description="Layout relays out after toggling includeInLayout">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(0)" value="false" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(1)" value="false" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(2)" value="false" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(0)" value="true" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(1)" value="true" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(2)" value="true" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="158" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="75" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_includeInLayout_false_x_y" keywords="[VerticalLayout,includeInLayout]" description="Layout does not include includeInLayout false component">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(1)" value="false" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<SetProperty propertyName="x" value="150" target="myScroll.grp.getElementAt(1)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="y" value="125" target="myScroll.grp.getElementAt(1)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="77" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="70" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+			
+		<TestCase testID="VLayout_group_includeInLayout_toggle_percentSize" keywords="[VerticalLayout,includeInLayout]" description="Layout re lays out when includeInLayout is toggled">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(1)" value="false" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="77" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="70" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(1)" value="true" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="158" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="75" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_includeInLayout_toggle_percentSize_UIComponent" keywords="[VerticalLayout,includeInLayout]" description="Layout re lays out when includeInLayout is toggled">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(2)" value="false" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="131" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="75" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_1.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+
+				<SetProperty propertyName="includeInLayout" target="myScroll.grp.getElementAt(2)" value="true" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="158" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="75" target="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID_2.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_top_bottom_left_right" keywords="[VerticalLayout,constraints]" description="Layout ignores top bottom left right">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="top" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="bottom" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="left" target="myScroll.grp.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="right" target="myScroll.grp.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="top" target="myScroll.grp.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="bottom" target="myScroll.grp.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="left" target="myScroll.grp.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="right" target="myScroll.grp.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="158" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="75" target="myScroll.grp"/>
+				
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="y" value="56" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(2)"/>
+				<AssertPropertyValue propertyName="y" value="137" target="myScroll.grp.getElementAt(2)"/>
+				
+				<AssertPropertyValue propertyName="height" value="50" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="50" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="75" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="width" value="75" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="height" value="21" target="myScroll.grp.getElementAt(2)"/>
+				<AssertPropertyValue propertyName="width" value="70" target="myScroll.grp.getElementAt(2)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_x_y" keywords="[VerticalLayout,constraints]" description="Layout ignores x and y">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="200" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="200" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="x" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="y" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="x" target="myScroll.grp.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="y" target="myScroll.grp.getElementAt(1)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="x" target="myScroll.grp.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="y" target="myScroll.grp.getElementAt(2)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="158" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="75" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="y" value="56" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(2)"/>
+				<AssertPropertyValue propertyName="y" value="137" target="myScroll.grp.getElementAt(2)"/>
+
+				<AssertPropertyValue propertyName="height" value="50" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="50" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="75" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="width" value="75" target="myScroll.grp.getElementAt(1)"/>
+				<AssertPropertyValue propertyName="height" value="21" target="myScroll.grp.getElementAt(2)"/>
+				<AssertPropertyValue propertyName="width" value="70" target="myScroll.grp.getElementAt(2)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VLayout_group_child_percentHeight_childGroup" keywords="[VerticalLayout, percentHeight, children]" description="Layout of child with percentHeight set lays out correctly">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="400" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addGroup(application.myScroll.grp)"/>
+				<SetProperty propertyName="percentHeight" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="400" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				<AssertPropertyValue propertyName="height" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="400" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+				
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="173" target="myScroll.grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="21" target="myScroll.grp.getElementAt(0).getElementAt(1)"/>
+				<AssertPropertyValue propertyName="width" value="70" target="myScroll.grp.getElementAt(0).getElementAt(1)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VLayout_group_parent_scroll_percentHeight_childGroup_explicit" keywords="[VerticalLayout, percentHeight, children]" description="Layout of parent with percentHeight and child with explicit size set lays out correctly">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="myScroll.grp"/>
+				<SetProperty propertyName="percentHeight" value="75" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addGroup(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="300" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="400" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="300" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="300" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="400" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<AssertPropertyValue propertyName="height" value="300" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="273" target="myScroll.grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp.getElementAt(0).getElementAt(0)"/>
+				<AssertPropertyValue propertyName="height" value="21" target="myScroll.grp.getElementAt(0).getElementAt(1)"/>
+				<AssertPropertyValue propertyName="width" value="70" target="myScroll.grp.getElementAt(0).getElementAt(1)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_parent_scroll_paddingLeft_paddingRight" keywords="[VerticalLayout, paddingLeft, paddingRight]" description="Layout respects paddingLeft and paddingRight">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="400" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="paddingLeft" target="myScroll.grp.vl" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="paddingRight" target="myScroll.grp.vl" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="400" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="x" value="100" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VLayout_group_parent_scroll_paddingLeft_paddingRight_scrollbars" keywords="[VerticalLayout, paddingLeft, paddingRight]" description="Layout respects paddingLeft and paddingRight">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="400" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="paddingLeft" target="myScroll.grp.vl" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="paddingRight" target="myScroll.grp.vl" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="600" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="x" value="200" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_group_parent_scroll_paddingLeft_paddingRight_grow" keywords="[VerticalLayout, paddingLeft, paddingRight]" description="Layout respects paddingLeft and paddingRight">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="paddingLeft" target="myScroll.grp.vl" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="paddingRight" target="myScroll.grp.vl" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="350" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="350" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="x" value="75" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="y" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+	<TestCase testID="VLayout_group_parent_scroll_paddingTop_paddingBottom" keywords="[VerticalLayout, paddingBottom, paddingTop]" description="Layout respects paddingTop and paddingBottom">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="400" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="paddingTop" target="myScroll.grp.vl" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="paddingBottom" target="myScroll.grp.vl" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="y" value="100" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VLayout_group_parent_scroll_paddingTop_paddingBottom_scrollbars" keywords="[VerticalLayout, paddingBottom, paddingTop]" description="Layout respects paddingTop and paddingBottom">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="width" value="400" target="myScroll.grp"/>
+				<SetProperty propertyName="height" value="400" target="myScroll.grp" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="paddingTop" target="myScroll.grp.vl" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="paddingBottom" target="myScroll.grp.vl" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="height" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="width" value="400" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="600" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="y" value="200" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="VLayout_group_parent_scroll_paddingTop_paddingBottom_grow" keywords="[VerticalLayout, paddingBottom, paddingTop]" description="Layout respects paddingTop and paddingBottom">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="200" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<SetProperty propertyName="paddingTop" target="myScroll.grp.vl" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="paddingBottom" target="myScroll.grp.vl" value="75" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="width" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="height" value="350" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentWidth" value="200" target="myScroll.grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="350" target="myScroll.grp"/>
+
+				<AssertPropertyValue propertyName="y" value="75" target="myScroll.grp.getElementAt(0)"/>
+				<AssertPropertyValue propertyName="x" value="0" target="myScroll.grp.getElementAt(0)"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" maxColorVariance="5"  target="myScroll"/>
+			</body>
+		</TestCase>
+		
+		<!-- maxRequestedColumnCount -->
+		<TestCase testID="VLayout_group_requestedMaxRowCount_lessthan_children" keywords="[VerticalLayout, maxRequestedRowCount]" description="Set maxRequestedRowCount less than the number of children in the Group">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="requestedMaxRowCount" value="2" target="myScroll.grp.vl"/>
+			</setup>
+			<body>
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSimpleText(application.myScroll.grp)"/>
+				<SetStyle styleName="textAlign" target="myScroll.grp.getElementAt(2)" value="justify" />
+				<SetProperty propertyName="text" target="myScroll.grp.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" target="myScroll"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VLayout_group_requestedMaxRowCount_greaterThan_children" keywords="[VerticalLayout, maxRequestedRowCount]" description="Set maxRequestedRowCount greater than the number of children in the Group">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="requestedMaxRowCount" value="4" target="myScroll.grp.vl"/>
+			</setup>
+			<body>
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSimpleText(application.myScroll.grp)"/>
+				<SetStyle styleName="textAlign" target="myScroll.grp.getElementAt(2)" value="justify" />
+				<SetProperty propertyName="text" target="myScroll.grp.getElementAt(2)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(2)" value="190" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" target="myScroll"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VLayout_group_requestedMaxRowCount_requestedMinRowCount" keywords="[VerticalLayout, maxRequestedRowCount]" description="minRequestedRowCount takes precedence over maxRequestedRowCount">
+			<setup>
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="requestedMaxRowCount" value="2" target="myScroll.grp.vl"/>
+				<SetProperty propertyName="requestedMinRowCount" value="4" target="myScroll.grp.vl"/>
+			</setup>
+			<body>
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(3)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="140" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSimpleText(application.myScroll.grp)"/>
+				<SetStyle styleName="textAlign" target="myScroll.grp.getElementAt(4)" value="justify" />
+				<SetProperty propertyName="text" target="myScroll.grp.getElementAt(4)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(4)" value="190" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				
+				
+				<CompareBitmap url="../Integration/baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" target="myScroll"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

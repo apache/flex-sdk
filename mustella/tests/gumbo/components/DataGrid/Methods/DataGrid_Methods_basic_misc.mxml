@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Methods/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import spark.components.gridClasses.*;
+            }
+            
+            
+            /*
+            	This method checks the selectedCell vector against the supplied arguments.  If the 
+            	row and column sent to the function match the row and column in the selecedCell property,
+            	the method returns true, otherwise it returns false
+            */
+            private function checkSelectedCell(theRow:Number, theCol:Number):Boolean
+            {
+            	var expectedResult:CellPosition = new CellPosition(theRow, theCol);
+				var actualResult:CellPosition = FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedCell;
+				
+				if( (expectedResult.rowIndex == actualResult.rowIndex) && (expectedResult.columnIndex == actualResult.columnIndex) )
+					return true;
+				else
+					return false;            
+            }
+            
+            /*
+            	This method checks the selectedCells vector against the supplied argument.  If the 
+            	Indices sent to the function match the Indices in the selecedCells property,
+            	the method returns true, otherwise it returns false.  For the purpose of this
+            	comparison, the selectedCells are represented by Strings.
+            */            
+			private function checkSelectedCells(expectedResult:String):Boolean
+			{
+				var actualResult:String = FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedCells.toString();
+				
+				if(expectedResult == actualResult)
+					return true;
+				else
+					return false;
+			} 
+			
+            /*
+            	This method checks the selectedIndices vector against the supplied argument.  If the 
+            	Indices sent to the function match the Indices in the selectedIndices property,
+            	the method returns true, otherwise it returns false.  For the purpose of this
+            	comparison, the selectedIndices are represented by Strings.
+            */            
+			private function checkSelectedIndices(expectedResult:String):Boolean
+			{
+				var actualResult:String = FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedIndices.toString();
+				
+				if(expectedResult == actualResult)
+					return true;
+				else
+					return false;
+			} 			
+            
+        
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Methods_selectCellRegion" keywords="[DataGrid, Methods, selectCellRegion]" description="Test selectCellRegion DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleCells"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectCellRegion(1,1,3,4)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCellRegion(1,1,3,4)" value="true"/>
+            </body>
+        </TestCase>     
+        
+		<TestCase testID="DataGrid_Methods_selectedItems" keywords="[DataGrid, Methods, selectedItems]" description="Test selectedItems with multiple rows DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleRows"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(4)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(5)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(6)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>                                
+                <AssertMethodValue method="value=checkSelectedIndices('4,5,6')" value="true"/>                               
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItems[0].firstName" value="RobFN"/>                 
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItems[1].firstName" value="HerFN"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItems[2].firstName" value="LanFN"/>
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="DataGrid_Methods_selectedItem" keywords="[DataGrid, Methods, selectedItem]" description="Test selectedItem DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             </setup>
+             <body>                                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(4)" value="true"/>
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                 <AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectedIndex" value="4"/>		 		 
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItem.country" value="USA"/>                 
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItem.firstName" value="RobFN"/>                 
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItem.lastName" value="FinFN"/>                 
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItem.position" value="FW"/>                 
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItem.club" value="RslCB"/>                 
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedItem.number" value="04"/>                 
+             </body>
+        </TestCase>
+ 
+		<TestCase testID="DataGrid_Methods_showDataTips" keywords="[DataGrid, Methods, showDataTips]" description="Test showDataTips DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>     
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.showDataTips" value="false"/>                             	           				                        
+            	<SetProperty target="myComp1.dataGrid1" propertyName="showDataTips" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.showDataTips" value="true"/>                 
+            </body>
+        </TestCase> 
+  
+		<TestCase testID="DataGrid_Methods_resizableColumns" keywords="[DataGrid, Methods, resizableColumns]" description="Test resizableColumns DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.resizableColumns" value="true"/>
+            	<SetProperty target="myComp1.dataGrid1" propertyName="resizableColumns" value="false" waitEvent="enterFrame" waitTarget="stage"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.resizableColumns" value="false"/>
+            </body>
+        </TestCase>     
+
+		<TestCase testID="DataGrid_Methods_sortableColumns" keywords="[DataGrid, Methods, sortableColumns]" description="Test sortableColumns DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                				
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.sortableColumns" value="true"/>
+            	<SetProperty target="myComp1.dataGrid1" propertyName="sortableColumns" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.sortableColumns" value="false"/>                           				                        
+            </body>
+        </TestCase>  
+
+		<TestCase testID="DataGrid_Methods_rowHeightSetGet" keywords="[DataGrid, Methods, rowHeight]" description="Test rowHeight DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                				
+            	<SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="20" waitEvent="enterFrame" waitTarget="stage"/>                        				                       
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.rowHeight" value="20"/>
+            </body>
+        </TestCase>  
+
+		<TestCase testID="DataGrid_Methods_clearSelectionSingleCell" keywords="[DataGrid, Methods, clearSelection]" description="Test clearSelection DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="singleCell"/>            
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(3,1)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,1)" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.clearSelection()" value="true"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,1)" value="false"/>				                        
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="DataGrid_Methods_clearSelectionMultipleCells" keywords="[DataGrid, Methods, clearSelection]" description="Test clearSelection DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleCells"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(3,1)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>                             
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,2)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>                
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,1)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,2)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.clearSelection()" value="true"/>				         
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,1)" value="false"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,2)" value="false"/>                
+            </body>
+        </TestCase>          
+
+ 		<TestCase testID="DataGrid_Methods_clearSelectionSingleRow" keywords="[DataGrid, Methods, clearSelection]" description="Test clearSelection DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+             </setup>
+             <body>                                
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(4)" value="true"/>
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedIndex" value="4"/>                                   
+                 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.clearSelection()" value="true"/>
+				 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+				 <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectedIndex" value="-1"/>                  
+             </body>
+        </TestCase>
+                        
+		<TestCase testID="DataGrid_Methods_clearSelectionMultipleRows" keywords="[DataGrid, Methods, clearSelection]" description="Test clearSelection with multiple rows DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleRows"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(4)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(5)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(6)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>                                
+                <AssertMethodValue method="value=checkSelectedIndices('4,5,6')" value="true"/>                               
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectedIndex" value="4"/>                 
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.clearSelection()" value="true"/>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectedIndex" value="-1"/>                 
+                <AssertMethodValue method="value=checkSelectedIndices('')" value="true"/>
+            </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Methods_requestedMinColumnCount" keywords="[DataGrid, Methods, requestedMinColumnCount]" description="Test requestedMinColumnCount DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.requestedMinColumnCount" value="-1"/>                
+            </body>
+        </TestCase>            
+        
+		<TestCase testID="DataGrid_Methods_requestedMaxRowCount" keywords="[DataGrid, Methods, requestedMaxRowCount]" description="Test requestedMaxRowCount DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.requestedMaxRowCount" value="10"/>                
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_requestedMaxRowCountSetGet" keywords="[DataGrid, Methods, requestedMaxRowCount]" description="Test requestedMaxRowCount DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<SetProperty target="myComp1.dataGrid1" propertyName="requestedMaxRowCount" value="5"/>
+            	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.requestedMaxRowCount" value="5"/>                
+            </body>
+        </TestCase>        
+        
+		<TestCase testID="DataGrid_Methods_requestedMinRowCount" keywords="[DataGrid, Methods, requestedMinRowCount]" description="Test requestedMinRowCount DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.requestedMinRowCount" value="-1"/>                
+            </body>
+        </TestCase>         
+   
+		<TestCase testID="DataGrid_Methods_addSelectedCell" keywords="[DataGrid, Methods, addSelectedCell]" description="Test addSelectedCell DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleCells"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(3,1)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=checkSelectedCell(3,1)" value="true"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,2)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=checkSelectedCells('[rowIndex=3 columnIndex=1],[rowIndex=3 columnIndex=2]')" value="true"/>                
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,1)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,2)" value="true"/>
+            </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Methods_addSelectedIndex" keywords="[DataGrid, Methods, addSelectedIndex]" description="Test addSelectedIndex DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleRows"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(4)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectedIndex" value="4"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(7)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsIndex(4)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsIndex(7)" value="true"/>                                
+                <AssertMethodValue method="value=checkSelectedIndices('4,7')" value="true"/>                               
+            </body>
+        </TestCase>
+
+		<TestCase testID="DataGrid_Methods_removeSelectedCell" keywords="[DataGrid, Methods, removeSelectedCell]" description="Test removeSelectedCell DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleCells"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(3,1)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,2)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,2)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.removeSelectedCell(3,2)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,1)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsCell(3,2)" value="false"/>
+            </body>
+        </TestCase>
+
+		<TestCase testID="DataGrid_Methods_removeSelectedIndex" keywords="[DataGrid, Methods, removeSelectedIndex]" description="Test removeSelectedIndex DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="selectionMode" value="multipleRows"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(4)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(7)" value="true"/>                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsIndex(4)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsIndex(7)" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.removeSelectedIndex(4)" value="true"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.selectionContainsIndex(4)" value="false"/>
+            </body>
+        </TestCase>
+
+		<TestCase testID="DataGrid_Methods_requestedRowCount" keywords="[DataGrid, Methods, requestedRowCount]" description="Test get requestedRowCount DataGrid">
+            <setup>
+                <ResetComponent target="myComp4" className="components.basicDG_wReqRowCol" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.requestedRowCount" value="2"/>                                
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Methods_requestedColumnCount" keywords="[DataGrid, Methods, requestedColumnCount]" description="Test get requestedColumnCount DataGrid">
+            <setup>
+                <ResetComponent target="myComp4" className="components.basicDG_wReqRowCol" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.requestedColumnCount" value="1"/>                                
+            </body>
+        </TestCase>            
+ 
+		<TestCase testID="DataGrid_Methods_partRemoved" keywords="[DataGrid, Methods, partRemoved]" description="Test get partRemoved DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetProperty target="myComp1" propertyName="currentState" value="state3" waitEvent="currentStateChange" />                                
+            </setup>
+            <body>                
+            	<AssertPropertyValue target="myComp1" propertyName="currentState" value="state3"/>
+            	<SetProperty target="myComp1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />                                
+            	<AssertPropertyValue target="myComp1" propertyName="currentState" value="state1"/>
+            </body>
+        </TestCase> 
+
+		<TestCase testID="DataGrid_Methods_rowBackground" keywords="[DataGrid, Methods, rowBackground]" description="Test get rowBackground DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.rowBackground" value="null"/>                                
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Methods_alternatingRowColors" keywords="[DataGrid, Methods, rowBackground]" description="Test setting alternatingRowColors DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                <SetStyle target="myComp1.dataGrid1" styleName="alternatingRowColors" value="[0xFF0000,0x00FF00]" waitEvent="enterFrame" waitTarget="stage"/>                                
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>                
+            	<AssertStyleValue target="myComp1.dataGrid1" styleName="alternatingRowColors" value="[0xFF0000,0x00FF00]"/>            	            	            	
+            </body>
+        </TestCase>  
+
+		<TestCase testID="DataGrid_Methods_requireSelection" keywords="[DataGrid, Methods, requireSelection]" description="Test get requireSelection DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                   
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                
+            </setup>
+            <body>                
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.requireSelection" value="false"/>                                
+            </body>
+        </TestCase>  		
+
+    </testCases>
+</UnitTester>

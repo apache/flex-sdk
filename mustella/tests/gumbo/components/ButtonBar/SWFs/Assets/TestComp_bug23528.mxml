@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="iso-8859-1"?>
+<s:VGroup horizontalAlign="center" paddingTop="50" width="100%" height="100%"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+<fx:Script>
+	<![CDATA[
+
+        import spark.components.*;
+
+
+	]]>
+	</fx:Script>
+
+	<s:ButtonBar id="bb" dataProvider="{vs1}"/>
+
+		<mx:ViewStack id="vs1" width="300" height="200" x="0" y="0" >
+			<mx:HBox label="Halo 1" backgroundColor="red" id="halo1">
+				<mx:Label text="halo1"/>
+			</mx:HBox>
+			<mx:HBox label="Halo 2" backgroundColor="blue" id="halo2">
+				<mx:Label text="halo2"/>
+			</mx:HBox>
+			<mx:HBox label="Halo 3" backgroundColor="green" id="halo3">
+				<mx:Label text="halo3"/>
+			</mx:HBox>
+		</mx:ViewStack>
+
+	<mx:ViewStack id="emptyVS"/>
+	<s:ButtonBar id="bb2" dataProvider="{emptyVS}"/>
+
+</s:VGroup>

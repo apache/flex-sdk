@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ScrollBar/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollBar_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+            public function convertXY():Point
+            {
+                 var tmp:Point = new Point(application.vsb.thumb.x, application.vsb.thumb.y);
+                 var globalPT:Point = application.vsb.thumb.localToGlobal(tmp);
+                           
+                 return globalPT;
+            }
+
+    ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="VScrollBar_properties_thumb_click" keywords="[VScrollBar,property,track,step]]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="height"  value="150" waitEvent="updateComplete"/>
+
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.track" localX="5" localY="75" />
+                <DispatchMouseEvent type="mouseDown" target="vsb.track" localX="5" localY="75" waitEvent="buttonDown"/>
+                <DispatchMouseEvent type="mouseUp"   target="vsb.track" localX="5" localY="75" waitEvent="updateComplete" />
+                <Pause timeout="300"/>
+                <AssertPropertyValue target="vsb" propertyName="minimum"  value="0" />
+                <AssertPropertyValue target="vsb" propertyName="maximum"  value="100" />
+                <AssertPropertyValue target="vsb" propertyName="pageSize" value="20" />
+                <AssertPropertyValue target="vsb" propertyName="stepSize" value="1" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="20" />
+                <AssertPropertyValue target="vsb" propertyName="snapInterval"    value="1" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_downButton_click" keywords="[VScrollBar,property,incrementButton,step]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="10" waitEvent="updateComplete"/>
+                
+
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="10" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_decrementButton_click_negativeStep" keywords="[VScrollBar,property,decrementButton,step]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="-10"  waitEvent="updateComplete"/>
+                <SetProperty    target="vsb" propertyName="value"     value="50"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="60" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_decrementButton_click_positiveStep" keywords="[VScrollBar,property,decrementButton,step]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="50"  waitEvent="updateComplete"/>
+                <SetProperty    target="vsb" propertyName="value"     value="50"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="0" />
+            </body>
+        </TestCase>
+
+    <TestCase testID="VScrollBar_thumbDrag1" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="150" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="100" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="96" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+    <TestCase testID="VScrollBar_event_thumbDrag2" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="200" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="100" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+    <TestCase testID="VScrollBar_thumbDrag2" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="200" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_thumbDrag3" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="vsb"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="200" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="VScrollBar_thumbDrag4" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="vsb"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="200" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_thumbDrag5" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="300" waitEvent="updateComplete"/>
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="vsb"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="300" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_thumbDrag6" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="false"  />
+            <SetProperty    target="vsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+            <SetProperty    target="vsb" propertyName="height"  value="300" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="300" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_track_click" keywords="[VScrollBar,property,track,step]]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="height"  value="150" waitEvent="updateComplete"/>
+
+            </setup>
+            <body>
+        <DispatchMouseEvent type="rollOver"  target="vsb.track" localX="5" localY="110" />
+                <DispatchMouseEvent type="mouseDown" target="vsb.track" localX="5" localY="110" waitEvent="buttonDown"/>
+                <DispatchMouseEvent type="mouseUp"   target="vsb.track" localX="5" localY="110" waitEvent="updateComplete" />
+        <Pause timeout="100" />
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_incrementButton_click" keywords="[VScrollBar,property,incrementButton,step]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="10" waitEvent="updateComplete"/>
+
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="10" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.incrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.incrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_decrementButton_click_negativeStep_bitmap" keywords="[VScrollBar,property,decrementButton,step]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="-10"  waitEvent="updateComplete"/>
+                <SetProperty    target="vsb" propertyName="value"     value="50"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="60" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_decrementButton_click_positiveStep_bitmap" keywords="[VScrollBar,property,decrementButton,step]" description="Checking Default Values">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="snapInterval" value="1" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="50"  waitEvent="updateComplete"/>
+                <SetProperty    target="vsb" propertyName="value"     value="50"  waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="vsb" propertyName="value"    value="0" />
+                <DispatchMouseEvent type="rollOver"  target="vsb.decrementButton" localX="2" localY="2"  />
+                <DispatchMouseEvent type="mouseDown" target="vsb.decrementButton" localX="5" localY="5" waitEvent="buttonDown"  />
+                <DispatchMouseEvent type="mouseUp"   target="vsb.decrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+                <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+
+    <TestCase testID="VScrollBar_thumbDrag10" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="150" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="100" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="96" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="20" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+    <TestCase testID="VScrollBar_thumbDrag11" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="200" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="100" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="15" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+    <TestCase testID="VScrollBar_thumbDrag12" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="190" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="20" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_thumbDrag13" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="2000" waitEvent="updateComplete"/>
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="vsb"/>
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="190" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="2000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="10" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="VScrollBar_thumbDrag14" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="200" waitEvent="updateComplete"/>
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="vsb"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="190" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="15" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_thumbDrag15" keywords="[VScrollBar]" description="Test dragging thumb">
+        <setup>
+            <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            <SetProperty    target="vsb" propertyName="height"  value="300" waitEvent="updateComplete"/>
+            <SetStyle target="vsb" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="vsb"/>
+            <SetProperty    target="vsb" propertyName="maximum"  value="1000" waitEvent="updateComplete"/>
+
+        </setup>
+        <body>
+                <AssertPropertyValue target="vsb" propertyName="value" value="0" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="thumbPress" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="290" type="mouseMove" buttonDown="true" waitEvent="thumbDrag" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="thumbRelease" waitTarget="vsb" />
+            <AssertPropertyValue target="vsb" propertyName="value" value="1000" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="rollOver" waitEvent="rollOver" waitTarget="vsb.thumb" />
+                <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseDown" waitEvent="mouseDown" waitTarget="vsb.thumb" />
+            <DispatchMouseEvent target="vsb" localX="7" localY="2" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="vsb" />
+            <DispatchMouseEvent target="vsb.thumb" localX="7" localY="5" type="mouseUp" waitEvent="mouseUp" waitTarget="vsb.thumb" />
+            <AssertEvent target="vsb" eventName="thumbRelease" numExpectedEvents="1" eventClass="spark.events::TrackBaseEvent" />
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="vsb"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_properties_layoutDirection_RTL" keywords="[HScrollBar,property,Mirroring]" description="Ensure that thumb is positioned at the bottom when layoutDirection=RTL">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty propertyName="layoutDirection" value="rtl" target="vsb" waitEvent="updateComplete" waitTarget="vsb" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=convertXY().x" value="15" />
+                <AssertMethodValue method="value=convertXY().y" value="53" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+</UnitTester>

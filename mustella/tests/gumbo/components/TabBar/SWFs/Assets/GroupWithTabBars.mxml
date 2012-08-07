@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" height="160">
+<fx:Declarations>
+    <!-- duplicated data here, late improvement will be sharing the data with main swf -->
+    <mx:ArrayCollection id="ac1">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+        <fx:String>three</fx:String>
+    </mx:ArrayCollection>
+
+    <mx:ArrayCollection id="ac2">
+        <fx:String>one</fx:String>
+    </mx:ArrayCollection>
+    <mx:ArrayCollection id="ac3">
+	<fx:String>one</fx:String>
+	<fx:String>two</fx:String>
+    </mx:ArrayCollection>
+
+    <mx:ArrayCollection id="ac4">
+        <fx:String>one long long long long long label one</fx:String>
+        <fx:String>two long long long long long label two</fx:String>
+    </mx:ArrayCollection>
+
+</fx:Declarations>
+<fx:Script>
+<![CDATA[
+	import Assets.*;
+
+    [Bindable]
+    private var skinTestData1:ArrayCollection=new ArrayCollection([
+		
+		{label:'one',imageSrc:'../../../../../Assets/Images/smallredrect.jpg',flag:true},
+		{label:'two',imageSrc:'../../../../../Assets/Images/smallgreenrect.jpg',flag:false},
+		{label:'three',imageSrc:'../../../../../Assets/Images/smallbluerect.jpg',flag:true}, 
+		{label:'four',imageSrc:'../../../../../Assets/Images/smallgreenrect.jpg',flag:false},
+		{label:'five',imageSrc:'../../../../../Assets/Images/smallredrect.jpg',flag:true}]);
+   
+    ]]>
+</fx:Script>
+
+	<s:TabBar id="tabBarFocusTest1" dataProvider="{ac2}" focusColor="0xCC0033"  height="30"/>
+        <s:TextArea id="textArea1" width="200" height="100" text="I should be focused when clicking other tabbars"/>
+        <s:ButtonBar id="buttonBar1" height="24" dataProvider="{ac1}" bottom="5"  />
+        <s:TabBar id="TabBarSkin1" height="24" dataProvider="{ac1}" bottom="5" skinClass="Assets.MyTabBarSkinCheckBox"/>
+        <s:TabBar id="TabBarSkin2" height="24" dataProvider="{skinTestData1}" bottom="5" skinClass="Assets.MyTabBarSkinWithImage"/>
+        <s:TabBar id="TabBarSkin3" height="24" dataProvider="{ac1}" bottom="5" skinClass="Assets.MyTabBarSkinOverlapBtns"/>
+        <s:TabBar id="TabBarSkin4" height="24" dataProvider="{ac1}" bottom="5" skinClass="Assets.MyTabBarStatesSkin"/>
+
+
+</s:VGroup>

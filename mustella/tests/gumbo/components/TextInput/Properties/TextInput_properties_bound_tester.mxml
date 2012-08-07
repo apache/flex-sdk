@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextInput/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TextInput_component_Bound.mxml">
+
+<!--
+Properties not tested via Mustella:
+    imeMode (requires user to change things on the OS)
+    The <a> tag in htmlText (no way to verify that a link opens in new window)
+    listData
+-->
+
+    <!-- this set of lines form a template that must be in each unit test -->
+        <mx:Script><![CDATA[
+            import mx.core.FlexGlobals;
+            public static function init(o:DisplayObject):void{}
+        ]]></mx:Script>
+
+        <mx:Metadata><![CDATA[
+            [Mixin]
+        ]]></mx:Metadata>   
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <testCases>
+        <TestCase testID="BoundtextInput_properties" description="Verify TextInput is bound to a number it doesn't allow editing when the TextInput contains NaN." keywords="[TextInput, editable, bindable]">
+            <setup>
+                <ResetComponent target="myCustomTextInput1" className="comps.MyCustomTextInput" waitTarget="myCustomTextInput1" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="myCustomTextInput1.numberText" localX="45" localY="10" waitTarget="myCustomTextInput1.numberText" waitEvent="click"/>
+                <DispatchKeyEvent keys="[HOME]" waitTarget="myCustomTextInput1.numberText" waitEvent="keyUp" />
+                <DispatchKeyEvent char="4" waitEvent="change" waitTarget="myCustomTextInput1.numberText"/>
+                
+                <AssertPropertyValue target="myCustomTextInput1.numberText" propertyName="text" value="4"/>
+                <AssertPropertyValue target="myCustomTextInput1.numberText_trace" propertyName="text" value="4"/> 
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>
+
+<!--
+Regarding htmlText testing:
+
+"...you can use the subset of HTML tags that is supported by the Flash TextField control."
+
+"ActionScript provides several ways to format your text at runtime. The TextFormat class lets you set character and paragraph formatting for TextField objects. You can apply Cascading Style Sheets (CSS) styles to text fields by using the TextField.styleSheet property and the StyleSheet class. You can use CSS to style built-in HTML tags, define new formatting tags, or apply styles. You can assign HTML formatted text, which might optionally use CSS styles, directly to a text field. HTML text that you assign to a text field can contain embedded media (movie clips, SWF files, GIF files, PNG files, and JPEG files). The text wraps around the embedded media in the same way that a web browser wraps text around media embedded in an HTML document."
+
+See http://livedocs.macromedia.com/flex/2/langref/flash/text/TextField.html#htmlText
+-->

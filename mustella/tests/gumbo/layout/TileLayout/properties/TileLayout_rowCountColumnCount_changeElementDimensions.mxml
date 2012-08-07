@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+These tests change the dimensions of one or more
+items in the group and verify that the TileLayout
+rearranges appropriately.
+Changing an element's size just results in changing
+the rowHeight and columnWidth properties to accommodate
+the largest one.  So I'm just making a few "scattered"
+tests here.
+========================================================
+-->
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test1" keywords="[TileLayout,rowCount,columnCount]" description="Increase width of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test2" keywords="[TileLayout,rowCount,columnCount]" description="Increase height of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test3" keywords="[TileLayout,rowCount,columnCount]" description="Decrease width of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 25, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test4" keywords="[TileLayout,rowCount,columnCount]" description="Decrease height of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 25, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test5" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase width of first item, but not enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 40, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test6" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase width of first item enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 70, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test7" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height of last item, but not enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test8a" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height of last item enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 57, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test8b" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height of last item enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 58, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test9" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height and width of the last item.  It should never change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 3)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test10" keywords="[TileLayout,rowCount,columnCount]" description="9 items, increase its height and width." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test11" keywords="[TileLayout,rowCount,columnCount]" description="9 items, increase its height and width, then decrease." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 15, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 15, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+Repeat with orientation = columns.
+========================================================
+-->
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test12" keywords="[TileLayout,rowCount,columnCount]" description="Increase width of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test13" keywords="[TileLayout,rowCount,columnCount]" description="Increase height of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test14" keywords="[TileLayout,rowCount,columnCount]" description="Decrease width of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 25, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test15" keywords="[TileLayout,rowCount,columnCount]" description="Decrease height of single item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 25, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test16" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase width of first item, but not enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 40, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test17" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase width of first item enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 70, 0)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="4" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test18" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height of last item, but not enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test19" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height of last item enough to change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 70, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="4" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test20" keywords="[TileLayout,rowCount,columnCount]" description="4 items, increase height and width of the first item.  It should never change the row/columnCount." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 3)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test21" keywords="[TileLayout,rowCount,columnCount]" description="9 items, increase its height and width." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeElementSize_test22" keywords="[TileLayout,rowCount,columnCount]" description="9 items, increase its height and width, then decrease." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" value="center" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" value="middle" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 50, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'height', 15, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 15, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

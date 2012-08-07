@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="RichText_basic2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	    import mx.core.FlexGlobals;
+	    import spark.components.Label;
+	    import spark.components.RichText;
+
+	]]>
+	</mx:Script>
+
+    <testCases>
+
+<!--
+====================================================================================
+Integration tests
+verify RichText created at runtime in various halo containers 
+====================================================================================
+-->
+
+	<TestCase testID="create_richText_in_mxApp_test1" keywords="[RichText,integration]" description="create richText  inside mxApplication,verify its UI" >
+	    <setup>
+	    	<RunCode code="FlexGlobals.topLevelApplication.resetTextValue()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication,'this is a richText in mx application')" />
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in mx application" />
+	    	<!-- 
+	        <CompareBitmap url="../integration/baselines/$testID.png" target="richTextAtRuntime"/>
+	        -->
+	    </body>
+	</TestCase>
+
+	<TestCase testID="create_richText_in_HBox_test1" keywords="[RichText,integration]" description="create richText  inside mxHBox,verify its UI" >
+	    <setup>
+	    	<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
+	    	<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myHBox,'this is a richText in HBox')" />
+	    </setup>
+	    <body>
+	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in HBox" />
+	        <CompareBitmap numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myHBox"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="create_richText_in_Panel_test1" keywords="[RichText,integration]" description="create richText  inside mxPanel,verify its UI" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myPanel,'this is a richText in Panel')" />
+	    </setup>
+	    <body>
+	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in Panel" />
+	        <CompareBitmap numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myPanel"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="create_richText_in_Form_test1" keywords="[RichText,integration]" description="create richText  inside mxForm,verify its UI" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myForm,'this is a richText in Form')" />
+	    </setup>
+	    <body>
+	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="this is a richText in Form" />
+	        <CompareBitmap   numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myForm"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="create_richText_in_ControlBar_test1" keywords="[RichText,integration]" description="create richText  inside mxControlBar,verify its UI" >
+	    <setup>
+		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.myControlBar,'inside of controlBar')" />
+	    </setup>
+	    <body>
+	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="inside of controlBar" />
+	        <CompareBitmap   numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="myControlBar"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="set_richText_in_Popup_test1" keywords="[RichText,integration]" description="create richText  inside popup,verify its UI" >
+	    <setup>
+	    	<RunCode code="FlexGlobals.topLevelApplication.hidePopUp()" />
+		<WaitForEffectsToEnd />
+		<RunCode code="FlexGlobals.topLevelApplication.showPopUp()" />
+		<WaitForEffectsToEnd />
+	    </setup>
+	    <body>
+	        <Pause timeout="200"/>
+       		<CompareBitmap numColorVariances="10" maxColorVariance="10"  url="../Integration/baselines/$testID.png" target="thePopUp" />
+	    </body>
+	</TestCase>
+	
+		
+	<TestCase testID="update_richText_in_Popup_test2" keywords="[RichText,integration]" description="update richText inside popup,verify its UI" >
+	    <setup>
+	    	<RunCode code="FlexGlobals.topLevelApplication.showPopUp()" />
+	    </setup>
+	    <body>
+	        <SetProperty target="thePopUp.myRichText4" propertyName="text" value="Updated, I am a spark richText" waitTarget="thePopUp.myRichText4" waitEvent="updateComplete"/>
+		<AssertPropertyValue target="thePopUp.myRichText4" propertyName="text" value="Updated, I am a spark richText" />
+		<CompareBitmap numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="thePopUp"/>
+	    </body>
+	</TestCase>
+
+		
+	<TestCase testID="create_richText_in_Popup_test3" keywords="[RichText,integration]" description="set richText inside mxTitleWindow,verify its UI" >
+	    <setup>
+	    	<RunCode code="FlexGlobals.topLevelApplication.hidePopUp()" />
+		<WaitForEffectsToEnd />
+		<RunCode code="FlexGlobals.topLevelApplication.showPopUp()" />
+		<WaitForEffectsToEnd />
+		<RunCode code="FlexGlobals.topLevelApplication.removeRichText()" waitEvent="richTextReset" waitTarget=""/>
+		<RunCode code="FlexGlobals.topLevelApplication.addNewRichText(FlexGlobals.topLevelApplication.thePopUp,'inside of PopUp')" />
+	    </setup>
+	    <body>
+	        <AssertPropertyValue target="richTextAtRuntime" propertyName="text" value="inside of PopUp" />
+	        <Pause timeout="200"/>
+		<CompareBitmap numColorVariances="10" maxColorVariance="10" url="../integration/baselines/$testID.png" target="thePopUp"/>
+	    </body>
+	</TestCase>	
+	
+	
+	
+	
+    </testCases>
+</UnitTester>

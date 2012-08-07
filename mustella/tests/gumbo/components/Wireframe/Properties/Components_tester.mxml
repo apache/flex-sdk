@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Wireframe/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="Components_Main.mxml" >
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		import mx.core.FlexGlobals;
+	]]>
+	</fx:Script>
+
+	<testCases>
+	
+		<TestCase testID="Wireframe_FxButton_enabled" description="Bitmap of wireframe button" keywords="[FxButton, wireframe, skin]">
+			<setup>
+				<ResetComponent target="btn" className="spark.components.Button" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxToggleButton_enabled" description="Bitmap of wireframe ToggleButton" keywords="[FxToggleButton, wireframe, skin]">
+			<setup>
+				<ResetComponent target="togBtn" className="spark.components.ToggleButton" waitEvent="updateComplete"/>
+				<SetProperty target="togBtn" propertyName="label" value="FxToggleButton" waitEvent="updateComplete" waitTarget="togBtn"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="togBtn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxCheckBox_enabled" description="Bitmap of wireframe CheckBox" keywords="[FxCheckBox, wireframe, skin]">
+			<setup>
+				<ResetComponent target="ckBox" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ckBox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxRadioButton_enabled" description="Bitmap of wireframe RadioButton" keywords="[FxRadioButton, wireframe, skin]">
+			<setup>
+				<ResetComponent target="radBtn" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="radBtn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxHSlider_enabled" description="Bitmap of wireframe FxHSlider" keywords="[FxHSlider, wireframe, skin]">
+			<setup>
+				<ResetComponent target="hslide" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetProperty target="hslide" propertyName="height" value="11" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="hslide"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="Wireframe_FxHSlider_largeHeight" description="Bitmap of wireframe FxHSlider with a larger height" keywords="[FxHSlider, wireframe, skin]">
+			<setup>
+				<ResetComponent target="hslide" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetProperty target="hslide" propertyName="height" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="hslide"/>
+				<SetProperty target="hslide" propertyName="height" value="11" waitEvent="updateComplete"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="Wireframe_FxHScrollBar_enabled" description="Bitmap of wireframe FxHScrollBar" keywords="[FxHScrollBar, wireframe, skin]">
+			<setup>
+				<ResetComponent target="hscroll" className="spark.components.HScrollBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="hscroll"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxNumericStepper_enabled" description="Bitmap of wireframe FxNumericStepper" keywords="[FxNumericStepper, wireframe, skin]">
+			<setup>
+				<ResetComponent target="ns" className="spark.components.NumericStepper" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ns"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxSpinner_enabled" description="Bitmap of wireframe FxSpinner" keywords="[FxSpinner, wireframe, skin]">
+			<setup>
+				<ResetComponent target="spin" className="spark.components.Spinner" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="spin"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_FxTextInput_enabled" description="Bitmap of wireframe FxTextInput" keywords="[FxTextInput, wireframe, skin]">
+			<setup>
+				<ResetComponent target="ti" className="spark.components.TextInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="ti" propertyName="height" value="21" waitEvent="updateComplete" waitTarget="ti"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ti"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_FxTextArea_enabled" description="Bitmap of wireframe FxTextArea" keywords="[FxTextArea, wireframe, skin]">
+			<setup>
+				<ResetComponent target="ta" className="spark.components.TextArea" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="ta"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ta"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_FxVScrollBar_enabled" description="Bitmap of wireframe FxSpinner" keywords="[FxVScrollBar, wireframe, skin]">
+			<setup>
+				<ResetComponent target="vscroll" className="spark.components.VScrollBar" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="vscroll"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxList_enabled" description="Bitmap of wireframe FxList" keywords="[FxList, wireframe, skin]">
+			<setup>
+				<!--ResetComponent target="myList" className="spark.components.List" waitEvent="updateComplete"/-->
+				<AssertPropertyValue target="myList" propertyName="enabled" value="true"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myList" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_DropDownList_enabled" description="Bitmap of wireframe DropDownList" keywords="[DropDownList, wireframe, skin]">
+			<setup>
+				<!--ResetComponent target="myDDL" className="spark.components.DropDownList" waitEvent="updateComplete"/-->
+				<AssertPropertyValue target="cb" propertyName="selected" value="false"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID_1.png" target="myDDL" numColorVariances="5" maxColorVariance="5" />
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL.openDropDown()" waitEvent="open" waitTarget="myDDL"/>
+				<CompareBitmap url="../Properties/baselines/$testID_2.png" target="myDDL.dropDown" numColorVariances="10" maxColorVariance="5" />
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL.closeDropDown(false)" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_FxButton_disabled" description="Bitmap of wireframe button" keywords="[FxButton, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" waitEvent="enabledChanged" waitTarget="myList"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="btn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxToggleButton_disabled" description="Bitmap of wireframe ToggleButton" keywords="[FxToggleButton, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="togBtn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxCheckBox_disabled" description="Bitmap of wireframe CheckBox" keywords="[FxCheckBox, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ckBox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxRadioButton_disabled" description="Bitmap of wireframe RadioButton" keywords="[FxRadioButton, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="radBtn"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxHSlider_disabled" description="Bitmap of wireframe FxHSlider" keywords="[FxHSlider, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />				
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="hslide"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxHScrollBar_disabled" description="Bitmap of wireframe FxHScrollBar" keywords="[FxHScrollBar, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="hscroll"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxNumericStepper_disabled" description="Bitmap of wireframe FxNumericStepper" keywords="[FxNumericStepper, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ns"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxSpinner_disabled" description="Bitmap of wireframe FxSpinner" keywords="[FxSpinner, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="spin"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_FxTextInput_disabled" description="Bitmap of wireframe FxTextInput" keywords="[FxTextInput, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true" />
+			</setup>
+			<body>
+
+				<SetProperty target="ti" propertyName="height" value="21"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ti"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Wireframe_FxTextArea_disabled" description="Bitmap of wireframe FxTextArea" keywords="[FxTextArea, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true"/>
+			</setup>
+			<body>
+				<SetProperty target="ta" propertyName="height" value="151"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxVSlider_enabled" description="Bitmap of wireframe FxVSlider" keywords="[FxVSlider, wireframe, skin]">
+			<setup>
+				<ResetComponent target="vslide" className="spark.components.VSlider" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="vslide"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_FxVSlider_largeWidth" description="Bitmap of wireframe FxVSlider with a larger width" keywords="[FxVSlider, wireframe, skin]">
+			<setup>
+				<ResetComponent target="vslide" className="spark.components.VSlider" waitEvent="updateComplete"/>
+				<SetProperty target="vslide" propertyName="width" value="100" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="vslide"/>
+				<SetProperty target="vslide" propertyName="width" value="11" waitEvent="updateComplete"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="Wireframe_FxVScrollBar_disabled" description="Bitmap of wireframe FxSpinner" keywords="[FxVScrollBar, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="vscroll"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="Wireframe_FxList_disabled" description="Bitmap of wireframe FxList" keywords="[FxList, wireframe, skin]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="myList" numColorVariances="10" maxColorVariance="20"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_SparkButtonBar_enabled" description="Bitmap of wireframe Spark ButtonBar"
+		    keywords="[ButtonBar, wireframe, skin]">
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="8" maxColorVariance="5" target="buttonbar1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_SparkButtonBar_disabled" description="Bitmap of a disabled wireframe Spark ButtonBar"
+		    keywords="[ButtonBar, wireframe, skin, enabled]">
+			<setup>
+				<SetProperty target="buttonbar1" propertyName="enabled" value="false" waitTarget="buttonbar1"
+				    waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="buttonbar1" numColorVariances="8" maxColorVariance="5"/>
+			</body>
+		</TestCase>
+		<TestCase testID="Wireframe_DropDownList_disabled" description="Bitmap of disabled wireframe DropDownList" keywords="[DropDownList, wireframe, skin, enabled]">
+			<setup>
+				<SetProperty target="cb" propertyName="selected" value="true"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="10" maxColorVariance="5" target="myDDL"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

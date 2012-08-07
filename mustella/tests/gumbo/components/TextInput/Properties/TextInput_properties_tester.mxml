@@ -1,0 +1,1743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextInput/Properties/"  xmlns="*"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:mx="library://ns.adobe.com/flex/mx"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        testSWF="Flex4_TextInput_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+    
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>  
+    
+    <!-- end of set of lines that must be in each unit test -->
+
+
+    <fx:Script>
+        import comps.*;
+        import mx.core.FlexGlobals;
+        
+        public function getDefaultProperty(target:Object):String {
+            var descTypeXML:XML = describeType(target);
+            trace(descTypeXML.toXMLString());
+            return descTypeXML.metadata.(@name == "DefaultProperty").arg.@value;
+        }
+    </fx:Script>
+
+
+
+    <testCases>
+        <!-- ******************** ******************** ******************** -->
+        <!-- ******************** TEXTINPUT PROPERTIES ******************** -->
+        <!-- ******************** ******************** ******************** -->
+
+        <!-- ******************** displayAsPassword ******************* -->
+        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_default" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="displayAsPassword" value="false" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_true_actionscript" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="displayAsPassword" value="true" />
+                <SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_false_actionscript" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="displayAsPassword" value="false" />
+                <SetProperty target="textInput" propertyName="text" value="Silver Musican" waitTarget="textInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_false_keyboard_pre" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="displayAsPassword" value="false" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="Silver Musican" waitTarget="textInput" waitEvent="change" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_false_keyboard_post" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="Silver Musican" waitTarget="textInput" waitEvent="change" />
+                <SetProperty target="textInput" propertyName="displayAsPassword" value="false" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+            </body>
+        </TestCase>
+
+                                        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_true_keyboard_pre" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+                                                <setup>
+                                                                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                                                                <SetProperty target="textInput" propertyName="displayAsPassword" value="true" waitEvent="updateComplete" />
+                                                                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                                                                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                                                                <DispatchKeyEvent char="Silver Musican" waitTarget="textInput" waitEvent="change" />
+                                                                <Pause timeout="50" />
+                                                </setup>
+                                                <body>
+                                                                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+                                                </body>
+                                </TestCase>
+
+
+        <TestCase testID="Gumbo_TextInput_displayAsPassword_property_true_keyboard_post" description="Checks the default value of the displayAsPassword property on an TextInput control" keywords="[FxTextInput, displayAsPassword, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="Silver Musican" waitTarget="textInput" waitEvent="change" />
+                <!-- <RunCode code="trace('text:', FlexGlobals.topLevelApplication.textInput.text, FlexGlobals.topLevelApplication.textInput.text.length);" /> -->
+                <SetProperty target="textInput" propertyName="displayAsPassword" value="true" waitTarget="textInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+            </body>
+        </TestCase>
+
+
+        <!-- ******************** maxChars ******************* -->
+        <TestCase testID="Gumbo_TextInput_maxChars_property_default" description="Checks the default value of the maxChars property on an TextInput control" keywords="[FxTextInput, maxChars, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="maxChars" value="0" />
+            </body>
+        </TestCase>
+
+        <!-- this doesnt limit the text since it is set via actionscript -->
+        <TestCase testID="Gumbo_TextInput_maxChars_property_5_actionscript" description="Checks the default value of the maxChars property on an TextInput control" keywords="[FxTextInput, maxChars, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="maxChars" value="5" />
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="maxChars" value="5" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_maxChars_property_5_keyboard" description="Checks the default value of the maxChars property on an TextInput control" keywords="[FxTextInput, maxChars, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="maxChars" value="5" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="maxChars" value="5" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="The quick brown fox jumped over the lazy dog" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="The q" />
+            </body>
+        </TestCase>
+
+
+        <!-- ******************** restrict ******************* -->
+        <TestCase testID="Gumbo_TextInput_restrict_property_default" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="null" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_emptyString" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="abCDEF123" />
+                <AssertNoEvent target="textInput" eventName="change" eventClass="mx.event::Event" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_AZ_uppercase" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="A-Z" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="A-Z" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="abCDEF123" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="CDEF" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_AZ_uppercase_negated" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="A-Z^B-Y" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="A-Z^B-Y" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="ABCXYZ123" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="AZ" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_AZ_uppercase_doublenegated" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="A-Z^B-Y^C-X" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="A-Z^B-Y^C-X" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="ABCXYZ123" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="ACXZ" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_az_lowercase" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="a-z" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="a-z" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="abCDEF123" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="ab" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_az_lowercase_negated" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="^a-z" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="^a-z" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="abCDEF123" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="CDEF123" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_az_lowercase_mixed" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="^a-z" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="^a-z" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="Kenneth Ray 'Silver' Musican" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="K R 'K' R" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_specialChars" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="\^\-\\" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="\^\-\\" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="ABCXYZ^\-" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="^\-" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_restrict_property_specialChars_negated" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="^\^\-\\" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="^\^\-\\" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <DispatchKeyEvent char="ABCXYZ123^\-" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="ABCXYZ123" />
+            </body>
+        </TestCase>
+
+<!-- Not supported by Mustella?
+        <TestCase testID="Gumbo_TextInput_restrict_property_copyPaste" description="Checks the default value of the restrict property on an TextInput control" keywords="[FxTextInput, restrict, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+                <SetProperty target="textInput" propertyName="restrict" value="A-Z" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="restrict" value="A-Z" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+                <RunCode code="System.setClipboard('The Quick Brown Fox Jumped Over the Lazy Dog.');" />
+                <DispatchKeyEvent char="V" ctrlKey="true" waitTarget="textInput" waitEvent="change" />
+                <AssertPropertyValue target="textInput" propertyName="text" value="TQBFJOLD" />
+            </body>
+        </TestCase>
+-->
+
+        <!-- ******************** selectionAcivePosition ******************** -->
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_default" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+            </body>
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_positive" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <!--
+                <SetProperty target="textInput" propertyName="selectionActivePosition" value="4" waitEvent="selectionChange" waitTarget="textInput"/>
+                -->
+                <RunCode code="application.textInput.selectRange(4,4)" waitTarget="textInput" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="4" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_positive_no_text" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <!--
+                <SetProperty target="textInput" propertyName="selectionActivePosition" value="4" waitEvent="selectionChange" waitTarget="textInput"/>
+                -->
+                <RunCode code="application.textInput.selectRange(4,4)" waitTarget="textInput" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_negative" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <!--
+                <SetProperty target="textInput" propertyName="selectionActivePosition" value="4" waitEvent="selectionChange" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="selectionActivePosition" value="-1" waitEvent="selectionChange" waitTarget="textInput"/>
+                -->
+                <RunCode code="application.textInput.selectRange(4,4);" waitTarget="textInput" waitEvent="selectionChange" />
+                <RunCode code="application.textInput.selectRange(-1,-1);" waitTarget="textInput" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+            </body>
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_mouseDown" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <DispatchMouseEvent target="textInput" type="rollOver" localX="10" localY="5" />
+                <DispatchMouseEvent target="textInput" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+                <DispatchMouseEvent target="textInput" type="mouseUp" waitEvent="enterFrame" />
+
+                <DispatchMouseEvent  target="textInput" type="mouseDown" localX="35" localY="5" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchMouseEvent  target="textInput" type="mouseUp" localX="35" localY="5" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="5" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="5" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_mouseMove_right" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <DispatchMouseEvent target="textInput" type="rollOver" localX="10" localY="5" />
+                <DispatchMouseEvent target="textInput" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+                <DispatchMouseEvent target="textInput" type="mouseUp" waitEvent="enterFrame" />
+
+
+                <DispatchMouseEvent type="mouseDown" localX="35" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="55" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="5" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="8" />
+
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="65" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
+
+                <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="5" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="10" />
+
+            </body>
+
+        </TestCase>
+
+                
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_mouseMove_left" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+                <DispatchMouseEvent target="textInput" type="rollOver" localX="10" localY="5" />
+                <DispatchMouseEvent target="textInput" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+                <DispatchMouseEvent target="textInput" type="mouseUp" waitEvent="enterFrame" />
+
+
+                <DispatchMouseEvent type="mouseDown" localX="65" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="55" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="8" />
+
+                <DispatchMouseEvent type="mouseMove" buttonDown="true" localX="35" localY="5" target="textInput" waitEvent="mouseMove" waitTarget="textInput" />
+
+                <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="10" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="5" />
+
+            </body>
+
+        </TestCase>
+
+
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_keyDown_left" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+                <DispatchMouseEvent type="mouseDown" localX="65" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchKeyEvent keys="['LEFT','LEFT']" waitTarget="textInput" waitEvent="selectionChange" />
+
+                <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="9" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="9" />
+
+            </body>
+
+        </TestCase>
+
+-->
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_keyDown_left_shift" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+                <DispatchMouseEvent type="mouseDown" localX="65" localY="10" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchKeyEvent keys="['LEFT','LEFT']" shiftKey="true" waitTarget="textInput" waitEvent="selectionChange" />
+
+                <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <Pause timeout="100" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="12" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="10" />
+
+            </body>
+
+        </TestCase>
+
+-->
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_keyDown_right" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+                <DispatchMouseEvent type="mouseDown" localX="65" localY="5" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchKeyEvent keys="['RIGHT','RIGHT']" waitTarget="textInput" waitEvent="selectionChange" />
+
+                <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="13" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="13" />                
+
+            </body>
+
+        </TestCase>
+
+-->
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_selectionActivePosition_property_keyDown_right_shift" description="Checks the default value of the selectionActivePosition property on a TextInput control" keywords="[TextInput, selectionActivePosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="-1" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+                <DispatchMouseEvent type="mouseDown" localX="65" localY="10" target="textInput" waitEvent="mouseDown" waitTarget="textInput" />
+
+                <DispatchKeyEvent keys="['RIGHT','RIGHT']" shiftKey="true" waitTarget="textInput" waitEvent="selectionChange" />
+
+                <DispatchMouseEvent type="mouseUp" localX="35" localY="5" target="textInput" waitEvent="mouseUp" waitTarget="textInput" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="12" />
+
+                <AssertPropertyValue target="textInput" propertyName="selectionActivePosition" value="14" />                
+
+            </body>
+
+        </TestCase>
+
+-->
+
+
+
+
+
+        <!-- ******************** selectionAnchorPosition ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_selectionAnchorPosition_property_default" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_selectionAnchorPosition_property_positive" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <!--
+                <SetProperty target="textInput" propertyName="selectionAnchorPosition" value="4" waitEvent="selectionChange" waitTarget="textInput"/>
+                -->
+                <RunCode code="application.textInput.selectRange(4,4)" waitTarget="textInput" waitEvent="selectionChange" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="4" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_selectionAnchorPosition_property_positive_no_text" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <!--
+                <SetProperty target="textInput" propertyName="selectionAnchorPosition" value="4" waitEvent="selectionChange" waitTarget="textInput"/>
+                -->
+                <RunCode code="application.textInput.selectRange(4,4)" waitTarget="textInput" waitEvent="selectionChange" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="0" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_selectionAnchorPosition_property_negative" description="Checks the default value of the selectionAnchorPosition property on a TextInput control" keywords="[TextInput, selectionAnchorPosition, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <RunCode code="application.textInput.selectRange(4,4);" waitTarget="textInput" waitEvent="selectionChange" />
+                <RunCode code="application.textInput.selectRange(-1,-1);" waitTarget="textInput" waitEvent="selectionChange" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="selectionAnchorPosition" value="-1" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+
+
+        <!-- ******************** text ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_text_property_default" description="Checks the default value of the text property on a TextInput control" keywords="[TextInput, text, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="text" value="" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_text_property" description="Sets the text property on a TextInput control" keywords="[TextInput, text, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+
+            </body>
+
+        </TestCase>
+
+
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_text_property2" description="Sets the text property on a TextInput control" keywords="[TextInput, text, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <DispatchMouseClickEvent localX="65" localY="5" target="textInput" waitTarget="textInput" waitEvent="click" />
+
+                <DispatchKeyEvent char="Silver Musican" waitTarget="textInput" waitEvent="change" />
+
+                <Pause timeout="100" />
+
+                <AssertPropertyValue target="textInput" propertyName="text" value="Silver Musican" />
+
+            </body>
+
+        </TestCase>
+
+-->
+
+
+
+        <TestCase testID="Gumbo_TextInput_textView_text_property" description="Sets the text property on a TextInput control and confirms the textView.text property is also set" keywords="[TextInput, text, textView, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+
+                <Pause timeout="100" />
+
+                <AssertPropertyValue target="textInput.textDisplay" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+
+
+        <!-- ******************** widthInChars ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_widthInChars_property_default" description="Checks the default value of the widthInChars property on a TextInput control" keywords="[TextInput, widthInChars, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="widthInChars" value="10" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_widthInChars_property_5" description="Sets the text property on a TextInput control and confirms the textView.text property is also set" keywords="[TextInput, text, textView, property, SDK-15872]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="widthInChars" value="5" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="widthInChars" value="5" />
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="68" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_widthInChars_property_40" description="Sets the text property on a TextInput control and confirms the textView.text property is also set" keywords="[TextInput, text, textView, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="widthInChars" value="40" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="widthInChars" value="40" />
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="488" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_widthInChars_property_0" description="Sets the text property on a TextInput control and confirms the textView.text property is also set" keywords="[TextInput, text, textView, property, SDK-15871]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="widthInChars" value="0" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="widthInChars" value="0" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_widthInChars_property_negative" description="Sets the text property on a TextInput control and confirms the textView.text property is also set" keywords="[TextInput, text, textView, property, SDK-15871]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="widthInChars" value="-2" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="widthInChars" value="-2" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+
+
+
+
+        <!-- ******************** ******************** ******************** -->
+
+        <!-- ******************** INHERITED PROPERTIES ******************** -->
+
+        <!-- ******************** ******************** ******************** -->
+
+
+
+
+
+        <!-- ******************** alpha ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_alpha_property_default" description="Checks the default value of the alpha property on a TextInput control" keywords="[TextInput, alpha, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="alpha" value="1.0" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_alpha_property_01" description="Sets the alpha property on a TextInput control to 0.1" keywords="[TextInput, alpha, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+                <SetProperty target="textInput" propertyName="alpha" value="0.1" />
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertMethodValue method="value=Number(application.textInput.alpha.toFixed(1))" value="0.1" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!-- ******************** className ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_className_property_default" description="Checks the default value of the className property on a TextInput control" keywords="[TextInput, className, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="className" value="TextInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!-- ******************** errorString ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_errorString_property_default" description="Checks the default value of the errorString property on a TextInput control" keywords="[TextInput, errorString, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="errorString" value="" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_errorString_property" description="Checks the default value of the errorString property on a TextInput control" keywords="[TextInput, errorString, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+                <SetProperty target="textInput" propertyName="errorString" value="Lorem ipsum" />
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                
+            </setup>
+
+            <body>
+
+                <DispatchMouseEvent type="mouseOver" target="textInput" localX="5" localY="5" />
+
+                <AssertEvent target="textInput" eventName="toolTipStart" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+                <AssertEvent target="textInput" eventName="toolTipCreate" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+                <AssertEvent target="textInput" eventName="toolTipShow" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+                <AssertEvent target="textInput" eventName="toolTipShown" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+                <AssertPropertyValue target="textInput" propertyName="errorString" value="Lorem ipsum" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+                <AssertEvent target="textInput" eventName="toolTipHide" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+                <AssertEvent target="textInput" eventName="toolTipEnd" numExpectedEvents="1" eventClass="mx.events::ToolTipEvent" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!-- ******************** height ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_height_property_default" description="Checks the default value of the height property on a TextInput control" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="height" value="21" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_height_property_40" description="Sets the height property on a TextInput control to 40px" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="40" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="height" value="40" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_height_property_10" description="Sets the height property on a TextInput control to 10px" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <SetProperty target="textInput" propertyName="height" value="10" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="height" value="10" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!-- ******************** maxHeight ******************** -->
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_maxHeight_property_default" description="Checks the default value of the width property on a TextInput control" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <SetProperty target="textInput" propertyName="maxHeight" value="60" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <SetProperty target="textInput" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="maxHeight" value="60" />
+
+                <AssertPropertyValue target="textInput" propertyName="height" value="60" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+-->
+
+
+
+        <!-- ******************** percentHeight ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_percentHeight_property_50" description="Sets the percentHeight property on a TextInput control" keywords="[TextInput, percentHeight, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <SetProperty target="textInput" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="textInput" />
+
+                <SetProperty target="textInput" propertyName="percentHeight" value="50" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <Pause timeout="100" />
+
+                <AssertPropertyValue target="textInput" propertyName="percentHeight" value="50" />
+
+                <AssertPropertyValue target="textInput" propertyName="height" value="75" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!-- ******************** percentWidth ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_percentWidth_property_50" description="Sets the percentWidth property on a TextInput control" keywords="[TextInput, percentWidth, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <SetProperty target="textInput" propertyName="percentWidth" value="50" />
+                <Pause timeout="50" />
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="percentWidth" value="50" />
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="150" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+        <!-- ******************** rotation ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_rotation_property_default" description="Checks the default value of the rotation property on a TextInput control" keywords="[TextInput, rotation, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="rotation" value="0" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_rotation_property_90" description="Sets the rotation property on a TextInput control to 0.1" keywords="[TextInput, rotation, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="rotation" value="90" />
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="rotation" value="90" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+
+
+        <!-- ******************** scaleX ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_scaleX_property_default" description="Checks the default value of the scaleX property on a TextInput control" keywords="[TextInput, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="scaleX" value="1" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_scaleX_property_2" description="Checks the default value of the scaleX property on a TextInput control" keywords="[TextInput, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="128" />
+                
+                <SetProperty target="textInput" propertyName="scaleX" value="2" waitEvent="updateComplete" waitTarget="textInput"/>
+
+                <AssertPropertyValue target="textInput" propertyName="scaleX" value="2" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_scaleX_property_negative" description="Checks the default value of the scaleX property on a TextInput control" keywords="[TextInput, scaleX, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="scaleX" value="-1" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="scaleX" value="-1" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+-->
+
+
+
+
+
+        <!-- ******************** width ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_width_property_default" description="Checks the default value of the width property on a TextInput control" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="128" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+<!--
+
+        <TestCase testID="Gumbo_TextInput_width_property_zero" description="Sets the width property on a TextInput control to 40px" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="width" value="0" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="0" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+-->
+
+
+
+        <TestCase testID="Gumbo_TextInput_width_property_40" description="Sets the width property on a TextInput control to 40px" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="width" value="40" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="40" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_width_property_200" description="Sets the width property on a TextInput control to 10px" keywords="[TextInput, height, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+
+                <SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+                <SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+                <SetProperty target="textInput" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="textInput"/>
+
+            </setup>
+
+            <body>
+
+                <AssertPropertyValue target="textInput" propertyName="width" value="200" />
+
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+
+
+
+
+        <!-- ******************** x ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_x_property_positive" description="Checks the height property on a TextInput control is bindable" keywords="[TextInput, x, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <SetProperty target="textInput" propertyName="x" value="40" waitEvent="move" waitTarget="textInput"/>
+
+                <AssertPropertyValue target="textInput" propertyName="x" value="40" />
+
+                <Pause timeout="100" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_x_property_negative" description="Checks the height property on a TextInput control is bindable" keywords="[TextInput, x, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <SetProperty target="textInput" propertyName="x" value="-40" waitEvent="move" waitTarget="textInput"/>
+
+                <AssertPropertyValue target="textInput" propertyName="x" value="-40" />
+
+            </body>
+
+        </TestCase>
+
+
+
+
+
+
+
+        <!-- ******************** y ******************** -->
+
+        <TestCase testID="Gumbo_TextInput_y_property_positive" description="Checks the height property on a TextInput control is bindable" keywords="[TextInput, y, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <SetProperty target="textInput" propertyName="y" value="40" waitEvent="move" waitTarget="textInput"/>
+
+                <AssertPropertyValue target="textInput" propertyName="y" value="40" />
+
+            </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="Gumbo_TextInput_y_property_negative" description="Checks the height property on a TextInput control is bindable" keywords="[TextInput, y, property]">
+
+            <setup>
+
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+
+            </setup>
+
+            <body>
+
+                <SetProperty target="textInput" propertyName="y" value="-10" waitEvent="move" waitTarget="textInput"/>
+
+                <AssertPropertyValue target="textInput" propertyName="y" value="-10" />
+
+            </body>
+
+        </TestCase>
+
+        <TestCase testID="Gumbo_TextInput_baselinePosition_property_preValidation" description="Checks the baselinePosition property on a TextInput" keywords="[TextInput, baselinePosition, property]">
+            <setup>
+            <ResetComponent target="textInput" className="spark.components.TextInput" />
+            </setup>
+            <body>
+            <AssertPropertyValue target="textInput" propertyName="baselinePosition" value="15.175781" />
+            </body>
+        </TestCase>
+        <TestCase testID="Gumbo_TextInput_baselinePosition_property_postValidation" description="Checks the baselinePosition property on a TextInput" keywords="[TextInput, baselinePosition, property]">
+            <setup>
+            <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+            </setup>
+            <body>
+            <AssertPropertyValue target="textInput" propertyName="baselinePosition" value="15.175781" />
+            </body>
+        </TestCase>
+        <TestCase testID="Gumbo_TextInput_layoutDirection_RTL" description="Check that the text in a TextInput is aligned right when layoutDirection=rtl" 
+            keywords="[TextInput, layoutDirection, Mirroring, property]">
+            <setup>
+                <ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+                <SetProperty propertyName="text" value="Care Bear" target="textInput" waitEvent="updateComplete" waitTarget="textInput"  />
+                <SetProperty propertyName="width" value="250" target="textInput" waitEvent="updateComplete" waitTarget="textInput"  />
+                <SetStyle styleName="layoutDirection" value="rtl" target="textInput" />
+                <SetStyle styleName="direction" value="rtl" target="textInput" waitEvent="updateComplete" waitTarget="textInput" />
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+            </body>
+        </TestCase>
+        
+		<!-- ******************** prompt ******************** -->
+		
+		<TestCase testID="TextInput_prompt_basic" description="Check that the prompt shows up when there is no text in the input" keywords="[TextInput,prompt,property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="textInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_removed_w_text" description="Check that the prompt goes away when there is text in the input" keywords="[TextInput,prompt,property,text]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="text" value="There'd better not be a prompt here!" target="textInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_returned_w_empty_string" description="Check that the prompt goes away when there is an empty string in the input" keywords="[TextInput,prompt,property,string,empty]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="text" value="This had better not be showing up!" target="textInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="text" valueExpression="value = new String('')" target="textInput" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_passwordDisplay" description="Check that the prompt shows up as text when 'displayAsPassword' is true" keywords="[TextInput,prompt,property,displayAsPassword,password]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="displayAsPassword" value="true" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="250" target="textInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_retain_width" description="Check that adding a prompt doesn't resize the box." keywords="[TextInput,prompt,property,resize,width]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="prompt" value="I'm an extremely long prompt value, used in testing to ensure that this box will not resize." target="textInput" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_retain_height" description="Check that adding a prompt doesn't resize the box when width is explicit." keywords="[TextInput,prompt,property,resize,width,height,explicit]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="50" target="textInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textInput" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_direction_changed_at_runtime" description="Check that the prompt's direction and layout direction can be changed at runtime." keywords="[TextInput,prompt,property,direction,layout,runtime]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="prompt" value="I'm a prompt value" target="textInput" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="textInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="layoutDirection" value="rtl" target="textInput.promptDisplay" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_state_switch" description="Check that prompts defined with states change when the state changes." keywords="[TextInput,prompt,property,state]">
+			<setup>
+				<RunCode code="application.doManualReset()" waitEvent="manualResetComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="state_ti" propertyName="prompt" value="default prompt"/>
+				<SetProperty value="state_one" propertyName="currentState" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="state_ti" propertyName="prompt" value="prompt 1"/>
+				<SetProperty value="state_two" propertyName="currentState" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="state_ti" propertyName="prompt" value="prompt 2"/>
+			</body>
+		</TestCase>
+    </testCases>
+</UnitTester>
+
+
+

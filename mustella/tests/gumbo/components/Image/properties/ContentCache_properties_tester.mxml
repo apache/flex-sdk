@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/properties/"
+			testSWF="ImageMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<TestCase testID="ContentCache_prop_defaults" keywords="[Image, property, ContentCache, default]" description="Assert default values">
+			<setup>
+				<ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="ccr.cc2" propertyName="enableCaching" value="true" />
+				<AssertPropertyValue target="ccr.cc2" propertyName="enableQueueing" value="false" />
+				<AssertPropertyValue target="ccr.cc2" propertyName="maxActiveRequests" value="2" />
+				<AssertPropertyValue target="ccr.cc2" propertyName="maxCacheEntries" value="100" />
+                <AssertPropertyValue target="ccr.cc2" propertyName="numCacheEntries" value="0" />
+                <AssertPropertyValue target="ccr.im1" propertyName="contentLoader" valueExpression="value=application.ccr.cc1" />
+                <AssertPropertyValue target="ccr.im1" propertyName="contentLoaderGrouping" value="gr1" />
+                <AssertPropertyValue target="ccr.im5" propertyName="contentLoaderGrouping" value="gr2" />
+                <AssertPropertyValue target="ccr.im7" propertyName="contentLoaderGrouping" value="{null}" />
+                <AssertPropertyValue target="ccr.im7" propertyName="contentLoader" value="{null}" />
+                <AssertPropertyValue target="ccr.bi1" propertyName="contentLoader" valueExpression="value=application.ccr.cc1" />
+                <AssertPropertyValue target="ccr.bi1" propertyName="contentLoaderGrouping" value="gr1" />
+
+                <AssertPropertyValue target="ccr.bi3" propertyName="contentLoaderGrouping" value="{null}" />
+                <AssertPropertyValue target="ccr.bi3" propertyName="contentLoader" value="{null}" />
+			</body>
+		</TestCase>
+        <TestCase testID="ContentCache_prop_maxCacheEntries1" keywords="[Image, property, ContentCache, maxCacheEntries]" description="Test maxCacheEntries=1">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="1" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_maxCacheEntries2" keywords="[Image, property, ContentCache, maxCacheEntries]" description="Test maxCacheEntries=2">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="2" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im3" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im4" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete"  />
+
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <Pause timeout="100"/>
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_maxCacheEntries2null" keywords="[Image, property, ContentCache, maxCacheEntries]" description="Test maxCacheEntries=2">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="2" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im3" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im4" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="updateComplete"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <Pause timeout="100"/>
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_maxCacheEntries2_sourceNull" keywords="[Image, property, ContentCache, maxCacheEntries]" description="Test maxCacheEntries=2">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="2" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im3" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im4" propertyName="source" value="../../../../../Assets/Images/purplerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im1" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+                <SetProperty target="ccr.im3" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+                <SetProperty target="ccr.im4" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <AssertPropertyValue target="ccr" propertyName="height" value="0"/>
+
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_enableCachingFalse" keywords="[Image, property, ContentCache, enableCaching]" description="Test enableCaching=false">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="enableCaching" value="false" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="0" />
+                <SetProperty target="ccr.im1" propertyName="width" value="140" waitEvent="updateComplete"/>
+                <SetProperty target="ccr.im1" propertyName="height" value="140" waitEvent="updateComplete"/>
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_enableQueueing" keywords="[Image, property, ContentCache, enableQueueing]" description="Test enableQueueing=true">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="2" />
+                <SetProperty target="ccr.cc1" propertyName="enableQueueing" value="true" />
+                <SetProperty target="ccr.im4" propertyName="source" value="../../../../../Assets/Images/purplerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im5" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im6" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <AssertPropertyValue target="ccr.cc1" propertyName="maxActiveRequests" value="1" />
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="2" />
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_setContentLoader" keywords="[Image, property, ContentCache, ContentLoader]" description="Test ContentLoader">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.im2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im3" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.im2" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+                <SetProperty target="ccr.im7" propertyName="contentLoader" valueExpression="value=application.ccr.cc1" />
+                <SetProperty target="ccr.im7" propertyName="contentLoaderGrouping" value="gr1" />
+                <SetProperty target="ccr.im7" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="updateComplete"  />
+                <Pause timeout="100"/>
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_setContentLoaderBI" keywords="[BitmapImage, property, ContentCache, ContentLoader]" description="Test ContentLoader">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxActiveRequests" value="1" />
+                <SetProperty target="ccr.bi1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.bi2" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.bi1" propertyName="source" value="{null}" waitEvent="updateComplete"  />
+                <SetProperty target="ccr.bi3" propertyName="contentLoader" valueExpression="value=application.ccr.cc1" />
+                <SetProperty target="ccr.bi3" propertyName="contentLoaderGrouping" value="gr1" />
+                <SetProperty target="ccr.bi3" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="updateComplete"  />
+                <Pause timeout="100"/>
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_enableCachingFalse_BI" keywords="[BitmapImage, property, ContentCache, enableCaching]" description="Test enableCaching=false">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="enableCaching" value="false" />
+                <SetProperty target="ccr.bi1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.bi2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="0" />
+                <SetProperty target="ccr.im1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentCache_prop_enableQueueing_BI" keywords="[BitmapImage, property, ContentCache, enableQueueing]" description="Test enableQueueing=true">
+            <setup>
+                <ResetComponent target="ccr" className="comps.ContentCacheRoot" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ccr.cc1" propertyName="maxCacheEntries" value="1" />
+                <SetProperty target="ccr.bi1" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.bi2" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="ccr.bi3" propertyName="source" value="../../../../../Assets/Images/orangerect.jpg" waitEvent="ready"  />
+                <AssertPropertyValue target="ccr.cc1" propertyName="maxActiveRequests" value="1" />
+                <AssertPropertyValue target="ccr.cc1" propertyName="numCacheEntries" value="1" />
+                <CompareBitmap target="ccr" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+
+            </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

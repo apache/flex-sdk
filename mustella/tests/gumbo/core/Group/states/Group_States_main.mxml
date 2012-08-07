@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/Group/states/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="GroupStates.mxml">
+
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	  	  
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+      import mx.core.ClassFactory;
+	  import mx.collections.ArrayCollection;
+	  import mx.graphics.*;
+	  import mx.skins.spark.*;
+	  import spark.components.Button;	  
+	  import spark.components.Group;
+	  import spark.components.Group;
+	  import mx.core.mx_internal;
+	 
+	]]>
+  </fx:Script>
+  <testCases>
+
+
+<!-- 
+
+=======================
+Group States Tests
+=======================
+
+Some basic tests to make sure that Group works properly when changing states.  This covers changing properties through the new syntax
+as well as basic test that Group respects includeIn/excludeFrom.
+
+[Note that many tests don't define target or waitTarget, this is because the default if not defined is the application.  This could also be done via {FlexGlobals.topLevelApplication}, but you will get compiler binding warnings using that.]
+
++ Ensure that includeIn and excludeFrom works in MXML
+
++ Define Group properties differently in two different states and check that those properties update properly when switching between states:
+ + width/height
+ + horizontalScrollPosition/verticalScrollPosition
+ + scaleX/scaleY/resizeMode
+ + layout
+
+-->
+
+	<TestCase testID="Group_states_propertyChange_size" keywords="[Group, states, size]" description="check width/height properties work when defined different between states">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			<AssertMethodValue method="value=application.resetStatePropertyChange();" value="true" />
+			
+			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'group1', 'width', 300);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'group1', 'height', 200);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'width', 10);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'height', 20);" value="1" />
+		</setup>
+		<body>
+			<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state1" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="200" />
+			
+			<SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state2" />
+			<AssertPropertyValue target="group1" propertyName="width" value="10" />
+			<AssertPropertyValue target="group1" propertyName="height" value="20" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_states_propertyChange_scrollPosition" keywords="[Group, states, scrollPosition]" description="check hsp/vsp properties work when defined different between states">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			<AssertMethodValue method="value=application.resetStatePropertyChange();" value="true" />
+			
+			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'group1', 'horizontalScrollPosition', 300);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'group1', 'verticalScrollPosition', 200);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'horizontalScrollPosition', 10);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'verticalScrollPosition', 20);" value="1" />
+		</setup>
+		<body>
+			<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state1" />
+			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="300" />
+			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="200" />
+			
+			<SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state2" />
+			<AssertPropertyValue target="group1" propertyName="horizontalScrollPosition" value="10" />
+			<AssertPropertyValue target="group1" propertyName="verticalScrollPosition" value="20" />
+		</body>
+	</TestCase>
+			
+	<TestCase testID="Group_states_propertyChange_scale" keywords="[Group, states, scale]" description="check scaleX/scaleY/resizeMode properties work when defined different between states">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			<AssertMethodValue method="value=application.resetStatePropertyChange();" value="true" />
+			
+			<SetProperty target="group1" propertyName="width" value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="50" waitTarget="group1"  waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 10, 10, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'group1', 'resizeMode', 'scale');" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'scaleX', 1);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'scaleY', 1);" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'resizeMode', 'normal');" value="1" />
+		</setup>
+		<body>
+			<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state1" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="scale" />
+			
+			<CompareBitmap url="../states/baselines/group_states_propertyChange_scale_large.png" target="group1" timeout="2000" />
+			
+			<SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state2" />
+			<AssertPropertyValue target="group1" propertyName="scaleX" value="1" />
+			<AssertPropertyValue target="group1" propertyName="scaleY" value="1" />
+			<AssertPropertyValue target="group1" propertyName="resizeMode" value="normal" />
+			<CompareBitmap url="../states/baselines/group_states_propertyChange_scale_small.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_states_propertyChange_layout" keywords="[Group, states, layout]" description="change layout between states">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+			<AssertMethodValue method="value=application.resetStatePropertyChange();" value="true" />
+			
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0xFF0000);" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 20, 20, 0x00FF00);" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<AssertMethodValue method="value=application.addStatePropertyChange('state1', 'group1', 'layout', new VerticalLayout());" value="1" />
+			<AssertMethodValue method="value=application.addStatePropertyChange('state2', 'group1', 'layout', new HorizontalLayout());" value="1" />
+		</setup>
+		<body>
+			<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state1" />
+			
+			<CompareBitmap url="../states/baselines/group_states_propertyChange_layout_vertical.png" target="group1" timeout="2000" />
+			
+			<SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state2" />
+			
+			<CompareBitmap url="../states/baselines/group_states_propertyChange_layout_horizontal.png" target="group1" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_states_includeExclude" keywords="[Group, states, includeIn, excludeFrom]" description="check includeIn and excludeFrom work on a Group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty  propertyName="currentState" value="state1"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state1" />
+			
+			<CompareBitmap url="../states/baselines/group_states_includeExclude_a.png" target="bitmapArea" timeout="2000" />
+			
+			<SetProperty  propertyName="currentState" value="state2"  waitEvent="currentStateChange" />
+			<AssertPropertyValue  propertyName="currentState" value="state2" />
+			
+			<CompareBitmap url="../states/baselines/group_states_includeExclude_z.png" target="bitmapArea" timeout="2000" />
+		</body>
+	</TestCase>
+
+			
+  </testCases>
+</UnitTester>

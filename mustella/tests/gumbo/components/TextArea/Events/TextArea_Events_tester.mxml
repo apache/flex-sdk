@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/TextArea/Events/" 
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+
+
+		xmlns="*"
+
+		testSWF="TextArea_main.mxml">
+
+
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+
+
+	<fx:Script>
+
+		<![CDATA[
+
+		public static function init(o:DisplayObject):void
+
+		{
+
+		}
+
+		]]>
+
+	</fx:Script>
+
+	
+
+	<fx:Metadata>
+
+		<![CDATA[
+
+			[Mixin]
+
+		]]>
+
+	</fx:Metadata>
+
+	
+
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<fx:Script>
+
+		<![CDATA[
+
+		]]>
+
+	</fx:Script>
+
+
+
+	<testCases>
+
+
+
+		<!-- ******************** *************** ******************** -->
+
+		<!-- ******************** TEXTAREA EVENTS ******************** -->
+
+		<!-- ******************** *************** ******************** -->
+
+
+
+		<!-- ******************** change ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_change_event" description="..." keywords="[TextArea, change, event]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+				<!--
+				<DispatchMouseClickEvent target="textArea" localX="20" localY="10" waitTarget="textArea" waitEvent="selectionChange" />
+				-->
+				
+				<DispatchMouseEvent target="textArea" type="rollOver" localX="20" localY="10"/>
+				<DispatchMouseEvent target="textArea" type="mouseDown" localX="20" localY="10" waitTarget="textArea" waitEvent="selectionChange"/>
+				<DispatchMouseEvent target="textArea" type="mouseUp" localX="20" localY="10" />
+
+				<DispatchKeyEvent char="The quick brown fox" waitTarget="textArea" waitEvent="change" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox" />
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** changing ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_changing_event" description="Check that setting text sets both the changing and change events, in that order" keywords="[TextArea, changing, event]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="textArea" localX="20" localY="10" waitTarget="textArea" waitEvent="selectionChange" />
+				<DispatchKeyEvent char="The quick brown fox" waitTarget="textArea" waitEvent="changing" />
+				<!--
+				<AssertEvent target="textArea" eventName="changing" eventClass="spark.events::TextOperationEvent" />
+				<AssertEvent target="textArea" eventName="change" eventClass="spark.events::TextOperationEvent" numExpectedEvents="4" />
+				-->
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox" />
+			</body>
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** enter ******************** -->
+
+		<TestCase testID="TextArea_enter_event_keyDown" description="Check that hitting the enter key doesnt dispatch the enter event for TextArea" keywords="[TextArea, enter, event, SDK-28566]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox" />
+
+				<DispatchMouseClickEvent target="textArea" localX="20" localY="10" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<DispatchKeyEvent keys="[ENTER]" />
+
+				<AssertEvent target="textArea" eventName="keyDown" eventClass="flash.events::KeyboardEvent"/>
+				<AssertEventPropertyValue propertyName="keyCode" value="13" />
+				<AssertEvent target="textArea" eventName="keyUp" eventClass="flash.events::KeyboardEvent"/>
+				<AssertEventPropertyValue propertyName="keyCode" value="13" />
+				<AssertNoEvent target="textArea" eventName="enter" eventClass="flash.events::KeyboardEvent"/>
+				
+
+			</body>
+
+		</TestCase>
+
+		<!-- ******************** selectionChange ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_selectionChange_event_click" description="Check that the TextArea control dispatches the selectionChange event when clicking in a TextArea" keywords="[TextArea, selectionChange, click, event]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="textArea" type="rollOver" localX="10" localY="5" />
+				<DispatchMouseEvent target="textArea" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+				<DispatchMouseEvent target="textArea" type="mouseUp" waitEvent="enterFrame" />
+
+				<DispatchMouseClickEvent target="textArea" localX="20" localY="3" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="2" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="2" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_selectionChange_event_doubleClick" description="Check that the selectionChange event is dispatched when the the user clicks or double clicks the TextArea control" keywords="[TextArea, selectionChange, doubleClick, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+				<DispatchMouseEvent target="textArea" type="rollOver" localX="10" localY="5" />
+				<DispatchMouseEvent target="textArea" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+				<DispatchMouseEvent target="textArea" type="mouseUp" waitEvent="enterFrame" />
+
+
+				<DispatchMouseClickEvent target="textArea" localX="40" localY="5" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="5" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="5" />
+
+				<DispatchMouseEvent target="textArea" type="doubleClick" localX="40" localY="3" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="4" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="9" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_selectionChange_event_KeyEvent_left" description="Check that the selectionChange event is dispatched when clicking and using the keyboard arrow keys on TextArea control" keywords="[TextArea, selectionChange, KeyEvent, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<DispatchMouseEvent target="textArea" type="rollOver" localX="10" localY="5" />
+				<DispatchMouseEvent target="textArea" type="mouseDown" localX="10" localY="5" waitEvent="selectionChange" />
+				<DispatchMouseEvent target="textArea" type="mouseUp" waitEvent="enterFrame" />
+
+				<DispatchMouseClickEvent target="textArea" localX="40" localY="3" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="5" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="5" />
+
+				<DispatchKeyEvent keys="[LEFT,LEFT]" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="3" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="3" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_selectionChange_event_appendText" description="Check that the selectionChange event is dispatched after calling the appendText method" keywords="[TextArea, selectionChange, appendText, event]">
+
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+
+			<body>
+				<RunCode code="application.textArea.appendText('The quick brown fox');" />
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="19" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="19" />
+			</body>
+
+		</TestCase>
+
+
+
+	</testCases>
+
+</UnitTester>
+
+
+

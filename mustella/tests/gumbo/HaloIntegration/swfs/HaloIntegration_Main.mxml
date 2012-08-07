@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="comps.*" width="500" height="500" creationComplete="initCollections()">
+
+	<s:layout>
+
+		<s:VerticalLayout/>
+
+	</s:layout>
+
+	<fx:Script>
+
+		<![CDATA[
+
+		    import mx.collections.*;
+
+			import mx.controls.Menu;
+
+
+
+		    [Bindable]
+
+		    public var menuBarCollection:XMLListCollection;
+
+
+
+			private var myArr:Array;
+
+			private var menu:Menu;
+
+	
+
+			private function init():void {
+
+			myArr= [];
+
+			myArr.push({label:"One"});
+
+			myArr.push({label:"Two"});
+
+			myArr.push({label:"Three"});
+
+			myArr.push({label:"Four"});
+
+			myArr.push({label:"Five"});
+
+			myArr.push({label:"Six"});
+
+			myArr.push({label:"Seven"});
+
+			myArr.push({label:"Eight"});
+
+			myArr.push({label:"Nine"});
+
+			myArr.push({label:"Ten"});
+
+
+
+			menu = new Menu();
+
+			menu.dataProvider = myArr;
+
+			pub.popUp = menu;
+
+			}
+
+	
+
+		    private var menubarXML:XMLList =
+
+			<>
+
+			    <menuitem label="Menu1">
+
+				<menuitem label="MenuItem 1-A" data="1A"/>
+
+				<menuitem label="MenuItem 1-B" data="1B"/>
+
+			    </menuitem>
+
+			    <menuitem label="Menu2">
+
+				<menuitem label="MenuItem 2-A" type="check"  data="2A"/>
+
+				<menuitem type="separator" />
+
+				<menuitem label="MenuItem 2-B" >
+
+				    <menuitem label="SubMenuItem 3-A" type="radio"
+
+					groupName="one" data="3A"/>
+
+				    <menuitem label="SubMenuItem 3-B" type="radio"
+
+					groupName="one" data="3B"/>
+
+				</menuitem>
+
+			    </menuitem>
+
+			</>;
+
+
+
+		    // Event handler to initialize the MenuBar control.
+
+		    private function initCollections():void {
+
+			menuBarCollection = new XMLListCollection(menubarXML);
+
+		    }
+
+
+
+		]]>
+
+	</fx:Script>
+
+	
+
+	<fx:Declarations>
+
+		<fx:Array id="arr">
+
+			<fx:Object label="One" />
+
+			<fx:Object label="Two" />
+
+			<fx:Object label="Three" />
+
+			<fx:Object label="Four" />
+
+			<fx:Object label="Five" />
+
+			<fx:Object label="Six" />
+
+			<fx:Object label="Seven" />
+
+			<fx:Object label="Eight" />
+
+			<fx:Object label="Nine" />
+
+			<fx:Object label="Ten" />
+
+		</fx:Array>
+
+	</fx:Declarations>
+
+
+
+	<mx:PopUpMenuButton id="pmb" dataProvider="{arr}" />
+
+
+
+	<mx:PopUpButton id="pub" initialize="init();" />
+
+
+
+	<mx:ComboBox id="cb" dataProvider="[apple, orange, banana, grape, peach]"/>
+
+	
+
+	<mx:MenuBar id="mb" labelField="@label" dataProvider="{menuBarCollection}" />
+
+
+
+	<mx:ColorPicker id="cp" />
+
+
+
+</s:Application>

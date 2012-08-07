@@ -1,0 +1,1185 @@
+<UnitTester testDir="gumbo/components/Slider/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="Slider_Basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{} 
+                
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+
+		<TestCase testID="HSlider_thumbDrag" keywords="[HSlider]" description="Test dragging slider thumb on HSlider">
+			<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />									
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />		
+
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />						
+			</body>
+    	</TestCase>
+
+		<TestCase testID="HSlider_default_liveDragging" keywords="[HSlider, liveDragging]" description="Test Default liveDragging Mode for HSlider">
+			<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 				
+			</setup>
+			<body>
+				<AssertStyleValue target="myHSlider" styleName="liveDragging" value="true" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />						
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />													
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />						
+			</body>
+    	</TestCase>
+
+		<TestCase testID="HSlider_liveDragging_Disabled" keywords="[HSlider, liveDragging]" description="Test liveDragging enabled mode for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 				
+				<SetStyle target="myHSlider" styleName="liveDragging" value="false" />
+			</setup>
+			<body>	      
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+				<AssertStyleValue target="myHSlider" styleName="liveDragging" value="false" />	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+		        <DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />						
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />								
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		    </body>
+    	</TestCase>
+
+        <TestCase testID="HSlider_liveDragging_Enabled" keywords="[HSlider, liveDragging]" description="Test liveDragging mode is enabled for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>				
+		    </setup>
+		    <body>
+		    	<AssertStyleValue target="myHSlider" styleName="liveDragging" value="true"/>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />		        
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+		        <DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="22" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="20" />				
+				<DispatchMouseEvent target="myHSlider" localX="22" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />				
+		
+				<DispatchMouseEvent target="myHSlider" localX="21" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="21" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />	
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="39" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider"  />
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="56" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="74" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="96" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="78" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myHSlider" localX="78" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="79" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="79" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="61" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myHSlider" localX="61" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="62" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="62" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="45" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+				
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="27" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider.thumb" />
+		    </body>
+    	</TestCase>
+ 
+		<TestCase testID="HSlider_liveDragging_Disabled2" keywords="[HSlider, liveDragging]" description="Test liveDragging disabled mode for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetStyle target="myHSlider" styleName="liveDragging" value="false" />
+		    </setup>
+		    <body>	        		        
+		        <AssertStyleValue target="myHSlider" styleName="liveDragging" value="false" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="change" waitTarget="myHSlider" />
+	    	</body>
+    	</TestCase>    
+  
+        <TestCase testID="HSlider_track_click" keywords="[HSlider, Track]" description="Test clicking in the track for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>				
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	  
+	        
+		        <DispatchMouseClickEvent target="myHSlider" localX="23" localY="4" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertEvent target="myHSlider" eventName="click" eventClass="flash.events::MouseEvent" numExpectedEvents="-1"/>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />	  
+		        <CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_1.png"/>
+	        
+		        <DispatchMouseClickEvent target="myHSlider" localX="41" localY="4" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myHSlider" localX="59" localY="4" waitTarget="myHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="60" />			     
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_2.png"/>
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="77" localY="4" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="95" localY="4" waitTarget="myHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100" />
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_3.png"/>
+	        
+				<DispatchMouseClickEvent target="myHSlider" localX="77" localY="4" waitTarget="myHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="80" />	       	        
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="59" localY="4" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="60" />	        
+	        
+	        	<DispatchMouseClickEvent target="myHSlider" localX="41" localY="4" waitTarget="myHSlider" waitEvent="change" />
+	        	<AssertPropertyValue target="myHSlider" propertyName="value" value="40" />	        
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="23" localY="4" waitTarget="myHSlider" waitEvent="change" />
+	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />	        
+	        
+	    	    <DispatchMouseClickEvent target="myHSlider" localX="4" localY="4" waitTarget="myHSlider" waitEvent="change" />
+	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	        	    	
+	    	</body>
+    	</TestCase>    	
+
+        <TestCase testID="HSlider_track_click_hitArea" keywords="[HSlider, Track, hitArea]" description="Test clicking in the hit area for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	  
+	        
+	        	<DispatchMouseClickEvent target="stage" stageX="33" stageY="55" waitEvent="click" waitTarget="stage"/>
+	        	<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+	        
+		        <DispatchMouseClickEvent target="myHSlider" stageX="33" stageY="56" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />	  		        
+	        
+		        <DispatchMouseClickEvent target="myHSlider" stageX="51" stageY="57" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myHSlider" stageX="69" stageY="58" waitTarget="myHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="60" />			     		
+		
+				<DispatchMouseClickEvent target="myHSlider" stageX="87" stageY="59" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myHSlider" stageX="105" stageY="60" waitTarget="myHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100" />	  
+				
+				<DispatchMouseClickEvent target="myHSlider" stageX="87" stageY="61" waitTarget="myHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="80" />	       	        
+		
+				<DispatchMouseClickEvent target="myHSlider" stageX="69" stageY="62" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="60" />	        
+	        
+	        	<DispatchMouseClickEvent target="myHSlider" stageX="51" stageY="63" waitTarget="myHSlider" waitEvent="change" />
+	        	<AssertPropertyValue target="myHSlider" propertyName="value" value="40" />	        
+		
+				<DispatchMouseClickEvent target="myHSlider" stageX="33" stageY="64" waitTarget="myHSlider" waitEvent="change" />
+	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />	        
+	        
+	    	    <DispatchMouseClickEvent target="myHSlider" stageX="15" stageY="65" waitTarget="myHSlider" waitEvent="change" />
+	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />			
+	    	    
+				<DispatchMouseClickEvent target="myHSlider" stageX="33" stageY="66" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />	  		        
+	        
+		        <DispatchMouseClickEvent target="stage" stageX="51" stageY="67" waitTarget="stage" waitEvent="click" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />			        
+		    
+	    	</body>
+    	</TestCase>     	
+
+ 		<TestCase testID="HSlider_default_min_max_values" keywords="[HSlider, Default]" description="Test Default Min and Max for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="0" />
+            	<AssertPropertyValue target="myHSlider" propertyName="maximum" value="10"/>
+            	<AssertPropertyValue target="myHSlider" propertyName="stepSize" value="1" />            	
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>      
+    	
+ 		<TestCase testID="HSlider_negative_positive_values" keywords="[HSlider, Values]" description="Test Large and Small Positive and Negative Values for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="9999" />
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-9999" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-999" />
+		        <SetProperty target="myHSlider" propertyName="stepSize" value="999" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="maximum" value="9999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="-9999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="stepSize" value="999" />
+            </body>
+    	</TestCase>      	
+    	
+		<TestCase testID="HSlider_negative_values" keywords="[HSlider, Values]" description="Test Negative Values for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="-9990" />
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-9999" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-9995" />	      
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="maximum" value="-9990" />
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="-9999" />
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-9995" />
+            </body>
+    	</TestCase>      	
+    	    	    	
+ 		<TestCase testID="HSlider_custom_max" keywords="[HSlider, Maximum]" description="Test Custom Positive Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="300" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_max_2" keywords="[HSlider, Maximum]" description="Test Custom Positive Decimal Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+	      		<SetProperty target="myHSlider" propertyName="maximum" value="125.5" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="125.5" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>    	
+    	
+		<TestCase testID="HSlider_custom_max_3" keywords="[HSlider, Maximum]" description="Test Custom Negative Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-110" />
+            	<SetProperty target="myHSlider" propertyName="maximum" value="-10" />
+            	<SetProperty target="myHSlider" propertyName="value" value="-110" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-110" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider"/>
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-10" />
+				
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider"/>
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-110" />
+            </body>
+    	</TestCase>     	
+    	
+ 		<TestCase testID="HSlider_custom_max_4" keywords="[HSlider, Maximum]" description="Test Custom Negative Decimal Maximum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-50" />
+            	<SetProperty target="myHSlider" propertyName="maximum" value="-5.4" />
+            	<SetProperty target="myHSlider" propertyName="value" value="-50" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myHSlider" propertyName="value" value="-50" />
+            	
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-5.4" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-50" />
+            </body>
+    	</TestCase>   
+    	
+		<TestCase testID="HSlider_custom_max_5" keywords="[HSlider, Maximum]" description="Test setting the value greater than the default maximum on HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="value" value="20" waitEvent="updateComplete" waitTarget="myHSlider"/>		        
+            </setup>
+            <body>            	
+            	<AssertPropertyValue target="myHSlider" propertyName="maximum" value="10" />	
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />	
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_max_6" keywords="[HSlider, Maximum]" description="Test setting the value greater than a custom maximum on HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="120" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		        <SetProperty target="myHSlider" propertyName="value" value="220" waitEvent="updateComplete" waitTarget="myHSlider"/>
+            </setup>
+            <body>            	
+                <AssertPropertyValue target="myHSlider" propertyName="maximum" value="120" />	
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="120" />	
+            </body>
+    	</TestCase>     	
+    	
+ 		<TestCase testID="HSlider_custom_min_1" keywords="[HSlider, Minimum]" description="Test Custom Positive Minimum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="8" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10"/>
+			
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="8"/>
+            </body>
+    	</TestCase> 
+    
+		<TestCase testID="HSlider_custom_min_2" keywords="[HSlider, Minimum]" description="Test Custom Positive Decimal Minimum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="1.5"/>
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10"/>
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="1.5"/>
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_min_3" keywords="[HSlider, Minimum]" description="Test Custom Negative Minimum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-40" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-40"/>
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-40" />
+            </body>
+    	</TestCase>     	
+    	
+		<TestCase testID="HSlider_custom_min_4" keywords="[HSlider, Minimum]" description="Test Custom Negative Decimal Minimum for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-5.4" />
+		        <SetProperty target="myHSlider" propertyName="value" value="-5.4"/>
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+            	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+			
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider"/>
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+		
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-5.4" />
+            </body>
+    	</TestCase>     
+    	
+ 		<TestCase testID="HSlider_custom_min_5" keywords="[HSlider, Minimum]" description="Test setting the value less than the default minimum on HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="value" value="-2" waitEvent="updateComplete" waitTarget="myHSlider"/>
+            </setup>
+            <body>            	
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="0"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	
+            </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_custom_min_6" keywords="[HSlider, Minimum]" description="Test setting the value less than a custom minimum on HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="minimum" value="-10" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		        <SetProperty target="myHSlider" propertyName="value" value="-20" waitEvent="updateComplete" waitTarget="myHSlider"/>
+            </setup>
+            <body>            	
+            	<AssertPropertyValue target="myHSlider" propertyName="minimum" value="-10"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="-10" />	
+            </body>
+    	</TestCase>    	
+
+		<TestCase testID="HSlider_snapInterval_1" keywords="[HSlider, snapInterval]" description="Test Custom snapInterval for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		        <SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		        <SetProperty target="myHSlider" propertyName="snapInterval" value="25" />
+		        <SetProperty target="myHSlider" propertyName="stepSize" value="25" />
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="myHSlider" localX="10" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />            
+            
+            	<DispatchMouseClickEvent target="myHSlider" localX="20" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="25" />
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_1.png"/>
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="30" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="25" />
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_2.png"/>
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="40" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="50" />
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_3.png"/>
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="50" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="65" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="75" />
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_4.png"/>
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="75" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="75" />		
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="85" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="65" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="75" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="50" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="30" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="25" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="5" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>
+
+		<TestCase testID="HSlider_snapInterval_2" keywords="[HSlider, snapInterval]" description="Test Custom snapInterval for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		        <SetProperty target="myHSlider" propertyName="snapInterval" value="30" />
+            </setup>
+            <body>
+            	<DispatchMouseClickEvent target="myHSlider" localX="10" localY="4" waitEvent="click" waitTarget="myHSlider" />
+            	<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+				
+				<DispatchMouseClickEvent target="myHSlider" localX="25" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="35" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="48" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="60" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="75" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="90" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="93" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="100" />		
+            </body>
+    	</TestCase>
+
+		<TestCase testID="HSlider_snapInterval_3" keywords="[HSlider, snapInterval]" description="Test Custom snapInterval with custom min and max for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 		        
+		        <SetProperty target="myHSlider" propertyName="maximum" value="500" waitEvent="updateComplete" waitTarget="myHSlider"/>
+		        <SetProperty target="myHSlider" propertyName="minimum" value="400" waitEvent="updateComplete" waitTarget="myHSlider"/>		        
+		        <SetProperty target="myHSlider" propertyName="snapInterval" value="30" />
+            </setup>
+            <body>
+            	<Pause timeout="100"/>
+            	<DispatchMouseClickEvent target="myHSlider" localX="10" localY="4" waitEvent="click" waitTarget="myHSlider" />            	
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="400" />
+			
+				<DispatchMouseClickEvent target="myHSlider" localX="25" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="430" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="35" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="430" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="48" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="460" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="75" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="490" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="93" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="500" />		
+            </body>
+    	</TestCase> 
+
+		<TestCase testID="HSlider_snapInterval_4" keywords="[HSlider, snapInterval]" description="Test Custom snapInterval with custom min and max for HSlider">
+            <setup>
+		        <ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+		        <SetProperty target="myHSlider" propertyName="snapInterval" value="30" />
+		        <SetProperty target="myHSlider" propertyName="maximum" value="300" />
+		        <SetProperty target="myHSlider" propertyName="minimum" value="120" />		        
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="myHSlider" localX="8" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="120" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="20" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="150" />		
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="27" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="150" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="29" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="180" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="42" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="180" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="43" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="210" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="57" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="210" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="58" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="240" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="71" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="240" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="73" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="270" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="85" localY="4" waitEvent="click" waitTarget="myHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="270" />
+		
+				<DispatchMouseClickEvent target="myHSlider" localX="88" localY="4" waitEvent="change" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="300" />
+            </body>
+    	</TestCase>     
+    
+		<TestCase testID="HSlider_snapInterval_5" keywords="[HSlider, snapInterval]" description="Test decimal snapInterval for HSlider">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="0.1" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		        <AssertPropertyValue target="myHSlider" propertyName="snapInterval" value="0.1" />
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="29.2" />
+				
+	        	<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="30" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="50" localY="4" type="mouseMove" buttonDown="true" waitEvent="move" waitTarget="myHSlider.thumb" />
+				<DispatchMouseEvent target="myHSlider" localX="50" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="51.7" />				
+	
+		    </body>
+    	</TestCase>    	
+   
+    	<TestCase testID="HSlider_default_liveDragging_inGroup" keywords="[HSlider, liveDragging, Group]" description="Test Default liveDragging Mode for HSlider in a Group">
+	    	<setup>
+				<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+	 	   </setup>
+	 	   <body>
+				<AssertStyleValue target="myGroupHSlider" styleName="liveDragging" value="true" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />	      
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />			
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="10" />			
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />					
+	 	   </body>
+    	</TestCase>
+    	
+    	<TestCase testID="HSlider_liveDraggingDisabled_inGroup" keywords="[HSlider, liveDragging, Group]" description="Test Default liveDragging Mode for HSlider in a Group">
+	    	<setup>
+				<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+				<SetStyle target="myGroupHSlider" styleName="liveDragging" value="false" />
+	 	   </setup>
+	 	   <body>
+				<AssertStyleValue target="myGroupHSlider" styleName="liveDragging" value="false" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />	        
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />			
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="10" />
+	 	   </body>
+    	</TestCase>    	
+
+		<TestCase testID="HSlider_liveDragging_Enabled_inGroup" keywords="[HSlider, liveDragging, Group]" description="Test liveDragging mode Enabled for HSlider in Group">
+		    <setup>
+				<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/>
+				<SetProperty target="myGroupHSlider" propertyName="maximum" value="100" />				
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+		        <AssertStyleValue target="myGroupHSlider" styleName="liveDragging" value="true" />
+	        
+	        	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+		        <DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="22" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="20" />		
+				<DispatchMouseEvent target="myGroupHSlider" localX="22" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+				
+				<DispatchMouseEvent target="myGroupHSlider" localX="21" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="21" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="39" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="39" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+				
+				<DispatchMouseEvent target="myGroupHSlider" localX="39" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="39" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider"  />
+				<DispatchMouseEvent target="myGroupHSlider" localX="56" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="56" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="56" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="56" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="74" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="74" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="74" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="74" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="96" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="100" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="96" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="96" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="96" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="78" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="80" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="78" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="79" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="79" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="61" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="60" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="61" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="62" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="62" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="45" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="40" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="45" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="45" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="45" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="27" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="20" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="27" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="27" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="27" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider.thumb" />
+		    </body> 
+    	</TestCase>   
+    	
+ 		<TestCase testID="HSlider_custom_max_inGroup" keywords="[HSlider, Maximum, Group]" description="Test Custom Positive Maximum for HSlider in Group">
+            <setup>
+		        <ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+		        <SetProperty target="myGroupHSlider" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+            	
+            	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+            	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="300" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>    	
+
+		<TestCase testID="HSlider_custom_min_inGroup" keywords="[HSlider, Minimum, Group]" description="Test Custom Negative Minimum for HSlider in Group">
+            <setup>
+		        <ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/> 
+		        <SetProperty target="myGroupHSlider" propertyName="minimum" value="-40" />
+		        <SetProperty target="myGroupHSlider" propertyName="value" value="-40" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+            	<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="94" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myGroupHSlider" />
+				<DispatchMouseEvent target="myGroupHSlider" localX="4" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myGroupHSlider" />
+		
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="-40" />
+            </body>
+    	</TestCase>      	
+
+		<TestCase testID="HSlider_snapInterval_inGroup" keywords="[HSlider, snapInterval, Group]" description="Test Custom snapInterval for HSlider in Group">
+            <setup>
+				<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/>
+				<SetProperty target="myGroupHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myGroupHSlider"/>
+		        <SetProperty target="myGroupHSlider" propertyName="snapInterval" value="30" />
+            </setup>
+		    <body>
+    	       	<DispatchMouseClickEvent target="myGroupHSlider" localX="10" localY="4" waitEvent="click" waitTarget="myGroupHSlider" />
+    	       	<Pause timeout="400"/>
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="25" localY="4" waitEvent="change" waitTarget="myGroupHSlider" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="35" localY="4" waitEvent="click" waitTarget="myGroupHSlider" />
+				<Pause timeout="400"/>
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="30" />
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="48" localY="4" waitEvent="change" waitTarget="myGroupHSlider" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="60" />
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="75" localY="4" waitEvent="change" waitTarget="myGroupHSlider" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="90" />
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="93" localY="4" waitEvent="change" waitTarget="myGroupHSlider" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="100" />		
+            </body>
+    	</TestCase>
+ 
+        <TestCase testID="HSlider_track_click_inGroup" keywords="[HSlider, Track, Group]" description="Test clicking in the track for HSlider in Group">
+		    <setup>
+				<ResetComponent target="myGroupHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myGroupHSlider"/>
+				<SetProperty target="myGroupHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myGroupHSlider"/>
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />	  
+	        
+		        <DispatchMouseClickEvent target="myGroupHSlider" localX="23" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="20" />	  	        
+	        
+		        <DispatchMouseClickEvent target="myGroupHSlider" localX="41" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myGroupHSlider" localX="59" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+				<AssertPropertyValue target="myGroupHSlider" propertyName="value" value="60" />			     
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="77" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="95" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="100" />
+	        
+		        <DispatchMouseClickEvent target="myGroupHSlider" localX="77" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="80" />	       	        
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="59" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="60" />	        
+	        
+		        <DispatchMouseClickEvent target="myGroupHSlider" localX="41" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="40" />	        
+		
+				<DispatchMouseClickEvent target="myGroupHSlider" localX="23" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="20" />	        
+	        
+		        <DispatchMouseClickEvent target="myGroupHSlider" localX="4" localY="4" waitTarget="myGroupHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myGroupHSlider" propertyName="value" value="0" />	        
+		    </body>
+    	</TestCase>     	
+   
+		<TestCase testID="HSlider_stepSize" keywords="[HSlider,valueCommit,change,Event,Up]" description="Test HSlider valueCommit and change events when keyboard UP is used">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="stepSize" value="5" />
+		    </setup>
+		    <body>
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+	    	
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myHSlider" />	
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="5" />	    	
+		
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="myHSlider" />					
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	    	
+	        
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myHSlider" />		        
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="5" />	    	
+	        
+		        <DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myHSlider" />        
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />	    		     
+		    </body>
+    	</TestCase>
+
+        <TestCase testID="HSlider_disabled" keywords="[HSlider, Disabled]" description="Test HSlider when disabled">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="enabled" value="false" />
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myHSlider" propertyName="enabled" value="false" />	    
+	        
+				<DispatchMouseClickEvent target="myHSlider" localX="23.5" localY="4" />
+	    	    <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />		        
+	        
+	        	<DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider" />
+	    	    <DispatchMouseEvent target="myHSlider" localX="4" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider" />
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myHSlider" />						
+				<DispatchMouseEvent target="myHSlider" localX="94" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider" />	
+
+				<AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_1.png"/>	
+		
+				<SetProperty target="myHSlider" propertyName="enabled" value="true" />
+	    	</body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_thumbPos1" keywords="[HSlider, Thumb]" description="Test HSlider thumb positioning">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="value" value="150" waitEvent="updateComplete" waitTarget="myHSlider" />				
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="10"/>
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_1.png"/>
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_thumbPos2" keywords="[HSlider, Thumb]" description="Test HSlider thumb positioning">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="value" value="4" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="4" />	        	        	        	        	        	    				
+				<CompareBitmap target="myHSlider" url="../Properties/Baselines/$testID_1.png"/>
+		    </body>
+    	</TestCase>       	
+    	
+		<TestCase testID="HSlider_step1" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 				
+		    </setup>
+		    <body>
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="1" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_step2" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 			
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_step3" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 			
+				<SetProperty target="myHSlider" propertyName="maximum" value="100" waitEvent="updateComplete" waitTarget="myHSlider"/>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="10" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="0" />
+		    </body>
+    	</TestCase> 
+    	
+		<TestCase testID="HSlider_step4" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 			
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />				
+				<SetProperty target="myHSlider" propertyName="value" value="5" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="minimum" value="-3" waitEvent="updateComplete" waitTarget="myHSlider" />
+		    </setup>
+		    <body>		   
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="-3" />		        
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_step5" keywords="[HSlider, Step]" description="Test HSlider step function">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/>				
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="10" waitEvent="updateComplete" waitTarget="myHSlider" />				
+				<SetProperty target="myHSlider" propertyName="maximum" value="103" waitEvent="updateComplete" waitTarget="myHSlider" />
+				<SetProperty target="myHSlider" propertyName="value" value="85" waitEvent="updateComplete" waitTarget="myHSlider" />				
+		    </setup>
+		    <body>		   
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="100" />
+		        <RunCode code="application.myHSlider.changeValueByStep();" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="103" />
+		    </body>
+    	</TestCase>     	
+    	
+		<TestCase testID="SkinHSlider_thumbDrag" keywords="[HSlider, Skin]" description="Test track click on a HSlider with a skin">
+		    <setup>
+				<ResetComponent target="mySkinHSlider" className="mySkinHSliderComp" waitEvent="updateComplete" waitTarget="mySkinHSlider"/> 				
+		    </setup>
+		    <body>
+		        <AssertPropertyValue target="mySkinHSlider.mySkinHS" propertyName="value" value="0" />	        
+		    	<DispatchMouseClickEvent target="mySkinHSlider.mySkinHS" localX="50" localY="5" waitEvent="change" waitTarget="mySkinHSlider.mySkinHS" />    				
+				<AssertPropertyValue target="mySkinHSlider.mySkinHS" propertyName="value" value="5" />								
+		    </body>
+    	</TestCase>
+    	
+		<TestCase testID="HSlider_height" keywords="[HSlider, height]" description="Test HSlider height">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="height" value="100" waitTarget="myHSlider" waitEvent="updateComplete"/>				
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myHSlider" propertyName="height" value="100"/>	    	    
+				<CompareBitmap target="HSbox" url="../Properties/Baselines/$testID.png"/>
+			</body>
+    	</TestCase>     	
+
+		<TestCase testID="HSlider_dataTipPrecision" keywords="[HSlider, dataTipPrecission]" description="Test HSlider dataTipPrecission">
+	    	<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+				<SetProperty target="myHSlider" propertyName="dataTipPrecision" value="5"/>				
+				<SetProperty target="myHSlider" propertyName="maximum" value="100"/>				
+	    	</setup>
+	    	<body>
+	    	    <AssertPropertyValue target="myHSlider" propertyName="dataTipPrecision" value="5"/>	    	    	    	    
+				<DispatchMouseClickEvent target="myHSlider" localX="23" localY="4" waitTarget="myHSlider" waitEvent="change" />
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="20" />	    	    	    	    
+				<DispatchMouseEvent target="myHSlider" localX="23" localY="4" type="rollOver" waitEvent="rollOver" waitTarget="myHSlider"/>
+		        <DispatchMouseEvent target="myHSlider" localX="23" localY="4" type="mouseDown" waitEvent="mouseDown" waitTarget="myHSlider"/>
+				<CompareBitmap target="HSbox" url="../Properties/Baselines/$testID.png"/>
+				<DispatchMouseEvent target="myHSlider" localX="23" localY="4" type="mouseUp" waitEvent="mouseUp" waitTarget="myHSlider"/>
+			</body>
+    	</TestCase>
+
+		<TestCase testID="HSlider_baselinePosition_preValidation" keywords="[HSlider, baselinePosition]" description="Test baselinePosition HSlider">
+			<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myHSlider" propertyName="baselinePosition" value="9" />						
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HSlider_baselinePosition_postValidation" keywords="[HSlider, baselinePosition]" description="Test baselinePosition HSlider">
+			<setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete" waitTarget="myHSlider"/> 
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myHSlider" propertyName="baselinePosition" value="9" />						
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HSlider_oddOnly" keywords="[HSlider, Odd]" description="Test HSlider with odd only values">
+		    <setup>
+				<ResetComponent target="myHSlider" className="spark.components.HSlider" waitEvent="updateComplete"/> 				
+				<SetProperty target="myHSlider" propertyName="minimum" value="1" waitEvent="updateComplete"/>
+				<SetProperty target="myHSlider" propertyName="maximum" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="myHSlider" propertyName="snapInterval" value="2" waitEvent="updateComplete"/>
+		    </setup>
+		    <body>
+		    	<AssertPropertyValue target="myHSlider" propertyName="value" value="1" />
+		        <RunCode code="application.myHSlider.changeValueByStep(true);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="3" />
+		        <RunCode code="application.myHSlider.changeValueByStep(true);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="5" />
+				<RunCode code="application.myHSlider.changeValueByStep(true);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="7" />
+		        <RunCode code="application.myHSlider.changeValueByStep(true);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="9" />
+				<RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="7" />
+		        <RunCode code="application.myHSlider.changeValueByStep(false);" waitEvent="updateComplete" waitTarget="myHSlider" />       	        	        	        	        	    				
+		        <AssertPropertyValue target="myHSlider" propertyName="value" value="5" />		        
+		    </body>
+    	</TestCase>		
+			
+    </testCases>
+    
+</UnitTester>

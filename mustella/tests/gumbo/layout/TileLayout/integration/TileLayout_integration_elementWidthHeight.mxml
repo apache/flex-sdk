@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+width/height
+========================================================
+-->
+<TestCase testID="widthHeight_basic_test1" keywords="[TileLayout]" description="Just set the width and height, nothing else." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_elementXXAlign_test1" keywords="[TileLayout]" description="Height ignored if verticalAlign is justify." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_elementXXAlign_test2" keywords="[TileLayout]" description="Width ignored if horizontalAlign is justify." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_percent_test1" keywords="[TileLayout]" description="Height ignored if element's percentHeight is set." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentHeight', 100)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_percent_test2" keywords="[TileLayout]" description="Width ignored if element's percentWidth is set." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentWidth', 100)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_rowColumnLimits_test1" keywords="[TileLayout]" description="Height of an element is limited to the rowHeight if rowHeight is set to be smaller." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="10" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_rowColumnLimits_test2" keywords="[TileLayout]" description="Width of an element is limited to the columnWidth if columnWidth is set to be smaller." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropOnOneGroupElement(application.box1.group1, 'width', 50, 0)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="widthHeight_decimal_test1" keywords="[TileLayout]" description="Set the width and height to decimal values in this unique situation and get them.  No rounding should occur." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" />
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25.3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25.8)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="25.3" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="25.8" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+percentWidth/percenHeight
+- A Rect in a group is 1 pixel smaller than expected;
+the stroke is half a pixel on the left and half on the 
+right.
+- Buttons have a minWidth/minHeight of 21.
+========================================================
+-->
+<TestCase testID="percentWidthHeight_test1" keywords="[TileLayout]" description="Height/width of elements is 25%." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentWidth', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentHeight', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="9" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="9" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="10" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="10" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="10" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="10" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="21" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="21" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidthHeight_test2" keywords="[TileLayout]" description="Height/width of elements is 100%." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentWidth', 100)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentHeight', 100)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="percentWidthHeight_test3" keywords="[TileLayout]" description="Height/width of elements is 125%.  They should not get bigger." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentWidth', 125)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'percentHeight', 125)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+minWidth/minHeight
+========================================================
+-->
+<TestCase testID="minWidth_test1" keywords="[TileLayout]" description="minWidth less than columnWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="40" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test2" keywords="[TileLayout]" description="minWidth less than columnWidth, then decrease columnWidth to equal minWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="35" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="40" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test3" keywords="[TileLayout]" description="minWidth less than columnWidth, then decrease columnWidth to less than minWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="35" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="20" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="15" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="40" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test4" keywords="[TileLayout]" description="minWidth equal to columnWidth, then increase columnWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test5" keywords="[TileLayout]" description="minWidth equal to columnWidth, then decrease columnWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="29" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test6" keywords="[TileLayout]" description="minWidth equal to columnWidth, then increase minWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="29" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minWidth_test7" keywords="[TileLayout]" description="minWidth greater than columnWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minWidth', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="29" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test1" keywords="[TileLayout]" description="minHeight less than rowHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="40" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test2" keywords="[TileLayout]" description="minHeight less than rowHeight, then decrease rowHeight to equal minHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="35" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test3" keywords="[TileLayout]" description="minHeight less than rowHeight, then decrease rowHeight to less than minHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 40)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="35" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="20" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="15" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="39" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="40" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test4" keywords="[TileLayout]" description="minHeight equal to rowHeight, then increase rowHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test5" keywords="[TileLayout]" description="minHeight equal to rowHeight, then decrease rowHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="29" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test6" keywords="[TileLayout]" description="minHeight equal to rowHeight, then increase minHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="29" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="minHeight_test7" keywords="[TileLayout]" description="minHeight greater than rowHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.LEFT" />
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.TOP" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 30)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'minHeight', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="29" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+maxWidth/maxHeight
+========================================================
+-->
+<TestCase testID="maxWidthHeight_test1" keywords="[TileLayout]" description="Set horizontalAlign to justify, columnWidth greater than maxWidth.  Element should be its maxWidth, not larger." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="40" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'maxWidth', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidthHeight_test2" keywords="[TileLayout]" description="Set horizontalAlign to justify, columnWidth less than maxWidth, and increase columnWidth.  Element should grow, but not beyond its maxWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'maxWidth', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="35" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidthHeight_test3" keywords="[TileLayout]" description="Set horizontalAlign to justify, columnWidth greater than maxWidth, and decrease columnWidth.  Element should start shrinking when columnWidth dips below maxWidth." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="horizontalAlign" valueExpression="value = HorizontalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="35" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'maxWidth', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="columnWidth" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).width" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).width" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).width" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidthHeight_test4" keywords="[TileLayout]" description="Set verticalAlign to justify, rowHeight greater than maxHeight.  Element should be its maxHeight, not larger." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="50" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'maxHeight', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidthHeight_test5" keywords="[TileLayout]" description="Set verticalAlign to justify, rowHeight less than maxHeight, and increase rowHeight.  Element should grow, but not beyond its maxHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'maxHeight', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="35" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="30" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="30" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="maxWidthHeight_test6" keywords="[TileLayout]" description="Set verticalAlign to justify, rowHeight greater than maxHeight, and decrease rowHeight.  Element should start shrinking when rowHeight dips below maxHeight." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="verticalAlign" valueExpression="value = VerticalAlign.JUSTIFY" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="35" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'maxHeight', 30)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="30" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="rowHeight" value="25" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(0).height" value="24" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(1).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(2).height" value="25" />
+        <AssertMethodValue method="value = application.box1.group1.getElementAt(3).height" value="25" />
+        <CompareBitmap url="../integration/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+
+	</testCases>
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

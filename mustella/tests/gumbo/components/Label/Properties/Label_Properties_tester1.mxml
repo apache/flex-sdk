@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_basic1.mxml">
+
+    <mx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <!-- ################################################################## -->
+
+    <mx:Style>
+        .bigRed {
+            color: red;
+            fontSize: 20;
+        }
+    </mx:Style>
+
+    <mx:Script>
+        <![CDATA[
+            import comps.LabelBasic;
+            import mx.utils.ObjectUtil;
+            import mx.core.FlexGlobals;
+            import flash.events.TimerEvent;
+
+            public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+            public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+        <!-- property: className -->
+        <TestCase testID="Label_className" description="Check value of className property" keywords="[TextBox, className, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="className" value="Label" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="0" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="11" />
+            </body>
+        </TestCase>
+
+
+        <!-- property: styleDeclaration -->
+        <TestCase testID="Label_styleDeclaration" description="TextBox text set to blank" keywords="[TextBox, nonInheritingStyles, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=ObjectUtil.toString(application.textBoxComp.textBox.styleDeclaration)" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='(null)';" />
+            </body>
+        </TestCase>
+
+
+        <!-- property: styleName -->
+        <TestCase testID="Label_styleName_default" description="TextBox text set to blank" keywords="[TextBox, nonInheritingStyles, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="styleName" valueExpression="value=null;" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_styleName_bigRed_pre" description="TextBox text set to blank" keywords="[TextBox, nonInheritingStyles, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="styleName" value="bigRed" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="styleName" value="bigRed" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="3" maxColorVariance="20"  target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_styleName_bigRed_post" description="TextBox text set to blank" keywords="[TextBox, nonInheritingStyles, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="styleName" value="bigRed" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="styleName" value="bigRed" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+
+        <!-- property: text -->
+        <TestCase testID="Label_default" description="TextBox text set to blank" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="0" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="12" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_singleLine" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="241" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="12" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="width" value="89" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="height" value="41" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <!-- property: maxDisplayedLines -->
+
+
+        <TestCase testID="Label_singleLine_truncation_default" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="0" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation_default" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="50" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="0" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation-1" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation-1" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation1" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation1" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation2" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation2" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="width" value="100" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="height" value="30" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation_default_defaultSize" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="0" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation_default_defaultSize" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="0" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation-1_defaultSize" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation-1_defaultSize" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="-1" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation1_defaultSize" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation1_defaultSize" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+               <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="1" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+        <TestCase testID="Label_singleLine_truncation2_defaultSize" description="TextBox text set to a single line of text" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=singleLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" value="The quick brown fox jumps over the lazy dog." />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Label_multiLine_truncation2_defaultSize" description="TextBox text set to multiple lines of text using \n" keywords="[TextBox, text, Graphic]">
+            <setup>
+                <ResetComponent target="textBoxComp" className="comps.LabelBasic" waitTarget="textBoxComp" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="text" valueExpression="value=multiLineText;" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+                <SetProperty target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" waitTarget="textBoxComp.textBox" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="text" valueExpression="value='The quick brown\nfox jumps over\nthe lazy dog.';" />
+                <AssertPropertyValue target="textBoxComp.textBox" propertyName="maxDisplayedLines" value="2" />
+                <CompareBitmap numColorVariances="5" maxColorVariance="10" url="../Properties/baselines/$testID.png" target="textBoxComp" />
+            </body>
+        </TestCase>
+
+	
+        <!-- regression test case: SDK-24980 -->
+ 	<TestCase testID="Label_toggleTuncationTip" description="update showTruncationTip through databinding, the tooltip will show/hide based on binding value for showTruncationTip" keywords="[Label,showTruncationTip]">
+            <setup>
+                <ResetComponent target="labelWithTT" className="comps.LabelWithTip" waitTarget="labelWithTT" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertPropertyValue target="labelWithTT" propertyName="showTruncationTip" value="true" />
+                <DispatchMouseEvent target="labelWithTT" stageX="20" stageY="245" type="rollOver" waitEvent="enterFrame" waitTarget="stage"/>  
+	        <DispatchMouseEvent target="labelWithTT" stageX="20" stageY="245" type="mouseOver" waitEvent="toolTipShown" waitTarget="labelWithTT"/>
+		<AssertPropertyValue target="labelWithTT" propertyName="toolTip" valueExpression="value=FlexGlobals.topLevelApplication.labelWithTT.text"/>
+		
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.labelWithTT.setShowTruncationTipFlag(false)" value="true" />
+		<DispatchMouseEvent target="labelWithTT" stageX="20" stageY="245" type="rollOver" waitEvent="enterFrame" waitTarget="stage"/>  
+		<DispatchMouseEvent target="labelWithTT" stageX="20" stageY="245" type="mouseOver"  waitEvent="enterFrame" waitTarget="stage"/>
+		<AssertNoEvent target="labelWithTT" eventName="toolTipShown" eventClass="flash.events::Event" />
+		<AssertPropertyValue target="labelWithTT" propertyName="toolTip" value="null"/>	   
+               
+            </body>
+        </TestCase>    
+
+        <!-- regression test case: SDK-23913 -->
+ 	<TestCase testID="Label_dynamic_sizeUpdate" description="update label size when maxDisplayedLines=-1 and height is set" keywords="[Label,Property,maxDisplayedLines]">
+            <setup>
+                <ResetComponent target="vg" className="spark.components.VGroup" waitTarget="vg" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.createLabels()" waitEvent="enterFrame" waitTarget="stage"/>
+	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.startTimer()"  waitEvent="enterFrame" waitTarget="stage"/>
+	        
+	        <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="100"/>
+             	
+	        <!-- verify when no runtime error, the timer should finish, repeatCount=30 -->
+	        <AssertPropertyValue target="" propertyName="repeatTimes" value="30"/>	   
+                <RunCode code="FlexGlobals.topLevelApplication.vg.removeAllElements()"  waitEvent="enterFrame" waitTarget="stage"/>
+	        
+            </body>
+        </TestCase>   
+        
+        
+        
+    </testCases>
+
+</UnitTester>

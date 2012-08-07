@@ -1,0 +1,45 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"    
+    xmlns="*"
+    testSWF="Panel_visual.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+        <TestCase testID="Panel_Properties_visibleFalse" keywords="[Panel, visible]" description="Test visible property of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelVisibleFalse" className="Comps.CustomPanelVisibleFalse" waitEvent="updateComplete" waitTarget="myCustomPanelVisibleFalse"/>
+            </setup>
+            <body>            	
+            	<CompareBitmap target="myCustomPanelVisibleFalse" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase> 
+
+		<TestCase testID="Panel_Properties_includeInLayoutFalse" keywords="[Panel, includeInLayout]" description="Test includeInLayout property of Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelIncludeInFalse" className="Comps.CustomPanelIncludeInFalse" waitEvent="updateComplete" waitTarget="myCustomPanelIncludeInFalse"/>                
+            </setup>
+            <body>
+            	<CompareBitmap target="stage" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>        
+        
+    </testCases>
+    
+</UnitTester>
+

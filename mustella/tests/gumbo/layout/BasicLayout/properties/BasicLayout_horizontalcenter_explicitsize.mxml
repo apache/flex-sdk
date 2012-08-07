@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_basic1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+HorizontalCenter
+========================================================
+-->
+<TestCase testID="horizontal_basic_test1" keywords="[BasicLayout,properties,horizontalCenter]" description="Just set horizontalCenter, verify it is placed at center of container in horizontal level" >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+       
+	<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="115" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="horizontal_vertical_test1" keywords="[BasicLayout,properties,horizontalCenter, verticalCenter]" description="Just set horizontalCenter,veriticalCenter verify it is placed at center of container" >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+       
+	<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+	<SetProperty propertyName="verticalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+    	<!-- element.width is considered, parent.width=300, center=300/2, minus element/2=35 -->
+        <AssertPropertyValue propertyName="x" value="115" target="parentGroup.childBtn"/>
+        <!-- element.height is considered -->
+        <AssertPropertyValue propertyName="y" value="140" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="horizontal_offset_test1" keywords="[BasicLayout,properties,horizontalCenter]" description="set horizontalCenter with offset, verify it is placed at away off center with distance=offset" >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+       
+	<SetProperty propertyName="horizontalCenter" value="100" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="215" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="horizontal_offset_test2" keywords="[BasicLayout,properties,horizontalCenter]" description="set horizontalCenter with negative offset, verify it is placed at left off center about offset" >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+       
+	<SetProperty propertyName="horizontalCenter" value="-100" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="15" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+
+<TestCase testID="horizontal_over_otherXposition_properties" keywords="[BasicLayout,properties,horizontalCenter]" description="set horizontalCenter, also other x position constrains, x,left, right, verify horizontalCenter wins" >
+    <setup>
+        <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+       
+	<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn" />	
+	<SetProperty propertyName="x" value="200" target="parentGroup.childBtn" />
+	<SetProperty propertyName="left" value="50" target="parentGroup.childBtn" />
+	<SetProperty propertyName="right" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="x" value="50" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+<TestCase testID="horizontal_negative_test1" keywords="[BasicLayout,properties,horizontalCenter,negative]" description="horizontalCenter great than parent.width, verify it is placed correctly" >
+    <setup>
+       <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+       
+	<SetProperty propertyName="horizontalCenter" value="350" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>	
+    </setup>
+    <body>
+    	<!-- center of parent=300/2=150, horizontalCenter=350, x to center at button.width=70/2=35
+    	     x=150+350-35=465
+    	-->
+        <AssertPropertyValue propertyName="x" value="465" target="parentGroup.childBtn"/>
+    </body>
+</TestCase>
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

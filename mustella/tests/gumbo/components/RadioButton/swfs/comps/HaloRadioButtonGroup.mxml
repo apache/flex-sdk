@@ -1,0 +1,8 @@
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+	<s:RadioButtonGroup id="haloGrp"/>
+	<s:RadioButton id="r1" label="Halo 1" groupName="haloGrp"/>
+	<s:RadioButton id="r2" label="Halo 2" groupName="haloGrp"/>
+	<s:RadioButton id="r3" label="Halo 3" groupName="haloGrp"/>
+	<s:RadioButton id="r4" label="Halo 4" groupName="haloGrp"/>	
+</mx:VBox>
+	

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_003.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import spark.components.DataGrid;
+			import spark.components.gridClasses.GridSelection;
+			import spark.components.gridClasses.GridSelectionMode;
+			import mx.utils.ObjectUtil;
+			import mx.collections.ArrayList;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
+			import mx.collections.ArrayCollection;
+			public var tmp:int;
+			public var rowsHolder:ArrayList=new ArrayList();
+			public var indices:Vector.<int>;
+			public var selectedIndices:Vector.<int>;
+			public var newItem:Object={index:123, firstName: "lee", lastName: "Li", food: "bread", drink: "coke"};
+			
+		
+			
+			public function verifySelectedRow(v:Vector.<int>):String
+			{	
+				var t:int;
+				var errMsg:String="";
+				var len:int=v.length;
+			
+				var v1:Vector.<int>=FlexGlobals.topLevelApplication.dataGrid.selectedIndices;
+				var len2:int=v1.length;
+				for (var i:int=0;i<len2;i++)
+				trace("$$$$"+v1.pop());
+				for (i=0;i<len;i++)
+				{
+					t=int(v.pop());
+					if (!FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(t))
+						errMsg+="row "+t+" not in selection\n";
+				}
+				return errMsg;
+
+
+			}
+			public function verifySelectedRow2(grid:DataGrid,v:ArrayList):String
+			{	
+				var t:int;
+				var errMsg:String="";
+				var len:int=v.length;
+				for (var i:int=0;i<len;i++)
+				{
+					t=int(v.getItemAt(i));
+					if (!grid.selectionContainsIndex(t))
+						errMsg+="row "+t+" not in selection\n";
+				}
+				return errMsg;
+
+
+			}
+			public function verifyOnlySelectedRow(grid:DataGrid,v:Vector.<int>):String
+			{	
+				var tmp:ArrayList=new ArrayList();
+				var len:int=v.length;
+				trace("len="+len);
+				while(len>0)
+				{
+					tmp.addItem(int(v.pop()));
+					len--;
+				}
+
+				var errMsg:String="";
+				errMsg=verifySelectedRow2(grid,tmp);
+				if (errMsg!="") return errMsg;
+				var t:int;
+				var skip:Boolean=false;
+				var i:int;
+				var len2:int=tmp.length;
+				for (i=0;i<grid.dataProvider.length;i++)
+				{	
+
+					skip=false;
+					trace("tmp.length="+tmp.length);
+					for (var j:int=0;j<tmp.length;j++)
+					{
+						t=int(tmp.getItemAt(j));
+						if (i==t)
+						{
+							trace("##i="+i);
+							tmp.removeItemAt(j);
+							skip=true;
+							break;
+						}
+
+					}
+					if (skip) continue;
+					if (grid.selectionContainsIndex(i))
+						errMsg+="row "+i+" actual in selection, expect Not in selection\n";
+				}
+				return errMsg;
+
+			}
+
+			public function verifyAllRowSelected(grid:DataGrid):String
+			{
+				var errMsg:String="";
+				trace("###allselectedIndices:"+grid.selectedIndices);
+				for (var i:int=0;i<grid.dataProvider.length;i++)
+				{
+					if (!grid.selectionContainsIndex(i) )
+					errMsg+="row "+i+" Not in selection, expect to be in selection\n";
+				}
+				return errMsg;
+			}
+			public function verifyNoRowSelected(grid:DataGrid):String
+			{
+				var errMsg:String="";
+				for (var i:int=0;i<grid.dataProvider.length;i++)
+				{
+					if (grid.selectionContainsIndex(i) )
+					errMsg+="row "+i+" is in selection, expect NOT to be in selection\n";
+				}
+				return errMsg;
+			}
+			
+			public function displaySelectedIndices(v:Vector.<int>):void
+			{
+				var n:int=v.length;
+				for (var i:int=0;i<n;i++)
+					trace("selected index="+v.pop());
+			}
+			
+			public function verifySelectedItem(items:Vector.<Object>, dataGrid:DataGrid):String
+			{
+				var v:Vector.<int>=dataGrid.selectedIndices;
+				var msg:String="";
+				if (items==null && v==null) return msg;
+				if (items==null && v!=null) return "items is null, but selectedRows not null\n";
+				var n:int=v.length;
+				
+				if (n!=items.length) msg+="selectedItems.length="+items.length+";expect="+n+"\n";
+				for (var i:int=0;i<n;i++)
+				{
+					if (dataGrid.dataProvider.getItemAt(v[i])!=items[i])
+					msg+="index="+i+" not expected, selectedItem and selected row not equa\n";
+				}
+				return msg;
+			}		
+		
+		]]>
+	</fx:Script>	
+
+<!-- tests here are mainly for requireSelection property
+
+-->
+	<testCases>
+	    <TestCase testID="requireSelection_test01" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test gridSelection.selectionMode is row related, requireSelection=true, verify first row should be selected">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"  waitEvent="enterFrame" waitTarget="stage" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		  
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID.png" target="dataGrid"/>
+
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test02" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test gridSelection.selectionMode is row related, requireSelection=true, verify first row should be selected">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_ROW"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+
+	    <TestCase testID="requireSelection_test03" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test gridSelection.selectionMode=GridSelectionMode.SINGLE_CELL, requireSelection=true">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS" waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		  
+
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test04" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test gridSelection.selectionMode=GridSelectionMode.MULTIPLE_CELL, requireSelection=true">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		     <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS" waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		  
+
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+
+	    <TestCase testID="requireSelection_test05" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test gridSelection.selectionMode=GridSelectionMode.NONE, requireSelection=true">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		     <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.NONE"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="false"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="false"/>
+		  
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="requireSelection_test06" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test gridSelection.selectionMode changes between cell/row, requireSelection=true,verify the change will cause selection updated, first row or first cell depends on selectionMode">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS" waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		    
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS" waitEvent="enterFrame" waitTarget="stage" />
+		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="false"/>
+		    
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_row.png" target="dataGrid"/>
+
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="false"/>
+		  
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test07" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is removed, requireSelection=true,verify first row or first cell is selected depends on selectionMode">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS" waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		   
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="requireSelection_test08" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first cell, then add a new first row,verify first cell is selected still on previous row">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.addItemAt(newItem,0)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,0)" value="true"/>
+ 			
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test09" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first row, then add a new first row,verify first row is selected on the newly added row">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.addItemAt(newItem,0)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(1)" value="true"/>
+
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_row.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test10" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first cell, then add a new first row,verify first cell is selected still on previous row">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(0)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>    
+ 
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="requireSelection_test11" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first row, remove first row,verify first row is selected on next row">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(0)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_row.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test12" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first row,remove all rows, then later add one row back, verify removeAll row, no selection, no runtime error, 
+	        add a row will have the row selected">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeAll()" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="false"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.addItemAt(newItem,0)" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(0)" value="true"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_row.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="requireSelection_test14" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first cell,remove all rows, then later add one column back, verify removeAll row, no selection, no runtime error, 
+	        add a new column will have the first cell selected">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeAll()" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="false"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.insertNewColumns(FlexGlobals.topLevelApplication.dataGrid,0,1)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/> 
+ 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="requireSelection_test15" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first row/cell,reset dataprovider,verify first row/cell is still selected">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+	            <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.resetDP()"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/> 
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="requireSelection_test16" keywords="[GridSelection,property,requireSelection ]" 
+	        description="Test selection is on first cell,remove first column,verify cell is still selected">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.columns.removeItemAt(0)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/> 
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_cell.png" target="dataGrid"/>
+		</body>
+	    </TestCase>	    
+	    
+	    <TestCase testID="requireSelection_test17" keywords="[GridSelection,property,requireSelection ]" 
+		description="Test change requireSelection=true to false,verify once selection is gone, no selection">
+		<setup>
+		    <ResetComponent target="dataGrid" className="components.DataGrid_comp3" waitEvent="updateComplete" />	
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/></setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/>
+		    <SetProperty target="dataGrid" propertyName="requireSelection" value="false" waitEvent="enterFrame" waitTarget="stage" />
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(0)"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="false"/> 
+ 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_false.png" target="dataGrid"/>
+		
+		    <SetProperty target="dataGrid" propertyName="requireSelection" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(0,0)" value="true"/> 
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" maxColorVariance="20" url="../Properties/Baselines/$testID_true.png" target="dataGrid"/>
+		</body>
+	    </TestCase>	
+	    
+	</testCases>
+</UnitTester>

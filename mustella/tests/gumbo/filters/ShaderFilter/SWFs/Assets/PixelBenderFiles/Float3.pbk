@@ -1,0 +1,29 @@
+<languageVersion : 1.0;>
+
+kernel Float3RedGreenBlue
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts a float3 as parameters, which sets the red, green, and blue levels.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float3 allFloats
+    <
+        minValue:float3(0,0,0);
+        maxValue:float3(1,1,1);
+        defaultValue:float3(0,0,0);
+    >;
+    
+    void
+    evaluatePixel()
+    {
+        float4 inputColor = sampleNearest(src, outCoord());
+        dst.r = allFloats.r;
+        dst.g = allFloats.g;
+        dst.b = allFloats.b;
+        dst.a = inputColor.a;
+    }
+}

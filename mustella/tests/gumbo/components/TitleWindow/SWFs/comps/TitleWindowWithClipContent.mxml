@@ -1,0 +1,29 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" width="300" height="300">
+
+    <fx:Script>
+    	<![CDATA[
+    	[Bindable]
+	private var str:String = "One two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twenty-one twenty-two twenty-three twenty-four twenty-five twenty-six twenty-seven twenty-eight twenty-nine thirty thirty-one thirty-two thirty-three thirty-four thirty-five thirty-six thirty-seven.";
+
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+
+	<s:Button x="300" label="Spark Button"/>
+   	<mx:HBox>
+   		<mx:RadioButton id="myRB1" groupName="rbg1" label="Option 1"/>
+   		<mx:RadioButton id="myRB2" groupName="rbg1" label="Option 2"/>
+   		<mx:RadioButton id="myRB3" groupName="rbg1" label="Option 3"/>
+   	</mx:HBox>
+
+   	
+
+   	<mx:CheckBox label="This is a Halo CheckBox"/>
+	<s:Label text="{str}" width="600" height="200"/>
+
+   	
+</s:TitleWindow>

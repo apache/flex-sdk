@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/properties/"
+			testSWF="ImageMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+        <TestCase testID="BimapImage_Scale_default" keywords="[BitmapImage, scale]" description="Scale image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                 <Pause timeout="100"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_stretch" keywords="[BitmapImage, scale, stretch]" description="Scale image stretch">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="height" value="400" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+
+                 <Pause timeout="100"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <!--TestCase testID="BimapImage_Scale_stretch_invalid" keywords="[BitmapImage, scale, stretch]" description="Scale image, stretch invalid image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="http://flexqa01.labs.corp.adobe.com/images/cf100.jpg" waitEvent="ioError" waitTarget="bitmapImage.im" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                 <Pause timeout="100"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase-->
+        <TestCase testID="BimapImage_Scale_stretch_align_top_left" keywords="[BitmapImage, scale, align]" description="Strech image , change to letter box, align top left">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+             </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="left" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="top" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="bitmapImage.im" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="percentHeight" value="100" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+                 <Pause timeout="100"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_stretch_bottom_right" keywords="[BitmapImage, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="percentWidth" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="percentHeight" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+
+                 <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_stretch_bottom_right_trusted" keywords="[BitmapImage, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="percentWidth" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="percentHeight" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                 <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="BimapImage_Scale_stretch_align_top_center_percentWidth" keywords="[BitmapImage, scale, align]" description="Strech image , change to letter box, align top center">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="center" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="top" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="bitmapImage.im" propertyName="percentWidth" value="100" waitEvent="updateComplete" waitTarget="bitmapImage.im" />
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+                 <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_stretch_bottom_right_percentHeight" keywords="[BitmapImage, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="percentHeight" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/greenrect.jpg" waitEvent="ready"  />
+                <Pause timeout="200"/>
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                 <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  />
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_stretch_bottom_right_trusted_width" keywords="[BitmapImage, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="width" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <Pause timeout="100"/>
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="stretch" />
+                 <Pause timeout="100"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_letterbox_bottom_right_trusted_width" keywords="[BitmapImage, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="width" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <Pause timeout="200"/>
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+                <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_letterbox_bottom_right_trusted_height" keywords="[BitmapImage, scale, align]" description="Strech image">
+            <setup>
+                <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+                <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+                <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+
+            </setup>
+            <body>
+                <SetProperty target="bitmapImage.im" propertyName="height" value="100" waitEvent="updateComplete"  />
+                <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+                <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+                <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+                <Pause timeout="200"/>
+                <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+                <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_letterbox_bottom_right_align_width" keywords="[BitmapImage, scale, align]" description="Strech image">
+        <setup>
+            <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+            <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            <SetProperty target="bitmapImage.im" propertyName="top" value="10" />
+            <SetProperty target="bitmapImage.im" propertyName="bottom" value="10" />
+        </setup>
+        <body>
+            <SetProperty target="bitmapImage.im" propertyName="width" value="100"  />
+            <SetProperty target="bitmapImage.im" propertyName="percentHeight" value="100"   />
+            <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+            <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+            <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            <Pause timeout="200"/>
+            <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+             <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+        </body>
+        </TestCase>
+        <TestCase testID="BimapImage_Scale_letterbox_bottom_right_align_height" keywords="[BitmapImage, scale, align]" description="Strech image">
+        <setup>
+        <ResetComponent target="bitmapImage" className="comps.BitmapImageRoot" waitEvent="updateComplete" />
+            <SetProperty target="bitmapImage" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            <SetProperty target="bitmapImage" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="bitmapImage" />
+            <SetProperty target="bitmapImage.im" propertyName="left" value="10" />
+            <SetProperty target="bitmapImage.im" propertyName="right" value="10" />
+        </setup>
+        <body>
+            <SetProperty target="bitmapImage.im" propertyName="height" value="100"   />
+            <SetProperty target="bitmapImage.im" propertyName="percentWidth" value="100"   />
+            <SetProperty target="bitmapImage.im" propertyName="horizontalAlign" value="right" />
+            <SetProperty target="bitmapImage.im" propertyName="verticalAlign" value="bottom" />
+            <SetProperty target="bitmapImage.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            <Pause timeout="200"/>
+            <SetProperty target="bitmapImage.im" propertyName="scaleMode" value="letterbox" />
+            <Pause timeout="200"/>
+		<CompareBitmap target="bitmapImage" url="../properties/baselines/$testID.png"  numColorVariances="5" ignoreMaxColorVariance="true"/>
+        </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

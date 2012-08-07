@@ -1,0 +1,33 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" title="{titleStr}" 
+    width="300" height="400" controlBarVisible="true"
+     skinClass="skins.MyTitleWindowSkin">
+
+    <fx:Script>
+    	<![CDATA[
+    	import skins.*;
+    	[Bindable]
+    	public var titleStr:String="controlBarLayout";
+    	 
+    	]]>
+    </fx:Script>
+	<s:Group>
+	    <s:layout>
+		    <s:BasicLayout/>
+	    </s:layout>
+	    <s:Button id="childBtn" label="child" left="0" top="0" right="0" bottom="0"/>
+	    <s:Rect id="childBorder">
+		<s:stroke>
+			<s:SolidColorStroke color="0x00FF00"/>
+		</s:stroke>
+	    </s:Rect>  
+	</s:Group> 
+	<s:controlBarContent>
+	    <s:Label text="controlBar content"/>
+	    <s:Button id="button1" label="button1"/>
+	    <s:Button id="button2" label="button2"/>
+        </s:controlBarContent>
+        
+</s:TitleWindow>

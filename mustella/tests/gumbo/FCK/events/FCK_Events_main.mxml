@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/FCK/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FCKBasic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+			import mx.controls.Button;
+			import mx.core.IVisualElement;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+<!-- move event -->
+
+	<!-- Note: Mustella doesn't recognize move events, but they work fine outside of Mustella -->
+	
+<!-- resize event -->
+
+	<!-- component -->
+	
+	<TestCase testID="FCK_events_resize_component_width_larger" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing component width larger">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		
+	    	<SetProperty target="eventsGroup.eventsComponent" propertyName="width" value="100" />
+	    	<AssertEvent target="eventsGroup.eventsComponent" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=51" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=51" />
+	    </body>
+	</TestCase>
+		
+	<TestCase testID="FCK_events_resize_component_width_smaller" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing component width smaller">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	    	<SetProperty target="eventsGroup.eventsComponent" propertyName="width" value="25" />
+	    	<AssertEvent target="eventsGroup.eventsComponent" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=51" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=51" />
+	    </body>
+	</TestCase>
+				
+	<TestCase testID="FCK_events_resize_component_height_larger" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing component height larger">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<SetProperty target="eventsGroup.eventsComponent" propertyName="height" value="100" />
+			<AssertEvent target="eventsGroup.eventsComponent" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=51" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=51" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="FCK_events_resize_component_height_smaller" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing component height smaller">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<SetProperty target="eventsGroup.eventsComponent" propertyName="height" value="25" />
+			<AssertEvent target="eventsGroup.eventsComponent" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=51" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=51" />
+	    </body>
+	</TestCase>	
+		
+	<!-- container -->
+
+	<TestCase testID="FCK_events_resize_container_width_larger" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing container width larger">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	    	<SetProperty target="eventsGroup.eventsContainer" propertyName="width" value="300" />
+	    	<AssertEvent target="eventsGroup.eventsContainer" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=201" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=151" />
+	    </body>
+	</TestCase>
+		
+	<TestCase testID="FCK_events_resize_container_width_smaller" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing container width smaller">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	    	<SetProperty target="eventsGroup.eventsContainer" propertyName="width" value="25" />
+	    	<AssertEvent target="eventsGroup.eventsContainer" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=201" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=151" />
+	    </body>
+	</TestCase>
+				
+	<TestCase testID="FCK_events_resize_container_height_larger" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing container height larger">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<SetProperty target="eventsGroup.eventsContainer" propertyName="height" value="300" />
+			<AssertEvent target="eventsGroup.eventsContainer" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=201" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=151" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="FCK_events_resize_container_height_smaller" keywords="[FCK, event, resize]" description="ensure resize event is fired when resizing container height smaller">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<SetProperty target="eventsGroup.eventsContainer" propertyName="height" value="25" />
+			<AssertEvent target="eventsGroup.eventsContainer" eventName="resize" eventClass="mx.events::ResizeEvent" numExpectedEvents="1" />
+			<AssertEventPropertyValue propertyName="oldWidth" valueExpression="value=201" />
+			<AssertEventPropertyValue propertyName="oldHeight" valueExpression="value=151" />
+	    </body>
+	</TestCase>	
+
+<!-- currentStateChange event -->
+	
+	<TestCase testID="FCK_events_currentStateChange_component" keywords="[FCK, event, currentStateChange]" description="ensure currentStateChange event is sent from a component">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<RunCode code="application.eventsGroup.eventsComponent.currentState = 'state2'" waitTarget="eventsGroup.eventsComponent" waitEvent="currentStateChange" />
+			<RunCode code="application.eventsGroup.eventsComponent.currentState = 'state1'" waitTarget="eventsGroup.eventsComponent" waitEvent="currentStateChange" />
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_events_currentStateChange_container" keywords="[FCK, event, currentStateChange]" description="ensure currentStateChange event is sent from a container">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<RunCode code="application.eventsGroup.eventsContainer.currentState='state2'" waitTarget="eventsGroup.eventsContainer" waitEvent="currentStateChange" />
+			<RunCode code="application.eventsGroup.eventsContainer.currentState='state1'" waitTarget="eventsGroup.eventsContainer" waitEvent="currentStateChange" />
+	    </body>
+	</TestCase>	
+	
+<!-- custom events -->
+	
+	<TestCase testID="FCK_events_custom_component_send" keywords="[FCK, event, custom]" description="ensure custom events can be sent from a component">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<RunCode code="application.eventsGroup.eventsComponent.sendCustomEvent()" waitTarget="eventsGroup" waitEvent="customFlashEvent" />
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_events_custom_container_send" keywords="[FCK, event, custom]" description="ensure custom events can be sent from a container">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<RunCode code="application.eventsGroup.eventsContainer.sendCustomEvent()" waitTarget="eventsGroup" waitEvent="customFlashEvent" />
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_events_custom_container_receive" keywords="[FCK, event, custom]" description="ensure container can see events from its elements">
+	    <setup>
+			<ResetComponent target="eventsGroup" className="comps.EventsGroup" waitTarget="eventsGroup" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+			<DispatchMouseClickEvent target="eventsGroup.eventsContainer" localX="30" localY="42" waitEvent="customFlashEvent" waitTarget="eventsGroup"/>
+	    </body>
+	</TestCase>
+		
+	</testCases>
+</UnitTester>

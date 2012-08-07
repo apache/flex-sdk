@@ -1,0 +1,231 @@
+<UnitTester testDir="gumbo/components/Slider/Events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Slider_Basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        import mx.events.FlexEvent;
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+
+
+		<TestCase testID="VSlider_thumbDragEvents" keywords="[VSlider, Events]" description="Test VSlider events when the thumb is dragged">
+    		<setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+    	    </setup>
+    	    <body>
+    	    	<AssertStyleValue target="myVSlider" styleName="liveDragging" value="true" />    	    	
+    	        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />			
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />				
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />								
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />						
+    		</body>
+    	</TestCase>        
+
+		<TestCase testID="VSlider_thumbDragEvents3" keywords="[VSlider, Events, liveDragging]" description="Test VSlider events when the thumb is dragged with liveDragging enabled">
+    		<setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		      	<SetStyle target="myVSlider" styleName="liveDragging" value="true" />
+    	    </setup>
+    	    <body>
+    	        <AssertStyleValue target="myVSlider" styleName="liveDragging" value="true" />            	
+    	        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myVSlider" />
+		        <DispatchMouseEvent target="myVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myVSlider" />
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myVSlider" buttonDown="true" />		
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />								
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />									
+				<DispatchMouseEvent target="myVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myVSlider" />
+    	    </body>
+		</TestCase>     	
+    	
+
+		<TestCase testID="VSlider_UpKeyEvents" keywords="[VSlider,valueCommit,change,Event,Up]" description="Test VSlider valueCommit and change events when keyboard UP is used">
+		    <setup>
+				<ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		    </setup>
+		    <body>	   
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<CompareBitmap target="myVSlider" url="../Events/Baselines/$testID_1.png"/>
+	    	
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myVSlider" />				
+		
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />
+		        <AssertPropertyValue target="myVSlider" propertyName="value" value="1" />	    		        
+		    </body>
+		</TestCase>
+
+		<TestCase testID="VSlider_DownKeyEvents" keywords="[VSlider,valueCommit,change,Event,Down]" description="Test VSlider valueCommit and change events when keyboard DOWN is used">
+		    <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		        <SetProperty target="myVSlider" propertyName="value" value="2" />
+		    </setup>
+		    <body>	       				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="myVSlider" />				
+		
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="1" />	    	
+		    </body>
+		</TestCase> 
+               
+		<TestCase testID="VSlider_RightKeyEvents" keywords="[VSlider,valueCommit,change,Event,Right]" description="Test VSlider valueCommit and change events when keyboard RIGHT is used">
+		    <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/> 
+		    </setup>
+		    <body>	        	
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myVSlider" />				
+		
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="1" />	    	
+		    </body>
+		</TestCase>    
+          
+		<TestCase testID="VSlider_LeftKeyEvents" keywords="[VSlider,valueCommit,change,Event,Left]" description="Test VSlider valueCommit and change events when keyboard LEFT is used">
+		    <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="value" value="2" />				
+		    </setup>
+		    <body>	       
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myVSlider" />				
+		
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="1" />	    	
+		    </body>
+		</TestCase>  
+        
+		<TestCase testID="VSlider_EndKeyEvents" keywords="[VSlider,valueCommit,change,Event,End]" description="Test VSlider valueCommit and change events when keyboard END is used">
+		    <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="value" value="2" />				
+		    </setup>
+		    <body>	       
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[END]" waitEvent="change" waitTarget="myVSlider" />				
+				<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />	    	
+		
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />		
+		    </body>
+    	</TestCase> 
+        
+		<TestCase testID="VSlider_HomeKeyEvents" keywords="[VSlider,valueCommit,change,Event,Home]" description="Test VSlider valueCommit and change events when keyboard HOME is used">
+		    <setup>
+		        <ResetComponent target="myVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myVSlider"/>
+		        <SetProperty target="myVSlider" propertyName="value" value="2" />				
+		    </setup>
+		    <body>	       
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		
+		    	<DispatchKeyEvent keys="[END]" waitEvent="change" waitTarget="myVSlider" />
+		    	<AssertPropertyValue target="myVSlider" propertyName="value" value="10" />
+		    	<CompareBitmap target="myVSlider" url="../Events/Baselines/$testID_1.png"/>
+	    		    	
+		    	<DispatchKeyEvent keys="[HOME]" waitEvent="change" waitTarget="myVSlider" />
+		    	<AssertPropertyValue target="myVSlider" propertyName="value" value="0" />	    	
+		    	<CompareBitmap target="myVSlider" url="../Events/Baselines/$testID_2.png"/>
+	    			
+				<AssertEvent target="myVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myVSlider" eventName="change" eventClass="flash.events::Event" />		
+		    </body>
+    	</TestCase>         
+        
+		<TestCase testID="VSlider_UpKeyEvents_inGroup" keywords="[VSlider,valueCommit,change,Event,Up, Group]" description="Test VSlider in Group valueCommit and change events when keyboard UP is used">
+		    <setup>
+				<ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+		    </setup>
+		    <body>	   
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupVSlider" />
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="myGroupVSlider" />				
+		
+				<AssertEvent target="myGroupVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myGroupVSlider" eventName="change" eventClass="flash.events::Event" />
+		        <AssertPropertyValue target="myGroupVSlider" propertyName="value" value="1" />	    		        
+		    </body>
+    	</TestCase>
+
+		<TestCase testID="VSlider_DownKeyEvents_inGroup" keywords="[VSlider,valueCommit,change,Event,Down, Group]" description="Test VSlider in Group valueCommit and change events when keyboard DOWN is used">
+		    <setup>
+		        <ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+		        <SetProperty target="myGroupVSlider" propertyName="value" value="2" />
+		    </setup>
+		    <body>	       				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupVSlider" />
+		    	<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="myGroupVSlider" />				
+		
+				<AssertEvent target="myGroupVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myGroupVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="1" />	    	
+		    </body>
+    	</TestCase> 
+               
+		<TestCase testID="VSlider_RightKeyEvents_inGroup" keywords="[VSlider,valueCommit,change,Event,Right, Group]" description="Test VSlider in Group valueCommit and change events when keyboard RIGHT is used">
+		    <setup>
+		        <ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/> 
+		    </setup>
+		    <body>	        	
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupVSlider" />
+		    	<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="myGroupVSlider" />				
+		
+				<AssertEvent target="myGroupVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myGroupVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="1" />	    	
+		    </body>
+    	</TestCase>    
+          
+		<TestCase testID="VSlider_LeftKeyEvents_inGroup" keywords="[VSlider,valueCommit,change,Event,Left, Group]" description="Test VSlider in Group valueCommit and change events when keyboard LEFT is used">
+		    <setup>
+		        <ResetComponent target="myGroupVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myGroupVSlider"/>
+		        <SetProperty target="myGroupVSlider" propertyName="value" value="2" />				
+		    </setup>
+		    <body>	       
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myVSlider" />
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupHSlider" />
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myGroupVSlider" />
+		    	<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="myGroupVSlider" />				
+		
+				<AssertEvent target="myGroupVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myGroupVSlider" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myGroupVSlider" propertyName="value" value="1" />	    	
+		    </body>
+    	</TestCase>        
+
+    </testCases>
+    
+</UnitTester>        
+
+        

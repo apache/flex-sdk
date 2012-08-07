@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DropDownList/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DropDownList_layout.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import spark.layouts.VerticalLayout;
+			
+			public var vl:VerticalLayout;
+			
+			public function createVL():void{
+				vl = new VerticalLayout();
+			}
+		]]>
+	</fx:Script>
+
+	<testCases>
+	
+		<TestCase testID="DropDownList_Styles_Layout_baseline" keywords="[DropDownList, Style, Baseline]" description="Test setting Baseline on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>				
+				<SetStyle target="myLayoutComp.myDDL_pos1" styleName="baseline" value="150" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>													
+				<AssertStyleValue target="myLayoutComp.myDDL_pos1" styleName="baseline" value="150"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>	
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="DropDownList_Styles_Layout_bottom" keywords="[DropDownList, Style, Right]" description="Test setting Bottom on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos3" propertyName="bottom" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos3"/>
+			</setup>
+			<body>					
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos3.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos3"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos3.closeDropDown(false)" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Styles_Layout_bottomRight" keywords="[DropDownList, Style, Right]" description="Test setting Bottom on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos3" propertyName="bottom" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos3"/>
+				<SetProperty target="myLayoutComp.myDDL_pos3" propertyName="right" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos3"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos3.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos3"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos3.closeDropDown(false)" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Styles_Layout_horizontalCenter" keywords="[DropDownList, Style, horizontalCenter]" description="Test setting horizontalCenter on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DropDownList_Styles_Layout_left" keywords="[DropDownList, Style, Left]" description="Test setting Left on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="left" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Styles_Layout_right" keywords="[DropDownList, Style, Right]" description="Test setting Right on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos2" propertyName="right" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos2"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos2.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos2"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos2.closeDropDown(false)" />
+			</body>
+		</TestCase>
+				
+		<TestCase testID="DropDownList_Styles_Layout_top" keywords="[DropDownList, Style, Right]" description="Test setting Top on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="top" value="100" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_Layout_topLeft" keywords="[DropDownList, Style, Right]" description="Test setting Top on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="top" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="left" value="10" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>		
+						
+		<TestCase testID="DropDownList_Styles_Layout_verticalCenter" keywords="[DropDownList, Style, verticalCenter]" description="Test setting verticalCenter on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_Layout_v_h_Center" keywords="[DropDownList, Style, verticalCenter]" description="Test setting verticalCenter on DropDownList">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myLayoutComp.myDDL_pos1"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_requestedMaxRowCount_lessThan_dataProvider" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount to less than the number of items in the dataProvider">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<RunCode code="createVL()"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="layout" valueExpression="value=vl" />
+				<SetProperty target="myLayoutComp.myDDL_pos1.layout" propertyName="requestedMaxRowCount" value="3"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>	
+		<TestCase testID="DropDownList_requestedMaxRowCount_greaterThan_dataProvider" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount to greater than the number of items in the dataProvider">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<RunCode code="createVL()"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="layout" valueExpression="value=vl" />
+				<SetProperty target="myLayoutComp.myDDL_pos1.layout" propertyName="requestedMaxRowCount" value="10"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>	
+		<TestCase testID="DropDownList_requestedMaxRowCount_requestedMinRowCount" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount and requestedMinRowCount verify requestedMinRowCount has precedence">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<RunCode code="createVL()"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="layout" valueExpression="value=vl" />
+				<SetProperty target="myLayoutComp.myDDL_pos1.layout" propertyName="requestedMaxRowCount" value="3"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1.layout" propertyName="requestedMinRowCount" value="5"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_smallerFont_defaultSize" keywords="[DropDownList, VerticalLayout]" description="Set DropDownList to a smaller font verify the height of the DropDownList is not hardcoded">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				
+				<SetStyle target="myLayoutComp.myDDL_pos1" styleName="fontSize" value="10" />
+			</setup>
+			<body>	
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="myLayoutComp.myDDL_pos1.dropDown" propertyName="height" value="122"/>
+			</body>
+		</TestCase>
+		<TestCase testID="DropDownList_requestedMaxRowCount_addItem_runtime" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount to the number of items in the dataProvider add an item at runtime verify the scrollbars now appear">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<RunCode code="createVL()"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="layout" valueExpression="value=vl" />
+				<SetProperty target="myLayoutComp.myDDL_pos1.layout" propertyName="requestedMaxRowCount" value="6"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.dataProvider.addItemAt('New Item', 2)"/>
+				
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		<TestCase testID="DropDownList_requestedMaxRowCount_removeItem_runtime" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount to less than the number of items in the dataProvider remove an item at runtime verify scrollbars disappear">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<RunCode code="createVL()"/>
+				<SetProperty target="myLayoutComp.myDDL_pos1" propertyName="layout" valueExpression="value=vl" />
+				<SetProperty target="myLayoutComp.myDDL_pos1.layout" propertyName="requestedMaxRowCount" value="5"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.dataProvider.removeItemAt(0)"/>
+				
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.openDropDown()" waitEvent="open" waitTarget="myLayoutComp.myDDL_pos1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myLayoutComp.myDDL_pos1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_states_requestedMaxRowCount" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount to different values in different states">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<ResetComponent target="stateLayout" className="comps.Custom_DDL_StateLayout" waitEvent="updateComplete" waitTarget="stateLayout"/>
+				
+				<SetProperty propertyName="visible" value="true" target="stateLayout" />
+				<SetProperty target="stateLayout" propertyName="currentState" value="state1" />
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.openDropDown()" waitEvent="open" waitTarget="stateLayout.dl"/>
+				<CompareBitmap target="stateLayout.dl.dropDown" url="../Styles/Baselines/$testID_1.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.closeDropDown(false)" />
+				
+				<SetProperty target="stateLayout" propertyName="currentState" value="state2" />
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.openDropDown()" waitEvent="open" waitTarget="stateLayout.dl"/>
+				<CompareBitmap target="stateLayout.dl.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.closeDropDown(false)" />
+				<SetProperty propertyName="visible" value="false" target="stateLayout" />
+			</body>
+		</TestCase>
+		<TestCase testID="DropDownList_states_requestedMaxRowCount_requestedMinRowCount" keywords="[DropDownList, VerticalLayout]" description="Set requestedMaxRowCount and requestedMinRowCount in a different state requestedMinRowCount should have precedence">
+			<setup>
+				<ResetComponent target="myLayoutComp" className="comps.Custom_DDL_Layout" waitEvent="updateComplete" waitTarget="myLayoutComp"/>
+				<ResetComponent target="stateLayout" className="comps.Custom_DDL_StateLayout" waitEvent="updateComplete" waitTarget="stateLayout"/>
+
+				<SetProperty propertyName="visible" value="true" target="stateLayout" />
+				<SetProperty target="stateLayout" propertyName="currentState" value="state1" />
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.openDropDown()" waitEvent="open" waitTarget="stateLayout.dl"/>
+				<CompareBitmap target="stateLayout.dl.dropDown" url="../Styles/Baselines/$testID_1.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.closeDropDown(false)" />
+
+				<SetProperty target="stateLayout" propertyName="currentState" value="state3" />
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.openDropDown()" waitEvent="open" waitTarget="stateLayout.dl"/>
+				<CompareBitmap target="stateLayout.dl.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="25" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.stateLayout.dl.closeDropDown(false)" />
+				<SetProperty propertyName="visible" value="false" target="stateLayout" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

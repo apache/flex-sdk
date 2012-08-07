@@ -1,0 +1,2075 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/filters/ShaderFilter/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ShaderFilterApp1_ParametersInMXML.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+<!--
+    These test cases are for a pure MXML application, so no resetting of components occurs.
+    
+    The setups set the TabNav's selectedIndex to the last index, then the desired index,
+    so that we can wait for an updateComplete.  If we didn't have this, then we would not get
+    an updateComplete if we were already showing the desired index.
+    
+    In some places, valueExpression is used to avoid conversion to a number.  e.g.
+        valueExpression="value='0.5'"
+    Otherwise, 0.5 would get converted to a floating point number, and we'd have to write:
+        value="0.500000"
+    which is unappealing.
+-->
+
+	<testCases>
+<!--
+================================================================================ 
+Float
+================================================================================ 
+-->
+<TestCase testID="float_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in no float in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest1.filters[0].theFloat" value="0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest2.filters[0].theFloat" value="0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest3.filters[0].theFloat" valueExpression="value='0.5'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in .5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest4.filters[0].theFloat" valueExpression="value='0.5'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest5.filters[0].theFloat" value="1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1.0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest6.filters[0].theFloat" value="1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in 2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest7.filters[0].theFloat" value="2" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in -1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest8.filters[0].theFloat" value="-1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test9" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value being present in the pbj.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest9.filters[0].theFloat" valueExpression="value='0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float_test10" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value not being present in the pbj.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatTest10.filters[0].theFloat" valueExpression="value='0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloatTest10" />
+    </body>
+</TestCase>
+<!--
+================================================================================ 
+Float2
+================================================================================ 
+-->
+<TestCase testID="float2_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in nothing in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test1.filters[0].allFloats" value="0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as the first param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test2.filters[0].allFloats" value="0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.3 as the first param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test3.filters[0].allFloats" value="0.3,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as the first param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test4.filters[0].allFloats" value="1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as the second param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test5.filters[0].allFloats" value="0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.3 as the second param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test6.filters[0].allFloats" value="0,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as the second param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test7.filters[0].allFloats" value="0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 and 0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test8.filters[0].allFloats" value="1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 and 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test9.filters[0].allFloats" value="0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test10" keywords="[PixelBender,ShaderFilter]" description="Explicit test when a default value is present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test10.filters[0].allFloats" value="0,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2_test11" keywords="[PixelBender,ShaderFilter]" description="Explicit test when a default value is not present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2Test11.filters[0].allFloats" value="0,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2Test11" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Float3
+================================================================================ 
+-->
+<TestCase testID="float3_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in nothing in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test1.filters[0].allFloats" value="0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as the first param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test2.filters[0].allFloats" value="0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as the first param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test3.filters[0].allFloats" value="0.5,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test4.filters[0].allFloats" value="1,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as the second param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test5.filters[0].allFloats" value="0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as the second param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test6.filters[0].allFloats" value="0,0.5,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as the second param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test7.filters[0].allFloats" value="0,1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as the third param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test8.filters[0].allFloats" value="0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as the third param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test9.filters[0].allFloats" value="0,0,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test10" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as the third param in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test10.filters[0].allFloats" value="0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test11" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0,1 as the first two params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test11.filters[0].allFloats" value="0,1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test11" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test12" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1,0 as the first and third params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test12.filters[0].allFloats" value="1,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test12" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test13" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.3 and 0.7 as the second two parameters in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test13.filters[0].allFloats" value="0,0.3,0.7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test13" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test14" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1,0,0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test14.filters[0].allFloats" value="1,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test14" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test15" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0,1,0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test15.filters[0].allFloats" value="0,1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test15" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test16" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0,0,1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test16.filters[0].allFloats" value="0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test16" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test17" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.3,0.5,0.7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test17.filters[0].allFloats" value="0.3,0.5,0.7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test17" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test18" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test18.filters[0].allFloats" value="0,0,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test18" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3_test19" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3Test19.filters[0].allFloats" value=",,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3Test19" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Float4
+================================================================================ 
+-->
+
+<TestCase testID="float4_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as param 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test1.filters[0].allFloats" value="0,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as param 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test2.filters[0].allFloats" value="0.5,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as param 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test3.filters[0].allFloats" value="1,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as param 2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test4.filters[0].allFloats" value="0,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as param 2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test5.filters[0].allFloats" value="0,0.5,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as param 2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test6.filters[0].allFloats" value="0,1,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as param 3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test7.filters[0].allFloats" value="0,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as param 3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test8.filters[0].allFloats" value="0,0,0.5,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as param 3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test9.filters[0].allFloats" value="0,0,1,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test10" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 as param 4 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test10.filters[0].allFloats" value="0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test11" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.5 as param 4 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test11.filters[0].allFloats" value="0,0,0,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test11" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test12" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as param 4 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test12.filters[0].allFloats" value="0,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test12" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test13" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 and 1 as first 2 params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test13.filters[0].allFloats" value="0,1,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test13" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test14" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 and 0 as 1st and 3rd params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test14.filters[0].allFloats" value="1,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test14" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test15" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 and 0 as 1st and 4th params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test15.filters[0].allFloats" value="1,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test15" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test16" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.3 and 0.7 as 2nd and 3rd params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test16.filters[0].allFloats" value="0,0.3,0.7,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test16" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test17" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.3 and 0.7 as 2nd and 4th params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test17.filters[0].allFloats" value="0,0.3,0,0.7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test17" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test18" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1.0 and 0.0 as the 3rd and 4th params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test18.filters[0].allFloats" value="0,0,1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test18" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test19" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1,0,0 as the first three params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test19.filters[0].allFloats" value="1,0,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test19" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test20" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0,1,0.5 as the 1st, 2nd, and 4th params in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test20.filters[0].allFloats" value="0,1,0,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test20" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test21" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0,1,0 as r,b,a in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test21.filters[0].allFloats" value="0,0,1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test21" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test22" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1,1,0.5 as g,b,a in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test22.filters[0].allFloats" value="0,1,1,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test22" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test23" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0.2,0.5,1,0.8 as r,g,b,a in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test23.filters[0].allFloats" value="0.2,0.5,1,0.8" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test23" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test24" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1,1,1,1 as r,g,b,a in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test24.filters[0].allFloats" value="1,1,1,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test24" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test25" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test25.filters[0].allFloats" value="0.3,0.3,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test25" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4_test26" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4Test26.filters[0].allFloats" value="0.3,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4Test26" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Int
+================================================================================ 
+-->
+<TestCase testID="int_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgIntTest1.filters[0].theInt" value="0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest1" />
+    </body>
+</TestCase>
+
+<TestCase testID="int_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in 5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgIntTest2.filters[0].theInt" value="5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest2" />
+    </body>
+</TestCase>
+
+<TestCase testID="int_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in 7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgIntTest3.filters[0].theInt" value="7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest3" />
+    </body>
+</TestCase>
+
+<TestCase testID="int_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in 10 in MXML (7 is max).">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgIntTest4.filters[0].theInt" value="10" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest4" />
+    </body>
+</TestCase>
+
+<TestCase testID="int_test5" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgIntTest5.filters[0].theInt" value="7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest5" />
+    </body>
+</TestCase>
+
+<TestCase testID="int_test6" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgIntTest6.filters[0].theInt" value="7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgIntTest6" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Int2
+================================================================================ 
+-->
+<TestCase testID="int2_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in 1 as param 1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt2Test1.filters[0].theInt" value="1,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="int2_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in 2 as param 2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt2Test2.filters[0].theInt" value="0,2" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="int2_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in 3,4 as params 1 and 2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt2Test3.filters[0].theInt" value="3,4" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="int2_test4" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt2Test4.filters[0].theInt" value="3,4" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="int2_test5" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt2Test5.filters[0].theInt" value="3,4" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt2Test5" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Int3
+================================================================================ 
+-->
+<TestCase testID="int3_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test1.filters[0].theInt" value="7,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in y=6 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test2.filters[0].theInt" value="0,6,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in z=5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test3.filters[0].theInt" value="0,0,5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=4,y=3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test4.filters[0].theInt" value="4,3,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=2,z=1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test5.filters[0].theInt" value="2,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in y=2,z=3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test6.filters[0].theInt" value="0,2,3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=4,y=5,z=6 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test7.filters[0].theInt" value="4,5,6" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test8" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test8.filters[0].theInt" value="4,5,6" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="int3_test9" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt3Test9.filters[0].theInt" value="4,5,6" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt3Test9" />
+    </body>
+</TestCase>
+<!--
+================================================================================ 
+Int4
+================================================================================ 
+-->
+<TestCase testID="int4_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test1.filters[0].theInt" value="0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in y=1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test2.filters[0].theInt" value="0,1,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in z=2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test3.filters[0].theInt" value="0,0,2,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in w=3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test4.filters[0].theInt" value="0,0,0,3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=4, y=5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test5.filters[0].theInt" value="4,5,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in y=6, z=7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test6.filters[0].theInt" value="0,6,7,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in z=6, w=5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test7.filters[0].theInt" value="0,0,6,5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=4, y=3, z=2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test8.filters[0].theInt" value="4,3,2,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in y=1, z=2, w=3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test9.filters[0].theInt" value="0,1,2,3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test10" keywords="[PixelBender,ShaderFilter]" description="Test passing in x=4, y=5, z=6, w=7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test10.filters[0].theInt" value="4,5,6,7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test11" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test11.filters[0].theInt" value="4,5,6,7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test11" />
+    </body>
+</TestCase>
+
+<TestCase testID="int4_test12" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgInt4Test12.filters[0].theInt" value="4,5,6,7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgInt4Test12" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Float2x2
+================================================================================ 
+-->
+<TestCase testID="float2x2_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test1.filters[0].allFloats" valueExpression="value='0.25'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25,0.5] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test2.filters[0].allFloats" value="0.25,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25,0.5,0.75] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test3.filters[0].allFloats" value="0.25,0.5,0.75" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25,.5,.75,1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test4.filters[0].allFloats" value="0.25,0.5,0.75,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0,0.5,0,1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test5.filters[0].allFloats" value="0,0.5,0,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.25 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test6.filters[0].allFloats" value="0,0,0,0.25" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0, c=.75 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test7.filters[0].allFloats" value="0,0,0.75,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in c=1, d=0.25, b=0.25 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test8.filters[0].allFloats" value="0,0.25,1,0.25" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in c=0.25, b=0.75, d=0, a=1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test9.filters[0].allFloats" value="1,0.75,0.25,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test10" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test10.filters[0].allFloats" value="1,0.75,0.25,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="float2x2_test11" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat2x2Test11.filters[0].allFloats" value="1,0.75,0.25,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat2x2Test11" />
+    </body>
+</TestCase>
+<!--
+================================================================================ 
+Float3x3
+================================================================================ 
+-->
+
+<TestCase testID="float3x3_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test1.filters[0].allFloats" valueExpression="value='0.25'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25,0.5] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test2.filters[0].allFloats" value="0.25,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25,0.5,0.75] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test3.filters[0].allFloats" value="0.25,0.5,0.75" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.25,0.5,0.75,1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test4.filters[0].allFloats" value="0.25,0.5,0.75,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.0000,0.25,0.5,0.75,1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test5.filters[0].allFloats" value="0,0.25,0.5,0.75,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.3,.5,.3,0.5,0.07] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test6.filters[0].allFloats" value="0.1,0.3,0.5,0.3,0.5,0.07" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.2,.4,.6,.3,0.5,1,1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test7.filters[0].allFloats" value="0.2,0.4,0.6,0.3,0.5,1,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.2,.4,.6,.8,1.0000,.8,.6,.4] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test8.filters[0].allFloats" value="0.2,0.4,0.6,0.8,1,0.8,0.6,0.4" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.4,0.5,0.6,0.5,0.6,0.7,0.6,0.7,0.8] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test9.filters[0].allFloats" value="0.4,0.5,0.6,0.5,0.6,0.7,0.6,0.7,0.8" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test10" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test10.filters[0].allFloats" value="0,0,0,0.4,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test11" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test11.filters[0].allFloats" value="0,0,0,0.4,0,0.6,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test11" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test12" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test12.filters[0].allFloats" value="0,0.2,0,0.4,0,0.6,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test12" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test13" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2,h=0.8 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test13.filters[0].allFloats" value="0,0.2,0,0.4,0,0.6,0,0.8,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test13" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test14" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2,h=0.8,e=0.5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test14.filters[0].allFloats" value="0,0.2,0,0.4,0.5,0.6,0,0.8,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test14" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test15" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2,h=0.8,e=0.5,a=0.1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test15.filters[0].allFloats" value="0.1,0.2,0,0.4,0.5,0.6,0,0.8,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test15" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test16" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2,h=0.8,e=0.5,a=0.1,g=0.7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test16.filters[0].allFloats" value="0.1,0.2,0,0.4,0.5,0.6,0.7,0.8,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test16" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test17" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2,h=0.8,e=0.5,a=0.1,g=0.7,i=0.9 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test17.filters[0].allFloats" value="0.1,0.2,0,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test17" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test18" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4,f=0.6,b=0.2,h=0.8,e=0.5,a=0.1,g=0.7,i=0.9,c=0.3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test18.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test18" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test19" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test19.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test19" />
+    </body>
+</TestCase>
+
+<TestCase testID="float3x3_test20" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat3x3Test20.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat3x3Test20" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Float4x4
+================================================================================ 
+-->
+<TestCase testID="float4x4_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in a=0.1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test1.filters[0].allFloats" value="0.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test2" keywords="[PixelBender,ShaderFilter]" description="Test passing in b=0.2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test2.filters[0].allFloats" value="0,0.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test2" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test3" keywords="[PixelBender,ShaderFilter]" description="Test passing in c=0.3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test3.filters[0].allFloats" value="0,0,0.3,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test3" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test4" keywords="[PixelBender,ShaderFilter]" description="Test passing in d=0.4 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test4.filters[0].allFloats" value="0,0,0,0.4,0,0,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test4" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test5" keywords="[PixelBender,ShaderFilter]" description="Test passing in e=0.5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test5.filters[0].allFloats" value="0,0,0,0,0.5,0,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test5" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test6" keywords="[PixelBender,ShaderFilter]" description="Test passing in f=0.6 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test6.filters[0].allFloats" value="0,0,0,0,0,0.6,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test6" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test7" keywords="[PixelBender,ShaderFilter]" description="Test passing in g=0.7 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test7.filters[0].allFloats" value="0,0,0,0,0,0,0.7,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test7" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test8" keywords="[PixelBender,ShaderFilter]" description="Test passing in h=0.8 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test8.filters[0].allFloats" value="0,0,0,0,0,0,0,0.8,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test8" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test9" keywords="[PixelBender,ShaderFilter]" description="Test passing in i=0.9 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test9.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0.9,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test9" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test10" keywords="[PixelBender,ShaderFilter]" description="Test passing in j=1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test10.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test10" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test11" keywords="[PixelBender,ShaderFilter]" description="Test passing in k=0 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test11.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test11" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test12" keywords="[PixelBender,ShaderFilter]" description="Test passing in l=0.1 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test12.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,0,0,0.1,0,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test12" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test13" keywords="[PixelBender,ShaderFilter]" description="Test passing in m=0.2 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test13.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,0,0,0,0.2,0,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test13" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test14" keywords="[PixelBender,ShaderFilter]" description="Test passing in n=0.3 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test14.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,0,0,0,0,0.3,0,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test14" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test15" keywords="[PixelBender,ShaderFilter]" description="Test passing in 0=0.4 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test15.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.4,0" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test15" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test16" keywords="[PixelBender,ShaderFilter]" description="Test passing in p=0.5 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test16.filters[0].allFloats" value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test16" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test17" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test17.filters[0].allFloats" valueExpression="value='0.1'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test17" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test18" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test18.filters[0].allFloats" value="0.1,0.2" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test18" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test19" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test19.filters[0].allFloats" value="0.1,0.2,0.3" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test19" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test20" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test20.filters[0].allFloats" value="0.1,0.2,0.3,0.4" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test20" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test21" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test21.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test21" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test22" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test22.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test22" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test23" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test23.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test23" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test24" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test24.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test24" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test25" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test25.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test25" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test26" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test26.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test26" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test27" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test27.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test27" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test28" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test28.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test28" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test29" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test29.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test29" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test30" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test30.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test30" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test31" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6,0.5] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test31.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6,0.5" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test31" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test32" keywords="[PixelBender,ShaderFilter]" description="Test passing in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6,0.5,0.4] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test32.filters[0].allFloats" value="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,0.9,0.8,0.7,0.6,0.5,0.4" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test32" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test33" keywords="[PixelBender,ShaderFilter]" description="Test passing in [] in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test33.filters[0].allFloats" value="" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test33" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test34" keywords="[PixelBender,ShaderFilter]" description="Test passing in a=0.6 b=0.5 c=0.4 d=0.3 e=0.2 f=0.1 g=0 h=0.1 i=0.2 j=0.3 k=.4 l=0.5 m=0.6 n=0.7 o=0.8 p=0.9 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test34.filters[0].allFloats" value="0.6,0.5,0.4,0.3,0.2,0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test34" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test35" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test35.filters[0].allFloats" value="0.6,0.5,0.4,0.3,0.2,0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test35" />
+    </body>
+</TestCase>
+
+<TestCase testID="float4x4_test36" keywords="[PixelBender,ShaderFilter]" description="Explicit test for default not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloat4x4Test36.filters[0].allFloats" value="0.6,0.5,0.4,0.3,0.2,0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgFloat4x4Test36" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+STPQ: Jus a sanity check for another way to identify members in a variable.
+================================================================================ 
+-->
+
+<TestCase testID="STPQ_float4x4_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in s=0.2 t=0.4 p=0.6 q=0.8 in MXML.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgSTPQFloat4x4Test1.filters[0].allFloats" value="0.2,0.4,0.6,0.8" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgSTPQFloat4x4Test1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Pixel1: This is very much like a Float, so just do a couple basic tests.
+================================================================================ 
+-->
+<TestCase testID="pixel1_test1" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel1Test1.filters[0].thePixel" valueExpression="value='0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel1Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="pixel1_test2" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel1Test2.filters[0].thePixel" valueExpression="value='0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel1Test2" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Pixel2: This is very much like a Float, so just do a couple basic tests.
+================================================================================ 
+-->
+
+<TestCase testID="pixel2_test1" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel2Test1.filters[0].thePixel" valueExpression="value='0,0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel2Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="pixel2_test2" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel2Test2.filters[0].thePixel" valueExpression="value=',0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel2Test2" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Pixel3: This is very much like a Float, so just do a couple basic tests.
+================================================================================ 
+-->
+
+<TestCase testID="pixel3_test1" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel3Test1.filters[0].thePixel" valueExpression="value='0,0,0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel3Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="pixel3_test2" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel3Test2.filters[0].thePixel" valueExpression="value=',,0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel3Test2" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+Pixel4: This is very much like a Float, so just do a couple basic tests.
+================================================================================ 
+-->
+
+<TestCase testID="pixel4_test1" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel4Test1.filters[0].thePixel" valueExpression="value='0.3,0.3,0,0'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel4Test1" />
+    </body>
+</TestCase>
+
+<TestCase testID="pixel4_test2" keywords="[PixelBender,ShaderFilter]" description="Explicit test for a default value not being present.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="8" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgPixel4Test2.filters[0].thePixel" valueExpression="value='0.3,0.3'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="imgPixel4Test2" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================ 
+No Defaults: See what happens when a PixelBender file has no default for its
+values and null is passed in.
+================================================================================ 
+-->
+
+<TestCase testID="NoDefaults_FloatNoDefault_test1" keywords="[PixelBender,ShaderFilter]" description="Test passing in nothing, when the PixelBender file has no defaults defined.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="9" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.imgFloatNoDefaultTest1.filters[0].theFloat" value="null" />
+    </body>
+</TestCase>
+
+
+
+	</testCases>
+</UnitTester>

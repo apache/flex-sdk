@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   initialize="init();" render="canvas_renderHandler(event)"
+				   >
+
+
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.*;
+			
+			public var fteTxt:FTETextField;
+			public var text:String = "The quick brown fox jumps over the lazy dog.";
+			public var htmlText:String = "The quick brown <font color='#FF0000'>fox</font> ";
+			public var textSet:Boolean;
+			public var numTextLines:int = 0;
+			
+			public function init():void {
+				fteTxt = new FTETextField();
+				rawChildren.addChild(fteTxt);
+				fteTxt.text = text;
+				textSet = true;
+				fteTxt.wordWrap = true;  
+				
+			}
+			
+			public function canvas_renderHandler(event:Event):void
+			{
+
+				if (textSet)
+				{
+					numTextLines = fteTxt.numChildren;
+					if (fteTxt.numChildren != 3)
+						throw("Assert failed: expecting 3 lines of text");
+				}
+				else
+				{
+					numTextLines = fteTxt.numChildren;
+					if (fteTxt.numChildren != 2)
+						throw("Assert failed: expecting 2 lines of htmlText");
+				}
+			}
+		]]>
+	</fx:Script>
+	
+</mx:Canvas>

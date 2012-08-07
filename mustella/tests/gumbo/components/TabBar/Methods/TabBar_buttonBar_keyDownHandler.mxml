@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+		import mx.core.FlexGlobals;
+        import spark.components.*;
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+==========================================================
+tabBar_keyDownHandler(event:KeyboardEvent)
+[TAB] is to get focus into the app.
+==========================================================
+-->
+
+<!-- SDK-19006 -->
+<TestCase testID="tabBar_keyDownHandler_test1" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on first button and press left.  Focus should remain on it.  There is a pause because there is nothing to wait for, but we want to catch anything that might happen." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[LEFT]" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<!-- SDK-19006 -->
+<TestCase testID="tabBar_keyDownHandler_test2" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on first button and press up.  Focus should remain on it." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[UP]" />
+        <Pause timeout="10" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test3" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on first button and press right.  Focus should move right." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test4" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on first button and press down.  Focus should move right." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[DOWN]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test5" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the second button and press left." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[LEFT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test6" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the second button and press up." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[UP]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test7" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the second button and press right." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test8" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the second button and press down." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[DOWN]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test9" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the third button and press left." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[LEFT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test10" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the third button and press up." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[UP]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test11" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the third button and press right." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[RIGHT]" />
+        <Pause timeout="10" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+<TestCase testID="tabBar_keyDownHandler_test12" keywords="[TabBar,tabBar_keyDownHandler]" description="Set focus on the third button and press down." >
+    <setup>
+        <ResetComponent target="tb1" className="spark.components::TabBar" waitEvent="updateComplete" />
+        <RunCode code="FlexGlobals.topLevelApplication.setDataProvider(FlexGlobals.topLevelApplication.tb1, 1)" waitTarget="tb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchKeyEvent keys="[TAB]" />
+        <RunCode code="FlexGlobals.topLevelApplication.setTabBarFocus(FlexGlobals.topLevelApplication.tb1)" waitTarget="tb1" waitEvent="focusIn" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[RIGHT]" waitTarget="tb1.skin.dataGroup" waitEvent="updateComplete" />
+        <DispatchKeyEvent keys="[DOWN]" />
+        <Pause timeout="10" />
+        <CompareBitmap url="../Methods/baselines/$testID.png" target="box4"  numColorVariances="5" maxColorVariance="10"/>
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

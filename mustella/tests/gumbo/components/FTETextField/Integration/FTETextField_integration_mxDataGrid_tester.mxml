@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script source="../SWFs/global.as" />
+
+	<fx:Script>
+		<![CDATA[
+			public const dp1:Array = [{c1:'The', c2:'Quick'}, {c1:'Brown fox jumps over the lazy dog', c2:'qwerty'}];
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+        .textAlignLeft {
+            textAlign: left;
+        }
+        .textAlignCenter {
+            textAlign: center;
+        }
+        .textAlignRight {
+            textAlign: right;
+        }
+        .textAlignJustify {
+            textAlign: justify;
+        }
+        .textAlignStart {
+            textAlign: start;
+        }
+        .textAlignEnd {
+            textAlign: end;
+        }
+        
+        .disabledGreen {
+        	disabledColor: green;
+        }
+	</fx:Style>
+
+
+	<testCases>
+
+		<!-- ########## PROPERTIES ########## -->
+		<TestCase testID="FTE_mxDataGrid" description="Test default mx:DataGrid" keywords="[FTETextField, DataGrid, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_disabled" description="Test label property on a mx:DataGrid" keywords="[FTETextField, DataGrid, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="enabled" value="false" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxDataGrid_label_truncation" description="Test truncating label on a mx:DataGrid" keywords="[FTETextField, DataGrid, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="100" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_label_truncation_direction" description="Test truncating label on a mx:DataGrid" keywords="[FTETextField, DataGrid, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="100" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="direction" value="rtl" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+
+		<!-- ########## STYLES ########## -->
+		<TestCase testID="FTE_mxDataGrid_color_red" description="Test color style on a mx:DataGrid" keywords="[FTETextField, DataGrid, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="color" value="red" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>	
+		<TestCase testID="FTE_mxDataGrid_disabledColor_Green" description="Test disabledColor style on a mx:DataGrid" keywords="[FTETextField, DataGrid, disabledColor, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="disabledColor" value="green" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>		
+		<TestCase testID="FTE_mxDataGrid_fontStyle_italic" description="Test font style on a mx:DataGrid" keywords="[FTETextField, DataGrid, fontStyle, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="fontStyle" value="italic" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_fontSize" description="Test font size on a mx:DataGrid" keywords="[FTETextField, DataGrid, fontSize, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="fontSize" value="18" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_fontWeight" description="Test font size on a mx:DataGrid" keywords="[FTETextField, DataGrid, fontWeight, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="fontWeight" value="bold" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxDataGrid_kerning_true" description="Test kerning on a mx:DataGrid" keywords="[FTETextField, DataGrid, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="kerning" value="true" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_kerning_false" description="Test kerning on a mx:DataGrid" keywords="[FTETextField, DataGrid, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="kerning" value="false" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxDataGrid_leading" description="Test leading on a mx:DataGrid" keywords="[FTETextField, DataGrid, leading, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="leading" value="20" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_letterSpacing" description="Test letterSpacing on a mx:DataGrid" keywords="[FTETextField, DataGrid, letterSpacing, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.dGr" styleName="letterSpacing" value="10" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_left" description="Test textAlign=left on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="left" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_center" description="Test textAlign=center on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="left" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="center" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_right" description="Test textAlign=left on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="right" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_start" description="Test textAlign=start on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="start" waitTarget="can2.dGr" waitEvent="enterFrame" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_start2" description="Test textAlign=start on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="start" waitTarget="can2.dGr" waitEvent="enterFrame" />
+				<SetStyle target="can2.dGr" styleName="direction" value="rtl" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_end" description="Test textAlign=end on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="end" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxDataGrid_textAlign_end2" description="Test textAlign=end on a mx:DataGrid" keywords="[FTETextField, DataGrid, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.dGrView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.dGr" propertyName="width" value="150" waitTarget="can2.dGr" waitEvent="resize" />
+				<SetStyle target="can2.dGr" styleName="textAlign" value="end" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetStyle target="can2.dGr" styleName="direction" value="rtl" waitTarget="can2.dGr" waitEvent="updateComplete" />
+				<SetProperty target="can2.dGr" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.dGr" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

@@ -1,0 +1,425 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[    
+        	import mx.core.FlexGlobals;
+        	import comps.*;
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+	<TestCase testID="TitleWindow_Styles_backgroundColor1" keywords="[TitleWindow, backgroundColor]" description="Test backgroundColor on TitleWindow">
+	    <setup>            
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+	    	<SetStyle target="twObject" styleName="backgroundColor" value="0x00FF00" waitEvent="updateComplete"/>
+        </setup>
+        <body>		    
+		    <AssertStyleValue target="twObject" styleName="backgroundColor" value="0x00FF00"/>
+            <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+        </body>
+    </TestCase>     
+ 
+	<TestCase testID="TitleWindow_Styles_backgroundColor2" keywords="[TitleWindow, backgroundColor]" description="Test backgroundColor on TitleWindow">
+	    <setup>            
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+	    	<SetStyle target="twObject" styleName="backgroundColor" value="0xFF0000" waitEvent="updateComplete"/>
+	    	<SetStyle target="twObject" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+        </setup>
+	    <body>		    
+		    <AssertStyleValue target="twObject" styleName="backgroundColor" value="0xFF0000"/>		    <AssertStyleValue target="twObject" styleName="contentBackgroundColor" value="0x0000FF"/>
+		    <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+	    </body>
+        </TestCase>     
+
+	<TestCase testID="TitleWindow_Styles_backgroundColor3" keywords="[TitleWindow, backgroundColor]" description="Test backgroundColor on TitleWindow">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+	    	<SetStyle target="twObject" styleName="backgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+	    	<SetStyle target="twObject" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+	    	<SetStyle target="twObject" styleName="color" value="0xFF0000"  waitEvent="updateComplete"/>
+        </setup>	  
+	    <body>		    
+		<AssertStyleValue target="twObject" styleName="backgroundColor" value="0x0000FF"/>		    
+		<AssertStyleValue target="twObject" styleName="contentBackgroundColor" value="0x0000FF"/>		    
+		<AssertStyleValue target="twObject" styleName="color" value="0xFF0000"/>
+		<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+	    </body>
+    </TestCase>
+        
+	<TestCase testID="TitleWindow_Styles_backgroundColor4" keywords="[TitleWindow, backgroundColor]" description="Test backgroundColor on TitleWindow">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+	    	<SetStyle target="twObject" styleName="backgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+		<SetStyle target="twObject" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+		<SetStyle target="twObject" styleName="color" value="0xFF0000" waitEvent="updateComplete"/>
+		<SetStyle target="twObject" styleName="backgroundAlpha" value="0.1" waitEvent="updateComplete"/>
+	    </setup>
+	    <body>		    
+		<AssertStyleValue target="twObject" styleName="backgroundColor" value="0x0000FF"/>		    
+		<AssertStyleValue target="twObject" styleName="contentBackgroundColor" value="0x0000FF"/>		    
+		<AssertStyleValue target="twObject" styleName="color" value="0xFF0000"/>		    
+		<AssertStyleValue target="twObject" styleName="backgroundAlpha" value="0.1"/>
+		<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+	    </body>
+    </TestCase> 
+        
+	<TestCase testID="TitleWindow_Styles_baseColor" keywords="[baseColor, TitleWindow]">
+		<setup>
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+	    	<SetProperty target="twObject" propertyName="title" value="baseColor should be red"/>
+		    <SetStyle target="twObject" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="twObject"/> 				
+		</setup>
+		<body>		    
+		    <AssertStyleValue target="twObject" styleName="chromeColor" value="0xFF0000" />
+		    <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+		</body>
+	</TestCase>
+	<TestCase testID="TitleWindow_Styles_baseColor2" keywords="[baseColor, TitleWindow]">
+		<setup>
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+	    	<SetProperty target="twObject" propertyName="title" value="different basecolor"/>
+		    <SetStyle target="twObject" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="twObject"/> 				
+		<SetStyle target="twObject.button2" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="twObject.button2"/> 
+		</setup>
+		<body>		    
+		    <AssertStyleValue target="twObject" styleName="chromeColor" value="0xFF0000" />
+		    <AssertStyleValue target="twObject.button2" styleName="chromeColor" value="0x00FF00" />
+		    <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+		</body>
+	</TestCase>
+	
+ 	<TestCase testID="TitleWindow_Styles_borderVisible1" keywords="[TitleWindow, borderVisible]" description="Test borderVisible = false on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="borderVisible" value="false" waitEvent="updateComplete"/>
+             </setup>
+             <body>		    
+		<AssertStyleValue target="twObject" styleName="borderVisible" value="false"/>
+             	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase>  
+        
+ 	<TestCase testID="TitleWindow_Styles_borderVisible2" keywords="[TitleWindow, borderVisible]" description="Test borderVisible = true on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="borderVisible" value="true"/>
+                 <Pause timeout="40"/>
+             </setup>
+             <body>		    
+		 <AssertStyleValue target="twObject" styleName="borderVisible" value="true"/>
+             	 <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase>  		
+ 	<TestCase testID="TitleWindow_Styles_dropShadowVisible1" keywords="[TitleWindow, dropShadowVisible]" description="Test dropShadowVisible = false on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="dropShadowVisible" value="false" waitEvent="updateComplete"/>
+             </setup>
+             <body>	
+             	<Pause timeout="40"/>
+		<AssertStyleValue target="twObject" styleName="dropShadowVisible" value="false"/>
+             	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase>  
+        
+ 	<TestCase testID="TitleWindow_Styles_dropShadowVisible2" keywords="[TitleWindow, dropShadowVisible]" description="Test dropShadowVisible = true,borderVisible=false on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="borderVisible" value="false" waitEvent="updateComplete"/>
+                 <SetStyle target="twObject" styleName="dropShadowVisible" value="true" />
+                 <Pause timeout="40"/>
+             </setup>
+             <body>		    
+		 <AssertStyleValue target="twObject" styleName="dropShadowVisible" value="true"/>		    
+             	 <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase>  
+ 	<TestCase testID="TitleWindow_Styles_dropShadowVisible3" keywords="[TitleWindow, dropShadowVisible]" description="Test dropShadowVisible = true,borderVisible=true on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="borderVisible" value="true"/>
+                 <Pause timeout="40"/>
+             </setup>
+             <body>		    
+		 <AssertStyleValue target="twObject" styleName="borderVisible" value="true"/>		    
+		 <AssertStyleValue target="twObject" styleName="dropShadowVisible" value="true"/>
+             	 <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase> 
+ 	<TestCase testID="TitleWindow_Styles_dropShadowVisible4" keywords="[TitleWindow, dropShadowVisible]" description="Test default dropShadow on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+             </setup>
+             <body>		    
+		<AssertStyleValue target="twObject" styleName="dropShadowVisible" value="true"/>
+             	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase>
+        
+ 	<TestCase testID="TitleWindow_Styles_dropShadowVisible5" keywords="[TitleWindow, dropShadowVisible]" description="Test dropShadowVisible = false on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="dropShadowVisible" value="false" waitEvent="updateComplete"/>
+             </setup>
+             <body>		    
+		 <AssertStyleValue target="twObject" styleName="dropShadowVisible" value="false"/>
+             	 <CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+        </TestCase>
+        
+        
+	<TestCase testID="TitleWindow_Styles_contentBackgroundAlpha" keywords="[TitleWindow, contentBackgroundColor]" description="Test contentBackgroundColor style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />               
+                <SetStyle target="twObject" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="twObject"/>
+                <SetStyle target="twObject" styleName="contentBackgroundAlpha" value="0.5" waitEvent="updateComplete" waitTarget="twObject"/>
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+         
+	<TestCase testID="TitleWindow_Styles_contentBackgroundColor" keywords="[TitleWindow, contentBackgroundColor]" description="Test contentBackgroundColor style on TitleWindow">
+            <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />              
+                <SetStyle target="twObject" styleName="contentBackgroundColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="twObject"/>    
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+	<TestCase testID="TitleWindow_Styles_cornerRadius1" keywords="[TitleWindow, cornerRadius]" description="Test cornerRadius style on TitleWindow">
+            <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />          
+                <SetProperty target="twObject" propertyName="title" value="A title on the panel to see how it looks with cornerRadius"/>                
+                <SetStyle target="twObject" styleName="cornerRadius" value="10" waitEvent="updateComplete" waitTarget="twObject"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+	<TestCase testID="TitleWindow_Styles_cornerRadius2" keywords="[TitleWindow, cornerRadius]" description="Test cornerRadius style on TitleWindow">
+            <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />           
+                <SetProperty target="twObject" propertyName="title" value="A title on the panel to see how it looks with cornerRadius"/>
+                <SetStyle target="twObject" styleName="cornerRadius" value="50" waitEvent="updateComplete" waitTarget="twObject"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+	<TestCase testID="TitleWindow_Styles_cornerRadius3" keywords="[TitleWindow, cornerRadius]" description="Test cornerRadius style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" /> 
+                <SetProperty target="twObject" propertyName="title" value="A title on the panel to see how it looks with cornerRadius" />                
+                <SetStyle target="twObject" styleName="cornerRadius" value="200" waitEvent="updateComplete" waitTarget="twObject"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>        
+        
+        
+	<TestCase testID="TitleWindow_Styles_fontSize1" keywords="[TitleWindow, fontSize]" description="Test fontSize on TitleWindow">
+            <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />               
+                 <SetStyle target="twObject" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body>		    
+		<AssertStyleValue target="twObject" styleName="fontSize" value="16"/>
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>              
+
+	<TestCase testID="TitleWindow_Styles_fontSize2" keywords="[TitleWindow, fontSize]" description="Test fontSize on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />             
+                <SetProperty target="twObject" propertyName="title" value="TitleWindow Title"/>                
+                <SetStyle target="twObject" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body>  
+                <AssertPropertyValue target="twObject" propertyName="title" value="TitleWindow Title"/>		    
+		<AssertStyleValue target="twObject" styleName="fontSize" value="16"/>            
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>    
+        
+	<TestCase testID="TitleWindow_Styles_fontStyle1" keywords="[TitleWindow, fontStyle]" description="Test fontSize on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />              
+                <SetStyle target="twObject" styleName="fontStyle" value="italic" waitEvent="updateComplete"/>                
+            </setup>
+            <body>		    
+	        <AssertStyleValue target="twObject" styleName="fontStyle" value="italic"/>                
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>              
+
+	<TestCase testID="TitleWindow_Styles_fontStyle2" keywords="[TitleWindow, fontStyle]" description="Test fontSize on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />            
+                <SetProperty target="twObject" propertyName="title" value="TitleWindow Title" />                
+                <SetStyle target="twObject" styleName="fontStyle" value="italic" waitEvent="updateComplete"/>                
+            </setup>
+            <body> 
+		<AssertPropertyValue target="twObject" propertyName="title" value="TitleWindow Title"/>		    
+		<AssertStyleValue target="twObject" styleName="fontStyle" value="italic"/>                            
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>          
+
+	<TestCase testID="TitleWindow_Styles_fontStyle3" keywords="[TitleWindow, fontStyle]" description="Test fontSize on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />              
+                <SetProperty target="twObject" propertyName="title" value="TitleWindow Title" />                
+                <SetStyle target="twObject" styleName="fontStyle" value="italic" waitEvent="updateComplete"/>                
+                <SetStyle target="twObject" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body> 
+		<AssertPropertyValue target="twObject" propertyName="title" value="TitleWindow Title"/>		    
+		<AssertStyleValue target="twObject" styleName="fontStyle" value="italic"/>		    
+		<AssertStyleValue target="twObject" styleName="fontSize" value="16"/>
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>         
+        
+		<TestCase testID="TitleWindow_Styles_fontWeight" keywords="[TitleWindow, fontWeight]" description="Test fontWeight style on TitleWindow">
+            <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />              
+                <SetStyle target="twObject" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="twObject"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>      
+        
+	<TestCase testID="TitleWindow_Styles_fontWeight2" keywords="[TitleWindow, fontWeight]" description="Test fontWeight style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />              
+                <SetStyle target="twObject" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="twObject"/>                
+                <SetStyle target="twObject" styleName="fontSize" value="16" waitEvent="updateComplete"/>
+            </setup>
+            <body>		    
+		<AssertStyleValue target="twObject" styleName="fontSize" value="16"/>		    
+		<AssertStyleValue target="twObject" styleName="fontWeight" value="bold"/>
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>        
+        
+		<TestCase testID="TitleWindow_Styles_lineThrough" keywords="[TitleWindow, lineThrough]" description="Test lineThrough style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />             
+                <SetStyle target="twObject" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="twObject"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>                        
+          
+         <TestCase testID="TitleWindow_Styles_misc" keywords="[TitleWindow, Color, fontSize, fontStyle, fontWeight, selectionColor]" description="Test styles on TitleWindow">
+             <setup>            
+                 <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />
+                 <SetStyle target="twObject" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="twObject"/>
+                 <SetStyle target="twObject" styleName="fontSize" value="14" waitEvent="updateComplete" waitTarget="twObject"/>                
+                 <SetStyle target="twObject" styleName="selectionColor" value="0x00FFFF" waitEvent="updateComplete" waitTarget="twObject"/>                
+             </setup>
+             <body>            	
+             	<DispatchMouseClickEvent target="twObject.myList" localX="40" localY="70" waitEvent="focusIn" waitTarget="twObject.myList"/>
+             	<Pause timeout="500"/>
+             	<CompareBitmap target="twObject.myList" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+             </body>
+         </TestCase> 
+      
+		<TestCase testID="TitleWindow_Styles_symbolColor" keywords="[TitleWindow, symbolColor]" description="Test symbolColor style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />    
+                <SetStyle target="twObject" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="twObject"/>                
+            </setup>
+            <body>            	            	
+            	<CompareBitmap target="twObject.myCheckBox" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+	<TestCase testID="TitleWindow_Styles_symbolColor2" keywords="[TitleWindow, symbolColor, baseColor]" description="Test symbolColor with baseColor style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />               
+                <SetStyle target="twObject" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete"/>
+                <SetStyle target="twObject" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete"/>
+            </setup>
+            <body>		    
+		<AssertStyleValue target="twObject" styleName="symbolColor" value="0xFF0000"/>		    
+		<AssertStyleValue target="twObject" styleName="chromeColor" value="0xFF0000"/>            
+            	<CompareBitmap target="twObject.myCheckBox" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+
+	<TestCase testID="TitleWindow_Styles_symbolColor3" keywords="[TitleWindow, symbolColor, baseColor, backgroundColor]" description="Test symbolColor with baseColor and backgroundColor style on TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'style test')" waitEvent="TitleWindowComplete" waitTarget="" />               
+                <SetStyle target="twObject" styleName="symbolColor" value="0xFF0000" waitEvent="updateComplete"/>                
+                <SetStyle target="twObject" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete"/>
+                <SetStyle target="twObject" styleName="backgroundColor" value="0x0000FF" waitEvent="updateComplete"/>
+            </setup>
+            <body>		    
+		<AssertStyleValue target="twObject" styleName="symbolColor" value="0xFF0000"/>		    
+		<AssertStyleValue target="twObject" styleName="chromeColor" value="0x00FF00" />		    
+		<AssertStyleValue target="twObject" styleName="backgroundColor" value="0x0000FF"/>            
+            	<CompareBitmap target="twObject.myCheckBox" url="../Styles/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>    
+               
+                
+    </testCases>
+    
+</UnitTester>
+
+
+

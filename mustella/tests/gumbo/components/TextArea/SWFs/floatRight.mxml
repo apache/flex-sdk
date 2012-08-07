@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               width="500" height="500">
+        <s:layout>
+            <s:VerticalLayout verticalAlign="middle" horizontalAlign="center"/>
+        </s:layout>
+        <fx:Script>
+            <![CDATA[
+                import mx.events.FlexEvent;
+                private function initApp():void
+                {
+                    // scroll so the last character is in view
+                    var len:int = contentText.text.length;
+                    contentText.scrollToRange(len, len);
+                }
+                
+                protected function contentText_creationCompleteHandler(event:FlexEvent):void
+                {
+                    // scroll so the last character is in view
+                    var len:int = contentText.text.length;
+                    contentText.scrollToRange(len, len);
+                    
+                }
+                
+            ]]>
+        </fx:Script>    
+    
+        <s:TextArea id="contentText" width="400" height="400" creationComplete="contentText_creationCompleteHandler(event)">
+            <s:content>							
+                <s:span  fontSize="20">Hello, Dear Guest,</s:span>
+               <s:p>
+                    <s:img source="../../../../../../Assets/Images/greenrect.jpg" width="600" float="right"/>
+                </s:p>
+                <s:p >
+                    Donec sed risus nec risus elementum cursus eget non nulla. Integer dui mauris, lobortis at varius quis, elementum at justo. Ut lacinia arcu vitae ipsum pulvinar feugiat a ut risus. Vivamus nulla nisi, varius vitae commodo ut, volutpat quis magna. Cras posuere quam magna. Aenean felis purus, pellentesque nec fringilla id, dignissim quis elit. Praesent velit libero, laoreet quis dignissim id, varius quis neque. Suspendisse vulputate placerat purus. Fusce euismod fringilla ornare. Nulla et urna est. Proin a tellus et tortor feugiat iaculis. 
+                </s:p>
+             </s:content>
+        </s:TextArea>
+            
+</s:Application>

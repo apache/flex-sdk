@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+	xmlns:local="*">
+		
+	<fx:Script>
+		<![CDATA[
+			import mx.core.DesignLayer;
+			import mx.core.IVisualElementContainer;
+			
+			public var dlHierarchyOuterLayer:DesignLayer;
+			public var dlHierarchyInnerLayer:DesignLayer;
+			
+			/**
+			 * For SDK-23254
+			 */
+			public function constructLayerHierarchy(container:IVisualElementContainer, testType:String):void
+			{
+				dlHierarchyOuterLayer = new DesignLayer();
+				dlHierarchyInnerLayer = new DesignLayer();
+
+				if (testType == "visible"){
+					dlHierarchyOuterLayer.visible = false;
+					dlHierarchyInnerLayer.visible = true;
+				}
+				
+				if (testType == "alpha"){
+					dlHierarchyOuterLayer.alpha = 0.5;
+					dlHierarchyInnerLayer.alpha = 0.5;	
+				}
+				
+				unparentedVetA.designLayer = dlHierarchyInnerLayer;
+				unparentedVetB.designLayer = dlHierarchyInnerLayer;
+				unparentedVetC.designLayer = dlHierarchyInnerLayer;
+				unparentedVetD.designLayer = dlHierarchyInnerLayer;
+				unparentedVetE.designLayer = dlHierarchyInnerLayer;
+				unparentedVetF.designLayer = dlHierarchyInnerLayer;
+				
+				dlHierarchyOuterLayer.addLayer(dlHierarchyInnerLayer);
+				
+				container.addElement(unparentedVetA);
+				container.addElement(unparentedVetB);
+				container.addElement(unparentedVetC);
+				container.addElement(unparentedVetD);
+				container.addElement(unparentedVetE);
+				container.addElement(unparentedVetF);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<comps:TypeFXG  id="unparentedVetA" />
+		<comps:TypeFCK  id="unparentedVetB" />
+		<comps:TypeFCK2 id="unparentedVetC" />
+		<comps:TypeUICS id="unparentedVetD" />
+		<comps:TypeUICH id="unparentedVetE" />
+		<comps:TypeIGE  id="unparentedVetF" />
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="state1"/>
+		<s:State name="state2"/>
+	</s:states>
+	
+	<s:layout><s:HorizontalLayout /></s:layout>
+	
+	<!-- for effects testing -->
+	
+	<s:transitions>
+		<s:Transition autoReverse="true" fromState="state1" toState="state2">
+			<s:Parallel>
+				<s:Parallel target="{dlEffects1}">
+					<s:Fade alphaFrom="1" alphaTo="0.5" duration="100" />
+					<s:Fade alphaFrom="0.5" alphaTo="0.8" duration="100" startDelay="150"/>
+					<s:SetAction property="alpha" value="0.25" startDelay="300" />
+				</s:Parallel>
+				
+				<s:Parallel target="{dlEffects2Inner}">
+					<s:Fade alphaFrom="1" alphaTo="0.5" duration="100" />
+					<s:Fade alphaFrom="0.5" alphaTo="0.8" duration="100" startDelay="150"/>
+					<s:SetAction property="alpha" value="0.25" startDelay="300" />
+				</s:Parallel>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+	
+	<s:Group id="screen1">
+		<fx:DesignLayer id="dlEffects1">
+			<comps:TypeFXG   />
+			<comps:TypeFCK   />
+			<comps:TypeFCK2  />
+			<comps:TypeUICS  />
+			<comps:TypeUICH  />
+			<comps:TypeIGE   />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen4">
+		<fx:DesignLayer alpha="0.5">
+			<fx:DesignLayer id="dlEffects2">
+				<fx:DesignLayer id="dlEffects2Inner">
+					<comps:TypeFXG   />
+					<comps:TypeFCK   />
+					<comps:TypeFCK2  />
+					<comps:TypeUICS  />
+					<comps:TypeUICH  />
+					<comps:TypeIGE   />
+				</fx:DesignLayer>
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+	</s:Group>
+		
+	<!-- for focus testing -->
+	
+	<s:Group id="screen2">
+		<s:Group top="5" left="5" right="5" bottom="5">
+			<s:Button id="focusEntryButton" width="50" />
+			
+			<fx:DesignLayer id="dlFocus" visible.state1="true" visible.state2="false">
+				<comps:TypeUICS id="dlFocusVetD" />
+				<comps:TypeUICH id="dlFocusVetE" />
+			</fx:DesignLayer>
+			
+			<s:Button id="focusExitButton" width="50" x="55" />
+		</s:Group>
+	</s:Group>
+	
+	<!-- misc testing -->
+	
+	<s:Group id="screen3">
+		<fx:DesignLayer alpha="0.5">
+			<mx:HBox>
+				<fx:DesignLayer alpha="0.5">
+					<fx:DesignLayer id="dlHaloParent" alpha="0.5">
+						<comps:TypeFCK id="dlHaloParentVetB" />
+						<comps:TypeFCK2 />
+						<comps:TypeUICS />
+						<comps:TypeUICH />
+					</fx:DesignLayer>
+				</fx:DesignLayer>
+			</mx:HBox>
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen5">
+		<comps:CustomList id="customList" />
+	</s:Group>
+	
+	<s:Group id="screen6">
+		<!-- assign these to a DesignLayer at runtime -->
+		<comps:TypeFXG  id="dlAtRuntimeVetA" />
+		<comps:TypeFCK  id="dlAtRuntimeVetB" />
+		<comps:TypeFCK2 id="dlAtRuntimeVetC" />
+		<comps:TypeUICS id="dlAtRuntimeVetD" />
+		<comps:TypeUICH id="dlAtRuntimeVetE" />
+		<comps:TypeIGE  id="dlAtRuntimeVetF" />
+	</s:Group>
+	
+	<s:Group id="screen7">
+		<fx:DesignLayer id="dlRemoveChild1">
+			<fx:DesignLayer id="dlRemoveChild2">
+				<comps:TypeFXG  id="dlRemoveChildVetA" />
+				<comps:TypeFCK  id="dlRemoveChildVetB" />
+				<comps:TypeFCK2 id="dlRemoveChildVetC" />
+				<comps:TypeUICS id="dlRemoveChildVetD" />
+				<comps:TypeUICH id="dlRemoveChildVetE" />
+				<comps:TypeIGE  id="dlRemoveChildVetF" />
+			</fx:DesignLayer>
+		</fx:DesignLayer>
+		
+		<fx:DesignLayer id="dlRemoveChild3">
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="screen8" />
+	
+</s:Group>

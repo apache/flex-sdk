@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextInput/Styles/"  xmlns="*"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:c="comps"
+		testSWF="Flex4_TextInput_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.formats.TextAlign;
+			import flashx.textLayout.formats.Direction;
+			import spark.components.Label;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import comps.PopupTextInput;
+	
+			protected const richPrompt:String = "The <font color='#FF0000'>quick</font> <b>brown</b> fox jumps over";
+			public var popup:IFlexDisplayObject;
+			
+			public static function init(o:DisplayObject):void
+			{
+			}
+			
+			protected function firePopup():void
+			{
+				var popup:IFlexDisplayObject = PopUpManager.createPopUp(application.textInput, PopupTextInput);
+				PopUpManager.centerPopUp(popup);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+
+	<testCases>
+		<!-- ******************** **************** ******************** -->
+		<!-- ******************** TEXTINPUT STYLES ******************** -->
+		<!-- ******************** **************** ******************** -->
+
+
+
+
+		<!-- ******************** **************** ******************** -->
+		<!-- ******************** INHERITED STYLES ******************** -->
+		<!-- ******************** **************** ******************** -->
+
+
+		<!-- ******************** bottom ******************** -->
+		<TestCase testID="Gumbo_TextInput_bottom_style" description="..." keywords="[TextInput, bottom, style]">
+
+		<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="bottom" value="5" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="bottom" value="5" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ******************** horizontalCenter ******************** -->
+		<TestCase testID="Gumbo_TextInput_horizontalCenter_style" description="..." keywords="[TextInput, horizontalCenter, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="horizontalCenter" value="15" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="horizontalCenter" value="15" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** left ******************** -->
+		<TestCase testID="Gumbo_TextInput_left_style" description="..." keywords="[TextInput, left, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetStyle target="textInput" styleName="left" value="5" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="left" value="5" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_left_right_style" description="..." keywords="[TextInput, left, right, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="right" value="5" waitTarget="textInput" waitEvent="move" />
+				<SetStyle target="textInput" styleName="left" value="5" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="left" value="5" />
+				<AssertStyleValue target="textInput" styleName="right" value="5" />
+				<AssertPropertyValue target="textInput" propertyName="width" value="290" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" numColorVariances="2" maxColorVariance="7" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** right ******************** -->
+		<TestCase testID="Gumbo_TextInput_right_style" description="..." keywords="[TextInput, right, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="right" value="5" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="right" value="5" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+
+		<!-- ******************** themeColor ******************** -->
+		<TestCase testID="Gumbo_TextInput_themeColor_style_default" description="Checks the default value of the themeColor property on a TextInput control" keywords="[FxTextInput, themeColor, property]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete" waitTarget="textInput"/>
+				<RunCode code="application.textInput.selectAll();application.textInput.setFocus()" waitTarget="textInput" waitEvent="selectionChange" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="themeColor" value="7385838" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="textInput" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** top ******************** -->
+		<TestCase testID="Gumbo_TextInput_top_style" description="..." keywords="[TextInput, top, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="top" value="5" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="top" value="5" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextInput_top_bottom_style" description="..." keywords="[TextInput, top, bottom, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetStyle target="textInput" styleName="bottom" value="5" waitTarget="textInput" waitEvent="move" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="top" value="5" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="top" value="5" />
+				<AssertStyleValue target="textInput" styleName="bottom" value="5" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+
+
+		<!-- ******************** verticalCenter ******************** -->
+		<TestCase testID="Gumbo_TextInput_verticalCenter_style" description="..." keywords="[TextInput, verticalCenter, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="text" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<SetStyle target="textInput" styleName="verticalCenter" value="15" waitTarget="textInput" waitEvent="move" />
+			</setup>
+			<body>
+				<AssertStyleValue target="textInput" styleName="verticalCenter" value="15" />
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** prompt color ******************** -->
+		<TestCase testID="TextInput_prompt_color_style" description="Change the color of the prompt (sanity check)." keywords="[TextInput, prompt, color, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<RunCode code="Label(application.textInput.promptDisplay).setStyle('color',0xFFCCFF);" waitTarget="textInput.promptDisplay" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_enabled_color_style" description="Check the enabled color of the prompt (sanity check)." keywords="[TextInput, prompt, color, style, enabled]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="TextInput_prompt_disabled_color_style" description="Check the disabled color of the prompt (sanity check)." keywords="[TextInput, prompt, color, style, disabled]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+				<SetProperty target="textInput" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="textInput" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** prompt alignment ******************** -->
+		<TestCase testID="TextInput_prompt_rightAlign_style" description="Change the alignment of the prompt (sanity check)." keywords="[TextInput, prompt, align, style]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textInput" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<RunCode code="Label(application.textInput.promptDisplay).setStyle('textAlign',TextAlign.RIGHT);" waitTarget="textInput.promptDisplay" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** prompt skin ******************** -->
+		<TestCase testID="TextInput_prompt_RichText_skin" description="Change the skin of the prompt in the component." keywords="[TextInput, prompt, skin, RichText]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete" waitTarget="textInput" />
+				<SetProperty target="textInput" propertyName="width" value="250" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle target="textInput" styleName="skin" value="comps.CustomRichTextInput" waitEvent="updateComplete"/>
+				<AssertStyleValue target="textInput" styleName="skin" value="comps.CustomRichTextInput"/>
+				<!--<RunCode code="application.textInput.prompt=<![CDATA[The <font color='#FF0000'>quick</font> <b>brown</b> fox jumps over]]>"/>
+				<RunCode>
+					<code>
+						textInput.prompt = <![CDATA[The <font color='#FF0000'>quick</font> <b>brown</b> fox jumps over]]>
+					</code>
+				</RunCode>
+				<Pause timeout="200"/>-->
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** prompt popup ******************** -->
+		<TestCase testID="TextInput_prompt_popup" description="Verify that prompts appear in popup windows." keywords="[TextInput, prompt, popup]">
+			<setup>
+				<ResetComponent target="textInput" className="spark.components.TextInput" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="firePopup()"/>
+				<WaitForEffectsToEnd/>
+				<CompareBitmap url="../Styles/baselines/" target="panel1">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>
+
+
+

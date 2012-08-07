@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.events.RendererExistenceEvent;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+===========================================
+partAdded(partName:String, instance:Object)
+===========================================
+-->
+
+<TestCase testID="partAdded_test1" keywords="[ButtonBar,partAdded]" description="Override partAdded to dispatch a custom event.  No, do not wait for updateComplete when setting the dataProvider." >
+    <setup>
+        <ResetComponent target="bb3" className="Assets::CustomFxButtonBar2" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb3, 1)" />
+    </setup>
+    <body>
+        <AssertEvent target="bb3" eventName="customAddEvent" eventClass="flash.events::Event" numExpectedEvents="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="partAdded_test2" keywords="[ButtonBar,partAdded]" description="Be sure it is called when adding new parts after the initial setup." >
+    <setup>
+        <ResetComponent target="bb3" className="Assets::CustomFxButtonBar2" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb3, 1)" waitEvent="updateComplete" waitTarget="skin" />
+    </setup>
+    <body>
+        <SetStyle target="bb3" styleName="skinClass" valueExpression="value=CustomSkinClass_FxRadioButtons" />
+        <AssertEvent target="bb3" eventName="customAddEvent" eventClass="flash.events::Event" numExpectedEvents="-1" />
+    </body>
+</TestCase>
+
+<TestCase testID="partAdded_test3" keywords="[ButtonBar,partAdded]" description="Be sure the dataGroup really has the correct event listeners after partAdded is called." >
+    <setup>
+        <ResetComponent target="bb3" className="Assets::CustomFxButtonBar2" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb3, 1)" waitTarget="bb3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value = application.bb3.dataGroup.hasEventListener(RendererExistenceEvent.RENDERER_ADD)" value="true" />
+        <AssertMethodValue method="value = application.bb3.dataGroup.hasEventListener(RendererExistenceEvent.RENDERER_REMOVE)" value="true" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

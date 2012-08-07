@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/SkinnableComponent/Properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="SkinnableComponent_Main.mxml" >
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+	<![CDATA[
+import spark.components.supportClasses.Skin;
+import spark.components.Label;
+		import comps.*;
+		
+        	private function checkSkin(so:Skin, exp:Class):Boolean{
+        		return so is exp;
+        	}
+        	
+        	private function checkState(so:Label, val:String):Boolean{
+        		return (so.text == val);
+        	}
+        	
+        	private function compareHost(so:RedSkin):Boolean{
+        		return so.hostComponent is comps.MyComponent;
+        	}
+        	
+        	private function compareData(so:Skin):Boolean{
+        		if(Object(so).hostComponent)
+		        	return Object(so).hostComponent is comps.MyComponent;
+		        else
+		        	return false;
+        	}
+        	
+        	private function compareString(actual:String, expected:String):Boolean{
+        		trace('actual: ' + actual + ' expected: ' + expected);
+        		return actual == expected;
+        	}
+	]]>
+	</fx:Script>
+
+	<testCases>
+
+	<TestCase testID="SkinnableComponent_properties_Skin_MXML_skinObject" keywords="[SkinnableComponent, properties]" description="skin returns the appropriate skin">
+	    <setup>
+		<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+	    </setup>
+	    <body>
+	    	<AssertMethodValue method="value=checkSkin(application.mc.skin, comps.RedSkin)" value="true"/>
+		<AssertPixelValue target="mc" x="1.5" y="17.5" value="0xFF0000"/>
+		<AssertPixelValue target="mc" x="24.5" y="1.5" value="0xFF0000"/>	
+	     </body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_properties_Skin_CSS_skin" keywords="[SkinnableComponent, properties]" description="skin returns the appropriate skin">
+	    <setup>
+		<ResetComponent target="myCSS" className="comps.MyCSSComp" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=checkSkin(application.myCSS.skin, comps.RedSkin)" value="true"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_change_skin_runtime" keywords="[SkinnableComponent, properties]" description="Verifies hostComponent string">
+		<setup>	
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+			<SetStyle styleName="skinClass" valueExpression="value=comps.BlueSkin" target="mc" waitTarget="mc" waitEvent="updateComplete"/>
+			<SetProperty propertyName="label" target="mc" value="one" waitEvent="updateComplete" waitTarget="mc"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=checkSkin(application.mc.skin, comps.BlueSkin)" value="true"/>
+			<AssertPixelValue target="mc" x="12" y="76" value="0x5959AB"/>
+			<AssertPixelValue target="mc" x="12" y="74" value="0x5959AB"/>	
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_properties_child_more_states" keywords="[SkinnableComponent, properties]" description="skin returns the appropriate skin">
+	    <setup>
+		<ResetComponent target="kid" className="comps.MyChildComp" waitEvent="updateComplete" />
+		<SetProperty propertyName="label" value="six" target="kid" waitEvent="updateComplete" waitTarget="kid"/>
+	    </setup>
+	    <body>
+	    	<AssertMethodValue method="value=checkState(application.kid.skin.myState, 'six')" value="true" />
+	    </body>
+	</TestCase>
+	
+	<!-- myState gets pushed the text via commitSkinState-->
+	<TestCase testID="SkinnableComponent_hostComponent_push_data" keywords="[SkinnableComponent, properties]" description="verifies binding to hostComponent works">
+		<setup>
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+			<SetProperty propertyName="label" target="mc" value="two" waitEvent="updateComplete" waitTarget="mc"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=checkState(application.mc.skin.myState, 'two')" value="true"/>		
+		</body>
+	</TestCase>
+	
+	<!-- txt is bound to hostComponent.label-->
+	<TestCase testID="SkinnableComponent_hostComponent_pull_data" keywords="[SkinnableComponent, properties]" description="verifies binding to hostComponent works">
+		<setup>
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+			<SetProperty propertyName="label" target="mc" value="two" waitEvent="updateComplete" waitTarget="mc"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=checkState(application.mc.skin.txt, 'two')" value="true"/>		
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_hostComponent_optional" keywords="[SkinnableComponent, properties]" description="Verifies binding to hostComponent works">
+		<setup>
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+			<SetStyle styleName="skinClass" valueExpression="value=comps.BlueSkin" target="mc" waitTarget="mc" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=checkSkin(application.mc.skin, comps.BlueSkin)" value="true"/>		
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_hostComponent_exists" keywords="[SkinnableComponent, properties]" description="Verifies hostComponent string">
+		<setup>	
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareHost(RedSkin(application.mc.skin))" value="true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_data_exists_with_hostComponent" keywords="[SkinnableComponent, properties]" description="Verifies hostComponent string">
+		<setup>	
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compareData(application.mc.skin)" value="true"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_deferredPart_startup" keywords="[SkinnableComponent, properties]" description="Verifies hostComponent string">
+		<setup>	
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+			<RunCode code="application.mc.skin.tn.selectedIndex = 1" waitEvent="updateComplete" waitTarget="mc.skin.tn" />
+			<Pause timeout="1000"/>
+		</setup>
+		<body>
+			<AssertPixelValue target="mc.skin.tn" x="30" y="60" value="0xFFFFFF"/>
+			<AssertPixelValue target="mc.skin.tn" x="19" y="62" value="0xFFFFFF"/>
+			<AssertPixelValue target="mc.skin.tn" x="78" y="68" value="0xFFFFFF"/>
+		</body>
+	</TestCase>
+	
+	<TestCase testID="SkinnableComponent_deferredPart_added" keywords="[SkinnableComponent, properties]" description="Verifies hostComponent string">
+		<setup>	
+			<ResetComponent target="mc" className="comps.MyMustellaComp" waitEvent="updateComplete"/>
+			<RunCode code="application.mc.skin.tn.selectedIndex = 1" waitEvent="updateComplete" waitTarget="mc.skin.tn"/>
+			<SetProperty propertyName="label" value="stateX" target="mc" waitEvent="updateComplete" waitTarget="mc"/>
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="label" target="mc.skin.db" value="deferredAdded"/>
+		</body>
+	</TestCase>
+	
+	</testCases>
+</UnitTester>

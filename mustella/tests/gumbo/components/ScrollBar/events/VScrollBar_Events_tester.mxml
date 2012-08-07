@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ScrollBar/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollBar_main.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+
+
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="VScrollBar_event_valueChange_click_value" keywords="[VScrollBar,event,change]" description="">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty target="vsb" propertyName="height" value="150" waitEvent="updateComplete" />
+                <SetProperty    target="vsb" propertyName="stepSize"  value="20" />
+                <SetProperty    target="vsb" propertyName="pageSize"  value="12" waitEvent="updateComplete"/>
+                <SetProperty    target="vsb" propertyName="value"  value="50" waitEvent="updateComplete"/>
+
+            </setup>
+            <body>
+                <DispatchMouseClickEvent target="vsb" localX="2" localY="100" waitEvent="change"/>
+                <AssertEvent target="vsb" eventName="change" eventClass="flash.events::Event" />
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_event_rangeChange_min" keywords="[VScrollBar,event,valueCommit]" description="">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty    target="vsb" propertyName="minimum"  value="50" waitEvent="valueCommit"/>
+                <AssertEvent target="vsb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_event_rangeChange_max" keywords="[VScrollBar,event,valueCommit]" description="">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty    target="vsb" propertyName="maximum"  value="30" waitEvent="updateComplete"/>
+                <SetProperty    target="vsb" propertyName="value"    value="30" waitEvent="updateComplete"/>
+                <AssertEvent target="vsb" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+            </body>
+        </TestCase>
+        <!--TestCase testID="VScrollBar_event_mouseMove" keywords="[VScrollBar,event,mouseMove]" description="">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty target="vsb" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.thumb" localX="3" localY="3"  />
+                <DispatchMouseEvent type="mouseDown"  target="vsb.thumb" localX="3" localY="3"  />
+                <DispatchMouseEvent type="mouseMove"  target="vsb"  localX="3" localY="50"  />
+                <DispatchMouseEvent type="mouseMove"  target="vsb"  localX="3" localY="100" waitEvent="updateComplete" />
+
+                <DispatchMouseEvent type="mouseUp"  target="vsb.thumb" localX="3" localY="3" waitEvent="mouseUp"  waitTarget="vsb"/>
+                <AssertEvent target="vsb" eventName="updateComplete" eventClass="flash.events::Event" />
+            </body>
+        </TestCase-->
+
+        <TestCase testID="VScrollBar_events_updateComplete_page" keywords="[VScrollBar,event,updateComplete]" description="">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.vsb.changeValueByPage()" />
+                <AssertEvent target="vsb" eventName="updateComplete" numExpectedEvents="-1" eventClass="mx.events::FlexEvent"/>
+            </body>
+        </TestCase>
+        <TestCase testID="VScrollBar_event_mouseMove_updateComplete" keywords="[VScrollBar,event,mouseMove]" description="">
+            <setup>
+                <ResetComponent target="vsb" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+                <SetProperty target="vsb" propertyName="height" value="200" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchMouseEvent type="rollOver"  target="vsb.track" localX="3" localY="50"  />
+                <DispatchMouseEvent type="mouseDown"  target="vsb.track" localX="3" localY="50"  />
+                <DispatchMouseEvent type="mouseUp"  target="vsb.track" localX="3" localY="50" waitEvent="updateComplete"  />
+                <AssertEvent target="vsb" eventName="updateComplete" numExpectedEvents="-1" eventClass="mx.events::FlexEvent"/>
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>

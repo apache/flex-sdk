@@ -1,0 +1,23 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark"  variableRowHeight="false">
+    <fx:Script>
+    		<![CDATA[
+    		import mx.collections.ArrayList;
+		public var simple:Array=[1,2,3,4,5 ];
+		public var simpleArrList:ArrayList=new ArrayList(fruitArray);
+		public var fruitArray:Array=[
+						 { label:'Apple', data:10.00},
+						 { label:'Banana', data:15.00 },
+						 { label:'Melon', data:3.50 },
+						 { label:'Kiwi', data:7.65},
+						 { label:'Strawberry',data:12.35 },
+						 { label:'Other', data:00.00}
+				 ];
+		public var item1:Object={test:'new data'};
+    		]]>
+    </fx:Script>
+  	<s:dataProvider>
+  		<s:ArrayList id="sAL" />
+	</s:dataProvider>
+	
+</s:DataGrid>

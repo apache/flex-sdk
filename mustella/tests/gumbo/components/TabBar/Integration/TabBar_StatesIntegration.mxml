@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import mx.collections.*;
+	import mx.core.FlexGlobals;
+        import spark.components.*;
+        import mx.core.Application;
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=============
+States
+=============
+-->
+
+<TestCase testID="statesIntegration_selectedItem_test1" keywords="[TabBar,dataProvider]" description="selectedItem.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="tb4" className="Assets::CustomTabBar3" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb4" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb4" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test2" keywords="[TabBar,dataProvider]" description="selectedItem.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="tb4" className="Assets::CustomTabBar3" waitEvent="updateComplete" />
+        <SetProperty target="tb4" propertyName="currentState" value="state2" waitTarget="tb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb4" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb4" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test3" keywords="[TabBar,dataProvider]" description="selectedItem.state2 is second item.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="tb4" className="Assets::CustomTabBar3" waitEvent="updateComplete" />
+        <SetProperty target="tb4" propertyName="currentState" value="state2" waitTarget="tb4" waitEvent="currentStateChange" />
+        <SetProperty target="tb4" propertyName="currentState" value="state1" waitTarget="tb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb4" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb4" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test4" keywords="[TabBar,dataProvider]" description="selectedItem.state2 is second item.  Select first button.  Go to state2." >
+    <setup>
+        <ResetComponent target="tb4" className="Assets::CustomTabBar3" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="tb4.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="tb4" propertyName="currentState" value="state2" waitTarget="tb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb4" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb4" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test5" keywords="[TabBar,dataProvider]" description="selectedItem.state2 is second item.  Select first button.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="tb4" className="Assets::CustomTabBar3" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="tb4.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="tb4" propertyName="currentState" value="state2" waitTarget="tb4" waitEvent="currentStateChange" />
+        <SetProperty target="tb4" propertyName="currentState" value="state1" waitTarget="tb4" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb4.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb4" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb4" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test6" keywords="[TabBar,dataProvider]" description="selectedItem.state1 is first item.  selectedItem.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="tb5" className="Assets::CustomTabBar4" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb5.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb5.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb5" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb5" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test7" keywords="[TabBar,dataProvider]" description="selectedItem.state1 is first item.  selectedItem.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="tb5" className="Assets::CustomTabBar4" waitEvent="updateComplete" />
+        <SetProperty target="tb5" propertyName="currentState" value="state2" waitTarget="tb5" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb5.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb5.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb5" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb5" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedItem_test8" keywords="[TabBar,dataProvider]" description="selectedItem.state1 is first item.  selectedItem.state2 is second item.  Go to state2, then state1" >
+    <setup>
+        <ResetComponent target="tb5" className="Assets::CustomTabBar4" waitEvent="updateComplete" />
+        <SetProperty target="tb5" propertyName="currentState" value="state2" waitTarget="tb5" waitEvent="currentStateChange" />
+        <SetProperty target="tb5" propertyName="currentState" value="state1" waitTarget="tb5" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb5.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb5.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb5" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb5" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test1" keywords="[TabBar,dataProvider]" description="selectedIndex.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="tb6" className="Assets::CustomTabBar5" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb6" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb6" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test2" keywords="[TabBar,dataProvider]" description="selectedIndex.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="tb6" className="Assets::CustomTabBar5" waitEvent="updateComplete" />
+        <SetProperty target="tb6" propertyName="currentState" value="state2" waitTarget="tb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb6" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb6" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test3" keywords="[TabBar,dataProvider]" description="selectedIndex.state2 is second item.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="tb6" className="Assets::CustomTabBar5" waitEvent="updateComplete" />
+        <SetProperty target="tb6" propertyName="currentState" value="state2" waitTarget="tb6" waitEvent="currentStateChange" />
+        <SetProperty target="tb6" propertyName="currentState" value="state1" waitTarget="tb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb6" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb6" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test4" keywords="[TabBar,dataProvider]" description="selectedIndex.state2 is second item.  Select first button.  Go to state2." >
+    <setup>
+        <ResetComponent target="tb6" className="Assets::CustomTabBar5" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="tb6.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="tb6" propertyName="currentState" value="state2" waitTarget="tb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb6" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb6" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test5" keywords="[TabBar,dataProvider]" description="selectedIndex.state2 is second item.  Select first button.  Go to state2, then state1." >
+    <setup>
+        <ResetComponent target="tb6" className="Assets::CustomTabBar5" waitEvent="updateComplete" />
+        <DispatchMouseClickEvent target="tb6.skin.dataGroup.getChildAt(0)" localX="2" localY="2" waitEvent="updateComplete" />
+        <SetProperty target="tb6" propertyName="currentState" value="state2" waitTarget="tb6" waitEvent="currentStateChange" />
+        <SetProperty target="tb6" propertyName="currentState" value="state1" waitTarget="tb6" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb6.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb6" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb6" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test6" keywords="[TabBar,dataProvider]" description="selectedIndex.state1 is first item.  selectedIndex.state2 is second item.  Initial state." >
+    <setup>
+        <ResetComponent target="tb7" className="Assets::CustomTabBar6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb7.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb7.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb7" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb7" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test7" keywords="[TabBar,dataProvider]" description="selectedIndex.state1 is first item.  selectedIndex.state2 is second item.  Go to state2." >
+    <setup>
+        <ResetComponent target="tb7" className="Assets::CustomTabBar6" waitEvent="updateComplete" />
+        <SetProperty target="tb7" propertyName="currentState" value="state2" waitTarget="tb7" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb7.dataGroup.getElementAt(0)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb7.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb7" propertyName="selectedItem" value="two" />
+        <AssertPropertyValue target="tb7" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_selectedIndex_test8" keywords="[TabBar,dataProvider]" description="selectedIndex.state1 is first item.  selectedIndex.state2 is second item.  Go to state2, then state1" >
+    <setup>
+        <ResetComponent target="tb7" className="Assets::CustomTabBar6" waitEvent="updateComplete" />
+        <SetProperty target="tb7" propertyName="currentState" value="state2" waitTarget="tb7" waitEvent="currentStateChange" />
+        <SetProperty target="tb7" propertyName="currentState" value="state1" waitTarget="tb7" waitEvent="currentStateChange" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb7.dataGroup.getElementAt(0)" propertyName="selected" value="true" />
+        <AssertPropertyValue target="tb7.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <AssertPropertyValue target="tb7" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb7" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_dataProvider_test1" keywords="[TabBar,dataProvider]" description="dataProvider.state1 and dataProvider.state2 are set.  Initial state." >
+    <setup>
+        <ResetComponent target="tb8" className="Assets::CustomTabBar7" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="tb8" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb8" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(2)" propertyName="label" value="three" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_dataProvider_test2" keywords="[TabBar,dataProvider]" description="dataProvider.state1 and dataProvider.state2 are set.  Switch to state2." >
+    <setup>
+        <ResetComponent target="tb8" className="Assets::CustomTabBar7" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tb8" propertyName="currentState" value="state2" waitTarget="tb8" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="tb8" propertyName="selectedItem" value="four" />
+        <AssertPropertyValue target="tb8" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(0)" propertyName="label" value="four" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(1)" propertyName="label" value="five" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(2)" propertyName="label" value="six" />
+    </body>
+</TestCase>
+
+<TestCase testID="statesIntegration_dataProvider_test3" keywords="[TabBar,dataProvider]" description="dataProvider.state1 and dataProvider.state2 are set.  Switch to state2 and back to state1." >
+    <setup>
+        <ResetComponent target="tb8" className="Assets::CustomTabBar7" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="tb8" propertyName="currentState" value="state2" waitTarget="tb8" waitEvent="currentStateChange" />
+        <SetProperty target="tb8" propertyName="currentState" value="state1" waitTarget="tb8" waitEvent="currentStateChange" />
+        <AssertPropertyValue target="tb8" propertyName="selectedItem" value="one" />
+        <AssertPropertyValue target="tb8" propertyName="selectedIndex" value="0" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(0)" propertyName="label" value="one" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(1)" propertyName="label" value="two" />
+        <AssertPropertyValue target="tb8.dataGroup.getElementAt(2)" propertyName="label" value="three" />
+    </body>
+</TestCase>
+
+    </testCases>
+</UnitTester>

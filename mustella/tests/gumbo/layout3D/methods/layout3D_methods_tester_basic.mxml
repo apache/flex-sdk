@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout3D/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="Layout3DBasic.mxml">
+
+
+
+
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import mx.geom.*;
+        import comps.*;
+        public var renderer:mx.core.IVisualElement;
+
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="Layout3D_method_transformAround_r1" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="gr1" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <ResetComponent target="list1" className="comps.FxListComp" waitEvent="updateComplete" />
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.rg.r1.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_r2" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.rg.r2.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_r3" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+
+		 <TestCase testID="Layout3D_method_transformAround_r3_mac" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+               
+        <TestCase testID="Layout3D_method_transformAround_r1_offsets" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <RunCode code="application.rg.r1.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_r2_offsets" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <RunCode code="application.rg.r2.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_r3_offsets" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+		
+		<TestCase testID="Layout3D_method_transformAround_r3_offsets_mac" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <RunCode code="application.rg.r3.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_method_transformAround_r1_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
+                <SetProperty target="rg.r1.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
+                <RunCode code="application.rg.r1.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_r2_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
+                <SetProperty target="rg.r2.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
+                <RunCode code="application.rg.r2.transformAround(new Vector3D(10,10,10),new Vector3D(2,2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_r3_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="rg" className="comps.RectGroup" waitEvent="updateComplete" />
+                <SetProperty target="rg" propertyName="x" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="y" value="150" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
+                <SetProperty target="rg.r3.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
+                <RunCode code="application.rg.r3.transformAround(new Vector3D(20,20,0),new Vector3D(2.5,2.5,2.5),new Vector3D(30,30,30))" />
+                <SetProperty target="rg" propertyName="width" value="150" waitEvent="updateComplete"/>
+                <SetProperty target="rg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="rg" />
+            </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>
+

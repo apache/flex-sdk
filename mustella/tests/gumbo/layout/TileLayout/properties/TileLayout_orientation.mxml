@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+orientation
+========================================================
+-->
+
+<TestCase testID="orientation_test1" keywords="[TileLayout,orientation]" description="Defaults to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="box1.group1.layout" propertyName="orientation" value="rows" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_addItem_test1" keywords="[TileLayout,orientation]" description="Add an item when set to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_addItem_test2" keywords="[TileLayout,orientation]" description="Add an item when set to columns." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_deleteItem_test1" keywords="[TileLayout,orientation]" description="Delete an item when set to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_deleteItem_test2" keywords="[TileLayout,orientation]" description="Delete an item when set to columns." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.removeItemsFromGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_setget_test1" keywords="[TileLayout,orientation]" description="Set/get." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="orientation" value="columns" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test1" keywords="[TileLayout,orientation]" description="Test row layout with 1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test2" keywords="[TileLayout,orientation]" description="Test column layout with 1 item." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test3" keywords="[TileLayout,orientation]" description="Test row layout with 3 items and 2 rows needed." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test4" keywords="[TileLayout,orientation]" description="Test row layout with 3 items and 2 columns needed." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test5" keywords="[TileLayout,orientation]" description="Test 2x2 layout, rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test6" keywords="[TileLayout,orientation]" description="Test 2x2 layout, cols." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test7" keywords="[TileLayout,orientation]" description="Test 5 items, wide enough for 3, rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layout_test8" keywords="[TileLayout,orientation]" description="Test 5 items, tall enough for 3, cols." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test1" keywords="[TileLayout,orientation]" description="Test row layout with 1 item. Switch from rows to columns." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test2" keywords="[TileLayout,orientation]" description="Test column layout with 1 item. Switch from columns to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 1)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test3" keywords="[TileLayout,orientation]" description="Test row layout with 3 items and 2 rows needed. Switch from rows to columns." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test4" keywords="[TileLayout,orientation]" description="Test row layout with 3 items and 2 columns needed. Switch from columns to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test5" keywords="[TileLayout,orientation]" description="Test 2x2 layout, rows. Switch from rows to columns." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test6" keywords="[TileLayout,orientation]" description="Test 2x2 layout, cols. Switch from columns to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="60" />
+        <SetProperty target="box1.group1" propertyName="height" value="60" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 4)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test7" keywords="[TileLayout,orientation]" description="Test 5 items, wide enough for 3, rows. Switch from rows to columns." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="orientation_layoutSwitch_test8" keywords="[TileLayout,orientation]" description="Test 5 items, tall enough for 3, cols. Switch from columns to rows." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1" propertyName="width" value="100" />
+        <SetProperty target="box1.group1" propertyName="height" value="100" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="rows" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

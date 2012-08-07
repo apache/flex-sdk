@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/VerticalLayout/States/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="VerticalLayout_States_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		private function changeContainer(newCont:String):void{
+			switch (newCont) {
+				case 'pnl':
+					application.grp.visible = false;
+					application.grp.includeInLayout = false;
+					application.cont.visible = false;
+					application.cont.includeInLayout = false;
+					application.pnl.visible = true;
+					application.pnl.includeInLayout = true;
+					break;
+				case 'cont':
+					application.grp.visible = false;
+					application.grp.includeInLayout = false;
+					application.cont.visible = true;
+					application.cont.includeInLayout = true;
+					application.pnl.visible = false;
+					application.pnl.includeInLayout = false;
+					break;
+				case 'grp':
+					application.grp.visible = true;
+					application.grp.includeInLayout = true;
+					application.cont.visible = false;
+					application.cont.includeInLayout = false;
+					application.pnl.visible = false;
+					application.pnl.includeInLayout = false;
+					break;
+			}
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="VLayout_default_state_group" keywords="[VerticalLayout,states, group]" description="Verify default state of group renders correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+				
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('grp')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../States/baselines/$testID.png" target="grp"/>
+			</body>
+        </TestCase>
+        
+        <TestCase testID="VLayout_include_ellipse_state_group" keywords="[VerticalLayout,states, group]" description="Verify adding an ellipse causes the components to resize and layout correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('grp')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+				
+				<SetProperty propertyName="currentState" value="state2" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="300" target="grp.perRect" />
+				<AssertPropertyValue propertyName="height" value="193" target="grp.perRect" />
+				<AssertPropertyValue propertyName="width" value="60" target="grp.ell" />
+				<AssertPropertyValue propertyName="height" value="191" target="grp.ell" />
+				<AssertPropertyValue propertyName="width" value="80" target="grp.expRect" />
+				<AssertPropertyValue propertyName="height" value="75" target="grp.expRect" />
+				<AssertPropertyValue propertyName="width" value="70" target="grp.btn" />
+				<AssertPropertyValue propertyName="height" value="21" target="grp.btn" />
+				
+				<AssertPropertyValue propertyName="contentWidth" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="500" target="grp"/>
+				
+				<CompareBitmap url="../States/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+        
+        <TestCase testID="VLayout_exclude_Rect_state_group" keywords="[VerticalLayout,states, group]" description="Verify removing a rect causes the components to resize and layout correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('grp')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+
+				<SetProperty propertyName="currentState" value="state3" target="grp" waitEvent="updateComplete" waitTarget="grp"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="300" target="grp.perRect" />
+				<AssertPropertyValue propertyName="height" value="250" target="grp.perRect" />
+				<AssertPropertyValue propertyName="width" value="70" target="grp.btn" />
+				<AssertPropertyValue propertyName="height" value="21" target="grp.btn" />
+
+				<AssertPropertyValue propertyName="contentWidth" value="300" target="grp"/>
+				<AssertPropertyValue propertyName="contentHeight" value="277" target="grp"/>
+
+				<CompareBitmap url="../States/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+        
+        <TestCase testID="VLayout_default_state_container" keywords="[VerticalLayout,states, group]" description="Verify default state of group renders correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('cont')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../States/baselines/$testID.png" target="cont"/>
+			</body>
+        </TestCase>
+        
+         <TestCase testID="VLayout_include_ellipse_state_container" keywords="[VerticalLayout,states, group]" description="Verify adding an ellipse causes the components to resize and layout correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('cont')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+
+				<SetProperty propertyName="currentState" value="state2" target="cont" waitEvent="updateComplete" waitTarget="cont.skin"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="300" target="cont.perRect" />
+				<AssertPropertyValue propertyName="height" value="193" target="cont.perRect" />
+				<AssertPropertyValue propertyName="width" value="60" target="cont.ell" />
+				<AssertPropertyValue propertyName="height" value="191" target="cont.ell" />
+				<AssertPropertyValue propertyName="width" value="80" target="cont.expRect" />
+				<AssertPropertyValue propertyName="height" value="75" target="cont.expRect" />
+				<AssertPropertyValue propertyName="width" value="70" target="cont.btn" />
+				<AssertPropertyValue propertyName="height" value="21" target="cont.btn" />
+
+				<AssertPropertyValue propertyName="contentWidth" value="300" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="500" target="cont.contentGroup"/>
+
+				<CompareBitmap url="../States/baselines/$testID.png" target="cont"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="VLayout_exclude_Rect_state_container" keywords="[VerticalLayout,states, group]" description="Verify removing a rect causes the components to resize and layout correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('cont')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+
+				<SetProperty propertyName="currentState" value="state3" target="cont" waitEvent="updateComplete" waitTarget="cont.skin"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="300" target="cont.perRect" />
+				<AssertPropertyValue propertyName="height" value="250" target="cont.perRect" />
+				<AssertPropertyValue propertyName="width" value="70" target="cont.btn" />
+				<AssertPropertyValue propertyName="height" value="21" target="cont.btn" />
+
+				<AssertPropertyValue propertyName="contentWidth" value="300" target="cont.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="277" target="cont.contentGroup"/>
+
+				<CompareBitmap url="../States/baselines/$testID.png" target="cont"/>
+			</body>
+		</TestCase>
+		
+        <TestCase testID="VLayout_default_state_panel" keywords="[VerticalLayout,states, group]" description="Verify default state of group renders correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('pnl')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../States/baselines/$testID.png" target="pnl"/>
+			</body>
+        </TestCase>
+        
+         <TestCase testID="VLayout_include_ellipse_state_panel" keywords="[VerticalLayout,states, group]" description="Verify adding an ellipse causes the components to resize and layout correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('pnl')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+
+				<SetProperty propertyName="currentState" value="state2" target="pnl" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="299" target="pnl.perRect" />
+				<AssertPropertyValue propertyName="height" value="177" target="pnl.perRect" />
+				<AssertPropertyValue propertyName="width" value="60" target="pnl.ell" />
+				<AssertPropertyValue propertyName="height" value="174" target="pnl.ell" />
+				<AssertPropertyValue propertyName="width" value="80" target="pnl.expRect" />
+				<AssertPropertyValue propertyName="height" value="75" target="pnl.expRect" />
+				<AssertPropertyValue propertyName="width" value="70" target="pnl.btn" />
+				<AssertPropertyValue propertyName="height" value="21" target="pnl.btn" />
+
+				<AssertPropertyValue propertyName="contentWidth" value="299" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="467" target="pnl.contentGroup"/>
+
+				<CompareBitmap url="../States/baselines/$testID.png" target="pnl"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="VLayout_exclude_Rect_state_panel" keywords="[VerticalLayout,states, group]" description="Verify removing a rect causes the components to resize and layout correctly" >
+			<setup>
+				<ResetComponent target="grp" className="Assets.StatesGroup" waitEvent="updateComplete" />   
+				<ResetComponent target="cont" className="Assets.StatesCont" waitEvent="updateComplete" />   
+				<ResetComponent target="pnl" className="Assets.StatesPanel" waitEvent="updateComplete" />   
+
+				<RunCode code="application.resetStateTest()"  waitEvent="manualResetComplete" />
+				<RunCode code="changeContainer('pnl')"  waitEvent="updateComplete" waitTarget="skin.contentGroup"/>
+
+				<SetProperty propertyName="currentState" value="state3" target="pnl" waitEvent="updateComplete" waitTarget="pnl.skin"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="width" value="299" target="pnl.perRect" />
+				<AssertPropertyValue propertyName="height" value="234" target="pnl.perRect" />
+				<AssertPropertyValue propertyName="width" value="70" target="pnl.btn" />
+				<AssertPropertyValue propertyName="height" value="21" target="pnl.btn" />
+
+				<AssertPropertyValue propertyName="contentWidth" value="299" target="pnl.contentGroup"/>
+				<AssertPropertyValue propertyName="contentHeight" value="261" target="pnl.contentGroup"/>
+
+				<CompareBitmap url="../States/baselines/$testID.png" target="pnl"/>
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>

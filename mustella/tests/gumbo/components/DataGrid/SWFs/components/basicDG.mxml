@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    creationComplete="init()">
+    	
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem country="USA" firstName="JozFN" lastName="AltFN" position="FW" club="VilCB" number="00"/>
+			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN" position="DF" club="RenCB" number="01"/>
+			<s:DataItem country="USA" firstName="TimFN" lastName="HowFN" position="GK" club="EveCB" number="02"/>
+			<s:DataItem country="USA" firstName="CliFN" lastName="DemFN" position="MF" club="FulCB" number="03"/>
+			<s:DataItem country="USA" firstName="RobFN" lastName="FinFN" position="FW" club="RslCB" number="04"/>
+			<s:DataItem country="USA" firstName="HerFN" lastName="GomFN" position="FW" club="PacCB" number="05"/>
+			<s:DataItem country="USA" firstName="LanFN" lastName="DonFN" position="MF" club="lagCB" number="06"/>
+			<s:DataItem country="USA" firstName="OguFN" lastName="OnyFN" position="DF" club="MilCB" number="07"/>
+			<s:DataItem country="USA" firstName="BenFN" lastName="FeiFN" position="MF" club="AGF" number="08"/>
+			<s:DataItem country="USA" firstName="EdsFN" lastName="BudFN" position="FW" club="lagCB" number="09"/>
+			<s:DataItem country="USA" firstName="MicFN" lastName="BraFN" position="MF" club="BmbCB" number="10"/>
+			<s:DataItem country="USA" firstName="SteFN" lastName="CheFN" position="DF" club="HanCB" number="11"/>
+			<s:DataItem country="USA" firstName="JayFN" lastName="DemLN" position="DF" club="WatCB" number="12"/>
+			<s:DataItem country="USA" firstName="JozFN" lastName="AltFN" position="FW" club="VilCB" number="13"/>
+			<s:DataItem country="ENG" firstName="RobFN" lastName="GreFN" position="GK" club="BrvCB" number="14"/>
+			<s:DataItem country="ENG" firstName="JoeFN" lastName="HarFN" position="GK" club="MncCB" number="15"/>
+			<s:DataItem country="ENG" firstName="GleFN" lastName="JohFN" position="DF" club="LivCB" number="16"/>
+			<s:DataItem country="ENG" firstName="AshFN" lastName="ColFN" position="DF" club="CheCB" number="17"/>
+			<s:DataItem country="ENG" firstName="MicFN" lastName="DawFN" position="DF" club="ThsCB" number="18"/>
+			<s:DataItem country="ENG" firstName="JohFN" lastName="TerFN" position="DF" club="CheCB" number="19"/>
+			<s:DataItem country="ENG" firstName="SteFN" lastName="WarFN" position="DF" club="AsvCB" number="20"/>
+			<s:DataItem country="ENG" firstName="MatFN" lastName="UpsFN" position="DF" club="WhuCB" number="21"/>
+			<s:DataItem country="ENG" firstName="JamFN" lastName="CarFN" position="DF" club="LivCB" number="22"/>
+			<s:DataItem country="ENG" firstName="LedFN" lastName="KinFN" position="DF" club="ThsCB" number="23"/>		
+		</s:ArrayCollection>
+				
+		<s:ArrayCollection id="columns1">					 
+			<s:GridColumn id="c1_1" dataField="country" />
+			<s:GridColumn id="c1_2" dataField="firstName" />
+			<s:GridColumn id="c1_3" dataField="lastName" />
+			<s:GridColumn id="c1_4" dataField="position"/>
+			<s:GridColumn id="c1_5" dataField="club"/>
+			<s:GridColumn id="c1_6" dataField="number"/>
+		</s:ArrayCollection>
+		
+		<s:ArrayCollection id="columns2">
+			<s:GridColumn id="c2_1" dataField="number"/>
+			<s:GridColumn id="c2_2" dataField="lastName" width="150"/>
+			<s:GridColumn id="c2_3" dataField="firstName"/>						
+			<s:GridColumn id="c2_4" dataField="club" includeIn="state2"/>						
+		</s:ArrayCollection>
+		
+		<s:ArrayCollection id="columns3">
+			<s:GridColumn id="c3_1" dataField="firstName"/>
+			<s:GridColumn id="c3_2" dataField="lastName"/>
+		</s:ArrayCollection>	
+		
+		<s:ArrayCollection id="columns4">					 
+			<s:GridColumn id="c4_1" dataField="country" width="50"/>
+			<s:GridColumn id="c4_2" dataField="firstName" />
+			<s:GridColumn id="c4_3" dataField="lastName" width="100"/>
+			<s:GridColumn id="c4_4" dataField="position"/>
+			<s:GridColumn id="c4_5" dataField="club"/>
+			<s:GridColumn id="c4_6" dataField="number"/>
+		</s:ArrayCollection>				
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+		
+			import mx.managers.ToolTipManager;
+		
+			private function init():void {
+				ToolTipManager.showDelay = 0;		
+			}
+			
+			public function addColumnAt1():void{
+				var gc1:GridColumn = new GridColumn();
+				gc1.dataField = "New Column";
+				columns1.addItemAt(gc1,1);
+			}
+			
+			public function addFixedSizeColumnAt1():void{
+				var gc1:GridColumn = new GridColumn();
+				gc1.dataField = "New Column";
+				gc1.width = 100;
+				columns1.addItemAt(gc1,1);
+			}			
+			
+			/*
+             *  Returns true if the DataGrid item renderer at rowIndex, columnIndex is completely visible.
+             */
+            public function isItemRendererVisible(dataGrid:DataGrid, rowIndex:int, columnIndex:int):Boolean
+            {
+                const renderer:DisplayObject = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex) as DisplayObject;
+                const view:DisplayObject = renderer.parent.parent as DisplayObject;
+                const rendererBounds:Rectangle = renderer.getRect(view);
+                const viewScrollRect:Rectangle = view.scrollRect;
+                
+                if (!viewScrollRect)  // The GridView isn't being clipped, probably because it's locked
+                    return true;
+                
+                viewScrollRect.inflate(1, 1); // grow the scrollRect by 1 pixel to allow for minor differences
+                
+                return (rendererBounds.left >= viewScrollRect.left) &&
+                    (rendererBounds.top >= viewScrollRect.top) && 
+                    (rendererBounds.right <= viewScrollRect.right) &&
+                    (rendererBounds.bottom <= viewScrollRect.bottom);
+            }
+
+
+           /*
+            * This method is used to check if the itemRenderer specified by the argument is within
+            * the DataGrid's scrollRect.  A tolerance of 1 is used for minor variations
+            */
+            public function checkIRinScrollRect(rowIndx:Number, colIndx:Number):Boolean
+            {     
+                try
+                {             
+                    return isItemRendererVisible(dataGrid1, rowIndx, colIndx);
+                } 
+                catch(err:Error) 
+                {
+                    trace("Spark DataGrid trace: Error caught from checkIRinScrollRect method: " + err.message);                             
+                }
+                
+                return false;
+            }
+						
+			
+			
+			private function myDT_func(item:Object, column:GridColumn):String{
+				return "my custom string";
+			}			
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="state1" />
+		<s:State name="state2" />
+		<s:State name="state3" />
+	</s:states>
+		
+	<s:DataGrid id="dataGrid1" 
+				dataProvider="{dp1}" 
+				columns="{columns1}"
+				dataTipFunction="myDT_func"
+				skinClass.state3="assets.skins.CustomDataGridNoGridLinesSkin">				
+				<s:itemRenderer>
+					<fx:Component>
+						<s:DefaultGridItemRenderer wordWrap="true"/>
+					</fx:Component>
+				</s:itemRenderer>				
+	</s:DataGrid>
+				
+</s:Group>	

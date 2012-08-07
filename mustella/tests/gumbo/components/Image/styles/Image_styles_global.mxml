@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/styles/"
+			testSWF="ImageStyleMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+         <TestCase testID="Image_styles_css" keywords="[Image,  smoothingQuality ]" description="verify styles">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" timeout="5000" />
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="smooth" value="true" />
+                <SetProperty target="pr.im" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="height" value="400" waitEvent="updateComplete" waitTarget="pr.im" />
+                <AssertStyleValue target="pr.im" styleName="enableLoadingState" value="true" />
+                <AssertStyleValue target="pr.im" styleName="smoothingQuality" value="high" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Image_styles_stretch_smooth_false" keywords="[Image, scale, stretch, no_smooth ]" description="Scale image stretch, no-smooth">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" timeout="5000"/>
+            </setup>
+            <body>
+                <SetProperty target="pr.im" propertyName="scaleMode" value="stretch" />
+                <SetProperty target="pr.im" propertyName="smooth" value="false" />
+
+                <SetProperty target="pr.im" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="pr.im" />
+                <SetProperty target="pr.im" propertyName="height" value="400" waitEvent="updateComplete" waitTarget="pr.im" />
+                <CompareBitmap target="pr" url="../styles/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_styles_backgroundColor" keywords="[Image, backgroundColor  ]" description="">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="130" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" timeout="5000"/>
+                <SetProperty target="pr.im" propertyName="percentWidth" value="80" waitEvent="updateComplete"  />
+            </setup>
+            <body>
+                <Pause timeout="100"/>
+                <CompareBitmap target="pr" url="../styles/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+        <TestCase testID="Image_styles_backgroundColor_as" keywords="[Image, backgroundColor  ]" description="">
+            <setup>
+                <ResetComponent target="pr" className="comps.PropertiesRoot" waitEvent="updateComplete" />
+                <SetProperty target="pr" propertyName="width" value="130" waitEvent="updateComplete" waitTarget="pr" />
+                <SetProperty target="pr" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="pr" />
+                <RunCode code="application.pr.im.setStyle('backgroundColor','red')"/>
+                <RunCode code="application.pr.im.setStyle('backgroundAlpha',1)"/>
+                <SetProperty target="pr.im" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="complete" waitTarget="pr.im" timeout="5000"/>
+                <SetProperty target="pr.im" propertyName="percentWidth" value="80" waitEvent="updateComplete"  />
+            </setup>
+            <body>
+                <Pause timeout="100"/>
+                <CompareBitmap target="pr" url="../styles/baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+	</testCases>
+</UnitTester>

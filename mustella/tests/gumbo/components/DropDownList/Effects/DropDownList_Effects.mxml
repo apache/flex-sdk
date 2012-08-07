@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DropDownList/Effects/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DropDownList_basic_effects.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+				
+		<TestCase testID="DropDownList_Effects_wipe1" keywords="[DropDownList, Effects, Wipe]" description="Test Wipe effect on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_wipe" className="comps.Custom_DDL_WipeSkin" waitEvent="updateComplete" waitTarget="myDDL_wipe"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_wipe.openDropDown();" waitEvent="open" waitTarget="myDDL_wipe"/>
+				<Pause timeout="1000"/>
+				<CompareBitmap target="myWipeGrp" url="../Effects/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_wipe.closeDropDown(false);"/>
+				<Pause timeout="1000"/>
+				<CompareBitmap target="myWipeGrp" url="../Effects/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Effects_rotate3D" keywords="[DropDownList, Effects, Rotate3D]" description="Test Rotate3D effect on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL_R3D" className="comps.Custom_DDL_Rotate3DSkin" waitEvent="updateComplete" waitTarget="myDDL_R3D"/>
+			</setup>
+			<body>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_R3D.openDropDown();" waitEvent="open" waitTarget="myDDL_R3D"/>
+				<Pause timeout="4000"/>
+				<CompareBitmap target="myR3DGrp" url="../Effects/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL_R3D.closeDropDown(false);"/>
+				<Pause timeout="1000"/>
+				<CompareBitmap target="myR3DGrp" url="../Effects/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+					
+	</testCases>
+</UnitTester>

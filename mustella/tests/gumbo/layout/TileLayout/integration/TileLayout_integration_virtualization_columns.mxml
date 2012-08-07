@@ -1,0 +1,1359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutVirtualization.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import Assets.*;
+        import mx.core.*;
+		import spark.components.DataGroup;
+		import spark.components.Group;
+        import spark.layouts.*;
+		import spark.core.NavigationUnit;
+	    import spark.skins.spark.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+TileLayout Virtualization Testing
+
+This is the virtualization testing for TileLayout with the
+columns orientation.  These tests were copied and updated from
+the rows file.
+
+========================================================
+-->
+
+
+<!--
+
+
+=====================
+Regression Tests
+=====================
+
+- regression and misc tests
+
+-->
+
+	<TestCase testID="virtualization_columns_scrollNegative" keywords="[TileLayout, virtualization]" description="scroll to negative space (SDK-20822)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="-200" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_dataProvider_integers" keywords="[TileLayout, virtualization]" description="a dataprovider with just ints should work (SDK-20820)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" value="99" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.arrayOfIntegers" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_dataProvider_swap" keywords="[TileLayout, virtualization]" description="swapping dataProviders shouldn't overlap items (SDK-20897)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(20, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_addItem_0" keywords="[TileLayout, virtualization]" description="adding items at 0 shouldnt overlap items (SDK-20983)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -1, majorAxis: 'vertical', majorSize: 50, minorSize: 50}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -2, majorAxis: 'vertical', majorSize: 50, minorSize: 50}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -3, majorAxis: 'vertical', majorSize: 50, minorSize: 50}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_scroll_specific" keywords="[TileLayout, virtualization]" description="scroll a specific amount (SDK-21050)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="106" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="206" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+
+	
+<!--
+
+=====================
+Scrolling dataProvider Tests
+=====================
+
+- these tests try different verticalScrollPosition's with items that have certain sizes:
+  - createIdenticalItems()	[10000, 44, 19]
+  - createDuplicateItems()	[10000, 100, 24]
+  - createMixedItems()		[1000,  100, 24]
+  - createVariableItems()	[10000, 44, 20-100]
+
+- each one  of these get tested by:
+
+  - scroll up and down by large distances
+  - scroll up and down by small distances
+  - scroll up and down by one line
+  
+-->
+
+<!-- createIdenticalItems() -->
+	
+	<TestCase testID="virtualization_columns_identical_scroll_large" keywords="[TileLayout, virtualization]" description="scroll by large increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="24500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="5000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+
+			<AssertMethodValue method="value=application.group1.contentWidth" value="24994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_identical_scroll_small" keywords="[TileLayout, virtualization]" description="scroll by small increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="501" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+					
+			<AssertMethodValue method="value=application.group1.contentWidth" value="24994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_identical_scroll_oneLine" keywords="[TileLayout, virtualization]" description="scroll by one line of items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="44" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="50" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="16" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+					
+			<AssertMethodValue method="value=application.group1.contentWidth" value="24994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>	
+	
+<!-- createDuplicateItems() -->
+
+	<TestCase testID="virtualization_columns_duplicates_scroll_large" keywords="[TileLayout, virtualization]" description="scroll by large amounts">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="112500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="198744" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="474" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_duplicates_scroll_small" keywords="[TileLayout, virtualization]" description="scroll by small amounts">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="501" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="198744" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="474" />
+		</body>
+	</TestCase>			
+
+	<TestCase testID="virtualization_columns_duplicates_scroll_oneLine" keywords="[TileLayout, virtualization]" description="scroll by one line">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="120" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="198744" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="474" />
+		</body>
+	</TestCase>	
+	
+<!-- createMixedItems() -->	
+	
+	<TestCase testID="virtualization_columns_mixed_scroll_large" keywords="[TileLayout, virtualization]" description="scroll by large distances">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" numColorVariances="4" maxColorVariance="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" numColorVariances="4" maxColorVariance="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="19000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" numColorVariances="4" maxColorVariance="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" numColorVariances="4" maxColorVariance="10" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="19922" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="474" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_mixed_scroll_small" keywords="[TileLayout, virtualization]" description="scroll by small distances">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="501" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="5" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1014" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="19922" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="474" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_mixed_scroll_oneLine" keywords="[TileLayout, virtualization]" description="scroll by one line">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="30" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="60" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="90" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="60" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="19922" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="474" />
+		</body>
+	</TestCase>	
+	
+<!-- createVariableItems() -->	
+
+	<TestCase testID="virtualization_columns_variable_scroll_large" keywords="[TileLayout, virtualization]" description="scroll by large distances">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="200000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="264994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="418" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_variable_scroll_small" keywords="[TileLayout, virtualization]" description="scroll by small distances">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="501" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="510" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="498" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="264994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="418" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_variable_scroll_oneLine" keywords="[TileLayout, virtualization]" description="scroll by oneLine">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'vertical', majorSize: 100, minorSize: 100}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="106" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="206" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="212" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_4.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="264994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="418" />
+		</body>
+	</TestCase>
+	
+<!--
+
+=====================
+Viewport Tests
+=====================
+
+- set the horizontalGap/verticalGap to negative, zero, positive values (scroll around)
+- change the rowHeight/columnWidth to larger and smaller values
+- set the rowHeight/columnWidth to larger than the viewport
+- set the requestedRowCount/requestedColumnCount to zero, positive values
+- ensure horizontalAlign/verticalAlign works for each value
+- ensure rowAlign/columnAlign works for each value
+- change the width and height of the viewport
+
+-->
+
+	<TestCase testID="virtualization_columns_paddingLeft_100" keywords="[TileLayout, virtualization]" description="set a padding and ensure retained after scrolling">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="paddingLeft" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="9500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+	
+			<AssertMethodValue method="value=application.group1.contentWidth" value="25094" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_paddingRight_100" keywords="[TileLayout, virtualization]" description="set a padding and ensure retained after scrolling">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="paddingRight" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="24594" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+	
+			<AssertMethodValue method="value=application.group1.contentWidth" value="25094" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="virtualization_columns_verticalGap_0" keywords="[TileLayout, virtualization]" description="set a zero vertical gap">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="verticalGap" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="9500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="18500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+	
+			<AssertMethodValue method="value=application.group1.contentWidth" value="19244" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_verticalGap_106" keywords="[TileLayout, virtualization]" description="set a positive vertical gap">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="verticalGap" value="106" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="120000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+	
+			<AssertMethodValue method="value=application.group1.contentWidth" value="124994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="394" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="virtualization_columns_horizontalGap_0" keywords="[TileLayout, virtualization]" description="set a zero horizontal gap">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="horizontalGap" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="9500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="18500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="22000" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_horizontalGap_106" keywords="[TileLayout, virtualization]" description="set a positive horizontal gap">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="horizontalGap" value="106" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+	
+			<AssertMethodValue method="value=application.group1.contentWidth" value="74894" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_rowHeight_bigger" keywords="[TileLayout, virtualization]" description="increase the row height">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="rowHeight" value="100" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="50000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="105494" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+	
+			<AssertMethodValue method="value=application.group1.contentWidth" value="124994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="418" />
+		</body>
+	</TestCase>			
+
+	<TestCase testID="virtualization_columns_rowHeight_smaller" keywords="[TileLayout, virtualization]" description="decrease the row height">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="rowHeight" value="10" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="8000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="16144" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="490" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_rowHeight_largerThanViewport" keywords="[TileLayout, virtualization]" description="have a row height larger than the viewport height">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="rowHeight" value="600" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="499994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="600" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_columnWidth_bigger" keywords="[TileLayout, virtualization]" description="increase the column width">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+
+			<SetProperty target="group1.layout" propertyName="columnWidth" value="100" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="25000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="52000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="52994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="virtualization_columns_columnWidth_smaller" keywords="[TileLayout, virtualization]" description="decrease the column width">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="columnWidth" value="24" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="8000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="14000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="14994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="virtualization_columns_columnWidth_largerThanViewport" keywords="[TileLayout, virtualization]" description="have a column width larger than the viewport width">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="columnWidth" value="600" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="302994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="119980" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="239960" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_requestedRowCount_0" keywords="[TileLayout, virtualization]" description="request a zero row count (should act like 1)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(1000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="requestedRowCount" value="0" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="25000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="49494" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="49994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="19" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_requestedRowCount_1" keywords="[TileLayout, virtualization]" description="request row count of 1">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(1000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="requestedRowCount" value="1" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="25000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="49494" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="49994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="19" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_requestedRowCount_10" keywords="[TileLayout, virtualization]" description="request row count of 10">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(1000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="requestedRowCount" value="10" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="4494" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="4994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="244" />
+		</body>
+	</TestCase>
+	
+	<!-- REMOVED virtualization_columns_requestedRowCount_1000 since it doesnt apply to columns orientateion -->
+		
+	<!-- Changed requested columnCount since it doesnt apply to columns orientateion -->
+	
+	<TestCase testID="virtualization_columns_requestedColumnCount_2000" keywords="[TileLayout, virtualization]" description="request a column count bigger than viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="requestedColumnCount" value="2000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="6000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="12000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_3.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="99994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="119" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_width_bigger" keywords="[TileLayout, virtualization]" description="resize width bigger">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width" value="650" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="18744" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+						
+			<AssertMethodValue method="value=application.group1.contentWidth" value="24994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="virtualization_columns_width_smaller" keywords="[TileLayout, virtualization]" description="resize width smaller">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="width" value="300" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+						
+			<AssertMethodValue method="value=application.group1.contentWidth" value="24994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_height_bigger" keywords="[TileLayout, virtualization]" description="resize height bigger">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="height" value="650" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="12000" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+						
+			<AssertMethodValue method="value=application.group1.contentWidth" value="19244" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="644" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_height_smaller" keywords="[TileLayout, virtualization]" description="resize height smaller">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />		
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="height" value="300" waitEvent="updateComplete" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="12400" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="41694" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="294" />
+		</body>
+	</TestCase>	
+	
+	
+	<TestCase testID="virtualization_columns_rowAlign_top" keywords="[TileLayout, virtualization]" description="default behavior">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="virtualization_columns_rowAlign_justifyUsingGap" keywords="[TileLayout, virtualization]" description="vertical gaps should widen">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="rowAlign" value="justifyUsingGap" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="virtualization_columns_rowAlign_justifyUsingHeight" keywords="[TileLayout, virtualization]" description="item heights should get taller">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="rowAlign" value="justifyUsingHeight" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="virtualization_columns_columnAlign_left" keywords="[TileLayout, virtualization]" description="default behavior">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_columnAlign_justifyUsingGap" keywords="[TileLayout, virtualization]" description="horizontal gaps should widen">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="columnAlign" value="justifyUsingGap" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+		
+	<TestCase testID="virtualization_columns_columnAlign_justifyUsingWidth" keywords="[TileLayout, virtualization]" description="item widths should get taller">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="columnAlign" value="justifyUsingWidth" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_verticalAlign_top" keywords="[TileLayout, virtualization]" description="vertical align the renderer in the cell">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="verticalAlign" value="top" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_verticalAlign_middle" keywords="[TileLayout, virtualization]" description="vertical align the renderer in the cell">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="verticalAlign" value="middle" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_verticalAlign_bottom" keywords="[TileLayout, virtualization]" description="vertical align the renderer in the cell">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="verticalAlign" value="bottom" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_verticalAlign_justify" keywords="[TileLayout, virtualization]" description="vertical align the renderer in the cell (default)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_horizontalAlign_left" keywords="[TileLayout, virtualization]" description="horizontal align the renderer in the cell">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="horizontalAlign" value="left" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_horizontalAlign_center" keywords="[TileLayout, virtualization]" description="horizontal align the renderer in the cell">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="horizontalAlign" value="center" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_horizontalAlign_right" keywords="[TileLayout, virtualization]" description="horizontal align the renderer in the cell">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1.layout" propertyName="horizontalAlign" value="right" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="virtualization_columns_horizontalAlign_justify" keywords="[TileLayout, virtualization]" description="horizontal align the renderer in the cell (default)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(AlignmentItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+	
+<!--
+
+=====================
+Item Operations
+=====================
+
+- add items (before, in, after viewport)
+- remove items (before, in, after viewport)
+- swap dataProviders
+- swap renderers
+
+-->	
+		
+		
+	<TestCase testID="virtualization_columns_addItems_unsized" keywords="[TileLayout, virtualization]" description="add an item that doesn't define its size properly (SDK-21434)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(1000, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -1, width: 100, height: 24, majorAxis: 'vertical'}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_addItems_before" keywords="[TileLayout, virtualization]" description="add items before the viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -1, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 2)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -2, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 2)" waitTarget="group1" waitEvent="updateComplete" />			
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -3, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 2)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -4, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 2)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -5, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 2)" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_addItems_in" keywords="[TileLayout, virtualization]" description="add items in the viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -1, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -2, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 0)" waitTarget="group1" waitEvent="updateComplete" />			
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -3, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -4, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -5, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_addItems_after" keywords="[TileLayout, virtualization]" description="add items after the viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -1, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 500)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -2, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 500)" waitTarget="group1" waitEvent="updateComplete" />			
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -3, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 500)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -4, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 500)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex: -5, minorSize: 100, majorSize: 24, majorAxis: 'vertical'}, 500)" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="virtualization_columns_removeItems_before" keywords="[TileLayout, virtualization]" description="remove items before viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_removeItems_in" keywords="[TileLayout, virtualization]" description="remove items in viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_removeItems_after" keywords="[TileLayout, virtualization]" description="remove items after viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(application.group1.dataProvider.length - 1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(application.group1.dataProvider.length - 1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(application.group1.dataProvider.length - 1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(application.group1.dataProvider.length - 1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.dataProvider.removeItemAt(application.group1.dataProvider.length - 1)" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="23494" waitEvent="propertyChange" />
+			
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_swapDataProvider" keywords="[TileLayout, virtualization]" description="swap dataProviders">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+		
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2000" waitEvent="propertyChange" />
+			
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_swapDataProvider_smaller" keywords="[TileLayout, virtualization]" description="swap dataProvider to smaller items should resize them smaller (SDK-20930)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 100, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=null" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 50, 25, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+			
+	<TestCase testID="virtualization_columns_swapItemRenderer" keywords="[TileLayout, virtualization]" description="swap item renderers">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(ColorItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/$testID_1.png" target="" />
+		
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2000" waitEvent="propertyChange" />
+			
+			<CompareBitmap url="../integration/baselines/$testID_2.png" target="" />
+		</body>
+	</TestCase>	
+	
+	
+	
+<!--
+
+=====================
+Other
+=====================
+
+- sanity checks on scroll position delta methods
+
+-->	
+		
+	
+	<TestCase testID="virtualization_columns_getVerticalScrollPositionDelta" keywords="[TileLayout, virtualization]" description="check that each NavigationUnit works in the virtual case">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(1000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+		
+			<SetProperty target="group1.layout" propertyName="requestedColumnCount" value="20" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="verticalScrollPosition" value="100" waitEvent="propertyChange" />
+						
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.HOME)" value="-100" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.END)" value="644" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.RIGHT)" value="0" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="0" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.UP)" value="-25" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.DOWN)" value="19" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.PAGE_UP)" value="-100" />
+			<AssertMethodValue method="value=application.group1.getVerticalScrollPositionDelta(NavigationUnit.PAGE_DOWN)" value="500" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="1244" />
+			
+		</body>
+	</TestCase>
+
+	<TestCase testID="virtualization_columns_getHorizontalScrollPositionDelta" keywords="[TileLayout, virtualization]" description="check that each NavigationUnit works in the virtual case">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="-500" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="23994" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="-50" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="44" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="-500" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="500" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.UP)" value="0" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.DOWN)" value="0" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_UP)" value="0" />
+			<AssertMethodValue method="value=application.group1.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_DOWN)" value="0" />
+			
+			<AssertMethodValue method="value=application.group1.contentWidth" value="24994" />
+			<AssertMethodValue method="value=application.group1.contentHeight" value="494" />
+			
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="virtualization_columns_zoom" keywords="[TileLayout, virtualization]" description="play zoom effect on a virtulized tilelayout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.zoom1.play([application.group1])" />
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="virtualization_columns_rotate" keywords="[TileLayout, virtualization]" description="play rotate effect on a virtulized tilelayout">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 44, 19, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<RunCode code="application.rotate1.play([application.group1])" />
+			<WaitForEffectsToEnd />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" numColorVariances="4" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>	
+	
+		
+	<TestCase testID="virtualization_columns_toggleUseVirtualLayout_on" keywords="[TileLayout, virtualization]" description="turn on virtualization at runtime (SDK-21459)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="false" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 100, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="true" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="virtualization_columns_toggleUseVirtualLayout_on_scrolled" keywords="[TileLayout, virtualization]" description="turn on virtualization while scrolled down (SDK-21459)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="false" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 100, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="true" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="virtualization_columns_toggleUseVirtualLayout_off" keywords="[TileLayout, virtualization]" description="turn off virtualization at runtime (SDK-21459)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 100, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="false" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="virtualization_columns_toggleUseVirtualLayout_off_scrolled" keywords="[TileLayout, virtualization]" description="turn off virtualization while scrolled down (SDK-21459)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupTileLayoutVirtualizationTest(application.group1, 'columns')" value="true" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 100, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="false" waitEvent="updateComplete" waitTarget="group1" />
+			<CompareBitmap url="../integration/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>					
+		
+	
+			
+			
+	</testCases>
+</UnitTester>

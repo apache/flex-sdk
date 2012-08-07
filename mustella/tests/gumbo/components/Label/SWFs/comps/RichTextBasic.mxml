@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		backgroundColor="0x0000AA"
+		width="250" height="200" >
+
+	<s:Graphic id="graphic1">
+		<s:Rect id="rect1" top="0" bottom="0" right="0" left="0" width="250" height="200">
+			<s:fill>
+				<mx:SolidColor color="0x99CCCC" />
+			</s:fill>
+		</s:Rect>
+	</s:Graphic>
+		<s:RichText id="textGraphic1" x="0" width="200">
+			<s:content>This is some text inside of a RichText element of a Graphic tag.</s:content>
+		</s:RichText>
+	
+
+</mx:Canvas>

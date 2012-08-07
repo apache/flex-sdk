@@ -1,0 +1,5 @@
+<comps:Diamond x="50" y="50" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:comps="comps.*">
+		<comps:stroke>
+			<mx:SolidColorStroke color="0xFF0000" />
+		</comps:stroke>
+</comps:Diamond>

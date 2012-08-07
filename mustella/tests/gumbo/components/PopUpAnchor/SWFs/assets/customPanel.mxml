@@ -1,0 +1,20 @@
+<s:Group 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"		
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<mx:Button id="openBtn" label="Open Panel" click="PUA.displayPopUp=true"/>
+
+	<s:PopUpAnchor id="PUA" height="21" width="83" popUpPosition="right">
+	
+		<s:Panel id="myPanel" title="PopUp Panel" width="200" height="100">
+			<s:layout><s:VerticalLayout/></s:layout>
+
+			<s:NumericStepper id="myNS" height="23"/>			
+			<s:Button id="exitBtn" label="EXIT" click="PUA.displayPopUp=false"/>		
+		</s:Panel>
+		
+	</s:PopUpAnchor>
+
+</s:Group>
+		

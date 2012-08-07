@@ -1,0 +1,179 @@
+<UnitTester testDir="gumbo/components/Spinner/Events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns="*" testSWF="Gumbo_Spinner_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}             
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <!-- Test Cases -->
+    <testCases>
+	
+		<TestCase testID="Spinner_SetValueEvents1" keywords="[Spinner,value,valueCommit,Event]" description="Test Spinner valueCommit event when value is set">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+		        <SetProperty target="mySpinner" propertyName="value" value="3" />	
+		    </setup>
+		    <body>	            	
+		    	<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent"/>	    	
+		    	<AssertPropertyValue target="mySpinner" propertyName="value" value="3" />	    	
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="Spinner_SetValueEvents2" keywords="[Spinner,value,valueCommit,Event]" description="Test Spinner valueCommit event when value is set and requires rounding">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+		        <SetProperty target="mySpinner" propertyName="snapInterval" value="5" />
+				<SetProperty target="mySpinner" propertyName="stepSize" value="5" />
+		    	<SetProperty target="mySpinner" propertyName="value" value="4" />	    		    		    
+		    </setup>
+		    <body>	        
+		    	<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />	    	
+		    	<AssertPropertyValue target="mySpinner" propertyName="value" value="5" />	    	
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="Spinner_IncrementEvents1" keywords="[Spinner,increment,button,valueCommit,change,Event]" description="Test Spinner valueCommit and change events when incrementButton is used">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner" />
+		        <SetProperty target="mySpinner.incrementButton" propertyName="autoRepeat" value="false" />		
+		    </setup>
+		    <body>	        	
+				<DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="mySpinner"/>
+				<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton" />				
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>    
+        
+		<TestCase testID="Spinner_IncrementEvents2" keywords="[Spinner,increment,button,allowValueWrap,valueCommit,change,Event]" description="Test Spinner valueCommit and change events when incrementButton is used with value wrap">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner" propertyName="value" value="100" waitEvent="updateComplete" waitTarget="mySpinner"/>		
+		    	<SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />		
+		    </setup>
+		    <body>	        	    	
+				<DispatchMouseEvent type="rollOver" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.incrementButton"/>
+			    <DispatchMouseEvent type="mouseDown" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="mySpinner"/>
+		        <AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" numExpectedEvents="-1" />
+		        <AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="mySpinner.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.incrementButton"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />	    	
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="Spinner_DecrementEvents1" keywords="[Spinner,decrement,button,valueCommit,change,Event]" description="Test Spinner valueCommit and change events when decrementButton is used">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+		    	<SetProperty target="mySpinner" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="mySpinner"/>		
+		    </setup>
+		    <body>	        
+				<DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="mySpinner"/>
+		        <AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" numExpectedEvents="-1" />
+		        <AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="Spinner_DecrementEvents2" keywords="[Spinner,decrement,button,allowValueWrap,valueCommit,change,Event]" description="Test Spinner valueCommit and change events when decrementButton is used with value wrap">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+		    	<SetProperty target="mySpinner" propertyName="allowValueWrap" value="true" />		
+		    </setup>
+		    <body>	        
+				<DispatchMouseEvent type="rollOver" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="mySpinner.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="mySpinner"/>
+			    <AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		        <AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="mySpinner.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="mySpinner.decrementButton"/>
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="100" />	    	
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="Spinner_UpKeyEvents" keywords="[Spinner,valueCommit,change,Event,Up]" description="Test Spinner valueCommit and change events when keyboard UP is used">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+				<SetProperty target="mySpinner.incrementButton" propertyName="autoRepeat" value="false" />	
+		    </setup>
+		    <body>	        	
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+		    	<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="mySpinner" />				
+				<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>    
+        
+		<TestCase testID="Spinner_DownKeyEvents" keywords="[Spinner,valueCommit,change,Event,Down]" description="Test Spinner valueCommit and change events when keyboard DOWN is used">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+		    	<SetProperty target="mySpinner" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="mySpinner"/>				
+		    </setup>
+		    <body>	        
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+		    	<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="mySpinner" />				
+				<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase> 
+                   
+		<TestCase testID="Spinner_StepMethodEvents" keywords="[Spinner,valueCommit,Event,step]" description="Test Spinner valueCommit event when step is called directly">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>
+		    	<SetProperty target="mySpinner" propertyName="value" value="18" />
+		    	<SetProperty target="mySpinner" propertyName="snapInterval" value="9" />	    
+		    	<SetProperty target="mySpinner" propertyName="stepSize" value="9" waitEvent="updateComplete" waitTarget="mySpinner"/>	    	    
+		    </setup>
+		    <body>        	       
+				<RunCode code="application.mySpinner.changeValueByStep();" />
+				<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="27" />
+		    </body>
+       </TestCase>     
+       
+		<TestCase testID="Spinner_EndKeyEvents" keywords="[Spinner,valueCommit,change,Event,End]" description="Test Spinner valueCommit and change events when keyboard END is used">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>		    	
+		    </setup>
+		    <body>	        
+		    	<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />	    	
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+		    	<DispatchKeyEvent keys="[END]" waitEvent="change" waitTarget="mySpinner" />				
+				<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="100" />	    	
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="Spinner_HomeKeyEvents" keywords="[Spinner,valueCommit,change,Event,Home]" description="Test Spinner valueCommit and change events when keyboard HOME is used">
+		    <setup>
+		        <ResetComponent target="mySpinner" className="spark.components.Spinner" waitEvent="updateComplete" waitTarget="mySpinner"/>		    	
+		        <SetProperty target="mySpinner" propertyName="value" value="100" />
+		    </setup>
+		    <body>	        
+		    	<AssertPropertyValue target="mySpinner" propertyName="value" value="100" />	    	
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mySpinner" />
+		    	<DispatchKeyEvent keys="[HOME]" waitEvent="change" waitTarget="mySpinner" />				
+				<AssertEvent target="mySpinner" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="mySpinner" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="mySpinner" propertyName="value" value="0" />	    	
+		    </body>
+        </TestCase>         
+        
+        
+    </testCases>
+    
+</UnitTester>
+

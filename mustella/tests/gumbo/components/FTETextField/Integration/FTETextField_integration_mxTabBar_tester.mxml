@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script source="../SWFs/global.as" />
+	<fx:Script>
+		<![CDATA[
+			public const dp1:Array = ['The', 'Quick', 'Brown fox jumps over the lazy dog'];
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+        .textAlignLeft {
+            textAlign: left;
+        }
+        .textAlignCenter {
+            textAlign: center;
+        }
+        .textAlignRight {
+            textAlign: right;
+        }
+        .textAlignJustify {
+            textAlign: justify;
+        }
+        .textAlignStart {
+            textAlign: start;
+        }
+        .textAlignEnd {
+            textAlign: end;
+        }
+
+        .leftAlign {
+            buttonStyleName: textAlignLeft;
+            firstButtonStyleName: textAlignLeft;
+            lastButtonStyleName: textAlignLeft;
+        }
+        .centerAlign {
+            buttonStyleName: textAlignCenter;
+            firstButtonStyleName: textAlignCenter;
+            lastButtonStyleName: textAlignCenter;
+        }
+        .rightAlign {
+            buttonStyleName: textAlignRight;
+            firstButtonStyleName: textAlignRight;
+            lastButtonStyleName: textAlignRight;
+        }
+        .justifyAlign {
+            buttonStyleName: textAlignJustify;
+            firstButtonStyleName: textAlignJustify;
+            lastButtonStyleName: textAlignJustify;
+        }
+        .startAlign {
+            buttonStyleName: textAlignStart;
+            firstButtonStyleName: textAlignStart;
+            lastButtonStyleName: textAlignStart;
+        }
+        .endAlign {
+            buttonStyleName: textAlignEnd;
+            firstButtonStyleName: textAlignEnd;
+            lastButtonStyleName: textAlignEnd;
+        }
+	</fx:Style>
+
+
+	<testCases>
+
+		<!-- ########## PROPERTIES ########## -->
+		<TestCase testID="FTE_mxTabBar" description="Test label property on a mx:TabBar" keywords="[FTETextField, TabBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_disabled" description="Test disabled property on a mx:TabBar" keywords="[FTETextField, TabBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="enabled" value="false" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_label_truncation" description="Test truncating label property on a mx:TabBar" keywords="[FTETextField, TabBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="width" value="300" waitTarget="can2.tabBar" waitEvent="resize" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_label_truncation2" description="Test truncating label property on a mx:TabBar" keywords="[FTETextField, TabBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_label_truncation_direction" description="Test truncating label property on a mx:TabBar" keywords="[FTETextField, TabBar, label, property]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="width" value="300" waitTarget="can2.tabBar" waitEvent="resize" />
+				<SetStyle target="can2.tabBar" styleName="direction" value="rtl" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## STYLES ########## -->
+		<TestCase testID="FTE_mxTabBar_color_red" description="Test color style on a mx:TabBar" keywords="[FTETextField, TabBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="color" value="red" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_color_red_truncating" description="Test color style on a mx:TabBar" keywords="[FTETextField, TabBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="width" value="300" waitTarget="can2.tabBar" waitEvent="resize" />
+				<SetStyle target="can2.tabBar" styleName="color" value="red" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_disabledColor_green" description="Test color style on a mx:TabBar" keywords="[FTETextField, TabBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="enabled" value="false" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="disabledColor" value="green" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_disabledColor_green_truncating" description="Test color style on a mx:TabBar" keywords="[FTETextField, TabBar, color, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetProperty target="can2.tabBar" propertyName="width" value="300" waitTarget="can2.tabBar" waitEvent="resize" />
+				<SetProperty target="can2.tabBar" propertyName="enabled" value="false" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="disabledColor" value="green" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_fontStyle_italic" description="Test font style on a mx:TabBar" keywords="[FTETextField, TabBar, fontStyle, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="fontStyle" value="italic" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_fontSize" description="Test font size on a mx:TabBar" keywords="[FTETextField, TabBar, fontSize, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="fontSize" value="18" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_fontWeight" description="Test font size on a mx:TabBar" keywords="[FTETextField, TabBar, fontWeight, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="fontWeight" value="bold" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxTabBar_kerning_true" description="Test kerning on a mx:TabBar" keywords="[FTETextField, TabBar, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="kerning" value="true" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_kerning_false" description="Test kerning on a mx:TabBar" keywords="[FTETextField, TabBar, kerning, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="kerning" value="false" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="4" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxTabBar_leading" description="Test leading on a mx:TabBar" keywords="[FTETextField, TabBar, leading, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="leading" value="20" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_letterSpacing" description="Test letterSpacing on a mx:TabBar" keywords="[FTETextField, TabBar, letterSpacing, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="letterSpacing" value="10" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FTE_mxTabBar_textAlign_left" description="Test textAlign=left on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignLeft" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_textAlign_center" description="Test textAlign=center on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignCenter" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_textAlign_right" description="Test textAlign=left on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignRight" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_textAlign_start" description="Test textAlign=start on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignStart" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_textAlign_start2" description="Test textAlign=start on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignStart" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetStyle target="can2.tabBar" styleName="direction" value="rtl" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_textAlign_end" description="Test textAlign=end on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignEnd" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FTE_mxTabBar_textAlign_end2" description="Test textAlign=end on a mx:TabBar" keywords="[FTETextField, TabBar, textAlign, style]">
+			<setup>
+				<ResetComponent target="can2" className="comps.FTEViewStack" waitEvent="updateComplete"/>
+				<SetProperty target="can2" propertyName="selectedChild" valueExpression="value=FlexGlobals.topLevelApplication.can2.tabBarView" waitTarget="can2" waitEvent="change" />
+				<SetStyle target="can2.tabBar" styleName="tabStyleName" value="textAlignEnd" waitTarget="can2.tabBar" waitEvent="enterFrame" />
+				<SetStyle target="can2.tabBar" styleName="direction" value="rtl" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetProperty target="can2.tabBar" propertyName="dataProvider" valueExpression="value=dp1;" waitTarget="can2.tabBar" waitEvent="updateComplete" />
+				<SetStyle target="can2.tabBar" styleName="tabWidth" value="150" waitTarget="can2.tabBar" waitEvent="resize" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Integration/baselines/$testID.png" target="can2" numColorVariances="3" maxColorVariance="7"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+
+
+</UnitTester>

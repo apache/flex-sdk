@@ -1,0 +1,12 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark"
+   >
+   <s:ArrayCollection>
+	<s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
+	<s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
+	<s:DataItem key="1002" name="Clamp" price="120.02" call="false"/>
+	<s:DataItem key="1003" name="Drill" price="130.03" call="true"/>
+	<s:DataItem key="1004" name="Epoxy" price="140.04" call="false"/>
+   </s:ArrayCollection>
+	
+</s:DataGrid>

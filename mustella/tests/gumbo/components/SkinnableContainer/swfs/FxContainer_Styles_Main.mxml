@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+backgroundColor="0xFFFFFF" width="700" height="650">
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
+    <fx:Script>
+        <![CDATA[
+            import mx.styles.StyleManager;
+            import mx.collections.ArrayCollection;
+
+            public var eventDispatcher:IEventDispatcher;
+
+            public function loadCSS(): void
+            {
+                eventDispatcher = StyleManager.loadStyleDeclarations("assets/globalStyles2.swf");
+            }
+
+        ]]>
+    </fx:Script>
+
+    <fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+            fontWeight: bold;
+            fontFamily: myArial;
+            embedAsCFF: true;
+        }
+
+        @font-face{
+            src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+            fontStyle: italic;
+            fontFamily: myArial;
+            embedAsCFF: true;
+
+        }
+
+        s|Button {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|NumericStepper {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|List {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|Label {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|RichEditableText {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+
+        s|SkinnableContainer {
+            fontAntiAliasType: "normal";
+            fontFamily: myArial;
+            fontLookup: "embeddedCFF";
+        }
+    </fx:Style>
+
+    <fx:Style source="assets/globalStyles.css" />
+
+    <mx:Button id="defaultButton0" />
+    <s:SkinnableContainer id="fxcontainer0" >
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    <s:TextArea id="textarea1" text="Dispatched when a display _bject is about t_ be removed fr_m the display list.play _bject is about t_ be rem_ved fr_m the display listplay _bject is ab_ut t_ be rem_ved fr_m the display list" height="90"/>
+    <mx:Button id="defaultButton" />
+    </s:SkinnableContainer>
+    <s:SkinnableContainer id="fxcontainer1">
+         <s:layout>
+            <s:HorizontalLayout />
+         </s:layout>
+        <mx:Box id="textinput_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:TextInput id="textinput1" text="FxTextInput" />
+        </mx:Box>
+        <s:Button id="buttona" />
+        <mx:Box id="button_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:Button id="button1" label="FxButton" />
+        </mx:Box>
+        <mx:Box id="radiobutton_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:RadioButton id="radiobutton1" label="FxRadi_Butt_n" selected="true"/>
+        </mx:Box>
+        <mx:Box id="togglebutton_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:ToggleButton label="FxToggleButton" id="togglebutton1" />
+        </mx:Box>
+        <s:VScrollBar maximum="10" minimum="0" id="vscrollbar1" />
+        <mx:Box id="numericstepper_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:NumericStepper id="numericstepper1" />
+        </mx:Box>
+    </s:SkinnableContainer>
+    <mx:Button id="defaultButton2" />
+    <s:SkinnableContainer id="fxcontainer2">
+         <s:layout>
+            <s:HorizontalLayout />
+         </s:layout>
+        <mx:Box id="checkbox_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:CheckBox label="FxCheckBox" id="checkbox1" selected="true" />
+        </mx:Box>
+        <mx:Box id="hslider_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:HSlider maximum="20" minimum="0" id="hslider1" />
+        </mx:Box>
+        <mx:Box id="vslider_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:VSlider maximum="20" minimum="0" id="vslider1" />
+        </mx:Box>
+        <mx:Box id="list_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:List id="list1" selectedIndex="1" dataProvider="{new ArrayCollection(['J_an', 'Jac_b', 'R_b', 'J_ann', 'Lauren', 'Ella'])}" />
+        </mx:Box>
+        <mx:Box id="buttonbar_box" paddingRight="5" paddingLeft="5" paddingTop="5" paddingBottom="5" >
+            <s:ButtonBar id="buttonbar1" dataProvider="{new ArrayCollection(['Christmas', 'Hannukah', 'Kwanza', 'Snowman'])}" />
+        </mx:Box>
+
+        <s:HScrollBar maximum="10" minimum="0" id="hscrollbar1"/>
+    </s:SkinnableContainer>
+
+</s:Application>

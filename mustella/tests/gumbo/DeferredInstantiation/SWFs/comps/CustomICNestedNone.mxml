@@ -1,0 +1,23 @@
+<s:SkinnableContainer  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"       
+    height="300"
+    width="300"
+    creationPolicy="none" >
+    
+	<s:layout>
+    	<s:VerticalLayout/>
+	</s:layout>    
+    
+    <mx:Label text="FxContainer None ONE" />
+    
+    <s:SkinnableContainer id="myNestedIC2" creationPolicy="none">
+    
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>    
+     
+        <mx:Label text="FxContainer None TWO" />
+        
+    </s:SkinnableContainer>
+ 	   
+</s:SkinnableContainer>

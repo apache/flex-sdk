@@ -1,0 +1,17 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" title="percentage test" width="80%" height="80%" >
+
+    <fx:Script>
+    	<![CDATA[
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	<s:TextArea  width="200" height="200"/>
+   	<mx:HBox height="200">
+	   		<s:NumericStepper id="mySparkNS" height="23" />
+	   		<mx:NumericStepper id="myHaloNS"/>
+   	</mx:HBox>
+</s:TitleWindow>

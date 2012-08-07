@@ -1,0 +1,1535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_LockedRC.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+      
+    <!--
+    	NOTE: Due to timing issues related to DataGrid and layout, WaitForEvent is used
+    	in these tests to ensure that DataGrid layout is complete before the test continues
+    	execution.  No specific event was found reliable, and therefore the test waits for
+    	a specified number of enterFrame events.  This may be updated based on layout
+    	changes in the future.
+    -->
+    <testCases>
+ 
+		<!--
+		************** NOTE ***************
+		The tests in this file are commented out because DataGrid Locked Rows and Columns
+		functionality is not yet fully implemented.  Existing DataGrid bugs result in the
+		incorrect appearance of the column separator in the header when lockedColumnCount is set,
+		making all tests that use bitmaps incorrect.  All of these tests should function 
+		correctly, therefore, once bitmaps can be generated they can theoretically be uncommented,
+		updated, and used.  
+		-->
+		
+		<!-- 
+ 		<TestCase testID="DataGrid_Properties_LRC_defaultGet" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test lockedRowCount and lockedColumnCount set in MXML">			
+ 			<setup>
+ 				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+ 				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+ 			</setup>
+ 			<body>				
+ 				<AssertPropertyValue target="myLockedDG" propertyName="lockedRowCount" value="2"/>
+ 				<AssertPropertyValue target="myLockedDG" propertyName="lockedColumnCount" value="2"/>
+ 			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_defaultRowAndColumnSeparators" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test scrolling vertically with lockedRowCount and lockedColumnCount set in MXML on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>					
+			</body>
+		</TestCase>
+					
+		<TestCase testID="DataGrid_Properties_LRC_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test scrolling vertically with lockedRowCount and lockedColumnCount set in MXML on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(2,0)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,0)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(17,0)" value="true"/>				
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_LRC_hScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test scrolling horizontally with lockedRowCount and lockedColumnCount set in MXML on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>							
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,1)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,7)" value="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_LRC_VHScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test scrolling horizontally and vertically with lockedRowCount and lockedColumnCount set in MXML on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,1)" value="true"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,7)" value="true"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,1)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,4)" value="false"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(17,1)" value="true"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="DataGrid_Properties_LRC_changeLockedRowCountRunTime_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test scrolling vertically after changing the number of locked rows at runtime on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,3)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(4,3)" value="false"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,3)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,3)" value="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_LRC_changeLockedColumnCountRunTime_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test scrolling horizontally after changing the number of locked columns at runtime on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,3)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,4)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,5)" value="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_LRC_changeLockedRowAndColumnCountRunTime_VHScroll" keywords="[DataGrid, Property, lockedRowCount, lockedColumnCount, Scroll]" description="Test scrolling horizontally and vertically after changing the number of locked rows and columns at runtime on the DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,3)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,4)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,3)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,3)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,5)" value="true"/>
+			</body>
+		</TestCase>				
+
+		<TestCase testID="DataGrid_Properties_LRC_singleLockedRowSelection_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test selecting a row in the locked portion of the grid and then scrolling vertically">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="30" waitEvent="click"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="0"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,2)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,2)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsIndex(0)" value="true"/>
+				
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_LRC_multipleLockedRowSelection_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test selecting multiple rows in the locked portion of the grid and then scrolling vertically">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="50" shiftKey="true" waitEvent="click"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1]"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,2)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(3,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,2)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsIndex(0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsIndex(1)" value="true"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DataGrid_Properties_LRC_multipleLockedAndUnlockedRowSelection_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test selecting both locked and unlocked rows in the grid and then scrolling vertically">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="50" ctrlKey="true" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="120" ctrlKey="true" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="170" ctrlKey="true" waitEvent="click"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,3,5]"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="5" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,3,5]"/>								
+			</body>
+		</TestCase>	
+				
+		<TestCase testID="DataGrid_Properties_LRC_multipleLockedAndUnlockedCellSelection_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that multiple cells in the locked and unlocked portion of the grid retain selection when DataGrid is scrolled horizontally">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="60" waitEvent="click"/>				
+				<DispatchMouseClickEvent target="myLockedDG" localX="5" localY="100"  ctrlKey="true" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" localX="200" localY="80" ctrlKey="true" waitEvent="click"/>			
+				<DispatchMouseClickEvent target="myLockedDG" localX="200" localY="150" ctrlKey="true" waitEvent="click"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(1,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,0)" value="true"/>							
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,1)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,3)" value="true"/>												
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,2)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,3)" value="true"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>					
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="20" localY="5" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(1,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,3)" value="true"/>								
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,3)" value="true"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_LRC_clearLockedRowsRuntime" keywords="[DataGrid, Property, lockedRowCount]" description="Test removing locked rows at runtime DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(1,0)" value="false"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,0)" value="true"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(19,0)" value="true"/>					
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_clearLockedColumnsRuntime" keywords="[DataGrid, Property, lockedRowCount]" description="Test removing locked columns at runtime DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,1)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,9)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_clearLockedRowsAndColumnsRuntime" keywords="[DataGrid, Property, lockedRowCount]" description="Test removing locked rows and columns at runtime DataGrid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,5)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(19,9)" value="true"/>				
+			</body>
+		</TestCase>	
+				
+		<TestCase testID="DataGrid_Properties_LRC_clearThenIncreaseLockedRowsAndColumnsRuntime" keywords="[DataGrid, Property, lockedRowCount]" description="Test removing locked rows and columns at runtime, scrolling, and then setting them again">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,0)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,1)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,5)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(10,5)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(19,9)" value="true"/>				
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="3" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>	
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(9,1)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(12,7)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(13,6)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(13,7)" value="true"/>								
+				<AssertMethodValue method="value=application.myLockedDG.isCellInScrollRect(19,9)" value="true"/>								
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DataGrid_Properties_LRC_clearThenIncreaseLockedRowsAndColumnsRuntime_keyboardNav" keywords="[DataGrid, Property, lockedRowCount, lockedColumnCount, keybaord]" description="Test removing locked rows and columns at runtime, scrolling, and then setting them again and navigating via the keyboard">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="0" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>								
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="3" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,1)" value="true"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount3_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount at runtime and then scrolling vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="3" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="220" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(3,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,0)" value="true"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount3_VHScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount at runtime and then scrolling vertically and horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="3" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="220" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,9)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,5)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,5)" value="true"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount10_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount to a value equal to all visible rows at runtime and then scrolling the DataGrid vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="10" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="220" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,4)" value="true"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount10_hScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount to a value equal to all visible rows at runtime and then scrolling the DataGrid horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="10" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,9)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,9)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount10_1RowScroll_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount to a value equal to all visible rows at runtime, then increase height so one additional row is visible, and scroll the DataGrid vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />					
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="10" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="height" value="327" waitEvent="updateComplete" waitTarget="myUnlockedDG"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="230" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="230" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="230" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,4)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(12,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(13,4)" value="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount15_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount to a value greater than all the visible rows in the DataGrid and then scroll vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="15" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="220" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,4)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="false"/>
+			</body>
+		</TestCase>	
+			
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount15_hScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount to a value greater than all the visible rows in the DataGrid and then scroll horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="15" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,2)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,9)" value="true"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedRowCount5_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test setting lockedRowCount at runtime, scroll vertically, then decrease height so only locked rows are visible">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="5" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="150" waitEvent="click"/>				
+				<SetProperty target="myUnlockedDG" propertyName="height" value="117" waitEvent="updateComplete" waitTarget="myUnlockedDG"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,4)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(3,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,5)" value="false"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount2_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test setting lockedColumnCount at runtime and scrolling horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,1)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,2)" value="false"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount4_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test setting lockedColumnCount at runtime so all but 1 column is locked and then scroll horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="4" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,3)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="false"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount5_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test setting lockedColumnCount at runtime so all visible columns are locked and then scroll horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="5" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="false"/>
+
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount5_widthChange_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test setting lockedColumnCount at runtime so all visible columns are locked, increase DataGrid width, and then scroll horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="5" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="width" value="401" waitEvent="updateComplete" waitTarget="myUnlockedDG"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="350" localY="5" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="350" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,7)" value="true"/>
+			</body>
+		</TestCase>	
+			
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_1Col1Row_VHScroll" keywords="[DataGrid, Property, lockedRowCount, lockedColumnCount, Scroll]" description="Test setting lockedRowCount and lockedColumnCount at runtime and scrolling horizontally and vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="1" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="1" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,5)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,5)" value="true"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_singleCelltopLeftView_VHScroll" keywords="[DataGrid, Property, lockedRowCount, lockedColumnCount, Scroll]" description="Test setting lockedRowCount and lockedColumnCount at runtime and scrolling horizontally and vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="1" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="1" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>				
+			</setup>
+			<body>							
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="30" localY="30" waitEvent="click"/>					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="240" localY="5" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,1)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(1,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(0,0)" value="true"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount2_singleLockedRowSelection_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that a single rows in the locked portion of the grid maintains selection when DataGrid is scrolled horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="30" waitEvent="click"/>
+				<AssertPropertyValue target="myUnlockedDG" propertyName="selectedIndex" value="0"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,1)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(0)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount2_multipleLockedRowSelection_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that multiple rows in the locked portion of the grid maintain selection when DataGrid is scrolled horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="50" ctrlKey="true" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="120" ctrlKey="true" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="170" ctrlKey="true" waitEvent="click"/>
+				<AssertPropertyValue target="myUnlockedDG" propertyName="selectedIndices" value="[0,1,3,5]"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,1)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(1)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(2)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(3)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsIndex(6)" value="false"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount2_singleLockedCellSelection_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that single cell in locked portion of the grid retains selection when DataGrid is scrolled horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="60" waitEvent="click"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(1,0)" value="true"/>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,1)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,2)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(1,0)" value="true"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount2_singleUnlockedCellSelection_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that single cell in unlocked portion of the grid retains selection when DataGrid is scrolled horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="200" localY="80" waitEvent="click"/>								
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,3)" value="true"/>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,3)" value="false"/>							
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="20" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,3)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,3)" value="true"/>												
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_lockedColumnCount2_multipleUnlockedCellSelection_hScroll" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that multiple cells in the locked and unlocked portion of the grid retain selection when DataGrid is scrolled horizontally">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="2" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="60" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="100"  ctrlKey="true" waitEvent="click"/>												
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="200" localY="80" ctrlKey="true" waitEvent="click"/>			
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="200" localY="150" ctrlKey="true" waitEvent="click"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(1,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,3)" value="true"/>												
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(4,3)" value="true"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="220" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,1)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,2)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,5)" value="true"/>								
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.horizontalScrollBar.track" localX="20" localY="5" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,2)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,4)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(1,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,0)" value="true"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,2)" value="false"/>												
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(2,3)" value="true"/>												
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(3,3)" value="false"/>												
+				<AssertMethodValue method="value=application.myUnlockedDG.selectionContainsCell(4,3)" value="true"/>				
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_LRC_runtimeLock_multipleLockedAndUnlockedRowSelection_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test selecting both locked and unlocked rows in the grid and then scrolling vertically">			
+			<setup>
+				<ResetComponent target="myUnlockedDG" className="components.DataGrid_Custom_unlockedRC" waitEvent="updateComplete" />					
+				<SetProperty target="myUnlockedDG" propertyName="lockedColumnCount" value="1" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="lockedRowCount" value="1" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<SetProperty target="myUnlockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myUnlockedDG.grid"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="30" waitEvent="click"/>				
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="120" ctrlKey="true" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myUnlockedDG" localX="5" localY="170" ctrlKey="true" waitEvent="click"/>
+				<AssertPropertyValue target="myUnlockedDG" propertyName="selectedIndices" value="[0,3,5]"/>
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(1,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,0)" value="false"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(10,0)" value="true"/>				
+				<DispatchMouseClickEvent target="myUnlockedDG.scroller.verticalScrollBar.track" localX="5" localY="5" waitEvent="updateComplete"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(2,0)" value="true"/>
+				<AssertMethodValue method="value=application.myUnlockedDG.isCellInScrollRect(9,0)" value="true"/>
+				<AssertPropertyValue target="myUnlockedDG" propertyName="selectedIndices" value="[0,3,5]"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_LRC_rowRemove" keywords="[DataGrid, Property, lockedRowCount, removeItemAt]" description="Test that items in the dataProvider shift into the lockedRows when the previous content is deleted">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(0).col0" value="R02C0"/>				
+				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(1).col0" value="R03C0"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_rowAddTopGridView_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test that items in the dataProvider shift into the locked region when added to the dataProvider">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_1,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_2,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(0).col0" value="NEW02"/>				
+				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(1).col0" value="NEW01"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_rowAddTopAndCenterGridView_vScroll" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test that items in the dataProvider shift into the locked and unlocked rows when items are added to the dataProvider">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_1,1)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_2,2)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(1).col0" value="NEW01"/>				
+				<AssertMethodValue method="value=application.myLockedDG.dp1.getItemAt(2).col0" value="NEW02"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_rowRemoveTopGridView" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test that rows can be removed from the topGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedRowCount" value="8" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_1.png"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>	
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<RunCode code="application.myLockedDG.dp1.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>														
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_2.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_columnRemoveLeftGridView" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test that columns can be removed from the leftGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="lockedColumnCount" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_1.png"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.removeItemAt(0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>								
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID_2.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_columnAddLeftGridView" keywords="[DataGrid, Property, lockedColumnCount, Scroll]" description="Test that columns can be added to the leftGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.cols.addItemAt(application.myLockedDG.myGC_1,0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="application.myLockedDG.cols.addItemAt(application.myLockedDG.myGC_2,0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_columnAndRowAdd_VHScroll" keywords="[DataGrid, Property, lockedColumnCount, lockedRowCount, Scroll]" description="Test that columns and rows can be added to the leftGridView and topGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.cols.addItemAt(application.myLockedDG.myGC_1,0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>
+				<RunCode code="application.myLockedDG.cols.addItemAt(application.myLockedDG.myGC_2,0)" waitEvent="collectionChange" waitTarget="myLockedDG.cols"/>				
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_1,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_2,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>											
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_dataChangeTopGridView" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test that data in the topGridView can be modified at runtime">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.dp1.getItemAt(0,0).col0='Col0000000000000000000000000000000000000000000'" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<RunCode code="application.myLockedDG.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>								
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_dataChangeTopGridView_withVariableRowHeight" keywords="[DataGrid, Property, lockedRowCount, Scroll]" description="Test that the topGridView resizes when variableRowHeight is true and data is added causing the first row to increase height">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="variableRowHeight" value="true" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<RunCode code="application.myLockedDG.dp1.getItemAt(0,0).col0='Col0000000000000000000000000000000000000000000'" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<RunCode code="application.myLockedDG.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>												
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>				
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNavBasic" keywords="[DataGrid, Property, keyboard, navigation]" description="Test basic keyboard navigation from topGridView to centerGridView and back up with locked rows and columns">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="1"/>
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="2"/>
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="3"/>	
+				<DispatchKeyEvent keys="[UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="2"/>
+				<DispatchKeyEvent keys="[UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageDown" keywords="[DataGrid, Property, keyboard, navigation, pageDown]" description="Test keyboard navigation using pageDown while in topGridView and then centerGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="1"/>
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="2"/>
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="9"/>					
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="18"/>
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="19"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageDown_singleCellSelection" keywords="[DataGrid, Property, keyboard, navigation, pageDown, singleCell]" description="Test keyboard navigation using pageDown while in topGridView and then centerGridView with singleCell selectionMode">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(1,0)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,0)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(9,0)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(18,0)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,0)" value="true"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageDown_singleCellSelection_middleCell" keywords="[DataGrid, Property, keyboard, navigation, pageDown, singleCell]" description="Test keyboard navigation using pageDown while in topGridView and then centerGridView with singleCell selectionMode starting on a cell in the middle of the Grid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,3)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(1,3)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,3)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(9,3)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(18,3)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,3)" value="true"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageDown_middleUnlockedRow" keywords="[DataGrid, Property, keyboard, navigation, pageDown]" description="Test keyboard navigation using pageDown while in the centerGridView starting with a middle row selected">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectedIndex" value="4" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>	
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="4"/>					
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="9"/>					
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="18"/>
+				<DispatchKeyEvent keys="[PAGE_DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="19"/>			
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageUp_middleUnlockedRow" keywords="[DataGrid, Property, keyboard, navigation, pageUp]" description="Test keyboard navigation using pageUp starting in the centerGridView moving into the topGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectedIndex" value="15" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="15"/>									
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>								
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="10"/>				
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="3"/>					
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="2"/>
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageUp_centerToTopGridView" keywords="[DataGrid, Property, keyboard, navigation, pageUp]" description="Test keyboard navigation using pageUp from the first row of the centerGridView to the topGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="2"/>									
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>								
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="0"/>								
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardNav_pageUp_singleCellSelection_middleCell" keywords="[DataGrid, Property, keyboard, navigation, pageDown, singleCell]" description="Test keyboard navigation using pageUp while in centerGridView and then topGridViw with singleCell selectionMode starting on a cell in the middle of the Grid">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />					
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<AssertMethodValue method="value=application.myLockedDG.setSelectedCell(13,5)" value="true"/>				
+			</setup>
+			<body>								
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.horizontalScrollBar.track" localX="200" localY="5" waitEvent="updateComplete"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(13,5)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(10,5)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,5)" value="true"/>	
+				<DispatchKeyEvent keys="[PAGE_UP]" waitEvent="selectionChange" waitTarget="myLockedDG"/>								
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,5)" value="true"/>					
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardSelectAll_fromTopGridView" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the keyboard while in the topGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="1"/>				
+				<DispatchKeyEvent keys="[A]" ctrlKey="true" waitEvent="selectionChange" waitTarget="myLockedDG"/>				
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_methodSelectAll_fromTopGridView" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the DataGrid selectAll method while in the topGridView">
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="1"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectAll()" value="true"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_keyboardSelectAll_fromCenterGridView" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the keyboard while in the centerGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<SetProperty target="myLockedDG" propertyName="selectedIndex" value="12" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>				
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="12"/>				
+				<DispatchKeyEvent keys="[A]" ctrlKey="true" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_methodSelectAll_fromCenterGridView" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the DataGrid selectAll method while in the centerGridView">
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<SetProperty target="myLockedDG" propertyName="selectedIndex" value="12" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndex" value="12"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectAll()" value="true"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DataGrid_Properties_LRC_keyboardSelectAll_fromTopGridView_multipleCells" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the keyboard while in the topGridView with multipleCells selectionMode">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,3)" value="true"/>				
+				<DispatchKeyEvent keys="[A]" ctrlKey="true" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,7)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,7)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_methodSelectAll_fromTopGridView_multipleCells" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the DataGrid selectAll method while in the topGridView with multipleCells selectionMode">
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,3)" value="true"/>			
+				<AssertMethodValue method="value=application.myLockedDG.selectAll()" value="true"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,7)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,7)" value="true"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DataGrid_Properties_LRC_keyboardSelectAll_fromCenterGridView_multipleCells" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the keyboard while in the centerGridView with multipleCells selectionMode">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchMouseClickEvent target="myLockedDG" localX="200" localY="150" waitEvent="click"/>						
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,3)" value="true"/>				
+				<DispatchKeyEvent keys="[A]" ctrlKey="true" waitEvent="selectionChange" waitTarget="myLockedDG"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,7)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,7)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_methodSelectAll_fromCenterGridView_multipleCells" keywords="[DataGrid, Property, selectAll]" description="Test selectAll via the DataGrid selectAll method while in the centerGridView with multipleCells selectionMode">
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>								
+				<DispatchMouseClickEvent target="myLockedDG" localX="200" localY="150" waitEvent="click"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,3)" value="true"/>			
+				<AssertMethodValue method="value=application.myLockedDG.selectAll()" value="true"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,7)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(19,7)" value="true"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_LRC_shiftSelect_topAndCenterGridRows" keywords="[DataGrid, Property, selectAll]" description="Test selecting multiple rows from the topGridView and centerGridView via shift+mouse clicks">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="20" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" shiftKey="true" localX="20" localY="110" waitEvent="click"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,2,3]"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_ctrlSelect_topAndCenterGridRows" keywords="[DataGrid, Property, selectAll]" description="Test selecting multiple rows from the topGridView and centerGridView via control+mouse clicks">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG" ctrlKey="true" localX="20" localY="110" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,3]"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_shiftSelect_topAndCenterGridRowsWithScroll" keywords="[DataGrid, Property, selectAll]" description="Test selecting multiple rows from the topGridView, scrolling vertically, and selecting a row from the centerGridView via shift+mouse clicks">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseClickEvent target="myLockedDG" shiftKey="true" localX="20" localY="210" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_ctrlSelect_topAndCenterGridRowsWithScroll" keywords="[DataGrid, Property, selectAll]" description="Test selecting multiple rows from the topGridView, scrolling vertically, and selecting a row from the centerGridView via control+mouse clicks">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleRows" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>	
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchMouseClickEvent target="myLockedDG" ctrlKey="true" localX="20" localY="210" waitEvent="click"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<AssertPropertyValue target="myLockedDG" propertyName="selectedIndices" value="[0,15]"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_shiftSelect_topAndCenterGridCells" keywords="[DataGrid, Property, selections]" description="Test selecting multiple cells from the topGridView and centerGridView via shift+mouse clicks">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" shiftKey="true" localX="20" localY="130" waitEvent="click"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(1,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(3,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(5,0)" value="false"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_ctrlSelect_topAndCenterGridCells" keywords="[DataGrid, Property, selection]" description="Test selecting multiple cells from the topGridView and centerGridView via control+mouse clicks">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>
+				<DispatchMouseClickEvent target="myLockedDG" ctrlKey="true" localX="20" localY="130" waitEvent="click"/>				
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,0)" value="true"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(1,0)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(2,0)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(3,0)" value="false"/>
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(4,0)" value="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_mirroringBasic" keywords="[DataGrid, Property, mirroring, direction, layoutDirection]" description="Test mirroring scenario on a DataGrid with locked rows and columns">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetStyle target="myLockedDG" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<SetStyle target="myLockedDG" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>																
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_LRC_mirroringKeyboardNavHorizontal" keywords="[DataGrid, Property, mirroring, direction, layoutDirection]" description="Test keyboard navigation a mirrored DataGrid with locked rows and columns">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetStyle target="myLockedDG" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<SetStyle target="myLockedDG" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>						
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[LEFT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[LEFT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[LEFT]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(0,3)" value="true"/>					
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DataGrid_Properties_LRC_mirroringKeyboardNavVertical" keywords="[DataGrid, Property, mirroring, direction, layoutDirection]" description="Test keyboard navigation a mirrored DataGrid with locked rows and columns">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetStyle target="myLockedDG" styleName="direction" value="rtl" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<SetStyle target="myLockedDG" styleName="layoutDirection" value="rtl" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>						
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myLockedDG"/>				
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myLockedDG"/>	
+				<AssertMethodValue method="value=application.myLockedDG.selectionContainsCell(3,0)" value="true"/>					
+			</body>
+		</TestCase>		
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedColumnProgramaticResize" keywords="[DataGrid, Property, Resize]" description="Test resizing a locked columns">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>						
+				<SetProperty target="myLockedDG.c0" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>								
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedColumnInteractiveResize" keywords="[DataGrid, Property, Resize]" description="Test resizing a locked column interactively">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>						
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseOver" localX="55" localY="12" waitEvent="mouseOver"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="115" localY="12" waitEvent="mouseMove"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="115" localY="12" waitEvent="mouseUp"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedColumnInteractiveResizeVariableRowHeight" keywords="[DataGrid, Property, Resize]" description="Test resizing a locked column interactively with variableRowHeight set">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="variableRowHeight" value="true" waitEvent="updateComplete" waitTarget="myLockedDG.grid"/>				
+			</setup>
+			<body>						
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseOver" localX="55" localY="12" waitEvent="mouseOver"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="25" localY="12" waitEvent="mouseMove"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="25" localY="12" waitEvent="mouseUp"/>												
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedColumnInteractiveResizeSelectedCells" keywords="[DataGrid, Property, selections]" description="Test selecting multiple cells from the topGridView and centerGridView and then interactively resizing the column">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="20" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" shiftKey="true" localX="20" localY="110" waitEvent="click"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseOver" localX="55" localY="12" waitEvent="mouseOver"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="115" localY="12" waitEvent="mouseMove"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="115" localY="12" waitEvent="mouseUp"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedColumnInteractiveResizeSelectedCellsBlock" keywords="[DataGrid, Property, selections]" description="Test selecting multiple cells from the topGridView and centerGridView and then interactively resizing the column">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="20" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" shiftKey="true" localX="110" localY="110" waitEvent="click"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseOver" localX="55" localY="12" waitEvent="mouseOver"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="115" localY="12" waitEvent="mouseMove"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="115" localY="12" waitEvent="mouseUp"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_comboRuntimeChanges" keywords="[DataGrid, Property, selections]" description="Test a combination of cell selection, dataProvider change and columnResize at runtime">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="multipleCells" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />								
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="20" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" shiftKey="true" localX="110" localY="110" waitEvent="click"/>
+				<RunCode code="application.myLockedDG.dp1.addItemAt(application.myLockedDG.myDI_1,0)" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>
+				<RunCode code="application.myLockedDG.dp1.getItemAt(0,0).col0='ABCDEFGHIJKLMNOPQRSTUVWXYZ'" waitEvent="collectionChange" waitTarget="myLockedDG.dp1"/>				
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseOver" localX="55" localY="12" waitEvent="mouseOver"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseDown" localX="55" localY="12" waitEvent="mouseDown"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseMove" localX="150" localY="12" waitEvent="mouseMove"/>
+				<DispatchMouseEvent target="myLockedDG.columnHeaderGroup" type="mouseUp" localX="150" localY="12" waitEvent="mouseUp"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>
+			
+		<TestCase testID="DataGrid_Properties_LRC_alternatingRowColors" keywords="[DataGrid, Property, alternatingRowColors]" description="Test alternatingRowColors with locked rows and columns">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetStyle target="myLockedDG" styleName="alternatingRowColors" valueExpression="value=['0xFF0000','0x00FF00','0x0000FF']" waitEvent="updateComplete" waitTarget="myLockedDG" />				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG.scroller.verticalScrollBar.track" localX="5" localY="200" waitEvent="updateComplete"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>			
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>				
+		
+		<TestCase testID="DataGrid_Properties_LRC_lockedPropertyStates" keywords="[DataGrid, Property, States]" description="Test binding lockedRowCount and lockedColumnCount to states">			
+			<setup>
+				<ResetComponent target="myLockedDGStates" className="components.DataGrid_Custom_lockedRC_States" waitEvent="updateComplete" />				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>												
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_1.png"/>				
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_2.png"/>				
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_3.png"/>				
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedPropertyStates_lockedChangeRuntime" keywords="[DataGrid, Property, States]" description="Test changing the lockedRowCount and lockedColumnCount in a specific state">			
+			<setup>
+				<ResetComponent target="myLockedDGStates" className="components.DataGrid_Custom_lockedRC_States" waitEvent="updateComplete" />				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>																			
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>				
+				<SetProperty target="myLockedDGStates" propertyName="lockedRowCount" value="3" waitEvent="updateComplete" waitTarget="myLockedDGStates.grid"/>
+				<SetProperty target="myLockedDGStates" propertyName="lockedColumnCount" value="1" waitEvent="updateComplete" waitTarget="myLockedDGStates.grid"/>
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_1.png"/>				
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_2.png"/>				
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state2" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID_3.png"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_lockedPropertyStates_dataChangeRuntime" keywords="[DataGrid, Property, States]" description="Test changing the data in locked rows in a specific state">			
+			<setup>
+				<ResetComponent target="myLockedDGStates" className="components.DataGrid_Custom_lockedRC_States" waitEvent="updateComplete" />				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>																			
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>				
+				<RunCode code="application.myLockedDGStates.dp1.getItemAt(0,0).col0='ABCDEFGHIJKLMNOPQRSTUVWXYZ'" waitEvent="collectionChange" waitTarget="myLockedDGStates.dp1"/>									
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state1" waitEvent="currentStateChange"/>				
+				<SetProperty target="myLockedDGStates" propertyName="currentState" value="state3" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myLockedDGStates" url="../Properties/Baselines/$testID.png"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_topGridViewLockedCellTextEdit" keywords="[DataGrid, Property, Text]" description="Test editing text in a cell in the topGridView">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myLockedDG" propertyName="selectionMode" value="singleCell" waitEvent="updateComplete" waitTarget="myLockedDG.grid" />
+				<SetProperty target="myLockedDG" propertyName="editable" value="true" waitEvent="enterFrame" waitTarget="stage"/>				
+			</setup>
+			<body>												
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>								
+				<DispatchMouseClickEvent target="myLockedDG" localX="20" localY="30" waitEvent="click"/>				
+				<DispatchKeyEvent char="Apache"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<DispatchKeyEvent keys="[ENTER]"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_LRC_customLockedSeparators" keywords="[DataGrid, Property, lockedRowSeparator, lockedColumnSeparator, Skin]" description="Test using a custom skin that changes the appearance of the lockedRowSeparator and lockedColumnSeparator skin parts">			
+			<setup>
+				<ResetComponent target="myLockedDG" className="components.DataGrid_Custom_lockedRC" waitEvent="updateComplete" />		
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetStyle target="myLockedDG" styleName="skinClass" valueExpression="value=CustomDataGridLockedSkin" waitEvent="updateComplete"/>				
+			</setup>
+			<body>												
+				<CompareBitmap target="myLockedDG" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+		-->
+    </testCases>
+</UnitTester>

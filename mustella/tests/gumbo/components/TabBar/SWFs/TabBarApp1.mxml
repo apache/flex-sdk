@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:custom="Assets.*"
+	         width="800" height="600"
+	         currentStateChange="doCurrentStateChange()" >
+
+<fx:Script>
+<![CDATA[
+
+    import mx.collections.IList;
+    import spark.components.ToggleButton;
+    import mx.core.Application;
+    import mx.core.IFlexDisplayObject;
+    import mx.managers.PopUpManager;
+    import mx.utils.ObjectUtil;
+    import spark.events.IndexChangeEvent;
+    import spark.components.ButtonBarButton;
+	import spark.components.supportClasses.ButtonBarBase;
+    import spark.skins.spark.TabBarSkin;
+
+    public var thePopUp:IFlexDisplayObject;
+	
+    [Bindable]
+    private var skinTestData1:ArrayCollection=new ArrayCollection([
+		
+		{label:'one',imageSrc:'../../../../../Assets/Images/smallredrect.jpg',flag:true},
+		{label:'two',imageSrc:'../../../../../Assets/Images/smallgreenrect.jpg',flag:false},
+		{label:'three',imageSrc:'../../../../../Assets/Images/smallbluerect.jpg',flag:true}, 
+		{label:'four',imageSrc:'../../../../../Assets/Images/smallgreenrect.jpg',flag:false},
+		{label:'five',imageSrc:'../../../../../Assets/Images/smallredrect.jpg',flag:true}]);
+    /**
+    * Change the state of all custom components which
+    * have states defined.
+    **/
+    private function doCurrentStateChange():void{
+        tb4.currentState = currentState;
+        tb5.currentState = currentState;
+        tb6.currentState = currentState;
+        tb7.currentState = currentState;
+    }
+
+    /**
+    * Use this function to reset the dataProvider.  Do
+    * not just re-use the dataProvider that is in the
+    * main app. file because edits made to it will continue
+    * to appear in subsequent tests.
+    **/
+    public function setDataProvider(tb:ButtonBarBase, dpNum:int):void{
+        switch(dpNum){
+		 	case 0:
+                tb.dataProvider = new ArrayCollection();
+                break;
+            case 1:
+                tb.dataProvider = IList(ObjectUtil.copy(ac1));
+                break;
+            case 2:
+                tb.dataProvider = IList(ObjectUtil.copy(ac2));
+                break;
+            case 3:
+                tb.dataProvider = IList(ObjectUtil.copy(ac3));
+                break;
+			case 4:
+                tb.dataProvider = IList(ObjectUtil.copy(ac4));
+                break;
+			case 5:
+                tb.dataProvider = IList(ObjectUtil.copy(skinTestData1));
+                break;
+        }
+    }
+
+
+    /**
+    * Use this to set focus to the given TabBar.
+    * (This is more reliable than pressing Tab and hoping there aren't
+    * any new children in the test app. which have changed the tab order.)
+    **/
+    public function setTabBarFocus(bar:TabBar):void{
+        focusManager.findFocusManagerComponent(bar).setFocus();
+    }
+
+    /**
+    * Launch/dismiss popups.
+    **/
+    public function showPopUp():void {
+        thePopUp = PopUpManager.createPopUp(this, Assets.CustomTitleWindow, true);
+		thePopUp.height=70;
+    }
+
+    public function hidePopUp():void{
+        try{
+            PopUpManager.removePopUp(thePopUp);
+        }catch(e:Error){}
+    }
+
+    [Bindable]
+    public var vacationIdeas:Array = [
+       {trip: "Australia", month: "November"},
+       {trip: "Thailand", month: "April"},
+       {trip: "Maui", month: "June"}
+       ];
+
+    public function addListener(): void
+    {
+        tb1.addEventListener("change", changeColor);
+    }
+
+    public function changeColor(event:IndexChangeEvent):void
+    {
+        ButtonBarButton(TabBarSkin(TabBar(event.target).skin).dataGroup.getElementAt(event.newIndex)).setStyle('chromeColor', 0xFF0000);
+    }
+
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+        embedAsCFF: true;
+    }
+
+    global{
+        kerning: "off";
+    }
+
+    s|TabBar{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|CheckBox{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+   s|TextArea{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|RadioButton{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|ToggleButton{
+        fontFamily: EmbeddedVerdana;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<fx:Declarations>
+
+    <mx:ArrayCollection id="ac1">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+        <fx:String>three</fx:String>
+    </mx:ArrayCollection>
+
+    <mx:ArrayCollection id="ac2">
+        <fx:String>one</fx:String>
+    </mx:ArrayCollection>
+
+    <mx:ArrayCollection id="ac3">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+    </mx:ArrayCollection>
+	
+   <mx:ArrayCollection id="ac4">
+        <fx:String>one long long long long long label one</fx:String>
+        <fx:String>two long long long long long label two</fx:String>
+    </mx:ArrayCollection>
+	
+    <mx:ArrayCollection id="complexDP" source="{vacationIdeas}" />
+</fx:Declarations>
+
+<s:states>
+    <s:State name="state1" />
+    <s:State name="state2" />
+</s:states>
+
+<s:layout> <s:VerticalLayout/> </s:layout>
+	<mx:VBox width="500" height="100%">
+	    <s:TabBar id="baseColor_tabBar"  dataProvider="{ac2}" chromeColor="0xFFFF00" />
+	    <s:TabBar id="color_tabBar"  dataProvider="{ac2}" color="0xFF0000" />
+	    <mx:Box paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="focusColor_tabBar_box" >
+	        <s:TabBar id="focusColor_tabBar" dataProvider="{ac2}" focusColor="0xCC0033" />
+	    </mx:Box>
+    </mx:VBox>
+<mx:HBox>
+
+	<custom:GroupWithTabBars id="vgroup1"/>
+	
+<mx:Box>
+<mx:Button id="default_button"/>
+
+<mx:Box id="box4" width="{tb1.width + 20}" height="{tb1.height + 20}" horizontalAlign="center" verticalAlign="middle">
+    <s:TabBar id="tb1" />
+</mx:Box>
+<custom:CustomTabBar1 id="tb2" />
+<custom:CustomTabBar2 id="tb3" />
+
+<!-- These are used for testing states. -->
+<custom:CustomTabBar3 id="tb4" />
+<custom:CustomTabBar4 id="tb5" />
+<custom:CustomTabBar5 id="tb6" />
+<custom:CustomTabBar6 id="tb7" />
+<custom:CustomTabBar7 id="tb8" />
+
+<mx:Box id="box1" width="300" height="200" >
+    <custom:CustomTabBar8 id="box2" /> <!-- This contains tb9. -->
+</mx:Box>
+
+<mx:Box id="box3" width="300" height="200" >
+    <custom:CustomTabBar9 id="panel1" /> <!-- This contains tb10. -->
+</mx:Box>
+	</mx:Box>
+
+
+</mx:HBox>
+<!--
+<s:Scroller left="4" right="4" top="4" bottom="4">
+-->
+<s:TabBar id="tb9" />
+<!--
+</s:Scroller >
+-->
+</s:Application>

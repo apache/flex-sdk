@@ -1,0 +1,1674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/CheckBox/styles/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"    
+    xmlns="*" 
+    testSWF="Flex4_CheckBox_main.mxml">
+    
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+			public static function init(o:DisplayObject):void
+			{
+			}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+<!--
+	<fx:Style>
+		
+		@font-face {
+		    src: url("../swfs/Assets/ArnoPro-Regular.otf");
+		    fontFamily: "ArnoProRegEmbedded";
+		    embedAsCFF: true;
+		}
+		
+		@font-face {
+		    src: url("../swfs/Assets/HelveticaLTStd-Roman.otf");
+		    fontFamily: "Helvetica";
+		    embedAsCFF: true;
+		}
+	    .myStyle{
+	        color: #FF0000
+	    }
+	
+	    .myStyle2{
+	        color: #0000FF
+	    }
+	</fx:Style>
+-->
+	<testCases>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_default" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="useDominantBaseline" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_roman" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_ideographicTop" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ideographicTop" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ideographicTop" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_ideographicCenter" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ideographicCenter" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ideographicCenter" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_ideographicBottom" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ideographicBottom" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ideographicBottom" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_descent" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="descent" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="descent" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_alignmentBaseline_ascent" description="default alignmentBaseline FxCheckBox" keywords="[FxCheckBox, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ascent" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ascent" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_baselineShift_default" description="default baselineShift FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="baselineShift" value="0" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_baselineShift_25" description="25 baselineShift FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>				
+				<SetProperty propertyName="height" value="50" target="myCB"/>
+				<SetStyle styleName="baselineShift" value="25" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="baselineShift" value="25" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_baselineShift_neg25" description="neg25 baselineShift FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetProperty propertyName="height" value="50" target="myCB"/>
+				<SetStyle styleName="baselineShift" value="-25" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="baselineShift" value="-25" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_breakOpportunity_default" description="default breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="auto" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_breakOpportunity_all" description="all breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>				
+				<SetProperty propertyName="height" value="50" target="myCB"/>
+				<SetStyle styleName="breakOpportunity" value="all" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="THE" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="all" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_breakOpportunity_any" description="any breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>				
+				<SetStyle styleName="breakOpportunity" value="any" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="any" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_breakOpportunity_none" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>				
+				<SetStyle styleName="breakOpportunity" value="none" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="none" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_cffHinting_default" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cffHinting" value="horizontalStem" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_cffHinting_none" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="myCB"/>
+				<SetStyle styleName="cffHinting" value="none" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cffHinting" value="none" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_color_default_FxCheckBox" description="set color of CheckBox to red" keywords="[FxCheckBox, color, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="color default label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="FxCheckBox_textStyles_color_red_FxCheckBox" description="set color of CheckBox to red" keywords="[FxCheckBox, color, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="color" value="red"/>
+				<SetProperty target="myCB" propertyName="label" value="color red label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_color_green_FxCheckBox" description="set color of CheckBox to green" keywords="[FxCheckBox, color, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="color" value="0x00FF00"/>
+				<SetProperty target="myCB" propertyName="label" value="color green label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_color_blue_FxCheckBox" description="set color of CheckBox to blue" keywords="[FxCheckBox, color, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="color" value="#0000FF"/>
+				<SetProperty target="myCB" propertyName="label" value="color blue label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="FxCheckBox_textStyles_digitCase_default" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="myCB" styleName="fontLookup" value="embeddedCFF"/>
+            			<SetProperty target="myCB" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitCase" value="default" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_digitCase_lining" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="digitCase" value="lining" target="myCB"/>
+				<SetStyle target="myCB" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="myCB" styleName="fontLookup" value="embeddedCFF"/>
+            			<SetProperty target="myCB" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitCase" value="lining" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_digitCase_oldStyle" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="digitCase" value="oldStyle" target="myCB"/>
+				<SetStyle target="myCB" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="myCB" styleName="fontLookup" value="embeddedCFF"/>
+        			<SetProperty target="myCB" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitCase" value="oldStyle" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_digitWidth_default" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetProperty target="myCB" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitWidth" value="default" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_digitWidth_tabular" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="myCB" styleName="fontLookup" value="embeddedCFF"/>
+        		<SetStyle styleName="digitWidth" value="tabular" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitWidth" value="tabular" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_digitWidth_proportional" description="none breakOpportunity FxCheckBox" keywords="[FxCheckBox, baselineShift, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="myCB" styleName="fontLookup" value="embeddedCFF"/>
+        		<SetStyle styleName="digitWidth" value="proportional" target="myCB"/>
+        		<SetProperty target="myCB" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitWidth" value="proportional" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_direction_default_FxCheckBox" description="direction default FxCheckBox" keywords="[FxCheckBox, direction, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="direction" value="ltr"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_direction_rtl_FxCheckBox" description="direction rtl FxCheckBox" keywords="[FxCheckBox, direction, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="direction" value="rtl" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="direction" value="rtl"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_default" description="default dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="roman" target="myCB"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_roman" description="default dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="roman" target="myCB"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="roman" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_ideographicTop" description="ideographicTop dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ideographicTop" target="myCB"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ideographicTop" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_ideographicCenter" description="ideographicCenter dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ideographicCenter" target="myCB"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ideographicCenter" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_ideographicBottom" description="ideographicBottom dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ideographicBottom" target="myCB"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ideographicBottom" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_descent" description="descent dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="descent" target="myCB"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="descent" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_dominantBaseline_ascent" description="ascent dominantBaseline FxCheckBox" keywords="[FxCheckBox, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ascent" target="myCB"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ascent" target="myCB"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontFamily_myArial_FxCheckBox" description="default fontFamily is myArial" keywords="[FxCheckBox, fontFamily, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="fontFamily" value="myArial"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_fontLookup_embedded_FxCheckBox" description="fontLookup is embedded" keywords="[FxCheckBox, fontFamily, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="fontLookup" value="embeddedCFF"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontLookup_device_FxCheckBox" description="fontLookup is device" keywords="[FxCheckBox, fontFamily, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="Times New Roman" target="myCB"/>
+				<SetStyle styleName="fontLookup" value="device" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="fontLookup" value="device"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontSize_16_FxCheckBox" description="set fontSize of CheckBox to 16" keywords="[FxCheckBox, fontSize, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="fontSize" value="16"/>
+				<SetProperty target="myCB" propertyName="label" value="fontSize 16 label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontSize_default_FxCheckBox" description="set fontSize of CheckBox to 16" keywords="[FxCheckBox, fontSize, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="fontSize default label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>	
+				<AssertStyleValue target="myCB" styleName="fontSize" value="12"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontSize_6_FxCheckBox" description="set fontSize of CheckBox to 16" keywords="[FxCheckBox, fontSize, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="fontSize" value="6"/>
+				<SetProperty target="myCB" propertyName="label" value="fontSize 6 label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_fontSize_40_FxCheckBox" description="set fontSize of CheckBox to 16" keywords="[FxCheckBox, fontSize, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="fontSize" value="40"/>
+				<SetProperty target="myCB" propertyName="label" value="fontSize 40 label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontStyle_default_FxCheckBox" description="fontStyle default FxCheckBox" keywords="[FxCheckBox, fontStyle, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="fontStyle" value="normal"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_fontStyle_italic_FxCheckBox" description="fontStyle default FxCheckBox" keywords="[FxCheckBox, fontStyle, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontStyle" value="italic" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="fontStyle" value="italic"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_fontWeight_bold" description="fontWeight bold Button" keywords="[FxCheckBox, fontWeight, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="fontWeight" value="bold"/>
+				<SetProperty target="myCB" propertyName="label" value="fontWeight bold label" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_fontWeight_normal" description="fontWeight bold Button" keywords="[FxCheckBox, fontWeight, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="fontWeight normal label" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="fontWeight" value="normal"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>		
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_justificationRule_default_FxCheckBox" description="justificationRule default FxCheckBox" keywords="[FxCheckBox, justificationRule, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="justificationRule" value="space"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_justificationStyle_default_FxCheckBox" description="justificationRule default FxCheckBox" keywords="[FxCheckBox, justificationRule, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="justificationRule" value="eastAsian" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox, jumps over the lazy dog." waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="justificationStyle" value="pushInKinsoku"/>
+			</body>
+		</TestCase>
+		
+		<!-- Need east asian test for justificationStyle -->
+		
+		<TestCase testID="FxCheckBox_textStyles_kerning_default_FxCheckBox" description="kerning default FxCheckBox" keywords="[FxCheckBox, kerning, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="kerning" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_kerning_off_FxCheckBox" description="kerning off FxCheckBox" keywords="[FxCheckBox, kerning, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="kerning" value="off" target="myCB"/>
+				<SetStyle styleName="fontFamily" value="Helvetica" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="VA rn" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="kerning" value="off"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_kerning_auto_FxCheckBox" description="kerning auto FxCheckBox" keywords="[FxCheckBox, kerning, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="kerning" value="auto" target="myCB"/>
+				<SetStyle styleName="fontFamily" value="Helvetica" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="VA rn" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="kerning" value="auto"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+						
+		<TestCase testID="FxCheckBox_textStyles_ligatureLevel_default_FxCheckBox" description="ligatureLevel default FxCheckBox" keywords="[FxCheckBox, ligatureLevel, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="ligatureLevel" value="common"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="FxCheckBox_textStyles_lineThrough_default_FxCheckBox" description="default value of lineThrough FxCheckBox" keywords="[FxCheckBox, lineThrough, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="lineThrough label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="lineThrough" value="false"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_lineThrough_true_FxCheckBox" description="set value of lineThrough true FxCheckBox" keywords="[FxCheckBox, lineThrough, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineThrough" value="true" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="lineThrough label" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_lineBreak_default_FxCheckBox" description="lineBreak default FxCheckBox" keywords="[FxCheckBox, lineBreak, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="lineBreak" value="explicit"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_lineBreak_toFit_FxCheckBox" description="lineBreak toFit FxCheckBox" keywords="[FxCheckBox, lineBreak, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="lineBreak" value="toFit"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="FxCheckBox_textStyles_lineHeight_default_FxCheckBox" description="lineHeight default FxCheckBox" keywords="[FxCheckBox, direction, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetProperty propertyName="height" value="100" target="myCB"/>
+				<SetProperty propertyName="width" value="100" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="lineHeight" value="120%"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_lineHeight_18_FxCheckBox" description="lineHeight default FxCheckBox" keywords="[FxCheckBox, direction, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetProperty propertyName="height" value="100" target="myCB"/>
+				<SetProperty propertyName="width" value="100" target="myCB"/>
+				<SetStyle styleName="lineHeight" value="18" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="lineHeight" value="18"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_lineHeight_200percent_FxCheckBox" description="lineHeight default FxCheckBox" keywords="[FxCheckBox, direction, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetProperty propertyName="height" value="100" target="myCB"/>
+				<SetProperty propertyName="width" value="100" target="myCB"/>
+				<SetStyle styleName="lineHeight" value="200%" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="lineHeight" value="200%"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_locale_default_FxCheckBox" description="locale default FxCheckBox" keywords="[FxCheckBox, locale, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="locale" value="en"/>
+			</body>
+		</TestCase>
+		
+		<!-- These padding* tests are all failing due to SDK-18313-->
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingTop_default_FxCheckBox" description="paddingTop default FxCheckBox" keywords="[FxCheckBox, paddingTop, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingTop" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingTop_100_FxCheckBox" description="paddingTop 100 FxCheckBox" keywords="[FxCheckBox, paddingTop, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingTop" value="100" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingTop" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingTop_1000_FxCheckBox" description="paddingTop 1000 FxCheckBox" keywords="[FxCheckBox, paddingTop, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingTop" value="1000" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingTop" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingBottom_default_FxCheckBox" description="paddingBottom default FxCheckBox" keywords="[FxCheckBox, paddingBottom, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingBottom" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingBottom_100_FxCheckBox" description="paddingBottom 100 FxCheckBox" keywords="[FxCheckBox, paddingBottom, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingBottom" value="100" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingBottom" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_paddingBottom_1000_FxCheckBox" description="paddingBottom 1000 FxCheckBox" keywords="[FxCheckBox, paddingBottom, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingBottom" value="1000" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingBottom" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingLeft_default_FxCheckBox" description="paddingLeft default FxCheckBox" keywords="[FxCheckBox, paddingLeft, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingLeft" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingLeft_100_FxCheckBox" description="paddingLeft 100 FxCheckBox" keywords="[FxCheckBox, paddingLeft, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingLeft" value="100" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingLeft" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_paddingLeft_1000_FxCheckBox" description="paddingLeft 1000 FxCheckBox" keywords="[FxCheckBox, paddingLeft, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingLeft" value="1000" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingLeft" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingRight_default_FxCheckBox" description="paddingRight default FxCheckBox" keywords="[FxCheckBox, paddingRight, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingRight" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_paddingRight_100_FxCheckBox" description="paddingRight 100 FxCheckBox" keywords="[FxCheckBox, paddingRight, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingRight" value="100" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingRight" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_paddingRight_1000_FxCheckBox" description="paddingRight 1000 FxCheckBox" keywords="[FxCheckBox, paddingRight, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="paddingRight" value="1000" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="paddingRight" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="FxCheckBox_textStyles_renderingMode_default_FxCheckBox" description="renderingMode default FxCheckBox" keywords="[FxCheckBox, renderingMode, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="renderingMode" value="cff"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_renderingMode_normal_FxCheckBox" description="renderingMode normal FxCheckBox" keywords="[FxCheckBox, renderingMode, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="renderingMode" value="normal" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="renderingMode" value="normal"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_tabStops_default_FxCheckBox" description="tabStops default FxCheckBox" keywords="[FxCheckBox, tabStops, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="tabStops" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_right_width_FxCheckBox" description="textAlign right FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="right"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" />
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_right_FxCheckBox" description="textAlign right FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="right"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_center_FxCheckBox" description="textAlign center FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="center"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_center_FxCheckBox" description="textAlign right FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="center"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_end_FxCheckBox" description="textAlign end FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="end"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_end_FxCheckBox" description="textAlign right FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="end"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_justify_FxCheckBox" description="textAlign justify FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_left_FxCheckBox" description="textAlign left FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="left"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_left_FxCheckBox" description="textAlign left FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="left"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_start_FxCheckBox" description="textAlign start FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="start"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textAlign_label_start_FxCheckBox" description="textAlign start FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="start"/>
+				<SetProperty target="myCB" propertyName="label" value="long button label" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_textAlignLast_default" description="textAlign start FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+				<AssertStyleValue target="myCB" styleName="textAlignLast" value="start"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlignLast_left" description="textAlignLast left FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetStyle target="myCB" styleName="textAlignLast" value="left"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlignLast" value="left"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlignLast_right" description="textAlignLast right FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetStyle target="myCB" styleName="textAlignLast" value="right"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlignLast" value="right"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlignLast_center" description="textAlignLast center FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetStyle target="myCB" styleName="textAlignLast" value="center"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlignLast" value="center"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlignLast_justify" description="textAlignLast justify FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetStyle target="myCB" styleName="textAlignLast" value="justify"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlignLast" value="justify"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlignLast_end" description="textAlignLast end FxCheckBox" keywords="[FxCheckBox, textAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetStyle target="myCB" styleName="textAlignLast" value="end"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlignLast" value="end"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_textAlpha_default_FxCheckBox" description="textAlpha default FxCheckBox" keywords="[FxCheckBox, textAlpha, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlpha" value="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlpha_0_FxCheckBox" description="textAlpha 0 FxCheckBox" keywords="[FxCheckBox, textAlpha, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="textAlpha" value="0" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlpha" value="0"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textAlpha_0point5_FxCheckBox" description="textAlpha 0.5 FxCheckBox" keywords="[FxCheckBox, textAlpha, style]">
+			<setup>	
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="textAlpha" value="0.5" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textAlpha" value="0.5"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textDecoration_default_FxCheckBox" description="textDecoration default FxCheckBox" keywords="[FxCheckBox, textDecoration, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textDecoration" value="none"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_textDecoration_underline_FxCheckBox" description="textDecoration underline FxCheckBox" keywords="[FxCheckBox, textDecoration, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="textDecoration" value="underline" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textDecoration" value="underline"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_textJustify_default_FxCheckBox" description="textJustify default FxCheckBox" keywords="[FxCheckBox, textJustify, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textJustify" value="null"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textJustify_default_justified_FxCheckBox" description="textJustify default FxCheckBox" keywords="[FxCheckBox, textJustify, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetStyle target="myCB" styleName="textJustify" value="interWord"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textJustify" value="interWord"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textJustify_distribute_FxCheckBox" description="textJustify distribute FxCheckBox" keywords="[FxCheckBox, textJustify, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="textJustify" value="distribute" target="myCB"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textJustify" value="distribute"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textJustify_distribute_eastAsian_FxCheckBox" description="textJustify distribute FxCheckBox" keywords="[FxCheckBox, textJustify, style]">
+			<setup>
+				<!--Shouldn't do anything b/c justificationRule is set to eastAsian-->
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="textJustify" value="distribute" target="myCB"/>
+				<SetStyle target="myCB" styleName="textAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle target="myCB" styleName="lineBreak" value="toFit"/>
+				<SetStyle styleName="textJustify" value="distribute" target="myCB"/>
+				<SetStyle styleName="justificationRule" value="eastAsian" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textJustify" value="distribute"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textRotation_default_FxCheckBox" description="textRotation auto default FxCheckBox" keywords="[FxCheckBox, textRotation, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="textRotation" value="auto"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textRotation_rotate0_FxCheckBox" description="textRotation auto default FxCheckBox" keywords="[FxCheckBox, textRotation, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="textRotation" value="rotate0" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_textRotation_rotate180_FxCheckBox" description="textRotation auto default FxCheckBox" keywords="[FxCheckBox, textRotation, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="textRotation" value="rotate180" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_textRotation_rotate270_FxCheckBox" description="textRotation auto default FxCheckBox" keywords="[FxCheckBox, textRotation, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="textRotation" value="rotate270" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_textRotation_rotate90_FxCheckBox" description="textRotation auto default FxCheckBox" keywords="[FxCheckBox, textRotation, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="textRotation" value="rotate90" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_tracking_default_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="tracking" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_tracking_10_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="tracking" value="10" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="tracking" value="10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_tracking_50_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="tracking" value="50" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="tracking" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_tracking_neg10_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="tracking" value="-10" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="tracking" value="-10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_tracking_neg50_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="tracking" value="-50" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="tracking" value="-50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="FxCheckBox_textStyles_trackingLeft_default_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingLeft" value="0"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_trackingLeft_10_FxCheckBox" description="trackingLeft 10 FxCheckBox" keywords="[FxCheckBox, trackingLeft, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingLeft" value="10" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingLeft" value="10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingLeft_50_FxCheckBox" description="trackingLeft 50 FxCheckBox" keywords="[FxCheckBox, trackingLeft, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingLeft" value="50" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingLeft" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingLeft_neg10_FxCheckBox" description="trackingLeft neg10 FxCheckBox" keywords="[FxCheckBox, trackingLeft, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingLeft" value="-10" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingLeft" value="-10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingLeft_neg50_FxCheckBox" description="trackingLeft neg50 FxCheckBox" keywords="[FxCheckBox, trackingLeft, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingLeft" value="-50" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingLeft" value="-50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="FxCheckBox_textStyles_trackingRight_default_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingRight" value="0"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingRight_10_FxCheckBox" description="trackingRight 10 FxCheckBox" keywords="[FxCheckBox, trackingRight, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingRight" value="10" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingRight" value="10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingRight_50_FxCheckBox" description="trackingRight 50 FxCheckBox" keywords="[FxCheckBox, trackingRight, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingRight" value="50" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingRight" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingRight_neg10_FxCheckBox" description="trackingRight neg10 FxCheckBox" keywords="[FxCheckBox, trackingRight, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingRight" value="-10" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingRight" value="-10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_textStyles_trackingRight_neg50_FxCheckBox" description="trackingRight neg50 FxCheckBox" keywords="[FxCheckBox, trackingRight, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="width" value="100"/>
+				<SetProperty target="myCB" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="myCB"/>
+				<SetStyle styleName="kerning" value="on" target="myCB"/>
+				<SetStyle styleName="trackingRight" value="-50" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="trackingRight" value="-50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_default_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_title_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="myCB"/>
+				<SetStyle styleName="typographicCase" value="title" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="title"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_caps_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="myCB"/>
+				<SetStyle styleName="typographicCase" value="caps" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="caps"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_smallCaps_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="myCB"/>
+				<SetStyle styleName="typographicCase" value="smallCaps" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="smallCaps"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_upperCase_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="myCB"/>
+				<SetStyle styleName="typographicCase" value="uppercase" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="uppercase"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_lowerCase_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="myCB"/>
+				<SetStyle styleName="typographicCase" value="lowercase" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="lowercase"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_typographicCase_capsAndSmallCaps_FxCheckBox" description="tracking default FxCheckBox" keywords="[FxCheckBox, tracking, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="myCB"/>
+				<SetStyle styleName="typographicCase" value="capsAndSmallCaps" target="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="The quick brown fox" waitEvent="updateComplete" waitTarget="myCB"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="myCB" styleName="typographicCase" value="capsAndSmallCaps"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_textStyles_verticalAlign_top" description="verticalAlign top Button" keywords="[FxCheckBox, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="verticalAlign" value="top"/>
+				<SetProperty target="myCB" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetProperty target="myCB" propertyName="label" value="verticalAlign top label" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_verticalAlign_bottom" description="verticalAlign bottom Button" keywords="[FxCheckBox, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="verticalAlign" value="bottom"/>				
+				<SetProperty target="myCB" propertyName="label" value="verticalAlign bottom label" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_verticalAlign_middle" description="verticalAlign middle Button" keywords="[FxCheckBox, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="verticalAlign" value="middle"/>
+				<SetProperty target="myCB" propertyName="label" value="verticalAlign middle label" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>		
+		</TestCase>
+		<TestCase testID="FxCheckBox_textStyles_verticalAlign_justify" description="verticalAlign justify Button" keywords="[FxCheckBox, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="myCB" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="myCB"/>
+				<SetStyle target="myCB" styleName="verticalAlign" value="justify"/>
+				<SetProperty target="myCB" propertyName="label" value="verticalAlign justify label" waitEvent="updateComplete" waitTarget="myCB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="myCB"/>
+			</body>		
+		</TestCase>
+	</testCases>
+</UnitTester>

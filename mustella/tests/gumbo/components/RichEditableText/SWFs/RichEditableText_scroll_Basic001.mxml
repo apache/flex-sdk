@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:comps="comps.*"
+			   minWidth="655" minHeight="600"
+			  >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style source="../../../../../Assets/Fonts/myStyles.css" />
+		 <fx:Style>
+		 	@namespace mx "library://ns.adobe.com/flex/mx";
+			@namespace s "library://ns.adobe.com/flex/spark";
+
+			s|RichEditableText
+			{
+
+				fontFamily: MyVeraSpark;
+				fontLookup: embeddedCFF;
+				fontAntiAliasType: normal;
+			}
+			
+			global{
+			    fontFamily: MyVeraHalo;
+			    fontAntiAliasType: normal;
+			    kerning: "off";
+	        	}
+	</fx:Style>
+	<!-- without Scroller, even clipAndEnableScrolling="true", but still no scrolling
+		in order to scroller horizontally, the lineBreak should be set "explicit"
+	-->
+	<fx:Script>
+		<![CDATA[
+			import comps.*;
+			import 	flash.geom.Point;
+			import spark.components.RichEditableText;
+			public function scrollToLine(myRET:RichEditableText,toPos:Point):void {
+				myRET.scrollToRange(toPos.x, toPos.y);
+			}
+
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:VGroup paddingLeft="50">
+	<s:Scroller horizontalScrollPolicy="auto" id="scroller1" >
+		<comps:RETSCroll id="scrollRET1" />
+	</s:Scroller>
+	
+	<s:Scroller id="scroller2">  
+		<comps:RETHSCroll id="hscrollRET1" /> 
+	</s:Scroller>
+	<s:Scroller id="scroller3">  
+		<comps:RETVSCroll id="vscrollRET1" /> 
+	</s:Scroller>
+
+	
+	</s:VGroup>
+	
+	
+</s:Application>

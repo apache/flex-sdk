@@ -1,0 +1,1996 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DataGroup/virtualization/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DataGroupVirtual.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		import comps.*;
+		import spark.layouts.*;
+		import spark.components.DataGroup;
+		import mx.collections.ArrayCollection;
+		import spark.skins.spark.DefaultItemRenderer;
+		import spark.skins.spark.DefaultComplexItemRenderer;
+		import mx.core.UIComponent;
+		import spark.core.NavigationUnit;
+	]]>
+	</fx:Script>
+	<testCases>
+	
+<!-- 
+
+========================
+
+	DataGroup Virtualization Testing - HorizontalLayout Tests
+	
+	These tests are duplicated from VerticalLayout tests.  If you add/edit/remove tests 
+	in one file then the same action should be performed in the other file.
+========================
+
+-->
+
+
+	
+<!-- HorizontalLayout Tests -->
+
+<!--
+
+Misc:
+
+- swap dataProvider at runtime
+- swap itemRendererFunction at runtime
+- other regressions
+
+-->
+
+
+	<TestCase testID="DataGroup_virtualization_horizontal_swap_dataProvider" keywords="[DataGroup, virtualization, horizontal]" description="regression test for svn 5226 swap data providers at runtime">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(100, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(100, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />			
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_swap_dataProvider.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+
+	<TestCase testID="DataGroup_virtualization_horizontal_swap_itemRenderer" keywords="[DataGroup, virtualization, horizontal]" description="regression test for svn 5226 swap item renderers at runtime">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.fancyItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />	
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />			
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_swap_itemRenderer.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollThenVirtualize" keywords="[DataGroup, virtualization, horizontal]" description="scroll near end and virtualizing should displace anything (SDK-19351)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="width" value="100" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height" value="100" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 100, 0x000011)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000066)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 50, 100, 0x0000AA)" waitTarget="group1" waitEvent="updateComplete" />			
+		
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="80" waitEvent="propertyChange" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" />
+			<Pause timeout="100" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollThenVirtualize.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_largerRequestedColumnCount" keywords="[DataGroup, virtualization, horizontal]" description="less items than requested (SDK-19562)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.requestedColumnCount = 2" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_largerRequestedColumnCount.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollBeyond" keywords="[DataGroup, virtualization, horizontal]" description="scroll beyond the viewport (SDK-19373)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2850" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3200" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2850" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="95" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="99" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollBeyond.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_rotate" keywords="[DataGroup, virtualization, horizontal]" description="rotate an item (SDK-19388)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(100, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<RunCode code="UIComponent(application.group1.dataProvider.getItemAt(2)).rotation = -45" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_rotate.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_firstItemInViewGap" keywords="[DataGroup, virtualization, horizontal]" description="first item in view shouldnt include gap after an item like part of the item (SDK-19367)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="23" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />	
+						
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="24" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+				
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="25" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+		</body>
+	</TestCase>		
+
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_removeItemsWhenNearContentWidth" keywords="[DataGroup, virtualization, horizontal]" description="remove items when near contentWidth (SDK-19847)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2700" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.removeItemAt(0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_removeItemsWhenNearContentWidth.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_addScrolledToEnd" keywords="[DataGroup, virtualization, horizontal]" description="add items when near contentWidth (SDK-19852)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2700" waitEvent="propertyChange" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex:100, width: 100, height: 100},0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2730" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_addScrolledToEnd.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_addItemsChangesViewport" keywords="[DataGroup, virtualization, horizontal]" description="adding items before should affect items in view (SDK-19840)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="600" waitEvent="propertyChange" />
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex:100, height: 100, width: 24, majorAxis: 'horizontal'},0)" waitEvent="updateComplete" waitTarget="group1"/>
+			<RunCode code="application.group1.dataProvider.addItemAt({myItemIndex:100, height: 100, width: 24, majorAxis: 'horizontal'},0)" waitEvent="updateComplete" waitTarget="group1"/>
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_addItemsChangesViewport.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_requestedColumnCountZero" keywords="[DataGroup, virtualization, horizontal]" description="set requested column count to zero should show nothing (SDK-19984)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.width = NaN" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.requestedColumnCount = 0" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_requestedColumnCountZero.png" target="" timeout="2000" />
+		</body>
+	</TestCase>					
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_owner" keywords="[DataGroup, virtualization, horizontal]" description="access the owner from the renderer (SDK-19870)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value= new ClassFactory(VirtualizationItemRendererDataAware)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" waitTarget="group1" waitEvent="updateComplete" />
+
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_owner.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_turnOffVirtualization_scroll" keywords="[DataGroup, virtualization, horizontal]" description="turn off virtualization and scroll down (SDK-19347)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = false" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="100" />
+			<RunCode code="application.group1.layout.horizontalScrollPosition = 600" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_turnOffVirtualization_scroll.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_turnOffVirtualization_swap" keywords="[DataGroup, virtualization, horizontal]" description="turn off virtualization and swap dataProvider (SDK-19347)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = false" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="100" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 10, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />			
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_turnOffVirtualization_swap.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollThenSwapRenderer" keywords="[DataGroup, virtualization, horizontal]" description="scroll down then swap the item renderer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollThenSwapRenderer.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_stateChangeRendererSize" keywords="[DataGroup, virtualization, horizontal]" description="change renderer size based on state SDK-20937">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<DispatchMouseEvent target="group1" type="mouseOver" localX="35" localY="35"/>
+			<Pause timeout="50" />
+			<DispatchMouseEvent type="mouseOut" localX="-1" localY="35" target="group1" />
+			<DispatchMouseEvent type="mouseMove" localX="100" localY="40" target="group1" waitEvent="mouseMove" waitTarget="group1"/>
+			<DispatchMouseEvent target="group1" type="rollOver" localX="100" localY="40"/>
+			<DispatchMouseEvent target="group1" type="mouseOver" localX="100" localY="40"/>
+			<Pause timeout="50" />
+						
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_stateChangeRendererSize.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+
+
+
+
+
+
+<!-- 
+
+viewport Tests 
+
+- set the gap to negative value
++ set the gap to zero
++ set the gap to positive value (default here)
++ set the gap to a size larger than the viewport 
++ toggle variableColumnWidth between true and false 
++ set the columnWidth to size of viewport
++ set the columnWidth to larger than the viewport 
+- set the requestedColumnCount to zero, positive values 
++ ensure verticalAlign works for each value (SDK-18659) (see the properties folder)
+- change the width and height of the Group 
+
+-->
+
+
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollPosition_partial" keywords="[DataGroup, virtualization, horizontal]" description="regression test for SDK-19234, scroll partially over an item and ensure it shows">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="72" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="12" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollPosition_partial.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollPosition_origin" keywords="[DataGroup, virtualization, horizontal]" description="see initial view without scrolling">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollPosition_origin.png" target="" timeout="2000" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollPosition_various" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various points and return to the origin (SDK-19368)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2294" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="200" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1500" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollPosition_various.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollPosition_top" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="104" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="4" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="15" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollPosition_top.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollPosition_middle" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1300" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="50" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="61" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollPosition_middle.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_scrollPosition_end" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2294" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="88" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="99" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_scrollPosition_end.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+
+<!-- zero gap -->
+
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_zero_origin" keywords="[DataGroup, virtualization, horizontal]" description="check a zero gap at the origin">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="14" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_zero_origin.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_zero_various" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various scroll points and return to the origin (SDK-19368)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1500" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1700" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="200" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1500" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="14" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_zero_various.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_zero_top" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="19" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_zero_top.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_zero_middle" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1300" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="65" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="79" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_zero_middle.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_zero_end" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1700" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="85" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="99" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_zero_end.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+		
+<!-- gap larger than viewport -->
+
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_large_origin" keywords="[DataGroup, virtualization, horizontal]" description="check a gap larger than viewport at the origin">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 400" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="0" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_large_origin.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_large_various" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various scroll points and return to the origin (SDK-19368)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 400" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="500" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2400" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="40000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="41300" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />		
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="0" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_large_various.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_large_top" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 400" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="420" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1" />	
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_large_top.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_large_middle" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 400" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="22000" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="53" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="53" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_large_middle.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_gap_large_end" keywords="[DataGroup, virtualization, horizontal]" description="scroll to various positions">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.gap = 400" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 20, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="41580" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="99" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="99" />
+			
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_gap_large_end.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+
+<!-- variableColumnWidth false -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_fixedcolumnWidth_127" keywords="[DataGroup, virtualization]" description="set variableColumnWidth false and scroll by 127 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 20}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2540" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="127" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="141" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="5080" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="254" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="268" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7620" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="381" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="395" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10160" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="508" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="522" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_fixedcolumnWidth_127.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_fixedcolumnWidth_128" keywords="[DataGroup, virtualization]" description="set variableColumnWidth false and scroll by 128 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 20}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2560" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="128" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="142" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="5120" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="256" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="270" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2560" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="128" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="142" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_fixedcolumnWidth_128.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_fixedcolumnWidth_large" keywords="[DataGroup, virtualization]" description="set variableColumnWidth to false and scroll by large increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<AssertMethodValue method="application.group1.layout.columnWidth=20" waitTarget="group1" waitEvent="updateComplete"  />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 20}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="50000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2500" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="2514" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5014" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="7500" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="7514" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="199700" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="9985" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9999" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5014" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_fixedcolumnWidth_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_fixedcolumnWidth_small" keywords="[DataGroup, virtualization]" description="set variableColumnWidth false and scroll by small increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<AssertMethodValue method="application.group1.layout.columnWidth=20" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 20}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="15" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="320" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="16" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="30" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="321" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="16" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="31" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="21" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="16" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="15" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="380" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="19" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="33" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_fixedcolumnWidth_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- columnWidth -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_columnWidth_300_small" keywords="[DataGroup, virtualization]" description="set columnWidth to be size of viewport, scroll up and down by small values">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.columnWidth=300"  />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 300}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="11" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3301" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="11" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="12" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3401" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="11" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="12" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="11" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3000" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_columnWidth_300_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_columnWidth_300_large" keywords="[DataGroup, virtualization]" description="set columnWidth to be size of viewport, scroll up and down by large values">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.columnWidth=300" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 300}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="33000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="110" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="110" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="333000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1110" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1110" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="180000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="600" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="600" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_columnWidth_300_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_columnWidth_600" keywords="[DataGroup, virtualization]" description="scroll up and down when items are bigger than the viewport">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.columnWidth=600"  />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth=false" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 600}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="600" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="6600" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="11" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="66600" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="111" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="111" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="666600" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1111" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1111" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="366600" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="611" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="611" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_columnWidth_600.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+<!-- requestedColumnCount -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_requestedColumnCount_large" keywords="[DataGroup, virtualization]" description="scroll up and down large increments with a requestedColumnCount">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="width" valueExpression="value=NaN" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap=0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.requestedColumnCount=10" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="240" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />			
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="19" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="480" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="20" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="29" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2880" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="120" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="129" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="26880" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1120" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1129" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2880" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="120" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="129" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="240" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_requestedColumnCount_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_requestedColumnCount_small" keywords="[DataGroup, virtualization]" description="scroll up and down small increments with a requestedColumnCount">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="width" valueExpression="value=NaN" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<AssertMethodValue method="application.group1.layout.requestedColumnCount=10" waitTarget="group1" waitEvent="updateComplete"  />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="24" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="23" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1" propertyName="width" value="240" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_requestedColumnCount_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+		
+<!--
+
+=====================
+Item Size Tests
+=====================
+
+- these tests try different horizontalScrollPosition's with items that have certain sizes:
+  - createIdenticalItems()	[10000, 100, 24]
+  - createDuplicateItems()	[10000, 100, 24]
+  - createMixedItems()		[1000,  100, 24]
+  - createVariableItems()	[1000, 100, 20-100]
+
+- each one  of these get tested by:
+
+  - scroll down by multiples of 127 items (optional)
+  - scroll down by multiples of 128 items (optional)
+  - scroll down by multiples of 135 items (optional)
+  - scroll up and down by large distances
+  - scroll up and down by small distances
+  - scroll up and down by one item
+  
+-->
+
+<!-- createIdenticalItems() -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_127" keywords="[DataGroup, virtualization]" description="scroll down in multiples of 127 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3810" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="127" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="136" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7620" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="11430" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15240" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="19050" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="635" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="644" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_127.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_128" keywords="[DataGroup, virtualization]" description="scroll down in multiples of 128 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3840" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="128" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="137" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7680" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="256" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="265" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="11520" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15360" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="19200" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="23040" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="26880" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="896" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="905" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_128.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_135" keywords="[DataGroup, virtualization]" description="scroll down by multiples of 135 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="4050" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="135" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="144" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="8100" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="270" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="279" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="12150" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="405" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="414" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="16200" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20250" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="24300" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="28350" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="945" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="954" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_135.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_large" keywords="[DataGroup, virtualization]" description="scroll down and up by large increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="333" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="343" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="100000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="3333" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="3343" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="299694" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="9990" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9999" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5009" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_small" keywords="[DataGroup, virtualization]" description="scroll by small increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="301" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="20" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="600" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="20" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="29" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="19" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_oneItem_full" keywords="[DataGroup, virtualization]" description="scroll down and up by one item size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10050" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="335" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="344" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10080" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="336" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="345" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10050" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="335" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="344" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="335" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="344" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_oneItem_full.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DataGroup_virtualization_horizontal_identical_scroll_oneItem_partial" keywords="[DataGroup, virtualization]" description="scroll down and up by one item size (partially visible)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="915" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="30" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="40" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="945" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="31" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="41" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="915" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="30" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="40" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="30" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="40" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_identical_scroll_oneItem_partial.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+			
+<!-- createDuplicateItems() -->			
+					
+	<TestCase testID="DataGroup_virtualization_horizontal_duplicates_scroll_large" keywords="[DataGroup, virtualization]" description="scroll in large increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1009" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10009" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="600000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="20000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="20009" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="899694" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="29990" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="29999" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_duplicates_scroll_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DataGroup_virtualization_horizontal_duplicates_scroll_small" keywords="[DataGroup, virtualization]" description="scroll in small increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="19" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="301" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="20" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_duplicates_scroll_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+				
+	<TestCase testID="DataGroup_virtualization_horizontal_duplicates_scroll_oneItem" keywords="[DataGroup, virtualization]" description="scroll up and down by one item">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createDuplicateItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="120" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="4" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="13" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_duplicates_scroll_oneItem.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+			
+<!-- createMixedItems() -->			
+				
+	<TestCase testID="DataGroup_virtualization_horizontal_mixed_scroll_127" keywords="[DataGroup, virtualization]" description="scroll up and down in multiples of 127 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3810" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="127" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="136" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7620" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="254" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="263" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="11430" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15240" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="19050" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15240" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="11430" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7620" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="254" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="263" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_mixed_scroll_127.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+				
+	<TestCase testID="DataGroup_virtualization_horizontal_mixed_scroll_128" keywords="[DataGroup, virtualization]" description="scroll up and down in multiples of 128 items (no gap)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="3072" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="128" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="140" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="6144" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="256" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="268" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="9216" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="12288" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15360" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="12288" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="9216" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="6144" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="256" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="268" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_mixed_scroll_128.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+				
+	<TestCase testID="DataGroup_virtualization_horizontal_mixed_scroll_large" keywords="[DataGroup, virtualization]" description="scroll up and down by large values">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="333" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="343" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="50000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1666" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1676" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="75000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2500" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="2509" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="89694" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2990" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="2999" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="50000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1666" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="1676" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="333" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="343" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="333" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="343" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_mixed_scroll_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+				
+	<TestCase testID="DataGroup_virtualization_horizontal_mixed_scroll_small" keywords="[DataGroup, virtualization]" description="scroll up and down by small amounts">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="301" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="10" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="20" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_mixed_scroll_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+				
+	<TestCase testID="DataGroup_virtualization_horizontal_mixed_scroll_oneItem" keywords="[DataGroup, virtualization]" description="scroll up and down by one item">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createMixedItems(1000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="90" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="3" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="12" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="14" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="90" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="3" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="12" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="11" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_mixed_scroll_oneItem.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+			
+<!-- createVariableItems() -->			
+		
+	<TestCase testID="DataGroup_virtualization_horizontal_variable_scroll_127" keywords="[DataGroup, virtualization]" description="scroll up and down in multiples of 127 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 60}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7560" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="126" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="130" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15120" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="252" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="256" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="22680" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="378" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="382" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30240" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="504" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="508" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_variable_scroll_127.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_variable_scroll_128" keywords="[DataGroup, virtualization]" description="scroll up and down in multiples of 128 items">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 60}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="7620" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="127" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="131" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="15240" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="254" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="258" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="22860" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="381" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="385" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="30480" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="508" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="512" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_variable_scroll_128.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_variable_scroll_large" keywords="[DataGroup, virtualization]" description="scroll up and down in large increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 60}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2500" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="2504" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300000" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5000" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5004" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="599700" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="9995" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9999" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5005" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5009" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2505" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="2509" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_variable_scroll_large.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_variable_scroll_small" keywords="[DataGroup, virtualization]" description="scroll up and down in small increments">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 60}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="1" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="301" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="10" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="4" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_variable_scroll_small.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_variable_scroll_oneItem" keywords="[DataGroup, virtualization]" description="scroll up and down by one item">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.stateItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'horizontal', minorSize: 100, majorSize: 60}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createVariableItems(10000, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="6" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="120" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="3" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="7" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="200" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="4" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="8" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="300" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="5" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="9" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="200" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="4" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="8" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="120" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="3" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="7" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="60" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="2" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="6" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="20" waitEvent="propertyChange" />
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="1" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="5" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="0" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.firstIndexInView" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.lastIndexInView" value="4" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_horizontal_variable_scroll_oneItem.png" target="" timeout="2000" />
+		</body>
+	</TestCase>
+
+
+
+<!-- getHorizontalScrolLPositionDelta(NavigationUnit:uint) -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_getHorizontalScrollPositionDelta_1" keywords="[DataGroup, virtualization]" description="check getHorizontalScrollPositionDelta() works in the virtual case for the different NavigationUnit values">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 30, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="299700" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="0" />		
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="300" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="30" />	
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="0" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="0" />		
+			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150000" waitEvent="propertyChange" />
+			
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="149700" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="-150000" />		
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="300" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="30" />	
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="-300" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="-30" />		
+							
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_getHorizontalScrollPositionDelta_2" keywords="[DataGroup, virtualization]" description="check getVerticalScrollPositionDelta() works in the virtual case for the different NavigationUnit values">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 30, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150015" waitEvent="propertyChange" />
+			
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.END)" value="149685" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.HOME)" value="-150015" />		
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT)" value="285" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.RIGHT)" value="15" />	
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT)" value="-285" />
+			<AssertMethodValue method="value=application.group1.layout.getHorizontalScrollPositionDelta(NavigationUnit.LEFT)" value="-15" />		
+							
+		</body>
+	</TestCase>
+	
+<!-- getScrollPositionDeltaToElement(index:uint) -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_getScrollPositionDeltaToElement_1" keywords="[DataGroup, virtualization]" description="check getScrollPositionDeltaToElement() works in the virtual case">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 30, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0)" value="null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(10).x" value="30" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(4999).x" value="149700" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(9999).x" value="299700" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DataGroup_virtualization_horizontal_getScrollPositionDeltaToElement_2" keywords="[DataGroup, virtualization]" description="check getScrollPositionDeltaToElement() works in the virtual case">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=application.virtualizationItemRendererFunction" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 0" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10000, 100, 30, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="150015" waitEvent="propertyChange" />
+			
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(0).x" value="-150015" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5000).x" value="-15" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(5001)" value="null" />
+			<AssertMethodValue method="value=application.group1.layout.getScrollPositionDeltaToElement(9999).x" value="149685" />
+		</body>
+	</TestCase>
+	
+	
+	
+<!-- major axis alignment (horizontalAlign) -->
+
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_default" keywords="[DataGroup, virtualization, horizontalAlign]" description="check default value in a virtual setting">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />	
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1.layout" propertyName="horizontalAlign" value="left" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center" keywords="[DataGroup, virtualization, horizontalAlign]" description="middle alignment">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_right" keywords="[DataGroup, virtualization, horizontalAlign]" description="bottom alignment">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center_gap_smaller" keywords="[DataGroup, virtualization, horizontalAlign]" description="change gap smaller">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 1" waitTarget="group1.layout" waitEvent="propertyChange" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center_gap_larger" keywords="[DataGroup, virtualization, horizontalAlign]" description="change gap larger">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="2" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_right_gap_smaller" keywords="[DataGroup, virtualization, horizontalAlign]" description="change gap smaller">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 1" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_right_gap_larger" keywords="[DataGroup, virtualization, horizontalAlign]" description="change gap larger">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.gap = 100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="2" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center_paddingLeft" keywords="[DataGroup, virtualization, horizontalAlign]" description="have a nonzero padding">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.paddingLeft = 100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center_paddingRight" keywords="[DataGroup, virtualization, horizontalAlign]" description="have a nonzero padding">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.paddingRight = 100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_right_paddingLeft" keywords="[DataGroup, virtualization, horizontalAlign]" description="have a nonzero padding">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.paddingLeft = 100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_right_paddingRight" keywords="[DataGroup, virtualization, horizontalAlign]" description="have a nonzero padding">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'right'" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.paddingRight = 100" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<Pause timeout="50" />
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center_columnWidth_smaller" keywords="[DataGroup, virtualization, horizontalAlign]" description="change rowHeight">
+		<!-- bugs>
+			<Bug bugID="SDK-25006" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true"  />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth = false" />
+			<AssertMethodValue method="application.group1.layout.columnWidth = 12" />
+			
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="DataGroup_virtualization_horizontal_horizontalAlign_center_columnWidth_larger" keywords="[DataGroup, virtualization, horizontalAlign]" description="change columnWidth">
+		<!-- bugs>
+			<Bug bugID="SDK-25006" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupHorizontalVirtualizationTest(application.group1)" value="true" />
+			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true"  />
+			<AssertMethodValue method="application.group1.layout.horizontalAlign = 'center'" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.variableColumnWidth = false" />
+			<AssertMethodValue method="application.group1.layout.columnWidth = 64" />
+			
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(5, 100, 24, 'horizontal')" waitTarget="group1" waitEvent="updateComplete" />
+			
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="300" />
+			<AssertPropertyValue target="group1" propertyName="height" value="100" />
+			<AssertPropertyValue target="group1.layout" propertyName="firstIndexInView" value="0" />
+			<AssertPropertyValue target="group1.layout" propertyName="lastIndexInView" value="4" />
+			<CompareBitmap url="../virtualization/baselines/$testID.png" target="" />
+		</body>
+	</TestCase>	
+
+		
+</testCases>
+
+</UnitTester>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/PopUpAnchor/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="PopUpAnchor_styles.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="PopUpAnchor_Styles_multiStyles" keywords="[PopUpAnchor, Styles]" description="Test multiple styles set in MXML on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+			</setup>
+			<body>					
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="myPUS.stylesPUA.popUp" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Styles_baseColor" keywords="[PopUpAnchor, Styles, baseColor]" description="Test baseColor set at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="chromeColor" value="red" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="myPUS.stylesPUA.popUp" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Styles_right" keywords="[PopUpAnchor, Styles, right]" description="Test right at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="right" value="100" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="PopUpAnchor_Styles_left" keywords="[PopUpAnchor, Styles, left]" description="Test bottom at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="left" value="10" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="PopUpAnchor_Styles_top" keywords="[PopUpAnchor, Styles, top]" description="Test top at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="top" value="40" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>			
+			
+		<TestCase testID="PopUpAnchor_Styles_bottom" keywords="[PopUpAnchor, Styles, bottom]" description="Test bottom at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="bottom" value="150" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>				
+
+		<TestCase testID="PopUpAnchor_Styles_verticalCenter" keywords="[PopUpAnchor, Styles, verticalCenter]" description="Test verticalCenter at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="verticalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Styles_horizontalCenter" keywords="[PopUpAnchor, Styles, horizontalCenter]" description="Test horizontalCenter at runtime on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPUS" className="comps.Custom_PUS" waitEvent="updateComplete" waitTarget="myPUS"/>				
+				<SetStyle target="myPUS.stylesPUA" styleName="horizontalCenter" value="0" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA"/>
+			</setup>
+			<body>									
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPUS.stylesPUA.popUp"/>				
+				<CompareBitmap target="" url="../Styles/Baselines/$testID.png"/>
+				<SetProperty target="myPUS.stylesPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>		
+
+	</testCases>
+	
+</UnitTester>

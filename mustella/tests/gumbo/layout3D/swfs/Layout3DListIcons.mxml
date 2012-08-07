@@ -1,0 +1,21 @@
+<s:Application backgroundColor="0xFFFFFF" height="400" width="400"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:local="comps.*">
+    <s:layout><s:BasicLayout/></s:layout>
+
+    <fx:Style source="assets/myStyles.css" />
+<fx:Script>
+<![CDATA[
+    import mx.geom.TransformOffsets;
+    import mx.core.IVisualElement;
+    import mx.core.mx_internal;
+
+    public function getItemRenderer(i:int):IVisualElement
+    {
+        return (icons.dataGroup.getElementAt(i) );
+    }
+]]>
+</fx:Script>
+  <s:VGroup id="vg">
+    <local:ListIconsComp id="icons" />
+  </s:VGroup>
+</s:Application>

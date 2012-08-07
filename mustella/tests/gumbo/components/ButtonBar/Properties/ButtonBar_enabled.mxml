@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.components.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+=========
+enabled
+=========
+-->
+
+<TestCase testID="enabled_test1" keywords="[ButtonBar,enabled]" description="Be sure it starts up enabled." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1" propertyName="enabled" value="true" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="1" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+
+<TestCase testID="enabled_test2" keywords="[ButtonBar,enabled]" description="Set it to disabled in AS." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="enabled" value="false" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(1)" localX="2" localY="2" />
+        <SetProperty target="bb1" propertyName="width" value="199" waitTarget="bb1" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="-1" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="false" />
+        <CompareBitmap url="../Properties/baselines/$testID.png" target="bb1" />
+    </body>
+</TestCase>
+
+<TestCase testID="enabled_test3" keywords="[ButtonBar,enabled]" description="Set it to disabled, then enabled, in AS." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="enabled" value="false" />
+        <SetProperty target="bb1" propertyName="width" value="200" waitTarget="bb1" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="enabled" value="true" />
+        <SetProperty target="bb1" propertyName="width" value="100" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <DispatchMouseClickEvent target="bb1.dataGroup.getElementAt(1)" localX="2" localY="2" waitEvent="updateComplete" />
+        <AssertPropertyValue target="bb1" propertyName="selectedIndex" value="1" />
+        <AssertPropertyValue target="bb1.dataGroup.getElementAt(1)" propertyName="selected" value="true" />
+    </body>
+</TestCase>
+<TestCase testID="enabled_false_keyborad" keywords="[ButtonBar,enabled]" description="Test tabbing to a disabled ButtonBar." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <RunCode code="application.setDataProvider(application.bb1, 1)" waitTarget="bb1" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="enabled" value="false" waitTarget="bb1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+        <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="bb2" />
+        <AssertEvent target="bb2" eventName="focusIn" eventClass="flash.events::FocusEvent" />
+    </body>
+</TestCase>
+<TestCase testID="enabled_true_tabToEmptyButtonBar" keywords="[ButtonBar,enabled, dataProvider]"
+    description="Test tabbing to an empty ButtonBar." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusOut" waitTarget="default_button" />
+        <AssertEvent target="default_button" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+    </body>
+</TestCase>
+<TestCase testID="enabled_false_tabToEmptyButtonBar" keywords="[ButtonBar,enabled, dataProvider]"
+    description="Test tabbing to an empty ButtonBar. Just be sure there isn't a RTE tabbing to an empty ButtonBar." >
+    <setup>
+        <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="bb1" propertyName="enabled" value="false" />
+    </setup>
+    <body>
+        <RunCode code="application.default_button.setFocus()" waitEvent="focusIn" waitTarget="default_button" />
+        <DispatchKeyEvent keys="[TAB]" waitEvent="focusOut" waitTarget="default_button" />
+        <AssertEvent target="default_button" eventName="focusOut" eventClass="flash.events::FocusEvent" />
+    </body>
+</TestCase>
+</testCases>
+</UnitTester>

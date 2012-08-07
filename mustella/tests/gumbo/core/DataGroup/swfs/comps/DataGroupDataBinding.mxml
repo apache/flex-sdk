@@ -1,0 +1,19 @@
+<s:DataGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  >
+	<s:dataProvider>
+		<mx:ArrayCollection>
+			<s:DataGroup id="innerDataGroup">
+				<mx:ArrayCollection>
+					<s:Button x="0" y="0" width="50" height="40" label="0xFF00FF" />
+					<s:Button x="100" y="100" width="50" height="40" label="0xEE00EE" />
+				</mx:ArrayCollection>
+			</s:DataGroup>
+
+			<mx:Label id="dependentLabel1" text="{innerDataGroup.horizontalScrollPosition}" />
+			<mx:Label id="dependentLabel2" text="{innerDataGroup.verticalScrollPosition}" />
+			<mx:Label id="dependentLabel3" text="{innerDataGroup.contentWidth}" />
+			<mx:Label id="dependentLabel4" text="{innerDataGroup.contentHeight}" />
+								    
+		</mx:ArrayCollection>
+	</s:dataProvider>
+	
+</s:DataGroup>

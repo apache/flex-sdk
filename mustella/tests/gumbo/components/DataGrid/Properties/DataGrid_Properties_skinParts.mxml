@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+	
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretIndicatorDefault" keywords="[DataGrid, Property, caretIndicator]" description="Test removing the caretIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>		
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretIndicatorSingleRow1" keywords="[DataGrid, Property, caretIndicator]" description="Test removing the caretIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretIndicatorSingleRow2" keywords="[DataGrid, Property, caretIndicator]" description="Test removing the caretIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="3"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		      
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretIndicatorSingleCell1" keywords="[DataGrid, Property, caretIndicator]" description="Test removing the caretIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(2,2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretIndicatorSingleCell2" keywords="[DataGrid, Property, caretIndicator]" description="Test removing the caretIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(2,3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>
+			</setup>
+			<body>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="2"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="3"/>											
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretNoSelectionIndicatorsRow" keywords="[DataGrid, Property, caretIndicator, selectionIndicator]" description="Test removing the caretIndicator and selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>						
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>						
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>						
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noCaretNoSelectionIndicatorsCell" keywords="[DataGrid, Property, caretIndicator, selectionIndicator]" description="Test removing the caretIndicator and selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>	
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+			</setup>
+			<body>										
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretIndicator" valueExpression="value=null"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(2,2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noColumnSeparator" keywords="[DataGrid, Property, columnSeparator]" description="Test removing the columnSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="columnSeparator" valueExpression="value=null"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noColumnSeparatorMultipleCells" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the columnSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="columnSeparator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,0)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noColumnSeparatorMultipleRows" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the columnSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="columnSeparator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noRowSeparator" keywords="[DataGrid, Property, rowSeparator]" description="Test removing the rowSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="rowSeparator" valueExpression="value=null"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+								
+		<TestCase testID="DataGrid_Properties_skinParts_noRowSeparatorMultipleCells" keywords="[DataGrid, Property, rowSeparator]" description="Test removing the rowSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="rowSeparator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(1,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(2,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noRowSeparatorMultipleRows" keywords="[DataGrid, Property, rowSeparator]" description="Test removing the rowSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="rowSeparator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>				
+	
+		<TestCase testID="DataGrid_Properties_skinParts_noRowColumnSeparator" keywords="[DataGrid, Property, rowSeparator, columnSeparator]" description="Test removing the rowSeparator and columnSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="rowSeparator" valueExpression="value=null"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="columnSeparator" valueExpression="value=null"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+								
+		<TestCase testID="DataGrid_Properties_skinParts_noRowColumnSeparatorMultipleCells" keywords="[DataGrid, Property, rowSeparator, columnSeparator]" description="Test removing the rowSeparator and columnSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="rowSeparator" valueExpression="value=null"/>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="columnSeparator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(1,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(2,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noRowColumnSeparatorMultipleRows" keywords="[DataGrid, Property, rowSeparator, columnSeparator]" description="Test removing the rowSeparator and columnSeparator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="rowSeparator" valueExpression="value=null"/>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="columnSeparator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DataGrid_Properties_skinParts_noSelectionIndicatorMultipleCells" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,0)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noSelectionIndicatorMultipleCellsRemoveAfter" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleCells"/>
+			</setup>
+			<body>																
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,0)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedCell(3,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noSelectionIndicatorMultipleRows" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noSelectionIndicatorMultipleRowsRemoveAfter" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="multipleRows"/>
+			</setup>
+			<body>																
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.addSelectedIndex(2)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noSelectionIndicatorSingleCell" keywords="[DataGrid, Property, selectionIndicator]" description="Test removing the selectionIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedCell(3,1)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_skinParts_noSelectionIndicatorSingleRow" keywords="[DataGrid, Property, hoverIndicator]" description="Test removing the hoverIndicator DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="enterFrame" waitTarget="stage"/>			
+			</setup>
+			<body>												
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="selectionIndicator" valueExpression="value=null"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.setSelectedIndex(3)" waitEvent="valueCommit" waitTarget="myComp1.dataGrid1"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>						
+
+    </testCases>
+</UnitTester> 

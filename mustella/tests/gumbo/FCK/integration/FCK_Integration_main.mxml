@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/FCK/integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FCKBasic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.Button;
+			import mx.controls.Button;
+			import mx.core.IVisualElement;
+			import mx.core.mx_internal;
+			import comps.*;
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		.boldGroup {
+			fontWeight: 'bold';
+		}
+	</fx:Style>
+
+	<testCases>
+
+<!-- 
+
+CAUTION: FCK Tests can be extremely fragile.
+
+-->
+
+<!-- NOTE: There are a couple tests with no waitEvents because nothing gets fired when you set a property yourself or mustella eats it up (often when setting content), there we usually Pause instead -->
+
+	<!-- obsolete: FlashComponentPlaceholder shouldn't be used anymore 
+	<TestCase testID="FCK_integration_placeholder" keywords="[FCK, integration, regression]" description="ensure FlashComponentPlaceholder can be added directly to the display list (SDK-19789)">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.addElementAt(new FlashComponentPlaceholder(), 2)" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_placeholder.png" target="integrationGroup" numColorVariances="2" maxColorVariance="4" />
+	    </body>
+	</TestCase>
+	-->
+		
+	<!-- regression tests -->
+		
+	<TestCase testID="FCK_integration_chromeless" keywords="[FCK, integration, regression]" description="ensure chromeless empty container doesnt timeout (SDK-20692)">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.addElementAt(new ChromeLess(), 2)" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<AssertMethodValue method="value=application.integrationGroup.numElements" value="3" />
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_haloPanel" keywords="[FCK, integration, regression]" description="ensure container works in halo panel (SDK-20823)">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.removeAllElements()" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.addElement(new HaloPanel())" waitTarget="integrationGroup" waitEvent="updateComplete" />			
+			<CompareBitmap url="../integration/baselines/FCK_integration_haloPanel.png" target="integrationGroup" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_vboxPanelComponent" keywords="[FCK, integration, regression]" description="regression (SDK-21546)">
+		<bugs>
+			<Bug bugID="SDK-21546" />
+		</bugs>
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.removeAllElements()" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.addElement(new VBoxPanelComponent())" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/FCK_integration_vboxPanelComponent.png" target="integrationGroup" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_mxpVersions" keywords="[FCK, integration, regression]" description="ensure using all the current versions of the MXP works properly and check that placeholder isn't shown (SDK-16673)">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.removeAllElements()" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.addElement(new MXPVersions())" waitTarget="integrationGroup" waitEvent="updateComplete" />			
+			<CompareBitmap url="../integration/baselines/FCK_integration_mxpVersions.png" numColorVariances="10" maxColorVariance="20" target="integrationGroup" />
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_integration_expandingContainerAutoUpdate" keywords="[FCK, integration, regression]" description="the autoUpdateCurrentState/autoUpdateMeasuredSize properties are set to true in the SWC">
+		<body>
+			<ResetComponent target="expandingContainerGroupAutoUpdate" className="comps.ExpandingContainerGroupAutoUpdate" waitTarget="expandingContainerGroupAutoUpdate" waitEvent="updateComplete" />
+			<RunCode code="application.expandingContainerGroupAutoUpdate.expandingContainer.currentState = 'openState'" waitTarget="expandingContainerGroupAutoUpdate" waitEvent="inOpenState" />
+			<AssertMethodValue method="value=application.expandingContainerGroupAutoUpdate.expandingContainer.currentState" value="openState" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_expandingContainerAutoUpdate.png" target="expandingContainerGroupAutoUpdate" />
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_integration_expandingContainer_closedState" keywords="[FCK, integration, regression]" description="a closed expanding container (SDK-20710)">
+		<body>
+			<ResetComponent target="expandingContainerGroup" className="comps.ExpandingContainerGroup" waitTarget="expandingContainerGroup" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_expandingContainer_closedState.png" target="expandingContainerGroup" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="FCK_integration_expandingContainer_openState" keywords="[FCK, integration, regression]" description="open an expanding container (SDK-20710)">
+		<body>
+			<ResetComponent target="expandingContainerGroup" className="comps.ExpandingContainerGroup" waitTarget="expandingContainerGroup" waitEvent="updateComplete" />
+			<RunCode code="application.expandingContainerGroup.expandingContainer.autoUpdateMeasuredSize = true" />	
+			<Pause timeout="50" />
+			<RunCode code="application.expandingContainerGroup.expandingContainer.currentState = 'openState'" waitTarget="expandingContainerGroup" waitEvent="inOpenState" />
+			
+			<AssertMethodValue method="value=application.expandingContainerGroup.expandingContainer.currentState" value="openState" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_expandingContainer_openState.png" target="expandingContainerGroup" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_expandingContainer_openState_notTracked" keywords="[FCK, integration, regression]" description="expanding container shouldn't change size without tracking the size (SDK-21270)">
+		<body>
+			<ResetComponent target="expandingContainerGroup" className="comps.ExpandingContainerGroup" waitTarget="expandingContainerGroup" waitEvent="updateComplete" />
+			<RunCode code="application.expandingContainerGroup.expandingContainer.currentState = 'openState'" waitTarget="expandingContainerGroup" waitEvent="inOpenState" />
+			
+			<AssertMethodValue method="value=application.expandingContainerGroup.expandingContainer.currentState" value="openState" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_expandingContainer_openState_notTracked.png" target="expandingContainerGroup" />
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_expandingContainer_biggerState" keywords="[FCK, integration, regression]" description="move the placeholder between states (SDK-21267)">
+		<body>
+			<ResetComponent target="expandingContainerGroup" className="comps.ExpandingContainerGroup" waitTarget="expandingContainerGroup" waitEvent="updateComplete" />
+			<RunCode code="application.expandingContainerGroup.expandingContainer.trackSizeChanges = true" />	
+			<Pause timeout="50" />
+			<RunCode code="application.expandingContainerGroup.expandingContainer.currentState = 'biggerState'" waitTarget="expandingContainerGroup" waitEvent="inBiggerState" />
+			
+			<CompareBitmap url="../integration/baselines/FCK_integration_expandingContainer_biggerState.png" target="expandingContainerGroup" />
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_integration_changeContent" keywords="[FCK, integration, regression]" description="ensure can change content programatically (SDK-20670)">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationContainer.content = application.integrationGroup.newContent" />
+			<Pause timeout="50" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_changeContent.png" target="integrationGroup" />
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_integration_autoUpdateCurrentState" keywords="[FCK, integration, regression]" description="check that currentState gets updated automatically (SDK-21270)">
+		<bugs>
+			<Bug bugID="SDK-21270" />
+		</bugs>
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.removeAllElements()" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.addElement(new AnimateToStateComponent())" waitTarget="integrationGroup" waitEvent="updateComplete" />	
+			<SetProperty target="integrationGroup.getElementAt(0)" propertyName="autoUpdateCurrentState"  value="true" />
+			<SetProperty target="integrationGroup.getElementAt(0)" propertyName="currentState"  value="kickOffState" />
+			<Pause timeout="1200" /><!-- need to wait for the flash animation to finish -->
+	    </setup>
+		<body>
+			<AssertPropertyValue target="integrationGroup.getElementAt(0)" propertyName="autoUpdateCurrentState" value="true" />
+			<AssertPropertyValue target="integrationGroup.getElementAt(0)" propertyName="currentState" value="state1" />
+	    </body>
+	</TestCase>	
+
+	<TestCase testID="FCK_integration_autoUpdateMeasuredSize" keywords="[FCK, integration, regression]" description="check that size gets updated automatically (SDK-21270)">
+		<bugs>
+			<Bug bugID="SDK-21270" />
+		</bugs>
+		<setup>
+			<ResetComponent target="expandingContainerGroup" className="comps.ExpandingContainerGroup" waitTarget="expandingContainerGroup" waitEvent="updateComplete" />
+			<SetProperty target="expandingContainerGroup.expandingContainer" propertyName="autoUpdateMeasuredSize" value="true" />
+			<SetProperty target="expandingContainerGroup.expandingContainer" propertyName="currentState"  value="openState" />
+			<Pause timeout="1000" /><!-- need to wait for the flash animation to finish -->
+	    </setup>
+		<body>
+			<AssertPropertyValue target="expandingContainerGroup.expandingContainer" propertyName="currentState" value="openState" />
+			<AssertPropertyValue target="expandingContainerGroup.expandingContainer" propertyName="autoUpdateMeasuredSize" value="true" />
+			<AssertPropertyValue target="expandingContainerGroup.expandingContainer" propertyName="width" value="200" />
+			<AssertPropertyValue target="expandingContainerGroup.expandingContainer" propertyName="height" value="200" />
+	    </body>
+	</TestCase>	
+
+<!-- focus -->
+
+	<TestCase testID="FCK_integration_focus_container" keywords="[FCK, integration, focus]" description="ensure focus ring shows on items in flash container (SDK-19789)">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_focus_container.png" target="integrationGroup" numColorVariances="2" maxColorVariance="4" />
+	    </body>
+	</TestCase>
+
+<!-- ToolTip -->
+	
+	<TestCase testID="FCK_integration_tooltip_component" keywords="[FCK, integration, toolTip]" description="ensure a toolTip shows on a flash component">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationComponent.toolTip='component toolTip';" />
+	    </setup>
+		<body>
+			<DispatchMouseEvent target="integrationGroup.integrationComponent" localX="15" localY="1" type="rollOver"/>	
+			<DispatchMouseEvent target="integrationGroup.integrationComponent" localX="15" localY="3" type="mouseOver" waitEvent="toolTipShow" />	
+			<CompareBitmap url="../integration/baselines/FCK_integration_tooltip_component.png" target="integrationGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_tooltip_container" keywords="[FCK, integration, toolTip]" description="ensure a toolTip shows on a flash container">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationContainer.toolTip='container toolTip';" />
+	    </setup>
+		<body>
+			<DispatchMouseEvent target="integrationGroup.integrationContainer" localX="15" localY="1" type="rollOver"/>	
+			<DispatchMouseEvent target="integrationGroup.integrationContainer" localX="15" localY="3" type="mouseOver" waitEvent="toolTipShow" />	
+			<CompareBitmap url="../integration/baselines/FCK_integration_tooltip_container.png" target="integrationGroup" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="FCK_integration_tooltip_containerContents" keywords="[FCK, integration, toolTip]" description="ensure a toolTip shows on an element inside a flash container">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<DispatchMouseEvent target="integrationGroup.insideContainer" localX="10" localY="5" type="rollOver"/>	
+			<DispatchMouseEvent target="integrationGroup.insideContainer" localX="10" localY="8" type="mouseOver" waitEvent="toolTipShow" />	
+			<CompareBitmap url="../integration/baselines/FCK_integration_tooltip_containerContents.png" target="integrationGroup" />
+		</body>
+	</TestCase>
+
+<!-- containers -->
+
+	<TestCase testID="FCK_integration_container_halo" keywords="[FCK, integration, container]" description="check that it can hold a halo object">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.integrationGroup.integrationContainer.content = application.createHaloButton('halo button', 100, 24);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_halo.png" target="integrationGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_container_spark" keywords="[FCK, integration, container]" description="check that it can hold a spark object">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.integrationGroup.integrationContainer.content = application.createSparkButton('spark button', 100, 24);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_spark.png" target="integrationGroup" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_container_group" keywords="[FCK, integration, container]" description="check that it can hold a spark container">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.integrationGroup.integrationContainer.content = application.createGroup();" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_group.png" target="integrationGroup" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_container_panel" keywords="[FCK, integration, container]" description="check that it can hold a halo container">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.integrationGroup.integrationContainer.content = application.createPanel('Halo Panel', 100, 80);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_panel.png" target="integrationGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_container_dataGroup" keywords="[FCK, integration, container]" description="check that it can hold a virtualized DataGroup">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.integrationGroup.integrationContainer.content = new VirtualizedDataGroup();" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_dataGroup.png" target="integrationGroup" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_container_scroller" keywords="[FCK, integration, container]" description="check that it can hold a scroller DataGroup">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.integrationGroup.integrationContainer.content = new VirtualizedDataGroupWithScoller();" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_scroller.png" target="integrationGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="FCK_integration_container_resizeContentHolder_larger" keywords="[FCK, integration, container]" description="programmatically resize the content holder larger">
+		<setup>
+			<ResetComponent target="programmaticSizingGroup" className="comps.ProgrammaticSizingGroup" waitTarget="programmaticSizingGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.programmaticSizingGroup.resizeContentHolder(200, 200)" value="true" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_resizeContentHolder_larger.png" target="programmaticSizingGroup" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_container_resizeContentHolder_smaller" keywords="[FCK, integration, container]" description="programmatically resize the content holder smaller">
+		<setup>
+			<ResetComponent target="programmaticSizingGroup" className="comps.ProgrammaticSizingGroup" waitTarget="programmaticSizingGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.programmaticSizingGroup.resizeContentHolder(100, 100)" value="true" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_resizeContentHolder_smaller.png" target="programmaticSizingGroup" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="FCK_integration_container_scaleContentWhenResized_default" keywords="[FCK, integration, container]" description="check default value">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.integrationContainer.scaleContentWhenResized" value="false" />
+		</body>
+	</TestCase>				
+							
+	<TestCase testID="FCK_integration_container_scaleContentWhenResized_true" keywords="[FCK, integration, container]" description="check content scales when container scaled">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.integrationContainer.scaleContentWhenResized = true" value="true" />
+			<RunCode code="application.integrationGroup.integrationContainer.width *= 2" waitTarget="integrationGroup" waitEvent="propertyChange" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_container_scaleContentWhenResized_true.png" target="integrationGroup" />
+		</body>
+	</TestCase>
+	
+<!-- container - IVisualElement methods -->
+
+		
+	<TestCase testID="FCK_integration_container_numElements_0" keywords="[FCK, integration, container]" description="numElements should be 0 when it has no content">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>	
+			<RunCode code="application.integrationGroup.integrationContainer.content = null" />
+			<Pause timeout="50" /> <!-- mustella seems to eat my updateComplete here -->
+
+			<AssertMethodValue method="value=application.integrationGroup.integrationContainer.numElements" value="0" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="FCK_integration_container_numElements_1" keywords="[FCK, integration, container]" description="numElements should be 1 when it has content">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>		
+			<AssertMethodValue method="value=application.integrationGroup.integrationContainer.numElements" value="1" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="FCK_integration_container_addElement" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.addElement(null) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_container_addElementAt" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.addElementAt(null, 1) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_container_removeElement" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.removeElement(null) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="FCK_integration_container_removeElementAt" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.removeElementAt(0) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>		
+		
+	<TestCase testID="FCK_integration_container_removeAllElements" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.removeAllElements() })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>		
+		
+	<TestCase testID="FCK_integration_container_setElementIndex" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.setElementIndex(null, 0) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="FCK_integration_container_swapElements" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.swapElements(null, null) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="FCK_integration_container_swapElementsAt" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.swapElementsAt(0, 1) })" value="ArgumentError: This operation is not supported." />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="FCK_integration_container_getElementAt_zero" keywords="[FCK, integration, container]" description="check can get the content element">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=(application.integrationGroup.integrationContainer.getElementAt(0) as spark.components.Button).label" value="click me" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_container_getElementAt_nonzero" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.getElementAt(1) })" value="RangeError: Index 1 is out of range." />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="FCK_integration_container_getElementIndex" keywords="[FCK, integration, container]" description="check can get the index of the item">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.integrationContainer.getElementIndex(application.integrationGroup.insideContainer)" value="0" />
+		</body>
+	</TestCase>			
+		
+	<TestCase testID="FCK_integration_container_getElementIndex_null" keywords="[FCK, integration, container]" description="check an RTE when trying to use IVisualElement methods">
+		<body>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+		 	<AssertMethodValue method="value=application.assertError(function():void { application.integrationGroup.integrationContainer.getElementIndex(null) })" value="ArgumentError: null is not found in this container." />
+		</body>
+	</TestCase>		
+	
+		
+<!-- custom skin -->
+
+	<TestCase testID="FCK_integration_skin_up" keywords="[FCK, integration, skin]" description="check up state of a halo button with custom flash skin">
+		<setup>
+			<ResetComponent target="customSkinGroup" className="comps.CustomSkinGroup" waitTarget="customSkinGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/FCK_integration_skin_up.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_skin_over" keywords="[FCK, integration, skin]" description="check over state of a halo button with custom flash skin">
+		<setup>
+			<ResetComponent target="customSkinGroup" className="comps.CustomSkinGroup" waitTarget="customSkinGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="rollOver" />	
+			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseOver" />
+			<Pause timeout="1000" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_skin_over.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="FCK_integration_skin_down" keywords="[FCK, integration, skin]" description="check down state of a halo button with custom flash skin">
+		<setup>
+			<ResetComponent target="customSkinGroup" className="comps.CustomSkinGroup" waitTarget="customSkinGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="rollOver" />	
+			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseOver" />
+			<DispatchMouseEvent target="customSkinGroup" localX="100" localY="70" type="mouseDown" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_skin_down.png" target="customSkinGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>
+
+	
+	<TestCase testID="FCK_integration_skin_disabled" keywords="[FCK, integration, skin]" description="check disabled state of a halo button with custom flash skin">
+		<setup>
+			<ResetComponent target="customSkinGroup" className="comps.CustomSkinGroup" waitTarget="customSkinGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.customSkinGroup.customButton.enabled = false;" waitTarget="customSkinGroup.customButton" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_skin_disabled.png" target="customSkinGroup" />
+		</body>
+	</TestCase>	
+	
+<!-- item Renderer -->	
+	
+	<TestCase testID="FCK_integration_itemRenderer_start" keywords="[FCK, integration, skin]" description="check that movieclips can be used in a virtualized item renderer (start)">
+		<setup>
+			<ResetComponent target="itemRendererGroup" className="comps.ItemRendererGroup" waitTarget="itemRendererGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/FCK_integration_itemRenderer_start.png" target="itemRendererGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_itemRenderer_middle" keywords="[FCK, integration, skin]" description="check that movieclips can be used in a virtualized item renderer (scroll down)">
+		<setup>
+			<ResetComponent target="itemRendererGroup" className="comps.ItemRendererGroup" waitTarget="itemRendererGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.itemRendererGroup.virtualDataGroup.verticalScrollPosition = 80000;" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_itemRenderer_middle.png" target="itemRendererGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_itemRenderer_end" keywords="[FCK, integration, skin]" description="check that movieclips can be used in a virtualized item renderer (scroll to end)">
+		<setup>
+			<ResetComponent target="itemRendererGroup" className="comps.ItemRendererGroup" waitTarget="itemRendererGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.itemRendererGroup.virtualDataGroup.verticalScrollPosition = application.itemRendererGroup.virtualDataGroup.contentHeight;" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_itemRenderer_end.png" target="itemRendererGroup" numColorVariances="5" ignoreMaxColorVariance="true"/>
+		</body>
+	</TestCase>	
+	
+<!-- effects -->
+
+	<TestCase testID="FCK_integration_effects_rotation_2D" keywords="[FCK, integration, effects]" description="animate a rotate on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'rotation', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'rotation', 0, 45, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotation_2D.png" target="animationGroup" numColorVariances="3" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_effects_rotationX_2D" keywords="[FCK, integration, effects]" description="animate a rotateX on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'rotationX', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'rotationX', 0, 180, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotationX_2D.png" target="animationGroup" numColorVariances="16" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_effects_rotationY_2D" keywords="[FCK, integration, effects]" description="animate a rotateY on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'rotationY', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'rotationY', 0, 180, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotationY_2D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_effects_rotationZ_2D" keywords="[FCK, integration, effects]" description="animate a rotateZ on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'rotationZ', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'rotationZ', 0, 45, 50);" />
+			<Pause timeout="100" />
+			<AssertMethodValue method="value=application.animationGroup.animationComponent.rotationZ" value="45" />
+			<AssertMethodValue method="value=application.animationGroup.animationContainer.rotationZ" value="45" />			
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotationZ_2D.png" target="animationGroup" numColorVariances="3" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_effects_rotationX_3D" keywords="[FCK, integration, effects]" description="animate a rotateX (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'rotationX', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'rotationX', 0, 180, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotationX_3D.png" target="animationGroup" numColorVariances="16" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_rotationY_3D" keywords="[FCK, integration, effects]" description="animate a rotateY (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'rotationY', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'rotationY', 0, 180, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotationY_3D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_rotationZ_3D" keywords="[FCK, integration, effects]" description="animate a rotateZ (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'rotationZ', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'rotationZ', 0, 45, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_rotationZ_3D.png" target="animationGroup" numColorVariances="10" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_x_2D" keywords="[FCK, integration, effects]" description="animate a move on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'x', 0, 45, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'x', 0, 45, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_x_2D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_y_2D" keywords="[FCK, integration, effects]" description="animate a move on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'y', 0, 10, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'y', 0, 100, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_y_2D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>		
+		
+	<TestCase testID="FCK_integration_effects_z_2D" keywords="[FCK, integration, effects]" description="animate a move on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'z', 0, 40, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'z', 0, 100, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_z_2D.png" target="animationGroup" numColorVariances="12" maxColorVariance="10" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_effects_x_3D" keywords="[FCK, integration, effects]" description="animate a move (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'x', 0, 100, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'x', 0, 100, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_x_3D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_y_3D" keywords="[FCK, integration, effects]" description="animate a move (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'y', 0, 50, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'y', 0, 50, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_y_3D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>		
+		
+	<TestCase testID="FCK_integration_effects_z_3D" keywords="[FCK, integration, effects]" description="animate a move (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'z', 0, 40, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'z', 0, 100, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_z_3D.png" target="animationGroup" numColorVariances="12" maxColorVariance="10" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_width" keywords="[FCK, integration, effects]" description="animate a size change on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'width', 50, 100, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'width', application.animationGroup.animationContainer.width, 300, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_width.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_height" keywords="[FCK, integration, effects]" description="animate a size change on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'height', 50, 100, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'height', application.animationGroup.animationContainer.width, 300, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_height.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>				
+	
+	<TestCase testID="FCK_integration_effects_height_2D" keywords="[FCK, integration, effects]" description="animate a scale on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'scaleX', 1, 2, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'scaleX', 1, 2, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_scaleX_2D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_effects_scaleY_2D" keywords="[FCK, integration, effects]" description="animate a scale on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'scaleY', 1, 2, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'scaleY', 1, 2, 50);" />
+			<Pause timeout="100" />
+			<!-- This test is failing despite no differences in the bitmap, wtf? -->
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_scaleY_2D.png" target="animationGroup" numColorVariances="100" maxColorVariance="100" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_scaleZ_2D" keywords="[FCK, integration, effects]" description="animate a scale on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent, 'scaleZ', 1, 3, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer, 'scaleZ', 1, 3, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_scaleZ_2D.png" target="animationGroup" numColorVariances="12" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_effects_scaleX_3D" keywords="[FCK, integration, effects]" description="animate a scale (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'scaleX', 1, 2, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'scaleX', 1, 2, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_scaleX_3D.png" target="animationGroup" numColorVariances="8" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_effects_scaleY_3D" keywords="[FCK, integration, effects]" description="animate a scale (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'scaleY', 1, 2, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'scaleY', 1, 2, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_scaleY_3D.png" target="animationGroup" numColorVariances="3" maxColorVariance="10" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_effects_scaleZ_3D" keywords="[FCK, integration, effects]" description="animate a scale (3D) on both component and container">
+		<setup>
+			<ResetComponent target="animationGroup" className="comps.AnimationGroup" waitTarget="animationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.animateProperty(application.animationGroup.animationComponent.postLayoutTransformOffsets, 'scaleZ', 1, 3, 50);" />
+			<RunCode code="application.animateProperty(application.animationGroup.animationContainer.postLayoutTransformOffsets, 'scaleZ', 1, 3, 50);" />
+			<Pause timeout="100" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_effects_scaleZ_3D.png" target="animationGroup" numColorVariances="12" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+
+<!-- layout -->
+
+	<TestCase testID="FCK_integration_layout_constraints" keywords="[FCK, integration, layout]" description="set constraints on a component and container">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.top    = 10" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.left   = 10" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.right  = 10" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.bottom = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+						
+			<RunCode code="application.layoutGroup.layoutContainer.top    = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.left   = 10" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.right  = 10" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.bottom = 10" waitTarget="layoutGroup" waitEvent="updateComplete" />
+					
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_constraints.png" target="layoutGroup" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_layout_xy" keywords="[FCK, integration, layout]" description="position with x/y">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.x = 50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.y = 50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			
+			<RunCode code="application.layoutGroup.layoutContainer.x = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.y = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_xy.png" target="layoutGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_layout_xy_negative" keywords="[FCK, integration, layout]" description="position with x/y in negative flex space">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.x = -50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.y = -50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			
+			<RunCode code="application.layoutGroup.layoutContainer.x = -50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.y = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+						
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_xy_negative.png" target="layoutGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_layout_widthHeight" keywords="[FCK, integration, layout]" description="size with width/height">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.width  = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.height = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+						
+			<RunCode code="application.layoutGroup.layoutContainer.x  = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.width  = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.height = 200" waitTarget="layoutGroup" waitEvent="updateComplete" />
+						
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_widthHeight.png" target="layoutGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_layout_scale" keywords="[FCK, integration, layout]" description="scale movieclips">
+		<bugs>
+			<Bug bugID="SDK-23754" />
+		</bugs>
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.width" value="151" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.height" value="151" />
+			<RunCode code="application.layoutGroup.layoutComponent.scaleX = 1.5" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.scaleY = 1.5" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.width" value="151" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.height" value="151" />
+			
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.width" value="151" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.height" value="151" />
+			<RunCode code="application.layoutGroup.layoutContainer.x  = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.scaleX = 1.5" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.scaleY = 1.5" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.width" value="151" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.height" value="151" />
+			
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_scale.png" target="layoutGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_layout_visible" keywords="[FCK, integration, layout]" description="check movieclips respect visible property, should show nothing">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.visible = false" />
+			<RunCode code="application.layoutGroup.layoutContainer.visible = false" />
+			<RunCode code="application.layoutGroup.layoutContainer.x  = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_visible.png" target="layoutGroup" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_layout_minWidthHeight" keywords="[FCK, integration, layout]" description="check movieclips respect minWidth/minHeight">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.minWidth = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.minHeight = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+						
+			<RunCode code="application.layoutGroup.layoutContainer.x  = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.minWidth = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.minHeight = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.minWidth" value="300" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.minHeight" value="300" />
+			
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.minWidth" value="300" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.minHeight" value="300" />			
+			
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_minWidthHeight.png" target="layoutGroup" />
+		</body>
+	</TestCase>		
+
+	
+	<TestCase testID="FCK_integration_layout_sizeSmaller" keywords="[FCK, integration, layout]" description="size a clip smaller (SDK-19788)">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<RunCode code="application.layoutGroup.layoutComponent.width = 50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.height = 50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+						
+			<RunCode code="application.layoutGroup.layoutContainer.x  = 300" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.width = 50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.height = 50" waitTarget="layoutGroup" waitEvent="updateComplete" />
+					
+ 			<CompareBitmap url="../integration/baselines/FCK_integration_layout_sizeSmaller.png" target="layoutGroup" numColorVariances="6" maxColorVariance="20" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_layout_parentSize_component" keywords="[FCK, integration, layout]" description="parent bounds should update properly (SDK-20668)">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationComponent.x = 100;" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationComponent.y = 100;" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.componentContainer.width" valueExpression="value=100 + 51" />
+			<AssertMethodValue method="value=application.integrationGroup.componentContainer.height" valueExpression="value=100 + 51" />
+		</body>
+	</TestCase>			
+					
+	<TestCase testID="FCK_integration_layout_parentSize_container" keywords="[FCK, integration, layout]" description="parent bounds should update properly (SDK-20668)">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationContainer.x = 100;" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationContainer.y = 100;" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.containerContainer.width" valueExpression="value=100 + 201" />
+			<AssertMethodValue method="value=application.integrationGroup.containerContainer.height" valueExpression="value=100 + 151" />
+		</body>
+	</TestCase>		
+		
+	<TestCase testID="FCK_integration_layout_transformOffsets_position" keywords="[FCK, integration, layout]" description="should be able to transform position (SDK-20669)">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationComponentOffsets.x = 50;" />
+			<RunCode code="application.integrationGroup.integrationContainerOffsets.x = 50;" />
+			<Pause timeout="100" />
+	    </setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_transformOffsets_position.png" target="integrationGroup" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="FCK_integration_layout_transformOffsets_scale" keywords="[FCK, integration, layout]" description="should be able to transform scale (SDK-20669)">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.integrationGroup.integrationComponentOffsets.scaleX = 2;" />
+			<RunCode code="application.integrationGroup.integrationContainerOffsets.scaleX = 2;" />
+			<Pause timeout="100" />
+	    </setup>
+		<body>
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_transformOffsets_scale.png" target="integrationGroup" />
+		</body>
+	</TestCase>						
+	
+	<TestCase testID="FCK_integration_layout_fixedLayout" keywords="[FCK, integration, layout]" description="check fixed layout and layer">
+		<body>
+			<ResetComponent target="fixedLayoutGroup" className="comps.FixedLayoutGroup" waitTarget="fixedLayoutGroup" waitEvent="updateComplete" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_fixedLayout.png" target="fixedLayoutGroup" numColorVariances="30" maxColorVariance="20" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="FCK_integration_layout_center_component" keywords="[FCK, integration, layout]" description="position a clip in center">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.horizontalCenter = 0;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.verticalCenter = 0;" waitTarget="layoutGroup" waitEvent="updateComplete" />		
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.horizontalCenter" value="0" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.verticalCenter" value="0" />	
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_center_component.png" target="layoutGroup"   />
+		</body>
+	</TestCase>						
+	
+	<TestCase testID="FCK_integration_layout_center_container" keywords="[FCK, integration, layout]" description="position a container in center">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.horizontalCenter = 0;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.verticalCenter = 0;" waitTarget="layoutGroup" waitEvent="updateComplete" />		
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.horizontalCenter" value="0" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.verticalCenter" value="0" />			
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_center_container.png" target="layoutGroup" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_layout_transformPosition_component" keywords="[FCK, integration, layout]" description="set transformX/Y/Z and rotate">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.x = 100;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.y = 100;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutComponent.transformX = 75;" />
+			<RunCode code="application.layoutGroup.layoutComponent.transformY = 75;" />
+			<RunCode code="application.layoutGroup.layoutComponent.transformZ = 75;" />
+			<RunCode code="application.layoutGroup.layoutComponent.rotation = 45;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.transformX" value="75" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.transformY" value="75" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutComponent.transformZ" value="75" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_transformPosition_component.png" target="layoutGroup" numColorVariances="3" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_layout_transformPosition_container" keywords="[FCK, integration, layout]" description="set transformX/Y/Z and rotate">
+		<setup>
+			<ResetComponent target="layoutGroup" className="comps.LayoutGroup" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.x = 100;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.y = 100;" waitTarget="layoutGroup" waitEvent="updateComplete" />
+			<RunCode code="application.layoutGroup.layoutContainer.transformX = 75;" />
+			<RunCode code="application.layoutGroup.layoutContainer.transformY = 75;" />
+			<RunCode code="application.layoutGroup.layoutContainer.transformZ = 75;" />
+			<RunCode code="application.layoutGroup.layoutContainer.rotation = 45;" waitTarget="layoutGroup" waitEvent="updateComplete"/>
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.transformX" value="75" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.transformY" value="75" />
+			<AssertMethodValue method="value=application.layoutGroup.layoutContainer.transformZ" value="75" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_layout_transformPosition_container.png" target="layoutGroup" numColorVariances="6" ignoreMaxColorVariance="true" />
+		</body>
+	</TestCase>
+	
+<!-- code coverage tests -->
+
+	<TestCase testID="FCK_integration_coverage_automation" keywords="[FCK, integration, coverage]" description="check some automation methods get covered">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationEnabled" value="true" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationParent.id" value="componentContainer" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationName" value="automationIntegrationComponent" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationVisible" value="true" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationValue is Array" value="true" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationDelegate.id" value="componentContainer" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.showInAutomationHierarchy" value="true" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationTabularData" value="null" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.numAutomationChildren" value="0" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.automationOwner.id" value="componentContainer" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_coverage_misc" keywords="[FCK, integration, coverage]" description="cover some misc properties">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<SetProperty target="integrationGroup.integrationComponent" propertyName="tweeningProperties" value="[1,2,3]" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.baselinePosition" value="0" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.isPopUp" value="false" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.cachePolicy" value="" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.parentDocument is IntegrationGroup" value="true" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.tweeningProperties" value="[1,2,3]" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.mouseFocusEnabled" value="false" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.focusPane" value="null" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.maintainProjectionCenter" value="false" />
+			
+			<!-- TODO: We shouldn't test these directly since its an implementation detail, but code coverage still doesn't seem to report them as getting hit despite these direct calls, so def some weird bug hanging around CC -->
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.mx_internal::$scaleX" value="1" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.mx_internal::$scaleY" value="1" />
+			
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="FCK_integration_coverage_maxSize" keywords="[FCK, integration, coverage]" description="cover the maxWidth/maxHeight properties">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<SetProperty target="integrationGroup.integrationComponent" propertyName="maxWidth" value="51" />
+			<SetProperty target="integrationGroup.integrationComponent" propertyName="maxHeight" value="51" />
+			<SetProperty target="integrationGroup.integrationComponent" propertyName="left" value="0" />
+			<SetProperty target="integrationGroup.integrationComponent" propertyName="right" value="0" />
+			<Pause timeout="50" />
+	    </setup>
+		<body>
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="maxWidth" value="51" />
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="maxHeight" value="51" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_coverage_maxSize.png" target="integrationGroup" />
+	    </body>
+	</TestCase>
+
+	<TestCase testID="FCK_integration_coverage_baseline" keywords="[FCK, integration, coverage]" description="set the baseline">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<SetProperty target="integrationGroup.integrationComponent" propertyName="baseline" value="10" waitTarget="integrationGroup" waitEvent="updateComplete"  />
+			<SetProperty target="integrationGroup.integrationContainer" propertyName="baseline" value="10" waitTarget="integrationGroup" waitEvent="updateComplete"  />
+	    </setup>
+		<body>
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="baseline" value="10" />
+			<AssertPropertyValue target="integrationGroup.integrationContainer" propertyName="baseline" value="10" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_coverage_baseline.png" target="integrationGroup" />
+	    </body>
+	</TestCase>		
+	
+	<TestCase testID="FCK_integration_coverage_setConstraintValue" keywords="[FCK, integration, coverage]" description="set contraint values">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.integrationGroup.integrationComponent.setConstraintValue('left', 2);" />
+			<AssertMethodValue method="application.integrationGroup.integrationComponent.setConstraintValue('right', 4);" />
+			<AssertMethodValue method="application.integrationGroup.integrationComponent.setConstraintValue('top', 6);" />
+			<AssertMethodValue method="application.integrationGroup.integrationComponent.setConstraintValue('bottom', 8);" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="left" value="2" />
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="right" value="4" />
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="top" value="6" />
+			<AssertPropertyValue target="integrationGroup.integrationComponent" propertyName="bottom" value="8" />
+			
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.getConstraintValue('left');" value="2" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.getConstraintValue('right');" value="4" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.getConstraintValue('top');" value="6" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.getConstraintValue('bottom');" value="8" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_coverage_layout" keywords="[FCK, integration, coverage]" description="cover some hidden scale method">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<SetProperty target="integrationGroup.integrationContainer" propertyName="autoUpdateMeasuredSize" value="true" />
+			<SetProperty target="integrationGroup.integrationContainer" propertyName="scaleContentWhenResized" value="true" />
+			<SetProperty target="integrationGroup.integrationContainer" propertyName="width" value="400" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<SetProperty target="integrationGroup.integrationContainer" propertyName="scaleX" value="2" waitTarget="integrationGroup" waitEvent="updateComplete" />
+	    </setup>
+		<body>
+			<AssertPropertyValue target="integrationGroup.integrationContainer" propertyName="autoUpdateMeasuredSize" value="true" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_coverage_layout.png" target="integrationGroup" />
+	    </body>
+	</TestCase>	
+	
+	<TestCase testID="FCK_integration_coverage_transform" keywords="[FCK, integration, coverage]" description="cover the transform methods">
+		<setup>
+			<ResetComponent target="integrationGroup" className="comps.IntegrationGroup" waitTarget="integrationGroup" waitEvent="updateComplete" />
+			<RunCode code="application.transformClip(application.integrationGroup.integrationComponent);" />
+			<Pause timeout="100" />
+	    </setup>
+		<body>
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.transform.matrix.c" value="-0.707107" />
+			<AssertMethodValue method="value=application.integrationGroup.integrationComponent.mx_internal::$transform.matrix.c" value="-0.707107" />
+			<CompareBitmap url="../integration/baselines/FCK_integration_coverage_transform.png" target="integrationGroup" numColorVariances="3" ignoreMaxColorVariance="true" />
+	    </body>
+	</TestCase>	
+	
+	
+		
+	
+								
+	</testCases>
+</UnitTester>

@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	         xmlns:custom="Assets.*"
+	         width="800" height="600"
+             >
+
+<fx:Script>
+<![CDATA[
+    import mx.events.StateChangeEvent;
+    import spark.layouts.*;
+    
+    /**
+    * Any test case could start out in any state, depending on how the
+    * previous test failed.  Therefore, we cannot switch to a state and
+    * then wait, since we may already be in that state.
+    **/
+    public function ensureState1():void{
+        if(currentState == "state1"){
+            dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            addEventListener("currentStateChange", handleCurrentStateChange);
+            currentState = "state1";   
+        }
+    }
+
+    private function handleCurrentStateChange(e:StateChangeEvent):void{
+        dispatchEvent(new Event("manualResetComplete"));
+    }
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+	@font-face {
+		src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+		fontFamily: EmbeddedArno;
+		embedAsCFF: true;
+	}
+        
+    s|Button{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    s|Label{
+        fontFamily: EmbeddedArno;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    global{
+        kerning: "off";
+    }
+</fx:Style>
+
+<s:states>
+    <s:State name="state1" />
+    
+    <s:State name="state1a" />
+    <s:State name="state1b" />
+    <s:State name="state2a" />
+    <s:State name="state2b" />
+    <s:State name="state3a" />
+    <s:State name="state3b" />
+    <s:State name="state4a" />
+    <s:State name="state4b" />
+    <s:State name="state5a" />
+    <s:State name="state5b" />
+    <s:State name="state6a" />
+    <s:State name="state6b" />
+    <s:State name="state7a" />
+    <s:State name="state7b" />
+    <s:State name="state8a" />
+    <s:State name="state8b" />
+    <s:State name="state9a" />
+    <s:State name="state9b" />
+    <s:State name="state10a" />
+    <s:State name="state10b" />
+    <s:State name="state11a" />
+    <s:State name="state11b" />
+    <s:State name="state12a" />
+    <s:State name="state12b" />
+    <s:State name="state13a" />
+    <s:State name="state13b" />
+    <s:State name="state14a" />
+    <s:State name="state14b" />
+    <s:State name="state15a" />
+    <s:State name="state15b" />
+</s:states>
+
+<!-- 
+    Don't use an Scroller because of SDK-19438.
+    A box's ID corresponds to the first test case which uses it.
+-->
+
+<s:layout>
+    <s:HorizontalLayout />
+</s:layout>
+
+<mx:Box id="box1" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group1" >
+        <s:layout>
+            <s:TileLayout />
+        </s:layout>
+        <s:Rect width="10" height="10" includeIn="state1b">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="25" height="25" includeIn="state1a">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10" includeIn="state1b">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        
+        <s:Rect width="25" height="25" includeIn="state1a">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box2" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:DataGroup id="group2" >
+        <s:layout>
+            <s:TileLayout />
+        </s:layout>
+        <s:dataProvider.state2a>
+            <mx:ArrayCollection>
+                <s:Group >
+                    <s:Rect width="10" height="10">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0xff0000"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+                <s:Group >
+                    <s:Rect width="25" height="25">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+                <s:Group>
+                    <s:Rect width="10" height="10">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+            </mx:ArrayCollection>
+        </s:dataProvider.state2a>
+        <s:dataProvider.state2b>
+            <mx:ArrayCollection>
+                <s:Group >
+                    <s:Rect width="10" height="10">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0xff0000"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+            </mx:ArrayCollection>
+        </s:dataProvider.state2b>
+    </s:DataGroup>
+</mx:Box>
+
+<mx:Box id="box3" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:DataGroup id="group3" >
+        <s:layout>
+            <s:TileLayout />
+        </s:layout>
+        <s:dataProvider.state3b>
+            <mx:ArrayCollection>
+                <s:Group >
+                    <s:Rect width="10" height="10">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0xff0000"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+                <s:Group >
+                    <s:Rect width="25" height="25">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+                <s:Group>
+                    <s:Rect width="10" height="10">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+            </mx:ArrayCollection>
+        </s:dataProvider.state3b>
+        <s:dataProvider.state3a>
+            <mx:ArrayCollection>
+                <s:Group >
+                    <s:Rect width="10" height="10">
+                        <s:stroke>
+                            <mx:SolidColorStroke weight="1" color="0xff0000"/>
+                        </s:stroke>
+                    </s:Rect>
+                </s:Group>
+            </mx:ArrayCollection>
+        </s:dataProvider.state3a>
+    </s:DataGroup>
+</mx:Box>
+
+<mx:Box id="box4" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group4" >
+        <s:layout>
+            <s:TileLayout />
+        </s:layout>
+        <s:Rect width="10" height="10" includeIn="state1">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10" includeIn="state4b">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box5" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group5" >
+        <s:layout>
+            <s:TileLayout requestedRowCount.state5a="1" requestedRowCount.state5b="3" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box6" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group6" >
+        <s:layout>
+            <s:TileLayout requestedColumnCount.state6a="1" requestedColumnCount.state6b="3" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box7" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group7" >
+        <s:layout>
+            <s:TileLayout requestedRowCount="3" rowHeight.state7a="25" rowHeight.state7b="50" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box8" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group8" >
+        <s:layout>
+            <s:TileLayout requestedColumnCount="3" columnWidth.state8a="25" columnWidth.state8b="50" />
+        </s:layout>        
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box9" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group9" >
+        <s:layout>
+            <s:TileLayout columnWidth="20" horizontalAlign.state9a="left" horizontalAlign.state9b="right" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box10" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group10" >
+        <s:layout>
+            <s:TileLayout rowHeight="20" verticalAlign.state10a="top" verticalAlign.state10b="bottom" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box11" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group11" >
+        <s:layout>
+            <s:TileLayout horizontalGap.state11a="0" horizontalGap.state11b="10" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box12" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group12" >
+        <s:layout>
+            <s:TileLayout verticalGap.state12a="0" verticalGap.state12b="10" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box13" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group13" height="50" >
+        <s:layout>
+            <s:TileLayout verticalAlign="justify" requestedColumnCount="1" rowAlign.state13a="justifyUsingGap" rowAlign.state13b="{RowAlign.JUSTIFY_USING_HEIGHT}" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box14" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group14" width="50" >
+        <s:layout>
+            <s:TileLayout horizontalAlign="justify" requestedRowCount="1" columnAlign.state14a="justifyUsingGap" columnAlign.state14b="{ColumnAlign.JUSTIFY_USING_WIDTH}" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+
+<mx:Box id="box15" borderStyle="solid"  x="0" y="0" borderColor="0xffffff">
+    <s:Group id="group15" >
+        <s:layout>
+            <s:TileLayout orientation.state15a="columns" orientation.state15b="rows" />
+        </s:layout>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0xff0000"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x00ff00"/>
+            </s:stroke>
+        </s:Rect>
+        <s:Rect width="10" height="10">
+            <s:stroke>
+                <mx:SolidColorStroke weight="1" color="0x0000ff"/>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
+</mx:Box>
+</s:Application>

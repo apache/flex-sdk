@@ -1,0 +1,458 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Integration/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_controlBar.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        	
+        	import spark.layouts.*;
+        	import spark.components.Button;
+        	import skins.*;
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>
+    
+<!-- 
+
+States:
+
+    + toggle visibility between states
+    + change layouts between states
+    + have different controls based on different states
+    + check that controlBar elements can't be interacted with when the Panel is disabled
+    + disable, enable a Panel and check that controls can be interacted with
+    + disable, enable, disable a Panel and check that controls cannot be interacted with
+    + change the controlBarContent while the Panel is disabled
+    + change the controlBarLayout while the Panel is disabled
+
+-->
+
+		<TestCase testID="Panel_Integration_controlBar_states_layout" keywords="[Panel, ControlBar]" description="change layout based on state">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="currentState" value="state1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarIntegration.screen2" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_states_visible_false" keywords="[Panel, ControlBar]" description="change visible to false based on state">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="currentState" value="state4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarIntegration.screen2" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Integration_controlBar_states_visible_true" keywords="[Panel, ControlBar]" description="change visible to true based on state">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="currentState" value="state4" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="currentState" value="state3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarIntegration.screen2" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_states_content" keywords="[Panel, ControlBar]" description="change content based on state">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="currentState" value="state4" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap target="controlBarIntegration.screen4" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>		
+		
+		<TestCase testID="Panel_Integration_controlBar_enabled" keywords="[Panel, ControlBar]" description="enabling a Panel should enable its controlBar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="clickString" value="" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="false" waitEvent="updateComplete" />
+            	<DispatchMouseEvent target="controlBarIntegration.panel3" localX="30" localY="150" type="click"/>
+            	<AssertPropertyValue target="controlBarIntegration" propertyName="clickString" valueExpression="value=''" />	
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="true" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="controlBarIntegration.panel3" localX="30" localY="150" type="click"/>
+            	<AssertPropertyValue target="controlBarIntegration" propertyName="clickString" valueExpression="value='[btnA]'" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Integration_controlBar_disabled" keywords="[Panel, ControlBar]" description="shouldn't be able to click on disable panel's controlBar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="clickString" value="" />
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="false" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="controlBarIntegration.panel3" localX="30" localY="150" type="click"/>
+            	<AssertPropertyValue target="controlBarIntegration" propertyName="clickString" valueExpression="value=''" />	
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" />
+            </body>
+        </TestCase>                
+        
+		<TestCase testID="Panel_Integration_controlBar_disabled_2" keywords="[Panel, ControlBar]" description="disable, enable, disable a Panel">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration" propertyName="clickString" value="" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="false" waitEvent="updateComplete" />
+            	<DispatchMouseEvent target="controlBarIntegration.panel3" localX="30" localY="150" type="click"/>
+            	<AssertPropertyValue target="controlBarIntegration" propertyName="clickString" valueExpression="value=''" />	
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="true" waitEvent="updateComplete" />
+                <DispatchMouseEvent target="controlBarIntegration.panel3" localX="30" localY="150" type="click"/>
+            	<AssertPropertyValue target="controlBarIntegration" propertyName="clickString" valueExpression="value='[btnA]'" />
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="false" waitEvent="updateComplete" />
+            	<DispatchMouseEvent target="controlBarIntegration.panel3" localX="30" localY="150" type="click"/>
+            	<AssertPropertyValue target="controlBarIntegration" propertyName="clickString" valueExpression="value='[btnA]'" />
+            </body>
+        </TestCase>      
+          
+		<TestCase testID="Panel_Integration_controlBar_disabled_change_content" keywords="[Panel, ControlBar]" description="change controlbar on a disabled panel">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="false" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.panel3" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray1" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+          
+		<TestCase testID="Panel_Integration_controlBar_disabled_change_layout" keywords="[Panel, ControlBar]" description="change controlbar on a disabled panel">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="enabled" value="false" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.panel3" propertyName="controlBarLayout" valueExpression="value=application.controlBarIntegration.vLayout" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+
+<!-- 
+
+Styles
+
+    + check that setting font styles on a Panel/Application applies to the controlBar
+    + set controlBar styles that are different from the content's styles by applying them to the controlBarGroup
+    
+-->
+
+		<TestCase testID="Panel_Integration_controlBar_styles" keywords="[Panel, ControlBar]" description="setting styles on Panel should affect controlBar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="controlBarIntegration.panel3" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Panel_Integration_controlBar_styles_controlBarGroup" keywords="[Panel, ControlBar]" description="set a style specific to the controlBarGroup">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetStyle target="controlBarIntegration.panel3.controlBarGroup" styleName="fontSize" value="20" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>  
+
+<!--
+
+Keyboard/Focus:
+
+    + check that the controlBar elements tab order is after the Panel elements
+
+-->
+		<TestCase testID="Panel_Integration_controlBar_focus_1" keywords="[Panel, ControlBar]" description="check content can gain focus">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarIntegration.btnFocusEntry.setFocus()" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <CompareBitmap target="controlBarIntegration.screen4" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Panel_Integration_controlBar_focus_2" keywords="[Panel, ControlBar]" description="check controlBar elements gain focus after contents">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarIntegration.btnFocusEntry.setFocus()" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <CompareBitmap target="controlBarIntegration.screen4" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>  
+ 
+		<TestCase testID="Panel_Integration_controlBar_focus_3" keywords="[Panel, ControlBar]" description="check element outside panel gain focus after controlBar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarIntegration.btnFocusEntry.setFocus()" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" />
+                <CompareBitmap target="controlBarIntegration.screen4" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>         
+        
+<!--
+
+Scrolling:
+
+    + custom skin the PanelSkin to have a Scroller around the controlsGroup to support scrolling of controlBar elements
+    + put Scrollers around the contentGroup and the controlsGroup and make sure everything lays out propertly
+
+-->
+       
+		<TestCase testID="Panel_Integration_controlBar_scrolling" keywords="[Panel, ControlBar]" description="custom skin to include scrollbars">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.panel1" propertyName="width" value="200" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.panel1" propertyName="height" value="200" waitEvent="updateComplete" />
+                <SetStyle target="controlBarIntegration.panel1" styleName="skinClass" valueExpression="value=skins.controlBarPanelSkin" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray2" waitEvent="updateComplete" />
+				<RunCode code="application.controlBarIntegration.panel1.addElement(application.controlBarIntegration.bigButton)" waitTarget="controlBarIntegration.panel1" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen1" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>  
+        
+<!--
+
+Layout:
+
+    + check that reducing the height of the Panel doesn't cause the controlBar to overlap the title
+    + set an element of the Panel to bottom=0, check it adjusts to the right position when toggling the controlBar on and off
+    + check the panel title and controlBar layout properly when the panel's size is set very small
+    + check that large content overflows underneath the control bar
+    + check that the controlBar chrome grows/shrinks to accommodate a size change of a controlBar element
+
+    + add and remove controlBar at runtime
+    + add and remove controlBar elements at runtime
+
+-->
+
+		<TestCase testID="Panel_Integration_controlBar_layout_overlap" keywords="[Panel, ControlBar]" description="check the controlBar doesn't overlap title bar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="height" value="40" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.screen3" propertyName="height" value="70" waitEvent="updateComplete" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+		<TestCase testID="Panel_Integration_controlBar_layout_overflow" keywords="[Panel, ControlBar]" description="large content should run under the controlBar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="height" value="75" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.screen3" propertyName="height" value="150" waitEvent="updateComplete" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_layout_hide" keywords="[Panel, ControlBar]" description="remove the controlBar and content should move to fill its space">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="height" value="200" waitEvent="updateComplete" />
+                <RunCode code="application.controlBarIntegration.panel3.getElementAt(0).bottom = 0" waitTarget="controlBarIntegration.panel3.getElementAt(0)" waitEvent="updateComplete"  />
+                <SetProperty target="controlBarIntegration.panel3" propertyName="controlBarVisible" value="false" waitEvent="updateComplete" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_layout_increaseHeight" keywords="[Panel, ControlBar]" description="remove the controlBar and content should move to fill its space">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="height" value="200" waitEvent="updateComplete" />
+                <RunCode code="application.controlBarIntegration.panel3.controlBarGroup.getElementAt(0).height *= 2" waitTarget="controlBarIntegration.panel3.controlBarGroup.getElementAt(0)" waitEvent="updateComplete"  />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_layout_add" keywords="[Panel, ControlBar]" description="add the controlBar at runtime">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+                <SetProperty target="controlBarIntegration.panel3" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray1" waitEvent="updateComplete" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_layout_add_element" keywords="[Panel, ControlBar]" description="add a controlBar element at runtime">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarIntegration.panel3.controlBarGroup.addElementAt(new spark.components.Button(), 0)" waitTarget="controlBarIntegration.panel3.controlBarGroup" waitEvent="updateComplete"  />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Integration_controlBar_layout_remove" keywords="[Panel, ControlBar]" description="remove the controlBar at runtime">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+            
+		<TestCase testID="Panel_Integration_controlBar_layout_remove_element" keywords="[Panel, ControlBar]" description="remove a controlBar element at runtime">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarIntegration.panel3.controlBarGroup.removeElementAt(0)" waitTarget="controlBarIntegration.panel3.controlBarGroup" waitEvent="updateComplete"  />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10" />
+            </body>
+        </TestCase>
+
+<!--
+
+Other:
+
+    + check that if the Panel header grows in size the controlBar is moved/resized correctly
+    + check that setting enabled/alpha/visible on Panel/Application applies to the controlBar too
+    + custom skin to position the controlBar in another area of the Panel/Application
+
+-->        
+
+		<TestCase testID="Panel_Integration_controlBar_layout_titleHeight" keywords="[Panel, ControlBar]" description="increase title bar height and check controlBar is repositioned">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.controlBarIntegration.panel3.titleDisplay.height *= 2" waitTarget="controlBarIntegration.panel3" waitEvent="updateComplete"  />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" />
+            </body>
+        </TestCase>      
+              
+		<TestCase testID="Panel_Integration_controlBar_alpha" keywords="[Panel, ControlBar]" description="setting alpha on panel should be applied to the controlBar too">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="alpha" value="0.5" waitEvent="alphaChanged" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" />
+            </body>
+        </TestCase>    
+         
+		<TestCase testID="Panel_Integration_controlBar_visible" keywords="[Panel, ControlBar]" description="setting visible on panel should be applied to the controlBar too">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel3" propertyName="visible" value="false" waitEvent="hide" />
+            	<CompareBitmap target="controlBarIntegration.screen3" url="../Integration/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+              
+		<TestCase testID="Panel_Integration_controlBar_customSkin" keywords="[Panel, ControlBar]" description="custom skin to move the controlBar">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetStyle target="controlBarIntegration.panel1" styleName="skinClass" valueExpression="value=skins.controlBarPanelSkin2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray2" waitEvent="updateComplete" />
+				<RunCode code="application.controlBarIntegration.panel1.addElement(application.controlBarIntegration.bigButton)" waitTarget="controlBarIntegration.panel1" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen1" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10"  />
+            </body>
+        </TestCase>  
+
+		<TestCase testID="Panel_Integration_controlBar_customSkin_introduceControls" keywords="[Panel, ControlBar]" description="custom skin to remove the controlBar then reskin to add it">
+            <setup>
+                <ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+                <SetStyle target="controlBarIntegration.panel1" styleName="skinClass" valueExpression="value=skins.controlBarPanelSkin3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="controlBarIntegration.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray2" />
+                <SetProperty target="controlBarIntegration.panel1" propertyName="controlBarLayout" valueExpression="value=new VerticalLayout()" />
+                <Pause timeout="200" />
+                                
+                <AssertMethodValue method="value=application.controlBarIntegration.panel1.controlBarLayout is VerticalLayout" value="true" />
+                <AssertMethodValue method="value=application.controlBarIntegration.panel1.controlBarContent[0].label" value="1" />
+                <AssertMethodValue method="value=application.controlBarIntegration.panel1.controlBarVisible" value="true" />
+                
+                <SetStyle target="controlBarIntegration.panel1" styleName="skinClass" valueExpression="value=skins.controlBarPanelSkin2" waitEvent="updateComplete" />
+                <CompareBitmap target="controlBarIntegration.screen1" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10"  />
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="Panel_Integration_controlBar_customSkin_removeControls" keywords="[Panel, ControlBar]" description="set controlBar then reskin to remove it">
+			<setup>
+				<ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+				<SetStyle target="controlBarIntegration.panel1" styleName="skinClass" valueExpression="value=skins.controlBarPanelSkin2" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="controlBarIntegration.panel1" propertyName="controlBarContent" valueExpression="value=application.controlBarIntegration.contentArray2" />
+				<SetProperty target="controlBarIntegration.panel1" propertyName="controlBarLayout" valueExpression="value=new VerticalLayout()" />
+				<Pause timeout="200" />
+
+				<SetStyle target="controlBarIntegration.panel1" styleName="skinClass" valueExpression="value=skins.controlBarPanelSkin3" waitEvent="updateComplete" />
+				<AssertMethodValue method="value=application.controlBarIntegration.panel1.controlBarLayout is VerticalLayout" value="true" />
+				<AssertMethodValue method="value=application.controlBarIntegration.panel1.controlBarContent[0].label" value="1" />
+                <AssertMethodValue method="value=application.controlBarIntegration.panel1.controlBarVisible" value="true" />
+				
+				<CompareBitmap target="controlBarIntegration.screen1" url="../Integration/Baselines/$testID.png" numColorVariances="2" maxColorVariance="10"  />
+			</body>
+		</TestCase>  
+
+		<TestCase testID="Panel_Integration_controlBar_baseColor" keywords="[Panel, ControlBar]" description="set basecolor on the Panel (SDK-23862)">
+			<bugs>
+				<Bug bugID="SDK-23862" />
+			</bugs>
+			<setup>
+				<ResetComponent target="controlBarIntegration" className="Comps.CustomPanelControlBarIntegration" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap target="controlBarIntegration.screen5" url="../Integration/Baselines/$testID.png" numColorVariances="4" maxColorVariance="10" />
+			</body>
+		</TestCase>  
+        
+    </testCases>
+    
+</UnitTester>
+
+

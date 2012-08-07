@@ -1,0 +1,16 @@
+<s:DropDownList xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    prompt="Select One"
+    width="150">
+    
+    <s:dataProvider>
+    	<mx:ArrayCollection>
+    		<fx:String>ProductA</fx:String>
+    		<fx:String>ProductB</fx:String>
+    		<fx:String>ProductC</fx:String>
+    		<fx:String>ProductD</fx:String>
+    		<fx:String>ProductE</fx:String>
+    		<fx:String>ProductF</fx:String>
+		</mx:ArrayCollection>
+	</s:dataProvider>
+	
+</s:DropDownList>

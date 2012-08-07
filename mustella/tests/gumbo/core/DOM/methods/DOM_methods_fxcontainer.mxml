@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/core/DOM/methods/" testSWF="DOMBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	
+      import comps.*;
+	  
+	]]>
+  </fx:Script>
+  <testCases>
+ 
+<!-- 
+
+- - - - - - - - - - - - 
+DOM Testing  (FxContainer)
+- - - - - - - - - - - - 
+
+-->
+
+	
+<!-- 
+
+Check IVisualElementContainer interface properties and methods work on FxContainer
+
+-->	
+	
+	<TestCase testID="DOM_FxContainer_addElement" keywords="[DOM, FxContainer, addElement]" description="ensure addElement method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.fxcontainer1.addElement(application.createButton());" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<RunCode code="application.fxcontainer1.addElement(application.createFxButton());" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(0).label" value="Button" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(1).label" value="FxButton" />
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="2" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DOM_FxContainer_addElementAt" keywords="[DOM, FxContainer, addElementAt]" description="ensure addElementAt method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.fxcontainer1.addElement(application.createButton());" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<RunCode code="application.fxcontainer1.addElementAt(application.createFxButton(), 0);" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(0).label" value="FxButton" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(1).label" value="Button" />		
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="2" />
+		</body>
+	</TestCase>
+		
+	<TestCase testID="DOM_FxContainer_getElementAt" keywords="[DOM, FxContainer, getElementAt]" description="ensure getElementAt method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />	
+					
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="updateComplete" waitTarget="fxcontainer1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(0).label" value="Button 0" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="DOM_FxContainer_getElementIndex" keywords="[DOM, FxContainer, getElementIndex]" description="ensure getElementIndex method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />			
+			
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="updateComplete" waitTarget="fxcontainer1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.fxcontainer1.getElementIndex(application.fxcontainer1.getElementAt(0))" value="0" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DOM_FxContainer_removeElement" keywords="[DOM, FxContainer, removeElement]" description="ensure removeElement method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="updateComplete" waitTarget="fxcontainer1" />
+			<AssertMethodValue method="application.fxcontainer1.removeElement(application.fxcontainer1.getElementAt(0))" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="0" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DOM_FxContainer_removeElementAt" keywords="[DOM, FxContainer, removeElementAt]" description="ensure removeElementAt method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="updateComplete" waitTarget="fxcontainer1" />
+			<AssertMethodValue method="application.fxcontainer1.removeElementAt(0)" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="0" />
+		</body>
+	</TestCase>			
+
+	<TestCase testID="DOM_FxContainer_setElementIndex" keywords="[DOM, FxContainer, setElementIndex]" description="ensure setElementIndex method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />	
+					
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 1'));" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<AssertMethodValue method="application.fxcontainer1.setElementIndex(application.fxcontainer1.getElementAt(0), 1)" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="2" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(0).label" value="Button 1" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(1).label" value="Button 0" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DOM_FxContainer_swapElements" keywords="[DOM, FxContainer, swapElements]" description="ensure swapElements method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />
+			
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 1'));" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<AssertMethodValue method="application.fxcontainer1.swapElements(application.fxcontainer1.getElementAt(0), application.fxcontainer1.getElementAt(1))" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="2" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(0).label" value="Button 1" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(1).label" value="Button 0" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="DOM_FxContainer_swapElementsAt" keywords="[DOM, FxContainer, swapElementsAt]" description="ensure swapElementsAt method works on FxContainer">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+			
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 0'));" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<RunCode code="application.fxcontainer1.addElement(application.createButton('Button 1'));" waitEvent="elementAdd" waitTarget="fxcontainer1" />
+			<AssertMethodValue method="application.fxcontainer1.swapElementsAt(0, 1)" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="fxcontainer1" propertyName="numElements" value="2" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(0).label" value="Button 1" />
+			<AssertMethodValue method="value=application.fxcontainer1.getElementAt(1).label" value="Button 0" />
+		</body>
+	</TestCase>		
+
+	
+					
+  </testCases>
+</UnitTester>

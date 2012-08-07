@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_001.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+                import mx.collections.XMLListCollection;
+                import mx.collections.ArrayList;
+                import mx.utils.ObjectUtil;
+                import spark.components.DataGrid;
+                import spark.components.gridClasses.GridSelectionMode;
+                
+                
+                public var xmlListColl:XMLListCollection;
+                public var dgLength:int;
+                public var v:Vector.<int>;
+                public var tobeCheckedCells:ArrayList;
+                public var arrList:ArrayList;
+                public var rowsHolder:ArrayList=new ArrayList();
+		public var indices:Vector.<int>;
+		
+		
+                
+                /**
+                * this method is helper method to check dataGrid item contains the key, put the item into vector to use in filter/sort tests for later verification
+                */
+                public function getRowsWithColumnContainWords(key:String, dataGrid:DataGrid):Vector.<int>
+                {
+                	var v:Vector.<int>=new Vector.<int>;
+                	var o:Object;
+                	for (var i:int=0;i<dataGrid.dataProvider.length;i++)
+                	{
+                		o=dataGrid.dataProvider.getItemAt(i);
+                		trace("o="+o.@firstName);
+                		if (o is XML)
+                		{
+                			if (XML(o).@firstName.indexOf(key)>-1)
+                			v.push(i);
+                		}else
+                		{
+                			if (dataGrid.dataProvider.getItemAt(i).firstName.indexOf(key)>-1)
+                			v.push(i);
+                		}
+                	}
+                	return v;
+                }
+                /**
+                * this method to add rowIndex/columnIndex into tobechecked selected cell
+                */
+                public function addSelectedCells(rowIndex:int, columnIndex:int):void
+		{
+			if (tobeCheckedCells==null) tobeCheckedCells=new ArrayList();
+			tobeCheckedCells.addItem({"rowIndex":rowIndex, "columnIndex":columnIndex});
+		}
+		/**
+		* this method is to create an arrayList
+		*/
+		public function createArrayList():void
+		{	
+			arrList=new ArrayList();
+			var obj:Object;
+			for (var i:int = 0; i < 100; i++)
+			{
+				obj=FlexGlobals.topLevelApplication.createItem(i);
+				arrList.addItem(obj);
+			}
+		}
+            }
+            
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+               
+	<TestCase testID="Properties_dataProvider_emptyXMLLC01" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty xml list collection">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=new XMLListCollection()" />
+                <SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" />
+     	  
+            </setup>
+            <body>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length" value="0" />
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedIndex(1)" value="false" />
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[1,2])" value="false"/>
+            </body>
+        </TestCase>
+
+	<TestCase testID="Properties_dataProvider_emptyXMLLC02" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty xml list collection, verify no visual elements around the dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=new XMLListCollection()" />
+                <SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" />
+     
+            </setup>
+            <body>
+            	<!-- check mouse click after dataGrid, make sure no caret, dataGrid layout there -->
+            	<DispatchMouseClickEvent target="" stageX="400" stageY="120"  />
+            	<!-- verify the image should have no row or cell background -->
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="vg" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+    
+	<TestCase testID="Properties_dataProvider_XMLLC01" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, verify visual UI for the dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <RunCode code="xmlListColl=FlexGlobals.topLevelApplication.createXMLListCollection(100)"/>
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=xmlListColl"/>
+                <SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5"/>
+                <SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" />
+            </setup>
+            <body>
+            	 
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+        
+	<TestCase testID="Properties_dataProvider_XMLLC02" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, add a row, verify visual UI for the dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <RunCode code="xmlListColl=FlexGlobals.topLevelApplication.createXMLListCollection(100)"/>
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=xmlListColl"/>
+		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" />
+          
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.addItem(FlexGlobals.topLevelApplication.dataGrid,0)" waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- verify the first row is added -->
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+        
+ 	<TestCase testID="Properties_dataProvider_XMLLC03" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, add a row in the middle, verify visual UI for the dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(10)" waitEvent="updateComplete"/>
+		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.addItem(FlexGlobals.topLevelApplication.dataGrid,5)" waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- verify the row is added to the middle -->
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+  
+ 	<TestCase testID="Properties_dataProvider_XMLLC04" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, add a row in the middle, verify visual UI for the dataGrid">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+  
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.addItem(FlexGlobals.topLevelApplication.dataGrid,50)"  waitTarget="dataGrid" waitEvent="enterFrame" />
+		 
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(50)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+		 
+            	<!-- verify the row is added to the middle --> 
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+        
+ 	<TestCase testID="Properties_dataProvider_XMLLC05" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a couple rows, add a rown in middle of selection, verify selection is changed">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+  
+            </setup>
+            <body>
+            	<!-- select rows  from 0 ~5 -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[0,1,2,3,4])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- create the item must be fixed,can't have random data -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.addItemAt(FlexGlobals.topLevelApplication.createXMLItem(2),2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	 
+            	<!-- verify the row is added to the middle --> 
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+             </body>
+        </TestCase>
+ 	<TestCase testID="Properties_dataProvider_XMLLC06" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, selectAll is implicit ends due to columns change">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+ 		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+		
+            </setup>
+            <body>
+            	<!-- select all rows -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectAll()"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- create the item must be fixed,can't have random data -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.addItemAt(FlexGlobals.topLevelApplication.createXMLItem(2),0)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- later added item will not be selected -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="100"/>
+            	
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase>
+
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC07" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a couple rows, remove a rown in middle of selection, verify selection is changed">
+            <setup>
+		
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+ 		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true"/>
+            </setup>
+            <body>
+            	<!-- select rows  from 0 ~5 -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[0,1,2,3,4])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- create the item must be fixed,can't have random data -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<Pause timeout="400"/>
+            	<!-- verify the selection now is four rows -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="4"/>
+            	
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID_beforeColumnChg.png"/>
+				
+            	<SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+	    	<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		
+				<!-- select rows  from 0 ~5 -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[0,1,2,3,4])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- create the item must be fixed,can't have random data -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	 
+            	<!-- verify the selection now is four rows -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="4"/>
+            	
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID_afterColumnChg.png"/>				
+            </body>
+        </TestCase>  
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC09" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a row, remove the selection, verify selection is changed">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+ 		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+            </setup>
+            <body>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[0])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(0)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	 
+            	<!-- verify the selection now is 0 row -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0"/>
+            	
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase> 
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC10" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a row, remove the selection, verify selection is changed">
+            <setup>            
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+              <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+ 		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+
+            </setup>
+            <body>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[99])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(99)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+				 
+            	<!-- verify the selection now is 0 row, need scroll to the last one -->
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.ensureCellIsVisible(98)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+		 
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0"/>
+            	 
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase> 
+  
+ 	<TestCase testID="Properties_dataProvider_XMLLC11" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a row, remove a row below the selection, verify selection isn't changed">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+  		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+  		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		 
+            </setup>
+            <body>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[98])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(99)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+				 
+            	<!-- verify the selection now is 0 row, need scroll to the last one -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="1"/>
+            	 
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase> 
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC12" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a row, remove the row above selection, verify selection isn't changed">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+    		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+    		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		 
+            </setup>
+            <body>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[98])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<!-- scroll to the last page -->
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.removeItemAt(97)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+				 
+            	<!-- verify the selection now is 0 row, need scroll to the last one -->
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="1"/>
+            	 
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase> 
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC13" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a row, update the selection, verify selection isn't changed">
+            <setup>
+			
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+    		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+    		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		 
+            </setup>
+            <body>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[1])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.setItemAt(FlexGlobals.topLevelApplication.createFixedItem(1),1);"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+       
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="1"/>
+            	 <Pause timeout="200"/>
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>
+            </body>
+        </TestCase> 
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC14" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, select a row, update other row, verify selection isn't changed">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+    		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+    		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		 
+            </setup>
+            <body>
+            	 
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[1])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	
+            	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.setItemAt(FlexGlobals.topLevelApplication.createFixedItem(1),2);"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+       			 
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="1"/>
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>             
+	    </body>
+        </TestCase> 
+        
+ 	<TestCase testID="Properties_dataProvider_XMLLC15" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, set a filter, verify selection is changed">
+            <setup>
+            	 
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(20)" />
+    		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+    		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+    		 
+            </setup>
+            <body>
+            	<RunCode code="FlexGlobals.topLevelApplication.keyword='J' "/>
+            	<RunCode code="v=getRowsWithColumnContainWords(FlexGlobals.topLevelApplication.keyword,FlexGlobals.topLevelApplication.dataGrid)"/>
+      		 
+      		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(v)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+      		<!-- apply filter, so the selection should be kept -->
+      		<RunCode code="FlexGlobals.topLevelApplication.filterText='J' "/>
+      		<RunCode code="FlexGlobals.topLevelApplication.applyFilter(FlexGlobals.topLevelApplication.dataGrid)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+			 
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length" valueExpression="value=v.length"/>
+            	<CompareBitmap  numColorVariances="20" ignoreMaxColorVariance="true"  target="dataGrid" url="../Properties/Baselines/$testID.png"/>             
+	    </body>
+        </TestCase> 
+
+ 	<TestCase testID="Properties_dataProvider_XMLLC16" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, set two filters, later filters will set back the dataGrid to the original, verify selection isn't changed for second filter applied">
+            <setup>
+                <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+      		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+            </setup>
+            <body>
+            	
+            	<RunCode code="FlexGlobals.topLevelApplication.keyword='J' "/>
+            	<RunCode code="v=getRowsWithColumnContainWords(FlexGlobals.topLevelApplication.keyword,FlexGlobals.topLevelApplication.dataGrid)"/>
+      		<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(v)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+      		<!-- apply filter, so the selection should be kept -->
+      		<RunCode code="FlexGlobals.topLevelApplication.filterText='J' "/>
+      		<RunCode code="FlexGlobals.topLevelApplication.applyFilter(FlexGlobals.topLevelApplication.dataGrid)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.filterText='*' "/>
+            	<RunCode code="FlexGlobals.topLevelApplication.applyFilter(FlexGlobals.topLevelApplication.dataGrid)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length" value="100"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0"/>
+            </body>
+        </TestCase>
+ 
+  	<TestCase testID="Properties_dataProvider_XMLLC17" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, set some selections,then sort the dataGrid, verify selection isn't changed,but selected rows have position changed">
+             <setup>            	 
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+      		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_ROWS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+             </setup>
+             <body>
+             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[0,1,5,7])"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+             	<RunCode code="rowsHolder=FlexGlobals.topLevelApplication.getItems(FlexGlobals.topLevelApplication.dataGrid,new &lt;int&gt;[0,1,5,7])" />
+
+       		<!-- apply sort, the selection should still be kept -->
+       		<RunCode code="FlexGlobals.topLevelApplication.applySort(FlexGlobals.topLevelApplication.dataGrid,'firstName')"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0"/>
+             	
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length" value="100"/>
+             	<RunCode code="indices=FlexGlobals.topLevelApplication.getNewIndices(FlexGlobals.topLevelApplication.dataGrid,rowsHolder)" />
+		   
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifyIndices(FlexGlobals.topLevelApplication.dataGrid.selectedIndices,indices)" value=""/>
+             </body>
+        </TestCase>
+ 
+  	<TestCase testID="Properties_dataProvider_XMLLC18" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is xmlListCollection, set some selections,then sort the dataGrid, verify selection isn't changed,but selected rows have position changed">
+             <setup>
+                 <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+      		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+             </setup>
+             <body>
+             	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(1,1,2,2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+       		<RunCode code="FlexGlobals.topLevelApplication.applySort(FlexGlobals.topLevelApplication.dataGrid,'lastName')"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0"/>
+             	<RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+             	 
+             	<RunCode code="addSelectedCells(50,1)"/>
+             	<RunCode code="addSelectedCells(50,2)"/>
+             	<RunCode code="addSelectedCells(78,1)"/>
+             	<RunCode code="addSelectedCells(78,2)"/>
+             	
+             	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifySelectedCells(FlexGlobals.topLevelApplication.dataGrid,tobeCheckedCells)" value="" />
+            	
+            </body>
+        </TestCase>
+  
+    	<TestCase testID="Properties_dataProvider_set01" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty xmlListCollection">
+               <setup>
+                   <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+                <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)" />
+      		<SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.column5" />
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true" />
+               </setup>
+               <body>
+               	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(1,1,2,2)" waitTarget="dataGrid" waitEvent="enterFrame"/>
+               	<SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=new XMLListCollection()"  waitEvent="enterFrame" waitTarget="dataGrid"/>
+               	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0"/>
+               </body>
+        </TestCase>
+ 
+    	<TestCase testID="Properties_dataProvider_set02" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty ArrayCollection">
+               <setup>
+                   <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true"  />
+               </setup>
+               <body>
+               	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(1,1,2,2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+         	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.resetDP()"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+               	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0"/>
+               </body>
+        </TestCase>
+        
+    	<TestCase testID="Properties_dataProvider_set03" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty ArrayCollection">
+               <setup>
+                   <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true"  />
+               </setup>
+               <body>
+               	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(1,1,2,2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+         	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.resetDP2()"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+               	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="0"/>
+               </body>
+        </TestCase>
+
+    	<TestCase testID="Properties_dataProvider_set04" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is arrayList">
+               <setup>
+                   <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete"/> 
+      		<SetProperty target="dataGrid" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+   		<SetProperty target="dataGrid" propertyName="preserveSelection" value="true"  />
+               </setup>
+               <body>
+               	<RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(1,1,2,2)"  waitTarget="dataGrid" waitEvent="enterFrame"/>
+               	<RunCode code="createArrayList()" />
+         	
+         	<SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=arrList" />
+               	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="4"/>
+               </body>
+        </TestCase>
+        <!-- add a couple ArrayList as dataProvider tests -->
+	<TestCase testID="dataProvider_emptyArrayList_test01" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty arrayList">
+	    <setup>
+		<ResetComponent target="dg_arrList" className="components.DataGrid_dp_arrayList" waitEvent="updateComplete"/> 
+		<SetProperty target="dg_arrList" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+	    </setup>
+	    <body>
+	    
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_arrList.dataProvider.length" value="0"/>
+	    </body>
+        </TestCase>
+	<TestCase testID="dataProvider_emptyArrayList_add01" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty arrayList, add an item, verify dataGrid should show the added item">
+	    <setup>
+		<ResetComponent target="dg_arrList" className="components.DataGrid_dp_arrayList" waitEvent="updateComplete"/> 
+		<SetProperty target="dg_arrList" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+		 
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.dg_arrList.sAL.addItem(FlexGlobals.topLevelApplication.dg_arrList.item1)"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_arrList.dataProvider.length" value="1"/>
+		<CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID.png" target="dg_arrList"/>
+
+	    </body>
+        </TestCase>
+ 	<TestCase testID="dataProvider_emptyArrayList_add02" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is empty arrayList,later is updated with new arrayList, verify dataGrid should show the added data">
+	    <setup>
+		<ResetComponent target="dg_arrList" className="components.DataGrid_dp_arrayList" waitEvent="updateComplete"/> 
+		<SetProperty target="dg_arrList" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+		 
+	    </setup>
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.dg_arrList.sAL=FlexGlobals.topLevelApplication.dg_arrList.simpleArrList"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID.png" target="dg_arrList"/>
+		<!-- todo: wait for bug fixed
+		<RunCode code="FlexGlobals.topLevelApplication.dg_arrList.sAL.source='[One,Two ,Three ,Four ,Five ,Six ,Seven ,Eight ,Nine ,Ten ]'"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID_single.png" target="dg_arrList"/>
+		-->
+		
+	    </body>
+        </TestCase>
+        
+	<TestCase testID="dataProvider_arrayList_source_test01" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is arrayList which has simple, plain array as source">
+	    <setup>
+		<ResetComponent target="dg_arrList" className="components.DataGrid_dp_arrayList" waitEvent="updateComplete"/> 
+		<SetProperty target="dg_arrList" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+		
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.dg_arrList.sAL.source=FlexGlobals.topLevelApplication.dg_arrList.simple"/>
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_arrList.dataProvider.length" value="5"/>
+		<CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID.png" target="dg_arrList"/>
+
+	    </body>
+        </TestCase>
+  	<TestCase testID="dataProvider_arrayList_source_test02" keywords="[DataGrid, Property, dataProvider]" description="Test Properties dataProvider is arrayList which has simple, plain array as source">
+	    <setup>
+		<ResetComponent target="dg_arrList" className="components.DataGrid_dp_arrayList" waitEvent="updateComplete"/> 
+		<SetProperty target="dg_arrList" propertyName="selectionMode" valueExpression="value=GridSelectionMode.MULTIPLE_CELLS" /> 
+		
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.dg_arrList.sAL.source=FlexGlobals.topLevelApplication.dg_arrList.fruitArray"/>
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_arrList.dataProvider.length" value="6"/>
+		<CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID.png" target="dg_arrList"/>
+
+	    </body>
+        </TestCase>      
+        
+        
+    </testCases>
+</UnitTester>

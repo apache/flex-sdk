@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/BasicLayout/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="BasicLayout_basic1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+        import mx.core.UIComponent;
+      
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+HorizontalCenter
+========================================================
+-->
+	<TestCase testID="horizontal_resize_test1" keywords="[BasicLayout,intergration,resize,horizontalCenter]" description="set horizontalCenter,resize window, verify it is placed at center of container in horizontal level" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+	    </setup>
+	    <body>
+	       <AssertPropertyValue propertyName="x" value="115" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="horizontal_vertical_resize_test1" keywords="[BasicLayout,intergration,resize,horizontalCenter, verticalCenter]" description="set horizontalCenter,veriticalCenter verify it is placed at center of container when resize parent container, also verify x, y is rounded up" >
+	    <setup>
+		<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="verticalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+	    </setup>
+	    <body>
+	       <AssertPropertyValue propertyName="x" value="115" target="parentGroup.childBtn"/>
+	       <AssertPropertyValue propertyName="y" value="140" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="horizontal_vertical_resize_test2" keywords="[BasicLayout,intergration,resize,horizontalCenter, verticalCenter]" description="set horizontalCenter,veriticalCenter verify it is placed at center of container when resize parent container, also verify x, y is rounded up" >
+	    <setup>
+	       <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="horizontalCenter" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="verticalCenter" value="50" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+	       <SetProperty propertyName="width" value="400" target="parentGroup.childGroup" />
+
+	       <SetProperty propertyName="height" value="400" target="parentGroup.childGroup" waitEvent="updateComplete" waitTarget="parentGroup.childGroup"/>
+	    </setup>
+	    <body>
+	       <AssertPropertyValue propertyName="x" value="215" target="parentGroup.childBtn"/>
+	       <AssertPropertyValue propertyName="y" value="240" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="horizontal_topbottom_resize_test1" keywords="[BasicLayout,intergration,resize,horizontalCenter,top,bottom]" description="set horizontalCenter,top,bottom, verify top,bottom not adjusted, only x is updated when resize" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="horizontalCenter" value="0" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="top" value="100" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="bottom" value="100" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+	    </setup>
+	    <body>
+		<AssertPropertyValue propertyName="x" value="115" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="y" value="100" target="parentGroup.childBtn"/>
+
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	VerticalCenter
+	========================================================
+	-->
+	<TestCase testID="vertical_resize_test1" keywords="[BasicLayout,intergration,resize,verticalCenter]" description="set verticalCenter, verify it is placed at center of container in vertical level at resize" >
+	    <setup>
+	    <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="verticalCenter" value="0" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+	    </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="140" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	Left
+	========================================================
+	-->
+	<TestCase testID="left_resize_test1" keywords="[BasicLayout,intergration,resize,left]" description="verify constraint left is set, verify x will not be changed when resize parent container" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="left" value="50" target="parentGroup.childBtn" />
+		<RunCode code="application.setLayoutBoundsSize(400,400)" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="x" value="50" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	Right
+	========================================================
+	-->
+	<TestCase testID="right_resize_test1" keywords="[BasicLayout,intergration,resize,right]" description="verify constraint right is set, at resize, right will be respected, element.width will not be updated" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="right" value="50" target="parentGroup.childBtn" />	
+		<RunCode code="application.setLayoutBoundsSize(400,400)"  waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+
+	   </setup>
+	    <body><!-- width=parent.width-right -->
+		<AssertPropertyValue propertyName="width" value="70" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	Top
+	========================================================
+	-->
+	<TestCase testID="top_resize_test1" keywords="[BasicLayout,intergration,resize,top]" description="verify constraint top set, resize, verify x isn't change, element.height is changed" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="top" value="50" target="parentGroup.childBtn" />	
+		<RunCode code="application.setLayoutBoundsSize(400,400)"  waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="y" value="50" target="parentGroup.childBtn"/>
+		<AssertPropertyValue propertyName="x" value="0" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+
+	<!--
+	========================================================
+	Bottom
+	========================================================
+	-->
+	<TestCase testID="bottom_over_y1" keywords="[BasicLayout,intergration,resize,bottom]" description="verify constraint bottom set, resize, verify element.height is updated, but element to bottom of its parent=bottom value" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn" />	
+		<RunCode code="application.setLayoutBoundsSize(400,400)"   waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+
+	   </setup>
+	    <body><!-- bottom=parent.height-bottom-element.height -->
+		<AssertPropertyValue propertyName="y" value="229" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	percentWidth/percentHeight
+	========================================================
+	-->
+	<TestCase testID="percent_resize_test1" keywords="[BasicLayout,intergration,resize,percentage]" description="verify , resize, verify element.height is updated, but element to bottom of its parent=bottom value" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="percentWidth" value="60" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="percentHeight" value="60" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="width" value="70" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="height" value="21" target="parentGroup.childBtn"/>
+		<RunCode code="application.setLayoutBoundsSize(400,400)"
+						waitEvent="updateComplete" waitTarget="parentGroup.childBtn"  />
+
+	   </setup>
+	    <body>
+		<AssertPropertyValue propertyName="width" value="301" target="parentGroup.childGroup"/>
+		<AssertPropertyValue propertyName="height" value="301" target="parentGroup.childGroup"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="percent_resize_test2" keywords="[BasicLayout,intergration,resize,percentage]" description="verify constraint top,bottom, width/height set as percentage value, resize, verify element.width/height is updated">
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="percentHeight" value="100" target="parentGroup.childGroup" />
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn" />
+		<SetProperty propertyName="top" value="100" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn" />
+
+		<RunCode code="application.setLayoutBoundsSize(400,400)"
+						waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+
+
+	   </setup>
+	    <body> <!-- childBtn.width=(parent.width-left-right)*width%, 
+		    -->
+		<AssertPropertyValue propertyName="width" value="151" target="parentGroup.childBtn"/>
+		<!-- childBtn.height=(parent.height-top-bottom)*height% -->
+
+		<AssertPropertyValue propertyName="height" value="76" target="parentGroup.childBtn"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="percent_resize_test3" keywords="[BasicLayout,intergration,resize,percentage]" description="verify constraint left,right, maxWidth set,parent resize to large size, verify element.width is updated,but limited by maxWidth" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="maxWidth" value="200" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="left" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="right" value="50" target="parentGroup.childBtn"/>
+
+		<RunCode code="application.setLayoutBoundsSize(800,800)"
+						waitEvent="updateComplete" waitTarget="parentGroup.childBtn"  />
+
+
+	   </setup>
+	    <body><!-- childBtn.width=(parent.width-left-right)*width%, but limited by maxWidth-->
+		<AssertPropertyValue propertyName="width" value="200" target="parentGroup.childBtn"/>
+
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="percent_resize_test4" keywords="[BasicLayout,intergration,resize,percentage]" description="verify constraint left,right, minWidth set, parent resized to smaller size , verify element.width is updated,but limited by minWidth" >
+	    <setup>
+		<ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="percentHeight" value="100" target="parentGroup.childGroup"/>
+		<SetProperty propertyName="percentWidth" value="100" target="parentGroup.childGroup" />
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="minWidth" value="120" target="parentGroup.childBtn" />
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="left" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="right" value="50" target="parentGroup.childBtn" />
+		<RunCode code="application.setLayoutBoundsSize(400,400)"
+					waitEvent="updateComplete" waitTarget="parentGroup.childBtn" />
+
+
+	   </setup>
+	    <body><!-- childBtn.width=(parent.width-left-right)*width%, but limited by minWidth-->
+		<AssertPropertyValue propertyName="width" value="120" target="parentGroup.childBtn"/>
+
+	    </body>
+	</TestCase>
+
+
+
+	<TestCase testID="widthHeight_resize_limit1" keywords="[BasicLayout,intergration,resize,horizontalCenter, verticalCenter]" description="when resize parent container, child size(width/height) gets larger, but respect maxWidth, maxHeight; when parent gets smaller, child size gets smaller, but respect minWidth, minHeight" >
+	    <setup>
+	       <ResetComponent target="parentGroup" className="comps.TestGroup" waitEvent="updateComplete" waitTarget="parentGroup"/>
+
+		<SetProperty propertyName="top" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="bottom" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="left" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="right" value="50" target="parentGroup.childBtn"/>
+
+		<SetProperty propertyName="percentWidth" value="50" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="percentHeight" value="50" target="parentGroup.childBtn"/>
+
+		<SetProperty propertyName="maxWidth" value="80" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="maxHeight" value="80" target="parentGroup.childBtn" />
+
+		<SetProperty propertyName="minWidth" value="60" target="parentGroup.childBtn"/>
+		<SetProperty propertyName="minHeight" value="60" target="parentGroup.childBtn" waitEvent="updateComplete" waitTarget="parentGroup.childBtn"/>
+
+
+	    </setup>
+	    <body>
+
+	       <!-- make parent larger -->
+	       <SetProperty propertyName="width" value="400" target="parentGroup.childGroup" />
+
+	       <SetProperty propertyName="height" value="400" target="parentGroup.childGroup" waitEvent="updateComplete" waitTarget="parentGroup.childGroup"/>
+
+	       <AssertPropertyValue propertyName="width" value="80" target="parentGroup.childBtn"/>
+	       <AssertPropertyValue propertyName="height" value="80" target="parentGroup.childBtn"/>
+
+	       <!-- make parent smaller -->      
+	       <SetProperty propertyName="width" value="200" target="parentGroup.childGroup" />
+
+	       <SetProperty propertyName="height" value="200" target="parentGroup.childGroup" waitEvent="updateComplete" waitTarget="parentGroup.childGroup"/>
+
+	       <AssertPropertyValue propertyName="width" value="60" target="parentGroup.childBtn"/>
+	       <AssertPropertyValue propertyName="height" value="60" target="parentGroup.childBtn"/>
+
+	    </body>
+	</TestCase>
+
+
+</testCases>
+
+</UnitTester>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

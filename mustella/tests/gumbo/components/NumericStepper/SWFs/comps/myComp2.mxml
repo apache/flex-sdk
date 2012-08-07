@@ -1,0 +1,28 @@
+<s:NumericStepper 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    value="5"
+    height="23"
+    valueFormatFunction="myNS_dispFmtFunc"
+    valueParseFunction="myNS_extValFunc">
+    
+	<fx:Script>
+		<![CDATA[		
+			
+			private function myNS_dispFmtFunc(val:Number):String
+			{
+				return val.toString() + "x";
+			}
+
+			private function myNS_extValFunc(val:String):Number
+			{
+				var temp:String = val;
+				if (val.indexOf('x') != -1)
+				{
+					temp = val.slice(0, val.indexOf('x'));
+				}
+				return Number(temp);
+			}			
+		]]>
+	</fx:Script>    
+		
+</s:NumericStepper>

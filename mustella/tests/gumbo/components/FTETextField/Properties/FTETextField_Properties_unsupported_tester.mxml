@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<fx:Script source="../SWFs/global.as" />
+	<fx:Declarations>
+		<fx:String id="RTE_FTETextField_type_input"><![CDATA[FTETextField does not support setting type to "input".]]></fx:String>
+	</fx:Declarations>
+
+	<testCases>
+
+		<!-- ########## alwaysShowSelection (unsupported) ########## -->
+		<TestCase testID="alwaysShowSelection_rte_getter" description="Make sure getting alwaysShowSelection on a UITLFTextField throws an RTE" keywords="[FTETextField, alwaysShowSelection,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('alwaysShowSelection');" valueExpression="value=unsupported_property_error('alwaysShowSelection');" />
+			</body>
+		</TestCase>
+		<TestCase testID="alwaysShowSelection_rte_true" description="Make sure setting alwaysShowSelection on a UITLFTextField throws an RTE" keywords="[FTETextField, alwaysShowSelection,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('alwaysShowSelection', true);" valueExpression="value=unsupported_property_error('alwaysShowSelection');" />
+			</body>
+		</TestCase>
+		<TestCase testID="alwaysShowSelection_rte_false" description="Make sure setting alwaysShowSelection on a UITLFTextField throws an RTE" keywords="[FTETextField, alwaysShowSelection,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('alwaysShowSelection', true);" valueExpression="value=unsupported_property_error('alwaysShowSelection');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## antiAliasType (unimplemented) ########## -->
+		<TestCase testID="antiAliasType_setter_advanced" description="Make sure antiAliasType always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, antiAliasType, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="antiAliasType" valueExpression="value=AntiAliasType.ADVANCED" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="antiAliasType" value="null" />
+			</body>
+		</TestCase>
+		<TestCase testID="antiAliasType_setter_normal" description="Make sure antiAliasType always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, antiAliasType, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="antiAliasType" valueExpression="value=AntiAliasType.NORMAL" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="antiAliasType" value="null" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## bottomScrollV (unsupported, read-only) ########## -->
+		<TestCase testID="bottomScrollV_rte_getter" description="Make sure getting bottomScrollV on a UITLFTextField throws an RTE" keywords="[FTETextField, bottomScrollV,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('bottomScrollV');" valueExpression="value=unsupported_property_error('bottomScrollV');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## caretIndex (unsupported, read-only) ########## -->
+		<TestCase testID="caretIndex_rte_getter" description="Make sure getting caretIndex on a UITLFTextField throws an RTE" keywords="[FTETextField, caretIndex,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('caretIndex');" valueExpression="value=unsupported_property_error('caretIndex');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## displayAsPassword (unsupported) ########## -->
+		<TestCase testID="displayAsPassword_rte_getter" description="Make sure getting displayAsPassword on a UITLFTextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('displayAsPassword');" valueExpression="value=unsupported_property_error('displayAsPassword');" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="displayAsPassword_rte_setter_true" description="Make sure setting displayAsPassword on a UITLFTextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('displayAsPassword', true);" valueExpression="value=unsupported_property_error('displayAsPassword');" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="displayAsPassword_rte_setter_false" description="Make sure setting displayAsPassword on a UITLFTextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('displayAsPassword', false);" valueExpression="value=unsupported_property_error('displayAsPassword');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## gridFitType (unimplemented) ########## -->
+		<TestCase testID="gridFitType_setter_none" description="Make sure gridFitType always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, gridFitType, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="gridFitType" valueExpression="value=GridFitType.NONE" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="gridFitType" value="null" />
+			</body>
+		</TestCase>
+		<TestCase testID="gridFitType_setter_pixel" description="Make sure gridFitType always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, gridFitType, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="gridFitType" valueExpression="value=GridFitType.PIXEL" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="gridFitType" value="null" />
+			</body>
+		</TestCase>
+		<TestCase testID="gridFitType_setter_subpixel" description="Make sure gridFitType always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, gridFitType, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="gridFitType" valueExpression="value=GridFitType.SUBPIXEL" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="gridFitType" value="null" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## maxChars (unsupported) ########## -->
+		<TestCase testID="maxChars_rte_getter" description="Make sure getting maxChars on a UITLFTextField throws an RTE" keywords="[FTETextField, maxChars,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('maxChars');" valueExpression="value=unsupported_property_error('maxChars');" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="maxChars_rte_setter_true" description="Make sure setting maxChars on a UITLFTextField throws an RTE" keywords="[FTETextField, maxChars,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('maxChars', true);" valueExpression="value=unsupported_property_error('maxChars');" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="maxChars_rte_setter_false" description="Make sure setting maxChars on a UITLFTextField throws an RTE" keywords="[FTETextField, maxChars,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('maxChars', false);" valueExpression="value=unsupported_property_error('maxChars');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## maxScrollH (unsupported, read-only) ########## -->
+		<TestCase testID="maxScrollH_rte_getter" description="Make sure getting maxScrollH on a UITLFTextField throws an RTE" keywords="[FTETextField, maxScrollH,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('maxScrollH');" valueExpression="value=unsupported_property_error('maxScrollH');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## maxScrollV (unsupported, read-only) ########## -->
+		<TestCase testID="maxScrollV_rte_getter" description="Make sure getting maxScrollV on a UITLFTextField throws an RTE" keywords="[FTETextField, maxScrollV,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('maxScrollV');" valueExpression="value=unsupported_property_error('maxScrollV');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## mouseWheelEnabled (unimplemented) ########## -->
+		<TestCase testID="mouseWheelEnabled_setter_true" description="Make sure mouseWheelEnabled always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, mouseWheelEnabled, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="mouseWheelEnabled" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="mouseWheelEnabled" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="mouseWheelEnabled_setter_false" description="Make sure mouseWheelEnabled always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, mouseWheelEnabled, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="mouseWheelEnabled" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="mouseWheelEnabled" value="false" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## multiline (unimplemented) ########## -->
+		<TestCase testID="multiline_setter_true" description="Make sure multiline always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, multiline, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="multiline" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="multiline" value="true" />
+			</body>
+		</TestCase>
+		<TestCase testID="multiline_setter_false" description="Make sure multiline always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, multiline, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="multiline" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="multiline" value="false" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## restrict (unsupported) ########## -->
+		<TestCase testID="restrict_rte_getter" description="Make sure getting restrict on a UITLFTextField throws an RTE" keywords="[FTETextField, restrict,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('restrict');" valueExpression="value=unsupported_property_error('restrict');" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="restrict_rte_setter" description="Make sure setting restrict on a UITLFTextField throws an RTE" keywords="[FTETextField, restrict,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('restrict', '123');" valueExpression="value=unsupported_property_error('restrict');" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## scrollH (unsupported) ########## -->
+		<TestCase testID="scrollH_rte_getter" description="Make sure getting scrollH on a UITLFTextField throws an RTE" keywords="[FTETextField, scrollH,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('scrollH');" valueExpression="value=unsupported_property_error('scrollH');" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="scrollH_rte_setter" description="Make sure setting scrollH on a UITLFTextField throws an RTE" keywords="[FTETextField, scrollH,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('scrollH', '123');" valueExpression="value=unsupported_property_error('scrollH');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## scrollV (unsupported) ########## -->
+		<TestCase testID="scrollV_rte_getter" description="Make sure getting scrollV on a UITLFTextField throws an RTE" keywords="[FTETextField, scrollV,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('scrollV');" valueExpression="value=unsupported_property_error('scrollV');" />
+			</body>
+		</TestCase>
+		<TestCase testID="scrollV_rte_setter" description="Make sure setting scrollV on a UITLFTextField throws an RTE" keywords="[FTETextField, scrollV,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('scrollV', '123');" valueExpression="value=unsupported_property_error('scrollV');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## selectable ########## -->
+		
+
+		<TestCase testID="selectable_setter_true" description="Make sure selectable always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, selectable, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="selectable" value="true" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="selectable" value="false" />
+			</body>
+		</TestCase>
+		<TestCase testID="selectable_setter_false" description="Make sure selectable always returns null on a UITLFTextField throws an RTE" keywords="[FTETextField, selectable, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="selectable" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="selectable" value="false" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## selectionBeginIndex (unsupported, read-only) ########## -->
+		<TestCase testID="selectionBeginIndex_rte_getter" description="Make sure getting selectionBeginIndex on a UITLFTextField throws an RTE" keywords="[FTETextField, selectionBeginIndex,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('selectionBeginIndex');" valueExpression="value=unsupported_property_error('selectionBeginIndex');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## selectionEndIndex (unsupported, read-only) ########## -->
+		<TestCase testID="selectionEndIndex_rte_getter" description="Make sure getting selectionEndIndex on a UITLFTextField throws an RTE" keywords="[FTETextField, selectionEndIndex,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('selectionEndIndex');" valueExpression="value=unsupported_property_error('selectionEndIndex');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## sharpness (unimplemented) ########## -->
+		<TestCase testID="sharpness_setter_true" description="Make sure sharpness always returns NaN on a UITLFTextField throws an RTE" keywords="[FTETextField, sharpness, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="sharpness" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="sharpness" value="NaN" />
+			</body>
+		</TestCase>
+		<TestCase testID="sharpness_setter_false" description="Make sure sharpness always returns NaN on a UITLFTextField throws an RTE" keywords="[FTETextField, sharpness, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="sharpness" value="false" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="sharpness" value="NaN" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## thickness (unsupported) ########## -->
+		<TestCase testID="thickness_setter_true" description="Make sure thickness always returns NaN on a UITLFTextField throws an RTE" keywords="[FTETextField, thickness, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="sharpness" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="sharpness" value="NaN" />
+			</body>
+		</TestCase>
+		<TestCase testID="thickness_setter_false" description="Make sure thickness always returns NaN on a UITLFTextField throws an RTE" keywords="[FTETextField, thickness, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+				<SetProperty target="can.fteTxt" propertyName="thickness" value="false" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="thickness" value="NaN" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## type (unimplemented) ########## -->
+		<TestCase testID="type_getter" description="Make sure type always returns dynamic on a UITLFTextField" keywords="[FTETextField, type, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="type" valueExpression="value=TextFieldType.DYNAMIC;" />
+			</body>
+		</TestCase>
+		<TestCase testID="type_setter_dynamic" description="Make sure type always returns dynamic on a UITLFTextField" keywords="[FTETextField, type, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="type" valueExpression="value=TextFieldType.DYNAMIC;" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="type" value="dynamic" />
+			</body>
+		</TestCase>
+		<TestCase testID="type_setter_input" description="Make sure type always returns dynamic on a UITLFTextField" keywords="[FTETextField, type, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('type', TextFieldType.INPUT);" valueExpression="value=RTE_FTETextField_type_input;" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="type" value="dynamic" />
+			</body>
+		</TestCase>
+		<TestCase testID="type_setter_foo" description="Make sure type always returns dynamic on a UITLFTextField" keywords="[FTETextField, type, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('type', 'foo');" value="Parameter type must be one of the accepted values." />
+				<AssertPropertyValue target="can.fteTxt" propertyName="type" value="dynamic" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## useRichTextClipboard (unsupported) ########## -->
+		<TestCase testID="useRichTextClipboard_rte_getter" description="Make sure getting useRichTextClipboard on a UITLFTextField throws an RTE" keywords="[FTETextField, useRichTextClipboard,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeGetter('useRichTextClipboard');" valueExpression="value=unsupported_property_error('useRichTextClipboard');" />
+			</body>
+		</TestCase>
+
+
+	</testCases>
+
+</UnitTester>

@@ -1,0 +1,35 @@
+<UnitTester testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="DfrdInst_Locale_basic_qa.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+       
+    <testCases>
+
+		<TestCase testID="DfrdInst_Locale_QA_1" keywords="[Deferred, Instantiation, FxContainer, Locale]" description="Test Deferred Instantiation with Runtime Localization" >
+            <setup>
+                <ResetComponent target="myLocaleIC_qa" className="comps.CustomICLocale" waitEvent="updateComplete" />
+            </setup>
+            <body>                                
+            	<CompareBitmap target="stage" url="../DfrdInst_Tests/Baselines/$testID_1.png"/>
+            	<RunCode code="application.myLocaleIC_qa.createDeferredContent();" waitEvent="contentCreationComplete" waitTarget="myLocaleIC_qa" />        
+            	<CompareBitmap target="stage" url="../DfrdInst_Tests/Baselines/$testID_2.png"/>
+            </body>
+		</TestCase> 
+
+    </testCases>
+    
+</UnitTester>  

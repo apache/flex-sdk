@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RadioButton/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FxRadioButtonStyles.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.RadioButton;
+			import assets.*;
+			import comps.*;
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+		
+		@font-face {
+		    src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+		    fontFamily: "ArnoProRegEmbedded";
+		    embedAsCFF: true;
+		}
+		
+		@font-face {
+		    src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: "Helvetica";
+		    embedAsCFF: true;
+		}
+	    .myStyle{
+	        color: #FF0000
+	    }
+	
+	    .myStyle2{
+	        color: #0000FF
+	    }
+	</fx:Style>
+
+	<testCases>
+		
+		<!-- Other styles -->
+		
+		<TestCase testID="baseline_default_RadioButton" description="baseColor default FxRadioButton" keywords="[FxRadioButton, baseColor, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="true" target="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="baseline" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusSkin_MyFocusSkin_RadioButton" description="focusSkin default FxRadioButton" keywords="[FxRadioButton, focusSkin, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="horizontalCenter" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="verticalCenter" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="focusSkin" valueExpression="value=assets.MyFocusSkin" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>	
+			</body>
+		</TestCase>
+		
+		<TestCase testID="focusSkin_default_RadioButton" description="focusSkin default FxRadioButton" keywords="[FxRadioButton, focusSkin, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="rb1" method="value=getQualifiedClassName(application.rb1.getStyle('focusSkin'))" value="spark.skins.spark::FocusSkin"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="horizontalCenter_default_RadioButton" description="horizontalCenter default FxRadioButton" keywords="[FxRadioButton, horizontalCenter, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="horizontalCenter" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="horizontalCenter_20_RadioButton" description="horizontalCenter 20 FxRadioButton" keywords="[FxRadioButton, horizontalCenter, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="horizontalCenter" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="horizontalCenter" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="horizontalCenter_50_RadioButton" description="horizontalCenter 50 FxRadioButton" keywords="[FxRadioButton, horizontalCenter, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="horizontalCenter" value="50" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="horizontalCenter" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="verticalCenter_default_RadioButton" description="verticalCenter default FxRadioButton" keywords="[FxRadioButton, verticalCenter, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="verticalCenter" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="verticalCenter_20_RadioButton" description="verticalCenter 20 FxRadioButton" keywords="[FxRadioButton, verticalCenter, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="verticalCenter" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="verticalCenter" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="verticalCenter_50_RadioButton" description="verticalCenter 50 FxRadioButton" keywords="[FxRadioButton, verticalCenter, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="verticalCenter" value="50" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="verticalCenter" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<!--repeatDelay & repeatInterval other values tested manually-->
+		<TestCase testID="repeatDelay_default_RadioButton" description="repeatDelay of RadioButtonDown events default 500" keywords="[FxRadioButton, autoRepeat, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="repeatDelay" value="500"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="repeatInterval_default_RadioButton" description="repeatInterval default 35" keywords="[FxRadioButton, autoRepeat, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="repeatInterval" value="35"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_default_RadioButton" description="left default FxRadioButton" keywords="[FxRadioButton, left, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="left" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_20_RadioButton" description="left 20 FxRadioButton" keywords="[FxRadioButton, left, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="left" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="left" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="left_50_RadioButton" description="left 50 FxRadioButton" keywords="[FxRadioButton, left, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="left" value="50" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="left" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="right_default_RadioButton" description="right default FxRadioButton" keywords="[FxRadioButton, right, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="right" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="right_20_RadioButton" description="right 20 FxRadioButton" keywords="[FxRadioButton, right, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="right" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="right" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="right_50_RadioButton" description="right 50 FxRadioButton" keywords="[FxRadioButton, right, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="right" value="50" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="right" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top_default_RadioButton" description="top default FxRadioButton" keywords="[FxRadioButton, top, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="top" value="null"/>
+				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="top_20_RadioButton" description="top 20 FxRadioButton" keywords="[FxRadioButton, top, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="top" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="top" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="top_50_RadioButton" description="top 50 FxRadioButton" keywords="[FxRadioButton, top, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="top" value="50" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="top" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="bottom_default_RadioButton" description="bottom default FxRadioButton" keywords="[FxRadioButton, bottom, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="bottom" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="bottom_20_RadioButton" description="bottom 20 FxRadioButton" keywords="[FxRadioButton, bottom, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="bottom" value="20" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="bottom" value="20"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="bottom_50_RadioButton" description="bottom 50 FxRadioButton" keywords="[FxRadioButton, bottom, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="bottom" value="50" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="bottom" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		<TestCase testID="skinClass_default_RadioButton" description="skinClass default FxRadioButton" keywords="[FxRadioButton, skinClass, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue target="rb1" method="value=getQualifiedClassName(application.rb1.getStyle('skinClass'))" value="spark.skins.spark::RadioButtonSkin"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="skinClass_MyRadioButtonSkin_RadioButton" description="skinClass default FxRadioButton" keywords="[FxRadioButton, skinClass, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="skinClass" valueExpression="value=comps.CustomRadioButtonSkin" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

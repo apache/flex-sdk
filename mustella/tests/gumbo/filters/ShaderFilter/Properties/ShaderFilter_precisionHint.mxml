@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/filters/ShaderFilter/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ShaderFilterApp2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+        import flash.display.Shader;
+        import flash.display.ShaderPrecision;
+import spark.filters.ShaderFilter;
+        import mx.core.Application;
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+   The precisionHint property affects calculations on different platforms differently.  Instead of testing
+   that precisionHint is working correctly, we're just going to confirm that the correct value is passed
+   to the underlying Shader class by using ShaderFilter's shader property.
+-->
+
+<TestCase testID="precisionHint_test1" keywords="[ShaderFilter,precisionHint]" description="The default value should be 'full', which is Shader's default." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FULL" />
+    </body>
+</TestCase>
+
+<TestCase testID="precisionHint_test2" keywords="[ShaderFilter,precisionHint]" description="Set it to 'fast'." >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FAST" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FAST" />
+        <AssertPropertyValue target="sf1.shader" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FAST" />
+    </body>
+</TestCase>
+
+<TestCase testID="precisionHint_test3" keywords="[ShaderFilter,precisionHint]" description="Set it to 'full'." >
+    <setup>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter()" />
+        <SetProperty target="sf1" propertyName="shader" valueExpression="value = new application.SourceIgnoredClass()" />
+        <SetProperty target="sf1" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FULL" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="sf1" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FULL" />
+        <AssertPropertyValue target="sf1.shader" propertyName="precisionHint" valueExpression="value=ShaderPrecision.FULL" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

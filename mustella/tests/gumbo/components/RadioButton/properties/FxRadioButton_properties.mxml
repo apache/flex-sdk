@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RadioButton/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FxRadioButtonBasic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.RadioButton;
+			import comps.*;
+			import spark.components.Group;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+<!-- group property -->
+
+<!-- TODO -->
+
+<!-- groupName property -->
+
+<!-- TODO -->
+
+<!-- 
+
+value property
+
+  + check default value is null
+  + test data binding
+  + check that value can be set to a primitive data type (string)
+  + check that value can be set to an object
+  + get the value from a selected button
+  + get the value from an unselected button
+  
+-->	
+		<!--****************************-->
+		<!--FxRadioButton property tests-->
+		<!--****************************-->
+		
+		<TestCase testID="FxRadioButton_property_value_default" keywords="[FxRadioButton, property, value, default]" description="check default value is null">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="rb1" propertyName="value" value="null" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_property_value_string" keywords="[FxRadioButton, property, value]" description="check value can be set to a primitive value">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty target="rb1" propertyName="value" value="hello world" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="rb1" propertyName="value" value="hello world" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_property_value_object" keywords="[FxRadioButton, property, value]" description="check value can be set to an object">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty target="rb1" propertyName="value" value="{new Group()}" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value=(application.rb1.value is Group)" value="true" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_property_value_selected" keywords="[FxRadioButton, property, value]" description="get value should be same from selected or unselected radiobutton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty target="rb1" propertyName="value" value="someValue" />
+			</setup>
+			<body>
+				<SetProperty target="rb1" propertyName="selected" value="true" waitTarget="rb1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="rb1" propertyName="value" value="someValue" />
+
+				<SetProperty target="rb1" propertyName="selected" value="false" waitTarget="rb1" waitEvent="updateComplete" />
+				<AssertPropertyValue target="rb1" propertyName="value" value="someValue" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_groupName_default" keywords="[FxRadioButton, property, groupName]" description="groupName default of radiobutton is radioGroup">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="rb1" propertyName="groupName" value="radioGroup" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_set_groupName" keywords="[FxRadioButton, property, groupName]" description="set groupName  to a RadioButtonGroup that does not exist">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="groupName" value="notdefined" target="rb1" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="rb1" propertyName="groupName" value="notdefined" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_groupName_sparkGroup" keywords="[FxRadioButton, property, groupName]" description="set groupName  of radiobutton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="groupName" value="sparkGrp" target="rb1" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="rb1" propertyName="groupName" value="sparkGrp" />
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_groupName_default_multiple" keywords="[FxRadioButton, property, groupName]" description="Check that all radiobuttons without groupName default to radioGroup">
+			<body>
+				<AssertPropertyValue target="rb2" propertyName="groupName" value="radioGroup" />
+				<AssertPropertyValue target="rb3" propertyName="groupName" value="radioGroup" />
+				<AssertPropertyValue target="rb4" propertyName="groupName" value="radioGroup" />
+				
+			</body>
+		</TestCase>
+		
+		<!-- Use className because no way to get id of group-->
+		<TestCase testID="FxRadioButton_group_default" keywords="[FxRadioButton, property, groupName]" description="groupName default of radiobutton is radioGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value=getQualifiedClassName(application.rb1.group)" value="spark.components::RadioButtonGroup"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_change_groupName" keywords="[FxRadioButton, property, groupName]" description="change groupName of radiobutton make sure it is in a different tab group">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="groupName" value="rbg1" target="rb1"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="rb2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_selected_property_default" keywords="[FxRadioButtonGroup, selected, property]" description="selected default value RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_select_icon" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via mouse click on the icon">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_select_label" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via mouse click on the label">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="42" localY="8" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+				
+		<!--<TestCase testID="FxRadioButton_Japanese_label" keywords="[FxRadioButtonGroup, property]" description="set label to be Japanese text make sure the button can still be selected">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="label" value="??????????????" target="rb1" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="rb1" localX="20" localY="8" waitEvent="updateComplete" waitTarget="rb1"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="rb1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="rb1" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		-->
+		<TestCase testID="FxRadioButton_select_multiline_label" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via mouse click on a multiline label">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="label" value="{'multiple' + '\n' + 'line' + '\n' + 'label'}" target="srg.s1" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="35" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_label_second" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via mouse click on the icon">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s2" localX="42" localY="8" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="FxRadioButton_select_keyboard_space" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="rb1" />
+				<DispatchKeyEvent key="SPACE" waitEvent="updateComplete" waitTarget="rb1"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="rb1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_keyboard_space_mouse_click" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar make sure does not deselect with mouse click">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="rb1" />
+				<DispatchKeyEvent key="SPACE" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchMouseClickEvent target="rb1" localX="5" localY="5" />
+				<AssertPropertyValue propertyName="selected" value="true" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_mouse_click_keyboard_space" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar make sure does not deselect with mouse click">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="rb1" localX="5" localY="5" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchKeyEvent key="SPACE" />
+				<DispatchMouseEvent type="mouseMove" stageX="100" stageY="100" />
+				<AssertPropertyValue propertyName="selected" value="true" target="rb1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_keyboard_arrow" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="rb1" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="rb1"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="rb1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_keyboard_arrow_down_up" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s3"/>
+				<DispatchKeyEvent key="UP" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_keyboard_arrow_left_right" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="LEFT" waitEvent="updateComplete" waitTarget="srg.s1" />
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s2"/>
+				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_select_keyboard_arrow_down_up_invisible" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="visible" value="false" target="srg.s3"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s3"/>
+				<DispatchKeyEvent key="UP" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_toolTip" keywords="[FxRadioButtonGroup, property]" description="hover over a RadioButton and make sure the toolTip appears">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="toolTip" value="RadioButton Label with ToolTip" target="srg.s2"/>
+			</setup>
+			<body>	
+				<DispatchMouseEvent target="srg.s2" localX="10" localY="5" type="rollOver"/>	
+				<DispatchMouseEvent target="srg.s2" localX="10" localY="10" type="mouseOver"/>	
+				<DispatchMouseEvent target="srg.s2" localX="10" localY="10" type="mouseMove" waitEvent="toolTipShow" waitTarget="srg.s2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_large_height_verticalAlign_bottom" keywords="[FxRadioButtonGroup, property]" description="tall RadioButton with verticalAlign set to bottom">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="label" value="RadioButton Label" target="srg.s2"/>
+				<SetStyle styleName="verticalAlign" value="bottom" target="srg.s2" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<SetProperty propertyName="height" value="100" target="srg.s2" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>	
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg.s2" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<!--********************************-->
+		<!--FxRadioButtonGroup General tests-->
+		<!--********************************-->
+		
+		<TestCase testID="FxRadioButtonGroup_HaloContainer_general" keywords="[FxRadioButton, property, Halo]" description="RadioButtons in a Halo container">
+			<setup>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="hrg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButtonGroup_SparkContainer_general" keywords="[FxRadioButtonGroup, property, Spark]" description="RadioButtons in a Spark container">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButtonGroup_SparkContainer_focus" keywords="[FxRadioButtonGroup, property, Spark]" description="Focus of RadioButtons in a Spark container">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="FxRadioButtonGroup_HaloContainer_focus" keywords="[FxRadioButtonGroup, property, Spark]" description="Focus of RadioButtons in a Spark container">
+			<setup>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<DispatchMouseClickEvent target="hrg" localX="10" localY="10" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="hrg.r2"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="hrg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_focus_tabbing_between_groups" keywords="[FxRadioButtonGroup, property]" description="Tabbing between RadioButtonGroups">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="hrg" localX="10" localY="10" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="hrg.r2"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="srg"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_select_keyboard_arrow_down_up_wrap" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s4" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s5" />
+				<DispatchKeyEvent key="DOWN" />
+				<DispatchKeyEvent key="DOWN" />
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s5"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s4"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButtonGroup_select_keyboard_arrow_left_right_wrap" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via the spacebar">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s4" />
+				<DispatchKeyEvent key="RIGHT" waitEvent="updateComplete" waitTarget="srg.s5" />
+				<DispatchKeyEvent key="RIGHT" />
+				<DispatchKeyEvent key="RIGHT" />
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s5"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s4"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_programmatic" keywords="[FxRadioButtonGroup, property]" description="Programmatically select a different RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="selected" target="srg.s2" value="true" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_programmatic_change" keywords="[FxRadioButtonGroup, property]" description="Programmatically select a different RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="selected" target="srg.s2" value="true" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_programmatic_mouse_change" keywords="[FxRadioButtonGroup, property]" description="Programmatically select a different RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="selected" target="srg.s2" value="true" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_by_mouse" keywords="[FxRadioButtonGroup, property]" description="Mouse click to select a RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_by_mouse_several_times" keywords="[FxRadioButtonGroup, property]" description="Mouse click several times does not deselect a different RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" />
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" />
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_by_mouse_spacebar" keywords="[FxRadioButtonGroup, property]" description="Programmatically select a different RadioButton">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="SPACE" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="selected" value="true" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_by_mouse_change_mouse" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via mouse click and select a different run by mouse">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<AssertPropertyValue propertyName="selected" value="false" target="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selected_by_mouse_programmatic_change" keywords="[FxRadioButtonGroup, property, selected]" description="select a RadioButton via mouse click and deselect programmatically">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<DispatchMouseClickEvent target="srg" localX="10" localY="10" waitEvent="updateComplete" waitTarget="srg.s1"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="selected" value="false" target="srg.s1" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_disabled_selected_by_mouse" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton via mouse click that is disabled">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="enabled" target="srg.s2" value="false" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="srg.s2" localX="5" localY="5" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<AssertPropertyValue propertyName="enabled" value="false" target="srg.s2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_disabled_selected_programmatic" keywords="[FxRadioButtonGroup, property]" description="select a RadioButton programmatically that is disabled">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="enabled" target="srg.s2" value="false" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="selected" target="srg.s2" value="true" waitEvent="updateComplete" waitTarget="srg.s2"/>
+				<AssertPropertyValue propertyName="enabled" value="false" target="srg.s2"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="FxRadioButton_tabbing_between_FxRadioButtonGroups" keywords="[FxRadioButtonGroup, property]" description="tabbing between RadioButtonGroups">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>	
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="hrg.r1"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="autoRepeat_property_true_of_FxRadioButton" description="check repeated buttonDown events are sent when autoRepeat is true" keywords="[FxRadioButton, autoRepeat, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="rb1" propertyName="autoRepeat" value="true"/>			
+			</setup>
+			<body>
+				<DispatchMouseEvent target="rb1" type="rollOver" localX="5" localY="5"/>
+				<DispatchMouseEvent target="rb1" type="mouseOver" localX="5" localY="5"/>
+				<DispatchMouseEvent target="rb1" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" waitTarget="rb1"/>
+				<AssertEvent target="rb1" eventName="buttonDown" eventClass="mx.events::FlexEvent" />		
+				<DispatchMouseEvent target="rb1" type="mouseUp" localX="5" localY="5"/>
+				<AssertPropertyValue target="rb1" propertyName="autoRepeat" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="autoRepeat_property_true_of_Button_repeatInterval" description="check repeated buttonDown events are sent when autoRepeat is true" keywords="[FxRadioButton, autoRepeat, property]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="rb1" propertyName="autoRepeat" value="true"/>		
+				<SetStyle target="rb1" styleName="repeatDelay" value="10"/>
+				<SetStyle target="rb1" styleName="repeatInterval" value="500"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="rb1" type="rollOver" localX="5" localY="5"/>
+				<DispatchMouseEvent target="rb1" type="mouseOver" localX="5" localY="5"/>
+				<DispatchMouseEvent target="rb1" type="mouseDown" localX="5" localY="5" waitEvent="updateComplete" waitTarget="rb1"/>
+				<AssertEvent target="rb1" eventName="buttonDown" numExpectedEvents="2" eventClass="mx.events::FlexEvent" />		
+				<DispatchMouseEvent target="rb1" type="mouseUp" localX="5" localY="5" />
+				<AssertPropertyValue target="rb1" propertyName="autoRepeat" value="true"/>
+			</body>
+		</TestCase>
+			
+		<!--**********************************-->
+		<!-- Properties of RadioButtonGroup -->
+		<!--**********************************-->
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_property_default" keywords="[FxRadioButtonGroup, property]" description="enabled should initially be true for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="enabled" target="srg.sparkGrp" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_property_false" keywords="[FxRadioButtonGroup, property]" description="disable RadioButtonGroup make sure radiobuttons are disabled">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="enabled" target="srg.s1" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s2" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s4" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s5" value="false"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_property_false_tabbing" keywords="[FxRadioButtonGroup, property]" description="cannot tab to a disabled RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
+			</setup>
+			<body>	
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="rb1"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="hrg.r1"/>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="rb1"/>
+				
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_property_false_selection_by_mouse" keywords="[FxRadioButtonGroup, property]" description="disable RadioButtonGroup make sure you cannot select a radiobutton in the group">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
+			</setup>
+			<body>	
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3"/>
+				<AssertNoEvent target="srg.sparkGrp" eventName="itemClick" eventClass="mx.events::ItemClickEvent" />
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_disable_group_enable_item" keywords="[FxRadioButtonGroup, property]" description="Disable RadioButtonGroup enable RadioButton nothing should happen">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="enabled" target="srg.s1" value="true" />
+				<AssertPropertyValue propertyName="enabled" target="srg.s1" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s2" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s4" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s5" value="false"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_select_by_mouse_disable_item_select" keywords="[FxRadioButtonGroup, property]" description="Disable RadioButtonGroup enable RadioButton nothing should happen">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>	
+				<DispatchMouseClickEvent target="srg.s3" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
+				<SetProperty propertyName="enabled" target="srg.s3" value="false" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s1" value="true"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_select_programmatic_disable_item_select" keywords="[FxRadioButtonGroup, property]" description="Disable RadioButtonGroup enable RadioButton nothing should happen">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s3" value="true" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
+				<SetProperty propertyName="enabled" target="srg.s3" value="false" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s1" value="true"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_disable_item_disable_enable_group" keywords="[FxRadioButtonGroup, property]" description="disable item then disable and enable RadioButtonGroup make sure item is still disabled">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<SetProperty propertyName="enabled" target="srg.s3" value="false" waitEvent="updateComplete" waitTarget="srg.s3"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="true" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s1" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s2" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s4" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s5" value="true"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_property_toggle" keywords="[FxRadioButtonGroup, property]" description="toggle enabled for RadioButtonGroup make sure RadioButtons enable and disable appropriately">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="false" waitEvent="updateComplete" waitTarget="srg.s5"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="enabled" target="srg.s1" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s2" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s4" value="false"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s5" value="false"/>
+				<SetProperty propertyName="enabled" target="srg.sparkGrp" value="true" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s1" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s2" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s3" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s4" value="true"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.s5" value="true"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_binding_property_default" keywords="[FxRadioButtonGroup, property]" description="binding to enabled property of RadioButtonGroup should show true">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="text" target="enabledlbl_one" value="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_enabled_twowaybinding_property_default" keywords="[FxRadioButtonGroup, property]" description="two way binding to enabled property of RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="visible" target="enabledlbl" value="true" />
+			</setup>
+			<body>	
+				<SetProperty propertyName="enabled" value="false" target="enabledlbl" waitEvent="updateComplete" waitTarget="enabledlbl"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.sparkGrp" value="false"/>
+				<CompareBitmap url="../properties/baselines/enabled_binding_sparkGrp.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				
+				<SetProperty propertyName="enabled" value="true" target="enabledlbl" waitEvent="updateComplete" waitTarget="enabledlbl"/>
+				<AssertPropertyValue propertyName="enabled" target="srg.sparkGrp" value="true"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_numRadioButtons_property" keywords="[FxRadioButtonGroup, property]" description="numRadioButtons returns correct value for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="numRadioButtons" target="srg.sparkGrp" value="5"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_numRadioButtons_property_default" keywords="[FxRadioButtonGroup, property]" description="numRadioButtons returns correct value for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="numRadioButtons" target="rbg1" value="0"/>
+			</body>
+		</TestCase>
+		
+		<!-- At the end of these tests we reset groupName to radioGroup so that the tab order continues to be consistent-->
+		<TestCase testID="FxRadioButtonGroup_numRadioButtons_property_add_to_group" keywords="[FxRadioButtonGroup, property]" description="numRadioButtons returns correct value for RadioButtonGroup">
+			<setup>
+				<SetProperty propertyName="groupName" value="rbg2" target="rb2" waitEvent="updateComplete" waitTarget="rb2"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="numRadioButtons" target="rbg2" value="1"/>
+				<SetProperty propertyName="groupName" value="radioGroup" target="rb2" waitEvent="updateComplete" waitTarget="rb2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_numRadioButtons_property_move_groups" keywords="[FxRadioButtonGroup, property]" description="numRadioButtons returns correct value for RadioButtonGroup">
+			<setup>
+				<SetProperty propertyName="groupName" value="rbg2" target="rb2" waitEvent="updateComplete" waitTarget="rb2"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="numRadioButtons" target="rbg2" value="1"/>
+				<SetProperty propertyName="groupName" value="rbg1" target="rb2" waitEvent="updateComplete" waitTarget="rb2"/>
+				<AssertPropertyValue propertyName="numRadioButtons" target="rbg2" value="0"/>
+				<AssertPropertyValue propertyName="numRadioButtons" target="rbg1" value="1"/>
+				<SetProperty propertyName="groupName" value="radioGroup" target="rb2" waitEvent="updateComplete" waitTarget="rb2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_numRadioButtons_property_binding" keywords="[FxRadioButtonGroup, property]" description="numRadioButtons returns correct value for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="text" target="numlbl_one" value="5"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_default" keywords="[FxRadioButtonGroup, property]" description="selectedValue should initially be null for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_value" keywords="[FxRadioButtonGroup, property]" description="set selectedValue for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="4"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_value_moveGroups" keywords="[FxRadioButtonGroup, property]" description="set selected for RadioButton then move groups selectedValue should be null for original RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="4"/>
+				<SetProperty propertyName="groupName" value="radioGroup" target="srg.s4" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="null"/>
+			</body>
+		</TestCase>
+		
+		<!--SDK-19622-->
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_select_mouse_deselect_programmatic" keywords="[FxRadioButtonGroup, property]" description="select by mouse and change selection by programmatically verify selectedValue updates for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<DispatchMouseClickEvent target="srg.s3" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
+				<SetProperty propertyName="selected" value="false" target="srg.s3" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="null"/>
+			</body>
+		</TestCase>
+		
+		<!--SDK-19622-->
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_select_programmatic_deselect_programmatic" keywords="[FxRadioButtonGroup, property]" description="select by programmmatically and change selection by programmatically verify selectedValue updates for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" value="true" target="srg.s3" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
+				<SetProperty propertyName="selected" value="false" target="srg.s3" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_select_programmatic_change_mouse" keywords="[FxRadioButtonGroup, property]" description="select by programmmatically and change selection by mouse verify selectedValue updates for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" value="true" target="srg.s3" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
+				<DispatchMouseClickEvent target="srg.s5" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_select_mouse_change_mouse" keywords="[FxRadioButtonGroup, property]" description="select by mouse and change selection by mouse verify selectedValue updates for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<DispatchMouseClickEvent target="srg.s3" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="true"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 3"/>
+				<DispatchMouseClickEvent target="srg.s5" localX="3" localY="5" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_value_binding" keywords="[FxRadioButtonGroup, property]" description="set selected programmatically for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="text" target="selVallbl_one" value=""/>
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="4"/>
+				<AssertPropertyValue propertyName="text" target="selVallbl_one" value="4"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_value_twowaybinding" keywords="[FxRadioButtonGroup, property]" description="verify two way binding for selectedValue for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="text" target="selVallbl" value=""/>
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="4"/>
+				<AssertPropertyValue propertyName="text" target="selVallbl" value="4"/>
+				<SetProperty propertyName="text" target="selVallbl" value="Spark 5" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s5" value="true"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_set_selectedValue_property" keywords="[FxRadioButtonGroup, property]" description="set selectedValue for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5" waitEvent="updateComplete" waitTarget="srg.s5"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="Spark 5"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s5" value="true"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_set_nonexistent_value_selectedValue_property" keywords="[FxRadioButtonGroup, property]" description="set selectedValue for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selectedValue" target="srg.sparkGrp" value="Spark 7" />
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="null"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s1" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s2" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s4" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s5" value="false"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="srg" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_value_keyboard" keywords="[FxRadioButtonGroup, property]" description="set selected via keyboard verify selectedValue is correct for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s4" />
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="4"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selectedValue_property_value_mouse" keywords="[FxRadioButtonGroup, property]" description="set selected via mouse verify selectedValue is correct for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertPropertyValue propertyName="selectedValue" target="srg.sparkGrp" value="4"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selection_property_default" keywords="[FxRadioButtonGroup, property]" description="selection should initially be null for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="selection" target="srg.sparkGrp" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selection_binding_property" keywords="[FxRadioButtonGroup, property]" description="bind to selection of RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="selected" target="srg.s2" value="true" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="text" target="sellbl_one" value="Spark 2" />
+				<SetProperty propertyName="selected" target="srg.s3" value="true" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="text" target="sellbl_one" value="Spark 3" />
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 3"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selection_twoway_binding_property" keywords="[FxRadioButtonGroup, property]" description="two way bind to selection of RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<RunCode code="application.srg.sparkGrp.selection=application.srg.s2" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>	
+				<AssertPropertyValue propertyName="text" target="sellbl" value="Spark 2" />
+				<SetProperty propertyName="selected" target="srg.s3" value="true" waitEvent="updateComplete" waitTarget="srg.s3"/>
+				<AssertPropertyValue propertyName="text" target="sellbl" value="Spark 3" />
+				<SetProperty propertyName="text" target="sellbl" value="Two Way Bind"/>
+				<AssertPropertyValue propertyName="label" target="srg.s3" value="Two Way Bind"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Two Way Bind"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selection_label_selectedValue" keywords="[FxRadioButtonGroup, property]" description="selection should be RadioButton label if value is not set">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="selected" target="srg.s2" value="true" waitEvent="updateComplete" waitTarget="srg.s2"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 2"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selectedValue" value="Spark 2"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selection_value_selectedValue" keywords="[FxRadioButtonGroup, property]" description="selection should be RadioButton value if value is set">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.value" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selectedValue" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 4"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_selection_property_value_keyboard" keywords="[FxRadioButtonGroup, property]" description="set selected via keyboard verify selection is correct for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="srg.s1" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s1"/>
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s2" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s3" />
+				<DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="srg.s4" />
+			</setup>
+			<body>	
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.value" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selectedValue" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 4"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButtonGroup_selection_property_value_mouse" keywords="[FxRadioButtonGroup, property]" description="set selected via mouse verify selection is correct for RadioButtonGroup">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.value" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selectedValue" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 4"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_Spark_container_selection_property_null" keywords="[FxRadioButtonGroup, property]" description="set selection to null RadioButtonGroup verify nothing is selected">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.value" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selectedValue" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 4"/>
+				<RunCode code="application.srg.sparkGrp.selection=null" />
+				<AssertPropertyValue propertyName="selected" target="srg.s1" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s2" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s4" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s5" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButtonGroup_Halo_container_selection_property_null" keywords="[FxRadioButtonGroup, property]" description="set selection to null RadioButtonGroup verify nothing is selected">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="hrg.r4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="hrg.r4"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="hrg.r4" value="true" waitEvent="updateComplete" waitTarget="hrg.r4"/>
+				<RunCode code="application.hrg.haloGrp.selection=null" />
+				<AssertPropertyValue propertyName="selected" target="hrg.r1" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="hrg.r2" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="hrg.r3" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="hrg.r4" value="false"/>
+			</body>
+		</TestCase>
+		
+		<!--SDK-19624-->
+		<TestCase testID="FxRadioButtonGroup_Spark_selection_property_null_change" keywords="[FxRadioButtonGroup, property]" description="set selection to null RadioButtonGroup verify nothing is selected">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="srg.s4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="srg.s4"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="srg.s4" value="true" waitEvent="updateComplete" waitTarget="srg.s4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.value" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selectedValue" value="4"/>
+				<AssertMethodValue method="value=application.srg.sparkGrp.selection.label" value="Spark 4"/>
+				<RunCode code="application.srg.sparkGrp.selection=null" />
+				<AssertPropertyValue propertyName="selected" target="srg.s1" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s2" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s3" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s4" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="srg.s5" value="false"/>
+			</body>
+		</TestCase>
+		
+		<!--SDK-19624-->
+		<TestCase testID="FxRadioButtonGroup_Halo_selection_property_null_change" keywords="[FxRadioButtonGroup, property]" description="set selection to null RadioButtonGroup verify nothing is selected">
+			<setup>
+				<ResetComponent target="srg" className="comps.SparkRadioButtonGroup" waitEvent="updateComplete" waitTarget="srg"/>
+				<ResetComponent target="hrg" className="comps.HaloRadioButtonGroup" waitEvent="updateComplete" waitTarget="hrg"/>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<ResetComponent target="bindingGroup" className="spark.components.Group" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="hrg.r4" localX="3" localY="3" waitEvent="updateComplete" waitTarget="hrg.r4"/>
+			</setup>
+			<body>	
+				<SetProperty propertyName="selected" target="hrg.r4" value="true" waitEvent="updateComplete" waitTarget="hrg.r4"/>
+				<RunCode code="application.hrg.haloGrp.selection=null" />
+				<AssertPropertyValue propertyName="selected" target="hrg.r1" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="hrg.r2" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="hrg.r3" value="false"/>
+				<AssertPropertyValue propertyName="selected" target="hrg.r4" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxRadioButton_property_baselinePosition_preValidation" keywords="[FxRadioButton, property, baselinePosition]" description="check baselinePosition of RadioButton">
+			<setup>
+			    <ResetComponent target="rb1" className="spark.components.RadioButton" />
+		        </setup>
+			<body>
+			    <AssertPropertyValue target="rb1" propertyName="baselinePosition" value="14.05" />
+			</body>
+		</TestCase>
+		<TestCase testID="FxRadioButton_property_baselinePosition_postValidation" keywords="[FxRadioButton, property, baselinePosition]" description="check baselinePosition of RadioButton">
+			<setup>
+			    <ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+		        </setup>
+			<body>
+			    <AssertPropertyValue target="rb1" propertyName="baselinePosition" value="14.05" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_SDK23098" keywords="[FxRadioButton, property, selectedValue]" description="check initial selectedValue of RadioButton">
+			<body>
+				<AssertPropertyValue target="rg" propertyName="selectedValue" value="left" />
+			</body>
+		</TestCase>
+		
+	</testCases>
+</UnitTester>
+
+

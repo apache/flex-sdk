@@ -1,0 +1,83 @@
+<s:Panel
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    creationPolicy="none">
+
+    <fx:Script>
+    	<![CDATA[
+    		public function initList():void
+    		{
+    			myList.dataProvider =
+    			[
+					"List Item ONE",
+					"List Item TWO",
+					"List Item THREE"
+    			];
+    		}
+
+			public function initDG():void
+    		{
+    			myDG.dataProvider =
+    			[
+					{Number: 'ONE', Item: 'Item One'},
+					{Number: 'TWO', Item: 'Item Two'},
+					{Number: 'THREE', Item: 'Item Three'}
+    			];
+    		}
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+
+   	<mx:HBox>
+   		<mx:Button label="Halo Button"/>
+   		<s:Button label="FxButton"/>
+   	</mx:HBox>
+
+   	<mx:Label text="Halo Label"/>
+   	<mx:Text text="Halo Text"/>
+
+   	<mx:HBox>
+   		<mx:NumericStepper />
+   		<s:NumericStepper height="23"/>
+   	</mx:HBox>
+
+   	<mx:HSlider />
+   	<s:HSlider />
+
+   	<mx:Accordion width="75%" height="100" >
+   		<mx:HBox label="Tab 1"><mx:Label text="Text on tab1"/></mx:HBox>
+   		<mx:HBox label="Tab 2"><mx:Label text="Text on tab2"/></mx:HBox>
+   		<mx:HBox label="Tab 3"><mx:Label text="Text on tab3"/></mx:HBox>
+   	</mx:Accordion>
+
+	<s:TextInput text="FxTextInput for name" height="21" />
+
+   	<mx:HBox>
+   		<mx:RadioButton groupName="rbg1" label="Option 1"/>
+   		<mx:RadioButton groupName="rbg1" label="Option 2"/>
+   		<mx:RadioButton groupName="rbg1" label="Option 3"/>
+   	</mx:HBox>
+
+   	<s:BitmapImage id="myPic" width="100" height="100" source="@Embed('../../../../../../Assets/Images/smallredrect.jpg')" fillMode="repeat"/>
+
+	<s:Ellipse id="myEllipse" height="50" width="50">
+		<s:fill>
+			<mx:SolidColor color="0x0000FF"/>
+		</s:fill>
+	</s:Ellipse>
+
+   	<mx:CheckBox label="This is a Halo CheckBox"/>
+
+   	<mx:HBox>
+   		<mx:List
+   		    id="myList"
+   		    creationComplete="initList();"/>
+
+		<mx:DataGrid
+			id="myDG"
+			creationComplete="initDG();"/>
+	</mx:HBox>
+
+</s:Panel>

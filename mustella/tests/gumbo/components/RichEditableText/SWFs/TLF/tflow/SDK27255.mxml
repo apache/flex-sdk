@@ -1,0 +1,49 @@
+<TextFlow xmlns="library://ns.adobe.com/flex/spark" 
+		  xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			private var _label:String;
+			private var _note:String;
+			
+			public function get label():String
+			{
+				return _label;
+			}
+			
+			public function set label(value:String):void
+			{
+				_label = value;
+			}
+			
+			public function get note():String
+			{
+				return _note;
+			}
+			
+			public function set note(value:String):void
+			{
+				_note = value;
+			}
+			
+		]]>
+	</fx:Script>
+		<p fontWeight="bold">ONE</p>
+		<list>
+			<li>roman 1</li>
+			<li>roman 2</li>
+			<li>roman 3</li>
+		</list>
+		<p fontWeight="bold">TWO</p>
+		<list>
+			<li>roman 1</li>
+			<li>roman 2</li>
+			<li>roman 3</li>
+		</list>
+		<p fontWeight="bold">THREE</p>
+		<list>
+			<li>roman 1</li>
+			<li>roman 2</li>
+			<li>roman 3</li>
+		</list>
+</TextFlow>

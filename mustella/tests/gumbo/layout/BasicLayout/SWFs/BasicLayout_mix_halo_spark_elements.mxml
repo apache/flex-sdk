@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	width="800" height="600">
+	<fx:Script>
+		<![CDATA[
+		]]>
+	</fx:Script>
+	<fx:Style>
+	    @namespace s "library://ns.adobe.com/flex/spark";
+	    @namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Cousine/Cousine-Regular.ttf");
+			fontFamily: EmbeddedArno;
+			embedAsCFF: true;
+		}
+
+	    s|Button{
+		fontFamily: EmbeddedArno;
+		fontLookup: embeddedCFF;
+		fontAntiAliasType: normal;
+	    }
+	    global{
+	        kerning: "off";    
+	    }
+	</fx:Style>
+	<s:Group id="parentGroup" >
+	<s:Button x="300" label="parent" right="50" top="120" bottom="150"/>
+	      <s:Group id="childGroup" >
+		    <s:layout>
+			<s:BasicLayout/>
+		    </s:layout>
+		<mx:TextArea  focusColor="0x012FE"/>
+		<mx:HBox y="200">
+			<mx:NumericStepper  minimum="1" maximum="10" />
+		</mx:HBox>
+		<s:CheckBox label="test" id="checkBox1" />
+		<s:Graphic y="300">
+			<s:TextArea />
+		</s:Graphic>
+
+
+		</s:Group> 
+		<s:Rect id="border" left="0" right="0" top="0" bottom="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0xFF0000"/>
+			</s:stroke>
+		</s:Rect>  
+	</s:Group>
+</s:Application>

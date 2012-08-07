@@ -1,0 +1,306 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import comps.*;
+        	import skins.*;
+        	
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+        	public var screenY:int = flash.system.Capabilities.screenResolutionY;
+		public var screenX:int = flash.system.Capabilities.screenResolutionX;
+		[Bindable]
+		public var multiLine:String="The quick brown The quick brown\nfox jumps over fox jumps over\nthe lazy dog the lazy dog.";
+        	[Bindable]
+        	public var longLine:String="Retail sales jumped in August, spurred by widespread gains beyond the increases of autos and gasoline that economists expected";
+		
+        	public static function init(o:DisplayObject):void {}
+        	
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+       	<fx:Array id="contentArray1">
+       		<s:Button label="1" width="60%" />
+       		<s:Button label="2" width="40%" />
+       	</fx:Array>
+        <fx:Array id="contentArray2">
+       		<s:Label text="{multiLine}" />
+       	</fx:Array>  
+	<fx:Array id="contentArray3">
+		<s:Label text="{longLine}" />
+       	</fx:Array>  
+       	<fx:Array id="contentArray4">
+	       	<s:Label text="{multiLine}" />
+       	</fx:Array> 
+       	<fx:Array id="contentArray5">
+	       	<s:Label text="{multiLine}" />
+       	</fx:Array> 
+    </fx:Declarations>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!--
+    test window resize
+    - verify children resizing when set with percentage width/height
+    - verify long title will show up more/less titleString when resize larger/smaller
+    - verify components are clipped/shown up when resize smaller/larger
+    - verify contents in controlBar is updated
+    - verify contents are updated correctly when controlBar set vertical/horizontal, resize wider/taller,narrower/shorter
+    - set controlBarVisible=false,then resize, controlBarVisible=true,verify contents displayed correctly
+    - update size at runtime, verify titleWindow and its children which is resizable will be updated.
+    - update size of largest child,titleWindow has no explicit size set, verify the child and titleWindow will be updated.
+- fontSize update, verify title, and window should be resized.
+    -->
+    
+    <testCases>  
+    	<TestCase testID="TitleWindow_resize_percentValue1" keywords="[TitleWindow,resize]" description="Test content of titleWindow resized larger ">
+    	    <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowResize,'percentage resized window1')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>            	
+    	    	<AssertPropertyValue target="twObject.childBtn" propertyName="width" value="318"/>
+    	    	<AssertPropertyValue target="twObject.childBtn" propertyName="height" value="132"/>
+    	    	<!-- the button will use default size -->
+    	    	<AssertPropertyValue target="twObject.button2" propertyName="height" value="21"/>
+    	    	<AssertPropertyValue target="twObject.button2" propertyName="width" value="189"/>
+    	    	<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+    		<AssertPropertyValue target="twObject.childBtn" propertyName="width" value="478"/>
+		<AssertPropertyValue target="twObject.childBtn" propertyName="height" value="132"/>
+    	    	<AssertPropertyValue target="twObject.button2" propertyName="height" value="21"/>
+    	    </body>
+	</TestCase>
+ 
+     	<TestCase testID="TitleWindow_resize_percentValue2" keywords="[TitleWindow,resize]" description="Test content of titleWindow resized smaller ">
+     	    <setup>            
+     		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+     	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowResize,'percentage resized window2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+     	    </setup>
+     	    <body>            	
+     	    	<AssertPropertyValue target="twObject.childBtn" propertyName="width" value="318"/>
+     	    	<AssertPropertyValue target="twObject.childBtn" propertyName="height" value="132"/>
+     	    	<AssertPropertyValue target="twObject.button2" propertyName="height" value="21"/>
+     	    	<SetProperty target="twObject" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="twObject"/>
+     		<AssertPropertyValue target="twObject.childBtn" propertyName="width" value="118"/>
+ 		<AssertPropertyValue target="twObject.childBtn" propertyName="height" value="132"/>
+     	    	<AssertPropertyValue target="twObject.button2" propertyName="height" value="21"/>
+     	    </body>
+	</TestCase>
+	
+	
+    
+     	<TestCase testID="TitleWindow_resize_title1" keywords="[TitleWindow,resize]" description="Test title shows more due to titleWindow resized larger ">
+    	    <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowResize,'title resize1')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="title" valueExpression="value=longTitle" />
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	        <CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID_moveArea.png" numColorVariances="10" maxColorVariance="20" />
+  	        <Pause timeout="20"/>
+    	    	<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+    		<SetProperty target="twObject" propertyName="height" value="800" waitEvent="updateComplete" waitTarget="twObject"/>
+    		
+    		<AssertPropertyValue target="twObject.childBtn" propertyName="width" value="478"/>
+		<AssertPropertyValue target="twObject.childBtn" propertyName="height" value="292"/>
+    	    	<AssertPropertyValue target="twObject.button2" propertyName="height" value="21"/>
+    	    	<CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID_increased.png" numColorVariances="10" maxColorVariance="20"/>
+    	    </body>
+	</TestCase>
+	
+	
+     	<TestCase testID="TitleWindow_resize_title2" keywords="[TitleWindow,resize]" description="Test title shows less due to titleWindow resized smaller ">
+    	    <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowResize,'title resize2')" />
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="title" valueExpression="value=longTitle" />
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	        <CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+    	    	<SetProperty target="twObject" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="twObject"/>
+    		<SetProperty target="twObject" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="twObject"/>
+    		
+    		<AssertPropertyValue target="twObject.childBtn" propertyName="width" value="158"/>
+		<AssertPropertyValue target="twObject.childBtn" propertyName="height" value="52"/>
+    	    	<AssertPropertyValue target="twObject.button2" propertyName="height" value="21"/>
+    	    	<CompareBitmap target="twObject.moveArea" url="../Properties/Baselines/$testID_reduced.png" numColorVariances="10" maxColorVariance="20"/>
+    	    </body>
+	</TestCase>
+	
+	<TestCase testID="TitleWindow_resize_clipcontent1" keywords="[TitleWindow,resize]" description="Test clipcontent when titleWindow is resized smaller ">
+    	    <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithClipContent,'clipContent test1')"  waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="twObject"/>
+    		<SetProperty target="twObject" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="twObject"/>
+    	    	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+    	    </body>
+	</TestCase>
+
+	<TestCase testID="TitleWindow_resize_clipcontent2" keywords="[TitleWindow,resize]" description="Test clipcontent when titleWindow is resized smaller ">
+    	    <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithClipContent,'clipContent test2')"  waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+    		<SetProperty target="twObject" propertyName="height" value="800" waitEvent="updateComplete" waitTarget="twObject"/>
+    	    	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+    	    </body>
+	</TestCase>
+	<!-- content1: width, content2: height, content3:width -->
+
+  	<TestCase testID="TitleWindow_controlBarContent_resize1" keywords="[TitleWindow,controlBarContent,resize]"  description="Test a titleWindow width resized larger,verify controlBarContent resized larger as well">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'resize titleWindow1')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray1" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+            </body>
+        </TestCase> 	
+	<TestCase testID="TitleWindow_controlBarContent_resize2" keywords="[TitleWindow,controlBarContent,resize]" description="Test a titleWindow height resized larger,verify controlBarContent resized larger as well">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'resize titleWindow2')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray2"/>
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<SetProperty target="twObject" propertyName="height" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete"/>
+            	<Pause timeout="100"/>
+            </body>
+        </TestCase> 	
+
+	<TestCase testID="TitleWindow_controlBarContent_resize3" keywords="[TitleWindow,controlBarContent,resize]" description="Test a titleWindow width/height resized larger,verify controlBarContent resized larger as well">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'resize titleWindow3')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray4"/>
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<SetProperty target="twObject" propertyName="height" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+  	   	<Pause timeout="40"/>
+  	   	<SetProperty target="twObject" propertyName="width" value="400" waitEvent="updateComplete" waitTarget="twObject"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=null" waitEvent="updateComplete"/>
+            	<Pause timeout="100"/>
+            </body>
+        </TestCase>
+   	<TestCase testID="TitleWindow_controlBarContent_resize4" keywords="[TitleWindow,controlBarContent,resize]" description="Test a titleWindow width/height resized smaller,verify controlBarContent resized smaller as well">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'resize titleWindow4')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray5" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<SetProperty target="twObject" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="twObject"/>
+  	   	<SetProperty target="twObject" propertyName="width" value="200" waitEvent="updateComplete" waitTarget="twObject"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+   	<TestCase testID="TitleWindow_controlBarContent_resize5" keywords="[TitleWindow,controlBarContent,resize]" description="Test a titleWindow width resized larger,verify controlBarContent resized larger as well">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContent1,'resize titleWindow5')" />
+  	    </setup>
+  	    <body>
+  	   	<SetProperty target="twObject" propertyName="controlBarContent" valueExpression="value=contentArray3" />
+  	   	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<SetProperty target="twObject" propertyName="height" value="800" waitEvent="updateComplete" waitTarget="twObject"/>
+  	   	<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+    	<TestCase testID="TitleWindow_controlBarContent_resize6" keywords="[TitleWindow,controlBarContent,resize]" description="controlBarVisible=false,then resize, controlBarVisible=true,verify contents displayed correctly">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowControlBarContentInvisible,'resize titleWindow6')" />
+  	    </setup>
+  	    <body>
+  	    	<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	   	<Pause timeout="20"/>
+  	   	<SetProperty target="twObject" propertyName="height" value="800" waitEvent="updateComplete" waitTarget="twObject"/>
+  	   	<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+		<SetProperty target="twObject" propertyName="controlBarVisible" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
+		
+		<CompareBitmap target="twObject.skin.controlBarGroup" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+  	<TestCase testID="TitleWindow_controlBarContent_resize7" keywords="[TitleWindow,resize]" description="update size at runtime, verify titleWindow and its children which is resizable will be updated">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarLayout,'resize titlewindow7')"  waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	    	
+  	   	<SetProperty target="twObject" propertyName="height" value="800" waitEvent="updateComplete" waitTarget="twObject"/>
+  	   	<SetProperty target="twObject" propertyName="width" value="600" waitEvent="updateComplete" waitTarget="twObject"/>
+		<SetProperty target="twObject" propertyName="controlBarVisible" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
+		
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+  
+	<TestCase testID="TitleWindow_controlBarContent_resize8" keywords="[TitleWindow,resize]" description="update size of largest child,titleWindow has no explicit size set, verify the child and titleWindow will be updated">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBar,'resize titlewindow8')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	    	<SetProperty target="twObject.childBtn" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="twObject.childBtn"/>
+  	   	<SetProperty target="twObject.childBtn" propertyName="width" value="400" waitEvent="updateComplete" waitTarget="twObject.childBtn"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+	<TestCase testID="TitleWindow_controlBarContent_resize9" keywords="[TitleWindow,resize]" description="update size of controlbar child, verify controlBarContent will be updated">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBar,'resize titlewindow9')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	    	<SetProperty target="twObject.button1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="twObject.button1"/>
+  	   	<SetProperty target="twObject.button2" propertyName="width" value="80" waitEvent="updateComplete" waitTarget="twObject.button2"/>
+  	   	<SetProperty target="twObject.button3" propertyName="width" value="20" waitEvent="updateComplete" waitTarget="twObject.button3"/>
+  	   	<CompareBitmap target="twObject.skin.controlBarGroup" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20" />
+            </body>
+        </TestCase> 
+	<TestCase testID="TitleWindow_controlBarContent_resize10" keywords="[TitleWindow,resize]" description="fontSize update, verify title, and window should be resized.">
+            <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent4,'resize titlewindow10')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	    	<Pause timeout="40"/>
+  	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.setStyle('fontSize',35)" waitEvent="updateComplete" waitTarget="twObject" />
+  	    	<SetProperty target="twObject.button1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="twObject.button1"/>
+  	    	<Pause timeout="40"/>
+  	    	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="16" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+    </testCases>
+    
+</UnitTester>
+

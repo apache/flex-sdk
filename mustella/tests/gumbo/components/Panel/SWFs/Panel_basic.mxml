@@ -1,0 +1,121 @@
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="Comps.*"
+    backgroundColor="0xFFFFFF"
+    height="800" width="800">
+    
+    <fx:Script>    
+    	<![CDATA[    	
+    		public function disablePanel():void
+    		{
+    			myCustomPanel.enabled = false;
+    		}    	
+    	]]>        
+    </fx:Script>
+        
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace c "Comps.*";
+	
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyArial;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: MyArialHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: MyArialHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: MyArialHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}		
+										
+		mx|Accordion,
+		mx|RadioButton,
+		mx|CheckBox,
+		mx|List,
+		mx|DataGrid,
+		mx|Button,
+		mx|Text,
+		mx|Label,
+		mx|NumericStepper,
+		mx|ToolTip{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+			fontSize: 12;
+		}
+			
+		s|Panel,
+		s|NumericStepper,
+		s|Button,
+		s|TextInput{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+			fontSize: 12;
+            fontLookup: "embeddedCFF";
+		}		
+    
+		s|HSlider{
+  			fontAntiAliasType: "normal";
+  			fontFamily: MyVera;
+            fontLookup: "embeddedCFF";
+  		}    
+    
+		c|CustomPanelSkinned{		
+			skinClass: ClassReference("skins.myPanelSkin");
+		}		
+		
+		c|CustomPanelSkinnedNoTitle{		
+			skinClass: ClassReference("skins.myPanelSkinNoTitle");
+		}			
+	</fx:Style>     
+
+    
+    <mx:VBox>
+    	<mx:Text text="Text behind the Panel" />
+    	<mx:Spacer height="25" />
+    	<mx:Text text="Text2 behind the Panel" />
+    </mx:VBox>
+    
+    <mx:HBox>
+    	<local:CustomPanel id="myCustomPanel" />    
+    	<local:CustomPanelDisabled id="myCustomDisPanel" />    	
+    	<mx:VBox> 
+    		<s:Button id="changeButton" label="Change title" click="myCustomPanel.title='New Title'"/>
+    		<s:Button id="disableButton" label="Disable Panel" click="disablePanel()"/>
+    		<local:CustomPanelSkinned id="mySkinnedPanel"/>
+    		<local:CustomPanelSkinnedNoTitle id="mySkinnedPanelNoTitle"/>
+    	</mx:VBox>    	
+    </mx:HBox>
+                        
+</s:Application>

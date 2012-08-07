@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns="*"
+			testDir="gumbo/components/Image/events/"
+			testSWF="ImageMain.mxml">
+
+	<fx:Script><![CDATA[ public static function init(o:DisplayObject):void { } ]]></fx:Script>
+	<fx:Metadata><![CDATA[ [Mixin] ]]></fx:Metadata>
+
+	<testCases>
+		<TestCase testID="Image_Load_trusted_events" keywords="[Image, events, trusted]" description="Verify events">
+			<setup>
+				<ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
+                		<SetProperty target="et.img" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+			</setup>
+			<body>
+				<AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_resize" />
+			</body>
+		</TestCase>
+        	<TestCase testID="Image_Load_local_events" keywords="[Image, events, trusted]" description="Verify events">
+            <setup>
+                <ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
+                <SetProperty target="et.img" propertyName="source" value="../../../../../Assets/Images/bluerect.jpg" waitEvent="ready"  />
+            </setup>
+            <body>
+                <AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2146progress 1024 of 2146progress 2048 of 2146progress 2146 of 2146httpStatus_0_complete_resize" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="BitmapImage_Load_trusted_events" keywords="[BitmapImage, events, trusted]" description="Verify events">
+            <setup>
+                <ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
+                <SetProperty target="et.bi" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            </setup>
+            <body>
+                <AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="BitmapImage_Load_local_events" keywords="[BitmapImage, events, trusted]" description="Verify events">
+            <setup>
+                <ResetComponent target="et" className="comps.EventsTesterComp" waitEvent="updateComplete" />
+                <SetProperty target="et.bi" propertyName="source" value="../../../../../Assets/Images/redrect.jpg" waitEvent="ready"  />
+            </setup>
+            <body>
+                <AssertPropertyValue target="et.debug" propertyName="text" value="progress 0 of 2253progress 1024 of 2253progress 2048 of 2253progress 2253 of 2253httpStatus_0_complete_" />
+            </body>
+        </TestCase>
+	</testCases>
+</UnitTester>

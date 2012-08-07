@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+
+
+	<fx:Script source="../SWFs/global.as" />
+
+	<testCases>
+		<!-- ########## appendText() (unsupported) ########## -->
+		<TestCase testID="appendText_rte" description="Make sure appendText() on a UITLFTextField throws an RTE" keywords="[FTETextField, appendText(),RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('appendText', 'etc');" valueExpression="value=unsupported_method_error('appendText');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getCharBoundaries() (unsupported) ########## -->
+		<TestCase testID="getCharBoundaries_rte" description="Make sure getCharBoundaries() on a UITLFTextField throws an RTE" keywords="[FTETextField, getCharBoundaries,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getCharBoundaries', 3);" valueExpression="value=unsupported_method_error('getCharBoundaries');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getCharIndexAtPoint() (unsupported) ########## -->
+		<TestCase testID="getCharIndexAtPoint_rte" description="Make sure getCharIndexAtPoint() on a UITLFTextField throws an RTE" keywords="[FTETextField, getCharIndexAtPoint,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getCharIndexAtPoint', 5, 5);" valueExpression="value=unsupported_method_error('getCharIndexAtPoint');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getFirstCharInParagraph() (unsupported) ########## -->
+		<TestCase testID="getFirstCharInParagraph_rte" description="Make sure getFirstCharInParagraph() on a UITLFTextField throws an RTE" keywords="[FTETextField, getFirstCharInParagraph,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getFirstCharInParagraph', 5);" valueExpression="value=unsupported_method_error('getFirstCharInParagraph');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getImageReference() (unsupported) ########## -->
+		<TestCase testID="getImageReference_rte" description="Make sure getImageReference() on a UITLFTextField throws an RTE" keywords="[FTETextField, getImageReference,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getImageReference', 'img');" valueExpression="value=unsupported_method_error('getImageReference');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getLineIndexAtPoint() (unsupported) ########## -->
+		<TestCase testID="getLineIndexAtPoint_rte" description="Make sure getLineIndexAtPoint() on a UITLFTextField throws an RTE" keywords="[FTETextField, getLineIndexAtPoint,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getLineIndexAtPoint', 5, 5);" valueExpression="value=unsupported_method_error('getLineIndexAtPoint');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getLineIndexOfChar() (unsupported) ########## -->
+		<TestCase testID="getLineIndexOfChar_rte" description="Make sure getLineIndexOfChar() on a UITLFTextField throws an RTE" keywords="[FTETextField, getLineIndexOfChar,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getLineIndexOfChar', 25);" valueExpression="value=unsupported_method_error('getLineIndexOfChar');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getLineLength() (unsupported) ########## -->
+		<TestCase testID="getLineLength_rte" description="Make sure getLineLength() on a UITLFTextField throws an RTE" keywords="[FTETextField, getLineLength,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getLineLength', 1);" valueExpression="value=unsupported_method_error('getLineLength');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getLineOffset() (unsupported) ########## -->
+		<TestCase testID="getLineOffset_rte" description="Make sure getLineOffset() on a UITLFTextField throws an RTE" keywords="[FTETextField, getLineOffset,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getLineOffset', 1);" valueExpression="value=unsupported_method_error('getLineOffset');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getLineText() (unsupported) ########## -->
+		<TestCase testID="getLineText_rte" description="Make sure getLineText() on a UITLFTextField" keywords="[FTETextField, getLineText, RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getLineText', 1);" valueExpression="value=unsupported_method_error('getLineText');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## getParagraphLength() (unsupported) ########## -->
+		<TestCase testID="getParagraphLength_rte" description="Make sure getParagraphLength() on a UITLFTextField throws an RTE" keywords="[FTETextField, getParagraphLength,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('getParagraphLength', 1);" valueExpression="value=unsupported_method_error('getParagraphLength');" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## replaceSelectedText() (unsupported) ########## -->
+		<TestCase testID="replaceSelectedText_rte" description="Make sure replaceSelectedText() on a UITLFTextField throws an RTE" keywords="[FTETextField, replaceSelectedText,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('replaceSelectedText', 'the end');" valueExpression="value=unsupported_method_error('replaceSelectedText');" />
+			</body>
+		</TestCase>
+
+		<!-- ########## replaceText() (unsupported) ########## -->
+		<TestCase testID="replaceText_rte" description="Make sure replaceText() on a UITLFTextField throws an RTE" keywords="[FTETextField, replaceText,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('replaceText', 5, 25, 'the end');" valueExpression="value=unsupported_method_error('replaceText');" />
+			</body>
+		</TestCase>
+
+		<!-- ########## setSelection() (unsupported) ########## -->
+		<TestCase testID="setSelection_rte" description="Make sure setSelection() on a UITLFTextField throws an RTE" keywords="[FTETextField, setSelection,RTE, method]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeMethod('setSelection', 5, 25);" valueExpression="value=unsupported_method_error('setSelection');" />
+			</body>
+		</TestCase>
+
+	</testCases>
+
+</UnitTester>

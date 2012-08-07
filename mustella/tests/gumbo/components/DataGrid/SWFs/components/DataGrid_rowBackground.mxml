@@ -1,0 +1,66 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	 selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" editable="true"
+	variableRowHeight="true" >
+	<fx:Script>
+			<![CDATA[
+				import mx.collections.ArrayCollection;
+				import spark.components.gridClasses.GridSelectionMode;
+				import mx.events.FlexEvent;
+				
+				
+				
+				public function addARow():void
+				{
+					var b:Object={key:this.dataProvider.length+1,name:"drill", price:110.01, call:true};
+					this.dataProvider.addItem(b);
+				}
+				public function removeFirstRow():void
+				{
+					if (this.dataProvider.length<=0) return;
+					this.dataProvider.removeItemAt(0);
+				}
+				public function setNewSkinClass(c:Class):void
+				{
+					setStyle("skinClass",c);
+				}
+				public function setRowBackground(ic:IFactory):void
+				{
+					this.grid.rowBackground=ic;
+
+				}
+		 
+			]]>
+	</fx:Script>	
+ 	<s:rowBackground>
+             <fx:Component>
+                 <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+                     <fx:Script>
+                         <![CDATA[
+                             import spark.components.Grid;
+                             
+                             public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+                             {
+					if (rowIndex <3)
+						rowBackgroundFill.color = 0xCCCCCC;
+					else 
+						rowBackgroundFill.color = 0xFFFFFF;
+                             }
+                         ]]>
+                     </fx:Script>
+                     
+                     <s:fill>
+                         <s:SolidColor id="rowBackgroundFill" />
+                     </s:fill>                
+                 </s:Rect>
+             </fx:Component>               
+         </s:rowBackground>
+         <s:ArrayCollection>
+             <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
+             <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
+             <s:DataItem key="1002" name="Clamp" price="120.02" call="false"/>
+             <s:DataItem key="1003" name="Drill" price="130.03" call="true"/>
+             <s:DataItem key="1004" name="Epoxy" price="140.04" call="false"/>
+             <s:DataItem key="1005" name="File" price="150.05" call="true"/>          
+        </s:ArrayCollection>
+</s:DataGrid>

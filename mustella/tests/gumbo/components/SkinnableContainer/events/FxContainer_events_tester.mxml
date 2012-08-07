@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableContainer/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FxContainerBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+
+            import mx.graphics.*;
+            import spark.components.Button;
+            import mx.controls.Button;
+            import spark.events.ElementExistenceEvent;
+            import spark.layouts.*;
+
+        ]]>
+    </fx:Script>
+
+    <testCases>
+
+<!-- elementAdd event -->
+
+    <!-- addItem method -->
+
+        <TestCase testID="FxContainer_event_elementAdd_addItem_empty" keywords="[FxContainer, event, elementAdd, addItem]" description="call additem on empty group and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.addRect(application.fc)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="15" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementAdd_addItem_nonempty" keywords="[FxContainer, event, elementAdd, addItem]" description="call additem on group with one element and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.addRect(application.fc)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="15" />
+                <AssertMethodValue method="value=application.fc.getElementAt(1).width" value="15" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="2" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementAdd_addItem_nonempty_array" keywords="[FxContainer, event, elementAdd, addItem]" description="call additem on group with multiple elements and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.addStretchRect(application.fc)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="15" />
+                <AssertMethodValue method="value=application.fc.getElementAt(1).width" value="15" />
+                <AssertMethodValue method="value=application.fc.getElementAt(2).width" value="15" />
+                <AssertMethodValue method="value=application.fc.getElementAt(3).top" value="0" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="4" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementAdd_addItem_subgroup" keywords="[FxContainer, event, elementAdd, addItem]" description="call additem with a subgroup and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.createSubgroup(application.fc)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+
+                <AssertPropertyValue target="fc" propertyName="numElements" value="1" />
+            </body>
+        </TestCase>
+
+    <!-- addItemAt method -->
+
+        <TestCase testID="FxContainer_event_elementAdd_addItemAt_empty" keywords="[FxContainer, event, elementAdd, addItemAt]" description="call addItemAt and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc, 0)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Ellipse]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="40" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementAdd_addItemAt_nonempty" keywords="[FxContainer, event, elementAdd, addItemAt]" description="call additemAt on group with one element and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc, 0)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Ellipse]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="40" />
+                <AssertMethodValue method="value=application.fc.getElementAt(1).width" value="15" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="2" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementAdd_addItemAt_nonempty_array" keywords="[FxContainer, event, elementAdd, addItemAt]" description="call additemAt on group with multiple elements and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.addEllipseAt(application.fc, 0)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Ellipse]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="40" />
+                <AssertMethodValue method="value=application.fc.getElementAt(1).width" value="15" />
+                <AssertMethodValue method="value=application.fc.getElementAt(2).width" value="15" />
+                <AssertMethodValue method="value=application.fc.getElementAt(3).width" value="15" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="4" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementAdd_addItemAt_subgroup" keywords="[FxContainer, event, elementAdd, addItemAt]" description="call additemAt with a subgroup and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+            </setup>
+            <body>
+                <RunCode code="application.createSubgroupAt(application.fc, 55, 0)" />
+                <AssertEvent target="fc" eventName="elementAdd" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+
+                <AssertPropertyValue target="fc" propertyName="numElements" value="1" />
+            </body>
+        </TestCase>
+
+<!-- elementRemove event -->
+
+    <!-- removeItem method -->
+
+        <TestCase testID="FxContainer_event_elementRemove_removeItem_single" keywords="[FxContainer, event, elementRemove, removeItem]" description="call removeItem and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.removeElement(application.fc.getElementAt(0))" />
+                <AssertEvent target="fc" eventName="elementRemove" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertPropertyValue target="fc" propertyName="numElements" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementRemove_removeItem_array" keywords="[FxContainer, event, elementRemove, removeItem]" description="call removeItem on group with multiple elements and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.removeElement(application.fc.getElementAt(0))" />
+                <AssertEvent target="fc" eventName="elementRemove" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="15" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="1" />
+            </body>
+        </TestCase>
+
+     <!-- removeItemAt method -->
+
+
+        <TestCase testID="FxContainer_event_elementRemove_removeItemAt_single" keywords="[FxContainer, event, elementRemove, removeItemAt]" description="call removeItemAt and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.removeElementAt(0)" />
+                <AssertEvent target="fc" eventName="elementRemove" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertPropertyValue target="fc" propertyName="numElements" value="0" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxContainer_event_elementRemove_removeItemAt_array" keywords="[FxContainer, event, elementRemove, removeItemAt]" description="call removeItemAt on group with multiple elements and verify event is raised">
+            <setup>
+                <ResetComponent target="fc" className="spark.components.SkinnableContainer" waitEvent="updateComplete" waitTarget="fc" />
+<SetProperty target = "fc" propertyName="layout" valueExpression="value=new VerticalLayout()" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+                <RunCode code="application.addRect(application.fc)" waitEvent="updateComplete" waitTarget="fc" />
+            </setup>
+            <body>
+                <RunCode code="application.fc.removeElementAt(0)" />
+                <AssertEvent target="fc" eventName="elementRemove" eventClass="spark.events::ElementExistenceEvent" numExpectedEvents="1" />
+                <AssertEventPropertyValue propertyName="element" valueExpression="value='[object Rect]'" />
+
+                <AssertMethodValue method="value=application.fc.getElementAt(0).width" value="15" />
+                <AssertPropertyValue target="fc" propertyName="numElements" value="1" />
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

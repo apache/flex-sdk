@@ -1,0 +1,146 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+s|TitleWindow{
+    chromeColor: #FFCC99;
+    contentBackgroundColor: #CC6699;
+    symbolColor: #FF0066;
+    selectionColor: #00FF00;
+    rollOverColor: #FF9933;
+    focusColor: #B80000;
+    fontFamily: EmbeddedVerdana;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+    fontFamily: EmbeddedArial;
+    embedAsCFF: true;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+    fontWeight: bold;           
+    fontFamily: EmbeddedArial;
+    embedAsCFF: true;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+    fontStyle: italic;          
+    fontFamily: EmbeddedArial;
+    embedAsCFF: true;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+    fontFamily: EmbeddedVerdana;
+    embedAsCFF: true;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+    fontWeight: bold;
+    fontFamily: EmbeddedVerdana;
+    embedAsCFF: true;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+    fontStyle: italic;
+    fontFamily: EmbeddedVerdana;
+    embedAsCFF: true;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+    fontFamily: EmbeddedVerdanaHalo;
+    embedAsCFF: false;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+    fontWeight: bold;
+    fontFamily: EmbeddedVerdanaHalo;
+    embedAsCFF: false;
+}
+
+@font-face {
+    src: url("../../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+    fontStyle: italic;
+    fontFamily: EmbeddedVerdanaHalo;
+    embedAsCFF: false;
+}
+s|Button{
+    fontFamily: EmbeddedVerdana;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+s|TextArea{
+    fontFamily: EmbeddedVerdana;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+s|Label{
+    fontFamily: EmbeddedVerdana;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}	
+
+mx|Label{
+    fontFamily: EmbeddedVerdanaHalo;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+mx|DataGrid{
+    fontFamily: EmbeddedVerdanaHalo;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+.testWindowStyle1{
+    chromeColor: #FFCC99;
+    contentBackgroundColor: #CC6699;
+    symbolColor: #FF0066;
+    selectionColor: #00FF00;
+    rollOverColor: #FF9933;
+    focusColor: #B80000;
+    fontFamily: EmbeddedVerdana;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+
+.testWindowStyle2{
+    color: #FFCC99;
+    fontSize:14;
+    fontStyle:italic;
+    fontWeight:bold;
+    fontFamily: EmbeddedVerdana;
+    fontLookup: embeddedCFF;
+    fontAntiAliasType: normal;
+}
+
+global{
+    fontFamily: EmbeddedVerdana;
+    fontAntiAliasType: normal;
+}

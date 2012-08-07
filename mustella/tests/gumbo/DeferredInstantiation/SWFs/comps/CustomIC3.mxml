@@ -1,0 +1,35 @@
+<s:SkinnableContainer 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"   
+    xmlns:local="comps.*"		 
+    height="300"
+    width="300" >
+		 
+    <s:layout>
+    	<s:VerticalLayout/>
+    </s:layout>
+
+    <mx:Label text="Halo Accordion" />
+
+    <mx:Accordion id="myAccordion1" borderStyle="solid" width="200" height="100" creationPolicy="none" >
+        <mx:VBox id="myAccordion1Tab1" label="TN1 Tab 1" >
+    	    <mx:Button id="myAccordion1Button1" label="A1 Halo Button on Tab 1" />
+		</mx:VBox>
+	    	
+		<mx:VBox id="myAccordion1Tab2" label="TN1 Tab 2" >
+	    	<s:Button id="myAccordion1Button2" label="A1 Gumbo Button on Tab 2" />
+		</mx:VBox> 
+    </mx:Accordion>
+    
+    <mx:Label text="Halo Accordion 2" />
+    
+    <mx:Accordion id="myAccordion2" borderStyle="solid" width="200" height="100" >
+        <mx:VBox id="myAccordion2Tab1" label="TN2 Tab 1" >
+            <mx:Button id="myAccordion2Button1" label="A2 Halo Button on Tab 1" />
+    	</mx:VBox>
+    	    	
+    	<mx:VBox id="myAccordion2Tab2" label="TN2 Tab 2" >
+    	    <s:Button id="myAccordion2Button2" label="A2 Gumbo Button on Tab 2" />
+    	</mx:VBox> 
+    </mx:Accordion>
+    
+</s:SkinnableContainer>

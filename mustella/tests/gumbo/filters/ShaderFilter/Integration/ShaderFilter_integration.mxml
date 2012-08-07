@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/filters/ShaderFilter/Integration/"  
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+    testSWF="ShaderFilterApp3_Components.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}					
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+		import spark.filters.ShaderFilter;
+		import mx.controls.Alert;
+		
+		public var curAlert:Alert;	
+	]]>
+	</mx:Script>
+
+<!--
+Note that setting a filter does not elicit an updateComplete event.
+-->
+
+	<testCases>
+
+<TestCase testID="integration_fxbutton_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on an FxButton">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="btn1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_fxbutton_test2" keywords="[PixelBender,ShaderFilter]" description="Set 2 filters on an FxButton">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="0" waitTarget="tn" waitEvent="updateComplete" />
+		<ResetComponent target="btn3" className="spark.components.Button" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.IncreaseChannelsShaderClass())" />
+		<RunCode code="application.sf2 = new spark.filters.ShaderFilter(new application.IncreaseChannelsShaderClass())" />
+        <SetProperty target="sf1" propertyName="increaseRed" value="1" />
+        <SetProperty target="sf2" propertyName="increaseGreen" value="1" />
+        <SetProperty target="btn3" propertyName="filters" valueExpression="value=[application.sf1,application.sf2]" />
+		<Pause timeout="200" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="btn3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_mxbutton_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on an mx button">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="1" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="btn2" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_panel_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a panel">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="2" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="pnl1" propertyName="height" value="82" />
+        <SetStyle target="pnl1" styleName="headerHeight" value="31" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="pnl1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_box_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a box with controls.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="3" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="box1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_graphic_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a graphic.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="4" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="graphic1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_swfloader_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a SWFLoader.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="5" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="box3" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_fxlist_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a new list.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="6" waitTarget="tn" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPixelValue target="list1" x="50" y="50" value="0x80FFFF" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_runtime_test1" keywords="[PixelBender,ShaderFilter]" description="Change a filter at runtime.  This is done in other places in the test suite as well; this is a token test.">
+    <setup>
+        <SetProperty target="tn" propertyName="selectedIndex" valueExpression="value=application.tn.numChildren-1" waitTarget="tn" waitEvent="updateComplete" />
+        <SetProperty target="tn" propertyName="selectedIndex" value="7" waitTarget="tn" waitEvent="updateComplete" />
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="theFloat" value="1" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="Assets/Images/black_box.png" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <Pause timeout="200" />
+        <SetProperty target="sf1" propertyName="theFloat" value="0.2" />
+        <Pause timeout="200" />
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="img1" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_popup_test1" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a popup.">
+    <setup>
+		<RunCode code="curAlert=Alert.show('hello')" />
+        <RunCode code="curAlert.height = 82" />
+        <RunCode code="curAlert.setStyle('headerHeight', 31)" waitTarget="script:curAlert" waitEvent="updateComplete"/>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="theFloat" value="1" />
+        <SetProperty target="script:curAlert" propertyName="filters" valueExpression="value=[application.sf1]" />
+		<WaitForEffectsToEnd />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="script:curAlert" numColorVariances="3" maxColorVariance="10" />
+        <DispatchKeyEvent key="TAB" />
+        <DispatchKeyEvent key="ESCAPE" />
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_popup_test2" keywords="[PixelBender,ShaderFilter]" description="Set a filter on a control in a popup.">
+    <setup>
+		<RunCode code="curAlert=Alert.show('hello')" />
+        <RunCode code="curAlert.height = 82" />
+        <RunCode code="curAlert.setStyle('headerHeight', 31)" waitTarget="script:curAlert" waitEvent="updateComplete"/>
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="theFloat" value="1" />
+        <SetProperty target="script:curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="filters" valueExpression="value=[application.sf1]" />
+		<WaitForEffectsToEnd />
+    </setup>
+    <body>
+        <CompareBitmap url="../Integration/Baselines/$testID.png" target="script:curAlert" numColorVariances="3" maxColorVariance="10"/>
+        <DispatchKeyEvent key="TAB" />
+        <DispatchKeyEvent key="ESCAPE" />
+        <WaitForEffectsToEnd />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

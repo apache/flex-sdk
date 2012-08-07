@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:custom="assets.*"
+    minWidth="300" minHeight="200"
+    width="800" height="600" scriptRecursionLimit="100"
+    viewSourceURL="index.mxml"
+    toolTip="bacon"
+    tabIndex="100">
+
+<fx:Script>
+<![CDATA[
+
+    import mx.controls.*;
+    import mx.core.FlexGlobals;
+    import spark.components.*;
+    import spark.layouts.*;
+
+    public var recursions:int = 0;
+
+    /**
+    * Used for testing scriptRecursionLimit.
+    **/
+    public function testScriptRecursionLimit():void{
+        trace(++recursions);
+        testScriptRecursionLimit();
+    }
+
+    /**
+    * Check the url property.
+    * We have a method for this because it varies depending
+    * on the machine the test is run on.  So we have to do
+    * some parsing instead of just checking the property
+    * directly.
+    **/
+    public function checkURL(theURL:String, firstPart:String, firstPartAlternate:String, lastPart:String, lastPartAlternate:String = null):String{
+        var infoString:String;
+        var firstPartOK:Boolean = false;
+        
+        if(theURL.indexOf(firstPart) == 0 || theURL.indexOf(firstPartAlternate) == 0){
+            if(theURL.lastIndexOf(lastPart) == theURL.length - lastPart.length){
+                return "pass";
+            }
+            else if(lastPartAlternate != null){
+                if(theURL.lastIndexOf(lastPartAlternate) == theURL.length - lastPartAlternate.length){
+                    return "pass";
+                }            
+            }
+        }
+        
+        infoString = "checkURL failed.  theURL: " + theURL + ", firstPart: " + firstPart + ", lastPart: " + lastPart;
+        trace(infoString);
+        return infoString;
+    }
+
+    /**
+    * We have to do our own resetting sometimes.
+    **/
+    public function doManualReset():void{
+        if(FlexGlobals.topLevelApplication.numElements == 0){
+            FlexGlobals.topLevelApplication.dispatchEvent(new Event("manualResetComplete"));
+        }else{
+            FlexGlobals.topLevelApplication.addEventListener("updateComplete", doUpdateComplete);
+            FlexGlobals.topLevelApplication.removeAllElements();
+        }
+    }
+    
+    private function doUpdateComplete(e:Event):void{
+          FlexGlobals.topLevelApplication.dispatchEvent(new Event("manualResetComplete"));    
+    }
+
+
+    /**
+    * Add halo components.
+    **/
+    public function addHaloComponents(numToAdd:int):void{
+        var i:int;
+        
+        for(i = 0; i < numToAdd; ++i){
+            addElement(new mx.controls.Button());
+        }
+    }
+
+    /**
+    * Add spark components.
+    **/
+    public function addSparkComponents(numToAdd:int):void{
+        var i:int;
+        
+        for(i = 0; i < numToAdd; ++i){
+            addElement(new spark.components.Button());
+        }
+    }
+   
+   /**
+   * Return the ID.
+   **/
+   public function getID():String{
+       return id;
+   }
+   
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    mx|Button{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+	s|CheckBox{
+		fontAntiAliasType: "normal";
+		fontFamily: myArial;
+		fontSize: 12;
+		fontLookup: "embeddedCFF";
+	}
+
+</fx:Style>
+
+<custom:BoxComp1 id="bx2" />
+
+</s:Application>

@@ -1,0 +1,122 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    creationComplete="showAPopUp()"
+    close="closePopUps()"
+    width="300" height="400"
+    xmlns:comp="comps.*">
+
+    <fx:Script>
+    	<![CDATA[
+
+    		import mx.controls.Alert;
+    		import spark.components.TitleWindow;
+    		import spark.components.Button;
+    		import spark.components.Panel;
+    		import mx.events.FlexEvent;
+    		import mx.core.IFlexDisplayObject;
+		import mx.managers.PopUpManager;
+    		import mx.controls.Alert;
+    		import comps.*;
+    		public var twWindow:TitleWindow;
+    		public var curAlert:Alert;
+    		public var twWindow2:TitleWindow;
+    	
+		public function showAPopUp():void
+		{
+			twWindow=new TitleWindow();
+			twWindow.x=this.x+50;
+			twWindow.y=this.y+50;
+			twWindow.title="a popup inside another titleWindow";
+			var btn:Button=new Button();
+			btn.label="button";
+			twWindow.addElement(btn);
+			twWindow.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			PopUpManager.addPopUp(twWindow, this, false);
+		}
+		public function closeHandler(event:Event):void
+		{
+			event.target.removeEventListener("close", closeHandler);
+			PopUpManager.removePopUp(event.target as IFlexDisplayObject);
+			twWindow=null;
+            	}
+		public function showTitleWindow():void
+		{
+			twWindow2=new TitleWindowWithContent1();
+			twWindow2.title="inside another titleWindow";
+			twWindow2.addEventListener("creationComplete", handleNewWindowCreationComplete);
+			PopUpManager.addPopUp(twWindow2, this, false);
+		}
+		public function closePopUps():void
+		{
+			if (twWindow2!=null)
+			{
+				PopUpManager.removePopUp(twWindow2);
+				twWindow2=null;
+			}
+			formPopUpAnchor.displayPopUp=false;
+		}
+		public function handleNewWindowCreationComplete(e:FlexEvent):void
+		{
+		    e.currentTarget.removeEventListener("creationComplete", handleNewWindowCreationComplete);
+		    dispatchEvent(new FlexEvent("TitleWindowComplete"));
+		}
+		
+		public function handlePACreationComplete(e:FlexEvent):void
+		{
+		    e.currentTarget.removeEventListener("creationComplete", handlePACreationComplete);
+		    dispatchEvent(new FlexEvent("PopUpComplete"));
+		}
+		
+		
+		public function showAlert():void
+		{
+			curAlert = Alert.show('Check the Cancel button.', 'Alert Test', mx.controls.Alert.CANCEL|mx.controls.Alert.YES,this);
+		}
+		public function showPopupAnchor():void
+		{
+			formPopUpAnchor.displayPopUp=true;
+		}
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:VerticalLayout/> </s:layout>
+	<s:Button label="show alert" click="showAlert()"/>
+	<s:Button label="show titleWindow" click="showTitleWindow()"/>
+	<s:Button label="show popupAnchor" click="showPopupAnchor()"/>
+	
+	
+	
+	<s:PopUpAnchor id="formPopUpAnchor" left="0" bottom="0" popUpPosition="below" styleName="popUpForm" 
+		 displayPopUp="false" creationComplete="handlePACreationComplete(event)">
+			<mx:Form id="myForm">
+				<mx:FormItem id="frmitem" label="From :">
+					<mx:TextInput id="ti1"/>				
+				</mx:FormItem>
+				<mx:FormItem label="To :">
+					<mx:TextInput/>
+				</mx:FormItem>
+				<mx:FormItem label="Subject :">
+					<mx:TextInput/>
+				</mx:FormItem>
+				<mx:FormItem label="Body :">
+					<mx:TextArea width="100%" height="100" maxChars="120"/>
+				</mx:FormItem>
+				<mx:FormItem direction="horizontal">
+					<s:Button label="Send" click="currentState = 'normal'"/>  
+					<s:Button label="Cancel" click="currentState = 'normal'" />
+				</mx:FormItem>
+			 </mx:Form>
+	</s:PopUpAnchor>
+	
+	<mx:Form id="myForm2">
+		<mx:FormItem label="From :">
+			<s:Label text="inside formItem"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<comp:Panel1 id="myPanel" />
+	
+   	
+</s:TitleWindow>

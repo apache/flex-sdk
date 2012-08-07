@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+             backgroundColor="0xffffff"
+	         width="800" height="600" >
+
+<fx:Script>
+<![CDATA[
+    import Assets.CustomShaderFilter;
+    import flash.display.Shader;
+    import flash.events.Event;
+    import spark.filters.ShaderFilter;
+
+    [Embed(source="Assets/PixelBenderFiles/Float.pbj")]
+    public var FloatShaderClass:Class;
+
+    [Embed(source="Assets/PixelBenderFiles/SourceIgnored.pbj")]
+    public var SourceIgnoredClass:Class;
+
+    [Embed(source="Assets/PixelBenderFiles/IncreaseChannels.pbj")]
+    public var IncreaseChannelsClass:Class;
+    
+    public var sh1:Shader;
+    public var sf1:spark.filters.ShaderFilter;
+    public var csf1:Assets.CustomShaderFilter;
+
+    public function customEventListener(e:Event):void{
+        sf1.dispatchEvent(new Event("ShaderFilterApp2_CustomEvent"));
+    }
+
+    public function customEventListener2(e:Event):void{
+        sf1.dispatchEvent(new Event("ShaderFilterApp2_CustomEvent2"));
+    }
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    global{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+</fx:Style>
+
+<!--
+Here is a test to show how to set up a Mustella test using filters.
+
+<TestCase testID="test" >
+    <setup>
+        <ResetComponent target="img1" className="mx.controls.Image" waitEvent="updateComplete" />
+        <RunCode code="application.sf1 = new spark.filters.ShaderFilter(new application.FloatShaderClass())" />
+        <SetProperty target="sf1" propertyName="theFloat" value="0.5" />
+        <SetProperty target="img1" propertyName="filters" valueExpression="value=[application.sf1]" />
+        <SetProperty target="img1" propertyName="source" value="../../../../../Assets/Images/blackrect.jpg" />
+        <SetProperty target="img1" propertyName="width" value="100" />
+        <SetProperty target="img1" propertyName="height" value="100" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertMethodValue method="value=application.img1.filters[0].theFloat" valueExpression="value='0.5'" />
+        <CompareBitmap url="../Methods/Baselines/$testID.png" target="img1" />
+    </body>
+</TestCase>
+-->
+
+<s:layout> <s:VerticalLayout/> </s:layout>
+
+<mx:Image id="img1" />
+
+<!-- We need a box around a control for the xxExtension properties. -->
+<mx:Box id="bx1" width="100" height="100" borderStyle="solid" borderColor="0" verticalAlign="middle" horizontalAlign="center">
+    <mx:Image id="img2" />
+</mx:Box>
+
+</s:Application>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RadioButton/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Flex4_RadioButton_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+import spark.components.RadioButton;
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+	    .myStyle{
+	        color: #FF0000
+	    }
+	
+	    .myStyle2{
+	        color: #0000FF
+	    }
+	</fx:Style>
+
+	<testCases>
+		<TestCase testID="RadioButton_selected_property_true" description="Checks that when selected is true, the RadioButton shows it is selected" keywords="[RadioButton, selected, property]">
+			<setup>
+				<ResetComponent target="myRB" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="myRB" propertyName="selected" value="true" waitEvent="updateComplete" waitTarget="myRB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="myRB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="RadioButton_selected_property_default" description="Checks that the default RadioButton is not selected" keywords="[RadioButton, selected, property]">
+			<setup>
+				<ResetComponent target="myRB" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="myRB"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="RadioButton_selected_property_by_click_true" description="Checks that clicking the RadioButton selects it" keywords="[RadioButton, selected, property]">
+			<setup>
+				<ResetComponent target="myRB" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<DispatchMouseClickEvent target="myRB" localX="6" localY="8" waitEvent="updateComplete" waitTarget="myRB"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="selected" value="true" target="myRB"/>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="myRB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RadioButton_label" description="Checks the RadioButton label" keywords="[RadioButton, label, property]">
+			<setup>
+				<ResetComponent target="myRB" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="myRB" propertyName="label" value="RadioButton label" waitEvent="updateComplete" waitTarget="myRB.skin"/>
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="2" maxColorVariance="7" url="../properties/baselines/$testID.png" target="myRB"/>
+			</body>
+		</TestCase>
+		<TestCase testID="RadioButton_label_disabled" description="Checks the RadioButton label" keywords="[RadioButton, label, property]">
+			<setup>
+				<ResetComponent target="myRB" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="myRB" propertyName="enabled" value="false" />
+				<SetProperty target="myRB" propertyName="label" value="RadioButton label" waitEvent="updateComplete" waitTarget="myRB.skin"/>
+			</setup>
+			<body>
+				<CompareBitmap numColorVariances="2" maxColorVariance="5" url="../properties/baselines/$testID.png" target="myRB"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="RadioButton_label_focus_ring" description="Checks the RadioButton label" keywords="[RadioButton, label, property]">
+			<setup>
+				<ResetComponent target="myRB" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="myRB" propertyName="label" value="RadioButton label" waitEvent="updateComplete" waitTarget="myRB.skin"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myRB"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../properties/baselines/$testID.png" target="myRB"/>
+			</body>
+		</TestCase>
+		
+		<!-- SDK-21073 Create spark RadioButton test using errorString -->
+		<TestCase testID="RadioButton_ErrorString" keywords="[RadioButton, errorString, property]" description="Checks that RadioButton gives indication there is an errorString">
+            <setup>            
+                <ResetComponent target="Test_ErrorString" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="Test_ErrorString"/>                
+                <SetProperty target="Test_ErrorString" propertyName="errorString" value="THE ERROR STRING!!" waitEvent="updateComplete" waitTarget="Test_ErrorString"/>
+            </setup>
+            <body> 
+                <DispatchMouseEvent target="Test_ErrorString" localX="10" localY="10" type="mouseOver" waitEvent="toolTipShown" waitTarget="Test_ErrorString"/>
+                 <AssertPropertyValue target="Test_ErrorString" propertyName="errorString" value="THE ERROR STRING!!" waitEvent="toolTipShown" waitTarget="Test_ErrorString"/>
+				<CompareBitmap target="myCanvas" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>            	       	
+            </body>		
+        </TestCase>	
+	</testCases>
+</UnitTester>
+
+

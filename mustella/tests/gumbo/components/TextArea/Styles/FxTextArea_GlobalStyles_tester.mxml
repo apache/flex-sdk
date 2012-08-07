@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextArea/Styles/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:m="http://ns.adobe.com/mxml/2009"
+		xmlns="*" testSWF="TextArea_main.mxml"
+    >
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.TextArea;
+			import spark.components.Label;
+			
+			import flashx.textLayout.formats.TextAlign;
+			import flashx.textLayout.formats.LineBreak;
+			
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import comps.PopupTextArea;
+			
+			public var popup:IFlexDisplayObject;
+			
+			protected function firePopup():void
+			{
+				var popup:IFlexDisplayObject = PopUpManager.createPopUp(application.textArea, PopupTextArea);
+				PopUpManager.centerPopUp(popup);
+			}
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="FxTextArea_Style_baseColor_mxml" keywords="[FxTextArea, baseColor]" description="Ensure that baseColor works in mxml.">
+			<body>
+				  <SetProperty target="baseColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+
+				<AssertStyleValue target="baseColor_ta" styleName="chromeColor" value="0xFFFF00"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/$testID.png" target="baseColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_color_mxml" keywords="[FxTextArea, color]" description="Ensure that color works in mxml.">
+			<body>
+				<SetProperty target="color_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="color_ta"/>
+				<AssertStyleValue target="color_ta" styleName="color" value="0xFF0000"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"  url="../styles/baselines/$testID.png" target="color_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_focusColor_mxml" keywords="[FxTextArea, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+				<SetProperty target="focusColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="focusColor_ta"/>
+			    <DispatchMouseClickEvent target="focusColor_ta" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="focusColor_ta" />
+			    <!--DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_ta" /-->
+			    <RunCode code="application.focusColor_ta.selectRange(0,5);" waitTarget="focusColor_ta" waitEvent="selectionChange" />
+			</setup>
+			<body>
+				<AssertStyleValue target="focusColor_ta" styleName="focusColor" value="0xCC0033"/>
+				<Pause timeout="250" />
+			    <CompareBitmap numColorVariances="16" maxColorVariance="24" url="../styles/baselines/$testID.png" target="focusColor_ta_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_contentBackgroundColor_mxml" keywords="[FxTextArea, contentBackgroundColor]" description="Ensure that contentColor works in mxml.">
+			<setup>
+				<ResetComponent target="selectionColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+				<SetProperty target="selectionColor_ta" propertyName="text" value="selectionColor" waitEvent="updateComplete"/>
+				<SetStyle target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="contentBackgroundColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				<AssertStyleValue target="contentBackgroundColor_ta" styleName="contentBackgroundColor" value="0xFFCCFF"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/$testID.png" target="contentBackgroundColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_selectionColor_mxml" keywords="[FxTextArea, selectionColor]" description="Ensure that selectionColor works in mxml.">
+			<setup>
+				<SetProperty target="selectionColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+
+				<DispatchMouseClickEvent target="selectionColor_ta" localX="5" localY="5" waitEvent="focusIn" waitTarget="selectionColor_ta" />
+			    <RunCode code="application.selectionColor_ta.selectRange(0,5);" waitTarget="selectionColor_ta" waitEvent="selectionChange" />
+			</setup>
+			<body>
+				<AssertStyleValue target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966"/>
+				<Pause timeout="550" />
+			    <CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/$testID.png" target="selectionColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_symbolColor_mxml" keywords="[FxTextArea, symbolColor]" description="Ensure that symbolColor works in mxml.">
+			<setup>
+				<ResetComponent target="symbolColor_ta" className="spark.components.TextArea" waitEvent="updateComplete"/>
+				<SetProperty target="symbolColor_ta" propertyName="text" value="symbolColor. The FormHeading container is used to display a heading for a group of controls inside a Form container." waitEvent="updateComplete"/>
+				<SetProperty target="symbolColor_ta" propertyName="height" value="100" waitEvent="updateComplete"/>
+				<SetProperty target="symbolColor_ta" propertyName="width" value="100" waitEvent="updateComplete"/>
+				<SetStyle target="symbolColor_ta" styleName="symbolColor" value="0x00FFAA" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="symbolColor_ta" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="symbolColor_ta"/>
+				<AssertStyleValue target="symbolColor_ta" styleName="symbolColor" value="0x00FFAA"/>
+			    <CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/$testID.png" target="symbolColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_baseColor_as" keywords="[FxTextArea, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+				<SetProperty target="baseColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+				<!--
+		        <SetProperty target="baseColor_ta" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+		        -->
+			    <SetProperty target="baseColor_ta" propertyName="text" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_ta" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/FxTextArea_Style_baseColor_mxml.png" target="baseColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_baseColor_disabled" keywords="[FxTextArea, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+				<SetProperty target="baseColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+				<!--
+		        <SetProperty target="baseColor_ta" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+		        -->
+			    <SetProperty target="baseColor_ta" propertyName="text" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_ta" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+				<SetProperty target="baseColor_ta" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_ta"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_color_as" keywords="[FxTextArea, color]" description="Ensure that baseColor still works when a TextArea is disabled.">
+			<setup>
+				<ResetComponent target="color_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="color_ta"/>
+				<SetProperty target="color_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="color_ta"/>
+				<!--
+		        <SetProperty target="color_ta" propertyName="x" value="323" />
+		        -->
+			    <SetProperty target="color_ta" propertyName="text" value="color" waitEvent="updateComplete" waitTarget="color_ta"/>
+			</setup>
+			<body>
+				<SetStyle target="color_ta" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_ta"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/FxTextArea_Style_color_mxml.png" target="color_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_color_disabled" keywords="[FxTextArea, color]" description="Ensure that color still works when a TextArea is disabled.">
+			<setup>
+				<ResetComponent target="color_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="color_ta"/>
+				<SetProperty target="color_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="color_ta"/>					<!--
+		        <SetProperty target="color_ta" propertyName="x" value="323" />
+		        -->
+			    <SetProperty target="color_ta" propertyName="text" value="color" waitEvent="updateComplete" waitTarget="color_ta"/>
+			</setup>
+			<body>
+				<SetStyle target="color_ta" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_ta"/>
+				<SetProperty target="color_ta" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="color_ta"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="color_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_focusColor_as" keywords="[FxTextArea, focusColor]" description="Ensure that focusColor works at runtime.">
+			<setup>
+			    <ResetComponent target="focusColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="focusColor_ta"/>
+			    <SetProperty target="focusColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="focusColor_ta"/>
+
+
+			    <!--
+		        <SetProperty target="focusColor_ta" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="focusColor_ta"/>
+		        -->
+			    <SetProperty target="focusColor_ta" propertyName="text" value="focusColor" waitEvent="updateComplete" waitTarget="focusColor_ta"/>
+			    <DispatchMouseClickEvent target="focusColor_ta" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="focusColor_ta" />
+			    </setup>
+			<body>
+				<SetStyle target="focusColor_ta" styleName="focusColor" value="0xCC0033" waitTarget="focusColor_ta" waitEvent="updateComplete" />
+				<RunCode code="application.focusColor_ta.selectRange(0,5);" waitTarget="focusColor_ta" waitEvent="selectionChange" />
+				<AssertStyleValue target="focusColor_ta" styleName="focusColor" value="0xCC0033" />
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_contentBackgroundColor_as" keywords="[FxTextArea, contentBackgroundColor]" description="Ensure that contentBackgroundColor works at runtime.">
+			<setup>
+				<ResetComponent target="contentBackgroundColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				 <SetProperty target="contentBackgroundColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				<!--
+		        <SetProperty target="contentBackgroundColor_ta" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+		        -->
+			    <SetProperty target="contentBackgroundColor_ta" propertyName="text" value="contentBackgroundColor" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				
+				<ResetComponent target="selectionColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+				<SetProperty target="selectionColor_ta" propertyName="text" value="selectionColor" waitEvent="updateComplete"/>
+				<SetStyle target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle target="contentBackgroundColor_ta" styleName="contentBackgroundColor" value="0xFFCCFF"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/FxTextArea_Style_contentBackgroundColor_mxml.png" target="contentBackgroundColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_contentBackgroundColor_disabled" keywords="[FxTextArea, contentBackgroundColor]" description="Ensure that contentBackgroundColor works at runtime.">
+			<setup>
+				<ResetComponent target="contentBackgroundColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				<SetProperty target="contentBackgroundColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+		        <!-- <SetProperty target="contentBackgroundColor_ta" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/> -->
+			    <SetProperty target="contentBackgroundColor_ta" propertyName="text" value="contentBackgroundColor" waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				
+				<ResetComponent target="selectionColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+				<SetProperty target="selectionColor_ta" propertyName="text" value="selectionColor" waitEvent="updateComplete"/>
+				<SetStyle target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetStyle target="contentBackgroundColor_ta" styleName="contentBackgroundColor" value="0xFFCCFF"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				<SetProperty target="contentBackgroundColor_ta" propertyName="enabled" value="false"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_ta"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"  url="../styles/baselines/$testID.png" target="contentBackgroundColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_selectionColor_as" keywords="[FxTextArea, selectionColor]" description="Ensure that selectionColor works at runtime.">
+			<setup>
+			    <ResetComponent target="selectionColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			    <SetProperty target="selectionColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+		        <!-- <SetProperty target="selectionColor_ta" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="selectionColor_ta"/> -->
+			    <SetProperty target="selectionColor_ta" propertyName="text" value="focusedTextSelectionColor" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			    <DispatchMouseClickEvent target="selectionColor_ta" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="selectionColor_ta" />
+			    </setup>
+			<body>
+				<SetStyle target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966" waitTarget="selectionColor_ta" waitEvent="updateComplete" />
+				<RunCode code="application.selectionColor_ta.selectRange(0,5);" waitTarget="selectionColor_ta" waitEvent="selectionChange" />
+			    <Pause timeout="250" />
+			    <CompareBitmap numColorVariances="4" maxColorVariance="16"  url="../styles/baselines/$testID.png" target="selectionColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_symbolColor_as" keywords="[FxTextArea, symbolColor]" description="Ensure that symbolColor works at runtime.">
+			<setup>
+				<ResetComponent target="symbolColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="symbolColor_ta"/>
+		        	<!-- <SetProperty target="symbolColor_ta" propertyName="x" value="323" /> -->
+			        <SetProperty target="symbolColor_ta" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="symbolColor_ta"/>
+			    	<SetProperty target="symbolColor_ta" propertyName="width" value="100" waitEvent="updateComplete"/>
+				<SetProperty target="symbolColor_ta" propertyName="text" value="symbolColor. The FormHeading container is used to display a heading for a group of controls inside a Form container." waitEvent="updateComplete" waitTarget="symbolColor_ta"/>
+			</setup>
+			<body>
+				<SetStyle target="symbolColor_ta" styleName="symbolColor" value="0x00FFAA"  waitEvent="updateComplete" waitTarget="symbolColor_ta"/>
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"  url="../styles/baselines/$testID.png" target="symbolColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_selectionColor_contentBackgroundColor" keywords="[FxTextArea, selectionColor]" description="Ensure that selectionColor works at runtime.">
+			<setup>
+			    <ResetComponent target="selectionColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+		        <!-- <SetProperty target="selectionColor_ta" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="selectionColor_ta"/> -->
+			    <SetProperty target="selectionColor_ta" propertyName="text" value="focusedTextSelectionColor" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+				<SetProperty target="selectionColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			    <DispatchMouseClickEvent target="selectionColor_ta" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="selectionColor_ta" />
+			    </setup>
+			<body>
+				<SetStyle target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966" waitTarget="selectionColor_ta" waitEvent="updateComplete" />
+				<SetStyle target="selectionColor_ta" styleName="contentBackgroundColor" value="0x99CCFF" waitTarget="selectionColor_ta" waitEvent="updateComplete" />
+				<RunCode code="application.selectionColor_ta.selectRange(0,5);" waitTarget="selectionColor_ta" waitEvent="selectionChange" />
+			    <Pause timeout="250" />
+			    <CompareBitmap numColorVariances="4" maxColorVariance="16" url="../styles/baselines/$testID.png" target="selectionColor_ta"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextArea_Style_selectionColor_andResize" keywords="[FxTextArea, selectionColor]" description="Ensure that selectionColor works at runtime.">
+			<setup>
+			    <ResetComponent target="selectionColor_ta" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			      <SetProperty target="selectionColor_ta" propertyName="height" value="151" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+		        <!-- <SetProperty target="selectionColor_ta" propertyName="x" value="163" waitEvent="updateComplete" waitTarget="selectionColor_ta"/> -->
+			    <SetProperty target="selectionColor_ta" propertyName="text" value="selectionColor: there is a bear eating coconuts on the beach. We should shoot him before the coyote eats him." waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			    <DispatchMouseClickEvent target="selectionColor_ta" localX="5" localY="5" waitEvent="focusIn"
+			        waitTarget="selectionColor_ta" />
+			    </setup>
+			<body>
+				<SetStyle target="selectionColor_ta" styleName="focusedTextSelectionColor" value="0xFF9966" waitTarget="selectionColor_ta" waitEvent="updateComplete" />
+				<RunCode code="application.selectionColor_ta.selectRange(0,15);" waitTarget="selectionColor_ta" waitEvent="selectionChange" />
+			    <SetProperty target="selectionColor_ta" propertyName="height" value="90" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			    <SetProperty target="selectionColor_ta" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="selectionColor_ta"/>
+			    <CompareBitmap numColorVariances="6" maxColorVariance="16" url="../styles/baselines/$testID.png" target="selectionColor_ta"/>
+			</body>
+		</TestCase>
+		<!-- ******************** prompt color ******************** -->
+		<TestCase testID="TextArea_prompt_color_style" description="Change the color of the prompt (sanity check)." keywords="[TextArea, prompt, color, style]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textArea" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<RunCode code="Label(application.textArea.promptDisplay).setStyle('color',0xFFCCFF);" waitTarget="textArea.promptDisplay" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_prompt_enabled_color_style" description="Check the enabled color of the prompt (sanity check)." keywords="[TextArea, prompt, color, style, enabled]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textArea" propertyName="height" value="21" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_prompt_disabled_color_style" description="Check the disabled color of the prompt (sanity check)." keywords="[TextArea, prompt, color, style, disabled]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textArea" propertyName="height" value="21" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<SetProperty target="textArea" propertyName="enabled" value="false" waitEvent="updateComplete"/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		
+		<!-- ******************** prompt alignment ******************** -->
+		<TestCase testID="TextArea_prompt_rightAlign_style" description="Change the alignment of the prompt (sanity check)." keywords="[TextArea, prompt, align, style]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" />
+				<SetProperty target="textArea" propertyName="height" value="21" waitEvent="updateComplete"/>
+				<RunCode code="Label(application.textArea.promptDisplay).setStyle('textAlign',TextAlign.RIGHT);" waitTarget="textArea.promptDisplay" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		<TestCase testID="TextArea_prompt_explicit_lineBreak_center_display" description="Check that setting a center alignment with explicit line break on a long prompt displays correctly." keywords="[TextArea,prompt,style,center,textAlign,lineBreak,explicit]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete" waitTarget="textArea" />
+				<SetProperty target="textArea" propertyName="prompt" value="The quick brown fox jumped over the lazy dog" waitEvent="updateComplete"/>
+				<RunCode code="Label(application.textArea.promptDisplay).setStyle('textAlign',TextAlign.CENTER);" waitTarget="textArea.promptDisplay" waitEvent="updateComplete" />
+				<RunCode code="Label(application.textArea.promptDisplay).setStyle('lineBreak',LineBreak.EXPLICIT);" waitTarget="textArea.promptDisplay" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="width" value="50" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="textArea" />
+			</body>
+		</TestCase>
+		<!-- ******************** prompt popup ******************** -->
+		<TestCase testID="TextArea_prompt_popup" description="Verify that prompts appear in popup windows." keywords="[TextArea, prompt, popup]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="firePopup()"/>
+				<WaitForEffectsToEnd/>
+				<CompareBitmap url="../Styles/baselines/$testID.png" target="panel1" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

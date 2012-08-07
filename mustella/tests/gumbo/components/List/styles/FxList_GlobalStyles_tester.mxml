@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FxList_Styles_Main.mxml"
+    >
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+            import spark.components.List;
+
+        ]]>
+    </fx:Script>
+
+    <testCases>
+        <!--TestCase testID="FxList_Style_baseColor_mxml" keywords="[FxList, baseColor]" description="Ensure that baseColor works in mxml.">
+            <setup>
+                <SetProperty target="baseColor_list" value="110" waitEvent="updateComplete" waitTarget="baseColor_list" propertyName="width" />
+            </setup>
+            <body>
+                <AssertStyleValue target="baseColor_list" styleName="chromeColor" value="0xFFFF00"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="baseColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_color_mxml" keywords="[FxList, color]" description="Ensure that color works in mxml.">
+            <body>
+                <AssertStyleValue target="color_list" styleName="color" value="0xFF0000"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="20" maxColorVariance="40" target="color_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_focusColor_mxml" keywords="[FxList, focusColor]" description="Ensure that focusColor works in mxml.">
+            <setup>
+                <DispatchMouseClickEvent localX="10" localY="5" target="ti" waitEvent="focusIn"
+                    waitTarget="ti" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_list" />
+            </setup>
+            <body>
+                <AssertStyleValue target="focusColor_list" styleName="focusColor" value="0xCC0033"/>
+
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_contentBackgroundColor_mxml" keywords="[FxList, contentBackgroundColor]" description="Ensure that contentColor works in mxml.">
+            <body>
+                <AssertStyleValue target="contentBackgroundColor_list" styleName="contentBackgroundColor" value="0xCC99FF"/>
+                <CompareBitmap numColorVariances="8" maxColorVariance="16" url="../styles/baselines/$testID.png" target="contentBackgroundColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_selectionColor_mxml" keywords="[FxList, selectionColor]" description="Ensure that selectionColor works in mxml.">
+            <setup>
+                <SetProperty target="selectionColor_list" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="selectionColor_list"/>
+                <DispatchMouseClickEvent localX="10" localY="33" target="selectionColor_list" waitTarget="selectionColor_list" waitEvent="change" />
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertStyleValue target="selectionColor_list" styleName="selectionColor" value="0x66CC99"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="selectionColor_list"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="FxList_Style_symbolColor_mxml" keywords="[FxList, symbolColor]" description="Ensure that symbolColor works in mxml.">
+            <body>
+                <AssertStyleValue target="symbolColor_list" styleName="symbolColor" value="0x9900CC"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="symbolColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_alternatingItemColors_mxml" keywords="[FxList, alternatingItemColors]" description="Ensure that alternatingItemColors works in mxml.">
+            <body>
+                <AssertStyleValue target="alternatingItemColors_list" styleName="alternatingItemColors" value="[0xFF0000,0x00FF00]"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="alternatingItemColors_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_baseColor_as" keywords="[FxList, baseColor]" description="Ensure that baseColor works at runtime.">
+            <setup>
+                <ResetComponent target="baseColor_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="x" value="153" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="height" value="112" />
+                <SetProperty target="baseColor_list" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+            </setup>
+            <body>
+                <SetStyle target="baseColor_list" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20"  target="baseColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_baseColor_disabled" keywords="[FxList, baseColor]" description="Ensure that baseColor works at runtime.">
+            <setup>
+                <ResetComponent target="baseColor_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="x" value="153" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="height" value="112" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+            </setup>
+            <body>
+                <SetStyle target="baseColor_list" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <SetProperty target="baseColor_list" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_list" numColorVariances="5" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_color_as" keywords="[FxList, color]" description="Ensure that baseColor still works when a List is disabled.">
+            <setup>
+                <ResetComponent target="color_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="color_list"/>
+                <SetProperty target="color_list" propertyName="x" value="303" />
+                <SetProperty target="color_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="color_list"/>
+                <SetProperty target="color_list" propertyName="height" value="112" />
+                <SetProperty target="color_list" propertyName="width" value="160" waitEvent="updateComplete" waitTarget="color_list"/>
+            </setup>
+            <body>
+                <SetStyle target="color_list" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="color_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_color_disabled" keywords="[FxList, color]" description="Ensure that color still works when a List is disabled.">
+            <setup>
+                <ResetComponent target="color_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="color_list"/>
+                <SetProperty target="color_list" propertyName="x" value="303" />
+                <SetProperty target="color_list" propertyName="height" value="112" waitEvent="updateComplete" waitTarget="color_list"/>
+                <SetProperty target="color_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="color_list"/>
+            </setup>
+            <body>
+                <SetStyle target="color_list" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_list"/>
+                <SetProperty target="color_list" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="color_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" target="color_list" numColorVariances="5" maxColorVariance="20"/>
+            </body>
+        </TestCase-->
+        <TestCase testID="FxList_Style_focusColor_as" keywords="[FxList, focusColor]" description="Ensure that focusColor works at runtime.">
+            <setup>
+                <ResetComponent target="focusColor_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="focusColor_list"/>
+                <SetProperty target="focusColor_list" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="focusColor_list"/>
+                <SetProperty target="focusColor_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="focusColor_list"/>
+                <SetProperty target="focusColor_list" propertyName="height" value="112" />
+                <SetProperty target="focusColor_list" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="focusColor_list"/>
+                <DispatchMouseClickEvent localX="10" localY="5" target="ti" waitEvent="focusIn"
+                    waitTarget="ti" />
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_list" />
+            </setup>
+            <body>
+                <SetStyle target="focusColor_list" styleName="focusColor" value="0xFFFFFF" waitTarget="focusColor_list" waitEvent="updateComplete" />
+                <AssertPixelValue target="stage" value="0xFFFFFF" x="170" y="5"/>
+            </body>
+        </TestCase>
+        <!--TestCase testID="FxList_Style_contentBackgroundColor_as" keywords="[FxList, contentBackgroundColor]" description="Ensure that contentBackgroundColor works at runtime.">
+            <setup>
+                <ResetComponent target="contentBackgroundColor_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="contentBackgroundColor_list"/>
+                <SetProperty target="contentBackgroundColor_list" propertyName="x" value="303" waitEvent="updateComplete" waitTarget="contentBackgroundColor_list"/>
+                <SetProperty target="contentBackgroundColor_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="contentBackgroundColor_list"/>
+                <SetProperty target="contentBackgroundColor_list" propertyName="height" value="112" waitEvent="updateComplete" waitTarget="contentBackgroundColor_list"/>
+                <SetProperty target="contentBackgroundColor_list" propertyName="width" value="160" waitEvent="updateComplete" waitTarget="contentBackgroundColor_list"/>
+            </setup>
+            <body>
+                <SetStyle target="contentBackgroundColor_list" styleName="contentBackgroundColor" value="0xCC99FF"  waitEvent="updateComplete" waitTarget="contentBackgroundColor_list"/>
+                <CompareBitmap numColorVariances="8" maxColorVariance="16" url="../styles/baselines/$testID.png" target="contentBackgroundColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_selectionColor_as" keywords="[FxList, selectionColor]" description="Ensure that selectionColor works at runtime.">
+            <setup>
+                <ResetComponent target="selectionColor_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="selectionColor_list"/>
+                <SetProperty target="selectionColor_list" propertyName="x" value="153" waitEvent="updateComplete" waitTarget="selectionColor_list"/>
+                <SetProperty target="selectionColor_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="selectionColor_list"/>
+                <SetProperty target="selectionColor_list" propertyName="height" value="112" waitEvent="updateComplete" waitTarget="selectionColor_list"/>
+                <SetProperty target="selectionColor_list" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="selectionColor_list"/>
+            </setup>
+            <body>
+                <SetStyle target="selectionColor_list" styleName="selectionColor" value="0x66CC99" waitTarget="selectionColor_list" waitEvent="updateComplete" />
+                <DispatchMouseClickEvent localX="10" localY="33" target="selectionColor_list" waitTarget="selectionColor_list" waitEvent="change" />
+                <WaitForEffectsToEnd />
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="selectionColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_symbolColor_as" keywords="[FxList, symbolColor]" description="Ensure that symbolColor works at runtime.">
+            <setup>
+                <ResetComponent target="symbolColor_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="symbolColor_list"/>
+                <SetProperty target="symbolColor_list" propertyName="x" value="463" />
+                <SetProperty target="symbolColor_list" propertyName="height" value="112" />
+                <SetProperty target="symbolColor_list" propertyName="width" value="160" waitEvent="updateComplete" waitTarget="symbolColor_list"/>
+                <SetProperty target="symbolColor_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="symbolColor_list"/>
+            </setup>
+            <body>
+                <SetStyle target="symbolColor_list" styleName="symbolColor" value="0x9900CC"  waitEvent="updateComplete" waitTarget="symbolColor_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="20" target="symbolColor_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_altColor_as" keywords="[FxList, alternatingItemColors]" description="Ensure that alternatingItemColors works at runtime.">
+            <setup>
+                <ResetComponent target="alternatingItemColors_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+                <SetProperty target="alternatingItemColors_list" propertyName="x" value="463" />
+                <SetProperty target="alternatingItemColors_list" propertyName="height" value="112" />
+                <SetProperty target="alternatingItemColors_list" propertyName="width" value="160" waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+                <SetProperty target="alternatingItemColors_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+            </setup>
+            <body>
+                <SetStyle target="alternatingItemColors_list" styleName="alternatingItemColors" value="[0x9900CC,0xFFFF00]"  waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" target="alternatingItemColors_list"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxList_Style_altColor_as_1" keywords="[FxList, alternatingItemColors]" description="Ensure that alternatingItemColors works at runtime.">
+            <setup>
+                <ResetComponent target="alternatingItemColors_list" className="spark.components.List" waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+                <SetProperty target="alternatingItemColors_list" propertyName="x" value="463" />
+                <SetProperty target="alternatingItemColors_list" propertyName="height" value="112" />
+                <SetProperty target="alternatingItemColors_list" propertyName="width" value="160" waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+                <SetProperty target="alternatingItemColors_list" propertyName="dataProvider" valueExpression="value=application.players" waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+            </setup>
+            <body>
+                <SetStyle target="alternatingItemColors_list" styleName="alternatingItemColors" value="[0x9900CC]"  waitEvent="updateComplete" waitTarget="alternatingItemColors_list"/>
+                <CompareBitmap url="../styles/baselines/$testID.png" target="alternatingItemColors_list"/>
+            </body>
+        </TestCase-->
+    </testCases>
+</UnitTester>

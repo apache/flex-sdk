@@ -1,0 +1,195 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark"  dataProvider="{dp1}"
+	  selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" variableRowHeight="true" editable="true">
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem country="USA" firstName="{singleLineText}" lastName="HamFN" product="ProductDW" number="17"/>
+   			<s:DataItem country="UNITED  STATE  AMERICA" firstName="{multiLineText}" lastName="DBL007" product="ProductDW" number="17"/>
+   			
+   			<s:DataItem country="USA" firstName="{singleLineText}" lastName="GukFN"  product="ProductDW"  number="3"/>
+   			<s:DataItem country="USA" firstName="{multiLineText}" lastName="HowFN"  product="ProductDW"  number="1"/>
+   							
+		</s:ArrayCollection>
+		  
+		 
+	</fx:Declarations>
+	
+	<fx:Script>	
+		<![CDATA[			
+			import mx.collections.ArrayCollection;
+			import spark.components.DataGrid;
+			
+			import spark.components.gridClasses.GridSelection;
+			import spark.components.gridClasses.GridSelectionMode;
+			import spark.components.gridClasses.GridColumn;
+			
+			[Bindable]
+			public var multipleLineFlag:Boolean=true;
+			[Bindable]
+			public var lineBreakFlag:String="explicit";
+			[Bindable]
+			public var singleLineText:String = "Hello World Hello World.";
+			[Bindable]
+			public var multiLineText:String = "Hello World\nHello World\nHello World.";
+			
+			
+			public function addItem2(newItem:Object, pos:int):void{
+			
+				this.dataProvider.addItemAt(newItem,pos);
+			}
+			
+			public function addItem():void{			
+				var newItem:Object = new Object();
+				newItem.country="0123456789ABCDEFGHIJKL";
+				newItem.firstName="WVUTSRQPONM";
+				newItem.lastName="ZYX";
+				if (this.dataProvider==null)
+					this.dataProvider=new ArrayCollection();
+				this.dataProvider.addItemAt(newItem,0);
+			}	
+			
+			public function insertColumns(index:int, count:int):void
+			{
+
+				for (var i:int=0;i<count;i++)
+				{
+					//	dataGrid.grid.gridSelection.setRow(index+i);
+					trace("row="+(index+i));
+					createColumn2(i);
+				}
+
+			}	
+			public function createItem(index:int):Object
+			{
+				var t:int=index;
+				var rowCount:int=dp1.length;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = dp1[index].firstName;
+				const lastName:String = dp1[index].lastName;
+				const country:String = dp1[index].country;
+				const position:String= dp1[index].position;
+				const club:String= dp1[index].club;
+				const number:int= dp1[index].number;
+				
+				return {country:country, firstName: firstName, lastName: lastName, club: club,position:position,number:number};
+			}
+			private function createColumn2(index:int):void
+			{
+				const columnName:String = "colmn_"+index;
+				var obj:Object;
+				var columnObj:GridColumn;
+				trace("dataProvider.length="+this.dataProvider.length);
+				if (this.dataProvider.length==0)
+				{
+					//create 10 data
+					for (var j:int=0;j<5;j++)
+					{
+						obj=createItem(0);
+						obj[columnName]="value_"+j;
+						this.dataProvider.addItem(obj);
+					}
+				}else{
+					for (var i:int=0;i<this.dataProvider.length;i++)
+					{
+						obj=this.dataProvider.getItemAt(i);
+						//add the new column data
+						obj[columnName]="value_"+i;
+					}
+				}
+				trace("columns.length="+this.columns.length);
+				columnObj=new GridColumn();
+				columnObj.dataField=columnName;
+				if (this.columns.length==0)
+					this.columns.addItem(columnObj);
+				else 
+					this.columns.addItemAt(columnObj,this.columns.length-1);
+			}
+			
+		]]>
+	</fx:Script>
+		 					 				
+		<s:columns>
+			<s:ArrayList id="columns3">					 				
+				<s:GridColumn id="c3_1a" dataField="country" visible="true"/>			
+				<s:GridColumn id="c3_2a" dataField="firstName" visible="true"  >
+					<s:itemRenderer>
+						<fx:Component>
+							<s:DefaultGridItemRenderer textAlign="end"  multiline="{outerDocument.multipleLineFlag}"  lineBreak="{outerDocument.lineBreakFlag}">
+								
+							</s:DefaultGridItemRenderer>
+						</fx:Component>
+					</s:itemRenderer>
+					<s:itemEditor>
+						<fx:Component>
+							<s:DefaultGridItemEditor textAlign="left"  >
+								<fx:Script>
+								<![CDATA[
+									import flashx.textLayout.edit.SelectionFormat;
+									import spark.components.RichEditableText;
+									import flashx.textLayout.elements.TextFlow;
+									/**
+									     *  @private
+									     */ 
+									    override public function prepare():void
+									    {
+										super.prepare();
+										const focusedFormat:SelectionFormat = 
+											textArea.textFlow.interactionManager.focusedSelectionFormat;
+					
+										const noBlinkFormat:SelectionFormat = 
+										new SelectionFormat(focusedFormat.rangeColor, 
+											focusedFormat.rangeAlpha, 
+											focusedFormat.rangeBlendMode, 
+											focusedFormat.pointColor, 
+											focusedFormat.pointAlpha, // 0 = no insertion point
+											focusedFormat.pointBlendMode, 
+											0);  // blink rate - 0 = no blink
+
+									textArea.textFlow.interactionManager.focusedSelectionFormat = 
+											noBlinkFormat;
+									    }
+
+								]]>
+								</fx:Script>
+							</s:DefaultGridItemEditor>
+						</fx:Component>
+					</s:itemEditor>
+				</s:GridColumn>
+				<s:GridColumn id="c3_3a" dataField="lastName" visible="true" editable="true" rendererIsEditable="true">
+					<s:itemRenderer>
+						<fx:Component>
+							<s:GridItemRenderer>
+								<fx:Script>
+									<![CDATA[
+										 
+										import spark.components.DataGrid;
+										import spark.components.gridClasses.GridColumn;
+										import flash.events.FocusEvent;
+										 
+										
+										protected function itemIdInput_focusOutHandler(event:FocusEvent):void
+										{
+											save();
+										}
+										
+										private function save():void
+										{
+											data.lastName = rt.text;
+										}
+									]]>
+								</fx:Script>
+								<s:RichEditableText id="rt" color="green" left="10" right="5" paddingTop="10" paddingBottom="5" focusOut="itemIdInput_focusOutHandler(event)">
+									<s:text>{data.lastName}</s:text>
+								</s:RichEditableText>
+							</s:GridItemRenderer>
+						</fx:Component>
+					</s:itemRenderer>
+				</s:GridColumn>
+			</s:ArrayList>				
+		</s:columns>
+		 
+		<s:typicalItem>
+			<s:DataItem country="ABCDEFGHIJKL0123456789" product="ProductFx" firstName="MNOPQRSTUVW" lastName="XYZ" />
+		</s:typicalItem>
+		
+	</s:DataGrid>

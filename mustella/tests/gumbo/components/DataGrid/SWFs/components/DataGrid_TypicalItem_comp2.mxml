@@ -1,0 +1,132 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark" 
+	dataProvider="{dp1}" selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" variableRowHeight="false">
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem country="USA" firstName="JOZY JOZY JOZY" lastName="HamFN" position="FW" club="VilCB" number="17"/>
+   			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY" lastName="DBL007" position="FW" club="VilCB" number="17"/>
+   			
+   			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN" position="DF" club="RenCB" number="3"/>
+   			<s:DataItem country="USA" firstName="TimFN" lastName="HowFN" position="GK" club="EveCB" number="1"/>
+   			<s:DataItem country="USA" firstName="CewFN" lastName="DemFN" position="MF" club="FulCB" number="8"/>
+   			<s:DataItem country="USA" firstName="RobFN" lastName="Findley Findley Findley Findley" position="FW" club="RslCB" number="20"/>
+   			<s:DataItem country="USA" firstName="H" lastName="G" position="FW" club="PacCB" number="9"/>
+   							
+		</s:ArrayCollection>
+		<s:ArrayCollection id="columns1">					 
+   			<s:GridColumn id="c1_1" dataField="country" width="50"/>
+   			<s:GridColumn id="c1_2" dataField="firstName" />
+   			<s:GridColumn id="c1_3" dataField="lastName" width="100"/>
+   			<s:GridColumn id="c1_4" dataField="position"/>
+   			<s:GridColumn id="c1_5" dataField="club"/>
+   			<s:GridColumn id="c1_6" dataField="number"/>
+   		</s:ArrayCollection>
+   		
+   		<s:ArrayCollection id="columns2">
+   			<s:GridColumn id="c2_1" dataField="number"/>
+   			<s:GridColumn id="c2_2" dataField="lastName" width="150"/>
+   			<s:GridColumn id="c2_3" dataField="firstName"/>											
+   		</s:ArrayCollection>
+   		
+   		<s:ArrayCollection id="columns3">
+   			<s:GridColumn id="c3_1" dataField="firstName"/>
+   			<s:GridColumn id="c3_2" dataField="lastName"/>
+   		</s:ArrayCollection>		
+   		
+		<s:DataItem id="typicalItem1" country="ABCDEFGHIJKL0123456789" firstName="MNOPQRSTUVW" lastName="XYZ" />
+		<s:DataItem id="typicalItem2" country="56789" firstName="MNOPQ" lastName="XYZTW" />
+		
+		<s:DataItem id="typicalItem3" country="ABCDEF" />
+		<s:DataItem id="typicalItem4" country="56789" firstName="MNOPQ" lastName="XYZTW" undefined1="12345" />
+		<s:DataItem id="typicalItem5"/>
+	</fx:Declarations>
+	
+	<fx:Script>	
+		<![CDATA[			
+			
+			import spark.components.DataGrid;
+			
+			import spark.components.gridClasses.GridSelection;
+			import spark.components.gridClasses.GridSelectionMode;
+			import spark.components.gridClasses.GridColumn;
+			
+			private function addMe():void{			
+				var newItem:Object = new Object();
+				newItem.country="0123456789ABCDEFGHIJKL";
+				newItem.firstName="WVUTSRQPONM";
+				newItem.lastName="ZYX";
+				dp1.addItemAt(newItem,0);
+			}	
+			
+				public function insertColumns(dataGrid:DataGrid,index:int, count:int):void
+				{
+					
+					for (var i:int=0;i<count;i++)
+					{
+						//	dataGrid.grid.gridSelection.setRow(index+i);
+						trace("row="+(index+i));
+						createColumn2(dataGrid,i);
+					}
+					
+				}	
+			public function createItem(index:int):Object
+			{
+				var t:int=index;
+				var rowCount:int=dp1.length;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = dp1[index].firstName;
+				const lastName:String = dp1[index].lastName;
+				const country:String = dp1[index].country;
+				const position:String= dp1[index].position;
+				const club:String= dp1[index].club;
+				const number:int= dp1[index].number;
+				
+				return {country:country, firstName: firstName, lastName: lastName, club: club,position:position,number:number};
+			}
+				private function createColumn2(dataGrid:DataGrid,index:int):void
+				{
+					const columnName:String = "colmn_"+index;
+					var obj:Object;
+					var columnObj:GridColumn;
+					trace("dataProvider.length="+dataGrid.dataProvider.length);
+					if (dataGrid.dataProvider.length==0)
+					{
+						//create 10 data
+						for (var j:int=0;j<5;j++)
+						{
+							obj=createItem(0);
+							obj[columnName]="value_"+int(Math.random()*999);
+							dataGrid.dataProvider.addItem(obj);
+						}
+					}else{
+						for (var i:int=0;i<dataGrid.dataProvider.length;i++)
+						{
+							obj=dataGrid.dataProvider.getItemAt(i);
+							//add the new column data
+							obj[columnName]="value_"+int(Math.random()*999);
+						}
+					}
+					trace("columns.length="+dataGrid.columns.length);
+					columnObj=new GridColumn();
+					columnObj.dataField=columnName;
+					if (dataGrid.columns.length==0)
+						dataGrid.columns.addItem(columnObj);
+					else 
+						dataGrid.columns.addItemAt(columnObj,dataGrid.columns.length-1);
+				}
+			
+		]]>
+	</fx:Script>
+		<s:columns>
+			<s:ArrayList id="columns4">					 				
+				<s:GridColumn id="c41_1" dataField="country" width="80"/>			
+				<s:GridColumn id="c41_2" dataField="firstName"  width="80"/>									
+				<s:GridColumn id="c41_3" dataField="lastName"  width="80"/>								
+			</s:ArrayList>				
+		</s:columns>		
+		
+		<s:typicalItem>
+			<s:DataItem country="ABCDEFGHIJKL0123456789" firstName="MNOPQRSTUVW" lastName="XYZ" />
+		</s:typicalItem>
+		
+	</s:DataGrid>

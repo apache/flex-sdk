@@ -1,0 +1,10 @@
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" autoDrawBackground="false">
+	<s:states>
+		<mx:State name="normal" />
+		<mx:State name="selected" />
+		<mx:State name="hovered" />
+	</s:states>
+	
+	<mx:Label text="{data}" />
+	
+</s:ItemRenderer>

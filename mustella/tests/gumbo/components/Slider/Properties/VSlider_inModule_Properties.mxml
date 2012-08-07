@@ -1,0 +1,239 @@
+<UnitTester testDir="gumbo/components/Slider/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="Slider_Module_Basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}  
+        
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+       
+    <testCases>
+    
+		<TestCase testID="VSlider_liveDraggging_default_inModule" keywords="[VSlider, liveDragging, Module]" description="Test Default liveDragging Mode for VSlider in Module" >
+		    <setup>
+				<ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/> 
+				<SetStyle target="myModVSlider" styleName="liveDragging" value="false" />
+		    </setup>
+		    <body>
+				<AssertStyleValue target="myModVSlider" styleName="liveDragging" value="false" />
+		        <AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+	              
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseMove" buttonDown="true" waitEvent="mouseMove" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+		
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />	
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="10" />
+		
+				<AssertEvent target="myModVSlider" eventName="change" eventClass="flash.events::Event" numExpectedEvents="1" />            	
+            </body>
+    	</TestCase>    	
+    	
+		<TestCase testID="VSlider_liveDragging_Enabled_inModule" keywords="[VSlider, liveDragging, Module]" description="Test liveDragging enabled mode for VSlider in Module" >
+		    <setup>
+				<ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/> 				
+		    </setup>
+		    <body>	      
+		        <AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+		        <AssertStyleValue target="myModVSlider" styleName="liveDragging" value="true" />	        
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+			    <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<AssertEvent target="myModVSlider" eventName="valueCommit" eventClass="mx.events::FlexEvent" />        
+				<AssertEvent target="myModVSlider" eventName="change" eventClass="flash.events::Event" />        
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="10" />				
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />				
+		    </body>
+    	</TestCase>
+    	 
+		<TestCase testID="VSlider_track_click_inModule" keywords="[VSlider, Track, Module]" description="Test clicking in the track for VSlider in Module" >
+		    <setup>
+				<ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/> 
+				<SetProperty target="myModVSlider" propertyName="maximum" value="100" />
+		    </setup>
+		    <body>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />	  
+	        
+		        <DispatchMouseClickEvent target="myModVSlider" localX="7" localY="77" waitTarget="myModVSlider" waitEvent="click" />
+		        <Pause timeout="60"/>
+		        <AssertPropertyValue target="myModVSlider" propertyName="value" value="20" />	  	    
+	        
+		        <DispatchMouseClickEvent target="myModVSlider" localX="7" localY="59" waitTarget="myModVSlider" waitEvent="click" />
+		        <Pause timeout="60"/>
+		        <AssertPropertyValue target="myModVSlider" propertyName="value" value="40" />	        
+	        
+		        <DispatchMouseClickEvent target="myModVSlider" localX="7" localY="41" waitTarget="myModVSlider" waitEvent="click" />
+		        <Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="60" />			     
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="7" localY="23" waitTarget="myModVSlider" waitEvent="click" />
+				<Pause timeout="60"/>
+		        <AssertPropertyValue target="myModVSlider" propertyName="value" value="80" />	       
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="7" localY="4" waitTarget="myModVSlider" waitEvent="click" />
+				<Pause timeout="60"/>
+	    	    <AssertPropertyValue target="myModVSlider" propertyName="value" value="100" />
+	        
+	    	    <DispatchMouseClickEvent target="myModVSlider" localX="7" localY="23" waitTarget="myModVSlider" waitEvent="click" />
+	    	    <Pause timeout="60"/>
+	    	    <AssertPropertyValue target="myModVSlider" propertyName="value" value="80" />	       	        
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="7" localY="41" waitTarget="myModVSlider" waitEvent="click" />
+				<Pause timeout="60"/>
+	    	    <AssertPropertyValue target="myModVSlider" propertyName="value" value="60" />	        
+	        
+	    	    <DispatchMouseClickEvent target="myModVSlider" localX="7" localY="59" waitTarget="myModVSlider" waitEvent="click" />
+	    	    <Pause timeout="60"/>
+	    	    <AssertPropertyValue target="myModVSlider" propertyName="value" value="40" />	        
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="7" localY="77" waitTarget="myModVSlider" waitEvent="click" />
+				<Pause timeout="60"/>
+	    	    <AssertPropertyValue target="myModVSlider" propertyName="value" value="20" />	        
+	        
+	    	    <DispatchMouseClickEvent target="myModVSlider" localX="7" localY="95" waitTarget="myModVSlider" waitEvent="click" />
+	    	    <Pause timeout="60"/>
+	    	    <AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />	        	    	
+	    	</body>
+    	</TestCase>    	    	
+    
+ 		<TestCase testID="VSlider_default_min_max_values_inModule" keywords="[VSlider, Default, Module]" description="Test Default Min and Max for VSlider in Module" >
+            <setup>
+		        <ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/> 
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+            	<AssertPropertyValue target="myModVSlider" propertyName="minimum" value="0" />
+            	<AssertPropertyValue target="myModVSlider" propertyName="maximum" value="10" />
+            	<AssertPropertyValue target="myModVSlider" propertyName="stepSize" value="1" />
+            	
+            	<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="10" />
+		
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase>        
+    	
+ 		<TestCase testID="VSlider_custom_max_inModule" keywords="[VSlider, Maximum, Module]" description="Test Custom Positive Maximum for VSlider in Module" >
+            <setup>
+		        <ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/> 
+		        <SetProperty target="myModVSlider" propertyName="maximum" value="300" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+            	
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="300" />
+		
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />
+            </body>
+    	</TestCase> 
+    	                      	    	                	                      	
+ 		<TestCase testID="VSlider_custom_min_inModule" keywords="[VSlider, Minimum, Module]" description="Test Custom Positive Minimum for VSlider in Module" >
+            <setup>
+		        <ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/> 
+		        <SetProperty target="myModVSlider" propertyName="minimum" value="8" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="10"/>
+				
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="rollOver" waitEvent="rollOver" waitTarget="myModVSlider" />
+		        <DispatchMouseEvent target="myModVSlider" localX="7" localY="1" type="mouseDown" waitEvent="mouseDown" waitTarget="myModVSlider" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseMove" waitEvent="mouseMove" waitTarget="myModVSlider" buttonDown="true" />
+				<DispatchMouseEvent target="myModVSlider" localX="7" localY="90" type="mouseUp" waitEvent="mouseUp" waitTarget="myModVSlider" />
+		
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="8"/>
+            </body>
+    	</TestCase> 
+    
+		<TestCase testID="VSlider_snapInterval_inModule" keywords="[VSlider, snapInterval, Module]" description="Test Custom snapInterval for VSlider in Module" >
+            <setup>
+		        <ResetComponent target="myModVSlider" className="spark.components.VSlider" waitEvent="updateComplete" waitTarget="myModVSlider"/>
+		        <SetProperty target="myModVSlider" propertyName="maximum" value="100" />
+		        <SetProperty target="myModVSlider" propertyName="snapInterval" value="25" />
+		        <SetProperty target="myModVSlider" propertyName="stepSize" value="25" />
+            </setup>
+            <body>
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="90" waitEvent="click" waitTarget="myModVSlider" />
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />            
+            
+            	<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="70" waitEvent="click" waitTarget="myModVSlider" />
+            	<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="25" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="65" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="25" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="60" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="42" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="34" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="75" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="19" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="75" />		
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="10" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="100" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="25" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="75" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="50" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="50" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="75" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="25" />
+		
+				<DispatchMouseClickEvent target="myModVSlider" localX="5" localY="85" waitEvent="click" waitTarget="myModVSlider" />
+				<Pause timeout="60"/>
+				<AssertPropertyValue target="myModVSlider" propertyName="value" value="0" />		
+            </body>
+    	</TestCase>
+
+    </testCases>
+    
+</UnitTester>

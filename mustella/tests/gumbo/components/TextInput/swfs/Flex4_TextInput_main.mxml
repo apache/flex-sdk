@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		backgroundColor="0xFFFFFF"
+		height="375"
+		width="500"
+		preinitialize="init();">
+
+	<fx:Script>
+		<![CDATA[
+			import spark.components.TextInput;
+			import mx.managers.ToolTipManager;
+			import mx.events.StateChangeEvent;
+
+			private function init():void {
+				ToolTipManager.showDelay = 100;
+				ToolTipManager.hideDelay = 500;
+			}
+			
+			public function doManualReset():void{
+				if(currentState == "def"){
+					dispatchEvent(new Event("manualResetComplete"));
+				}else{
+					addEventListener("currentStateChange", handleCurrentStateChange);
+					currentState = "def";   
+				}
+			}
+			
+			private function handleCurrentStateChange(e:StateChangeEvent):void{
+				dispatchEvent(new Event("manualResetComplete"));
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: myVerdana;
+			embedAsCFF: false;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myVerdana;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: myVerdana2;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myVerdana2;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myVerdana2;
+			embedAsCFF: true;
+		}
+
+		.embeddedFont {
+		    fontFamily: myVerdana2;
+			fontAntiAliasType: "normal";
+			fontLookup: "embeddedCFF";
+		}
+
+		s|SkinnableTextBase:normalWithPrompt {
+			color: red;
+		}
+		
+		s|SkinnableTextBase:disabledWithPrompt {
+			color: green;
+		}
+	</fx:Style>
+
+	<s:states>
+		<s:State name="def" />
+		<s:State name="state_one" />
+		<s:State name="state_two" />
+	</s:states>
+	
+	<s:VGroup left="10" top="10">
+		<mx:Canvas id="panel1" height="150" width="300"
+				backgroundColor="#FF0000" backgroundAlpha="0.2"
+				styleName="embeddedFont">
+			<s:TextInput id="textInput"/>
+		</mx:Canvas>
+
+		<s:VGroup styleName="embeddedFont">
+			<mx:Box paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="focusColor_ti_box" >
+				<s:TextInput id="focusColor_ti" text="focusColor" focusColor="0xCC0033" />
+			</mx:Box>
+			<s:TextInput id="baseColor_ti" text="baseColor" chromeColor="0xFFFF00" />
+			<s:TextInput id="color_ti" text="color" color="0xFF0000" />
+			<s:TextInput id="contentBackgroundColor_ti" text="contentBackgroundColor" contentBackgroundColor="0xFFCCFF" />
+			<s:TextInput id="selectionColor_ti" text="selectionColor" focusedTextSelectionColor="0xFF9966" />
+		</s:VGroup>
+		<s:VGroup styleName="embeddedFont">
+			<s:TextInput id="state_ti" prompt.def="default prompt" prompt.state_one="prompt 1" prompt.state_two="prompt 2"/>
+		</s:VGroup>
+    </s:VGroup>
+
+</s:Application>

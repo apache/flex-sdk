@@ -1,0 +1,27 @@
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+    <fx:Script>
+    <![CDATA[
+    import mx.collections.ArrayCollection;
+    import spark.skins.spark.*;
+    import spark.components.*;
+    import spark.primitives.*;
+    import spark.primitives.supportClasses.*;
+    public function mixItemRendererFunction(item:*):IFactory
+    {
+        if (item is DisplayObject || item is GraphicElement)
+        return new ClassFactory(DefaultComplexItemRenderer);
+        else
+        return new ClassFactory(DefaultItemRenderer);
+    }
+
+        private function  createDP():void
+        {
+            dgroup.dataProvider=new ArrayCollection(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+    }
+    ]]>
+    </fx:Script>
+    <s:DataGroup id="dgroup" creationComplete="createDP()" itemRendererFunction="mixItemRendererFunction">
+    <s:layout><s:VerticalLayout/></s:layout>
+    </s:DataGroup>
+ </s:VGroup>
+

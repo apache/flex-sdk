@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TextArea/Methods/"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns="*"
+		testSWF="TextArea_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import flash.text.engine.*;
+			import flashx.textLayout.formats.TextLayoutFormat;
+			import mx.rpc.xml.SimpleXMLDecoder;
+			import mx.utils.*;
+			import spark.components.TextArea;
+			import spark.utils.*;
+
+			public const newline:String = "\n";
+
+			public function scrollToRange1(target:TextArea):void {
+                var tf:TextLayoutFormat = new TextLayoutFormat();
+                tf.color = 0xFF0000; // red
+                target.setFormatOfRange(tf, 400, 420);
+                target.scrollToRange(400, 420);
+			}
+
+			public function scrollToRange2(target:TextArea):void {
+                
+			}
+
+
+
+			public var attributeFontFamily:String = '(Object)#0' + newline +
+
+					'  fontFamily = "myVera"';
+
+
+
+			public function getAttributeValue(target:TextArea, property:String):String {
+				var victor:Vector.<String> = new <String>[property];
+				var tlf:TextLayoutFormat = target.getFormatOfRange(victor);
+				return tlf[property].toString();
+			}
+
+
+
+			public var fontFamilyStr:String = "myVera";
+
+			public var defaultExportStr:String = '(Object)#0' + newline +
+					'  TextFlow = (Object)#1' + newline +
+					'    columnCount = "inherit"' + newline +
+					'    columnGap = "inherit"' + newline +
+					'    columnWidth = "inherit"' + newline +
+					'    lineBreak = "inherit"' + newline +
+					'    paddingBottom = "inherit"' + newline +
+					'    paddingLeft = "inherit"' + newline +
+					'    paddingRight = "inherit"' + newline +
+					'    paddingTop = "inherit"' + newline +
+					'    verticalAlign = "inherit"' + newline +
+					'    whiteSpaceCollapse = "preserve"';
+
+
+
+			public function xmlToObject(value:XML):Object {
+				var xmlDocument:XMLDocument = new XMLDocument(value.toString());
+				var xmlDecoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
+				var obj:Object = xmlDecoder.decodeXML(xmlDocument);
+				return obj;
+			}
+
+			public function objectToTextLayoutFormat(obj:Object):TextLayoutFormat {
+				var fmt:TextLayoutFormat = new TextLayoutFormat();
+				for (var item:String in obj) {
+					fmt[item]= obj[item];
+				}
+				return fmt;
+			}
+
+			public var Gumbo_TextArea_setAttributes_method_bold_XML:XML = <TextFlow lineBreak="inherit" paddingBottom="inherit" paddingLeft="inherit" paddingRight="inherit" paddingTop="inherit" verticalAlign="inherit" whiteSpaceCollapse="preserve" xmlns="http://ns.adobe.com/textLayout/2008">
+					  <p>
+						<span>Silver</span>
+						<span fontWeight="bold">Musican</span>
+					  </p>
+					</TextFlow>;
+	
+		]]>
+
+	</fx:Script>
+
+
+	<fx:Declarations>
+        <s:TextFlow id="flow1">
+            <s:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis metus mi. Morbi augue neque, vestibulum sit amet rhoncus at, interdum quis lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse potenti. Praesent rutrum erat eget nulla malesuada tristique. Nulla sit amet tempus magna. Duis turpis tellus, imperdiet at dignissim nec, vehicula non eros. Vestibulum vel tincidunt arcu. Cras auctor elit vitae lacus tincidunt ut tincidunt turpis gravida. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</s:p>
+            <s:p>Vivamus id tristique nisl. Proin consectetur laoreet nunc at cursus. Cras pulvinar lorem ut neque adipiscing nec dapibus purus rutrum. Cras sit amet mauris sit amet nisi aliquam dapibus. Proin ipsum dui, semper eu ornare sed, aliquet vitae est. Suspendisse elementum placerat nibh, eget malesuada erat facilisis id. Etiam pretium lorem ac eros rhoncus in fringilla nisl commodo. Sed vel ligula nulla. Donec quis nulla arcu. Mauris et nulla felis, eu aliquet arcu. Vivamus laoreet diam vitae orci pellentesque sed dapibus nibh laoreet.</s:p>
+            <s:p>Etiam sollicitudin, libero a sagittis egestas, odio ligula euismod odio, nec euismod risus dui id justo. Duis a augue feugiat est luctus porttitor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce sapien nulla, porta ut facilisis nec, malesuada nec eros. Maecenas eget mauris odio. Aliquam condimentum, magna sit amet bibendum ultricies, augue ipsum egestas metus, eu consequat felis tortor sit amet turpis. Aenean commodo venenatis diam in mollis. Donec et elementum nunc. Integer dignissim adipiscing nunc, eu tincidunt felis suscipit sed. In hac habitasse platea dictumst. Donec vitae sapien vel mi ornare condimentum. Aliquam ornare metus eget nisi viverra ut accumsan lacus varius. Nulla facilisi. Morbi molestie eros sed tellus rhoncus non feugiat neque lacinia. Mauris quis mauris sit amet lorem iaculis posuere. Fusce quis ornare eros. Donec aliquam magna nec metus scelerisque ac luctus sem ultrices.</s:p>
+        </s:TextFlow>
+	</fx:Declarations>
+
+
+	<testCases>
+
+
+
+		<!-- ******************** **************** ******************** -->
+
+		<!-- ******************** TEXTAREA METHODS ******************** -->
+
+		<!-- ******************** **************** ******************** -->
+
+
+
+		<!-- ******************** appendText() ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_appendText_method" description="..." keywords="[TextArea, appendText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.appendText(' jumped over the lazy dog')" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="44" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="44" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_appendText_method_empty_pre" description="..." keywords="[TextArea, appendText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+				
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.appendText('The quick brown fox')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="19" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="19" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_appendText_method_empty_post" description="..." keywords="[TextArea, appendText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.appendText('')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="19" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="19" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_appendText_method_multiple" description="..." keywords="[TextArea, appendText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="-1" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="-1" />
+
+				<RunCode code="application.textArea.appendText('The quick brown fox')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="19" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="19" />
+
+				<RunCode code="application.textArea.appendText('The quick brown fox')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="38" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="38" />
+
+			</body>
+
+		</TestCase>
+
+
+		<TestCase testID="Gumbo_TextArea_appendText_method_longText" description="..." keywords="[TextArea, appendText, method]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" value="100" propertyName="width"/>
+				<SetProperty target="textArea" propertyName="heightInLines" value="4" waitTarget="textArea" waitEvent="resize" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.appendText('The\nQuick\nBrown\nFox\nJumps\nOver\nThe\nLazy\nDog:END')" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="68.2" />
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="47" />
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="47" />
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_appendText_method_multiple_start" description="..." keywords="[TextArea, appendText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="-1" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="-1" />
+
+				<RunCode code="application.textArea.appendText('The quick brown fox')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="19" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="19" />
+
+				<!--
+				<SetProperty target="textArea" propertyName="selectionAnchorPosition" value="0" waitTarget="textArea" waitEvent="selectionChange" />
+				<SetProperty target="textArea" propertyName="selectionActivePosition" value="0" waitTarget="textArea" waitEvent="selectionChange" />
+				-->
+
+				<RunCode code="application.textArea.selectRange(0,0);" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<RunCode code="application.textArea.appendText(' jumped over the lazy dog')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="44" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="44" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_appendText_method_selected" description="..." keywords="[TextArea, appendText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox" waitTarget="textArea" waitEvent="updateComplete" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectAll()" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<RunCode code="application.textArea.appendText(' jumped over the lazy dog')" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog"/>
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="44" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="44" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!-- ******************** getFormatOfRange() ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_getAttributes_method_fontFamily" description="Check all the default attributes in the getAttributes() object" keywords="[TextArea, getAttributes, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="text" value="Dummy text" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(5, 10);" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontFamily']).fontFamily" value="myVera" />
+
+				<!--<AssertMethodValue method="value=ObjectUtil.toString(application.textArea.getFormatOfRange(new &lt;String&gt;['fontFamily']))" valueExpression="value=attributeFontFamily" />-->
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_getAttributes_method_fontFamily_null" description="Check all the default attributes in the getAttributes() object" keywords="[TextArea, getAttributes, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Dummy text" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(7,10);" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({fontFamily:'Times New Roman'}));" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(5,10);" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontFamily']).fontFamily" valueExpression="value = null" />
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+		<!-- ******************** insertText() ******************** -->
+		<TestCase testID="Gumbo_TextArea_insertText_method_default" description="..." keywords="[TextArea, insertText, method]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<RunCode code="application.textArea.setFocus();application.textArea.insertText('Silver Musican');" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="textArea" propertyName="text" value="Silver Musican"/>
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_insertText_method_selectall" description="..." keywords="[TextArea, insertText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Dummy text" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectAll();" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.insertText('Silver Musican');" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="Silver Musican"/>
+
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_insertText_method_selectsome" description="..." keywords="[TextArea, insertText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(4,5);" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.insertText('eth');" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="Silver Musican"/>
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_insertText_method_pre" description="..." keywords="[TextArea, insertText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Dummy text" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(0,0);" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.insertText('pre ');" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="pre Dummy text"/>
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_insertText_method_post" description="..." keywords="[TextArea, insertText, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Dummy text" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(10,10);" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.insertText(' post');" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<Pause timeout="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="text" value="Dummy text post" />
+
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+
+
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_bold" description="..." keywords="[TextArea, setAttributes, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(6, 12)" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({fontWeight:FontWeight.BOLD}))" />
+				<AssertMethodValue method="value=TextFlowUtil.export(application.textArea.textFlow).children()" valueExpression="value = Gumbo_TextArea_setAttributes_method_bold_XML.children()" />
+				<RunCode code="application.textArea.selectRange(4,4)" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontWeight']).fontWeight" value="normal" />
+				<RunCode code="application.textArea.selectRange(8,8);" waitTarget="textArea" waitEvent="selectionChange" />
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontWeight']).fontWeight" value="bold" />
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_bold_invalid" description="..." keywords="[TextArea, setAttributes, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(6, 12)" waitTarget="textArea" waitEvent="selectionChange" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({fontWeight:FontWeight.BOLD}))" />
+
+				<!-- <RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({fontWeight:'undefined'}))" />-->
+
+				<AssertMethodValue method="value=TextFlowUtil.export(application.textArea.textFlow).children()" valueExpression="value = Gumbo_TextArea_setAttributes_method_bold_XML.children()" />
+				<RunCode code="application.textArea.selectRange(4,4)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontWeight']).fontWeight" value="normal" />
+
+
+				<RunCode code="application.textArea.selectRange(8,8)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertMethodValue method="value=application.textArea.getFormatOfRange(new &lt;String&gt;['fontWeight']).fontWeight" value="bold" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+		
+
+
+
+		<TestCase testID="Gumbo_TextArea_setAttributes_method_bold_insert_text" description="..." keywords="[TextArea, setAttributes, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<RunCode code="application.textArea.selectRange(6, 12)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<RunCode code="application.textArea.setFormatOfRange(objectToTextLayoutFormat({lineThrough:true}))" />
+
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(10,10)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<RunCode code="application.textArea.insertText('1234567890');" />
+
+				<Pause timeout="50" />
+
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<!-- ******************** scrollToRange() ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_scrollToRange1" description="Scroll to the middle of the text" keywords="[TextArea, scrollToRange, method]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="textFlow" valueExpression="value=flow1" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="scrollToRange1(application.textArea)" />
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="111.8" />
+				<CompareBitmap   url="../Methods/baselines/" target="textArea">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_scrollToRange2" description="Scroll to the bottom of the text" keywords="[TextArea, scrollToRange, method]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="textFlow" valueExpression="value=flow1" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<RunCode code="application.textArea.scrollToRange(application.textArea.text.length, application.textArea.text.length);" waitTarget="textArea" waitEvent="enterFrame" />
+				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="1177.4" />
+				<CompareBitmap   url="../Methods/baselines/" target="textArea">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Gumbo_TextArea_scrollToRange3" description="Scroll to the top of the text" keywords="[TextArea, scrollToRange, method]">
+			<setup>
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="textFlow" valueExpression="value=flow1" waitTarget="textArea" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<SetProperty target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="500" waitTarget="textArea" waitEvent="enterFrame" />
+				<RunCode code="application.textArea.scrollToRange(0, 0);" waitTarget="textArea.scroller.verticalScrollBar" waitEvent="valueCommit" />
+				<AssertPropertyValue target="textArea.scroller.viewport" propertyName="verticalScrollPosition" value="5" />
+				<CompareBitmap   url="../Methods/baselines/" target="textArea">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<!-- ******************** setSelection() (renamed selectRange()) ******************** -->
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_default" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectAll()" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="0" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="45" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_negative" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				
+				<RunCode code="application.textArea.selectAll()" waitTarget="textArea" waitEvent="selectionChange" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(-1,-1)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="-1" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="-1" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_NaN" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(NaN,NaN)" waitTarget="textArea" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="0" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="0" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_same" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(10,10)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="10" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_asc" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(5,10)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="5" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="10" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_desc" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(10,5)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="5" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_anchorOnly" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(10, int.MAX_VALUE)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="10" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="45" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_NaN_Anchor" description="..." keywords="[TextArea, setSelection, method]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectRange(NaN, 10)" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="0" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="10" />
+
+				<CompareBitmap numColorVariances="4" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+		<TestCase testID="Gumbo_TextArea_setSelection_method_set_text_post" description="..." keywords="[TextArea, setSelection, method, SDK-16435]">
+
+			<setup>
+
+				<ResetComponent target="textArea" className="spark.components.TextArea" waitTarget="textArea" waitEvent="updateComplete" />
+				<SetProperty target="textArea" propertyName="height" value="151" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<SetProperty target="textArea" propertyName="text" value="The quick brown fox jumped over the lazy dog." waitTarget="textArea" waitEvent="updateComplete" />
+				<DispatchMouseClickEvent target="textArea" localX="5" localY="5" waitEvent="focusIn" waitTarget="textArea" />
+			</setup>
+
+			<body>
+
+				<RunCode code="application.textArea.selectAll()" waitTarget="textArea" waitEvent="selectionChange" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="0" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="45" />
+
+				<SetProperty target="textArea" propertyName="text" value="Silver Musican" waitTarget="textArea" waitEvent="updateComplete" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionAnchorPosition" value="0" />
+
+				<AssertPropertyValue target="textArea" propertyName="selectionActivePosition" value="12" />
+
+				<CompareBitmap numColorVariances="5" maxColorVariance="16"   url="../Methods/baselines/$testID.png" target="textArea" />
+
+			</body>
+
+		</TestCase>
+
+
+
+	</testCases>
+
+</UnitTester>
+
+
+

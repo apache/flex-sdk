@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+	backgroundColor="0xFFFFFF"
+	backgroundAlpha="1.0"
+	height="800" width="600">
+	
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";		
+	
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyVera;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+				
+		.myStyle1{
+			borderColor: green;
+			borderWeight: 20;
+			borderAlpha: 0.1;
+			cornerRadius: 10;
+			borderStyle: inset;		
+		}
+		
+		.myBorderAlphaStyle{
+			borderAlpha: 0.5;	
+		}			
+		
+		.myBorderColorStyle{
+			borderColor: blue;	
+		}
+		
+		.myBorderStyleStyle{
+			borderStyle: inset;	
+		}		
+
+		.myBorderWeightStyle{
+			borderWeight: 25;	
+		}			
+		
+		.myBorderBackgroundAlphaStyle{
+			backgroundAlpha: 0.1;	
+		}	
+		
+		.myBorderBackgroundImageResizeModeStyle{
+			backgroundImageFillMode: repeat;	
+		}	
+		
+		.myBorderCornerRadiusStyle{
+			cornerRadius: 7;
+		}
+		
+		.myBorderDropShadowVisibleStyle{
+			dropShadowVisible: true;
+		}	
+		
+		s|BorderContainer,
+		s|CheckBox,
+		s|Label,
+		s|HSlider,
+		s|Button,
+		s|NumericStepper,
+		s|List,
+		s|DropDownList{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+            fontLookup: "embeddedCFF";
+		}							
+						
+	</fx:Style> 
+				
+	<s:VGroup>
+	
+		<s:HGroup>		
+			<comps:customBorder id="myBorderGrp"/>	
+			<comps:customEmptyBorder id="myEmptyBorderGrp"/>			
+			<comps:customBorderBI id="myBorderGrpBI"/>
+		</s:HGroup>
+						
+		<s:HGroup>		
+			<comps:customBorder2 id="myBorderGrp2"/>			
+			<comps:customBorderBI2 id="myBorderGrpBI2"/>				
+			<comps:customBorderBI3 id="myBorderGrpBI3"/>
+		</s:HGroup>	
+		
+		<s:HGroup>			
+			<comps:customBorderM1 id="myBorderGrpM1"/>
+			<comps:customBorderM2 id="myBorderGrpM2"/>
+			<comps:customBorderM3 id="myBorderGrpM3"/>
+		</s:HGroup>
+		
+		<comps:customBorderM4 id="myBorderGrpM4"/>
+		
+		
+	</s:VGroup>
+					
+</s:Application>

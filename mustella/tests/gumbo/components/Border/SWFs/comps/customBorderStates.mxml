@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx">
+		
+    <s:states>
+    	<s:State name="styleState1"/>
+    	<s:State name="styleState2"/>
+    </s:states>		
+		
+	<s:BorderContainer id="myBorder" 
+		left="10" right="10" top="10" bottom="10"
+		height="350" width="300"
+				
+		backgroundColor.styleState1="blue"
+		backgroundAlpha.styleState1="0.5"
+		borderColor.styleState1="red"
+		borderWeight.styleState1="3"
+		borderAlpha.styleState1="0.5"
+		dropShadowVisible.styleState1="true"
+		cornerRadius.styleState1="3"			    	    
+	    color.styleState1="green"
+	    fontSize.styleState1="14"
+	    chromeColor.styleState1="yellow"	    
+	    symbolColor.styleState1="purple"	   
+	    focusColor.styleState1="red"
+	    
+		backgroundColor.styleState2="red"
+		backgroundAlpha.styleState2="0.1"
+		borderColor.styleState2="blue"
+		borderWeight.styleState2="15"
+		borderAlpha.styleState2="0.1"
+		dropShadowVisible.styleState2="false"
+		cornerRadius.styleState2="15"			    	    
+	    color.styleState2="black"
+	    fontSize.styleState2="10"
+	    chromeColor.styleState2="purple"	    
+	    symbolColor.styleState2="blue"	   
+	    focusColor.styleState2="yellow">
+	    	  
+		<s:Label text="Current State is styleState1" top="2" horizontalCenter="0" fontSize="16" includeIn="styleState1"/>
+		<s:Label text="Current State is styleState2" top="2" horizontalCenter="0" fontSize="18" includeIn="styleState2"/>
+		
+		<s:HGroup top="30" left="5">
+			<s:Button id="myBtn" label="Spark Button"/>
+			<s:NumericStepper id="myNS" height="23"/>
+			<s:HSlider rotation="20" id="mySlider"/>			
+		</s:HGroup>
+		
+		<s:CheckBox id="myCB" label="CheckBox" fontSize="18" y="70" x="5"/>
+		
+		<s:DropDownList id="myDDL" prompt="Select One" x="130" y="70">
+			<s:dataProvider>
+				<s:ArrayList source="[One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten]"/>
+			</s:dataProvider>
+		</s:DropDownList>		
+		
+		<s:List id="myList" x="5" y="110" selectedIndex="3" fontSize="10" width="100" height="150">
+			<s:dataProvider>
+				<s:ArrayList source="[Un, Deux, Trois, Quatre, Cinq, Six, Sept, Huit, Neuf, Dix]"/>
+			</s:dataProvider>
+		</s:List>
+		
+		<s:Button id="aBtn" label="CLICK ME" left="5" right="5" bottom="5" chromeColor="green" color="yellow"/>
+		
+		<s:Label id="myST" verticalCenter="0" horizontalCenter="0" text="MIDDLE" color="red" fontWeight="bold"/>
+		
+	</s:BorderContainer>
+
+</s:Group>

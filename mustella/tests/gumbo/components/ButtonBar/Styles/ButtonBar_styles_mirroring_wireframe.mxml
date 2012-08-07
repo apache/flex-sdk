@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBar_mirroring_wireframe.mxml">
+    
+    <!-- this set of lines form a template that must be in each unit test -->
+    <mx:Script>
+    <![CDATA[
+    public static function init(o:DisplayObject):void
+    {
+    }
+    ]]>
+    </mx:Script>
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+    <![CDATA[
+        import Assets.*;
+        import mx.core.FlexGlobals;
+        import mx.utils.*;
+    ]]>
+    </mx:Script>
+
+    <testCases>
+
+    <TestCase testID="styles_mirroring_wireframe_test1" keywords="[ButtonBar,Mirroring]" description="Make sure rtl looks right: order of buttons, skin classes.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap target="bb1" url="../Styles/Baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test2" keywords="[ButtonBar,Mirroring]" description="Be sure we inherit the direction and layoutDirection from the parent app.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="" styleName="direction" value="rtl" />
+            <SetStyle target="" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap target="bb1" url="../Styles/Baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test3" keywords="[ButtonBar,Mirroring]" description="Add item to beginning.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" />
+            <RunCode code="FlexGlobals.topLevelApplication.bb1.dataProvider.addItemAt('....', 0)" waitTarget="bb1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap target="bb1" url="../Styles/Baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test4" keywords="[ButtonBar,Mirroring]" description="Add item to end.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" />
+            <RunCode code="FlexGlobals.topLevelApplication.bb1.dataProvider.addItemAt('....', 3)" waitTarget="bb1" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <CompareBitmap target="bb1" url="../Styles/Baselines/$testID.png" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test5" keywords="[ButtonBar,Mirroring]" description="Right arrow key.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" waitEvent="updateComplete" />
+            <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+            <WaitForEffectsToEnd />
+        </setup>
+        <body>
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="RIGHT" />
+            <WaitForEffectsToEnd />
+            <Pause timeout="10" />
+            <!--CompareBitmap numColorVariances="4" ignoreMaxColorVariance="true" target="bb1" url="../Styles/Baselines/$testID.png" /-->
+            <DispatchKeyEvent key="SPACE" waitEvent="click" waitTarget="bb1" />
+            <AssertPropertyValue propertyName="selectedIndex" value="1" target="bb1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test6" keywords="[ButtonBar,Mirroring]" description="Left arrow key.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" waitEvent="updateComplete" />
+            <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+            <WaitForEffectsToEnd />
+        </setup>
+        <body>
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="SPACE" waitEvent="click" waitTarget="bb1" />
+            <AssertPropertyValue propertyName="selectedIndex" value="2" target="bb1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test7" keywords="[ButtonBar,Mirroring]" description="Right arrow key, arrowKeysWrapFocus.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="arrowKeysWrapFocus" value="true" />
+            <SetProperty target="bb1" propertyName="height" value="50" waitEvent="updateComplete" />
+            <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+            <WaitForEffectsToEnd />
+        </setup>
+        <body>
+            <DispatchKeyEvent key="RIGHT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="SPACE" waitEvent="click" waitTarget="bb1" />
+            <AssertPropertyValue propertyName="selectedIndex" value="2" target="bb1" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="styles_mirroring_wireframe_test8" keywords="[ButtonBar,Mirroring]" description="Left arrow key, arrowKeysWrapFocus.">
+        <setup>
+            <ResetComponent target="bb1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+            <SetProperty target="bb1" propertyName="dataProvider" valueExpression="value = ObjectUtil.copy(FlexGlobals.topLevelApplication.ac1)" />
+            <SetStyle target="bb1" styleName="skinClass" valueExpression="value=CustomSkinClass_Mirroring" /> 
+            <SetStyle target="bb1" styleName="direction" value="rtl" />
+            <SetStyle target="bb1" styleName="layoutDirection" value="rtl" />
+            <SetProperty target="bb1" propertyName="arrowKeysWrapFocus" value="true" />
+            <SetProperty target="bb1" propertyName="width" value="300" />
+            <SetProperty target="bb1" propertyName="height" value="50" waitEvent="updateComplete" />
+            <DispatchKeyEvent key="TAB" waitTarget="bb1" waitEvent="focusIn" />
+            <WaitForEffectsToEnd />
+        </setup>
+        <body>
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="LEFT" />
+            <Pause timeout="100" />
+            <DispatchKeyEvent key="SPACE" waitEvent="click" waitTarget="bb1" />
+            <AssertPropertyValue propertyName="selectedIndex" value="1" target="bb1" />
+        </body>
+    </TestCase>
+
+    </testCases>
+</UnitTester>

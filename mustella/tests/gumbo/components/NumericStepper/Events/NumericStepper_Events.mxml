@@ -1,0 +1,250 @@
+<UnitTester testDir="gumbo/components/NumericStepper/Events/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns="*" 
+    testSWF="NumericStepper_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void{}            	            
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+
+    <!-- Test Cases -->
+    <testCases>
+
+		<TestCase testID="NumericStepper_SetValueEvents1" keywords="[NumericStepper,value,valueCommit,Event]" description="Test Spark Numeric Stepper valueCommit event when value is set">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		        <SetProperty target="myNS" propertyName="value" value="3" />	
+		    </setup>
+		    <body>	            	
+		    	<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent"/>	    	
+		    	<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="3" />	    	
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="NumericStepper_SetValueEvents2" keywords="[NumericStepper,value,valueCommit,Event]" description="Test Spark Numeric Stepper valueCommit event when value is set and requires rounding">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		        <SetProperty target="myNS" propertyName="snapInterval" value="5" />	
+		    	<SetProperty target="myNS" propertyName="value" value="4" />	    		    		    
+		    </setup>
+		    <body>	        
+		    	<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		    	<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="5" />	    	
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="NumericStepper_IncrementEvents1" keywords="[NumericStepper,increment,button,valueCommit,change,Event]" description="Test Spark Numeric Stepper valueCommit and change events when incrementButton is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		        <SetProperty target="myNS.incrementButton" propertyName="autoRepeat" value="false" />		
+		    </setup>
+		    <body>	        	
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+				<DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="myNS"/>
+				<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton" />				
+				<AssertPropertyValue target="myNS" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>    
+        
+		<TestCase testID="NumericStepper_IncrementEvents2" keywords="[NumericStepper,increment,button,allowValueWrap,valueCommit,change,Event]" description="Test Spark Numeric Stepper valueCommit and change events when incrementButton is used with value wrap">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="myNS"/>		
+		    	<SetProperty target="myNS" propertyName="allowValueWrap" value="true" />		
+		    </setup>
+		    <body>	        	    	
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="myNS"/>
+		        <AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		        <AssertEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="0" />	    	
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="NumericStepper_IncrementEvents3" keywords="[NumericStepper,increment,button,allowValueWrap,valueCommit,change,Event]" description="Test Spark Numeric Stepper valueCommit and change events when incrementButton is used with value wrap">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+				<SetProperty target="myNS" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="myNS"/>		    	
+		    </setup>
+		    <body>	        	    	
+				<DispatchMouseEvent type="rollOver" target="myNS.incrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.incrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+		        <AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		        <AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.incrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.incrementButton"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="10" />
+		    </body>
+        </TestCase>         
+        
+		<TestCase testID="NumericStepper_DecrementEvents1" keywords="[NumericStepper,decrement,button,valueCommit,change,Event]" description="Test Spark Numeric Stepper valueCommit and change events when decrementButton is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		    	<SetProperty target="myNS" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="myNS"/>		
+		    </setup>
+		    <body>	        
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="myNS"/>
+		        <AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		        <AssertEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>
+        
+		<TestCase testID="NumericStepper_DecrementEvents2" keywords="[NumericStepper,decrement,button,allowValueWrap,valueCommit,change,Event]" description="Test Spark Numeric Stepper valueCommit and change events when decrementButton is used with value wrap">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		    	<SetProperty target="myNS" propertyName="allowValueWrap" value="true" />		
+		    </setup>
+		    <body>	        
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="valueCommit" waitTarget="myNS"/>
+		        <AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		        <AssertEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="10" />	    	
+		    </body>
+        </TestCase>
+ 
+		<TestCase testID="NumericStepper_DecrementEvents3" keywords="[NumericStepper,decrement,button,allowValueWrap,valueCommit,change,Event]" description="Test Spark Numeric Stepper valueCommit and change events when decrementButton is used with value wrap">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    	
+		    </setup>
+		    <body>	        
+				<DispatchMouseEvent type="rollOver" target="myNS.decrementButton" localX="5" localY="5" waitEvent="rollOver" waitTarget="myNS.decrementButton"/>
+		        <DispatchMouseEvent type="mouseDown" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseDown" waitTarget="myNS"/>
+		        <AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+		        <AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<DispatchMouseEvent type="mouseUp" target="myNS.decrementButton" localX="5" localY="5" waitEvent="mouseUp" waitTarget="myNS.decrementButton"/>
+				<AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+        </TestCase> 
+ 
+		<TestCase testID="NumericStepper_UpKeyEvents" keywords="[NumericStepper,valueCommit,change,Event,Up]" description="Test Spark Numeric Stepper valueCommit and change events when keyboard UP is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		    </setup>
+		    <body>	        	
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+		    	<DispatchKeyEvent key="UP" waitEvent="change" waitTarget="myNS" />					    		    	    	
+				<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>
+
+		<TestCase testID="NumericStepper_UpKeyEvents2" keywords="[NumericStepper,valueCommit,change,Event,Up]" description="Test Spark Numeric Stepper valueCommit and change events when keyboard UP is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		        <SetProperty target="myNS" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="myNS"/>	
+		    </setup>
+		    <body>	        	
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+		    	<DispatchKeyEvent key="UP" waitEvent="keyUp" waitTarget="myNS" />					    		    	    	
+				<AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="10" />	    	
+		    </body>
+        </TestCase>            
+
+		<TestCase testID="NumericStepper_DownKeyEvents" keywords="[NumericStepper,valueCommit,change,Event,Down]" description="Test Spark Numeric Stepper valueCommit and change events when keyboard DOWN is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>
+		    	<SetProperty target="myNS" propertyName="value" value="2" waitEvent="updateComplete" waitTarget="myNS"/>				
+		    </setup>
+		    <body>	        
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+		    	<DispatchKeyEvent key="DOWN" waitEvent="change" waitTarget="myNS" />				
+				<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>        
+        
+		<TestCase testID="NumericStepper_DownKeyEvents2" keywords="[NumericStepper,valueCommit,change,Event,Down]" description="Test Spark Numeric Stepper valueCommit and change events when keyboard DOWN is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    	
+		    </setup>
+		    <body>	        
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myNS" />
+		    	<DispatchKeyEvent key="DOWN" waitEvent="keyUp" waitTarget="myNS" />				
+				<AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="0" />	    	
+		    </body>
+        </TestCase>       
+        
+		<TestCase testID="NumericStepper_stepEvents1" keywords="[NumericStepper,valueCommit,change,Event,Step]" description="Test Spark Numeric Stepper valueCommit and change events when step method is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    	
+		    </setup>
+		    <body>	        
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="0" />
+				<RunCode code="application.myNS.changeValueByStep();" />
+				<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="1" />	    	
+		    </body>
+        </TestCase>         
+
+		<TestCase testID="NumericStepper_stepEvents2" keywords="[NumericStepper,valueCommit,change,Event,Step]" description="Test Spark Numeric Stepper valueCommit and change events when step method is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    	
+		        <SetProperty target="myNS" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="myNS" />
+		    </setup>
+		    <body>	        
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="10" />
+				<RunCode code="application.myNS.changeValueByStep();" />				
+				<AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="10" />
+		    </body>
+        </TestCase> 
+        
+		<TestCase testID="NumericStepper_stepEvents3" keywords="[NumericStepper,valueCommit,change,Event,Step]" description="Test Spark Numeric Stepper valueCommit and change events when step method is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    	
+		        <SetProperty target="myNS" propertyName="value" value="10" waitEvent="updateComplete" waitTarget="myNS" />
+		    </setup>
+		    <body>	        
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="10" />
+				<RunCode code="application.myNS.changeValueByStep(false);" />				
+				<AssertEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="9" />
+		    </body>
+        </TestCase>        
+
+		<TestCase testID="NumericStepper_stepEvents4" keywords="[NumericStepper,valueCommit,change,Event,Step]" description="Test Spark Numeric Stepper valueCommit and change events when step method is used">
+		    <setup>
+		        <ResetComponent target="myNS" className="comps.myCustomNS" waitEvent="updateComplete" waitTarget="myNS"/>		    			        
+		    </setup>
+		    <body>	        
+		    	<AssertPropertyValue target="myNS" propertyName="value" value="0" />
+				<RunCode code="application.myNS.changeValueByStep(false);" />				
+				<AssertNoEvent target="myNS" eventName="valueCommit" eventClass="mx.events::FlexEvent" />
+				<AssertNoEvent target="myNS" eventName="change" eventClass="flash.events::Event" />
+				<AssertPropertyValue target="myNS" propertyName="value" value="0" />
+		    </body>
+        </TestCase>        
+                          
+    </testCases>
+    
+</UnitTester>
+

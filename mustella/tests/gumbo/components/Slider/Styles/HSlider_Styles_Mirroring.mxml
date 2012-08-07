@@ -1,0 +1,274 @@
+<UnitTester testDir="gumbo/components/Slider/Styles/"  
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="Slider_Mirroring_Basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>   
+       
+    <testCases>
+
+		<TestCase testID="HSlider_Mirroring_rtl_as_default" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test direction set to rtl in AS on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.setRTL()" />	
+				<Pause timeout="20"/>
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="0"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>								
+			</body>		
+		</TestCase>	    
+
+		<TestCase testID="HSlider_Mirroring_rtl_dataTip" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test dataTip with direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs" propertyName="value" value="10" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="10"/>				
+				<DispatchMouseEvent target="hs.thumb" localX="5" localY="5" type="rollOver" waitEvent="rollOver"/>
+		        <DispatchMouseEvent target="hs.thumb" localX="5" localY="5" type="mouseDown" waitEvent="mouseDown"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+				<DispatchMouseEvent target="hs.thumb" localX="5" localY="5" type="mouseUp" waitEvent="mouseUp"/>				
+			</body>		
+		</TestCase>		
+
+		<TestCase testID="HSlider_Mirroring_rtl_default" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="ltr"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="0"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="HSlider_Mirroring_rtl_keyboard" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test keyboard keys on rtl HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+				<SetProperty target="hs" propertyName="stepSize" value="5" />
+			</setup>
+			<body>
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>				
+				<AssertPropertyValue target="hs" propertyName="value" value="0"/>				
+		    	<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="hs" />	    	
+				<DispatchKeyEvent keys="[UP]" waitEvent="change" waitTarget="hs" />	
+				<AssertPropertyValue target="hs" propertyName="value" value="5" />	    					
+				<DispatchKeyEvent keys="[LEFT]" waitEvent="change" waitTarget="hs" />	
+				<AssertPropertyValue target="hs" propertyName="value" value="10" />				
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID_1.png"/>			
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="change" waitTarget="hs" />					
+		        <AssertPropertyValue target="hs" propertyName="value" value="5" />	    		        
+				<DispatchKeyEvent keys="[RIGHT]" waitEvent="change" waitTarget="hs" />		        
+		        <AssertPropertyValue target="hs" propertyName="value" value="0" />	 		        
+		        <CompareBitmap target="myPanel" url="../Styles/Baselines/$testID_2.png"/>		        		   	    			       
+			</body>		
+		</TestCase>		
+			
+		<TestCase testID="HSlider_Mirroring_rtl_mxml_default" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test direction set to rtl in MXML on HSlider">
+			<setup>
+				<ResetComponent target="hs2" className="components.myHS_rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="hs2" styleName="layoutDirection" value="rtl"/>				
+				<AssertPropertyValue target="hs2" propertyName="value" value="0"/>
+				<CompareBitmap target="myPanel2" url="../Styles/Baselines/$testID.png"/>								
+			</body>		
+		</TestCase>		
+		
+		<TestCase testID="HSlider_Mirroring_rtl_mxml_value" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test direction set to rtl in MXML on HSlider">
+			<setup>
+				<ResetComponent target="hs2" className="components.myHS_rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="hs2" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs2" propertyName="value" value="7" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs2" propertyName="value" value="7"/>
+				<CompareBitmap target="myPanel2" url="../Styles/Baselines/$testID.png"/>								
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="HSlider_Mirroring_rtl_mxml_changeDir" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test direction set to ltr at runtime on HSlider">
+			<setup>
+				<ResetComponent target="hs2" className="components.myHS_rtl" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="hs2" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs2" propertyName="value" value="7" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs2" propertyName="value" value="7"/>
+				<CompareBitmap target="myPanel2" url="../Styles/Baselines/$testID_1.png"/>	
+				<SetStyle target="hs2" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs2" propertyName="value" value="7"/>
+				<CompareBitmap target="myPanel2" url="../Styles/Baselines/$testID_2.png"/>				
+			</body>		
+		</TestCase>	
+
+		<TestCase testID="HSlider_Mirroring_rtl_parentContainer1" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test setting direction rtl on parentContainer of HSlider">
+			<setup>
+				<ResetComponent target="myPanel3" className="components.myCustomPanel" waitEvent="updateComplete"/>				
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>				
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID.png"/>
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="HSlider_Mirroring_rtl_parentContainer2" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test setting direction rtl on parentContainer of HSlider">
+			<setup>
+				<ResetComponent target="myPanel3" className="components.myCustomPanel" waitEvent="updateComplete"/>				
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+				<SetProperty target="myPanel3.theHS" propertyName="value" value="8" waitEvent="updateComplete"/>
+			</setup>
+			<body>								
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>
+				<AssertPropertyValue target="myPanel3.theHS" propertyName="value" value="8"/>
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="ltr"/>
+				<AssertPropertyValue target="myPanel3.theHS" propertyName="value" value="8"/>
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID_2.png"/>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="HSlider_Mirroring_rtl_parentContainer3" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test setting direction rtl and styles on parentContainer of HSlider">
+			<setup>
+				<ResetComponent target="myPanel3" className="components.myCustomPanel" waitEvent="updateComplete"/>				
+				<SetStyle target="myPanel3" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete"/>				
+				<SetStyle target="myPanel3" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="myPanel3" styleName="layoutDirection" value="rtl"/>				
+				<AssertStyleValue target="myPanel3" styleName="chromeColor" value="0x00FF00"/>
+				<CompareBitmap target="myPanel3" url="../Styles/Baselines/$testID.png"/>
+			</body>		
+		</TestCase>					
+
+		<TestCase testID="HSlider_Mirroring_rtl_rotation" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test rotation with direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetProperty target="hs" propertyName="rotation" value="15" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<AssertPropertyValue target="hs" propertyName="rotation" value="15"/>
+				<SetProperty target="hs" propertyName="value" value="8" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="8"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+				<SetProperty target="hs" propertyName="rotation" value="0" waitEvent="updateComplete"/>
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="HSlider_Mirroring_rtl_styles" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test setting direction rtl and styles on parentContainer of HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>				
+				<SetStyle target="hs" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete"/>				
+				<SetProperty target="hs" propertyName="height" value="100" waitEvent="updateComplete"/>
+				<SetProperty target="hs" propertyName="value" value="3" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>				
+				<AssertStyleValue target="hs" styleName="chromeColor" value="0x00FF00"/>
+				<AssertPropertyValue target="hs" propertyName="height" value="100"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="3"/>
+				<CompareBitmap target="hs" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>	
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="ltr"/>				
+				<AssertStyleValue target="hs" styleName="chromeColor" value="0x00FF00"/>
+				<AssertPropertyValue target="hs" propertyName="height" value="100"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="3"/>
+				<CompareBitmap target="hs" url="../Styles/Baselines/$testID_2.png"/>
+			</body>		
+		</TestCase>			
+		
+		<TestCase testID="HSlider_Mirroring_rtl_value1" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test value with direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs" propertyName="value" value="2" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="2"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+			</body>		
+		</TestCase>		
+		
+		<TestCase testID="HSlider_Mirroring_rtl_value2" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test value with direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs" propertyName="value" value="8" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="8"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+			</body>		
+		</TestCase>		
+		
+		<TestCase testID="HSlider_Mirroring_rtl_value3" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test value with direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs" propertyName="value" value="10" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="10"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID.png"/>
+			</body>		
+		</TestCase>	
+		
+		<TestCase testID="HSlider_Mirroring_rtl_value4" keywords="[Slider, HSlider, Mirroring, rtl]" description="Test value with direction rtl on HSlider">
+			<setup>
+				<ResetComponent target="hs" className="spark.components.HSlider" waitEvent="updateComplete"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="rtl" waitEvent="updateComplete"/>				
+			</setup>
+			<body>								
+				<AssertStyleValue target="hs" styleName="layoutDirection" value="rtl"/>
+				<SetProperty target="hs" propertyName="value" value="7" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="7"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID_1.png"/>
+				<SetStyle target="hs" styleName="layoutDirection" value="ltr" waitEvent="updateComplete"/>
+				<AssertPropertyValue target="hs" propertyName="value" value="7"/>
+				<CompareBitmap target="myPanel" url="../Styles/Baselines/$testID_2.png"/>				
+			</body>		
+		</TestCase>			
+
+    </testCases>
+    
+</UnitTester>

@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DropDownList/Styles/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DropDownList_styles.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+		<TestCase testID="DropDownList_Styles_baseColor" keywords="[DropDownList, Style, baseColor]" description="Test baseColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="chromeColor" value="0xFF0000"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Styles_color1" keywords="[DropDownList, Style, color]" description="Test color on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="color" value="0x0000FF" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="color" value="0x0000FF"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>	
+	
+		<TestCase testID="DropDownList_Styles_color2" keywords="[DropDownList, Style, color]" description="Test color on dropDown of DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="color" value="0x0000FF" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="color" value="0x0000FF"/>
+					
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>				
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID.png"/>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+	
+		<TestCase testID="DropDownList_Styles_contentBackgroundColor" keywords="[DropDownList, Style, contentBackgroundColor]" description="Test contentBackgroundColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="contentBackgroundColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="contentBackgroundColor" value="0x00FF00"/>				
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID.png"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_focusColor" keywords="[DropDownList, Style, focusColor]" description="Test focusColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="focusColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myDDL" />
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myDDL1" />
+				<AssertStyleValue target="myDDL1" styleName="focusColor" value="0x00FF00"/>								
+				<CompareBitmap target="focusBox" url="../Styles/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Styles_fontSize1" keywords="[DropDownList, Style, fontSize]" description="Test fontSize on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontSize" value="16" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontSize" value="16"/>				
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Styles_fontSize2" keywords="[DropDownList, Style, fontSize]" description="Test large fontSize on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontSize" value="60" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontSize" value="60"/>				
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="6" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_fontSize3" keywords="[DropDownList, Style, fontSize]" description="Test small fontSize on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontSize" value="8" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontSize" value="8"/>				
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Styles_fontSize4" keywords="[DropDownList, Style, fontSize]" description="Test auto resize based on fontSize on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL2" className="comps.Custom_DDL2" waitEvent="updateComplete" waitTarget="myDDL2"/>				
+			</setup>
+			<body>					
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.openDropDown()" waitEvent="open" waitTarget="myDDL2"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL2.dropDown" url="../Styles/Baselines/$testID_1.png" numColorVariances="3" ignoreMaxColorVariance="true"/>			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.closeDropDown(false)" />								
+				<SetStyle target="myDDL2" styleName="fontSize" value="16" waitEvent="updateComplete" waitTarget="myDDL2"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.openDropDown()" waitEvent="open" waitTarget="myDDL2"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL2.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="3" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.closeDropDown(false)" />								
+				<SetStyle target="myDDL2" styleName="fontSize" value="10" waitEvent="updateComplete" waitTarget="myDDL2"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.openDropDown()" waitEvent="open" waitTarget="myDDL2"/>	
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL2.dropDown" url="../Styles/Baselines/$testID_3.png" numColorVariances="3" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL2.closeDropDown(false)" />				
+			</body>
+		</TestCase>			
+
+		<TestCase testID="DropDownList_Styles_fontStyle1" keywords="[DropDownList, Style, fontStyle]" description="Test fontStyle on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontStyle" value="italic"/>				
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_fontStyle2" keywords="[DropDownList, Style, fontStyle]" description="Test fontStyle on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontStyle" value="italic" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontSize" value="30" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontStyle" value="italic"/>
+				<AssertStyleValue target="myDDL1" styleName="fontSize" value="30"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true" />				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Styles_fontWeight1" keywords="[DropDownList, Style, fontWeight]" description="Test fontWeight on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontWeight" value="bold"/>				
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="15" maxColorVariance="20"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="15" maxColorVariance="20"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_fontWeight2" keywords="[DropDownList, Style, fontWeight]" description="Test fontWeight on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontWeight" value="bold" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetProperty target="myDDL1" propertyName="width" value="450" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="fontSize" value="36" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="fontWeight" value="bold"/>				
+				<AssertStyleValue target="myDDL1" styleName="fontSize" value="36"/>	
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>	
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>				
+									
+		<TestCase testID="DropDownList_Styles_multiple1" keywords="[DropDownList, Style, contentBackgroundColor, baseColor]" description="Test contentBackgroundColor and baseColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="contentBackgroundColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="chromeColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="contentBackgroundColor" value="0x00FF00"/>
+				<AssertStyleValue target="myDDL1" styleName="chromeColor" value="0xFF0000"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>		
+				<Pause timeout="100"/>
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DropDownList_Styles_multiple2" keywords="[DropDownList, Style, color, contentBackgroundColor]" description="Test color and contentBackgroundColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetStyle target="myDDL1" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<AssertStyleValue target="myDDL1" styleName="color" value="0xFF0000"/>				
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>							
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DropDownList_Styles_multiple3" keywords="[DropDownList, Style, color, baseColor]" description="Test color and baseColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetStyle target="myDDL1" styleName="chromeColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>					
+			</setup>
+			<body>	
+				<CompareBitmap target="myDDL1" numColorVariances="5" maxColorVariance="10" url="../Styles/Baselines/$testID_1.png"/>
+				<AssertStyleValue target="myDDL1" styleName="chromeColor" value="0x0000FF"/>
+				<AssertStyleValue target="myDDL1" styleName="color" value="0xFF0000"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>			
+				<CompareBitmap target="myDDL1.dropDown" numColorVariances="5" maxColorVariance="10" url="../Styles/Baselines/$testID_2.png"/>	
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DropDownList_Styles_multiple4" keywords="[DropDownList, Style, color, contentBackgroundColor]" description="Test color and contentBackgroundColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetStyle target="myDDL1" styleName="contentBackgroundColor" value="0x0000FF" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="color" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetStyle target="myDDL1" styleName="chromeColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="contentBackgroundColor" value="0x0000FF"/>
+				<AssertStyleValue target="myDDL1" styleName="color" value="0xFF0000"/>		
+				<AssertStyleValue target="myDDL1" styleName="chromeColor" value="0x00FF00"/>			
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="8" ignoreMaxColorVariance="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="8" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_MXML_Set" keywords="[DropDownList, Style]" description="Test setting multiple styles in MXML DropDownList">
+			<setup>
+				<ResetComponent target="myDDL10" className="comps.Custom_DDL10" waitEvent="updateComplete" waitTarget="myDDL10"/>			
+				<SetProperty target="myDDL10" propertyName="selectedIndex" value="2" waitEvent="updateComplete" waitTarget="myDDL10"/>
+			</setup>
+			<body>	
+				<CompareBitmap target="myDDL10" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true" />
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL10.openDropDown()" waitEvent="open" waitTarget="myDDL10"/>
+				<Pause timeout="100"/>			
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="368" stageY="352" waitEvent="rollOver" waitTarget="stage"/>				
+				<CompareBitmap target="myDDL10.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true" />								
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL10.closeDropDown(false)"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Styles_rollOverColor" keywords="[DropDownList, Style, rollOverColor]" description="Test setting rollOverColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>			
+				<SetStyle target="myDDL1" styleName="rollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="rollOverColor" value="0xFF0000"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="140" stageY="135" waitEvent="rollOver" waitTarget="stage"/>
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID.png"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DropDownList_Styles_rollOverColor2" keywords="[DropDownList, Style, rollOverColor]" description="Test rollOverColor while selectionColor is set on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="selectionColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="rollOverColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="myDDL1"/>
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="selectionColor" value="0x00FF00"/>
+				<AssertStyleValue target="myDDL1" styleName="rollOverColor" value="0xFF0000"/>
+			
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<DispatchMouseEvent type="rollOver" target="stage" stageX="140" stageY="135" waitEvent="rollOver" waitTarget="stage"/>
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>								
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)"/>	
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Styles_selectionColor" keywords="[DropDownList, Style, selectionColor]" description="Test selectionColor on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="selectionColor" value="0x00FF00" waitEvent="updateComplete" waitTarget="myDDL1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="selectionColor" value="0x00FF00"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>				
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)"/>				
+			</body>
+		</TestCase>
+
+		<TestCase testID="DropDownList_Styles_lineThrough" keywords="[DropDownList, Style, lineThrough]" description="Test lineThrough on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="lineThrough" value="true" waitEvent="updateComplete" waitTarget="myDDL1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="lineThrough" value="true"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Styles_textAlignRight" keywords="[DropDownList, Style, textAlign]" description="Test textAlign on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="textAlign" value="right" waitEvent="updateComplete" waitTarget="myDDL1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="textAlign" value="right"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)"/>				
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DropDownList_Styles_textAlignCenter" keywords="[DropDownList, Style, textAlign]" description="Test textAlign on DropDownList">
+			<setup>
+				<ResetComponent target="myDDL1" className="comps.Custom_DDL1" waitEvent="updateComplete" waitTarget="myDDL1"/>				
+				<SetProperty target="myDDL1" propertyName="selectedIndex" value="3" waitEvent="updateComplete" waitTarget="myDDL1"/>
+				<SetStyle target="myDDL1" styleName="textAlign" value="center" waitEvent="updateComplete" waitTarget="myDDL1"/>								
+			</setup>
+			<body>	
+				<AssertStyleValue target="myDDL1" styleName="textAlign" value="center"/>
+				<CompareBitmap target="myDDL1" url="../Styles/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.openDropDown()" waitEvent="open" waitTarget="myDDL1"/>
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDL1.dropDown" url="../Styles/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDL1.closeDropDown(false)"/>				
+			</body>
+		</TestCase>	
+
+	</testCases>
+</UnitTester>

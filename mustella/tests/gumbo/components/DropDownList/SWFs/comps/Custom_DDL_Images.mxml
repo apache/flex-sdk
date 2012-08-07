@@ -1,0 +1,32 @@
+<s:DropDownList	
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	skinClass="skins.CustomDDLImageSkin"
+	itemRenderer="spark.skins.spark.DefaultComplexItemRenderer"
+	horizontalCenter="0" verticalCenter="0"
+	width="350">
+
+	<s:layout><s:TileLayout/></s:layout>
+
+	<s:dataProvider>
+		<s:ArrayList>				
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/greenrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/orangerect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/orangerect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/greenrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/greenrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/orangerect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/greenrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/orangerect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/orangerect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />
+			<s:BitmapImage source="@Embed('../../../../../../Assets/Images/greenrect.jpg')" />								
+		</s:ArrayList>
+	</s:dataProvider>
+
+</s:DropDownList>

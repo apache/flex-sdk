@@ -1,0 +1,24 @@
+<s:TileLayout xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    requestedRowCount="{theRowCount}"
+    requestedColumnCount="{theColumnCount}"
+    columnWidth="{theColumnWidth}"
+    rowHeight="{theRowHeight}"
+    horizontalGap="{theHorizontalGap}"
+    verticalGap="{theVerticalGap}" >
+
+    <!-- 
+        The TileLayout's properties are bound to other variables.
+    -->
+
+    <fx:Script>
+    <![CDATA[
+        [Bindable] public var theRowCount:int = 2;
+        [Bindable] public var theColumnCount:int = 5;
+        [Bindable] public var theColumnWidth:int = 50;
+        [Bindable] public var theRowHeight:int = 50;
+        [Bindable] public var theHorizontalGap:int = 10;
+        [Bindable] public var theVerticalGap:int = 12;
+    ]]>
+    </fx:Script>
+
+</s:TileLayout>

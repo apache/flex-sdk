@@ -1,0 +1,45 @@
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"		
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	width="300" height="300">
+	
+		<s:Rect left="0" right="0" top="0" bottom="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000" weight="1"/>
+		    </s:stroke>
+		</s:Rect>
+
+		<s:Button id="pusOpenBtn" label="Open PopUp" click="stylesPUA.displayPopUp=true"/>
+
+		<s:PopUpAnchor id="stylesPUA" width="92" height="21" popUpPosition="below" styleName="stylesPopUp" chromeColor="purple" alpha="1">
+	
+			<mx:VBox paddingTop="5" paddingLeft="5">
+			
+				<mx:Form>
+					<mx:FormItem label="Name :">
+						<mx:TextInput/>
+					</mx:FormItem>
+					<mx:FormItem label="E-Mail :">
+						<mx:TextInput/>
+					</mx:FormItem>
+				</mx:Form>
+						
+				<s:NumericStepper height="23" chromeColor="black" color="blue" symbolColor="red" />							
+				<s:HSlider/>
+				<s:DropDownList prompt="Select One">
+					<s:dataProvider>
+						<s:ArrayList source="[one,two,three,four]"/>
+					</s:dataProvider>
+				</s:DropDownList>
+				
+				<s:Button id="pusExitBtn" label="EXIT" click="stylesPUA.displayPopUp=false"/>		
+				
+			</mx:VBox>
+
+		</s:PopUpAnchor>		
+		
+		
+
+	
+</s:Group>

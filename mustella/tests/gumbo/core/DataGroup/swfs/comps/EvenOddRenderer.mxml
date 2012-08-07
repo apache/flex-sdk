@@ -1,0 +1,35 @@
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark"
+                width="50" height="100">
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+	</s:states>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			override public function set data(value:Object):void {
+				super.data = value;
+                
+                if (data == null){
+					return;
+				}
+
+                color.color = 1000 * Number(data);
+                txt.text = String(data);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor id="color"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label color="white" id="txt" horizontalCenter="0" verticalCenter="0" />
+	
+</s:ItemRenderer>

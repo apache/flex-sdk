@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:TabNavigator xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	height="100" width="100"
+	tabHeight="20"
+	paddingTop="0"
+	creationPolicy="all">
+
+<fx:Script>
+<![CDATA[
+
+]]>
+</fx:Script>
+
+<!-- This is used for testing states. -->
+
+<mx:states>
+	<s:State name="state1" />
+	<s:State name="state2" />
+	<s:State name="state3" />
+	<s:State name="state4" />
+</mx:states>
+
+<s:NavigatorContent id="child1" label="1" backgroundColor="0x880000" >
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	<s:Rect id="r1" width="20" height="20" top="0" left="0" includeIn="state1" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888800" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888800" /></s:fill>
+	</s:Rect>
+	<s:Rect id="r2" width="20" height="20" top="0" right="0" includeIn="state2" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x008888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x008888" /></s:fill>
+	</s:Rect>
+	<s:Rect id="r3" width="20" height="20" bottom="0" left="0" excludeFrom="state1" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x880088" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x880088" /></s:fill>
+	</s:Rect>
+	<s:Rect id="r4" width="20" height="20" bottom="0" right="0" excludeFrom="state2" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888888" /></s:fill>
+	</s:Rect>
+</s:NavigatorContent>
+
+<s:NavigatorContent id="child2" label="2" includeIn="state1" backgroundColor="0x008800">
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" top="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888800" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888800" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" top="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x008888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x008888" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x880088" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x880088" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888888" /></s:fill>
+	</s:Rect>
+</s:NavigatorContent>
+
+<s:NavigatorContent id="child3" label="3" includeIn="state2" backgroundColor="0x000088">
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" top="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888800" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888800" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" top="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x008888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x008888" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x880088" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x880088" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888888" /></s:fill>
+	</s:Rect>
+</s:NavigatorContent>
+
+<s:NavigatorContent id="child4" label="4" excludeFrom="state1" backgroundColor="0x008800">
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" top="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888800" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888800" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" top="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x008888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x008888" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x880088" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x880088" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888888" /></s:fill>
+	</s:Rect>
+</s:NavigatorContent>
+
+<s:NavigatorContent id="child5" label="5" excludeFrom="state2" backgroundColor="0x000088">
+	<s:layout>
+		<s:BasicLayout />
+	</s:layout>
+	<s:Rect width="20" height="20" top="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888800" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888800" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" top="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x008888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x008888" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" left="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x880088" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x880088" /></s:fill>
+	</s:Rect>
+	<s:Rect width="20" height="20" bottom="0" right="0" >
+	    <s:stroke><s:SolidColorStroke weight="1" color="0x888888" /></s:stroke>
+	    <s:fill><s:SolidColor alpha="1" color="0x888888" /></s:fill>
+	</s:Rect>
+</s:NavigatorContent>
+
+</mx:TabNavigator>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Properties/"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			testSWF="RichEditableText_Basic003.mxml"
+			xmlns="*">
+
+    <fx:Script>
+        <![CDATA[
+        	import mx.core.FlexGlobals;
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+            public function verifyWidth(expectedWidth:int):String
+            {
+         		var delta:int=FlexGlobals.topLevelApplication.ret1.width-expectedWidth;
+          			if (Math.abs(delta)<=2) return "";
+          			else  return "actual width="+FlexGlobals.topLevelApplication.ret1.width+";expect width="+expectedWidth;
+            }
+            
+        ]]>
+    </fx:Script>
+
+    
+	<fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+
+
+	<fx:Declarations>
+		<s:TextFlow id="tf" fontSize="15" fontFamily="Comic Sans MS">
+			<s:p fontFamily="CourierCFF">courier [embedded]</s:p>
+			<s:p fontFamily="myArial">arial [embedded]</s:p>
+			<s:p fontFamily="Verdana">verdana [device]</s:p>
+			<s:p>comic sans ms [device]</s:p>
+		</s:TextFlow>
+		<s:TextFlow id="tf2">
+			<s:p>
+				<s:span>normal </s:span><s:span fontFamily="Arial Bold">bold</s:span>
+			</s:p>
+		</s:TextFlow>
+	</fx:Declarations>
+	
+	<!-- ################################################################## -->
+
+	
+
+
+    <testCases>
+
+		<!-- mixed device and embedded fonts -->
+		<TestCase testID="RichEditableText_textFlow_mixedFonts" description="Ensure that default width for RichEditableText is correct." keywords="[RichEditableText,TextFlow, Fonts]">
+			<setup>
+				<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+				<SetProperty propertyName="height" target="ret1" value="400"  waitTarget="ret1" waitEvent="updateComplete" />
+				<SetStyle target="ret1" styleName="fontWeight" value="bold" waitTarget="ret1" waitEvent="updateComplete"/>
+				<SetStyle target="ret1" styleName="fontFamily" value="CourierCFF" waitTarget="ret1" waitEvent="updateComplete"/>
+				<SetProperty target="ret1" propertyName="textFlow" value="{tf}" waitTarget="ret1" waitEvent="updateComplete" />
+			</setup>
+			<body>
+				<AssertStyleValue target="ret1" styleName="fontFamily" value="CourierCFF"/>
+				<AssertMethodValue method="value=verifyWidth(165)" value=""/>
+			</body>
+		</TestCase>
+		<!-- regression test case: SDK-27386 -->
+  		<TestCase testID="RichEditableText_fixedWidth_autosizeHeight" description="RichEditableText with fixed width but auto-sized height and inline graphics should update completely" keywords="[RichEditableText,autoSize,height]">
+
+  			<setup>
+  				<ResetComponent target="ret2" className="comps.RET_inlineGraphic" waitTarget="ret2" waitEvent="updateComplete" />
+  			</setup>
+  			<body>
+  				<CompareBitmap numColorVariances="20" maxColorVariance="20" url="../Properties/baselines/$testID.png" target="ret2" />
+	
+  			</body>
+		</TestCase>
+		
+		<!-- regression test case: SDK-28255 -->
+		<TestCase testID="RichEditableText_displayAsPassword" description="RichEditableText displayAsPassword when true causes autoSize to fail" keywords="[RichEditableText,displayAsPassword,autoSize]">
+
+			<setup>
+				<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+				<SetProperty propertyName="displayAsPassword" target="ret1" value="true"  waitTarget="ret1" waitEvent="updateComplete" />
+				<RunCode code="application.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1" />
+			</setup>
+			<body>
+				
+				<DispatchKeyEvent char="THIS IS A STRING THAT SHOULD CAUSE THE CONTROL TO AUTOSIZE WHEN displayAsPassword=true" waitTarget="ret1" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="ret1" />
+				
+			</body>
+		</TestCase>
+		
+		<!-- regression test case: SDK-29243 -->
+		<TestCase testID="RichEditableText_getFormatOfRange" description="RichEditableText getFormatOfRange always gets the format of the selection even if a range is specified" keywords="[RichEditableText,getFormatOfRange]">
+			
+			<setup>
+				<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+				<SetProperty target="ret1" propertyName="textFlow" value="{tf2}" waitTarget="ret1" waitEvent="updateComplete" />
+				<RunCode code="application.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1" />
+				<RunCode code="application.ret1.selectAll()" waitEvent="selectionChange" waitTarget="ret1" />
+				<RunCode code="application.getFontFamiliesList()" waitEvent="TestDone" />
+				
+			</setup>
+			<body>
+				<AssertPropertyValue target="cbx" propertyName="selected" value="true"  />
+			</body>
+		</TestCase>
+  </testCases>
+</UnitTester>
+
+

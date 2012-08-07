@@ -1,0 +1,29 @@
+<languageVersion : 1.0;>
+
+kernel FloatR
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "Float3 with default.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float3 allFloats
+    <
+        minValue:float3(0,0,0);
+        maxValue:float3(1,1,1);
+        defaultValue:float3(0,0,0);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        float4 inputColor = sampleNearest(src, outCoord());
+        dst.r = inputColor.r + allFloats.r;
+        dst.g = inputColor.g + allFloats.g;
+        dst.b = inputColor.b + allFloats.b;
+        dst.a = inputColor.a;
+    }
+}

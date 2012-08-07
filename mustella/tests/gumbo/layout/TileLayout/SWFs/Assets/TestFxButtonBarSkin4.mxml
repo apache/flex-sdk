@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled="0.5">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.ButtonBar")]
+    </fx:Metadata> 
+
+    <fx:Script>
+    <![CDATA[
+    
+        import mx.events.StateChangeEvent;
+        import spark.layouts.*;
+
+        /**
+        * Any test case could start out in any state, depending on how the
+        * previous test failed.  Therefore, we cannot switch to a state and
+        * then wait, since we may already be in that state.
+        **/
+        public function ensureNormalState():void{
+            if(currentState == "normal"){
+                dispatchEvent(new Event("manualResetComplete"));
+            }else{
+                addEventListener("currentStateChange", handleCurrentStateChange);
+                currentState = "normal";   
+            }
+        }
+    
+        private function handleCurrentStateChange(e:StateChangeEvent):void{
+            dispatchEvent(new Event("manualResetComplete"));
+        }
+        
+    ]]>
+    </fx:Script>
+
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+        <s:State name="state4a" />
+        <s:State name="state4b" />
+        <s:State name="state4c" />
+    </s:states>
+    
+	<fx:Declarations>
+		<fx:Component id="firstButton" >
+			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarFirstButtonSkin"
+							width="30" height="30" />
+		</fx:Component>
+
+		<fx:Component id="middleButton" >
+			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarMiddleButtonSkin" 
+							width="30" height="30" />
+		</fx:Component>
+
+		<fx:Component id="lastButton" >
+			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarLastButtonSkin" 
+							width="30" height="30"  />
+		</fx:Component>
+	</fx:Declarations>
+        
+	<s:DataGroup id="dataGroup" width="80" height="80">
+    <s:layout>
+        <s:TileLayout horizontalAlign="{HorizontalAlign.JUSTIFY}"
+                    verticalAlign="{VerticalAlign.JUSTIFY}"
+                    rowAlign.state4a="{RowAlign.TOP}"
+                    rowAlign.state4b="{RowAlign.JUSTIFY_USING_GAP}"
+                    rowAlign.state4c="{RowAlign.JUSTIFY_USING_HEIGHT}"
+                    columnAlign.state4a="{ColumnAlign.LEFT}"
+                    columnAlign.state4b="{ColumnAlign.JUSTIFY_USING_GAP}"
+                    columnAlign.state4c="{ColumnAlign.JUSTIFY_USING_WIDTH}"
+                    horizontalGap="0"
+                    verticalGap="0"
+                    requestedRowCount="2"
+                    requestedColumnCount="2" />
+    </s:layout>
+    </s:DataGroup>
+
+</s:Skin>

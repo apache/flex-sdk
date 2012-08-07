@@ -1,0 +1,42 @@
+<s:DropDownList 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"    
+    prompt="Choose" 
+    width="100"
+    labelFunction="myLabelFunc">
+    
+	<fx:Script>
+    	<![CDATA[  
+			private function myLabelFunc(item:String):String
+			{
+				var retStr:String = "Apache ";
+				return retStr + item;
+			}
+			
+			private function myLabelFunc2(item:String):String
+			{
+				var retStr:String = "ASF ";
+				return retStr + item;
+			}		
+			
+			public function changeLabelFunc():void
+			{
+				this.labelFunction = myLabelFunc2;
+			}
+    	]]>   
+    </fx:Script>    
+    
+    
+   <s:dataProvider>
+       	<mx:ArrayCollection>
+       		<fx:String>ProductA</fx:String>
+       		<fx:String>ProductB</fx:String>
+       		<fx:String>ProductC</fx:String>
+       		<fx:String>ProductD</fx:String>
+       		<fx:String>ProductE</fx:String>
+       		<fx:String>ProductF</fx:String>
+   		</mx:ArrayCollection>
+	</s:dataProvider>
+        	
+</s:DropDownList>

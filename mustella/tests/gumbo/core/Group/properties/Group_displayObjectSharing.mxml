@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/Group/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="GroupStates.mxml">
+
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	  import spark.primitives.*;
+	  import spark.layouts.*;
+      import mx.controls.Label;
+      import comps.*;
+      import mx.core.ClassFactory;
+	  import spark.components.Group;
+	  import mx.graphics.*;
+	  import spark.filters.*;
+	  import spark.core.MaskType;
+	  import mx.core.mx_internal;
+	]]>
+  </fx:Script>
+  <testCases>
+
+<!--
+
+============================
+DisplayObject sharing tests
+============================
+
+- TODO: Describe these tests and how to get to the test plan
+- TODO: Add the test plan to the Group test plan???
+- TODO: clean up test descriptions
+- TODO: clean up pauses where possible
+
+NOTE: These cases can be very subtle.  Treat failures with care.
+
+-->
+
+
+
+	<TestCase testID="Group_displayObjectSharing_1" keywords="[Group, displayObjectSharing]" description="regression test for SDK-21153 TODO: Cleanup this test">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 0, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 100, 0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.group1.getElementAt(0).visible = false;" />
+			<RunCode code="application.group1.getElementAt(1).visible = false;" />
+			<RunCode code="application.group1.getElementAt(2).visible = false;" />
+
+			<Pause timeout="200" />
+
+			<RunCode code="application.group1.getElementAt(2).alpha = 0.5;"  />
+			<RunCode code="application.group1.getElementAt(2).visible = true;" />
+			<RunCode code="application.group1.getElementAt(2).alpha = 1;" />
+
+			<Pause timeout="200" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="3" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_1.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_2" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x00FF00, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="4" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_3" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000022, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000055, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000088, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="0" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_4" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000022, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000055, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000088, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="1" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_5" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000022, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000055, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000088, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(0)" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(3)" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_6" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000022, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000055, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000088, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000, 50, 50)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000022, 60, 60)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000055, 70, 70)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000088, 80, 80)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 90, 90)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(3)" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(6)" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="10" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_7" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(2)" propertyName="depth" value="-1" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_7.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_8" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(0)" propertyName="depth" value="1" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(3)" propertyName="depth" value="-1" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="3" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="6" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_8.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_9" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(1)" propertyName="depth" value="-1" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_9.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_10" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x0000FF, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(0)" propertyName="depth" value="-1" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="2" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_10.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_11" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.swapElementsAt(0, 4)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="0" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_11.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_12" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xBBBBBB, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(3)" propertyName="rotation" value="45" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.swapElementsAt(1, 3)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_12.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_13" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.swapElementsAt(1, 4)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="1" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_13.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_14" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.swapElementsAt(1, 3)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_14.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_15" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addSimpleText(application.group1, 'some text', 100, 100, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="1" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_15.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_16" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addSimpleText(application.group1, 'ABCDEFGHIJKLMNOP', 200, 100, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.swapElementsAt(1, 4)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_16.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_17" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xe3e3e3, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addSimpleText(application.group1, 'ABCDEFGHIJKLMNOP', 200, 100, 50, 50)" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="1" />
+
+			<AssertMethodValue method="application.group1.swapElementsAt(0, 5)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+
+			<AssertMethodValue method="application.group1.swapElementsAt(0, 5)" waitTarget="group1" waitEvent="updateComplete" />
+			<Pause timeout="50" /> <!-- need to pause for some reason -->
+
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="1" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="6" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_17.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_18" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x333333, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x666666, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x999999, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xe3e3e3, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+
+			<AssertMethodValue method="application.group1.removeElementAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.removeElementAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.removeElementAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.removeElementAt(0)" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="0" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_19" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(2)" propertyName="alpha" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_19.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_20" keywords="[Group, displayObjectSharing]" description="TODO">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.getElementAt(3)" propertyName="alpha" value="0.5" waitTarget="group1" waitEvent="updateComplete" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="6" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_20.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_21" keywords="[Group, displayObjectSharing]" description="use a mask to break the sequence">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="Rect(application.group1.getElementAt(2)).mask = application.createMaskGroup(50, 50, 50, 0)"  />
+			<Pause timeout="50" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="5" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_21.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_22" keywords="[Group, displayObjectSharing]" description="use a mask to break the sequence">
+    	<setup>
+        	<ResetComponent target="group1" className="spark.components.Group" waitEvent="updateComplete" waitTarget="group1" />
+			<RunCode code="application.addButton(application.group1)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x000000,  0,  0)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005522, 10, 10)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0xFF0000, 20, 20)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x005588, 30, 30)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="application.addCustomRect(application.group1, 100, 100, 0x5500FF, 40, 40)" waitTarget="group1" waitEvent="updateComplete" />
+			<RunCode code="Rect(application.group1.getElementAt(3)).mask = application.createMaskGroup(50, 50, 50, 0)"  />
+			<Pause timeout="50" />
+	   	</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="group1" propertyName="numElements" value="6" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_22.png" target="group1" />
+		</body>
+    </TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_1" keywords="[Group, displayObjectSharing, states]" description="exclude elements when changing states">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="6" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_1.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_2" keywords="[Group, displayObjectSharing, states]" description="sharing should update when changing states">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="6" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_2.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_3" keywords="[Group, displayObjectSharing, states]" description="set depth on an excluded rect and toggle states">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="depth" value="-1" waitEvent="updateComplete" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="6" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="5" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_3.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_4" keywords="[Group, displayObjectSharing, states]" description="set depth on an excluded rect and toggle states">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="depth" value="1" waitEvent="updateComplete" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="6" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="5" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_4.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_5" keywords="[Group, displayObjectSharing, states]" description="set alpha on an excluded rect and toggle states">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="alpha" value="0.5" waitEvent="updateComplete" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="6" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="6" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_5.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_6" keywords="[Group, displayObjectSharing, states]" description="set visible on an excluded rect and toggle states">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="visible" value="false" waitEvent="updateComplete" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="2" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="6" />
+
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_6.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_7" keywords="[Group, displayObjectSharing, states]" description="set visible on an excluded rect while excluded">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="visible" value="false" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="4" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_7.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_8" keywords="[Group, displayObjectSharing, states]" description="set alpha on an excluded rect while excluded">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="alpha" value="0.5" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="6" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_8.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_9" keywords="[Group, displayObjectSharing, states]" description="set depth on an excluded rect while excluded">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+			<SetProperty target="displayObjectSharingGroup1.excludedRect" propertyName="depth" value="-1" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="5" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_9.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Group_displayObjectSharing_states_10" keywords="[Group, displayObjectSharing, states]" description="set mask on an excluded rect while excluded">
+		<setup>
+			<ResetComponent target="displayObjectSharingGroup1" className="comps.DisplayObjectSharingStatesGroup" waitEvent="updateComplete" />
+			<RunCode code="application.resetStateTest(application.displayObjectSharingGroup1)"  waitEvent="manualResetComplete" />
+		</setup>
+		<body>
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+			<RunCode code="application.displayObjectSharingGroup1.excludedRect.mask = application.createMaskGroup(50, 50, 50, 0)"  />
+			<Pause timeout="50" />
+			<SetProperty target="displayObjectSharingGroup1" propertyName="currentState" value="defaultState" waitEvent="currentStateChange" />
+
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numChildren" value="6" />
+			<AssertPropertyValue target="displayObjectSharingGroup1" propertyName="numElements" value="8" />
+			<CompareBitmap url="../properties/baselines/group_displayObjectSharing_states_10.png" target="displayObjectSharingGroup1" />
+		</body>
+	</TestCase>
+
+
+  </testCases>
+</UnitTester>

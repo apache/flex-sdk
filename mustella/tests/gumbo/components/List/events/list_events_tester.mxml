@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ListBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+
+        import mx.collections.ArrayCollection;
+        import spark.events.IndexChangeEvent;
+        import spark.skins.spark.*;
+        import mx.events.CollectionEventKind;
+        import mx.events.CollectionEvent;
+        import flashx.textLayout.elements.TextFlow;
+        import spark.utils.TextFlowUtil;
+
+        public var data:ArrayCollection = new comps.SampleData();
+        var ti:TextFlow = TextFlowUtil.importFromString ("Maecenas tristique, velit aliquam faucibus ornare, justo erat porta elit, sed venenatis neque mi ac elit. Nullam enim metus, gravida ac euismod sit amet, commodo vitae elit. Quisque eget molestie ante. Nulla fermentum pretium augue non tristique. Praesent in orci eu diam ultrices sodales ac quis leo. Aliquam lobortis elit quis mi rutrum feugiat. Aenean sed elit turpis. Duis enim ligula, posuere sit amet semper a, pretium vel leo. Etiam mollis dolor nec elit suscipit imperdiet. Sed a est eros.");
+
+    ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="List_event_selectionChanging_preventDefault_selectedIndex" keywords="[List, event,changing]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="itemRenderer"  valueExpression="value= new ClassFactory(spark.skins.spark.DefaultComplexItemRenderer)"  />
+                <SetProperty target="list1" propertyName="height" value="210" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width"  value="160" waitEvent="updateComplete" waitTarget="list1"/>
+
+                <RunCode code="application.list1.dataProvider.addItem(new comps.MixDataComp)"    waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <DispatchMouseClickEvent target="list1" localX="80"  localY="120"  waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_event_selectionChanging_preventDefault_click" keywords="[List, event,changing]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list1" propertyName="itemRenderer"  valueExpression="value= new ClassFactory(DefaultComplexItemRenderer)"  />
+
+            </setup>
+            <body>
+                <RunCode code="application.list1.dataProvider.addItem(new comps.MixDataComp)"    waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <DispatchMouseClickEvent target="list1" localX="80"  localY="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="210" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width"  value="160" waitEvent="updateComplete" waitTarget="list1"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="List_event_itemAdd_label_array" keywords="[List, event, itemAdd, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list1" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="list2"/>
+
+            </setup>
+            <body>
+                <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.LabelRenderer);"  />
+                <RunCode code="application.list2.itemRenderer=new ClassFactory(comps.LabelRenderer);"  />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.labelArr)" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.labelArr)" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+                <RunCode code="application.list1.dataProvider.addItem({label: 'newItem'})" waitEvent="updateComplete" waitTarget="list1.dataGroup" />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(application.list1.dataProvider.length-1).label" value="newItem" />
+                <RunCode code="application.list1.dataProvider.removeItemAt(application.list1.dataProvider.length-1)" waitEvent="updateComplete" waitTarget="list1.dataGroup" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_event_itemAdd_itemRemove_label_array_first" keywords="[List, event, itemAdd,itemRemove, array]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list1" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="list2"/>
+
+            </setup>
+            <body>
+                <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.LabelRenderer);"  />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.labelArr)" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <RunCode code="application.list1.dataProvider.addItem({label: 'newItem'})" waitEvent="updateComplete" waitTarget="list1.dataGroup" />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(application.list1.dataProvider.length-1).label" value="newItem" />
+                <RunCode code="application.list1.dataProvider.removeItemAt(application.list1.dataProvider.length-1)" waitEvent="updateComplete" waitTarget="list1.dataGroup" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_event_itemAdd_itemRemove_label_arrayCollection" keywords="[List, event, itemRemove, itemAdd]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <ResetComponent target="list2" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list2" propertyName="dataProvider"  valueExpression="value=new ArrayCollection([])"  />
+                <SetProperty target="list1" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <SetProperty target="list2" propertyName="height" value="300" waitEvent="updateComplete" waitTarget="list2.dataGroup"/>
+
+            </setup>
+            <body>
+                <RunCode code="application.list1.itemRenderer=new ClassFactory(comps.LabelRenderer);"  />
+                <SetProperty target="list1" propertyName="dataProvider"  valueExpression="value=new ArrayCollection(application.labelArr)" waitEvent="updateComplete" waitTarget="list1.dataGroup"/>
+                <RunCode code="application.list1.dataProvider.addItem({label: 'newItem'})" waitEvent="updateComplete" waitTarget="list1.dataGroup" />
+                <AssertMethodValue   method="value=application.list1.dataProvider.getItemAt(application.list1.dataProvider.length-1).label" value="newItem" />
+                <RunCode code="application.list1.dataProvider.removeItemAt(application.list1.dataProvider.length-1)" waitEvent="updateComplete" waitTarget="list1.dataGroup" />
+
+            </body>
+        </TestCase>
+
+    <TestCase testID="List_events_collectionKind_add" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (add)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <RunCode code="application.list1.dataProvider.addItem(2);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <SetProperty target="list1" propertyName="selectedIndex"  value="3" waitEvent="updateComplete" waitTarget="list1"/>
+            <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.ADD}" />
+            <AssertPropertyValue target = "list1" propertyName="selectedItem" value="2" />
+
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_remove" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (remove)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="selectedIndex"  value="0" waitEvent="updateComplete" waitTarget="list1"/>
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <RunCode code="application.list1.dataProvider.removeItemAt(0);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REMOVE}" />
+            <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="-1" />
+
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_replace" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (replace)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="selectedIndex"  value="0" waitEvent="updateComplete" waitTarget="list1"/>
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <RunCode code="application.list1.dataProvider.setItemAt('new', 0);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REPLACE}" />
+            <AssertPropertyValue target = "list1" propertyName="selectedItem" value="new" />
+
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_reset" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (reset)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="list1" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="selectedIndex"  value="0" waitEvent="updateComplete" waitTarget="list1"/>
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <RunCode code="application.list1.dataProvider.removeAll();" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.RESET}" />
+            <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="-1" />
+
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_update" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (update)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection();" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <RunCode code="application.addRectAt(application.list1, 0, 0xFF0000)" waitEvent="updateComplete" waitTarget="list1.dataGroup"  />
+            <RunCode code="application.addRectAt(application.list1, 0, 0x00FF00)" waitEvent="updateComplete" waitTarget="list1.dataGroup"  />
+            <SetProperty target="list1" propertyName="selectedIndex"  value="0" waitEvent="updateComplete" waitTarget="list1"/>
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <RunCode code="application.list1.dataProvider.getItemAt(0).getElementAt(0).width = 50;" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+
+            <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.UPDATE}" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_refresh" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (refresh)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1, 2, 3]);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="selectedIndex"  value="0" waitEvent="updateComplete" waitTarget="list1"/>
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <RunCode code="application.list1.dataProvider.refresh();" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertPropertyValue target = "list1" propertyName="selectedItem" value="1" />
+            <AssertMethodValue method="value=application.collectionChangeResults" value="{CollectionEventKind.REFRESH}" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="List_events_collectionKind_move" keywords="[List, event, CollectionKind]" description="check that the dataProvider sends off CollectionEvents (move)">
+        <setup>
+            <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" waitTarget="list1" />
+            <SetProperty target="list1" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([{value:'hello1'},{value:'jello1'},{value:'aello1'}]);" waitTarget="list1.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="list1" propertyName="selectedIndex"  value="0" waitEvent="updateComplete" waitTarget="list1"/>
+
+            <AssertMethodValue method="value=application.resetCollectionChangeResults()" value="complete" />
+            <RunCode code="application.list1.dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, application.handleCollectionChangeResults);" />
+            <AssertMethodValue method="value=application.kickoffCollectionChangeMoveEvent(application.list1);" value="1" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.collectionChangeResults" value="refreshmove" />
+
+        </body>
+    </TestCase>
+        <TestCase testID="List_keyboard_navigation_dup0" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_keyboard_navigation_dup1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="35" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="aa" />
+            </body>
+        </TestCase>
+        <TestCase testID="List_keyboard_navigation_dup2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="useVirtualLayout" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_keyboard_navigation_dup3" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="useVirtualLayout" value="false" />
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="5" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="6" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_keyboard_navigation_dup4" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="useVirtualLayout" value="false"  />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_keyboard_navigation_dup5" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="useVirtualLayout" value="false" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" waitEvent="rendererAdd" waitTarget="list1"/>
+                <Pause timeout="200"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="null" />
+		<CompareBitmap numColorVariances="7" maxColorVariance="20" url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="List_keyboard_navigation_effects" keywords="[List, effects,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="itemRenderer"  valueExpression="value= new ClassFactory(comps.RendererWithEffects)"  />
+                <SetProperty target="list1" propertyName="useVirtualLayout" value="false" />
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="5" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <Pause timeout="300"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="6" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="List_keyboard_navigation_effects1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="itemRenderer"  valueExpression="value= new ClassFactory(comps.RendererWithEffects)"  />
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" />
+                <Pause timeout="300"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="null" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="List_event_hasFocusableChildren " keywords="[List, event,hasFocusableChildren ]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty target="list1" propertyName="hasFocusableChildren"  value="true"  />
+
+            </setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="itemRenderer"  valueExpression="value= new ClassFactory(comps.RendererWithEffects)"  />
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

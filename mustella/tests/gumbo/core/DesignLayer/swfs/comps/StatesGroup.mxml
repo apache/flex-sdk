@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:comps="comps.*"
+	xmlns:local="*">
+	
+	<fx:Declarations>
+		<fx:DesignLayer id="designLayer1" alpha="0.9"></fx:DesignLayer>
+		<fx:DesignLayer id="designLayer2" alpha="0.5"></fx:DesignLayer>
+		<fx:DesignLayer id="designLayer3" alpha="0.1"></fx:DesignLayer>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="defaultState" />
+		<s:State name="state1" />
+		<s:State name="state2" />
+		<s:State name="state3" />
+		<s:State name="includeInState" />
+	</s:states>
+	
+	<s:layout><s:HorizontalLayout /></s:layout>
+	
+	<s:Group id="changeAlphaAcrossStates">
+		<fx:DesignLayer alpha.state1="1" alpha.state2="0.5" alpha.state3="0">
+			<comps:TypeFXG  id="vet1A" />
+			<comps:TypeFCK  id="vet1B" />
+			<comps:TypeFCK2 id="vet1C" />
+			<comps:TypeUICS id="vet1D" />
+			<comps:TypeUICH id="vet1E" />
+			<comps:TypeIGE  id="vet1F" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="changeVisibleAcrossStates">
+		<fx:DesignLayer id="d2" visible.state1="true" visible.state2="false">
+			<comps:TypeFXG  id="vet2A" />
+			<comps:TypeFCK  id="vet2B" />
+			<comps:TypeFCK2 id="vet2C" />
+			<comps:TypeUICS id="vet2D" />
+			<comps:TypeUICH id="vet2E" />
+			<comps:TypeIGE  id="vet2F" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+	<s:Group id="changeParentAcrossStates">
+		<comps:TypeFXG  id="vet3A" designLayer.state1="{designLayer1}" designLayer.state2="{designLayer2}" designLayer.state3="{designLayer3}" />
+		<comps:TypeFCK  id="vet3B" designLayer.state1="{designLayer1}" designLayer.state2="{designLayer2}" designLayer.state3="{designLayer3}" />
+		<comps:TypeFCK2 id="vet3C" designLayer.state1="{designLayer1}" designLayer.state2="{designLayer2}" designLayer.state3="{designLayer3}" />
+		<comps:TypeUICS id="vet3D" designLayer.state1="{designLayer1}" designLayer.state2="{designLayer2}" designLayer.state3="{designLayer3}" />
+		<comps:TypeUICH id="vet3E" designLayer.state1="{designLayer1}" designLayer.state2="{designLayer2}" designLayer.state3="{designLayer3}" />
+		<comps:TypeIGE  id="vet3F" designLayer.state1="{designLayer1}" designLayer.state2="{designLayer2}" designLayer.state3="{designLayer3}" />
+	</s:Group>
+	
+	<s:Group id="changeIncludeIn">
+		<fx:DesignLayer alpha="0.5">
+			<comps:TypeFXG  id="vet4A" includeIn="includeInState" />
+			<comps:TypeFCK  id="vet4B" includeIn="includeInState" />
+			<comps:TypeFCK2 id="vet4C" includeIn="includeInState" />
+			<comps:TypeUICS id="vet4D" includeIn="includeInState" />
+			<comps:TypeUICH id="vet4E" includeIn="includeInState" />
+			<comps:TypeIGE  id="vet4F" includeIn="includeInState" />
+		</fx:DesignLayer>
+	</s:Group>
+	
+</s:Group>

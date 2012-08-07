@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Methods/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_001.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import spark.components.DataGrid;
+			import spark.components.gridClasses.GridSelectionMode;
+			import mx.utils.ObjectUtil;
+			import mx.collections.ArrayList;
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			
+			
+			
+			public var rowsHolder:ArrayList;
+			public var indices:Vector.<int>;
+			public var indicesObj:Vector.<Object>;
+			public var selectedCellInfo:ArrayList=new ArrayList();
+			public var newIndex:int;
+			public var n:int;
+			
+			
+			/**
+			* add rowIndex/columnIndex into the arrayList holder, which used for verification
+			*/
+			public function addSelectedCells(rowIndex:int, columnIndex:int):void
+			{
+				selectedCellInfo.addItem({"rowIndex":rowIndex, "columnIndex":columnIndex});
+			}
+			
+			//the rows are recently adjusted rows after sort or filtered
+			public function addSelectedCellRegion(rows:Vector.<int>, columnIndex:int, columnCount:int):void
+			{
+				var len:int=rows.length;
+				var rowIndex:int;
+				for (var i:int=0;i<len;i++)
+				{
+						rowIndex=rows.pop();
+						for (var j:int=0;j<columnCount;j++)
+						selectedCellInfo.addItem({"rowIndex":rowIndex, "columnIndex":(columnIndex+j)});
+				}
+				
+			}
+			//clean up the arrayList holder 
+			public function cleanupCellHolder():void
+			{
+				selectedCellInfo=new ArrayList();
+			}
+			
+		]]>
+	</fx:Script>	
+
+<!-- tests the cover methods from DataGrid about selection. Since implementation is heavily tested in 
+     GridSelection class, tests here only to test api works, return expected result.
+
+-->
+
+
+	<testCases>
+	
+	      <TestCase testID="addSelectedCell_test01" keywords="[dataGrid,method,addSelectedCell]" 
+	  	        description="Test addSelectedCell() under MULTIPLE_CELLS selection mode,verify cell selection should be updated">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true" />
+	  		   
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifyOnlySelectedCells(FlexGlobals.topLevelApplication.dataGrid,new ArrayList([{'rowIndex':2,'columnIndex':3},{'rowIndex':1,'columnIndex':3}]))" value=""/>
+	  		   
+	  		</body>
+	    </TestCase>	 
+	    
+	      <TestCase testID="addSelectedCell_test02" keywords="[dataGrid,method,addSelectedCell]" 
+	  	        description="Test addSelectedCell() twice under MULTIPLE_CELLS selection mode,verify early selected cells are still in selection ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifyOnlySelectedCells(FlexGlobals.topLevelApplication.dataGrid,new ArrayList([{'rowIndex':2,'columnIndex':3},{'rowIndex':1,'columnIndex':3}]))" value=""/>
+	  		   
+	  		</body>
+	    </TestCase>	 
+	      <TestCase testID="addSelectedIndex_test01" keywords="[dataGrid,method,addSelectedIndex]" 
+	  	        description="Test addSelectedIndex() under MULTIPLE_ROWS selection mode, row is selected, added into the selection ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[2,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifySelectedRows(FlexGlobals.topLevelApplication.dataGrid,new &lt;int&gt;[2,5])" value=""/>
+	  		   
+	  		</body>
+	    </TestCase>
+	    
+	    
+	      <TestCase testID="selectedCells_test01" keywords="[dataGrid,method,addSelectedCells]" 
+	  	        description="Test addSelectedCell() twice under MULTIPLE_CELLS selection mode,verify the call returns all selected cells ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="3" />
+	  		    
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifyOnlySelectedCells(FlexGlobals.topLevelApplication.dataGrid,new ArrayList([{'rowIndex':2,'columnIndex':3},{'rowIndex':1,'columnIndex':3}]))" value=""/>
+	  		   
+	  		</body>
+	    </TestCase>	
+	    
+	      <TestCase testID="addSelectedIndices_test01" keywords="[dataGrid,method,addSelectedIndices]" 
+	  	        description="Test addSelectedIndices() under MULTIPLE_ROWS selection mode,verify it returns correct selected row indices ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="2" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[2,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="1" />
+	  		    <AssertMethodValue method="value=int(FlexGlobals.topLevelApplication.dataGrid.selectedIndices.pop())" value="2" />
+	  		</body>
+	    </TestCase>
+	      <TestCase testID="addSelectedIndices_test02" keywords="[dataGrid,method,addSelectedIndices]" 
+	  	        description="Test addSelectedIndices() under MULTIPLE_ROWS selection mode,verify it reutnrs correct selected row indices ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[2,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0" />
+	  		</body>
+	    </TestCase>
+	      <TestCase testID="clearSelection_test01" keywords="[dataGrid,method,clearSelection]" 
+	  	        description="Test clearSelection() under MULTIPLE_ROWS selection mode,verify it clears all selection">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.preserveSelection=true"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		    <RunCode code="n=FlexGlobals.topLevelApplication.dataGrid.selectionLength" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true" />
+	  		   
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		    <!-- insert three rows at end of dataGrid-->
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addItem(-1)"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addItem(-1)"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addItem(-1)" waitTarget="dataGrid" waitEvent="enterFrame"/>
+	  		    <RunCode code="trace('debug:'+FlexGlobals.topLevelApplication.dataGrid.selectionLength+';n='+n)"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" valueExpression="value=n" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0" />
+	  		</body>
+	    </TestCase>
+	      <TestCase testID="removeSelectedCell_test01" keywords="[dataGrid,method,removeSelectedCells]" 
+	  	        description="Test removeSelectedCell() twice under MULTIPLE_CELLS selection mode,verify the call remove selected cell ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,3)" value="true" />
+	  		    
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedCell(2,3)" value="true" />
+	  		    
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="false" />
+	  		   
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(3,3)" value="true" />
+	  		  
+	  		   
+	  		</body>
+	    </TestCase>
+
+	      <TestCase testID="removeSelectedIndex_test01" keywords="[dataGrid,method,removeSelectedIndex]" 
+	  	        description="Test removeSelectedIndex() under MULTIPLE_ROWS selection mode, row is selected, this api will remove the row from the selection ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[2,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifySelectedRows(FlexGlobals.topLevelApplication.dataGrid,new &lt;int&gt;[2,5])" value=""/>
+	  		   
+	  		</body>
+	    </TestCase>
+
+	      <TestCase testID="selectAll_test01" keywords="[dataGrid,method,selectAll]" 
+	  	        description="Test selectAll under MULTIPLE_ROWS selection mode, this api will select all rows">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifyAllRowSelected(FlexGlobals.topLevelApplication.dataGrid)" value=""/>
+	  		</body>
+	    </TestCase>
+	    
+	      <TestCase testID="selectCellRegion_test01" keywords="[dataGrid,method,selectCellRegion]" 
+	  	        description="Test selectAll under MULTIPLE_CELLS selection mode,  this api will select cell region based on initial row/column, rowCounts, column counts">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(2,1,3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,3,2)" value="true" />
+	  		    <RunCode code="selectedCellInfo=FlexGlobals.topLevelApplication.addSelectedCellRegion(new &lt;int&gt;[2,3,4],1,2)"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifySelectedCells(FlexGlobals.topLevelApplication.dataGrid,selectedCellInfo)" value="" />
+	  		</body>
+	    </TestCase>
+
+	      <TestCase testID="selectCellRegion_test02" keywords="[dataGrid,method,selectCellRegion]" 
+	  	        description="Test selectCellRegion under MULTIPLE_CELLS selection mode,  this api will select cell region">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(2,1,3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(4,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,3,2)" value="true" />
+	  		    <RunCode code="selectedCellInfo=FlexGlobals.topLevelApplication.addSelectedCellRegion(new &lt;int&gt;[2,3,4],1,2)"/>
+	  		    <RunCode code="FlexGlobals.topLevelApplication.displaySelectedCellIndices(FlexGlobals.topLevelApplication.dataGrid.selectedCells)"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.verifySelectedCells(FlexGlobals.topLevelApplication.dataGrid,selectedCellInfo)" value="" />
+	  		</body>
+	    </TestCase>
+	      <TestCase testID="selectIndices_test01" keywords="[dataGrid,method,selectedIndices]" 
+	  	        description="Test selectedIndices under MULTIPLE_ROWS selection mode,verify it returns correct selected row indices ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="1" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		    
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dataProvider.length" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[2,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionLength" value="0" />
+	  		    
+	  		</body>
+	    </TestCase>	    
+
+	    
+	      <TestCase testID="selectionContainsCell_test01" keywords="[dataGrid,method,selectionContainsCell]" 
+	  	        description="Test selectionContainsCell() under MULTIPLE_CELLS selection mode,verify it returns whether the passed cell(rowIndex/columnIndex) is selected or not">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,3)" value="true" />
+	  		    
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(5,3)" value="false" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		   
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(5,3)" value="true" />
+	  		   
+	  		   
+	  		</body>
+	    </TestCase>	    
+	      <TestCase testID="selectionContainsCellRegion_test01" keywords="[dataGrid,method,selectionContainsCellRegion]" 
+	  	        description="Test selectionContainsCellRegion under MULTIPLE_CELLS selection mode,  this api will tell whether cell region is selected or not">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(2,1,3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(4,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(3,1,3,3)" value="false" />
+	  		   
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,3)" value="true" />
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(4,3)" waitTarget="dataGrid" waitEvent="enterFrame" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,3,3)" value="true" />
+	  		   
+	  		   </body>
+	    </TestCase>	    
+
+	      <TestCase testID="selectionContainsIndex_test01" keywords="[dataGrid,method,selectionContainsIndex]" 
+	  	        description="Test selectionContainsIndex() under MULTIPLE_ROWS selection mode,verify the call returns whether index row is selected or not">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(3)" value="false" /> 
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectAll()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(3)" value="true" /> 
+	  		</body>
+	    </TestCase>
+           <TestCase testID="selectionContainsIndices_test01" keywords="[dataGrid,method,selectedIndices]" 
+	  	        description="Test selectionContainsIndices() under MULTIPLE_ROWS selection mode,verify it returns whether selected row indices are selected or not ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[3,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[5,3])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.clearSelection()" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[3,5])" value="false" />
+	  		    
+	  		    
+	  		</body>
+	    </TestCase>	  
+	      <TestCase testID="selectionContainsCell_test02" keywords="[dataGrid,method,selectionContainsCell]" 
+	  	        description="Test selectionContainsCell() under MULTIPLE_CELLS selection mode,verify the call returns whether the cell is the only selected or not ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.SINGLE_CELL"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="false" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="false" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(3,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(3,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedCell(3,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(3,3)" value="false" />
+	  		   
+	  		</body>
+	    </TestCase>
+	      <TestCase testID="selectionContainsCellRegion_test02" keywords="[dataGrid,method,selectionContainsCellRegion]" 
+	  	        description="Test selectionContainsCellRegion under MULTIPLE_CELLS selection mode,  this api will tell whether cell region is only selected or not">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(2,1,3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(4,2)" value="true" />
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,2)" waitTarget="dataGrid" waitEvent="enterFrame"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,2,1)" value="true" />
+	  		  
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedCell(2,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedCell(3,2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedCell(4,2)" value="true" />
+	  		     
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCellRegion(2,1,3,1)" value="true" />
+	  		  
+	  		   </body>
+	    </TestCase>	
+	      <TestCase testID="selectionContainsIndex_test02" keywords="[dataGrid,method,selectionContainsIndex]" 
+	  	        description="Test selectionContainsIndex() under MULTIPLE_ROWS selection mode,verify the call returns whether index row is only selected or not">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(3)" value="false" /> 
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedIndex(3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(3)" value="true" /> 
+	  		</body>
+	    </TestCase>
+           <TestCase testID="selectionContainsIndices_test02" keywords="[dataGrid,method,selectedIndices]" 
+	  	        description="Test selectionContainsIndices() under MULTIPLE_ROWS selection mode,verify it returns whether selected row indices are only selected or not ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[3,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(4)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[3,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.removeSelectedIndex(4)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[3,5])" value="true" />
+	  		    
+	  		    
+	  		</body>
+	    </TestCase>	
+	    <TestCase testID="setSelectedCell_test01" keywords="[dataGrid,method,setSelectedCell]" 
+	  	        description="Test setSelectedCell() twice under MULTIPLE_CELLS selection mode,verify the call reset the selected cell ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(2,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedCell(3,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="3" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+	  		    
+	  		</body>
+	    </TestCase>	
+	    <TestCase testID="setSelectedCell_test02" keywords="[dataGrid,method,setSelectedCell]" 
+	  	        description="Test setSelectedCell() twice under MULTIPLE_CELLS selection mode,verify the call reset the selected cell ">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_CELLS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectCellRegion(1,3,2,1)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="2" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsCell(1,3)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectedCells.length" value="1" />
+	  		    
+	  		</body>
+	    </TestCase>
+	    
+           <TestCase testID="setSelectedIndex_test01" keywords="[dataGrid,method,setSelectedIndex]" 
+	  	        description="Test setSelectedIndex() under MULTIPLE_ROWS selection mode,verify it reset the selected row">
+	  	        <setup>
+	  		     <ResetComponent target="dataGrid" className="components.DataGrid_comp1" waitEvent="updateComplete" />	
+	  		</setup>
+	  		<body>		
+	  		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.selectionMode=GridSelectionMode.MULTIPLE_ROWS"/>
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(2)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.addSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndices(new &lt;int&gt;[2,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectIndices2(new &lt;int&gt;[3,5])" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.setSelectedIndex(5)" value="true" />
+	  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.selectionContainsIndex(5)" value="true" />
+	  		   
+	  		</body>
+	    </TestCase>	    
+	</testCases>
+</UnitTester>

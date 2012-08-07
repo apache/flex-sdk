@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/Scroller/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollerBasicComp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import comps.*;
+
+import spark.layouts.*;
+
+        import mx.collections.ArrayCollection;
+
+
+
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="ScrollerComp_property_verticalScrollPolicy_off" keywords="[Scroller, property,verticalScrollPolicy]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetStyle    target="sc1" styleName="verticalScrollPolicy"  value="off" />
+
+            <SetStyle    target="sc2" styleName="verticalScrollPolicy"  value="off" />
+
+
+
+            <SetProperty    target="sc2" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc2" waitEvent="updateComplete" />
+
+                <SetProperty    target="sc2" propertyName="height"   value="300" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc1" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"   value="200" waitEvent="updateComplete"/>
+
+           </setup>
+
+           <body>
+
+            <AssertPropertyValue target = "sc1.verticalScrollBar" propertyName="visible" value="false" />
+
+            <AssertPropertyValue target = "sc2.verticalScrollBar" propertyName="visible" value="false" />
+
+            <AssertPropertyValue target = "sc3.verticalScrollBar" propertyName="visible" value="false" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_verticalScrollPolicy_auto" keywords="[Scroller, property,verticalScrollPolicy]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc2" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc2.skin" waitEvent="updateComplete" />
+
+
+
+            <SetStyle    target="sc1" styleName="verticalScrollPolicy"  value="auto" />
+
+            <SetStyle    target="sc2" styleName="verticalScrollPolicy"  value="auto" />
+
+            <SetStyle    target="sc2" styleName="verticalScrollPolicy"  value="auto" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="230" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc2" propertyName="height"  value="350" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc3" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+             </setup>
+
+           <body>
+
+            <SetProperty    target="sc1" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc1" waitEvent="updateComplete" />
+
+            <AssertPropertyValue target = "sc1.verticalScrollBar" propertyName="visible" value="true" />
+
+            <AssertPropertyValue target = "sc2.verticalScrollBar" propertyName="visible" value="true" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="750" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"  value="100" waitEvent="updateComplete"/>
+
+            <AssertPropertyValue target = "sc1.verticalScrollBar" propertyName="visible" value="false" />
+
+            <AssertPropertyValue target = "sc3.verticalScrollBar" propertyName="visible" value="false" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_verticalScrollPolicy_on" keywords="[Scroller, property,verticalScrollPolicy]" description="">
+
+           <setup>
+
+            <SetStyle    target="sc1" styleName="verticalScrollPolicy"  value="on" />
+
+            <SetStyle    target="sc2" styleName="verticalScrollPolicy"  value="on" />
+
+            <SetStyle    target="sc3" styleName="verticalScrollPolicy"  value="on" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="800" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc2" propertyName="height"  value="220" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc3" propertyName="height"  value="150" waitEvent="updateComplete"/>
+
+           </setup>
+
+           <body>
+
+            <AssertPropertyValue target = "sc1.verticalScrollBar" propertyName="visible" value="true" />
+
+            <AssertPropertyValue target = "sc2.verticalScrollBar" propertyName="visible" value="true" />
+
+            <AssertPropertyValue target = "sc3.verticalScrollBar" propertyName="visible" value="true" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_viewport_DataGroup" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="250" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  value="10" />
+
+                <SetProperty    target="sc1" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_viewport_DataGroup_contentHeight" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="250" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight- application.sc1.verticalScrollBar.pageSize" />
+
+                <SetProperty    target="sc1" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_viewport_HGroup" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  value="300" />
+
+                <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <CompareBitmap numColorVariances="8" maxColorVariance="16" url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_viewport_HGroup_contentWidth" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth- application.sc1.horizontalScrollBar.pageSize" />
+
+                <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <CompareBitmap numColorVariances="8" maxColorVariance="16"  url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_viewport_VGroup_contentHeight" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="400" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="150" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight- application.sc1.verticalScrollBar.pageSize" />
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <CompareBitmap numColorVariances="12" maxColorVariance="16" url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_property_viewport_VGroup_contentHeight_sync" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="400" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="150" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight" />
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+            <CompareBitmap numColorVariances="12" maxColorVariance="16" url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_property_viewport_HGroup_contentWidth_sync" keywords="[Scroller, property,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth" />
+
+                <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+                <SetProperty    target="sc3" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <CompareBitmap numColorVariances="8" maxColorVariance="16" url="../properties/baselines/$testID.png" target="sc1" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_property_numItems" keywords="[Scroller, property,numItems]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete" waitTarget="sc1"/>
+
+            <AssertPropertyValue target="sc1" propertyName="numElements" value="1" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_property_numItems_0" keywords="[Scroller, property,numItems]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete" />
+
+            </setup>
+
+           <body>
+            <AssertPropertyValue target="sc1" propertyName="numElements" value="0" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_property_minViewportInset" keywords="[Scroller, property, minViewportInset]" description="">
+
+           <setup>
+
+            	<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+          </setup>
+
+           <body>
+	        <AssertPropertyValue target="sc1" propertyName="minViewportInset" value="0" />
+            	<SetProperty    target="sc1" propertyName="minViewportInset"  value="5" waitEvent="updateComplete"/>
+            	<AssertPropertyValue target="sc1" propertyName="minViewportInset" value="5" />
+            	<SetProperty    target="sc1" propertyName="minViewportInset"  value="0" waitEvent="updateComplete"/>
+            	<AssertPropertyValue target="sc1" propertyName="minViewportInset" value="0" />
+           </body>
+
+        </TestCase>
+
+       <TestCase testID="ScrollerComp_property_measuredSizeIncludesScrollBars_true" keywords="[Scroller, property, measuredSizeIncludesScrollBars]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+          </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <AssertPropertyValue target="sc1" propertyName="measuredSizeIncludesScrollBars" value="true" />
+
+           </body>
+
+        </TestCase>
+
+       <TestCase testID="ScrollerComp_property_measuredSizeIncludesScrollBars_false" keywords="[Scroller, property, measuredSizeIncludesScrollBars]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <SetProperty target="sc1" propertyName="measuredSizeIncludesScrollBars" value="false" />
+          </setup>
+
+           <body>
+	    <AssertPropertyValue target="sc1" propertyName="numElements" value="0" />
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <AssertPropertyValue target="sc1" propertyName="measuredSizeIncludesScrollBars" value="false" />
+            <AssertPropertyValue target="sc1" propertyName="numElements" value="1" />
+
+           </body>
+
+        </TestCase>
+       <TestCase testID="ScrollerComp_property_scaleScrollBars_0" keywords="[Scroller, property, scaleX,scaleY" description="SDK-27671">
+
+           <setup>
+
+            <ResetComponent target="sc5" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <SetProperty target="sc5.verticalScrollBar" propertyName="scaleX" value="0" waitEvent="updateComplete"/>
+            <SetProperty target="sc5.verticalScrollBar" propertyName="scaleY" value="0" />
+            <SetProperty target="sc5.horizontalScrollBar" propertyName="scaleX" value="0" />
+            <SetProperty target="sc5.horizontalScrollBar" propertyName="scaleY" value="0" />
+          </setup>
+
+           <body>
+           	<Pause timeout="100"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="gr5" />
+           </body>
+
+        </TestCase>
+
+    </testCases>
+
+
+
+
+
+</UnitTester>
+

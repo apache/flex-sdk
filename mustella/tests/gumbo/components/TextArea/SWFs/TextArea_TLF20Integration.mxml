@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	width="1024" height="800"
+	creationComplete="appInitializedCompleteHandler(event)" xmlns:tflow="TLF.tflow.*" xmlns:comp="TLF.comp.*">
+	
+
+	<s:layout>
+		<s:VerticalLayout paddingLeft="20" paddingRight="20"
+						  paddingTop="20" paddingBottom="20" />
+	</s:layout> 
+	<fx:Style>
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		
+		@font-face {
+			src:url("../../../../../Assets/Fonts/Cousine/Cousine-Bold.ttf");
+			fontFamily: VeraMoBdEmbedded;
+			embedAsCFF: true;
+			unicodeRange:
+				U+0041-005A, /* Upper-Case [A..Z] */
+				U+0061-007A, /* Lower-Case a-z */
+				U+0030-0039, /* Numbers [0..9] */
+				U+002E-002E; /* Period [.] */
+		}
+		
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: MeiryoEmbedded;
+			embedAsCFF: true;
+		}
+		
+		
+		@font-face{
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: MeiryoEmbedded;
+			embedAsCFF: true;
+		}
+		
+		s|TextArea{
+			fontAntiAliasType: "normal";
+			fontFamily: MeiryoEmbedded;
+			fontSize: 12;
+			fontLookup: "embeddedCFF";
+		}
+		
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.ConversionType;
+			import flashx.textLayout.conversion.TextConverter;
+			import flashx.textLayout.elements.IConfiguration;
+			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.formats.WhiteSpaceCollapse;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+			import mx.utils.ObjectUtil;
+			
+			import spark.events.IndexChangeEvent;
+			import spark.events.TextOperationEvent;
+			import spark.utils.TextFlowUtil;
+			
+			[Bindable] private var formatsArray:Array = new Array();
+			[Bindable] private var TATextFlow:String = "";
+			[Bindable] private var acTextFlowCases:ArrayCollection;
+			[Bindable] private var currentFormat:String = "";
+			[Bindable] private var _doPrintTextFlow:Boolean = false; // dump textflow to trace/stdout
+			[Bindable] public var doImportToFlow:Boolean = false; // used by irFomatList
+			[Bindable] public var doWhiteSpacePreserve:Boolean = false; // default is whiteSpacePreserve='preserve';
+			
+			
+			public function get doPrintTextFlow():Boolean
+			{
+				return _doPrintTextFlow;
+			}
+			[Bindable]
+			public function set doPrintTextFlow(value:Boolean):void
+			{
+				_doPrintTextFlow = value;
+				if(_doPrintTextFlow)
+					this.printTextFlow(customTAEditor.editor.textFlow);
+			}
+			protected function appInitializedCompleteHandler(event:FlexEvent):void
+			{
+				acTextFlowCases = new ArrayCollection(arTextFlowCases);
+				
+			}
+			
+			
+			protected function printTextFlow(tf:TextFlow):void
+			{
+				var e:TextFlow = tf;
+				e.whiteSpaceCollapse = 'preserve';
+				convertText(TextFlow(e.shallowCopy()), TextConverter.TEXT_LAYOUT_FORMAT);
+			}
+			protected function convertText(source:TextFlow, format:String=""):void
+			{
+				var tlfInXMLFormat:XML;
+				
+				switch(format)
+				{
+					case "plainTextFormat":
+						TATextFlow = TextConverter.export(source, format, ConversionType.STRING_TYPE).toString();
+						if(doImportToFlow)
+							customTAEditor.editor.textFlow=TextConverter.importToFlow(TATextFlow, TextConverter.PLAIN_TEXT_FORMAT);
+						break;
+					case "textFieldHTMLFormat":
+						TATextFlow = TextConverter.export(source, format, ConversionType.XML_TYPE).toString();
+						if(doImportToFlow)
+							customTAEditor.editor.textFlow=TextConverter.importToFlow(TATextFlow, TextConverter.TEXT_FIELD_HTML_FORMAT);
+						break;
+					case "textLayoutFormat":
+						TATextFlow = '<?xml version="1.0" encoding="utf-8"?>\n';
+						TATextFlow += TextConverter.export(source, format, ConversionType.XML_TYPE);
+						// cleanup TLF markup that gets generated when the source comes from a child component
+						TATextFlow = TATextFlow.replace("<null ", "<TextFlow ");
+						TATextFlow = TATextFlow.replace("</null>", "</TextFlow>");
+						trace(TATextFlow);
+						if(doWhiteSpacePreserve)
+							TATextFlow = TATextFlow.replace("preserve", "collapse");
+						if(doImportToFlow)
+							customTAEditor.editor.textFlow=TextConverter.importToFlow(TATextFlow, TextConverter.TEXT_LAYOUT_FORMAT);
+						break;
+				}
+				this.currentFormat = format;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<fx:Array id="arTextFlowCases">
+			<!-- LIST -->
+			<tflow:TextFlowAllOrderedLists id="listStyleTypeOrderedList" label="Ordered List" fontFamily="MeiryoEmbedded"/>
+			<tflow:TextFlowAllUnorderedLists id="listStyleTypeUnorderedList" label="Unordered List" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListOrderedDecimal id="ListOrderedDecimal" label="Decimal" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListOrderedDecimalShort id="ListOrderedDecimalShort" label="Decimal Short" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListOrderedDecimalLeadingZero id="ListOrderedDecimalLeadingZero" label="Leading Zero (-9/9)" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListOrderedAlphaGreekLatinRoman id="ListOrderedAlphaGreekLatinRomanFontFallback" label="Alpha/Greek/Latin/Roman" fontFamily="VeraMoBdEmbedded"/>
+			<tflow:ListOrderedNonAlpha id="ListOrderedNonAlpha" label="Non-Alpha" fontFamily="VeraMoBdEmbedded" />
+			<tflow:ListOrderedParentAlphaChildDecimal id="ListOrderedParentAlphaChildDecimal" label="list-in-list" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListMultiLingualSalutation id="ListMultiLingualSalutation" label="the 'Hello' list" fontFamily="MeiryoEmbedded"/>
+			<tflow:TextFlowTLFFormat id="TextFlowTLFFormat" label="Short Ordered List" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListStylePositionInside id="ListStylePositionInside" label="Ordered List Pos Inside" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListStylePositionInsideAutoPaddingEnforced id="ListStylePositionInsideAutoPaddingEnforced"  label="Pos Inside AutoPadding Enforced" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListStylePositionOutside id="ListStylePositionOutside" label="Ordered List Pos Outside" fontFamily="MeiryoEmbedded"/>
+			<tflow:ListStylePositionOutsideAutoPaddingEnforced id="ListStylePositionOutsideAutoPaddingEnforced" label="Pos Outside AutoPadding Enforced" fontFamily="MeiryoEmbedded"/>
+			<tflow:MultipleNestedOrderedList id="MultipleNestedOrderedList" label="Multiple Nested Ordered List" fontFamily="MeiryoEmbedded"/>
+			<tflow:MultipleOrderedList id="MultipleOrderedList" label="Multiple Ordered List" fontFamily="MeiryoEmbedded"/>
+			<tflow:MultipleNestedUnorderedLists id="MultipleNestedUnorderedLists" label="Multiple Nested Unordered Lists" fontFamily="MeiryoEmbedded"/>
+			<tflow:ArabicDirRTL id="ArabicDirRTL" label="Arabic and English Mixed (BiDi)" fontFamily="MeiryoEmbedded"/>
+			<tflow:BiDirectional id="BiDirectional" label="Bi-Directional &lt;p directional='rtl/ltr'" fontFamily="MeiryoEmbedded"/>
+			<tflow:TextFlowAllUnorderedLists id="UnorderedListFontFallBack" label="Unordered List (Font fall-back)" fontFamily="VeraMoBdEmbedded"/>
+			<tflow:UnorderedListLinethroughAndColor id="UnorderedListLinethroughAndColor" label="linethrough/color" fontFamily="MeiryoEmbedded"/>
+			<tflow:SDK28592 id="SDK28592" label="http://bugs.adobe.com/jira/browse/SDK-28592" fontFamily="MeiryoEmbedded"/>
+			<!--FLOAT & CLEAR -->
+			<tflow:ImgFloatEnd id="ImgFloatEnd" label="&lt;img&gt; float='end'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatLeft id="ImgFloatLeft" label="&lt;img&gt; float='left'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatNone id="ImgFloatNone" label="&lt;img&gt; float='none'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatRight id="ImgFloatRight" label="&lt;img&gt; float='right'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatStart id="ImgFloatStart" label="&lt;img&gt; float='start'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatRightClearBoth id="ImgFloatRightClearBoth" label="&lt;img&gt; float='right' clear='both'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatRightClearLeft id="ImgFloatRightClearLeft" label="&lt;img&gt; float='right' clear='left'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatRightClearNone id="ImgFloatRightClearNone" label="&lt;img&gt; float='right' clear='none'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatRightClearRight id="ImgFloatRightClearRight" label="&lt;img&gt; float='right' clear='right'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatEndClearBoth id="ImgFloatEndClearBoth" label="&lt;img&gt; float='end' clear='both'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatEndClearLeft id="ImgFloatEndClearLeft" label="&lt;img&gt; float='end' clear='left'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatEndClearNone id="ImgFloatEndClearNone" label="&lt;img&gt; float='end' clear='none'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatEndClearRight id="ImgFloatEndClearRight" label="&lt;img&gt; float='end' clear='right'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatLeftClearBoth id="ImgFloatLeftClearBoth" label="&lt;img&gt; float='left' clear='both'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatLeftClearLeft id="ImgFloatLeftClearLeft" label="&lt;img&gt; float='left' clear='left'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatLeftClearNone id="ImgFloatLeftClearNone" label="&lt;img&gt; float='left' clear='none'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatLeftClearRight id="ImgFloatLeftClearRight" label="&lt;img&gt; float='left' clear='right'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatNoneClearBoth id="ImgFloatNoneClearBoth" label="&lt;img&gt; float='none' clear='both'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatNoneClearLeft id="ImgFloatNoneClearLeft" label="&lt;img&gt; float='none' clear='left'"  fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatNoneClearNone id="ImgFloatNoneClearNone" label="&lt;img&gt; float='none' clear='none'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatNoneClearRight id="ImgFloatNoneClearRight" label="&lt;img&gt; float='none' clear='right'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatAndClearFloatsRuntime id="ImgFloatAndClearFloatsRuntime" floatStyle="left" clearFloatsStyle="both" label="&lt;img&gt; float='none' clear='right'" fontFamily="MeiryoEmbedded"/>
+			<tflow:ImgFloatDirLTR id="ImgFloatDirLTR" label="LTR"/>
+			<tflow:ImgFloatDirRTL id="ImgFloatDirRTL" label="RTL"/>
+		</fx:Array>
+	</fx:Declarations>
+	
+	<comp:CustomTAEditor id="customTAEditor" title="s:TextArea"  />
+</s:Application>

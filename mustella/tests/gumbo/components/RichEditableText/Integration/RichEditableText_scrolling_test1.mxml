@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*" testSWF="RichEditableText_scroll_Basic001.mxml">
+
+    <mx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+            
+            
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <!-- ################################################################## -->
+
+
+    <mx:Script>
+        <![CDATA[
+            import flash.text.engine.*;
+	    import flashx.textLayout.formats.*;
+	    import flashx.textLayout.conversion.TextConverter;
+	    import flashx.textLayout.formats.LineBreak;
+	    import spark.utils.TextFlowUtil;
+	    import mx.core.FlexGlobals;
+	    import flash.geom.Point;
+	  
+	    import comps.*;
+	    public var startPos:Point, toPos:Point;
+	    
+	    
+
+	]]>
+    </mx:Script>
+
+    <testCases>
+
+<!-- tests here are focus on scrolling of RichEditableText
+-->
+        
+         
+        <TestCase testID="RichEditableText_scroll_layout1" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="scrollRET1" className="comps.RETSCroll" waitTarget="scrollRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<CompareBitmap numColorVariances="6" maxColorVariance="12" url="../Integration/baselines/$testID_true.png" target="scrollRET1" />
+            </body>
+        </TestCase>     
+
+<!-- scroll up/down todo-->
+        <TestCase testID="RichEditableText_scroll_test1" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="scrollRET1" className="comps.RETSCroll" waitTarget="scrollRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<DispatchMouseEvent type="mouseDown" target="scroller1.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="10" target="scroller1.verticalScrollBar.track" waitEvent="change" waitTarget="scroller1.verticalScrollBar" />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="scroller1.verticalScrollBar.track" waitEvent="change" waitTarget="scroller1.verticalScrollBar" />
+		<DispatchMouseEvent type="mouseUp" target="scroller1.verticalScrollBar.thumb"  localX="50" localY="3" waitEvent="changeEnd" waitTarget="scroller1.verticalScrollBar"/>
+	
+            	<CompareBitmap numColorVariances="6" maxColorVariance="12" url="../Integration/baselines/$testID.png" target="scroller1" />
+            </body>
+        </TestCase> 
+        
+        <!-- scroll left/right todo
+        <DispatchMouseClickEvent target="scroller1.horizontalScrollBar.incrementButton" localX="2" localY="2"  waitEvent="change" waitTarget="scroller1.horizontalScrollBar"/>
+	            	<DispatchMouseEvent target="scroller1.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+			<DispatchMouseEvent type="mouseDown" target="scroller1.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="scroller1.horizontalScrollBar.track" waitEvent="change" waitTarget="scroller1.horizontalScrollBar" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="100" target="scroller1.horizontalScrollBar.track" waitEvent="mouseMove" waitTarget="hscrollRET1" />
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="150" target="scroller1.horizontalScrollBar.track" waitEvent="mouseMove" waitTarget="vscrollRET1" />
+			<DispatchMouseEvent type="mouseUp" target="scroller1.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="changeEnd" waitTarget="scroller1.horizontalScrollBar"/>
+			<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="150" target="scroller1.horizontalScrollBar.track" waitEvent="mouseMove" waitTarget="vscrollRET1" />
+	
+        -->
+        <TestCase testID="RichEditableText_scroll_test2" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="scrollRET1" className="comps.RETSCroll" waitTarget="scrollRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<!-- 
+            	<DispatchMouseClickEvent target="scroller1.horizontalScrollBar.incrementButton" localX="2" localY="2" waitEvent="click"/>
+            	<DispatchMouseClickEvent target="scroller1.horizontalScrollBar.incrementButton" localX="2" localY="2" waitEvent="click"/>
+            	<DispatchMouseClickEvent target="scroller1.horizontalScrollBar.incrementButton" localX="2" localY="2" waitEvent="click"/>
+            	
+            	<DispatchMouseClickEvent target="scroller1.verticalScrollBar.incrementButton" localX="2" localY="2" waitEvent="click"/>
+            	
+            	<DispatchMouseClickEvent target="scroller1.verticalScrollBar.incrementButton" localX="2" localY="2" waitEvent="click"/>
+            	<DispatchMouseClickEvent target="scroller1.verticalScrollBar.incrementButton" localX="2" localY="2" waitEvent="click"/>
+            	<DispatchMouseEvent target="scroller1.horizontalScrollBar.thumb" type="rollOver" localX="3" localY="3" />
+		<DispatchMouseEvent type="mouseDown" target="scroller1.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="scroller1.horizontalScrollBar.track" waitEvent="change" waitTarget="scroller1.horizontalScrollBar" />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="100" target="scroller1.horizontalScrollBar.track" waitEvent="mouseMove" waitTarget="hscrollRET1" />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="150" target="scroller1.horizontalScrollBar.track" waitEvent="mouseMove" waitTarget="vscrollRET1" />
+		<DispatchMouseEvent type="mouseUp" target="scroller1.horizontalScrollBar.thumb"  localX="3" localY="3" waitEvent="changeEnd" waitTarget="scroller1.horizontalScrollBar"/>
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="150" target="scroller1.horizontalScrollBar.track" waitEvent="mouseMove" waitTarget="vscrollRET1" />
+		<DispatchMouseEvent type="mouseDown" target="scroller1.verticalScrollBar.thumb"  localX="3" localY="3"  />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="10" target="scroller1.verticalScrollBar.track" waitEvent="change" waitTarget="scroller1.verticalScrollBar" />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="50" target="scroller1.verticalScrollBar.track" waitEvent="change" waitTarget="scroller1.verticalScrollBar" />
+		<DispatchMouseEvent type="mouseUp" target="scroller1.verticalScrollBar.thumb"  localX="50" localY="3" waitEvent="changeEnd" waitTarget="scroller1.verticalScrollBar"/>
+	
+		another way to scroll:
+		  <DispatchMouseClickEvent target="scroller1.verticalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="scroller1" waitEvent="scroll"/>
+		                <DispatchMouseClickEvent target="scroller1.verticalScrollBar.mx_internal:downArrow" localX="2" localY="2" waitTarget="scroller1" waitEvent="scroll"/>
+		                <DispatchMouseClickEvent target="scroller1.verticalScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="scroller1" waitEvent="scroll"/>
+                <DispatchMouseClickEvent target="scroller1.verticalScrollBar.mx_internal:upArrow" localX="2" localY="2" waitTarget="scroller1" waitEvent="scroll"/>
+                
+            	-->
+         
+		<DispatchMouseEvent type="mouseDown" target="scroller1.horizontalScrollBar.thumb"  localX="3" localY="3"  />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="5" localY="10" target="scroller1.horizontalScrollBar.track" waitEvent="change" waitTarget="scroller1.horizontalScrollBar" />
+		<DispatchMouseEvent type="mouseMove" buttonDown="true" localX="50" localY="10" target="scroller1.horizontalScrollBar.track" waitEvent="change" waitTarget="scroller1.horizontalScrollBar" />
+		<DispatchMouseEvent type="mouseUp" target="scroller1.horizontalScrollBar.thumb"  localX="50" localY="3" waitEvent="changeEnd" waitTarget="scroller1.horizontalScrollBar"/>
+
+		
+            	<CompareBitmap numColorVariances="6" maxColorVariance="12" url="../Integration/baselines/$testID.png" target="scroller1" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="RichEditableText_scroll_test3" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="scrollRET1" className="comps.RETSCroll" waitTarget="scrollRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<RunCode code="startPos=new Point(40,47)"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.scrollToLine(FlexGlobals.topLevelApplication.scrollRET1,startPos)"/>
+            	<RunCode code="startPos=new Point(440,471)"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.scrollToLine(FlexGlobals.topLevelApplication.scrollRET1,startPos)"/>
+            	<Pause timeout="200"/>
+            	<CompareBitmap numColorVariances="6" maxColorVariance="12" url="../Integration/baselines/$testID.png" target="scroller1" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="RichEditableText_scroll_test4" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="scrollRET1" className="comps.RETSCroll" waitTarget="scrollRET1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<RunCode code="startPos=new Point(440,471)"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.scrollToLine(FlexGlobals.topLevelApplication.scrollRET1,startPos)"/>
+            	<RunCode code="startPos=new Point(40,47)"/>
+            	<RunCode code="FlexGlobals.topLevelApplication.scrollToLine(FlexGlobals.topLevelApplication.scrollRET1,startPos)"/>
+            	<Pause timeout="200"/>
+            	<CompareBitmap numColorVariances="10" maxColorVariance="12" url="../Integration/baselines/$testID.png" target="scroller1" />
+            </body>
+        </TestCase> 
+        
+        
+        <TestCase testID="RichEditableText_scroll_layout2" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="hscrollRET1" className="comps.RETHSCroll" waitTarget="hscrollRET1" waitEvent="updateComplete" />
+                <Pause timeout="200"/>
+            </setup>
+            <body>
+            	<CompareBitmap numColorVariances="6" maxColorVariance="12" url="../Integration/baselines/$testID_true.png" target="scroller2" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="RichEditableText_scroll_layout3" description="text scrolling" keywords="[RichEditableText,Scroll]">
+            <setup>
+                <ResetComponent target="vscrollRET1" className="comps.RETVSCroll" waitTarget="vscrollRET1" waitEvent="updateComplete" />
+                <Pause timeout="200"/>
+            </setup>
+            <body>
+            	<CompareBitmap numColorVariances="10" maxColorVariance="12" url="../Integration/baselines/$testID_true.png" target="scroller3" />
+            </body>
+        </TestCase> 
+  </testCases>
+</UnitTester>		
+

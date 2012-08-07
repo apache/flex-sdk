@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/CheckBox/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Flex4_CheckBox_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            import spark.components.CheckBox;
+
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="FxCheckBox_Style_baseColor_mxml" keywords="[FxCheckBox, baseColor]" description="Ensure that baseColor works in mxml.">
+			<body>
+				<AssertStyleValue target="baseColor_checkbox" styleName="chromeColor" value="0xFFFF00"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_color_mxml" keywords="[FxCheckBox, color]" description="Ensure that color works in mxml.">
+			<body>
+				<AssertStyleValue target="color_checkbox" styleName="color" value="0xFF0000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="color_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_focusColor_mxml" keywords="[FxCheckBox, focusColor]" description="Ensure that focusColor works in mxml.">
+			<setup>
+			    <DispatchMouseClickEvent target="myCB" localX="5" localY="5" waitEvent="click"
+			        waitTarget="myCB" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_checkbox" />
+			</setup>
+			<body>
+				<AssertStyleValue target="focusColor_checkbox" styleName="focusColor" value="0xCC0033"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="focusColor_checkbox_box"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_symbolColor_mxml" keywords="[FxCheckBox, symbolColor]" description="Ensure that contentColor works in mxml.">
+			<setup>
+			    <DispatchMouseClickEvent target="symbolColor_checkbox" localX="5" localY="5" waitEvent="click"
+			        waitTarget="symbolColor_checkbox" />
+			</setup>
+			<body>
+				<AssertStyleValue target="symbolColor_checkbox" styleName="symbolColor" value="0x9900CC"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="symbolColor_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_baseColor_as" keywords="[FxCheckBox, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_checkbox" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+		        <SetProperty target="baseColor_checkbox" propertyName="x" value="103" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+			    <SetProperty target="baseColor_checkbox" propertyName="label" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_checkbox" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+				<CompareBitmap url="../styles/baselines/FxCheckBox_Style_baseColor_mxml.png" target="baseColor_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_baseColor_disabled" keywords="[FxCheckBox, baseColor]" description="Ensure that baseColor works at runtime.">
+			<setup>
+				<ResetComponent target="baseColor_checkbox" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+		        <SetProperty target="baseColor_checkbox" propertyName="x" value="103" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+			    <SetProperty target="baseColor_checkbox" propertyName="label" value="baseColor" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+			</setup>
+			<body>
+				<SetStyle target="baseColor_checkbox" styleName="chromeColor" value="0xFFFF00"  waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+				<SetProperty target="baseColor_checkbox" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="baseColor_checkbox"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="baseColor_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_color_as" keywords="[FxCheckBox, color]" description="Ensure that baseColor still works when a CheckBox is disabled.">
+			<setup>
+				<ResetComponent target="color_checkbox" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="color_checkbox"/>
+		        <SetProperty target="color_checkbox" propertyName="x" value="203" />
+			    <SetProperty target="color_checkbox" propertyName="label" value="color" waitEvent="updateComplete" waitTarget="color_checkbox"/>
+			</setup>
+			<body>
+				<SetStyle target="color_checkbox" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_checkbox"/>
+				<CompareBitmap url="../styles/baselines/FxCheckBox_Style_color_mxml.png" target="color_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_color_disabled" keywords="[FxCheckBox, color]" description="Ensure that color still works when a CheckBox is disabled.">
+			<setup>
+				<ResetComponent target="color_checkbox" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="color_checkbox"/>
+		        <SetProperty target="color_checkbox" propertyName="x" value="203" />
+			    <SetProperty target="color_checkbox" propertyName="label" value="color" waitEvent="updateComplete" waitTarget="color_checkbox"/>
+			</setup>
+			<body>
+				<SetStyle target="color_checkbox" styleName="color" value="0xFF0000"  waitEvent="updateComplete" waitTarget="color_checkbox"/>
+				<SetProperty target="color_checkbox" propertyName="enabled" value="false" waitEvent="updateComplete" waitTarget="color_checkbox"/>
+			    <CompareBitmap url="../styles/baselines/$testID.png" target="color_checkbox"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxCheckBox_Style_focusColor_as" keywords="[FxCheckBox, focusColor]" description="Ensure that focusColor works at runtime.">
+			<setup>
+			    <ResetComponent target="focusColor_checkbox" className="spark.components.CheckBox" waitEvent="updateComplete" waitTarget="focusColor_checkbox"/>
+		        <DispatchMouseClickEvent target="myCB" localX="5" localY="5" waitEvent="click"
+			        waitTarget="myCB" />
+			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="focusColor_checkbox" />
+			    <SetProperty target="focusColor_checkbox" propertyName="x" value="3" waitEvent="updateComplete" waitTarget="focusColor_checkbox"/>
+			    <SetProperty target="focusColor_checkbox" propertyName="label" value="focusColor" waitEvent="updateComplete" waitTarget="focusColor_checkbox"/>
+			</setup>
+			<body>
+				<SetStyle target="focusColor_checkbox" styleName="focusColor" value="0xCC0033" waitTarget="focusColor_checkbox" waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/FxCheckBox_Style_focusColor_mxml.png" target="focusColor_checkbox_box"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

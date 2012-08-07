@@ -1,0 +1,45 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"       
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    height="24" width="200"
+    dataProvider="{myDP3}">
+    
+	<fx:Script>
+    	<![CDATA[    	     
+    	    import mx.collections.ArrayCollection;
+    		    		
+    		public var myDP_Array3:Array =
+    		[
+    			"Product F 0",
+    			"Product E 1",
+    			"Product B 2",
+    			"Product C 3",
+    			"Product A 4",
+    			"Product D 5",
+    			"Product G 3 6",
+    			"Product H 7",
+    			"Product I 8",
+    			"Product J 9 ",
+    			"Product K 10",
+    			"Product L 11",
+    			"Product M 12",
+    			"Product N 13",
+    			"Product O 14",
+    			"Product P 15",
+    			"Product Q 16",
+    			"Product I 17",
+				"Product J 18",
+    			"Product K 19",
+    			"Product E 20",
+				"Product B 21",
+    			"Product C.22"
+    		];
+    		
+    		[Bindable]
+    		public var myDP3:ArrayCollection = new ArrayCollection(myDP_Array3);
+    		
+    	]]>   
+    </fx:Script>    
+        	
+</s:ComboBox>

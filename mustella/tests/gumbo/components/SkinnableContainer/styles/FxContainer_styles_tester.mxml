@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableContainer/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FxContainer_Styles_Main.mxml">
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+            import spark.components.RadioButton;
+            import spark.layouts.*;
+
+        ]]>
+    </fx:Script>
+
+    <testCases>
+        <TestCase testID="FxContainerStyle_FxRadioButton_compileTime" keywords="[FxRadioButton]" description="Ensure that RadioButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="radiobutton1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="radiobutton1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="radiobutton1" styleName="symbolColor" value="0xFF0066"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="radiobutton_box" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxTextArea_compileTime" keywords="[FxTextArea]" description="Ensure that TextArea looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton0.setFocus()" waitEvent="focusIn" waitTarget="defaultButton0" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+                <RunCode code="application.textarea1.selectRange(0,1)" waitTarget="textarea1" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="textarea1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="textarea1" styleName="symbolColor" value="0xFF0066"/>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xCC6699"/>
+                <AssertStyleValue target="textarea1" styleName="focusedTextSelectionColor" value="0x00FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="textarea1" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxTextInput_compileTime" keywords="[FxTextInput]" description="Ensure that TextInput looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton.setFocus()" waitEvent="focusIn" waitTarget="defaultButton" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <RunCode code="application.textinput1.selectRange(0,1)" waitTarget="textinput1" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textinput1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="textinput1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="textinput1" styleName="contentBackgroundColor" value="0xCC6699"/>
+				<AssertPixelValue target="textinput1" x="3" y="6" value="0xCC6699" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxButton_compileTime" keywords="[FxButton]" description="Ensure that Button looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="button1" styleName="focusColor" value="0xB80000"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxCheckBox_compileTime" keywords="[FxCheckBox]" description="Ensure that CheckBox looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="checkbox1" styleName="symbolColor" value="0xFF0066"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxToggleButton_compileTime_unselected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0xFF0066"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="togglebutton_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxToggleButton_compileTime_selected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selected" target="togglebutton1" value="true" waitEvent="updateComplete" waitTarget="togglebutton1" />
+                <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0xFF0066"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="togglebutton_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxVScrollBar_compileTime" keywords="[FxVScrollBar]" description="Ensure that VScrollBar looks correct when global styles are set.">
+            <body>
+                <AssertStyleValue target="vscrollbar1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="vscrollbar1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0xFF0066"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxHScrollBar_compileTime" keywords="[FxHScrollBar]" description="Ensure that HScrollBar looks correct when global styles are set.">
+            <body>
+                <AssertStyleValue target="hscrollbar1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="hscrollbar1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="hscrollbar1" styleName="symbolColor" value="0xFF0066"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="hscrollbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxNumericStepper_compileTime" keywords="[FxNumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="numericstepper1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="numericstepper1" styleName="symbolColor" value="0xFF0066"/>
+                <AssertStyleValue target="numericstepper1" styleName="contentBackgroundColor" value="0xCC6699"/>
+                <AssertStyleValue target="numericstepper1" styleName="focusedTextSelectionColor" value="0x00FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../styles/baselines/$testID.png" target="numericstepper_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxHSlider_compileTime" keywords="[FxHSlider]" description="Ensure that HSlider looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="hslider1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="hslider1" styleName="focusColor" value="0xB80000"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="hslider_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxVSlider_compileTime" keywords="[FxVSlider]" description="Ensure that VSlider looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="vslider1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="vslider1" styleName="focusColor" value="0xB80000"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="vslider_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxList_compileTime" keywords="[FxList]" description="Ensure that List looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="list1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="list1" styleName="focusColor" value="0xB80000"/>
+                <AssertStyleValue target="list1" styleName="symbolColor" value="0xFF0066"/>
+                <AssertStyleValue target="list1" styleName="contentBackgroundColor" value="0xCC6699"/>
+                <AssertStyleValue target="list1" styleName="selectionColor" value="0x00FF00"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxButtonBar_compileTime" keywords="[FxButtonBar]" description="Ensure that ButtonBar looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="buttonbar1" styleName="chromeColor" value="0xFFCC99"/>
+                <AssertStyleValue target="buttonbar1" styleName="focusColor" value="0xB80000"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../styles/baselines/$testID.png" target="buttonbar_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_loadingCSS" keywords="[Runtime CSS]" description="This just loads the CSS">
+            <body>
+                <RunCode code="application.loadCSS()" waitTarget="eventDispatcher" waitEvent="complete" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxRadioButton_runtimeCSS" keywords="[FxRadioButton]" description="Ensure that RadioButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="radiobutton1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="radiobutton1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="radiobutton1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="radiobutton_box" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxTextArea_runtimeCSS" keywords="[FxTextArea]" description="Ensure that TextArea looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton0.setFocus()" waitEvent="focusIn" waitTarget="defaultButton0" />
+                <DispatchKeyEvent key="TAB" waitTarget="textarea1" waitEvent="focusIn" />
+                <RunCode code="application.textarea1.selectRange(0,2)" waitTarget="textarea1" waitEvent="selectionChange" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="textarea1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="textarea1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="textarea1" styleName="focusedTextSelectionColor" value="0x0099FF"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="textarea1" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxTextInput_runtimeCSS" keywords="[FxTextInput]" description="Ensure that TextInput looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton.setFocus()" waitEvent="focusIn" waitTarget="defaultButton" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <RunCode code="application.textinput1.selectRange(0,2)" waitTarget="textinput1" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textinput1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="textinput1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="textinput1" styleName="contentBackgroundColor" value="0xCC9966"/>
+				<AssertPixelValue target="textinput1" x="3" y="6" value="0xCC9966" />
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxButton_runtimeCSS" keywords="[FxButton]" description="Ensure that Button looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="button1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxCheckBox_runtimeCSS" keywords="[FxCheckBox]" description="Ensure that CheckBox looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="checkbox1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxToggleButton_runtimeCSS_unselected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
+            <setup>
+                <ResetComponent target="togglebutton1" className="spark.components.ToggleButton" waitTarget="togglebutton1" waitEvent="updateComplete" />
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="togglebutton_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxToggleButton_runtimeCSS_selected" keywords="[FxToggleButton]" description="Ensure that ToggleButton looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <SetProperty propertyName="selected" target="togglebutton1" value="true" waitEvent="updateComplete" waitTarget="togglebutton1" />
+                <AssertStyleValue target="togglebutton1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="togglebutton1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="togglebutton1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="togglebutton_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxVScrollBar_runtimeCSS" keywords="[FxVScrollBar]" description="Ensure that VScrollBar looks correct when global styles are set.">
+            <body>
+                <AssertStyleValue target="vscrollbar1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="vscrollbar1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxHScrollBar_runtimeCSS" keywords="[FxHScrollBar]" description="Ensure that HScrollBar looks correct when global styles are set.">
+            <body>
+                <AssertStyleValue target="hscrollbar1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="hscrollbar1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="hscrollbar1" styleName="symbolColor" value="0x66FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="hscrollbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxNumericStepper_runtimeCSS" keywords="[FxNumericStepper]" description="Ensure that NumericStepper looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.buttona.setFocus()" waitEvent="focusIn" waitTarget="buttona" />
+                <DispatchKeyEvent key="TAB" waitTarget="button1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="radiobutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="togglebutton1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="numericstepper1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="numericstepper1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="numericstepper1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="numericstepper1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="numericstepper1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="numericstepper1" styleName="focusedTextSelectionColor" value="0x0099FF"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="numericstepper_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxHSlider_runtimeCSS" keywords="[FxHSlider]" description="Ensure that HSlider looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="hslider1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="hslider1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="hslider_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxVSlider_runtimeCSS" keywords="[FxVSlider]" description="Ensure that VSlider looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="vslider1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="vslider1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="vslider_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxList_runtimeCSS" keywords="[FxList]" description="Ensure that List looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="list1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="list1" styleName="focusColor" value="0x009900"/>
+                <AssertStyleValue target="list1" styleName="symbolColor" value="0x66FF00"/>
+                <AssertStyleValue target="list1" styleName="contentBackgroundColor" value="0xCC9966"/>
+                <AssertStyleValue target="list1" styleName="selectionColor" value="0x0099FF"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FxContainerStyle_FxButtonBar_runtimeCSS" keywords="[FxButtonBar]" description="Ensure that ButtonBar looks correct when global styles are set.">
+            <setup>
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="hslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="vslider1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent key="TAB" waitTarget="buttonbar1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="buttonbar1" styleName="chromeColor" value="0x9999FF"/>
+                <AssertStyleValue target="buttonbar1" styleName="focusColor" value="0x009900"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"   url="../styles/baselines/$testID.png" target="buttonbar_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BaseColor_changeContainerAtRuntime" keywords="[FxButton]" description="Ensure that Button looks correct when baseColor is changed at runtime.">
+            <setup>
+                <ResetComponent target="button1" className="spark.components.Button" waitTarget="button1" waitEvent="updateComplete" />
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFF00FF" waitTarget="button1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0xFF00FF"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="BaseColor_changeComponentStyleAtRuntime" keywords="[FxButton]" description="Change FxButton's style at runtime and be sure it wins over FxApplication's style" >
+            <setup>
+                <ResetComponent target="button1" className="spark.components.Button" waitTarget="button1" waitEvent="updateComplete" />
+                <SetStyle target="button1" styleName="chromeColor" value="0x6600CC" waitTarget="button1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="button1" styleName="chromeColor" value="0x6600CC"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="button_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentBackground_changeContainerAtRuntime" keywords="[FxTextArea]" description="Ensure that TextArea looks correct when contentBackground is changed at runtime.">
+            <setup>
+                <SetStyle target="" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="textarea1" className="spark.components.TextArea" waitTarget="textarea1" waitEvent="updateComplete" />
+                <SetStyle target="fxcontainer0" styleName="contentBackgroundColor" value="0xFF00FF" />
+                <SetProperty target="textarea1" propertyName="width" value="100" />
+                <SetProperty target="textarea1" propertyName="height" value="60" waitTarget="textarea1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xFF00FF"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="textarea1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ContentBackground_changeComponentStyleAtRuntime" keywords="[FxTextArea]" description="Ensure that TextArea looks correct when contentBackground is changed at runtime.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="textarea1" className="spark.components.TextArea" waitTarget="textarea1" waitEvent="updateComplete" />
+                <SetStyle target="textarea1" styleName="contentBackgroundColor" value="0xFFCC99" waitTarget="textarea1" waitEvent="updateComplete" />
+                <SetProperty target="textarea1" propertyName="width" value="100" />
+                <SetProperty target="textarea1" propertyName="height" value="60"  waitTarget="textarea1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textarea1" styleName="contentBackgroundColor" value="0xFFCC99"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="textarea1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SelectionColor_changeContainerAtRuntime" keywords="[FxTextInput]" description="Ensure that TextInput looks correct focusedTextSelectionColor is set at runtime.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <SetStyle target="fxcontainer1" styleName="contentBackgroundColor" value="0xFFFFFF" />
+                <ResetComponent target="textinput1" className="spark.components.TextInput" waitTarget="textinput1" waitEvent="updateComplete" />
+                <SetProperty target="textinput1" propertyName="text" value="FxTextInput" waitTarget="textinput1" waitEvent="updateComplete" />
+                <SetStyle target="fxcontainer1" styleName="focusedTextSelectionColor" value="0xCC99CC" />
+                <RunCode code="application.defaultButton.setFocus()" waitEvent="focusIn" waitTarget="defaultButton" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <RunCode code="application.textinput1.selectRange(0,2)" waitTarget="textinput1" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textinput1" styleName="focusedTextSelectionColor" value="0xCC99CC"/>
+				<AssertPixelValue target="textinput1" x="8" y="8" value="0xCC99CC" />
+            </body>
+        </TestCase>
+        <TestCase testID="SelectionColor_changeComponentStyleAtRuntime" keywords="[FxTextInput]" description="Ensure that TextInput looks correct focusedTextSelectionColor is set at runtime on the FxTextInput.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <SetStyle target="fxcontainer1" styleName="contentBackgroundColor" value="0xFFFFFF" />
+                <ResetComponent target="textinput1" className="spark.components.TextInput" waitTarget="textinput1" waitEvent="updateComplete" />
+                <SetProperty target="textinput1" propertyName="text" value="FxTextInput" waitTarget="textinput1" waitEvent="updateComplete" />
+                <SetStyle target="textinput1" styleName="focusedTextSelectionColor" value="0xCCCC33" />
+                <RunCode code="application.defaultButton.setFocus()" waitEvent="focusIn" waitTarget="defaultButton" />
+                <DispatchKeyEvent key="TAB" waitTarget="textinput1" waitEvent="focusIn" />
+                <RunCode code="application.textinput1.selectRange(0,2)" waitTarget="textinput1" waitEvent="selectionChange" />
+            </setup>
+            <body>
+                <AssertStyleValue target="textinput1" styleName="focusedTextSelectionColor" value="0xCCCC33"/>
+				<AssertPixelValue target="textinput1" x="8" y="8" value="0xCCCC33" />
+            </body>
+        </TestCase>
+        <TestCase testID="SymbolColor_changeContainerAtRuntime" keywords="[FxVScrollBar]" description="Ensure that VScrollBar looks correct when global styles are set at runtime.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="vscrollbar1" className="spark.components.VScrollBar" waitTarget="vscrollbar1" waitEvent="updateComplete" />
+                <SetProperty target="vscrollbar1" propertyName="minimum" value="0" />
+                <SetProperty target="vscrollbar1" propertyName="maximum" value="20" />
+                <SetStyle target="fxcontainer1" styleName="symbolColor" value="0xFF0000" waitTarget="vscrollbar1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0xFF0000"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="SymbolColor_changeComponentStyleAtRuntime" keywords="[FxVScrollBar]" description="Ensure that VScrollBar looks correct when global styles are set at runtime.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="vscrollbar1" className="spark.components.VScrollBar" waitTarget="vscrollbar1" waitEvent="updateComplete" />
+                <SetProperty target="vscrollbar1" propertyName="minimum" value="0" />
+                <SetProperty target="vscrollbar1" propertyName="maximum" value="20" />
+                <SetStyle target="vscrollbar1" styleName="symbolColor" value="0x3366CC" waitTarget="vscrollbar1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <AssertStyleValue target="vscrollbar1" styleName="symbolColor" value="0x3366CC"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="vscrollbar1"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FocusColor_changeContainerAtRuntime" keywords="[FxCheckBox]" description="Ensure that CheckBox looks correct when global styles are set at runtime.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="checkbox1" className="spark.components.CheckBox" waitTarget="checkbox1" waitEvent="updateComplete" />
+                <SetStyle target="fxcontainer2" styleName="focusColor" value="0x00ff00" />
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0x00FF00"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+        <TestCase testID="FocusColor_changeComponentStyleAtRuntime" keywords="[FxCheckBox]" description="Ensure that CheckBox looks correct when global styles are set at runtime on the FxCheckBox.">
+            <setup>
+                <SetStyle target="fxcontainer1" styleName="chromeColor" value="0xFFFFCC" />
+                <ResetComponent target="checkbox1" className="spark.components.CheckBox" waitTarget="checkbox1" waitEvent="updateComplete" />
+                <SetStyle target="checkbox1" styleName="focusColor" value="0xff0000" />
+                <RunCode code="application.defaultButton2.setFocus()" waitEvent="focusIn" waitTarget="defaultButton2" />
+                <DispatchKeyEvent key="TAB" waitTarget="checkbox1" waitEvent="focusIn" />
+            </setup>
+            <body>
+                <AssertStyleValue target="checkbox1" styleName="focusColor" value="0xFF0000"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../styles/baselines/$testID.png" target="checkbox_box"/>
+            </body>
+        </TestCase>
+
+    </testCases>
+</UnitTester>

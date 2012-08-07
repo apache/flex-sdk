@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/List/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" xmlns:comps="comps" testSWF="ListBasic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+	import spark.layouts.*;
+        import mx.collections.ArrayCollection;
+        import spark.events.IndexChangeEvent;
+        import spark.skins.spark.*;
+        import mx.events.CollectionEventKind;
+        import mx.events.CollectionEvent;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="RT_TF_List_keyboard_navigation_dup0" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_keyboard_navigation_dup1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="35" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="aa" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_keyboard_navigation_dup2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="change"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+
+		<CompareBitmap numColorVariances="5" maxColorVariance="20" url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_keyboard_navigation_dup3" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="5" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="6" />
+
+                <CompareBitmap numColorVariances="5" maxColorVariance="20" url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_keyboard_navigation_dup4" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+            	<SetProperty target="list1" propertyName="useVirtualLayout" value="false" />
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="useVirtualLayout" value="true" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+
+       <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_0" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="changing"/>
+                <SetProperty target="list1" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" valueExpression="value=[0]" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="23" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="X" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['A']" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]" shiftKey="true" waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]" shiftKey="true" waitTarget="list1" waitEvent="updateComplete"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_3" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]" shiftKey="true"  waitTarget="list1" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_4" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_5" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="25" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Z'] " />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" />
+                <SetProperty target="list1" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_List_multipleSel_keyboard_navigation_6" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndices" valueExpression="value=new  &lt;int&gt;[24,25]" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="110" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Y','Z'] " />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+		<AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Y','Z'] " />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_TF_VerticalList_keyboard_navigation_dup0" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetStyle target="list1" styleName="skinClass" valueExpression="value=comps.ListSkinVertical" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('1 Abcdefj WAWAWAWAWAWAWAWA',0)" />
+                <RunCode code="application.list1.dataProvider.addItemAt('2 Abcdefj WAWAWAWAWAWAWAWA',0)" />
+                <RunCode code="application.list1.dataProvider.addItemAt('3 Abcdefj WAWAWAWAWAWAWAWA',0)" />
+
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_TF_VerticalList_multipleSel_keyboard_navigation_6" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetStyle target="list1" styleName="skinClass" valueExpression="value=comps.ListSkinVertical" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndices" valueExpression="value=new  &lt;int&gt;[24,25]" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Y','Z'] " />
+                <RunCode code="application.list1.dataProvider.addItemAt('Abcdefj WAWAWAWAWAWAWAWA',0)" />
+                <RunCode code="application.list1.dataProvider.addItem('123 Abcdefj WAWAWAWAWAWAWAWA')" />
+                <SetProperty target="list1" propertyName="height" value="115" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_TF_HorizontalList_keyboard_navigation1" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_keyboard_navigation_dup1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="35" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="aa" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_keyboard_navigation_dup2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" valueExpression="value=null" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="change"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="updateComplete"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_keyboard_navigation_dup3" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="a" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="4" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="5" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="6" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_keyboard_navigation_dup4" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+
+       <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_0" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" waitEvent="changing"/>
+                <DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="changing"/>
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndices" valueExpression="value=[0]" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_1" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="change"/>
+                <DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[LEFT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="23" />
+                <AssertPropertyValue target = "list1" propertyName="selectedItem" value="X" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="0" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['A']" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[END]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" waitEvent="updateComplete"/>
+		<DispatchKeyEvent keys="[PAGE_DOWN]" shiftKey="true" waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_DOWN]" shiftKey="true" waitTarget="list1" waitEvent="updateComplete"/>
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_3" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedItem" value="A" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <RunCode code="application.list1.dataProvider.addItemAt('a',0)" />
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="1" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]" shiftKey="true"  waitTarget="list1" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_4" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_5" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndex" value="25" waitEvent="valueCommit" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Z'] " />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[HOME]"  waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('A',0)" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation2" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndices" valueExpression="value=new  &lt;int&gt;[24,25]" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="110" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="110" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Y','Z'] " />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[RIGHT]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <SetProperty target="list1" propertyName="width" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="120" waitEvent="updateComplete" waitTarget="list1"/>
+		<AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Y','Z'] " />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_TF_HorizontalList_keyboard_navigation_dup0" keywords="[List, keyboard]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+                <SetStyle target="list1" styleName="skinClass" valueExpression="value=comps.ListSkinHorizontal" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createNullDupAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="list1"/>
+                <RunCode code="application.list1.dataProvider.addItemAt('1 Abcdefj WAWAWAWAWAWAWAWA',0)" />
+                <RunCode code="application.list1.dataProvider.addItemAt('2 Abcdefj WAWAWAWAWAWAWAWA',0)" />
+                <RunCode code="application.list1.dataProvider.addItemAt('3 Abcdefj WAWAWAWAWAWAWAWA',0)" />
+
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <DispatchKeyEvent keys="[PAGE_UP]"  waitTarget="list1" waitEvent="updateComplete"/>
+                <SetProperty target="list1" propertyName="width" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedIndex" value="0" />
+                <CompareBitmap numColorVariances="15" ignoreMaxColorVariance="true" url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="RT_TF_HorizontalList_multipleSel_keyboard_navigation_6" keywords="[List, property,selectedIndex]" description="">
+            <setup>
+                <ResetComponent target="list1" className="spark.components.List" waitEvent="updateComplete" />
+                <SetProperty    target="list1" propertyName="layout"  valueExpression="value=new HorizontalLayout()"  />
+                <SetStyle target="list1" styleName="skinClass" valueExpression="value=comps.ListSkinHorizontal" waitEvent="updateComplete" />
+            	<RunCode code="application.list1.itemRenderer=new ClassFactory(comps.RT_TextFlowItemRenderer);"  />
+	</setup>
+            <body>
+                <SetProperty target="list1" propertyName="dataProvider" valueExpression="value=application.createAC()" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="allowMultipleSelection" value="true" />
+                <SetProperty target="list1" propertyName="selectedIndices" valueExpression="value=new  &lt;int&gt;[24,25]" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="width" value="150" waitEvent="updateComplete" waitTarget="list1"/>
+                <SetProperty target="list1" propertyName="height" value="50" waitEvent="updateComplete" waitTarget="list1"/>
+                <AssertPropertyValue target = "list1" propertyName="selectedItems" valueExpression="value=['Y','Z'] " />
+                <RunCode code="application.list1.dataProvider.addItemAt('Abcdefj WAWAWAWAWAWAWAWA',0)" />
+                <RunCode code="application.list1.dataProvider.addItem('123 Abcdefj WAWAWAWAWAWAWAWA')" />
+                <SetProperty target="list1" propertyName="width" value="115" waitEvent="updateComplete" waitTarget="list1"/>
+                <DispatchKeyEvent keys="[TAB]" waitTarget="list1" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[RIGHT]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+                <DispatchKeyEvent keys="[PAGE_DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="list1" />
+		<CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../events/baselines/$testID.png" target="list1" />
+            </body>
+        </TestCase>
+    </testCases>
+</UnitTester>

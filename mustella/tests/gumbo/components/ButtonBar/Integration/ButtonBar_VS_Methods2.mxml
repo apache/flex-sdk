@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarVS.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+               import Assets.*;
+               import spark.components.*;
+               import mx.containers.VBox;
+               import mx.controls.Alert;
+               import mx.core.*;
+               import mx.collections.IList;
+
+		public var a:int = 0;
+		public var b:int = 0;
+
+		public function resetVars():void{
+			a = 0;
+			b = 0;
+		}
+
+		public function addVB():void{
+			var myVB:VBox = new VBox
+			myVB.setStyle('backgroundColor', 0xFF0000);
+			myVB.width = 200;
+			myVB.height = 200;
+			myVB.id = 'VB'+ a;
+			myVB.label = 'VBox #' + a++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItem(myVB);
+
+		}
+		public function addNav():void{
+			var myNav:NavigatorContent = new NavigatorContent;
+			myNav.setStyle('backgroundColor', 0xCCCCCC);
+			myNav.width = 200;
+			myNav.height = 200;
+			myNav.id = 'Nav' + b;
+			myNav.label = 'Nav #' + b++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItem(myNav);
+		}
+
+		public function addVBAt(z:int):void{
+			var myVB:VBox = new VBox
+			myVB.setStyle('backgroundColor', 0xFF0000);
+			myVB.width = 200;
+			myVB.height = 200;
+			myVB.id = 'VB'+ a;
+			myVB.label = 'VBox #' + a++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItemAt(myVB, z);
+		}
+		public function addNavAt(z:int):void{
+			var myNav:NavigatorContent = new NavigatorContent;
+			myNav.setStyle('backgroundColor', 0xCCCCCC);
+			myNav.width = 200;
+			myNav.height = 200;
+			myNav.id = 'Nav' + b;
+			myNav.label = 'Nav #' + b++;
+			FlexGlobals.topLevelApplication.TC.newVS.addItemAt(myNav, z);
+
+		}
+
+		public function createAnItem():Object{
+			var myVB:VBox = new VBox
+			myVB.setStyle('backgroundColor', 0xFF0000);
+			myVB.width = 200;
+			myVB.height = 200;
+			myVB.id = 'VB_special'
+			myVB.label = 'VB_special';
+			return myVB;
+		}
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Methods
+Verify methods of ViewStack with spark ButtonBar
+    * addItem
+    * addItemAt
+    * getItemAt
+    * getItemIndex
+    * itemUpdated
+    * removeAll
+    * removeItemAt
+    * setItemAt
+    * toArray
+
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="removeItemAt_test4" keywords="[ButtonBar,ViewStack,removeItemAt]" description="Test removeItemAt on only item for ButtonBar and ViewStack " >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertPropertyValue target="TC.bb.dataGroup.getElementAt(0)" propertyName="label" value="VBox #0" />
+    	<AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="VBox #0" />
+
+    	<AssertPropertyValue target="TC.bb.dataProvider" propertyName="length" value="1" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="1" />
+    	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(0)" value="VB0"/>
+    	<AssertPropertyValue target="TC.bb.dataProvider" propertyName="length" value="0" />
+    	<AssertPropertyValue target="TC.newVS" propertyName="length" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="removeItemAt_test5" keywords="[ButtonBar,ViewStack,removeItemAt]" description="Test removeItemAt index less than 0" >
+    <setup>
+	<RunCode code="resetVars()"/>
+        <ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.bb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.bb" waitEvent="updateComplete"/>
+	<RunCode code="addNav()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addNav()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
+	<RunCode code="addVB()" waitTarget="TC.bb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<AssertMethodValue method="try{FlexGlobals.topLevelApplication.TC.newVS.removeItemAt(-2)}catch(e:Error){value = e.message}" value="Error #2006: The supplied index is out of bounds." />
+    </body>
+</TestCase>
+
+
+	</testCases>
+</UnitTester>

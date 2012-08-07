@@ -1,0 +1,39 @@
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" height="600">
+	<fx:Declarations>
+		<mx:ArrayCollection id="ac1">
+	        <fx:String>one</fx:String>
+	        <fx:String>two</fx:String>
+	        <fx:String>three</fx:String>
+    	</mx:ArrayCollection>
+    </fx:Declarations>
+	<s:VGroup>
+		<s:ButtonBar id="btnbar" dataProvider="{ac1}" skinClass="comps.MyButtonBarSkin"/>	
+		<s:Button id="btn" skinClass="comps.My_ButtonSkin"/>
+		<s:CheckBox id="ckbox" skinClass="comps.My_CheckBoxSkin"/>
+		<s:ComboBox id="cmbbox" skinClass="comps.My_ComboBoxSkin" />
+		<s:Button id="defBtn" emphasized="true"/>
+		<s:DropDownList id="ddl" skinClass="comps.My_DropDownListSkin" />
+		<s:HScrollBar id="hsc" skinClass="comps.My_HScrollBarSkin"/>
+		<s:HSlider id="hslide" skinClass="comps.My_HSliderSkin"/>
+		<s:List id="lt" skinClass="comps.My_ListSkin"/>
+		<s:NumericStepper id="ns" skinClass="comps.My_NumericStepperSkin"/>	
+	</s:VGroup>
+	
+	<s:VGroup>
+		<s:Panel id="pnl" skinClass="comps.My_PanelSkin" height="100" width="100"/>
+		<s:RadioButton id="radbtn" skinClass="comps.My_RadioButtonSkin"/>
+		<s:SkinnableContainer id="sc" skinClass="comps.My_SkinnableContainerSkin" height="100" width="100"/>
+		<s:SkinnableDataContainer id="sdc" skinClass="comps.My_SkinnableDataContainerSkin" height="100" width="100"/>
+		<s:Spinner id="spin" skinClass="comps.My_SpinnerSkin"/>
+	</s:VGroup>
+	
+	<s:VGroup>
+		<s:TextArea id="ta" skinClass="comps.My_TextAreaSkin" height="30" width="70" />
+		<s:TextInput id="ti" skinClass="comps.My_TextInputSkin" height="30" width="50"/>
+		<s:TitleWindow id="titleWin" skinClass="comps.My_TitleWindowSkin" height="100" width="100"/>
+		<s:ToggleButton id="tgbtn" skinClass="comps.My_ToggleButtonSkin"/>
+		<s:VideoPlayer id="vp" skinClass="comps.My_VideoPlayerSkin"/>
+		<s:VScrollBar id="vsc" skinClass="comps.My_VScrollBarSkin"/>
+		<s:VSlider id="vslide" skinClass="comps.My_VSliderSkin"/>	
+	</s:VGroup>
+</s:HGroup>

@@ -1,0 +1,134 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Mirroring/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_mirroring_styleBaisc1.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import spark.components.TitleWindow;
+        	import spark.components.CheckBox;
+        	import mx.events.FlexEvent;
+        	import flash.display.DisplayObject;
+        	import comps.*;
+        	
+        	
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+        	public var chk:CheckBox=new CheckBox();
+		public function addCheckBox(t:TitleWindow,layoutDir:String="ltr"):void
+		{
+			chk.label="checkbox";
+			if (layoutDir!=null)
+			{
+				chk.layoutDirection=layoutDir;
+				chk.setStyle("direction",layoutDir);
+			}
+				
+			var n:Number=t.numElements;
+			t.addElementAt(chk,n);
+			t.addEventListener("add",addListener);
+        	} 
+		public function addListener(e:FlexEvent):void
+		{
+			e.currentTarget.removeEventListener("add", addListener);
+			dispatchEvent(new FlexEvent("addChildComplete"));
+
+		}
+        	public static function init(o:DisplayObject):void {}
+        	
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+        
+   	<TestCase testID="TitleWindow_layoutDirection_style1" keywords="[TitleWindow, Mirroring,layoutDirection]" description="Test set layoutDirection style">
+            <setup>        
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithRTLContent1,'window with mixed layout content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+         
+            </setup>
+            <body>
+     		<SetStyle target="twObject" styleName="layoutDirection" value="rtl" />
+            	<AssertStyleValue target="twObject" styleName="layoutDirection" value="rtl"/>
+            	<SetStyle target="twObject" styleName="direction" value="rtl" />
+            	<AssertStyleValue target="twObject" styleName="direction" value="rtl"/> 
+		   	        
+	        <CompareBitmap target="twObject" url="../Mirroring/Baselines/TitleWindow_layoutDirection_atRuntime5_rtl.png" numColorVariances="10" maxColorVariance="20"/>
+      
+            </body>
+        </TestCase>
+ 
+    	<TestCase testID="TitleWindow_layoutDirection_style2" keywords="[TitleWindow, Mirroring,layoutDirection]" description="Test set layoutDirection style">
+             <setup>        
+ 		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                 <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithRTLContent1,'window with mixed layout content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+          
+             </setup>
+             <body>
+      		<SetStyle target="twObject" styleName="styleName" value="ltrStyle1" waitEvent="updateComplete"/>
+             	<AssertStyleValue target="twObject" styleName="layoutDirection" value="ltr"/>
+             	 
+ 		   	        
+ 	        <CompareBitmap target="twObject" url="../Mirroring/Baselines/TitleWindow_layoutDirection_atRuntime5_ltr.png" numColorVariances="10" maxColorVariance="20"/>
+       
+             </body>
+        </TestCase>
+        
+ 	<TestCase testID="TitleWindow_layoutDirection_style3" keywords="[TitleWindow, Mirroring,layoutDirection]" description="Test element created at runtime, TitleWindow class selector set layoutDirection=rtl">
+            <setup>        
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<RunCode code="addCheckBox(FlexGlobals.topLevelApplication.defaultTW,null)" waitEvent="elementAdd" waitTarget="defaultTW"/>
+    		<AssertPropertyValue target="defaultTW" propertyName="layoutDirection" value="rtl"/>
+           
+            	<CompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+      
+            </body>
+        </TestCase>        
+
+ 	<TestCase testID="TitleWindow_layoutDirection_style4" keywords="[TitleWindow, Mirroring,layoutDirection]" description="Test element created at runtime with layoutDirection=ltr, TitleWindow class selector set layoutDirection=rtl, verify the element's layoutDirection is ltr">
+            <setup>        
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<RunCode code="addCheckBox(FlexGlobals.topLevelApplication.defaultTW,'ltr')" waitEvent="elementAdd" waitTarget="defaultTW"/>
+    		<AssertPropertyValue target="defaultTW" propertyName="layoutDirection" value="rtl"/>
+           
+            	<CompareBitmap target="defaultTW" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+      
+            </body>
+        </TestCase>  
+ 
+ 
+  	<TestCase testID="TitleWindow_layoutDirection_style5" keywords="[TitleWindow, Mirroring,layoutDirection]" description="Test TitleWindow class selector set layoutDirection=rtl, verify customized TitleWindow layoutDirection is rtl">
+             <setup>        
+ 		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarContent1,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+         
+             </setup>
+             <body>
+             	
+     		<AssertPropertyValue target="twObject" propertyName="layoutDirection" value="rtl"/>
+             	<CompareBitmap target="twObject" url="../Mirroring/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+       
+             </body>
+        </TestCase> 
+        
+        
+    </testCases>
+    
+</UnitTester>
+

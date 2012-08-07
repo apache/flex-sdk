@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:RichEditableText xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		editable="false">
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.elements.LinkElement;
+		
+			import flashx.textLayout.events.FlowElementMouseEvent;
+			import mx.controls.Alert;
+			
+			
+			
+			protected function onTextLink(evt:FlowElementMouseEvent):void {
+				var linkEl:LinkElement = evt.flowElement as LinkElement;
+				Alert.show("The '" + linkEl.getFirstLeaf().text + "' link would have gone to " + linkEl.href + " in a " + linkEl.target + " window, but it was cancelled.", "Fun with hyperlinks");
+				evt.stopImmediatePropagation();
+				evt.preventDefault();
+			}
+
+		]]>
+	</fx:Script>
+		<s:content>
+			<s:a href="http://www.google.com">Test link 1: open url</s:a><s:br/>
+			<s:a href="event:myLinkEvent">Test link 2: call AS method with "myLinkEvent" type</s:a><s:br/>
+			<s:a click="onTextLink(event)">Test link 3: call AS method with "click" type</s:a>
+		</s:content>
+</s:RichEditableText>
+

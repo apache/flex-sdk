@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Integration/"
+xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns="*" testSWF="ButtonBarVS_bug23528.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</fx:Script>
+	<fx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import spark.components.*;
+        import mx.core.*;
+        import mx.collections.IList;
+	import spark.components.NavigatorContent;
+
+	private function addBtn():void{
+		var myNav:NavigatorContent = new NavigatorContent();
+		myNav.label = 'new nav';
+		myNav.setStyle('backgroundColor', 0xFF0000);
+		myNav.width = 200;
+		myNav.height = 200;
+		FlexGlobals.topLevelApplication.TC.emptyVS.addChild(myNav);
+	}
+	]]>
+	</fx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+selectedIndex
+Verify that the selectedIndex is correct for ButtonBar
+and ViewStack when setting property on ViewStack or ButtonBar
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="selectedIndex_SetVSSelectedIndexFirst" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Set selectedIndex of VS before attaching to BB" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="valueCommit" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<!-- HALO COMPONENTS IN VIEWSTACK -->
+
+<TestCase testID="selectedIndex_vs1DP_test0" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Test default selectedIndex" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test1" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the first item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+
+    	<SetProperty target="TC.vs1" propertyName="selectedIndex" value="1" waitTarget="TC.vs1" waitEvent="valueCommit" />
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="0" waitTarget="TC.vs1" waitEvent="valueCommit" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test2" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="1" waitTarget="TC.vs1" waitEvent="valueCommit" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test3" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the last item in the ViewStack." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="valueCommit" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test4" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select an item which is already selected." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" waitTarget="TC.vs1" waitEvent="valueCommit" />
+        <SetProperty target="TC.vs1" propertyName="selectedIndex" value="2" />
+        <SetProperty target="TC.bb" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.TC.bb.width + 1" waitEvent="widthChanged" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="2" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="selectedIndex_vs1DP_test5" keywords="[ButtonBar,ViewStack,selectedIndex]" description="Use it to select the middle item in the ButtonBar." >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+
+        <SetProperty target="TC.bb" propertyName="selectedIndex" value="1" waitTarget="TC.bb" waitEvent="valueCommit" />
+
+        <AssertPropertyValue target="TC.vs1" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.bb" propertyName="selectedIndex" value="1" />
+    </body>
+</TestCase>
+
+<!-- END HALO COMPONENTS IN VIEWSTACK -->
+
+
+<TestCase testID="selectedIndex_vs1DP_test6" keywords="[ButtonBar,ViewStack,selectedIndex]" description="test selected index after item added to empty view stack" >
+    <setup>
+        <ResetComponent target="TC" className="Assets.TestComp_bug23528" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue target="TC.emptyVS" propertyName="selectedIndex" value="-1" />
+	<AssertPropertyValue target="TC.bb2" propertyName="selectedIndex" value="-1" />
+	<RunCode code="addBtn()" waitTarget="TC.bb2.dataGroup" waitEvent="updateComplete"/>
+	<AssertPropertyValue target="TC.emptyVS" propertyName="selectedIndex" value="0" />
+	<AssertPropertyValue target="TC.bb2" propertyName="selectedIndex" value="0" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

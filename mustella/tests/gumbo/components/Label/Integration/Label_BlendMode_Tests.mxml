@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Integration/" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_BlendModes_Main.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+           import comps.*;
+           
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+
+
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+        <TestCase testID="Label_blendMode_onGroup_default" description="Test that the default blendMode is auto." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target" className="comps.LabelRectBlendMode" waitTarget="blendMode_target" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            <AssertPropertyValue value="normal" propertyName="blendMode" target="blendMode_target.label1" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_color" description="Test blendMode=color set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="color" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <AssertPropertyValue value="1" propertyName="numChildren" target="blendMode_target_2.group_image" />
+                <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_colordodge" description="Test blendMode=colordodge set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="colordodge" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_colorburn" description="Test blendMode=colorburn set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="colorburn" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_softlight" description="Test blendMode=softlight set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="softlight" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_exclusion" description="Test blendMode=exclusion set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="exclusion" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_hue" description="Test blendMode=hue set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="hue" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_saturation" description="Test blendMode=saturation set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="saturation" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onGroup_luminosity" description="Test blendMode=luminosity set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_2" className="comps.LabelRectBlendModeNormal" waitTarget="blendMode_target_2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_2.group_image" propertyName="blendMode" value="luminosity" waitTarget="blendMode_target_2.group_image" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_2" timeout="2500" />
+            </body>
+      </TestCase>
+
+
+
+      <TestCase testID="Label_blendMode_onLabel_exclusion" description="Test blendMode=exclusion set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_3" className="comps.LabelRectBlendModeNormal2" waitTarget="blendMode_target_3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_3.label1" propertyName="blendMode" value="exclusion" waitTarget="blendMode_target_3.label1" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_3" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onLabel_hue" description="Test blendMode=hue set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_3" className="comps.LabelRectBlendModeNormal2" waitTarget="blendMode_target_3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_3.label1" propertyName="blendMode" value="hue" waitTarget="blendMode_target_3.label1" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_3" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onLabel_saturation" description="Test blendMode=saturation set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_3" className="comps.LabelRectBlendModeNormal2" waitTarget="blendMode_target_3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_3.label1" propertyName="blendMode" value="saturation" waitTarget="blendMode_target_3.label1" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_3" timeout="2500" />
+            </body>
+      </TestCase>
+      <TestCase testID="Label_blendMode_onLabel_luminosity" description="Test blendMode=luminosity set on Label." keywords="[blendMode, normal, Graphic]">
+            <setup>
+                <ResetComponent target="blendMode_target_3" className="comps.LabelRectBlendModeNormal2" waitTarget="blendMode_target_3" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="blendMode_target_3.label1" propertyName="blendMode" value="luminosity" waitTarget="blendMode_target_3.label1" waitEvent="updateComplete" />
+            <CompareBitmap url="../integration/baselines/$testID.png" target="blendMode_target_3" timeout="2500" />
+            </body>
+      </TestCase>
+</testCases>
+
+
+</UnitTester>

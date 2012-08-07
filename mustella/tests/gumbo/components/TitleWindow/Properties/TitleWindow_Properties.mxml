@@ -1,0 +1,445 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import spark.components.TitleWindow;
+        	import comps.*;
+        	
+        	
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+        	public var screenY:int = flash.system.Capabilities.screenResolutionY;
+		public var screenX:int = flash.system.Capabilities.screenResolutionX;
+		
+        	public static function init(o:DisplayObject):void {}
+        	public function createAWindow(minWVal:Number, minHVal:Number):void
+        	{
+        		FlexGlobals.topLevelApplication.twObject=TitleWindow(new TitleWindowBindableProps());
+        		FlexGlobals.topLevelApplication.twObject.minWidth=minWVal;
+        		FlexGlobals.topLevelApplication.twObject.minHeight=minHVal;
+        	}
+		public function createAWindowWithPosition(x:Number, y:Number):void
+        	{
+        		FlexGlobals.topLevelApplication.twObject=TitleWindow(new TitleWindowBindableProps());
+        		FlexGlobals.topLevelApplication.twObject.minWidth=100;
+        		FlexGlobals.topLevelApplication.twObject.minHeight=100;
+        		FlexGlobals.topLevelApplication.twObject.x=x;
+        		FlexGlobals.topLevelApplication.twObject.y=y;
+        	}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+	<TestCase testID="TitleWindow_Properties_default" keywords="[TitleWindow, default]" description="Test default TitleWindow UI without any content">
+            <setup>        
+			    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>    
+                <RunCode code="FlexGlobals.topLevelApplication.createDefault()" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<CompareBitmap target="defaultTW" url="../Properties/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+    
+	<TestCase testID="TitleWindow_Properties_default2" keywords="[TitleWindow, default]" description="Test default TitleWindow UI with contents">
+            <setup>            
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent1,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="12" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+  	<TestCase testID="TitleWindow_Properties_default3" keywords="[TitleWindow, default]" description="Test default TitleWindow UI with contents">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'window with content2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+   	<TestCase testID="TitleWindow_Properties_default4" keywords="[TitleWindow, default]" description="Test default TitleWindow UI with contents,but no explicit width/height set for TitleWindow">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'window with content2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+    	<TestCase testID="TitleWindow_Properties_default5" keywords="[TitleWindow, default]" description="Test a wider component in the TitleWindow">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithClipContent,'window with content3')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>  
+
+    	<TestCase testID="TitleWindow_Properties_default6" keywords="[TitleWindow, default]" description="Test a wider component in the TitleWindow">
+            <setup> 
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithClipContent,'window with content3')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>  
+        
+        <TestCase testID="TitleWindow_Properties_minWH1" keywords="[TitleWindow, MinWidth,MinHeight]" description="Test TitleWindow with minWidth,minHeight set">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoSize(TitleWindowBindableProps,'default sized window')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="width" valueExpression="value=FlexGlobals.topLevelApplication.twObject.minWidth"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" valueExpression="value=FlexGlobals.topLevelApplication.twObject.minHeight"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="TitleWindow_Properties_minWH2" keywords="[TitleWindow, MinWidth,MinHeight]" description="Test TitleWindow with minWidth,minHeight set,smaller than default">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="createAWindow(100,100)"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="width" valueExpression="value=124"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" valueExpression="value=100"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TitleWindow_Properties_minWH3" keywords="[TitleWindow, MinWidth,MinHeight]" description="Test TitleWindow with minWidth,minHeight set, larger than default">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="createAWindow(150,150)"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="width" valueExpression="value=150"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" valueExpression="value=150"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TitleWindow_Properites_position1" keywords="[TitleWindow, Position]" description="Test TitleWindow showing up at position(0,0)">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="createAWindowWithPosition(0,0)"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject,0,0);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="x" value="0"/>
+	    	<AssertPropertyValue target="twObject" propertyName="y" value="0"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="TitleWindow_Properites_position2" keywords="[TitleWindow, Title]" description="Test TitleWindow showing up at upper,right corner">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="createAWindowWithPosition(screenX,0)"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject,screenX,0);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=screenX"/>
+	    	<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TitleWindow_Properites_position3" keywords="[TitleWindow, Title]" description="Test TitleWindow showing up at lower,left corner">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="createAWindowWithPosition(0,screenY)"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject,0,screenY);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=screenY"/>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=0"/>
+            </body>
+        </TestCase>
+        <TestCase testID="TitleWindow_Properites_position4" keywords="[TitleWindow, Title]" description="Test TitleWindow showing up at lower,right corner">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="createAWindowWithPosition(screenX,screenY)"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject,screenX,screenY);" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<AssertPropertyValue target="twObject" propertyName="y" valueExpression="value=screenY"/>
+	    	<AssertPropertyValue target="twObject" propertyName="x" valueExpression="value=screenX"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="TitleWindow_Properties_title1" keywords="[TitleWindow, Title]" description="Test TitleWindow with title=null set">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,null)" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	   	 <AssertPropertyValue target="twObject" propertyName="title" valueExpression="value=null"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>
+        <TestCase testID="TitleWindow_Properties_title2" keywords="[TitleWindow, Title]" description="Test TitleWindow with various characters set as title string">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,'0123456789 _TitleWindow_ $#!@%^*():')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	   	 <AssertPropertyValue target="twObject" propertyName="title" value="0123456789 _TitleWindow_ $#!@%^*():"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+        <TestCase testID="TitleWindow_Properties_title3" keywords="[TitleWindow, Title]" description="Test TitleWindow with long string set,window has size set">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,longTitle)" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	   	 <AssertPropertyValue target="twObject" propertyName="title" valueExpression="value=longTitle"/>
+		 <CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+		 <!-- rollover -->
+		 
+		 <DispatchMouseEvent target="twObject.skin._TitleWindowSkin_Group1" localX="30" localY="20" type="rollOver"/>
+        	 <WaitForEvent numExpectedEvents="-1" eventName="rollOver" target="twObject.skin._TitleWindowSkin_Group1" timeout="2000" />
+        	 <Pause timeout="40"/>
+        	 <CompareBitmap target="twObject" url="../Properties/Baselines/$testID_rollOver.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+         <TestCase testID="TitleWindow_Properties_title4" keywords="[TitleWindow, Title]" description="Test TitleWindow with long string set,window has NO size set">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoSize(TitleWindow,longTitle)" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	   	 <AssertPropertyValue target="twObject" propertyName="title" valueExpression="value=longTitle"/>
+		 <CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="20" maxColorVariance="20"/>
+		 <!-- rollover -->
+		 <DispatchMouseEvent target="twObject" localX="30" localY="20" type="rollOver"/>
+        	 <WaitForEvent numExpectedEvents="-1" eventName="rollOver" target="twObject" timeout="2000" />
+        	 <Pause timeout="40"/>
+        	 <CompareBitmap target="twObject" url="../Properties/Baselines/$testID_rollOver.png" numColorVariances="25" maxColorVariance="25"/>
+            </body>
+        </TestCase>      
+
+	<TestCase testID="TitleWindow_Properties_title5" keywords="[TitleWindow, Title]" description="Test changing title at runtime">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindow,longTitle)" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>            	            	
+	    	<SetProperty target="twObject" propertyName="title" value="this is new title" waitEvent="propertyChange" waitTarget="twObject"/>
+	    	<AssertPropertyValue target="twObject" propertyName="title" value="this is new title"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+
+	
+	<TestCase testID="TitleWindow_Properties_constraint1" keywords="[TitleWindow,size,constraint]" description="Test content inside titleWindow with size constraint settings:top,bottom,left,right">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints,'size constrainted test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>            	            	
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="TitleWindow_Properties_constraint2" keywords="[TitleWindow,size,constraint]" description="Test content inside titleWindow with size constraint settings:paddingTop,paddingBottom, paddingLeft, paddingRight">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithSizeConstraints2,'size constrainted test2')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>            	            	
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+
+	<TestCase testID="TitleWindow_Properties_size1" keywords="[TitleWindow,size,constraint]" description="Test titleWindow without explicitly set, will be based on children's size">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowSizeTest1,'size test1')"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)"  waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>            	         
+	    	<AssertPropertyValue target="twObject" propertyName="width" value="502"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" value="233"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+
+	<TestCase testID="TitleWindow_Properties_size2" keywords="[TitleWindow,size,constraint]" description="Test titleWindow without explicitly set, will be based on children's size">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowSizeTest2,'size test2')"/>
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)"  waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>       
+	        <AssertPropertyValue target="twObject" propertyName="width" value="502"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" value="439"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="TitleWindow_Properties_size3" keywords="[TitleWindow,size,constraint]" description="Test titleWindow without explicitly set, will be based on children's size">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowSizeTest3,'size test3')"/>
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)"  waitEvent="TitleWindowComplete" waitTarget=""/>
+	  </setup>
+	    <body>            	
+	    	<AssertPropertyValue target="twObject" propertyName="width" value="202"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" value="439"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	<TestCase testID="TitleWindow_Properties_size4" keywords="[TitleWindow,size,constraint]" description="Test titleWindow without explicitly set,use percentage value, will be based on children's size, long title string will be truncated">
+	    <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowPercentSize,'size test4')"/>
+		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.twObject)"  waitEvent="TitleWindowComplete" waitTarget=""/>
+	  </setup>
+	    <body>            	
+	    	<AssertPropertyValue target="twObject" propertyName="width" value="202"/>
+	    	<AssertPropertyValue target="twObject" propertyName="height" value="439"/>
+		<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+	</TestCase>
+	
+	
+	<TestCase testID="TitleWindow_Properties_alpha" keywords="[TitleWindow, Alpha]" description="Test the alpha property of TitleWindow">
+  	    <setup>            
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent1,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>
+            	<SetProperty target="twObject" propertyName="alpha" value="0.5"/>
+            	<Pause timeout="40"/>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            	
+            	<SetProperty target="twObject" propertyName="alpha" value="0" />
+            	<Pause timeout="40"/>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID_0alpha.png" numColorVariances="10" maxColorVariance="20"/>
+            	
+            </body>
+        </TestCase>      
+        
+	<TestCase testID="TitleWindow_Properties_disabled1" keywords="[TitleWindow, Disabled, Enabled]" description="Test enabled property at runtime of TitleWindow">
+            <setup>            
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContentDisabled,'window with disabled content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>		
+            	<AssertPropertyValue target="twObject" propertyName="enabled" value="false" />
+            	<DispatchMouseClickEvent target="twObject.ta1" localX="10" localY="10" />
+				
+            	<DispatchKeyEvent char="boogie" waitTarget="twObject.ta1" />
+	          	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.ta1.text!='boogie'" value="true" />    
+            	<DispatchKeyEvent char="boogie" waitTarget="twObject.ta2" />
+		<AssertNoEvent target="twObject.ta2" eventName="change" eventClass="mx.event::FlexEvent" />
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.ta2.text!='boogie'" value="true" />    
+            </body>
+        </TestCase>        
+
+	<TestCase testID="TitleWindow_Properties_disabled2" keywords="[TitleWindow, Disabled, Enabled]" description="Test disable property of components within TitleWindow which is disabled">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContentDisabled,'window with disabled content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+		<SetStyle target="twObject" styleName="focusColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="twObject" />		
+	    </setup>
+            <body>			
+            	<AssertPropertyValue target="twObject" propertyName="enabled" value="false"/>
+            	<DispatchMouseEvent type="mouseDown" target="twObject.mySparkNS.incrementButton" localX="5" localY="5" />
+            	<DispatchMouseEvent type="mouseUp" target="twObject.mySparkNS.incrementButton" localX="5" localY="5" />
+            	<AssertNoEvent target="twObject.mySparkNS" eventName="valueCommit" eventClass="mx.event::FlexEvent" />
+                <AssertPropertyValue target="twObject.myHaloHSlider" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="twObject.myHaloNS" propertyName="enabled" value="true"/>            	
+                <DispatchKeyEvent keys="[TAB]" />
+                <AssertNoEvent target="twObject.mySparkButton" eventName="focusIn" eventClass="mx.event::FlexEvent" />
+                <Pause timeout="20"/>
+                <DispatchKeyEvent keys="[TAB]"  />
+                <AssertNoEvent target="twObject.myHaloNS" eventName="focusIn" eventClass="mx.event::FlexEvent" />
+               	<Pause timeout="20"/>
+                <DispatchKeyEvent keys="[TAB]" />
+                <AssertNoEvent target="twObject.myHaloHSlider" eventName="focusIn" eventClass="mx.event::FlexEvent" />
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>            
+            	
+            </body>
+        </TestCase>        
+
+	<TestCase testID="TitleWindow_Properties_enabled1" keywords="[TitleWindow, Enabled]" description="Test enabled property at runtime of TitleWindow">
+            <setup>            
+            	<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+                <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContentDisabled,'window with disabled content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+            </setup>
+            <body>			
+            	<SetProperty target="twObject" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
+            	<Pause timeout="20"/>
+            	<DispatchMouseClickEvent target="twObject.ta1" localX="2" localY="2" />
+            	<DispatchKeyEvent char="boogie" waitTarget="twObject.ta1" waitEvent="change"/>
+            	<AssertPropertyValue target="twObject.ta1" propertyName="text" value="boogieHalo TextArea"/> 
+            	<Pause timeout="20"/>
+            	<DispatchMouseClickEvent target="twObject.ta2" localX="2" localY="2" />
+            	<DispatchKeyEvent char="boogie2" waitTarget="twObject.ta2" waitEvent="change"/>
+		<AssertPropertyValue target="twObject.ta2" propertyName="text" value="boogie2Spark TextArea"/>  
+		<Pause timeout="20"/>
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.twObject.ta2.text!='boogie'" value="true" />    
+            </body>
+        </TestCase>        
+
+	<TestCase testID="TitleWindow_Properties_enabled2" keywords="[TitleWindow, Enabled]" description="Test enabled property of components within TitleWindow which was disabled">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContentDisabled,'window with disabled content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+		<SetStyle target="twObject" styleName="focusColor" value="0xFF0000" waitEvent="updateComplete" waitTarget="twObject" />		
+	    </setup>
+            <body>
+            	<SetProperty target="twObject" propertyName="enabled" value="true" waitEvent="updateComplete" waitTarget="twObject"/>
+            	<DispatchMouseEvent type="mouseDown" target="twObject.mySparkNS.incrementButton" localX="5" localY="5" />
+            	<DispatchMouseEvent type="mouseUp" target="twObject.mySparkNS.incrementButton" localX="5" localY="5" />
+            	<AssertPropertyValue target="twObject.myHaloHSlider" propertyName="enabled" value="true"/>
+                <AssertPropertyValue target="twObject.myHaloNS" propertyName="enabled" value="true"/>  
+                <AssertPropertyValue target="twObject" propertyName="enabled" value="true"/>  
+                <DispatchMouseEvent type="mouseDown" target="twObject.myButton" localX="5" localY="5" />
+                <DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="twObject.mySparkButton" />
+				<DispatchMouseClickEvent localX="10" localY="5" target="twObject.ta2" waitEvent="focusIn"
+                    waitTarget="twObject.ta2" />
+				<Pause timeout="100"/>
+            	<CompareBitmap target="twObject" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>            	
+            	
+            </body>
+        </TestCase> 
+      
+		                
+	<TestCase testID="TitleWindow_Properties_toolTip" keywords="[TitleWindow, toolTip]" description="Test toolTip property of TitleWindow">
+            <setup>            
+                <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent2,'window with tooltip')" waitEvent="TitleWindowComplete" waitTarget=""/>	        
+            </setup>
+            <body>             	
+            	<DispatchMouseEvent target="twObject.skin.moveArea" localX="50" localY="10" type="mouseOver" waitEvent="toolTipShown" waitTarget="twObject"/>
+                <DispatchMouseEvent target="twObject.skin.moveArea" localX="50" localY="10" type="mouseOut" waitEvent="toolTipHide" waitTarget="twObject"/>
+          
+			</body>
+        </TestCase>		
+        
+		 
+    </testCases>
+    
+</UnitTester>
+

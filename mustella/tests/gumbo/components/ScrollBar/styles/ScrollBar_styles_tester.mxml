@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ScrollBar/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollBar_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+            	import spark.components.HScrollBar;
+		import spark.components.VScrollBar;
+		]]>
+	</fx:Script>
+
+	<testCases>
+		<TestCase testID="ScrollBar_Style_fixedThumbSize_mxml" keywords="[ScrollBar, fixedThumbSize]" description="">
+			<body>
+				<AssertStyleValue target="fixedThumbSize_hscrollbar" styleName="fixedThumbSize" value="true"/>
+				<AssertStyleValue target="fixedThumbSize_vscrollbar" styleName="fixedThumbSize" value="true"/>
+				<AssertStyleValue target="hsb" styleName="fixedThumbSize" value="false"/>
+				<AssertStyleValue target="vsb" styleName="fixedThumbSize" value="false"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ScrollBar_Style_smoothScrolling_mxml" keywords="[ScrollBar, smoothScrolling]" description="">
+			<body>
+				<AssertStyleValue target="smoothScrolling_hscrollbar" styleName="smoothScrolling" value="false"/>
+				<AssertStyleValue target="smoothScrolling_vscrollbar" styleName="smoothScrolling" value="false"/>
+				<AssertStyleValue target="hsb" styleName="smoothScrolling" value="true"/>
+				<AssertStyleValue target="vsb" styleName="smoothScrolling" value="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="ScrollBar_Style_fixedThumbSize_as" keywords="[ScrollBar, fixedThumbSize]" description="">
+			<body>
+				<SetStyle target="fixedThumbSize_hscrollbar" styleName="fixedThumbSize" value="false"  waitEvent="updateComplete" waitTarget="fixedThumbSize_hscrollbar"/>
+				<SetStyle target="fixedThumbSize_vscrollbar" styleName="fixedThumbSize" value="false"  waitEvent="updateComplete" waitTarget="fixedThumbSize_vscrollbar"/>
+				<AssertStyleValue target="fixedThumbSize_hscrollbar" styleName="fixedThumbSize" value="false"/>
+				<AssertStyleValue target="fixedThumbSize_vscrollbar" styleName="fixedThumbSize" value="false"/>
+
+			</body>
+		</TestCase>
+		<TestCase testID="ScrollBar_Style_smoothScrolling_as" keywords="[ScrollBar, smoothScrolling]" description="">
+			<body>
+				<SetStyle target="smoothScrolling_hscrollbar" styleName="smoothScrolling" value="true"  waitEvent="updateComplete" waitTarget="smoothScrolling_hscrollbar"/>
+				<SetStyle target="smoothScrolling_vscrollbar" styleName="smoothScrolling" value="true"  waitEvent="updateComplete" waitTarget="smoothScrolling_vscrollbar"/>
+				<AssertStyleValue target="smoothScrolling_hscrollbar" styleName="smoothScrolling" value="true"/>
+				<AssertStyleValue target="smoothScrolling_vscrollbar" styleName="smoothScrolling" value="true"/>
+
+			</body>
+		</TestCase>
+		<TestCase testID="HScrollBar_fixedThumbSize_change_size" keywords="[HScrollBar,fixedThumbSize]" description="">
+			<setup>
+				<ResetComponent target="fixedThumbSize_hscrollbar" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+				<SetStyle target="fixedThumbSize_hscrollbar" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="fixedThumbSize_hscrollbar"/>
+
+			</setup>
+			<body>
+				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="maximum"  value="9999"  waitEvent="updateComplete" />
+				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="width"  value="200"  waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_hscrollbar"/>
+
+			</body>
+		</TestCase>
+		<TestCase testID="VScrollBar_fixedThumbSize_change_size" keywords="[VScrollBar,fixedThumbSize]" description="">
+			<setup>
+				<ResetComponent target="fixedThumbSize_vscrollbar" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+				<SetStyle target="fixedThumbSize_vscrollbar" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="fixedThumbSize_vscrollbar"/>
+
+			</setup>
+			<body>
+				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="minimum"  value="-9999"  waitEvent="updateComplete" />
+				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="width"  value="300"  waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_vscrollbar"/>
+
+			</body>
+		</TestCase>
+		<TestCase testID="HScrollBar_fixedThumbSize_change_size1" keywords="[HScrollBar,fixedThumbSize]" description="">
+			<setup>
+				<ResetComponent target="fixedThumbSize_hscrollbar" className="spark.components.HScrollBar" waitEvent="updateComplete" />
+				<SetStyle target="fixedThumbSize_hscrollbar" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="fixedThumbSize_hscrollbar"/>
+			</setup>
+			<body>
+				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="maximum"  value="20"  waitEvent="updateComplete" />
+				<SetProperty    target="fixedThumbSize_hscrollbar" propertyName="width"  value="200"  waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_hscrollbar"/>
+			</body>
+		</TestCase>
+		<TestCase testID="VScrollBar_fixedThumbSize_change_size1" keywords="[VScrollBar,fixedThumbSize]" description="">
+			<setup>
+				<ResetComponent target="fixedThumbSize_vscrollbar" className="spark.components.VScrollBar" waitEvent="updateComplete" />
+				<SetStyle target="fixedThumbSize_vscrollbar" styleName="fixedThumbSize" value="true"  waitEvent="updateComplete" waitTarget="fixedThumbSize_vscrollbar"/>
+			</setup>
+			<body>
+				<SetProperty    target="fixedThumbSize_vscrollbar" propertyName="minimum"  value="-30"  waitEvent="updateComplete" />
+				<SetProperty    target="fixedThumbSize_vscrollbar" propertyName="width"  value="200"  waitEvent="updateComplete" />
+				<CompareBitmap url="../styles/baselines/$testID.png" target="fixedThumbSize_vscrollbar"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

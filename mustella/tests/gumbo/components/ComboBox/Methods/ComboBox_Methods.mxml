@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Methods/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+				
+		<TestCase testID="ComboBox_Methods_openDropDown" keywords="[ComboBox, Method, openDropDown]" description="Test openDropDown method of ComboBox">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>		
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>				
+				<Pause timeout="100"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+			</body>
+		</TestCase>	
+						
+		<TestCase testID="ComboBox_Methods_closeDropDown1" keywords="[ComboBox, Method, closeDropDown]" description="Test closeDropDown(true) ComboBox">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+				
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>					
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]"/>
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(true)" waitEvent="close" waitTarget="mainGroup.myCB1" />
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="4"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product E"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.skin.textInput.selectRange(0,2)" waitTarget="mainGroup.myCB1.skin.textInput" waitEvent="selectionChange"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Methods_closeDropDown2" keywords="[ComboBox, Method, closeDropDown]" description="Test closeDropDown(false) ComboBox">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+				<SetProperty target="mainGroup.myCB1" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+			</setup>
+			<body>									
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB"/>
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="true"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]"/>
+				<Pause timeout="200"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB1" />
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="isDropDownOpen" value="false"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product B"/>
+			</body>
+		</TestCase>		
+	
+	</testCases>
+</UnitTester>

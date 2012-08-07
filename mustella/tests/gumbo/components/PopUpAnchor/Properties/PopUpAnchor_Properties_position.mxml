@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/PopUpAnchor/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="PopUpAnchor_position.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="PopUpAnchor_Properties_position_topFlip" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to top with no space above PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPU_TA" className="comps.Custom_PUT" waitEvent="updateComplete" waitTarget="myPU_TA"/>								
+				<SetProperty target="myPU_TA.taPUA" propertyName="popUpPosition" value="above" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="PopUpAnchor_Properties_position_rightFlip" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to right with no space on right of PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPU_TA" className="comps.Custom_PUT" waitEvent="updateComplete" waitTarget="myPU_TA"/>
+				<SetProperty target="myPU_TA" propertyName="right" value="0" waitEvent="updateComplete" waitTarget="myPU_TA"/>								
+				<SetProperty target="myPU_TA.taPUA" propertyName="popUpPosition" value="right" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA.popUp"/>
+			</setup>
+			<body>									
+				<CompareBitmap target="" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="PopUpAnchor_Properties_position_leftFlip" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to left with no space on left of PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPU_TA" className="comps.Custom_PUT" waitEvent="updateComplete" waitTarget="myPU_TA"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="popUpPosition" value="left" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="PopUpAnchor_Properties_position_defaultFlip" keywords="[PopUpAnchor, popUpPosition]" description="Test popUpPosition set to default with no space below PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPU_TA" className="comps.Custom_PUT" waitEvent="updateComplete" waitTarget="myPU_TA"/>
+				<SetProperty target="myPU_TA" propertyName="bottom" value="0" waitEvent="updateComplete" waitTarget="myPU_TA"/>								
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="" url="../Properties/Baselines/$testID.png"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="PopUpAnchor_Properties_position_rotation1" keywords="[PopUpAnchor, rotation]" description="Test rotation on PopUpAnchor">
+			<setup>
+				<ResetComponent target="myPU_TA" className="comps.Custom_PUT" waitEvent="updateComplete" waitTarget="myPU_TA"/>
+				<SetProperty target="myPU_TA" propertyName="x" value="300" waitEvent="updateComplete" waitTarget="myPU_TA"/>
+				<SetProperty target="myPU_TA" propertyName="y" value="100" waitEvent="updateComplete" waitTarget="myPU_TA"/>								
+				<SetProperty target="myPU_TA.taPUA" propertyName="popUpPosition" value="exact" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="rotation" value="45" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="true" waitEvent="updateComplete" waitTarget="myPU_TA.taPUA.popUp"/>				
+			</setup>
+			<body>									
+				<CompareBitmap target="" url="../Properties/Baselines/$testID.png" numColorVariances="6" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myPU_TA.taPUA" propertyName="displayPopUp" value="false"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+	
+</UnitTester>

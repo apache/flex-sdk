@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DropDownList/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DropDownList_states.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>	
+
+	<testCases>
+
+		<TestCase testID="DropDownList_Properties_States_includeIn" keywords="[DropDownList, Property, addItemAt]" description="Test states on DropDownList">
+			<setup>
+				<ResetComponent target="myDDLS" className="comps.Custom_DDL_State" waitEvent="updateComplete" waitTarget="myDDLS"/>
+			</setup>
+			<body>											
+				<CompareBitmap target="myDDLS" url="../Properties/Baselines/$testID_1.png" numColorVariances="12" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myDDLS" propertyName="currentState" value="state2" waitTarget="myDDLS" waitEvent="currentStateChange"/> 
+				<CompareBitmap target="myDDLS" url="../Properties/Baselines/$testID_2.png" numColorVariances="12" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_States_Styles1" keywords="[DropDownList, Property, addItemAt]" description="Test states on DropDownList">
+			<setup>
+				<ResetComponent target="myDDLS" className="comps.Custom_DDL_State" waitEvent="updateComplete" waitTarget="myDDLS"/>
+				<SetProperty target="myDDLS.myDDLS3" propertyName="selectedIndex" value="2" waitTarget="myDDLS.myDDLS3" waitEvent="updateComplete"/> 
+			</setup>
+			<body>											
+				<CompareBitmap target="myDDLS.myDDLS3" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS3.openDropDown()" waitEvent="open" waitTarget="myDDLS.myDDLS3"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDLS.myDDLS3.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS3.closeDropDown(false)"/>					
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_States_Styles2" keywords="[DropDownList, Property, addItemAt]" description="Test states on DropDownList">
+			<setup>
+				<ResetComponent target="myDDLS" className="comps.Custom_DDL_State" waitEvent="updateComplete" waitTarget="myDDLS"/>
+				<SetProperty target="myDDLS.myDDLS3" propertyName="selectedIndex" value="2" waitTarget="myDDLS.myDDLS3" waitEvent="updateComplete"/> 
+				<SetProperty target="myDDLS" propertyName="currentState" value="state2" waitTarget="myDDLS" waitEvent="currentStateChange"/> 
+			</setup>
+			<body>											
+				<CompareBitmap target="myDDLS.myDDLS3" url="../Properties/Baselines/$testID_1.png" numColorVariances="10" ignoreMaxColorVariance="true"/>				
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS3.openDropDown()" waitEvent="open" waitTarget="myDDLS.myDDLS3"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDLS.myDDLS3.dropDown" url="../Properties/Baselines/$testID_2.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS3.closeDropDown(false)"/>					
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DropDownList_Properties_States_Styles3" keywords="[DropDownList, Property, addItemAt]" description="Test states on DropDownList">
+			<setup>
+				<ResetComponent target="myDDLS" className="comps.Custom_DDL_State" waitEvent="updateComplete" waitTarget="myDDLS"/>
+				<SetStyle target="myDDLS.myDDLS1" styleName="color" value="green" waitTarget="myDDLS.myDDLS1" waitEvent="updateComplete"/> 
+				<SetStyle target="myDDLS.myDDLS1" styleName="fontSize" value="16" waitTarget="myDDLS.myDDLS1" waitEvent="updateComplete"/> 
+				<SetStyle target="myDDLS.myDDLS1" styleName="contentBackgroundColor" value="yellow" waitTarget="myDDLS.myDDLS1" waitEvent="updateComplete"/>
+				<SetStyle target="myDDLS.myDDLS1" styleName="selectionColor" value="blue" waitTarget="myDDLS.myDDLS1" waitEvent="updateComplete"/>
+				<SetProperty target="myDDLS.myDDLS1" propertyName="selectedIndex" value="1" waitTarget="myDDLS.myDDLS1" waitEvent="updateComplete"/> 
+			</setup>
+			<body>											
+				<CompareBitmap target="myDDLS.myDDLS1" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>						
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS1.openDropDown()" waitEvent="open" waitTarget="myDDLS.myDDLS1"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDLS.myDDLS1.dropDown" numColorVariances="15" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID_2.png"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS1.closeDropDown(false)"/>
+				
+				<SetProperty target="myDDLS" propertyName="currentState" value="state2" waitTarget="myDDLS" waitEvent="currentStateChange"/>
+				<AssertPropertyValue target="myDDLS" propertyName="currentState" value="state2"/>
+				<SetProperty target="myDDLS" propertyName="currentState" value="state1" waitTarget="myDDLS" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myDDLS.myDDLS1" numColorVariances="15" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID_3.png"/>						
+				
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS1.openDropDown()" waitEvent="open" waitTarget="myDDLS.myDDLS1"/>	
+				<Pause timeout="100"/>								
+				<CompareBitmap target="myDDLS.myDDLS1.dropDown" numColorVariances="15" ignoreMaxColorVariance="true" url="../Properties/Baselines/$testID_4.png"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myDDLS.myDDLS1.closeDropDown(false)"/>												
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DropDownList_Properties_States_selected" keywords="[DropDownList, Property, addItemAt]" description="Test states on DropDownList">
+			<setup>
+				<ResetComponent target="myDDLS" className="comps.Custom_DDL_State" waitEvent="updateComplete" waitTarget="myDDLS"/>
+			</setup>
+			<body>											
+				<SetProperty target="myDDLS.myDDLS1" propertyName="selectedIndex" value="2" waitTarget="myDDLS.myDDLS1" waitEvent="updateComplete"/> 
+				<AssertPropertyValue target="myDDLS.myDDLS1" propertyName="selectedIndex" value="2"/>
+				<CompareBitmap target="myDDLS.myDDLS1" url="../Properties/Baselines/$testID_1.png" numColorVariances="12" ignoreMaxColorVariance="true"/>
+				
+				<SetProperty target="myDDLS" propertyName="currentState" value="state2" waitTarget="myDDLS" waitEvent="currentStateChange"/> 
+				
+				<SetProperty target="myDDLS.myDDLS2" propertyName="selectedItem" value="ProductL" waitTarget="myDDLS.myDDLS2" waitEvent="updateComplete"/> 
+				<AssertPropertyValue target="myDDLS.myDDLS2" propertyName="selectedItem" value="null"/>
+				<CompareBitmap target="myDDLS.myDDLS2" url="../Properties/Baselines/$testID_2.png" numColorVariances="12" ignoreMaxColorVariance="true"/>
+				
+				<SetProperty target="myDDLS" propertyName="currentState" value="state1" waitTarget="myDDLS" waitEvent="currentStateChange"/> 
+				
+				<AssertPropertyValue target="myDDLS.myDDLS1" propertyName="selectedIndex" value="2"/>
+				<CompareBitmap target="myDDLS.myDDLS1" url="../Properties/Baselines/$testID_1.png" numColorVariances="12" ignoreMaxColorVariance="true"/>
+				
+				<SetProperty target="myDDLS" propertyName="currentState" value="state2" waitTarget="myDDLS" waitEvent="currentStateChange"/> 
+				
+				<AssertPropertyValue target="myDDLS.myDDLS2" propertyName="selectedItem" value="null"/>
+				<CompareBitmap target="myDDLS.myDDLS2" url="../Properties/Baselines/$testID_2.png" numColorVariances="12" ignoreMaxColorVariance="true"/>				
+			</body>
+		</TestCase>
+		
+		
+
+	
+
+	</testCases>
+</UnitTester>

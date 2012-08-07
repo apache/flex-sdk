@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/layoutUIC/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="LayoutUIC_main.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+        <fx:Script>
+            <![CDATA[
+		import mx.core.ILayoutElement;
+		                
+		private var m:Matrix;
+		                
+		private function transformButton(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number):Matrix{
+			var m1:Matrix = new Matrix();
+			m1.a = a;
+			m1.b = b;
+			m1.c = c;
+			m1.d = d;
+			m1.tx = tx;
+			m1.ty = ty;
+			return m1;
+                }
+                
+                private var compValue:Boolean;
+                
+                private function compFunc(actual:Number, expected:Number):Boolean
+                {
+                	compValue=false;
+                	if (actual == expected)
+                		compValue=true;
+                	else
+                		trace("Actual " + actual);
+                	
+               	return compValue;
+
+	       	}
+            ]]>
+        </fx:Script>
+
+   	<testCases>
+	    <!--*************************-->
+	    <!-- maxSize property testing-->
+	    <!--*************************-->
+	        
+	        
+	        <!--***********-->
+	        <!-- One factor-->
+	        <!--***********-->
+	
+	    <TestCase testID="maxSize_properties_measuredWidth" keywords="[maxSize, properties, layoutUIC]" description="Call maxSize after setting measuredWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth_5000" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth to 5000">
+	        <setup>
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="5000"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+
+	        </body> 
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight">
+	        <setup>
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="100"/>
+
+	      </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight_5000" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight to 5000">
+	        <setup>
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="5000"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredMinWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredMinWidth">
+	        <setup>
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredMinWidth" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredMinHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredMinHeight">
+	        <setup>
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredMinHeight" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinWidth_0" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMinWidth to 0">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="0"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinWidth_5000" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMinWidth to 5000">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="5000"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(false), 10000)" value="true" />
+		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(false), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinHeight_0" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMinHeight to 0">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="0"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinHeight_5000" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMinHeight to 5000">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="5000"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	   <TestCase testID="maxSize_properties_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="100"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="100" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="100"/>
+
+	        </setup>
+	        <body>
+ 		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="100" />
+	        </body>
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight150_measuredWidth100" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and measuredWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="100"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="150"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight0_measuredWidth0" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and measuredWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="0"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="0"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+
+	    <TestCase testID="maxSize_properties_measuredHeight60_explicitMinWidth110" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="110"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight30_explicitMinHeight0" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and explicitMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="0"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="30"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight0_explicitMinHeight30" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and explicitMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="0"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight50_explicitMinHeight80" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and explicitMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="80"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="50"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+
+	    <TestCase testID="maxSize_properties_measuredHeight60_explicitMinHeight50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and measuredMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth60_explicitMinHeight110" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth and explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="110"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	    <TestCase testID="maxSize_properties_measuredWidth30_explicitMinWidth0" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth and explicitMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="0"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="30"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth0_explicitMinWidth30" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth and explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="0"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth50_explicitMinWidth80" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth and measuredMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="80"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="50"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth60_explicitMinWidth50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth and measuredMinWidtht">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitWidth40_explicitMinWidth50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitWidth and explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitHeight40_explicitMinHeight50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitHeight and explicitMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitWidth40_measuredWidth30" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitWidth and measuredWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitHeight40_measuredHeight30" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting explicitHeight and measuredHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	       	    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />    
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredMinWidth_measuredMinHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredMinWidth and measuredMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredMinWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="measuredMinHeight" value="40"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinWidth_explicitMinHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredMinWidth and measuredMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="60"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight_explicitWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after measuredHeight and explicitWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="60"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after measuredHeight and explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="60"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="60" />
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after measuredHeight and explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="50"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="50" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth_explicitHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after measuredWidth and explicitHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="50"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+
+	    <TestCase testID="maxSize_properties_measuredWidth_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after measuredWidth and explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="50"/>
+
+	        </setup>
+	        <body>
+   	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="50" />
+	  	    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	         </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after measuredWidth and explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="5"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="5" />
+	        </body>     
+	    </TestCase>
+	    
+	    <TestCase testID="maxSize_properties_explicitHeight_explicitWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitHeight and explicitWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitHeight_explicitMinWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitHeight and explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitHeight_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitHeight and explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="30" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitHeight_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitHeight and explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="10"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="20"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="10" />
+	        </body>     
+	    </TestCase>
+	    
+	    <TestCase testID="maxSize_properties_explicitWidth_explicitMinWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinWidth and explicitWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="20"/>
+
+	        </setup>
+	        <body>
+	          <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	    
+	    <TestCase testID="maxSize_properties_explicitWidth_explicitMinHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinHeight and explicitWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitWidth_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitWidth_explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="20"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="20" />
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	    
+	    <TestCase testID="maxSize_properties_explicitWidth_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitWidth_explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="15"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="15" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinWidth_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinWidth and explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="15"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="30" />
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+
+	    <TestCase testID="maxSize_properties_explicitMinWidth_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinWidth and explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="15"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="15" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinHeight_explicitMaxWidth" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinHeight and explicitMaxWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="15"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="15" />
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMinHeight_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinHeight and explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="10"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+
+	        </setup>
+	        <body>
+   		    <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="20" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_explicitMaxWidth_explicitMaxHeight" keywords="[maxSize, properties, layoutUIC]" description="maxSize after explicitMinHeight and explicitMaxHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMaxWidth" value="30"/>
+	            <SetProperty target="b1" propertyName="explicitMaxHeight" value="20"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsWidth()" value="30" />
+	            <AssertMethodValue method="value=application.b1.getMaxBoundsHeight()" value="20" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredWidth60_explicitWidth70_explicitMinWidth50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth, explicitMinWidth and explicitWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="70"/>
+
+	        </setup>
+	        <body>
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+
+	    <TestCase testID="maxSize_properties_measuredWidth60_explicitWidth40_explicitMinWidth50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredWidth, explicitWidth and explicitMinWidth">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinWidth" value="50"/>
+	            <SetProperty target="b1" propertyName="measuredWidth" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitWidth" value="40"/>
+
+	        </setup>
+	        <body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+	    </TestCase>
+	
+	    <TestCase testID="maxSize_properties_measuredHeight60_explicitHeight40_explicitMinHeight50" keywords="[maxSize, properties, layoutUIC]" description="maxSize after setting measuredHeight and measuredMinHeight">
+	        <setup> 
+	            <ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+	            <SetProperty target="b1" propertyName="explicitMinHeight" value="50"/>
+	            <SetProperty target="b1" propertyName="measuredHeight" value="60"/>
+	            <SetProperty target="b1" propertyName="explicitHeight" value="40"/>
+
+	        </setup>
+	        <body>
+	 		<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	        </body>     
+    	</TestCase>
+    	
+	<!--*******************-->
+	<!--transform + maxSize-->
+	<!--*******************-->
+	
+	<TestCase testID="transform_translation_maxSize" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after setting x and y via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(1, 0, 0, 1, 5, 10);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+	            	<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_scaling_maxSize" keywords="[transform, properties, layoutUIC]" description="Call maxSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(3, 0, 0, 3, 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 30000)" value="true" />
+	            	<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 30000)" value="true" />	
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_maxSize_90degrees" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(90*Math.PI/180), Math.sin(90*Math.PI/180), -Math.sin(90*Math.PI/180), Math.cos(90*Math.PI/180), 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 10000)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_skewing_maxSize" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.c = Math.tan(60*Math.PI/180); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 27320.507764816284)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 10000)" value="true" />
+	            </body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_maxSize_45degrees" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after rotating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="application.b1.transform.matrix = transformButton(Math.cos(45*Math.PI/180), Math.sin(45*Math.PI/180), -Math.sin(45*Math.PI/180), Math.cos(45*Math.PI/180), 0, 0);"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 14142.135381698608)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 14142.135381698608)" value="true" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_maxSize_45degrees_scale2x" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 28284.270763397217)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 14142.135381698608)" value="true" />
+		</body>
+	</TestCase>
+
+	 <TestCase testID="transform_rotating_maxSize_45degrees_scale2y" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after rotating and scaling the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 14142.135381698608)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 28284.270763397217)" value="true" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="transform_rotating_maxSize_45degrees_scale2x_translatex5" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after scaling and translating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(2, 1); m.translate(5,0); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 28284.270763397217)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 14142.135381698608)" value="true" />
+		</body>
+	</TestCase>
+
+	 <TestCase testID="transform_rotating_maxSize_45degrees_scale2y_translatey5" keywords="[transform, maxSize, properties, layoutUIC]" description="Call maxSize after rotating the button via transform matrix">
+		<setup> 
+			<ResetComponent target="b1" className="mx.controls.Button" waitEvent="updateComplete" waitTarget="b1"/>
+			<RunCode code="m = application.b1.transform.matrix; m.rotate(45*Math.PI/180); m.scale(1, 2);m.translate(0,5); application.b1.transform.matrix = m;"/>
+			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsWidth(), 14142.135381698608)" value="true" />
+		        <AssertMethodValue method="value=compFunc(application.b1.getMaxBoundsHeight(), 28284.270763397217)" value="true" />
+		</body>
+	</TestCase>
+	
+    </testCases>
+</UnitTester>    

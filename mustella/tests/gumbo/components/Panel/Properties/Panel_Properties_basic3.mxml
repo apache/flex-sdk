@@ -1,0 +1,64 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_basic3.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[            
+                import mx.core.FlexGlobals;
+                import mx.managers.ToolTipManager;            
+        ]]>
+    </fx:Script>     
+           
+    <testCases>    
+
+		<TestCase testID="Panel_Properties_errorString1" keywords="[Panel, errorString]" description="Test errorString property of Panel">
+            <setup>            
+                <ResetComponent target="mySimplePanel" className="Comps.CustomSimplePanel" waitEvent="updateComplete" waitTarget="mySimplePanel"/>
+                <RunCode code="ToolTipManager.showDelay=0" />
+                <SetProperty target="mySimplePanel" propertyName="toolTip" value="The panel tool tip"/>
+                <SetProperty target="mySimplePanel.myBtn" propertyName="toolTip" value="The button tool tip"/>
+                <SetProperty target="mySimplePanel" propertyName="errorString" value="THE ERROR STRING!!" waitEvent="updateComplete" waitTarget="mySimplePanel"/>
+            </setup>
+            <body>             	            	
+				<CompareBitmap target="myBox" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>            	
+            	<DispatchMouseEvent target="mySimplePanel" localX="50" localY="100" type="mouseOver" waitEvent="toolTipShown" waitTarget="mySimplePanel"/>
+            	<CompareBitmap target="myBox" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>            	       	
+            </body>
+        </TestCase>		    
+
+		<TestCase testID="Panel_Properties_errorString2" keywords="[Panel, errorString]" description="Test errorString property of Panel">
+            <setup>            
+                <ResetComponent target="mySimplePanel" className="Comps.CustomSimplePanel" waitEvent="updateComplete" waitTarget="mySimplePanel"/>                
+                <SetProperty target="mySimplePanel" propertyName="toolTip" value="The panel tool tip"/>
+                <SetProperty target="mySimplePanel.myBtn" propertyName="toolTip" value="The button tool tip"/>
+                <SetProperty target="mySimplePanel" propertyName="errorString" value="THE ERROR STRING!!" waitEvent="updateComplete" waitTarget="mySimplePanel"/>
+            </setup>
+            <body>             	            	
+				<CompareBitmap target="myBox" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>   				
+				<SetProperty target="mySimplePanel" propertyName="errorString" value="" waitEvent="updateComplete" waitTarget="mySimplePanel"/>
+            	<DispatchMouseEvent target="mySimplePanel" localX="50" localY="100" type="mouseOver" waitEvent="toolTipShown" waitTarget="mySimplePanel"/>
+            	<CompareBitmap target="myBox" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>            	       	
+            </body>		
+        </TestCase>	
+
+    </testCases>
+    
+</UnitTester>
+

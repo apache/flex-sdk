@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application backgroundColor="0xFFFFFF"
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:comps="comps.*"
+	width="800" height="700" >
+ <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbeddedHalo;
+			embedAsCFF: false;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbeddedHalo;
+			embedAsCFF: false;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbeddedHalo;
+			embedAsCFF: false;
+
+		}
+		
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+
+		s|Label {
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbedded;
+            		fontLookup: "embeddedCFF";
+		}
+		mx|List{
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbeddedHalo;
+            		fontLookup: "embeddedCFF";
+		}
+		mx|Canvas{
+			fontAntiAliasType: "normal";
+			fontFamily: ArialEmbeddedHalo;
+            		fontLookup: "embeddedCFF";
+		}
+
+	</fx:Style>
+	<comps:ListIRWithLabel id="listIRLabel" />
+	<mx:Canvas id="myPanel" height="150" width="300" horizontalScrollPolicy="off">
+		<s:Label id="myLabel" rotation="10"/>
+	</mx:Canvas>
+	<mx:Canvas id="panel2" height="150" width="150">
+		<mx:List id="myList" />
+	</mx:Canvas>
+	
+</s:Application>

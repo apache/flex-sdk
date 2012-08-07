@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application 
+    backgroundColor="0xFFFFFF" 
+    height="375" 
+    width="500" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:comps="comps.*"
+    creationComplete="initListener()">
+    
+    <s:layout><s:VerticalLayout/></s:layout>
+
+	<fx:Script>
+		<![CDATA[	
+		
+			import mx.controls.Alert;
+			import flash.events.MouseEvent;
+			
+			public function initListener():void
+			{
+				addEventListener("click", listenForClick);
+			}
+		
+			private function listenForClick(e:MouseEvent):void
+			{			
+				if(myCB3.selected)
+					myCB3.label = "I AM SELECTED";
+				else
+					myCB3.label = "not selected";
+			}
+		
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+	@namespace c "comps.*";
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myArial;
+			embedAsCFF: true;
+		}
+			@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: myArialHalo;
+			embedAsCFF: false;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: myArialHalo;
+			embedAsCFF: false;
+		}
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: myArialHalo;
+			embedAsCFF: false;
+		}
+
+		global{
+			fontAntiAliasType: "normal";
+			fontFamily: myArial;
+			fontSize: 12;
+			fontLookup: "embeddedCFF";
+		}
+		mx|ToolTip{
+			fontAntiAliasType:"normal";
+			fontFamily:myArialHalo;
+		}
+		
+		.redText {
+		    color: #FF0000;
+		    fontWeight: "bold";
+		}
+		.greenFill {
+		    fillColors: #FFFFFF, #0022DD;
+		}
+		.redFill {
+		    fillColors: #FFFFFF, #DD2200;
+		    cornerRadius: 6;
+		}
+		
+		c|mySkinComp {		
+			skinClass: ClassReference("skins.FxCheckBoxSkin");
+		}	
+	</fx:Style>
+	
+	<s:states>
+	    <s:State name="state01" />
+	    <s:State name="state02" />
+	</s:states>
+		
+	<mx:Box paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="box1" width="250" height="60" includeIn="state01">
+   		<s:CheckBox id="myCB" selected="true" includeIn="state01"/>
+   	</mx:Box>
+        
+	<mx:Canvas width="565" height="55" includeIn="state01">
+	    <mx:Box paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="focusColor_checkbox_box" includeIn="state01">
+   	        <s:CheckBox x="3" id="focusColor_checkbox" label="focusColor" focusColor="0xCC0033" includeIn="state01"/>
+   	    </mx:Box>
+   	    <s:CheckBox x="103" id="baseColor_checkbox" label="baseColor" chromeColor="0xFFFF00" includeIn="state01"/>
+ 	    <s:CheckBox x="203" id="color_checkbox" label="color" color="0xFF0000" includeIn="state01"/>
+   	    <s:CheckBox x="353" id="symbolColor_checkbox" label="symbolColor" symbolColor="0x9900CC" includeIn="state01"/>
+   	</mx:Canvas>    
+   	
+   	<s:CheckBox id="myCB_States" includeIn="state02"/>
+   	
+   	<comps:mySkinComp id="myCB_skinned" />
+   	
+   	<s:CheckBox id="myCB3" label="Another FxCheckBox"/>
+   	
+   	<s:Group id="myBrdGrp">
+		<s:BorderContainer id="myBorder" top="5" bottom="5" right="5" left="5" width="250">
+			<s:CheckBox id="myCB4"/>
+		</s:BorderContainer>
+	</s:Group>
+    
+</s:Application>

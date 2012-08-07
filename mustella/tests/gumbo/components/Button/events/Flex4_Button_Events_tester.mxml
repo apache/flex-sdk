@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Button/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="Flex4_Button_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+import spark.components.Button;
+			import data.MyButton;
+			import mx.effects.Fade;
+
+			private var irButton:ClassFactory = new ClassFactory(MyButton);
+
+			[Bindable]
+			private var myFade:Fade = new Fade();
+		]]>
+	</fx:Script>
+
+	<testCases>
+
+		<!--Test for manual test checking toolTipShow event-->
+		<TestCase testID="Button_toolTipShow_Event" keywords="[Button, toolTipShow, Event]" description="Ensure the toolTipShow event gets triggered.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="panel1"/>
+				<SetProperty target="myButton" propertyName="toolTip" value="Button tool tip"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myButton" localX="15" localY="1" type="rollOver"/>	
+				<DispatchMouseEvent target="myButton" localX="15" localY="3" type="mouseOver"/>	
+				<!--<DispatchMouseEvent target="myButton" localX="15" localY="5" type="mouseMove"/>-->
+				<DispatchMouseEvent target="myButton" localX="15" localY="7" type="mouseMove" waitEvent="toolTipShow" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<!-- Test for mxunit test checking creationComplete-->
+		<TestCase testID="Button_creationComplete_Event" keywords="[Button, creationComplete, Event]" description="Ensures the creationComplete event gets triggered when the button is created.">
+			<body>
+				<ResetComponent target="myButton" className="spark.components::Button" waitEvent="creationComplete"/>
+			</body>
+		</TestCase>
+
+		<!--Test for mxunit test checking updateComplete event-->
+		<TestCase testID="Button_updateComplete_Event" keywords="[Button, updateComplete, Event]" description="Ensures the updateComplete event gets triggered when the button is created.">
+			<body>
+				<ResetComponent target="myButton" className="spark.components::Button" waitEvent="updateComplete"/>
+			</body>
+		</TestCase>
+
+		<!--Test for manual test checking click event-->
+		<TestCase testID="Button_click_Event" keywords="[Button, click, Event]" description="Ensures the click event gets triggered when a button is clicked.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components::Button" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="autoRepeat" target="myButton" value="false"/>
+				<DispatchMouseEvent target="myButton" type="rollOver" localX="30" localY="20"/>
+				<DispatchMouseEvent target="myButton" type="mouseDown" localX="30" localY="20" waitTarget="myButton" waitEvent="buttonDown"/>
+				<DispatchMouseEvent target="myButton" type="mouseUp" localX="30" localY="20" />
+				<DispatchMouseEvent target="myButton" type="click" localX="30" localY="20" />
+				<!--<DispatchMouseClickEvent target="myButton" localX="30" localY="20" waitTarget="myButton" waitEvent="buttonDown"/>-->
+			</body>
+		</TestCase>
+
+		<!--Test for manual test checking effectEnd event-->
+		<TestCase testID="Button_effectEnd_Event" keywords="[Button, effectEnd, Event]" description="Ensure that the effectEnd event gets fired once the effect ends.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components::Button"/>
+			</setup>
+			<body>
+				<SetStyle target="myButton" styleName="rollOverEffect" value="{myFade}" waitEvent="updateComplete" waitTarget="myButton"/>
+				<DispatchMouseEvent target="myButton" localX="30" localY="20" type="rollOver" waitEvent="effectEnd" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+		
+		<!--Test for manual test checking effectStart event-->
+		<TestCase testID="Button_effectStart_Event" keywords="[Button, effectStart, Event]" description="Ensure that the effectStart event gets fired once the effect starts.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components::Button"/>
+			</setup>
+			<body>
+				<SetStyle target="myButton" styleName="rollOverEffect" value="{myFade}" waitEvent="updateComplete" waitTarget="myButton"/>
+				<DispatchMouseEvent target="myButton" localX="30" localY="20" type="rollOver" waitEvent="effectStart" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+		<!--Test for manual test checking focusIn event-->
+		<TestCase testID="Button_focusIn_Event" keywords="[Button, focusIn, Event]" description="Ensure that the focusIn event gets fired when the button gets focus.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<!--Test for manual test checking focusOut event-->
+		<TestCase testID="Button_focusOut_Event" keywords="[Button, focusOut, Event]" description="Ensure that the focusOut event gets fired when the button goes out of focus.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button"/>
+			</setup>
+			<body>
+				<DispatchKeyEvent key="TAB" waitEvent="updateComplete" waitTarget="myButton"/>
+				<DispatchKeyEvent key="TAB" waitEvent="focusOut" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<!--Test for manual test checking hide event-->
+		<TestCase testID="Button_hide_Event" keywords="[Button, hide, Event]" description="Ensure that the hide event gets triggered when visible is false for Button.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="panel1"/>
+			</setup>
+			<body>
+				<SetProperty target="myButton" propertyName="visible" value="false" waitTarget="myButton" waitEvent="hide"/>
+			</body>
+		</TestCase>
+
+		<!--Test for manual test checking keyDown event-->
+		<TestCase testID="Button_keyDown_event" keywords="[Button, keyDown, Event]" description="Verify keyDown event fires.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="panel1"/>
+			</setup>
+			<body>	
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="SPACE" waitEvent="keyDown" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<!--Test for manual test checking keyUp event-->
+		<TestCase testID="Button_keyUp_event" keywords="[Button, keyUp, Event]" description="Verify keyUp event fires.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="panel1"/>
+			</setup>
+			<body>	
+				<DispatchKeyEvent key="TAB"/>
+				<DispatchKeyEvent key="SPACE" waitEvent="keyUp" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<!--Need to exclude this based on SDK-15329-->
+		<TestCase testID="Button_buttonDown_Event" keywords="[Button, buttonDown, Event]" description="Ensure that the buttonDown event gets triggered when the button is clicked.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components::Button" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent target="myButton" localX="15" localY="20" type="rollOver"/>
+				<DispatchMouseEvent target="myButton" localX="15" localY="20" type="mouseDown" waitEvent="buttonDown" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Button_dataChange_event" keywords="[Button, dataChange, Event]" description="Ensure that the dataChange event gets triggered when the data changes.">
+			<setup>
+				<ResetComponent target="myButton" className="spark.components::Button"/>
+				<ResetComponent target="myList" className="mx.controls::List"/>
+				<SetProperty target="myList" propertyName="dataProvider" value="[1,2,3]" waitEvent="updateComplete" waitTarget="myList"/>
+				<SetProperty target="myList" propertyName="itemRenderer" valueExpression="value=irButton" waitEvent="updateComplete" waitTarget="myList"/>
+			</setup>
+			<body>
+				<SetProperty target="myList" propertyName="dataProvider" value="[4,5,6]" waitEvent="updateComplete" waitTarget="myList"/>
+				<AssertEvent target="myList.mx_internal:rendererArray.0.0" eventName="dataChange" eventClass="mx.events::FlexEvent" timeout="1000"/>
+			</body>
+		</TestCase>
+		
+		<!--Testcase for manual test of move for Button-->
+		<TestCase testID="Button_move_event" keywords="[Button, move, Event]" description="Make sure move event gets fired when Button moves">
+			<setup>				
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+				<SetProperty target="myButton" propertyName="x" value="50"/>
+				<SetProperty target="myButton" propertyName="label" value="Button" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<SetProperty target="myButton" propertyName="x" value="70" waitEvent="move" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+
+		<!--Testcase for manual test of resize for Button-->
+		<TestCase testID="Button_resize_event" keywords="[Button, resize, Event]" description="Make sure resize event gets fired when Button moves">
+			<setup>				
+				<ResetComponent target="myButton" className="spark.components.Button" waitEvent="updateComplete" waitTarget="myButton"/>
+				<SetProperty target="myButton" propertyName="width" value="30"/>
+				<SetProperty target="myButton" propertyName="label" value="Button" waitEvent="updateComplete" waitTarget="myButton"/>
+			</setup>
+			<body>
+				<SetProperty target="myButton" propertyName="width" value="70" waitEvent="resize" waitTarget="myButton"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester 
+    testDir="gumbo/components/NavigatorContent/integration/"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns="*" 
+	xmlns:assets="assets.*"
+    testSWF="NavigatorContent_Integration_App2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.core.*;           // Includes INavigatorContent, Container, FlexGlobals.
+        import mx.containers.*;     // Includes Panel, Accordion, etc...
+        import spark.components.*;  // Includes NavigatorContent.
+        
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!-- Do simple editing, clicking, tool tip verification of spark and halo controls. -->
+
+<TestCase testID="integration_interact_test1" keywords="[NavigatorContent]" description="Tab to a Halo Button." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchKeyEvent keys="[TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="tn2.b1"/>
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_interact_test2" keywords="[NavigatorContent]" description="Tab to a Spark Button." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchKeyEvent keys="[TAB,TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="tn2.b2"/>
+		<CompareBitmap target="tn2" url="../integration/baselines/$testID.png" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_interact_test3" keywords="[NavigatorContent]" description="Tab into a Halo TextInput and type." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchKeyEvent keys="[TAB,TAB,TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="tn2.ti1"/>
+		<DispatchKeyEvent char="hello" waitEvent="change" waitTarget="tn2.ti1" />
+		<AssertPropertyValue target="tn2.ti1" propertyName="text" value="hello" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_interact_test4" keywords="[NavigatorContent]" description="Tab into a Spark TextInput and type." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchKeyEvent keys="[TAB,TAB,TAB,TAB,TAB,TAB]" waitEvent="focusIn" waitTarget="tn2.ti2"/>
+		<DispatchKeyEvent char="hello" waitEvent="change" waitTarget="tn2.ti2" />
+		<AssertPropertyValue target="tn2.ti2" propertyName="text" value="hello" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_interact_test5" keywords="[NavigatorContent]" description="Show a Spark component's toolTip." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchMouseEvent type="mouseOver" target="tn2.ti1" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="tn2.ti1"/>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.systemManager.toolTipChildren.getChildAt(0).text" value="canine" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_interact_test6" keywords="[NavigatorContent]" description="Show a Halo component's toolTip." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchMouseEvent type="mouseOver" target="tn2.ti2" localX="10" localY="10" waitEvent="toolTipShow" waitTarget="tn2.ti2"/>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.systemManager.toolTipChildren.getChildAt(0).text" value="feline" />
+    </body>
+</TestCase>
+
+<TestCase testID="integration_interact_test7" keywords="[NavigatorContent]" description="Show a Halo component's toolTip." >
+    <setup>
+        <ResetComponent target="tn2" className="assets.TabNav6" waitEvent="updateComplete" />
+    </setup>
+    <body>
+		<DispatchMouseEvent type="mouseOver" target="tn2" localX="5" localY="5" waitEvent="toolTipShow" waitTarget="tn2.theFirstTab"/>
+		<AssertMethodValue method="value = FlexGlobals.topLevelApplication.systemManager.toolTipChildren.getChildAt(0).text" value="ovine" />
+    </body>
+</TestCase>
+
+
+</testCases>
+</UnitTester>

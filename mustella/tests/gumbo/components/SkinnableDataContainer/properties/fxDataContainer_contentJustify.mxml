@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableDataContainer/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="FxDataContainerContentJustify.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+        import spark.layouts.*;
+        import comps.*;
+        import mx.core.ClassFactory;
+        import mx.collections.*;
+        import mx.skins.spark.*;
+
+    ]]>
+    </fx:Script>
+    <testCases>
+
+
+<!--
+- - - - - - - - - - - - - - - - - - - - - -
+contentJustify/justify testing on FxDataContainer
+- - - - - - - - - - - - - - - - - - - - - -
+
+These tests apply to the VerticalLayout/HorizontalLayout object on a FxDataContainer.
+They are essentially copied from equivalent DataGroup tests.
+
+
+
+VerticalLayout - horizontalAlign
+
+- check default value
+- left, right, center, justify, contentJustify
+    - with mix, data, graphics
+    - with small/large items
+
+-->
+
+<!-- data items -->
+
+    <TestCase testID="FxDataContainer_horizontalAlign_default" keywords="[FxDataContainer, horizontalAlign]" description="check default value">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="contentJustify" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_data_left" keywords="[FxDataContainer, horizontalAlign]" description="left align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'left'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_data_left.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_data_center" keywords="[FxDataContainer, horizontalAlign]" description="center align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'center'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_data_center.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_data_right" keywords="[FxDataContainer, horizontalAlign]" description="right align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'right'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_data_right.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_data_justify" keywords="[FxDataContainer, horizontalAlign]" description="justify align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'justify'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+
+
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_data_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_data_contentJustify" keywords="[FxDataContainer, horizontalAlign]" description="contentJustify align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'contentJustify'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_data_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+<!-- graphic items -->
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_left" keywords="[FxDataContainer, horizontalAlign]" description="left align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'left'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_left.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_center" keywords="[FxDataContainer, horizontalAlign]" description="center align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'center'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_center.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_right" keywords="[FxDataContainer, horizontalAlign]" description="right align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'right'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_right.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_justify" keywords="[FxDataContainer, horizontalAlign]" description="justify align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'justify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+			<SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_contentJustify" keywords="[FxDataContainer, horizontalAlign]" description="contentJustify align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'contentJustify'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+<!-- mixed content items -->
+
+    <TestCase testID="FxDataContainer_horizontalAlign_mix_left" keywords="[FxDataContainer, horizontalAlign]" description="left align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'left'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_mix_left.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_mix_center" keywords="[FxDataContainer, horizontalAlign]" description="center align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'center'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_mix_center.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_mix_right" keywords="[FxDataContainer, horizontalAlign]" description="center align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'right'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_mix_right.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_mix_justify" keywords="[FxDataContainer, horizontalAlign]" description="justify align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'justify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_mix_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_mix_contentJustify" keywords="[FxDataContainer, horizontalAlign]" description="contentJustify align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'contentJustify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+            <SetProperty target="dc" propertyName="width" value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_mix_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+<!-- all small items (graphics) -->
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_small_left" keywords="[FxDataContainer, horizontalAlign]" description="left align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'left'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="left" />
+            <AssertPropertyValue target="dc" propertyName="width" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_small_left.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_small_center" keywords="[FxDataContainer, horizontalAlign]" description="center align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'center'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="center" />
+            <AssertPropertyValue target="dc" propertyName="width" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_small_center.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_small_right" keywords="[FxDataContainer, horizontalAlign]" description="right align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'right'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="right" />
+            <AssertPropertyValue target="dc" propertyName="width" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_small_right.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_small_justify" keywords="[FxDataContainer, horizontalAlign]" description="justify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'justify'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+			<SetProperty target="dc" propertyName="width" value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_small_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_horizontalAlign_graphic_small_contentJustify" keywords="[FxDataContainer, horizontalAlign]" description="contentJustify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.horizontalAlign = 'contentJustify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayVertical()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+			<SetProperty target="dc" propertyName="width" value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.horizontalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="width" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_horizontalAlign_graphic_small_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+<!--
+
+HorizontalLayout - verticalAlign
+
+- check default value
+- left, right, center, justify, contentJustify
+    - with mix, data, graphics
+    - with small/large items
+
+-->
+
+<!-- data items -->
+
+    <TestCase testID="FxDataContainer_verticalAlign_default" keywords="[FxDataContainer, verticalAlign]" description="check default value">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="top" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_data_top" keywords="[FxDataContainer, verticalAlign]" description="top align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'top'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_data_top.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_data_middle" keywords="[FxDataContainer, verticalAlign]" description="middle align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'middle'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_data_middle.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_data_bottom" keywords="[FxDataContainer, verticalAlign]" description="bottom align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_data_bottom.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_data_justify" keywords="[FxDataContainer, verticalAlign]" description="justify align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'justify'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_data_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_data_contentJustify" keywords="[FxDataContainer, verticalAlign]" description="contentJustify align data items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'contentJustify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new DataArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+			<SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_data_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+<!-- graphic items -->
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_top" keywords="[FxDataContainer, verticalAlign]" description="top align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'top'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_top.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_middle" keywords="[FxDataContainer, verticalAlign]" description="middle align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'middle'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_middle.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_bottom" keywords="[FxDataContainer, verticalAlign]" description="bottom align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_bottom.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_justify" keywords="[FxDataContainer, verticalAlign]" description="justify align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'justify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_contentJustify" keywords="[FxDataContainer, verticalAlign]" description="contentJustify align graphic items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'contentJustify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+<!-- mixed content items -->
+
+    <TestCase testID="FxDataContainer_verticalAlign_mix_top" keywords="[FxDataContainer, verticalAlign]" description="top align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'top'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_mix_top.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_mix_middle" keywords="[FxDataContainer, verticalAlign]" description="middle align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'middle'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_mix_middle.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_mix_bottom" keywords="[FxDataContainer, verticalAlign]" description="middle align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_mix_bottom.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_mix_justify" keywords="[FxDataContainer, verticalAlign]" description="justify align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'justify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+			<SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_mix_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_mix_contentJustify" keywords="[FxDataContainer, verticalAlign]" description="contentJustify align mix items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'contentJustify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new MixedContentArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+			<SetProperty target="dc" propertyName="height"  value="100" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="100" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_mix_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+
+<!-- all small items (graphics) -->
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_small_top" keywords="[FxDataContainer, verticalAlign]" description="top align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'top'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="top" />
+            <AssertPropertyValue target="dc" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_small_top.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_small_middle" keywords="[FxDataContainer, verticalAlign]" description="middle align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'middle'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="middle" />
+            <AssertPropertyValue target="dc" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_small_middle.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_small_bottom" keywords="[FxDataContainer, verticalAlign]" description="bottom align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'bottom'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="bottom" />
+            <AssertPropertyValue target="dc" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_small_bottom.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_small_justify" keywords="[FxDataContainer, verticalAlign]" description="justify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'justify'" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="height"  value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="justify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_small_justify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_verticalAlign_graphic_small_contentJustify" keywords="[FxDataContainer, verticalAlign]" description="contentJustify align graphic items (small items)">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitTarget="dc" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="layout" valueExpression="value=new HorizontalLayout()" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <AssertMethodValue method="application.dc.layout.verticalAlign = 'contentJustify'" />
+
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.aligningItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new GraphicsArrayHorizontal()}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+
+            <SetProperty target="dc" propertyName="height"  value="200" waitTarget="dc" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <AssertMethodValue method="value=application.dc.layout.verticalAlign" value="contentJustify" />
+            <AssertPropertyValue target="dc" propertyName="height" value="200" />
+            <CompareBitmap url="../properties/baselines/fxdatacontainer_verticalAlign_graphic_small_contentJustify.png" target="" timeout="2000" />
+        </body>
+    </TestCase>
+
+
+    </testCases>
+</UnitTester>

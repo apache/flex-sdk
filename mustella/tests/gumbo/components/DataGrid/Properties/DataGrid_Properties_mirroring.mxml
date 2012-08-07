@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_mirroring.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Properties_colResize_RTL" keywords="[DataGrid, Property, column, resize, RTL]" description="Test column resizing when direction is set to RTL">			
+			<setup>
+				<ResetComponent target="myComp_LTR" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
+				<SetStyle target="myComp_LTR.dataGrid1" styleName="layoutDirection" value="rtl" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetStyle target="myComp_LTR.dataGrid1" styleName="direction" value="rtl" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myComp_LTR.dataGrid1" propertyName="width" value="253"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="33"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="27"/>								
+				<DispatchMouseEvent type="rollOver" target="myComp_LTR.dataGrid1" localX="177" localY="10" waitEvent="rollOver" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="177" localY="10" waitEvent="separatorMouseDown" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="203" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseUp" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="203" localY="10" waitEvent="separatorMouseUp" /> 
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="40"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="62"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="60"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="43"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="30"/>						
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_col5Resize_RTL" keywords="[DataGrid, Property, column, resize, LTR]" description="Test column resizing when direction is set to RTL">			
+			<setup>
+				<ResetComponent target="myComp_LTR" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
+				<SetStyle target="myComp_LTR.dataGrid1" styleName="layoutDirection" value="rtl" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetStyle target="myComp_LTR.dataGrid1" styleName="direction" value="rtl" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
+			</setup>
+			<body>				
+				<AssertPropertyValue target="myComp_LTR.dataGrid1" propertyName="width" value="253"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="33"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="27"/>												
+				<DispatchMouseEvent type="rollOver" target="myComp_LTR.dataGrid1" localX="246" localY="10" waitEvent="rollOver" /> 
+				<DispatchMouseEvent type="mouseDown" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="246" localY="10" waitEvent="separatorMouseDown" /> 
+				<DispatchMouseEvent type="mouseMove" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseDrag" /> 
+				<DispatchMouseEvent type="mouseUp" target="myComp_LTR.dataGrid1.columnHeaderGroup" localX="255" localY="10" waitEvent="separatorMouseUp" /> 
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(0).width" value="40"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(1).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(2).width" value="62"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(3).width" value="34"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(4).width" value="78"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp_LTR.dataGrid1.grid.getColumnBounds(5).width" value="21"/>						
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_RTL_MXML" keywords="[DataGrid, Property, column, RTL]" description="Test setting RTL on DataGrid in MXML">			
+			<setup>
+				<ResetComponent target="myComp_RTL" className="components.basicDG_RTL" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>						
+			</setup>
+			<body>				
+				<AssertStyleValue target="myComp_RTL.dataGrid1" styleName="layoutDirection" value="rtl"/>
+				<AssertStyleValue target="myComp_RTL.dataGrid1" styleName="direction" value="rtl"/>
+				<CompareBitmap target="myComp_RTL.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_RTL_RunTime" keywords="[DataGrid, Property, column, RTL]" description="Test setting RTL on DataGrid at RunTime">			
+			<setup>
+				<ResetComponent target="myComp_LTR" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>						
+			</setup>
+			<body>				
+				<AssertStyleValue target="myComp_LTR.dataGrid1" styleName="layoutDirection" value="ltr"/>
+				<AssertStyleValue target="myComp_LTR.dataGrid1" styleName="direction" value="ltr"/>
+				<SetStyle target="myComp_LTR.dataGrid1" styleName="layoutDirection" value="rtl" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetStyle target="myComp_LTR.dataGrid1" styleName="direction" value="rtl" waitEvent="enterFrame" waitTarget="stage"/>				
+				<CompareBitmap target="myComp_LTR.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+
+    </testCases>
+</UnitTester>

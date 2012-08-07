@@ -1,0 +1,34 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+        	                   
+    <s:states>
+    	<s:State name="state1"/>
+    	<s:State name="state2"/>
+    	<s:State name="state3"/>
+    </s:states>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:DropDownList id="dl">
+		<s:layout>
+			<s:VerticalLayout requestedMaxRowCount.state1="1" requestedMaxRowCount.state2="5" requestedMaxRowCount.state3="3"
+				requestedMinRowCount.state3="4"/>
+		</s:layout>
+		<s:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>ProductH</fx:String>
+				<fx:String>ProductI</fx:String>
+				<fx:String>ProductG</fx:String>
+				<fx:String>ProductJ</fx:String>
+				<fx:String>ProductK</fx:String>
+				<fx:String>ProductM</fx:String>
+			</mx:ArrayCollection>
+		</s:dataProvider>
+		
+	</s:DropDownList>
+	
+</s:SkinnableContainer>

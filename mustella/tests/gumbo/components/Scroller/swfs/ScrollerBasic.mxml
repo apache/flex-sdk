@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<s:Application height="600" width="600"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+
+    backgroundColor="0xFFFFFF" >
+
+    <s:layout> <s:VerticalLayout/> </s:layout>
+
+    <fx:Style source="assets/myStyles.css" />
+
+    <fx:Script>
+
+    <![CDATA[
+
+    import flash.filters.*;
+    import spark.primitives.*;
+    import spark.primitives.supportClasses.*;
+    import spark.components.DataGroup;
+    import spark.components.Group;
+    import spark.skins.spark.*;
+
+    import mx.graphics.*;
+
+    import comps.*;
+    import mx.collections.ArrayCollection;
+
+    import mx.graphics.SolidColorStroke;
+
+    import mx.graphics.SolidColor;
+
+
+    [Bindable]
+
+    public var players:ArrayCollection;
+
+    [Bindable]
+
+    public var ellipseAC:ArrayCollection;
+
+
+
+    public function createPlayersAC():void
+
+    {
+
+        players = new ArrayCollection([
+
+                {team:"ATeam",jerseyNumber:80, lastName:"BroPlayer",    firstName:"TrName"},
+                {team:"BTeam", jerseyNumber:7,  lastName:"LePlayer", firstName:"ByName"},
+                {team:"ATeam",jerseyNumber:12, lastName:"BryPlayer",    firstName:"ToName"},
+                {team:"ATeam",jerseyNumber:21, lastName:"GaPlayer",      firstName:"RaName"},
+                {team:"CTeam", jerseyNumber:34, lastName:"OrPlayer",    firstName:"DaName"},
+                {team:"ATeam",jerseyNumber:12, lastName:"ViPlayer",firstName:"AdName"},
+                {team:"BTeam", jerseyNumber:7,  lastName:"BoPlayer",     firstName:"ByName"},
+
+                ]);
+
+    }
+
+    public function createEllipseAC():void
+
+    {
+
+        ellipseAC = new ArrayCollection([
+
+            {label:"red",width:80, height:10, color:"0xFF0000"},
+
+            {label:"green",width:50, height:20, color:"0x00FF00"},
+
+            {label:"gray",width:30, height:60, color:"0x999999"},
+
+            {label:"red circle",width:50, height:50, color:"0xFF0000"},
+
+            {label:"yellow",width:40, height:10, color:"0xFFFF00"},
+
+            {label:"magenta",width:70, height:30, color:"0xFF00FF"},
+
+            {label:"aqua",width:30, height:40, color:"0x00FFFF"}
+
+            ]);
+
+    }
+
+    public function createAC():ArrayCollection
+
+    {
+
+        var col:ArrayCollection =
+
+            new ArrayCollection(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']);
+
+        return (col);
+
+    }
+
+    public function addElements(myGroup:Group, color:int, width:int=40, height:int=40, x:int=0, y:int=0 ):void
+
+    {
+
+            var myEllipse:Ellipse = new Ellipse();
+
+            myEllipse.width=width; myEllipse.height=height;
+
+            var myFill:SolidColor = new SolidColor();
+
+            myFill.color = color;
+
+            myEllipse.fill = myFill;
+
+            myGroup.addElement(myEllipse);
+
+            var myRect:Rect = new Rect();
+
+            myRect.width=width; myRect.height=height;
+
+            myRect.fill = myFill;
+
+            myGroup.addElement(myRect);
+
+    }
+
+    public function removeAllElementsCustom():void
+
+    {
+
+        for (var i:int=group1.numElements-1; i>=0;i--)
+
+            group1.removeElementAt(i);
+
+    }
+
+    public function mixItemRendererFunction(item:*):IFactory
+
+    {
+        if (item is DisplayObject || item is GraphicElement)
+
+            return new ClassFactory(DefaultComplexItemRenderer);
+
+        else
+
+            return new ClassFactory(DefaultItemRenderer);
+
+    }
+
+    ]]>
+
+    </fx:Script>
+
+
+
+    <s:Scroller id="sc1" >
+
+        <s:Group id="group1" />
+
+    </s:Scroller>
+
+    <s:Scroller id="sc2"  >
+
+        <s:DataGroup id="dg2" itemRendererFunction="mixItemRendererFunction"/>
+
+    </s:Scroller>
+
+</s:Application>

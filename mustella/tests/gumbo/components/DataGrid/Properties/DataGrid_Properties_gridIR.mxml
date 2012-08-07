@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_custom_gridIR.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+    
+		<TestCase testID="DataGrid_Properties_gridIR_colResize" keywords="[DataGrid, Property, GridItemRenderer, clipAndEnableScrolling]" description="Test using GridItemRenderer with clipAndEnableScrolling set to true on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_misc" className="components.DataGrid_customGridIR_misc" waitEvent="updateComplete"/>
+				<SetProperty target="dg_customIR_misc.c2" propertyName="width" value="70" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR_misc" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	    
+
+		<TestCase testID="DataGrid_Properties_gridIR_default" keywords="[DataGrid, Property, GridItemRenderer]" description="Test using GridItemRenderer on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR" className="components.DataGrid_customGridIR" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="DataGrid_Properties_gridIR_expSize" keywords="[DataGrid, Property, GridItemRenderer]" description="Test using GridItemRenderer with an explicit height and width set on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_expSize" className="components.DataGrid_customGridIR_dgExpSize" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR_expSize" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_gridIR_expSizeChange" keywords="[DataGrid, Property, GridItemRenderer]" description="Test using GridItemRenderer with an explicit height and width set on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_expSize" className="components.DataGrid_customGridIR_dgExpSize" waitEvent="updateComplete"/>				
+				<SetProperty target="dg_customIR_expSize" propertyName="width" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="dg_customIR_expSize" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<AssertPropertyValue target="dg_customIR_expSize" propertyName="width" value="300"/>
+				<AssertPropertyValue target="dg_customIR_expSize" propertyName="height" value="300"/>
+				<CompareBitmap target="dg_customIR_expSize" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+				
+		<TestCase testID="DataGrid_Properties_gridIR_misc" keywords="[DataGrid, Property, GridItemRenderer]" description="Test using GridItemRenderer on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_misc" className="components.DataGrid_customGridIR_misc" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR_misc" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_gridIR_newTypItemRunTime" keywords="[DataGrid, Property, GridItemRenderer]" description="Test using GridItemRenderer when a typicalItem is set on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_typItem" className="components.DataGrid_customGridIR_typicalItem" waitEvent="updateComplete"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.dg_customIR_typItem.changeTypicalItem()" waitEvent="enterFrame" waitTarget="stage"/>						
+                <RunCode code="FlexGlobals.topLevelApplication.dg_customIR_typItem.addNewTypicalItem()" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR_typItem" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="DataGrid_Properties_gridIR_typItem" keywords="[DataGrid, Property, GridItemRenderer]" description="Test using GridItemRenderer when a typicalItem is set on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_typItem" className="components.DataGrid_customGridIR_typicalItem" waitEvent="updateComplete"/>				
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR_typItem" url="../Properties/Baselines/$testID.png"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_gridIR_variableRowHeight" keywords="[DataGrid, Property, GridItemRenderer, clipAndEnableScrolling]" description="Test using GridItemRenderer with clipAndEnableScrolling set to true on DataGrid">			
+			<setup>
+				<ResetComponent target="dg_customIR_misc" className="components.DataGrid_customGridIR_misc" waitEvent="updateComplete"/>
+				<SetProperty target="dg_customIR_misc" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="dg_customIR_misc.c2" propertyName="width" value="70" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>				
+				<CompareBitmap target="dg_customIR_misc" url="../Properties/Baselines/$testID.png" numColorVariances="10" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>			
+		
+    </testCases>
+</UnitTester>

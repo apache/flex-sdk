@@ -1,0 +1,388 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark"   initialize="setDGEditEventHandlers()" dataProvider="{dp1}"
+	  selectionMode="{GridSelectionMode.MULTIPLE_CELLS}" variableRowHeight="true" editable="true" height="150">
+	<fx:Declarations>
+		<s:ArrayCollection id="dp1">
+			<s:DataItem country="USA" firstName="JOZY JOZY JOZY" lastName="HamFN" product="ProductD" number="17"/>
+   			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY" lastName="DBL007" product="ProductD" number="17"/>
+   			
+   			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN"  product="ProductD"  number="3"/>
+   			<s:DataItem country="USA" firstName="TimFN" lastName="HowFN"  product="ProductD"  number="1"/>
+   			<s:DataItem country="USA" firstName="CliFN" lastName="DemFN"  product="ProductD"  number="8"/>
+   			<s:DataItem country="USA" firstName="RobFN" lastName="Findley Findley Findley Findley"  product="ProductD"  number="20"/>
+   			<s:DataItem country="USA" firstName="H" lastName="G"  product="ProductD"  number="9"/>
+   							
+		</s:ArrayCollection>
+		<s:ArrayCollection id="dp2">
+			<s:DataItem country="USA" firstName="JOZ" lastName="Haming PI Iota;"  product="ProductD"  number="17"/>
+   			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY" lastName="Haming PI Sigma;"  product="ProductD"  number="17"/>
+   			<s:DataItem country="USA" firstName="CarFN" lastName="Haming PI Xi;"  product="ProductD"  number="3"/>
+   								
+		</s:ArrayCollection>
+		<s:ArrayCollection id="dp3">
+			<s:DataItem  firstName="TimFN" lastName="HowFN"  product="ProductD"  number="1"/>
+   			<s:DataItem  firstName="Clinton Wood" lastName="DemFN"  product="ProductD"  number="8"/>
+   			<s:DataItem  firstName="H" lastName="G"  product="ProductD" number="9"/>
+   							
+		</s:ArrayCollection>
+
+		 
+		
+		<s:ArrayCollection id="dp3Data">
+			<s:DataItem country="USA" firstName="JOZY JOZY JOZY" lastName="HamFN"  product="ProductD"  number="17"/>
+			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY" lastName="DBL007"  product="ProductD"  number="17"/>
+			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN"  product="ProductD"  number="3"/>
+   		</s:ArrayCollection>
+   		
+		<s:ArrayCollection id="dp4Data">
+			<s:DataItem country="USA" firstName="JOZY JOZY JOZY" lastName="HamFN"  product="ProductD"  number="17"/>
+			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY2" lastName="DBL007"  product="ProductD"  number="17"/>
+			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN"  product="ProductD"  number="3"/>
+   			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY1" lastName="DBL007"  product="ProductD"  number="17"/>
+   				
+   		</s:ArrayCollection>
+		<s:ArrayCollection id="dp5Data">
+			<s:DataItem country="USA" firstName="JOZY JOZY JOZY LONG LONG LONG LONG LONG" lastName="Hamingway LONG LONG LONG LONG"  product="ProductD ProductD ProductD"  number="17"/>
+			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY2" lastName="DBL007"  product="ProductD"  number="17"/>
+			<s:DataItem country="USA" firstName="CarFN" lastName="BocFN"  product="ProductD"  number="3"/>
+   			<s:DataItem country="UNITED  STATE  AMERICA" firstName="JOYROSEMARY1" lastName="DBL007"  product="ProductD"  number="17"/>
+   				
+   		</s:ArrayCollection>
+   		
+   		
+		<s:ArrayCollection id="dp5">
+			<fx:Object country="c1" firstName="JozFN" lastName="AltFN"  product="ProductD"  number="17">
+				<fx:address>
+					<fx:Object town='waltham' state='MA' zipCode='02452'/>
+				</fx:address>
+			</fx:Object>
+			<fx:Object country="c2"  firstName="CarFN" lastName="BocFN"  product="ProductD"  number="3">
+				<fx:address>
+					<fx:Object town='wilmington' state='MA' zipCode='01887'/>
+				</fx:address>
+			</fx:Object>
+			<fx:Object country="c2"  firstName="Carlos1" lastName="BocFN"  product="ProductD"  number="3">
+				<fx:address>
+					<fx:Object town='wilmington' state='MA' zipCode='01887'/>
+				</fx:address>
+			</fx:Object>
+			<fx:Object country="c2"  firstName="Carlos2" lastName="BocFN"  product="ProductD"  number="3">
+				<fx:address>
+					<fx:Object town='wilmington' state='MA' zipCode='01887'/>
+				</fx:address>
+			</fx:Object>
+
+			<fx:Object country="c3" firstName="TimFN" lastName="HowFN"  product="ProductD"  number="1">
+				<fx:address>
+					<fx:Object town='walnut creek' state='CA' zipCode='95103'/>
+				</fx:address>
+			</fx:Object>
+			<fx:Object country="c4"  firstName="CliFN" lastName="DemFN"  product="ProductD"  number="8">
+				<fx:address>
+					<fx:Object town='SF' state='CA' zipCode='95001'/>
+				</fx:address>
+			</fx:Object>
+				
+		</s:ArrayCollection>		
+ 		<s:ArrayCollection id="dp6">
+				<s:DataItem str="name1" num="300" bool="true" />
+				<s:DataItem str="name 2" num="10" bool="true" />
+				<s:DataItem str="name 3" num="1000" bool="true" />
+				<s:DataItem str="name 4" num="700" bool="true" />
+				<s:DataItem str="name 5" num="250" bool="false" />
+				<s:DataItem str="name 6" num="550" bool="false" />
+				<s:DataItem str="name 7" num="750" bool="false" />
+		</s:ArrayCollection>  		
+		
+		<s:ArrayCollection id="columns1">					 
+   			<s:GridColumn id="c1_1" dataField="country" width="50" editable="true"/>
+   			<s:GridColumn id="c1_2" dataField="firstName" editable="true"/>
+   			<s:GridColumn id="c1_3" dataField="lastName" width="100" editable="true"/>
+   			<s:GridColumn id="c1_4" dataField="product" editable="true"/>
+   			
+   		</s:ArrayCollection>
+   		
+   		<s:ArrayCollection id="columns2">
+   			<s:GridColumn id="c2_1" dataField="number" editable="true"/>
+   			<s:GridColumn id="c2_2" dataField="lastName" width="150" visible="false" editable="true"/>
+   			<s:GridColumn id="c2_3" dataField="firstName" editable="true"/>											
+   		</s:ArrayCollection>
+   		<s:ArrayList id="columns42">					 				
+			<s:GridColumn id="c42_1" dataField="country"  />			
+			<s:GridColumn id="c42_2" dataField="firstName"  visible="false" editable="true"  />									
+			<s:GridColumn id="c42_3" dataField="lastName"   editable="false"  />								
+		</s:ArrayList>
+		
+  		<s:ArrayCollection id="columns5">
+  			<s:GridColumn id="c5_0" dataField="country" editable="true" width="50"/>
+   			<s:GridColumn id="c5_1" dataField="firstName" width="150"/>
+   			<s:GridColumn id="c5_2" dataField="lastName" width="150"/>
+   			
+   			<s:GridColumn id="c5_3" dataField="product" width="150" editable="true"/>
+   		</s:ArrayCollection>
+		<s:ArrayCollection id="columns6">
+			<s:GridColumn id="c6_1" dataField="str"  editable="true" resizable="true"  >
+				<s:itemEditor>
+					<fx:Component>
+						<s:ComboBoxGridItemEditor>
+							<s:dataProvider>
+								<s:ArrayList>
+									<fx:int>0</fx:int>
+									<fx:int>1</fx:int>
+									<fx:int>2</fx:int>
+									<fx:int>3</fx:int>
+								</s:ArrayList>
+							</s:dataProvider>
+						</s:ComboBoxGridItemEditor>
+					</fx:Component>
+				</s:itemEditor>
+			</s:GridColumn>
+			<s:GridColumn id="c6_2" dataField="num" editable="true" resizable="true" >
+				<s:itemRenderer>
+					<fx:Component>
+						<s:DefaultGridItemRenderer textAlign="end"  />
+					</fx:Component>
+				</s:itemRenderer>
+				<s:itemEditor>
+					<fx:Component>
+						<s:ComboBoxGridItemEditor>
+							<s:dataProvider>
+								<s:ArrayList>
+									<fx:int>0</fx:int>
+									<fx:int>1</fx:int>
+									<fx:int>2</fx:int>
+									<fx:int>3</fx:int>
+								</s:ArrayList>
+							</s:dataProvider>
+						</s:ComboBoxGridItemEditor>
+					</fx:Component>
+				</s:itemEditor>
+			</s:GridColumn>
+			<s:GridColumn id="c6_3" dataField="bool" editable="true" resizable="true"  >
+				<s:itemEditor>
+					<fx:Component>
+						<s:ComboBoxGridItemEditor>
+							<s:dataProvider>
+								<s:ArrayList>
+									<fx:int>0</fx:int>
+									<fx:int>1</fx:int>
+									<fx:int>2</fx:int>
+									<fx:int>3</fx:int>
+								</s:ArrayList>
+							</s:dataProvider>
+						</s:ComboBoxGridItemEditor>
+					</fx:Component>
+				</s:itemEditor>
+			</s:GridColumn>
+		</s:ArrayCollection>
+			
+		<s:DataItem id="typicalItem1" country="ABCDEFGHIJKL0123456789" product="ProductF"  firstName="MNOPQRSTUVW" lastName="XYZ" />
+		<s:DataItem id="typicalItem2" country="56789"  product="ProductD"   firstName="MNOPQ" lastName="XYZTW" />
+		<s:DataItem id="typicalItem4" country="56789"  product="ProductF"  firstName="MNOPQ" lastName="XYZTW" undefined1="12345" />
+
+	</fx:Declarations>
+	
+	<fx:Script>	
+		<![CDATA[			
+			import mx.collections.ArrayCollection;
+			import spark.components.DataGrid;
+			
+			import spark.components.gridClasses.GridSelection;
+			import spark.events.GridItemEditorEvent;
+			import spark.components.gridClasses.GridSelectionMode;
+			import spark.components.gridClasses.GridColumn;
+			
+			public var largeItem:Object={country:"USA", firstName:"ZOZY JOZY JOZY", lastName:"Zamingway"};
+			public var smallItem:Object={country:"USA", firstName:"AOZY JOZY JOZY", lastName:"Amingway"};
+			
+			public var singleLineText:String = "The quick brown fox jumps over the lazy dog.";
+			public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+			
+			public var gridItemEditEvent:GridItemEditorEvent=null;
+			public var gridItemEditStartEvent:GridItemEditorEvent=null;
+			public var gridItemEditSaveEvent:GridItemEditorEvent=null;
+			public var gridItemEditCancelEvent:GridItemEditorEvent=null;
+			
+			/*
+			* reset all event objects
+			*/
+			public function resetEditEventObject():void
+			{
+				gridItemEditEvent=null;
+				gridItemEditStartEvent=null;
+				gridItemEditSaveEvent=null;
+				gridItemEditCancelEvent=null;
+			}
+			/*
+			* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_STARTING
+			*/
+			public function editStartingHandler(event:spark.events.GridItemEditorEvent):void
+			{
+				trace(event);
+				gridItemEditEvent=event;
+				
+			}
+			/*
+			* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_START
+			*/
+			public function editStartHandler(event:GridItemEditorEvent):void
+			{
+				trace(event);
+				gridItemEditStartEvent=event;
+
+			}
+			/*
+			* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_SAVE
+			*/
+			public function editSaveHandler(event:GridItemEditorEvent):void
+			{
+				trace(event);
+				gridItemEditSaveEvent=event;
+			}
+			/*
+			* an itemEditor event handler for GRID_ITEM_EDITOR_SESSION_CANCEL
+			*/
+			public function editCancelHandler(event:GridItemEditorEvent):void
+			{
+				trace(event);
+				gridItemEditCancelEvent=event;
+			}
+			/*
+			* an itemEditor event handler which cancelling editing at GRID_ITEM_EDITOR_SESSION_STARTING
+			*/
+			public function cancelEditingHandler(event:spark.events.GridItemEditorEvent):void
+			{
+				trace(event);
+				gridItemEditEvent=event;
+				event.preventDefault();
+			}
+
+			
+			/*
+			 * this method is hook up an itemEditor event handler with itemEditor event type
+			*/
+			public function setDGEditEventHandlers():void
+			{
+				addEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE, editSaveHandler);
+				addEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL, editCancelHandler);
+				addEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START, editStartHandler);
+				addEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING, editStartingHandler);
+			}			
+			
+			
+			public function setLTR():void
+			{
+				this.setStyle("direction","ltr");
+				this.setStyle("layoutDirection","ltr");
+			}
+			public function setRTL():void
+			{
+				this.setStyle("direction","rtl");
+				this.setStyle("layoutDirection","rtl");
+								
+			}	
+			public function addItem2(newItem:Object, pos:int):void{
+			
+				this.dataProvider.addItemAt(newItem,pos);
+			}
+			
+			public function addItem():void{			
+				var newItem:Object = new Object();
+				newItem.country="0123456789ABCDEFGHIJKL";
+				newItem.firstName="WVUTSRQPONM";
+				newItem.lastName="ZYX";
+				if (this.dataProvider==null)
+					this.dataProvider=new ArrayCollection();
+				this.dataProvider.addItemAt(newItem,0);
+			}	
+			
+			public function insertColumns(index:int, count:int):void
+			{
+
+				for (var i:int=0;i<count;i++)
+				{
+					//	dataGrid.grid.gridSelection.setRow(index+i);
+					trace("row="+(index+i));
+					createColumn2(i);
+				}
+
+			}	
+			public function createItem(index:int):Object
+			{
+				var t:int=index;
+				var rowCount:int=dp1.length;
+				if (index>=rowCount) index=index-(int(index/rowCount))*rowCount;
+				const firstName:String = dp1[index].firstName;
+				const lastName:String = dp1[index].lastName;
+				const country:String = dp1[index].country;
+				const position:String= dp1[index].position;
+				const club:String= dp1[index].club;
+				const number:int= dp1[index].number;
+				
+				return {country:country, firstName: firstName, lastName: lastName, club: club,position:position,number:number};
+			}
+			private function createColumn2(index:int):void
+			{
+				const columnName:String = "colmn_"+index;
+				var obj:Object;
+				var columnObj:GridColumn;
+				trace("dataProvider.length="+this.dataProvider.length);
+				if (this.dataProvider.length==0)
+				{
+					//create 10 data
+					for (var j:int=0;j<5;j++)
+					{
+						obj=createItem(0);
+						obj[columnName]="value_"+j;
+						this.dataProvider.addItem(obj);
+					}
+				}else{
+					for (var i:int=0;i<this.dataProvider.length;i++)
+					{
+						obj=this.dataProvider.getItemAt(i);
+						//add the new column data
+						obj[columnName]="value_"+i;
+					}
+				}
+				trace("columns.length="+this.columns.length);
+				columnObj=new GridColumn();
+				columnObj.dataField=columnName;
+				if (this.columns.length==0)
+					this.columns.addItem(columnObj);
+				else 
+					this.columns.addItemAt(columnObj,this.columns.length-1);
+			}
+			
+		]]>
+	</fx:Script>
+		<s:columns>
+			<s:ArrayList id="columns4">					 				
+				<s:GridColumn id="c41_1" dataField="country"  editable="true"/>			
+				<s:GridColumn id="c41_4" dataField="product" editable="true" >
+					<s:itemEditor>
+						<fx:Component>
+							<s:ComboBoxGridItemEditor>
+								<s:dataProvider>
+									<s:ArrayCollection>
+										<fx:String>ProductD</fx:String>
+										<fx:String>ProductP</fx:String>
+										<fx:String>ProductF</fx:String>
+										<fx:String>ProductT</fx:String>
+										<fx:String>ProductC</fx:String>
+									</s:ArrayCollection>
+								</s:dataProvider>
+								
+							</s:ComboBoxGridItemEditor>
+						</fx:Component>
+					</s:itemEditor>
+				</s:GridColumn>
+				<s:GridColumn id="c41_2" dataField="firstName"  editable="true"  />									
+				<s:GridColumn id="c41_3" dataField="lastName"   editable="false"  />
+			</s:ArrayList>				
+		</s:columns>		
+		
+		<s:typicalItem>
+			<s:DataItem country="ABCDEFGHIJKL0123456789" product="ProductF" firstName="MNOPQRSTUVW" lastName="XYZ" />
+		</s:typicalItem>
+		
+	</s:DataGrid>

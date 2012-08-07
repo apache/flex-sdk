@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application
+    backgroundColor="0xFFFFFF"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"     
+    xmlns:local="comps.*"
+    height="600" width="600">
+            
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: MyArial;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: MyArial;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: MyArial;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: ArnoEmb;
+			embedAsCFF: true;
+		}	
+		
+		.useArnoEmb {
+			fontFamily: ArnoEmb;
+			fontLookup: embeddedCFF;
+		}			
+		
+		s|NumericStepper{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArial;
+			fontSize: 12;
+            fontLookup: "embeddedCFF";
+		}			
+	</fx:Style>    
+		    	
+	<mx:Box paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="focusColor_ns_box">    	
+		<local:myCustomNS id="myNS2" />
+	</mx:Box>
+
+	<mx:VBox y="50">			
+		<mx:Box paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" id="focusColor_ns_box2">
+			<local:myNsComp_focusColor id="myNS_focusColor"/>
+		</mx:Box>
+		<local:myNsComp_focusedTextSelectionColor id="myNS_focusedTextSelectionColor"/>
+		<local:myNsComp_baseColor id="myNS_baseColor"/>
+		<local:myNsComp_color id="myNS_color"/>
+		<local:myNsComp_contentBackgroundColor id="myNS_contentBackgroundColor"/>
+		<local:myNsComp_symbolColor id="myNS_symbolColor"/>
+		<local:myNsComp_fontWeight id="myNS_fontWeight"/>
+		<local:myNsComp_fontStyle id="myNS_fontStyle"/>
+		<local:myNsComp_fontSize id="myNS_fontSize"/>
+		<local:myNsComp_multiple id="myNS_multiple"/>
+	</mx:VBox>
+	
+	
+	<s:Panel id="myPanel" width="300" height="300" x="200">
+		<local:myCustomNS id="myNS3" x="100"/>
+	</s:Panel>
+				   
+</s:Application>

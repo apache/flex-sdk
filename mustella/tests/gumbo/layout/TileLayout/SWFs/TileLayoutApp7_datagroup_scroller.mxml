@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+	         xmlns:custom="Assets.*"
+	         width="800" height="600"
+             >
+
+<fx:Script>
+<![CDATA[
+    import mx.collections.*;
+    import mx.graphics.*;
+    import spark.components.*;
+    import spark.primitives.*;
+    import spark.layouts.*;
+
+    /**
+    * We can't reuse the MXML ArrayCollection
+    * (bug) so create it from scratch in AS.
+    **/
+    public function createAC(numItems:int):ArrayCollection{
+        var ac:ArrayCollection = new ArrayCollection();
+        var g:Group;
+        var r:Rect;
+        var s:SolidColorStroke;
+        var i:int;
+        var curColor:uint = 0x0000ff;
+        
+        for(i = 0; i < numItems; ++i){
+           
+            s = new SolidColorStroke();
+            s.weight = 1;
+            s.color = curColor;
+            
+            r = new Rect();
+            r.percentWidth = r.percentHeight = 100;
+            r.stroke = s;
+
+            g = new Group();
+            g.width = g.height = 10;
+            g.addElement(r);
+            
+            ac.addItem(g);
+            
+            // Cycle the stroke color to be sure
+            // things are laid out in the correct
+            // order.
+            if(curColor >= 0xffffff)
+                curColor = 0x0000ff;
+            else if(curColor == 0xff0000)
+                curColor = 0x00ffff;
+            else
+                curColor *= 0x100;
+        }
+
+        return ac;
+    }
+
+]]>
+</fx:Script>
+
+<fx:Style>
+    global{
+        kerning: "off";
+    }
+</fx:Style>
+
+<!-- 
+    Use TileLayout as the layout for a DataGroup in a scroller.
+-->
+
+<s:Scroller id="scroller1" >    
+    <s:DataGroup id="group1" />
+</s:Scroller>
+</s:Application>

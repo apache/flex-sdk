@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application height="375" width="500" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" 
+    	xmlns:comps="comps.*"
+	backgroundColor="0xFFFFFF" >
+	<s:layout><s:VerticalLayout/></s:layout>
+	<fx:Style source="assets/myStyles.css" />
+
+	<fx:Script source="variables.as" />
+	<fx:Script source="functions.as" />
+	<fx:Script source="testingLinearLayoutVector.as" />
+	<fx:Script source="testingVirtualization.as" />
+		
+	<fx:Declarations>
+		<s:Resize id="resizeEffect" duration="50" />
+		<s:Move id="moveEffect" duration="50" />
+		
+		<mx:ArrayCollection id="ac1">
+        	<s:Group width="10" height="10"><s:Button label="a" /></s:Group>
+	    </mx:ArrayCollection>
+		
+		<mx:ArrayCollection id="richEditableTextCollection">
+			<s:RichEditableText text="(0) Five short strings" />
+			<s:RichEditableText text="(1) String one" />
+			<s:RichEditableText text="(2) String two" />
+			<s:RichEditableText text="(3) String three" />
+			<s:RichEditableText text="(4) String four" />
+			<s:RichEditableText text="(5) Six" />
+			<s:RichEditableText text="(6) Wow, these are really long strings whats going on" />
+			<s:RichEditableText text="(7) Eight" />
+			<s:RichEditableText text="(8) Nine" />
+			<s:RichEditableText text="(9) Ten" />
+		</mx:ArrayCollection>
+	</fx:Declarations>
+	
+	<s:DataGroup id="group1" />
+	<s:DataGroup id="group2" />
+	
+	<s:DataGroup id="subgroup1" />
+	<s:DataGroup id="subgroup2" />
+		
+</s:Application>

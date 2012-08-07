@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                xmlns:s="library://ns.adobe.com/flex/spark" 
+                xmlns:mx="library://ns.adobe.com/flex/mx" 
+                autoDrawBackground="false" width="100%">
+    <fx:Script>
+        <![CDATA[
+            /**
+             * Update the renderer for this data item
+             */
+            override public function set data(value:Object):void {
+                super.data = value;
+                if (data == null)
+                    return;
+                
+                // update the Label
+                lbl.text = data.value + "";
+                
+                // update the currentState
+                currentState = data.currentState;
+                
+                // update the selected radio button
+                rbg.selectedValue = data.currentState;
+                
+                // unselect all radio buttons if one hasn't been selected yet
+                if (data.currentState == "undefined" || data.currentState == null)
+                    rbg.selection = null;
+            }
+            
+            /**
+             * Update the state of the renderer when the selected radio button changes
+             */
+            private function updateState():void {
+                // update the currentState
+                currentState = String(rbg.selectedValue);
+                
+                // store the value of the currentState in the data item for this renderer
+                // this will allow us to use virtual layout
+                data.currentState = currentState;
+            }
+        ]]>
+    </fx:Script>
+    <fx:Declarations>
+        <s:RadioButtonGroup id="rbg" change="updateState()" />
+    </fx:Declarations>
+    <s:states>
+        <s:State name="defaultState" />
+        <s:State name="state1" />
+        <s:State name="state2" />
+        <s:State name="state3" />
+    </s:states>
+    
+    <s:Rect width="100%" height="100%" alpha="0.5">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" color.state1="green" color.state2="yellow" color.state3="red" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Label id="lbl" verticalCenter="0" left="4" top="6" bottom="6" />
+    
+    <s:HGroup right="0" verticalCenter="0">
+        <s:RadioButton id="rb1" group="{rbg}" value="state1" />
+        <s:RadioButton id="rb2" group="{rbg}" value="state2" />
+        <s:RadioButton id="rb3" group="{rbg}" value="state3" />
+    </s:HGroup>
+</s:ItemRenderer>

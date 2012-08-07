@@ -1,0 +1,83 @@
+<s:SkinnableContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+        	                   
+    <s:states>
+    	<s:State name="state1"/>
+    	<s:State name="state2"/>
+    </s:states>
+
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:DropDownList id="myDDLS1" includeIn="state1" prompt="DDL S1 Prompt">
+	
+		<s:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>ProductA</fx:String>
+				<fx:String>ProductB</fx:String>
+				<fx:String>ProductC</fx:String>
+				<fx:String>ProductD</fx:String>
+				<fx:String>ProductE</fx:String>
+				<fx:String>ProductF</fx:String>
+			</mx:ArrayCollection>
+		</s:dataProvider>
+		
+	</s:DropDownList>
+	
+	
+	<mx:Label id="myDDLS1_Label" text="selectedIndex={myDDLS1.selectedIndex}    selectedItem={myDDLS1.selectedItem}" includeIn="state1"/>	
+	
+	
+	<s:DropDownList id="myDDLS2" includeIn="state2" prompt="DDL S2 Prompt">
+		
+		<s:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>ProductH</fx:String>
+				<fx:String>ProductI</fx:String>
+				<fx:String>ProductG</fx:String>
+				<fx:String>ProductJ</fx:String>
+				<fx:String>ProductK</fx:String>
+				<fx:String>ProductM</fx:String>
+			</mx:ArrayCollection>
+		</s:dataProvider>
+		
+	</s:DropDownList>
+	
+	
+	<mx:Label id="myDDLS2_Label" text="selectedIndex={myDDLS2.selectedIndex}    selectedItem={myDDLS2.selectedItem}" includeIn="state2"/>	
+	
+	
+	<s:DropDownList id="myDDLS3" prompt="DDL S1S2 Prompt"
+		color.state1 = "red"
+		chromeColor.state1 = "white"
+		contentBackgroundColor.state1 = "green"
+		selectionColor.state1 = "blue"
+		rollOverColor.state1 = "yellow"
+		
+		color.state2 = "blue"
+		chromeColor.state2 = "green" 
+		contentBackgroundColor.state2 = "yellow"
+		selectionColor.state2 = "red" 
+		rollOverColor.state2 = "purple">
+		
+		<s:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>ProductN</fx:String>
+				<fx:String>ProductO</fx:String>
+				<fx:String>ProductP</fx:String>
+				<fx:String>ProductQ</fx:String>
+				<fx:String>ProductS</fx:String>
+				<fx:String>ProductT</fx:String>
+			</mx:ArrayCollection>
+		</s:dataProvider>
+		
+	</s:DropDownList>	
+    
+    
+    <mx:Label id="myDDLS3_Label" text="selectedIndex={myDDLS3.selectedIndex}    selectedItem={myDDLS3.selectedItem}"/>	
+    
+    
+</s:SkinnableContainer>

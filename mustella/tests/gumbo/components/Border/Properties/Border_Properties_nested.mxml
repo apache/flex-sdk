@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Border/Properties/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"  
+    xmlns:m="http://ns.adobe.com/mxml/2009" 
+    xmlns="*" 
+    testSWF="Border_Nested_basic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    ]]>
+  </fx:Script>
+  <testCases>
+
+	<TestCase testID="Border_Properties_nested1" keywords="[Border,Properties]" description="Test nested Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp1" className="comps.customNestedBorder1" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp1" />
+		</body>
+	</TestCase>
+
+	<TestCase testID="Border_Properties_nested2" keywords="[Border,Properties]" description="Test nested Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp1" className="comps.customNestedBorder1" waitEvent="updateComplete" />
+			<SetStyle target="myNestedBorderGrp1.myOutterBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp1" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_nested3" keywords="[Border,Properties]" description="Test nested Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp1" className="comps.customNestedBorder1" waitEvent="updateComplete" />
+			<SetStyle target="myNestedBorderGrp1.myInnerBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp1" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_nested4" keywords="[Border,Properties]" description="Test nested Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp1" className="comps.customNestedBorder1" waitEvent="updateComplete" />
+			<SetStyle target="myNestedBorderGrp1.myOutterBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myNestedBorderGrp1.myInnerBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp1" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_nested5" keywords="[Border,Properties]" description="Test nested Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp1" className="comps.customNestedBorder1" waitEvent="updateComplete" />
+			<SetStyle target="myNestedBorderGrp1.myOutterBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myNestedBorderGrp1.myOutterBorder" styleName="cornerRadius" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myNestedBorderGrp1.myInnerBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myNestedBorderGrp1.myOutterBorder" styleName="cornerRadius" value="8" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp1" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="Border_Properties_nested6" keywords="[Border,Properties]" description="Test nested borders with content Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp2" className="comps.customNestedBorder2" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp2" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="Border_Properties_nested7" keywords="[Border,Properties]" description="Test nested borders with content Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp3" className="comps.customNestedBorder3" waitEvent="updateComplete" />
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp3" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="Border_Properties_nested8" keywords="[Border,Properties]" description="Test nested borders with content Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp3" className="comps.customNestedBorder3" waitEvent="updateComplete" />
+			<SetStyle target="myNestedBorderGrp3.myOutterBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myNestedBorderGrp3.myInnerBorder" styleName="borderWeight" value="10" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="myNestedBorderGrp3" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="Border_Properties_nested9" keywords="[Border,Properties]" description="Test nested borders with content Border">
+		<setup>
+			<ResetComponent target="myNestedBorderGrp3" className="comps.customNestedBorder3" waitEvent="updateComplete" />
+			<SetStyle target="myNestedBorderGrp3.myOutterBorder" styleName="borderWeight" value="15" waitEvent="updateComplete"/>
+			<SetStyle target="myNestedBorderGrp3.myInnerBorder" styleName="borderWeight" value="10" waitEvent="updateComplete"/>
+			<SetProperty target="myNestedBorderGrp3.myInnerBorder" propertyName="rotation" value="15" waitEvent="updateComplete"/>
+		</setup>
+		<body>			
+			<CompareBitmap url="../Properties/Baselines/$testID.png" numColorVariances="8" ignoreMaxColorVariance="true" target="myNestedBorderGrp3" />
+		</body>
+	</TestCase>		
+
+  </testCases>
+</UnitTester>

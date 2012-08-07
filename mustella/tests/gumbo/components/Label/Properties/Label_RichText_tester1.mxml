@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_basic2.mxml">
+
+    <mx:Script>
+    <![CDATA[
+
+       import comps.RichTextBasic;
+       import mx.core.FlexGlobals;
+       import flashx.textLayout.formats.LineBreak;
+       public var multiLineText:String = "The quick brown\nfox jumps over\nthe lazy dog.";
+       public var multiLineText2:String = "The test test test test test test test\nfox jumps over test test test test\nthe lazy dog.";
+       public var singleLineText:String="good bye";
+       public var longText:String=" a characteristic state or mode of living; social life; city life; real life. the experience of being alive; the course of human events and activities; he could no longer cope with the complexities of life. the course of existence of an individual; the actions and events that occur in living; he hoped for a new life in Australia; he wanted to live his own life without interference from others animation: the condition of living or the state of being alive; while there's life there's hope; life depends on many chemical and physical processes ";
+       public static function init(o:DisplayObject):void
+        {
+
+        }
+    ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </mx:Metadata>
+
+    <testCases>
+            <!-- regression SDK-20543, task: SDK-20549 -->
+        <TestCase testID="sizedlabel_updatetext_test1" keywords="[size, update, Label]" description="Test with width/height set for Label, then update text value, verify label.text should be updated">
+            <setup>
+                <SetProperty target="slabel1" propertyName="text" valueExpression="value=singleLineText" waitEvent="updateComplete"  waitTarget="slabel1"/>
+                <SetProperty target="slabel2" propertyName="text" valueExpression="value=singleLineText" waitEvent="updateComplete"  waitTarget="slabel2"/>
+                <SetProperty target="slabel3" propertyName="text" valueExpression="value=singleLineText" waitEvent="updateComplete"  waitTarget="slabel3"/>
+            </setup>
+            <body>
+                <Pause timeout="20"/>
+                <AssertPropertyValue target="slabel1" propertyName="text" valueExpression="value=singleLineText" />
+                <Pause timeout="20"/>
+                <AssertPropertyValue target="slabel2" propertyName="text" valueExpression="value=singleLineText" />
+                <Pause timeout="20"/>
+                <AssertPropertyValue target="slabel3" propertyName="text" valueExpression="value=singleLineText" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox2" />
+            </body>
+        </TestCase> 
+
+        
+        <TestCase testID="sizedlabel_updatetext_test2" keywords="[size, update, Label]" description="Test width/height set for a Label, then update text value, verify label.text should be updated">
+            <setup>
+                <SetProperty target="slabel1" propertyName="text" valueExpression="value=multiLineText" waitEvent="updateComplete"  waitTarget="slabel1"/>
+                <SetProperty target="slabel2" propertyName="text" valueExpression="value=multiLineText" waitEvent="updateComplete"  waitTarget="slabel2"/>
+                <SetProperty target="slabel3" propertyName="text" valueExpression="value=multiLineText" waitEvent="updateComplete"  waitTarget="slabel3"/>
+        
+            </setup>
+            <body>
+                <AssertPropertyValue target="slabel1" propertyName="text" valueExpression="value=multiLineText" />
+                <Pause timeout="20"/>
+                <AssertPropertyValue target="slabel2" propertyName="text" valueExpression="value=multiLineText" />
+                <Pause timeout="20"/>
+                <AssertPropertyValue target="slabel3" propertyName="text" valueExpression="value=multiLineText" />
+                <Pause timeout="20"/>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox2" />
+            </body>
+        </TestCase> 
+       
+  
+    <TestCase testID="baselinePosition_property_label_test1" keywords="[baselinePosition, property, Label]" description="Test default baselinePosition for a Label inside of VBox with non emptyline">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" value="this is a Label test" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="baselinePosition" value="9.1500000" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="baselinePosition_property_label_test2" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label inside of VBox with emptyline, verify baselinePosition=0">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" value="this is a Label test" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <WaitForEffectsToEnd />
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="baselinePosition" value="9.1500000" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="baselinePosition_property_label_test3" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label inside of VBox with multipleline, verify baselinePosition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value=multiLineText" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="baselinePosition" value="9.1500000" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="baselinePosition_property_label_test4" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label inside of VBox with positive baseline set, verify baselinePosition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="baseline" value="10" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" value="this is a spark label" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="baselinePosition" value="9.1500000" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="baselinePosition_property_label_test5" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label inside of VBox with negative baseline set, verify baselinePosition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="baseline" value="-10" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" value="this is a spark label" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="baselinePosition" value="9.1500000" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase> 
+
+        <TestCase testID="baselinePosition_property_label_test6" keywords="[baselinePosition, property, Label]" description="Test baselinePosition for a Label inside of VBox with baseline=0 set, verify baselinePosition should be same as the default value">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="baseline" value="0" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" value="this is a spark label" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="baselinePosition" value="9.1500000" />
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase> 
+
+        <!-- regression SDK-21746, task: SDK-21748 -->
+        <TestCase testID="scrollRect_label_test1" keywords="[clip, scrollRect, Label]" description="test for Simple and Rich text to verify DispalyObject.scrollRect=null when not clipping">
+            <setup>
+                 <!-- set simple/richtext without clipping, check scrollRect=null -->
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" value="this is a spark label" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myVBox.textBox" propertyName="scrollRect" valueExpression="value=null" />
+            </body>
+        </TestCase> 
+        <TestCase testID="scrollRect_label_test2" keywords="[clip, scrollRect, Label]" description="test for Simple and Rich text to verify     DispalyObject.scrollRect!=null when is clipping">
+            <setup>
+                 <!-- set simple/richtext without clipping, check scrollRect=null -->
+                 <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value=longText" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+            <AssertPropertyValue target="myVBox.textBox" propertyName="scrollRect" valueExpression="value=null" />
+            <!-- 
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myVBox.textBox.scrollRect!=null"  value="true" />
+                -->
+            </body>
+        </TestCase> 
+        
+            <!--SDK-20783 task, regression tests for SDK-18746 -->
+            <TestCase testID="composition_label_test1" keywords="[properties,composition , Label]" description="test for Label has fontSize style updated, text  should have no be redundant composition">
+            <setup>
+                 <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value=longText" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetStyle target="myVBox.textBox" styleName="fontSize" value="20" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+             
+            </body>
+        </TestCase> 
+        
+            <TestCase testID="composition_label_test2" keywords="[properties,composition , Label]" description="test for Label has color style updated, text  should have no be redundant composition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value=longText" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetStyle target="myVBox.textBox" styleName="color" value="0xff0000" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+             
+            </body>
+        </TestCase> 
+        
+            <TestCase testID="composition_label_test3" keywords="[properties,composition , Label]" description="test for Label has height larger, text  should have no be redundant composition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value=longText" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="height" value="24" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+             
+            </body>
+        </TestCase> 
+                
+            <TestCase testID="composition_label_test4" keywords="[properties,composition , Label]" description="test for Label has height smaller, text should have no be redundant composition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value=longText" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="height" value="8" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="6" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase> 
+
+            <TestCase testID="composition_label_test5" keywords="[properties,composition , Label]" description="test for Label set lineBreak=toFit, text should have no be redundant composition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value= multiLineText2" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetStyle target="myVBox.textBox" styleName="lineBreak" valueExpression="value=LineBreak.TO_FIT"/>
+                <SetProperty target="myVBox.textBox" propertyName="width" value="100" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <Pause timeout="40"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="10" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase> 
+        
+            <TestCase testID="composition_label_test6" keywords="[properties,composition , Label]" description="test for Label set lineBreak=explict, width is larger, verify text should have no be redundant composition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value= multiLineText2" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetStyle target="myVBox.textBox" styleName="lineBreak" valueExpression="value=LineBreak.EXPLICIT" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="width" value="400" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="10" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="composition_label_test7" keywords="[properties,composition , Label]" description="test for Label set lineBreak=explict, width is smaller, just clipping, verify text should have no be redundant composition">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="width" value="200" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="height" value="300" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value= multiLineText2" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetStyle target="myVBox.textBox" styleName="lineBreak" valueExpression="value=LineBreak.EXPLICIT" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+                <SetProperty target="myVBox.textBox" propertyName="width" value="100" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="10" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase> 
+                
+        <TestCase testID="Label_layoutDirection_RTL" keywords="[Mirroring, layoutDirection, Label]"
+            description="Test that a Label doesn't do anything when layoutDirection=rtl on its parent.">
+            <setup>
+                <ResetComponent target="myVBox" className="comps.LabelBasic" waitEvent="updateComplete"  waitTarget="myVBox"/>
+                <SetProperty target="myVBox" propertyName="layoutDirection" value="rtl" />
+                <SetStyle target="myVBox" styleName="direction" value="rtl" />
+                <SetProperty target="myVBox.textBox" propertyName="text" valueExpression="value= multiLineText2" waitEvent="updateComplete"  waitTarget="myVBox.textBox"/>
+            </setup>
+            <body>
+                <CompareBitmap url="../Properties/baselines/$testID.png" numColorVariances="10" maxColorVariance="20" target="myVBox" />
+            </body>
+        </TestCase>     
+                                        
+    </testCases>
+</UnitTester>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+             backgroundColor="0xffffff"
+	         width="800" height="600" >
+
+<fx:Script>
+<![CDATA[
+
+    import spark.filters.ShaderFilter;
+
+    [Embed(source="Assets/PixelBenderFiles/Float.pbj")]
+    public var FloatShaderClass:Class;
+
+    [Embed(source="Assets/PixelBenderFiles/IncreaseChannels.pbj")]
+    public var IncreaseChannelsShaderClass:Class;
+
+    public var sf1:spark.filters.ShaderFilter;
+    public var sf2:spark.filters.ShaderFilter;
+
+]]>
+</fx:Script>
+
+<!-- Embed fonts for cross platform compatibility of bitmap compares. -->
+<fx:Style>
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdana;
+			embedAsCFF: false;
+    }
+    
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+        fontWeight: bold;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    @font-face {
+        src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+        fontStyle: italic;
+        fontFamily: EmbeddedVerdanaCFF;
+        embedAsCFF: true;
+    }
+
+    global{
+        kerning: "off";
+    }
+
+    mx|Alert{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+    mx|Button{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+    s|Button{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+    
+    mx|RadioButton{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+    s|RadioButton{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    mx|CheckBox{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+    s|CheckBox{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+    mx|List{
+        fontFamily: EmbeddedVerdana;
+        fontAntiAliasType: normal;
+    }
+
+    s|List{
+        fontFamily: EmbeddedVerdanaCFF;
+        fontLookup: embeddedCFF;
+        fontAntiAliasType: normal;
+    }
+
+</fx:Style>
+
+<!--
+    This file contains a bunch of controls and containers.
+    It is used for testing that a ShaderFitler can be applied to them.
+-->
+
+<fx:Declarations>
+    <mx:ArrayCollection id="ac1">
+        <fx:String>one</fx:String>
+        <fx:String>two</fx:String>
+        <fx:String>three</fx:String>
+    </mx:ArrayCollection>
+</fx:Declarations>
+
+<s:layout> <s:VerticalLayout/> </s:layout>
+
+<mx:TabNavigator id="tn" width="100%" height="100%" creationPolicy="all">
+    <!-- 0 -->
+    <mx:VBox label="fx Button" width="100%" height="100%">
+        <s:Button id="btn1" label="A Button">
+            <s:filters>
+                <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+            </s:filters> 
+        </s:Button>
+
+		<s:Button id="btn3" />
+    </mx:VBox>
+
+    <!-- 1 -->
+    <mx:VBox label="mx Button" width="100%" height="100%">
+        <mx:Button id="btn2" label="A Button" >
+            <mx:filters>
+                <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+            </mx:filters> 
+        </mx:Button>
+    </mx:VBox>
+
+    <!-- 2 -->
+    <mx:VBox label="Panel" width="100%" height="100%">
+        <mx:Panel id="pnl1">
+            <mx:filters>
+                <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="1" />
+            </mx:filters>
+            <mx:Button label="A Button" />
+        </mx:Panel>
+    </mx:VBox>
+
+    <!-- 3 -->
+    <mx:VBox label="Box" width="100%" height="100%">
+        <mx:Box id="box1" width="100%" height="100%" backgroundColor="0xffffff" >
+            <mx:filters>
+                <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+            </mx:filters>
+            <mx:Button label="A Button" />
+            <s:Button label="A Button" />
+            <s:CheckBox label="A CheckBox" />
+            <s:RadioButton label="A RadioButton" />
+            <s:Button label="A Button With A Filter" >
+                <s:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/SourceIgnored.pbj')" />
+                </s:filters>
+            </s:Button>            
+        </mx:Box>
+    </mx:VBox>
+    
+    <!-- 4 -->
+    <mx:VBox label="Graphic" width="100%" height="100%">
+        <s:Graphic id="graphic1">
+            <s:Rect width="40" height="40">
+                <s:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+                </s:filters>
+                <s:fill>
+                    <s:LinearGradient>
+                        <s:entries>
+                            <mx:GradientEntry color="0x000000" ratio="0.00" alpha="1"/>
+                        </s:entries>
+                    </s:LinearGradient>
+                </s:fill>
+            </s:Rect>
+        </s:Graphic>
+    </mx:VBox>
+    
+    <!-- 5 -->
+    <mx:VBox label="SWFLoader" width="100%" height="100%">
+        <mx:Box id="box3" width="100%" height="100%" >
+            <mx:SWFLoader id="loader1" source="@Embed(source='Assets/LoadedSWF.swf')" width="100%" height="100%" >
+                <mx:filters>
+                    <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+                </mx:filters>
+            </mx:SWFLoader>
+        </mx:Box>
+    </mx:VBox>
+    
+    <!-- 6 -->
+    <mx:VBox label="Fx List" width="100%" height="100%">
+        <s:List id="list1" dataProvider="{ac1}" >
+            <s:filters>
+                <s:ShaderFilter shader="@Embed(source='Assets/PixelBenderFiles/Float.pbj')" theFloat="0.5" />
+            </s:filters>
+        </s:List>
+    </mx:VBox>
+
+    <!-- 7 -->
+    <mx:VBox label="Fx List" width="100%" height="100%">
+        <mx:Image id="img1" />
+    </mx:VBox>
+
+    <mx:VBox>
+        <mx:Text text="This page intentionally left blank." />
+    </mx:VBox>
+</mx:TabNavigator>
+</s:Application>

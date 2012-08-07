@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testDir="gumbo/core/DOM/properties/" testSWF="DOMBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	
+      import comps.*;
+	  
+	]]>
+  </fx:Script>
+  <testCases>
+ 
+<!-- 
+
+- - - - - - - - - - - - 
+DOM Testing 
+- - - - - - - - - - - - 
+
+-->
+
+<!-- 
+
+owner/parent properties
+
+- check that owner and parent properties of each item in a Group are same object (the Group)
+- check that owner and parent properties of SkinnableContainer are different objects (parent is contentGroup)
+- check that owner and parent properties of Halo Container act the same as the Group
+
+Note: the method testGenericContainer(IVisualElementContainer) checks that each element in the container abides by the DOM model of owner/parent (see swfs/functions.as)
+
+-->  
+	
+	<TestCase testID="DOM_owner_parent_group" keywords="[DOM, owner, parent]" description="check that owner and parent properties are the same object">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.group1.addElement(new comps.DOMContainers);" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testAGroup)" valueExpression="value=true" />
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testAVGroup)" valueExpression="value=true" />
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testAHGroup)" valueExpression="value=true" />		
+		</body>
+	</TestCase>
+			
+	<TestCase testID="DOM_owner_parent_fxcontainer" keywords="[DOM, owner, parent]" description="check that owner and parent properties are NOT the same object">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.group1.addElement(new comps.DOMContainers);" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testAFxContainer)" valueExpression="value=true" />	
+		</body>
+	</TestCase>			
+
+	<TestCase testID="DOM_owner_parent_container" keywords="[DOM, owner, parent]" description="check that halo containers work same as Group">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.Group" waitTarget="group1" waitEvent="updateComplete" />
+			<ResetComponent target="fxcontainer1" className="spark.components.SkinnableContainer" waitTarget="fxcontainer1" waitEvent="updateComplete" />
+			<ResetComponent target="container1" className="mx.core.Container" waitTarget="container1" waitEvent="updateComplete" />		
+				
+			<RunCode code="application.group1.addElement(new comps.DOMContainers);" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testAContainer)" valueExpression="value=true" />
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testAPanel)" valueExpression="value=true" />
+			<AssertMethodValue method="value=application.testGenericVisualContainer(application.group1.getElementAt(0).testACanvas)" valueExpression="value=true" />			
+		</body>
+	</TestCase>		
+					
+  </testCases>
+</UnitTester>

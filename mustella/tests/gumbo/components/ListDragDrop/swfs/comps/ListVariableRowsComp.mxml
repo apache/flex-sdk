@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:List
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" height="300"
+    dragEnabled="true" dropEnabled="true" allowMultipleSelection="true" creationComplete="this.scroller.setStyle('horizontalScrollPolicy', 'false');layout.dragScrollInitialDelay = 0"  alternatingItemColors="[haloGreen,haloBlue]" >
+
+    <fx:Script>
+    <![CDATA[
+    	import mx.controls.*;
+    	import mx.collections.ArrayCollection;
+    	import mx.core.mx_internal;
+	use namespace mx_internal;
+    ]]>
+   </fx:Script>
+		<s:itemRenderer>
+			<fx:Component>
+				<s:ItemRenderer focusEnabled="false" width="100%" autoDrawBackground="true">
+
+					<s:Label id="labelDisplay"  verticalCenter="0" left="20" right="20" top="15" bottom="15"/>
+				</s:ItemRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+
+		<s:dataProvider>
+			<mx:ArrayCollection>
+				<fx:String>Hello</fx:String>
+				<fx:String>World</fx:String>
+				<fx:String>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis purus felis, tempus vitae, accumsan id, fermentum et, tellus. Nulla malesuada nisl quis magna. Etiam non tellus vel tellus vulputate mattis. Phasellus pulvinar, tellus eu mollis sagittis, arcu sapien sollicitudin lectus, a ullamcorper leo tortor sed tortor. Etiam in felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla odio felis, placerat tincidunt, placerat non, bibendum sed, lacus. Morbi felis risus, vulputate vitae, commodo non, bibendum eu, velit. Pellentesque mattis. Morbi dui lectus, posuere ut, bibendum vel, volutpat sit amet, purus. Donec interdum velit at tortor. Aenean egestas rutrum eros. Pellentesque in ante.</fx:String>
+				<fx:String>
+					This line has a
+					lineBreak
+				</fx:String>
+				<fx:String>virtual</fx:String>
+				<fx:String>basic</fx:String>
+				<fx:String>constructive</fx:String>
+				<fx:String>essential</fx:String>
+				<fx:String>fundamental</fx:String>
+				<fx:String>implicit</fx:String>
+				<fx:String>implied</fx:String>
+				<fx:String>in all but name</fx:String>
+				<fx:String>in conduct</fx:String>
+				<fx:String>in effect</fx:String>
+				<fx:String>in practice</fx:String>
+				<fx:String>indirect</fx:String>
+				<fx:String>potential</fx:String>
+				<fx:String>practical</fx:String>
+				<fx:String>pragmatic</fx:String>
+				<fx:String>tacit</fx:String>
+				<fx:String>unacknowledged</fx:String>
+				<fx:String>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis purus felis, tempus vitae, accumsan id, fermentum et, tellus. Nulla malesuada nisl quis magna. Etiam non tellus vel tellus vulputate mattis. Phasellus pulvinar, tellus eu mollis sagittis, arcu sapien sollicitudin lectus, a ullamcorper leo tortor sed tortor. Etiam in felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla odio felis, placerat tincidunt, placerat non, bibendum sed, lacus. Morbi felis risus, vulputate vitae, commodo non, bibendum eu, velit. Pellentesque mattis. Morbi dui lectus, posuere ut, bibendum vel, volutpat sit amet, purus. Donec interdum velit at tortor. Aenean egestas rutrum eros. Pellentesque in ante.</fx:String>
+				<fx:String>1 - The quick brown fox jumped over the old lazy dog.</fx:String>
+				<fx:String>2 - The quick brown fox jumped over the old lazy dog.</fx:String>
+				<fx:String>3 - The quick brown fox jumped over the old lazy dog.</fx:String>
+				<fx:String>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis purus felis, tempus vitae, accumsan id, fermentum et, tellus. Nulla malesuada nisl quis magna. Etiam non tellus vel tellus vulputate mattis. Phasellus pulvinar, tellus eu mollis sagittis, arcu sapien sollicitudin lectus, a ullamcorper leo tortor sed tortor. Etiam in felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla odio felis, placerat tincidunt, placerat non, bibendum sed, lacus. Morbi felis risus, vulputate vitae, commodo non, bibendum eu, velit. Pellentesque mattis. Morbi dui lectus, posuere ut, bibendum vel, volutpat sit amet, purus. Donec interdum velit at tortor. Aenean egestas rutrum eros. Pellentesque in ante.</fx:String>
+				<fx:String>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis purus felis, tempus vitae, accumsan id, fermentum et, tellus. Nulla malesuada nisl quis magna. Etiam non tellus vel tellus vulputate mattis. Phasellus pulvinar, tellus eu mollis sagittis, arcu sapien sollicitudin lectus, a ullamcorper leo tortor sed tortor. Etiam in felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla odio felis, placerat tincidunt, placerat non, bibendum sed, lacus. Morbi felis risus, vulputate vitae, commodo non, bibendum eu, velit. Pellentesque mattis. Morbi dui lectus, posuere ut, bibendum vel, volutpat sit amet, purus. Donec interdum velit at tortor. Aenean egestas rutrum eros. Pellentesque in ante.</fx:String>
+				<fx:String>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis purus felis, tempus vitae, accumsan id, fermentum et, tellus. Nulla malesuada nisl quis magna. Etiam non tellus vel tellus vulputate mattis. Phasellus pulvinar, tellus eu mollis sagittis, arcu sapien sollicitudin lectus, a ullamcorper leo tortor sed tortor. Etiam in felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla odio felis, placerat tincidunt, placerat non, bibendum sed, lacus. Morbi felis risus, vulputate vitae, commodo non, bibendum eu, velit. Pellentesque mattis. Morbi dui lectus, posuere ut, bibendum vel, volutpat sit amet, purus. Donec interdum velit at tortor. Aenean egestas rutrum eros. Pellentesque in ante.</fx:String>
+				<fx:String>1 This is the end</fx:String>
+				<fx:String>      10 This is the end             </fx:String>
+				<fx:String>
+					This is the end
+				</fx:String>
+			</mx:ArrayCollection>
+		</s:dataProvider>
+
+</s:List>

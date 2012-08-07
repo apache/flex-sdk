@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="600" width="800" xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="handleCreationComplete()">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import spark.utils.TextFlowUtil;
+			private function handleCreationComplete(): void {
+				dynamicText.textFlow = TextFlowUtil.importFromString("<p><span>one</span><span> </span><span>two</span><span> </span><span>three</span></p>");
+			}
+		]]>
+	</fx:Script>
+	<fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+			fontFamily: ArnoEmbedded;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Italic.ttf");
+			fontFamily: ArnoEmbedded;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-BoldItalic.ttf");
+			fontFamily: ArnoEmbedded;
+			fontStyle: italic;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+
+		s|RichText {
+			fontAntiAliasType: "normal";
+			fontFamily: ArnoEmbedded;
+            fontLookup: "embeddedCFF";
+            fontSize: 16;
+		}
+
+	</fx:Style>
+  <s:Group id="gr">
+	  <s:RichText lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="10" y="10" fontFamily="ArialEmbedded" color="0x000000">
+	    <s:content><s:p><s:span fontFamily="ArnoEmbedded">Text </s:span><s:span fontFamily="ArnoEmbedded" color="0xffd819">with </s:span><s:span fontFamily="ArnoEmbedded" fontWeight="bold">some </s:span><s:span fontFamily="ArnoEmbedded" fontStyle="italic">formatting </s:span><s:span fontFamily="ArnoEmbedded">in it</s:span></s:p></s:content>
+	  </s:RichText>
+	  <s:Group id="graphicComp" >
+		<local:GraphicTest2 xmlns:local="comps.*"  x="10" y="30"/>
+	  </s:Group>
+  </s:Group>
+
+   <s:VGroup id="gr1">
+	<s:RichText width="100%" >
+		<s:content>
+			<s:span fontWeight="bold">Phone:</s:span>
+			<s:span>{""}</s:span>
+		</s:content>
+	</s:RichText>
+	<s:RichText width="100%" >
+		<s:content>
+			<s:span fontWeight="bold">test:</s:span>
+			<s:span>{null}</s:span>
+		</s:content>
+	</s:RichText>
+	<s:RichText text=" SDK-24931 " >
+
+	</s:RichText>
+  </s:VGroup>
+
+	<s:VGroup id="gr2">
+		<s:RichText id="text1"  whiteSpaceCollapse="preserve">
+			<s:content><s:p><s:span textDecoration="underline">   Foo</s:span><s:span textDecoration="none"> </s:span><s:span textDecoration="underline">   Bar</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText id="text2"  whiteSpaceCollapse="collapse">
+			<s:content><s:p><s:span textDecoration="underline">   Foo</s:span><s:span textDecoration="none"> </s:span><s:span textDecoration="underline">   Bar</s:span></s:p></s:content>
+		</s:RichText>
+	</s:VGroup>
+
+	<s:VGroup id="gr3">
+		<s:RichText id="text11"  whiteSpaceCollapse="preserve" >
+		<s:content><s:p><s:span>one</s:span><s:span> </s:span><s:span>two</s:span><s:span> </s:span><s:span>three</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText id="dynamicText" whiteSpaceCollapse="preserve" />
+	</s:VGroup>
+  <s:Group id="gr4">
+	  <s:RichText lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="10" y="10" fontFamily="ArialEmbedded" color="0x000000">
+	    <s:content><s:p><s:span fontFamily="ArnoEmbedded">Text </s:span><s:span fontFamily="ArnoEmbedded" color="0xffd819">with </s:span><s:span fontFamily="ArnoEmbedded" fontWeight="bold">some </s:span><s:span fontFamily="ArnoEmbedded" fontStyle="italic">formatting </s:span><s:span fontFamily="ArnoEmbedded">in it</s:span></s:p></s:content>
+	  </s:RichText>
+	  <local:Graphic1 xmlns:local="comps.*" x="10" y="30"/>
+  </s:Group>
+  <s:VGroup id="gr5">
+  	<s:RichText color="#000000" fontSize="12" x="10" y="271">
+  		<s:content><s:p fontFamily="Arial" fontWeight="bold">fontFamily="Arial" fontWeight="bold" in p</s:p></s:content>
+  	</s:RichText>
+  	<s:RichText color="#000000" fontFamily="ArnoEmbedded" fontSize="12" x="10" y="481">
+  		<s:content><s:p fontFamily="Arial" fontWeight="bold">fontFamily="Arial" fontWeight="bold" inside ArnoEmbedded</s:p></s:content>
+	</s:RichText>
+  </s:VGroup>
+  <s:Group id="gr6" >
+		<local:GraphicDefault xmlns:local="comps.*"  x="10" y="200"  />
+  </s:Group>
+  <s:Group id="gr7">
+	  <s:RichText lineHeight="120%" whiteSpaceCollapse="preserve" kerning="on" x="10" y="10"  color="0xFF0000">
+	    <s:content><s:p><s:span fontFamily="ArnoEmbedded">Text </s:span><s:span fontFamily="ArnoEmbedded" color="0xffd819">with </s:span><s:span fontFamily="ArnoEmbedded" fontWeight="bold">some </s:span><s:span fontFamily="ArnoEmbedded" fontStyle="italic">formatting </s:span><s:span fontFamily="ArnoEmbedded">in it</s:span></s:p></s:content>
+	  </s:RichText>
+  </s:Group>
+</s:Application>

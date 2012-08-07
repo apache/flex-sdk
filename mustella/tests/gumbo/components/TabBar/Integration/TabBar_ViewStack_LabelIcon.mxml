@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/TabBar/Integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TabBar_ViewStack.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+	import mx.core.FlexGlobals;
+        import spark.components.*;
+        import mx.core.*;
+        import mx.collections.IList;
+        import mx.containers.VBox;
+
+	public function addVB():void{
+		var myVB:VBox = new VBox
+		myVB.setStyle('backgroundColor', 0xFF0000);
+		myVB.width = 200;
+		myVB.height = 200;
+		myVB.label = 'Average VBox';
+		FlexGlobals.topLevelApplication.TC.newVS.addItem(myVB);
+
+	}
+	public function addNav():void{
+		var myNav:NavigatorContent = new NavigatorContent;
+		myNav.setStyle('backgroundColor', 0xCCCCCC);
+		myNav.width = 200;
+		myNav.height = 200;
+		myNav.label = 'Average Nav';
+		FlexGlobals.topLevelApplication.TC.newVS.addItem(myNav);
+	}
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+label
+change label on ViewStack container and verify TabBar changes
+
+icon
+change icon on ViewStack container and verify TabBar changes
+
+========================================================
+-->
+
+<!-- CURRENTLY 0 KNOWN FAILURES -->
+
+
+<TestCase testID="labelChange_test0" keywords="[TabBar,ViewStack,label]" description="Change selected label on ViewStack container to verify TabBar updates - spark container" >
+    <setup>
+	<ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+    	<SetProperty target="TC.tb" propertyName="selectedIndex" value="1" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Average VBox" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Average Nav" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Average VBox" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Average Nav" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <SetProperty target="TC.newVS.getElementAt(1)" propertyName="label" value="changed label is much bigger" waitTarget="TC.newVS" waitEvent="collectionChange" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Average VBox" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="changed label is much bigger" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Average VBox" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="changed label is much bigger" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.newVS" propertyName="selectedIndex" value="1" />
+
+       <CompareBitmap target="TC.tb" url="../integration/baselines/$testID.png" />
+
+    </body>
+</TestCase>
+
+<TestCase testID="labelChange_test1" keywords="[TabBar,ViewStack,label]" description="Change selected label on ViewStack container to verify TabBar updates - halo container" >
+    <setup>
+	<ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC.tb" propertyName="selectedIndex" value="1" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Average Nav" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Average VBox" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Average Nav" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Average VBox" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <SetProperty target="TC.newVS.getElementAt(1)" propertyName="label" value="i" waitTarget="TC.newVS" waitEvent="collectionChange" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Average Nav" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="i" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Average Nav" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="i" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.newVS" propertyName="selectedIndex" value="1" />
+
+        <CompareBitmap target="TC.tb" url="../integration/baselines/$testID.png" />
+
+    </body>
+</TestCase>
+
+<TestCase testID="labelChange_test2" keywords="[TabBar,ViewStack,label]" description="Change non-selected label on ViewStack container to verify TabBar updates - spark container" >
+    <setup>
+	<ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC.tb" propertyName="selectedIndex" value="1" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Average VBox" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Average Nav" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Average VBox" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Average Nav" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <SetProperty target="TC.newVS.getElementAt(0)" propertyName="label" value="changed label is much bigger" waitTarget="TC.newVS" waitEvent="collectionChange" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="changed label is much bigger" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Average Nav" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="changed label is much bigger" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Average Nav" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average VBox" />
+
+        <AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.newVS" propertyName="selectedIndex" value="1" />
+
+        <CompareBitmap target="TC.tb" url="../integration/baselines/$testID.png" />
+
+    </body>
+</TestCase>
+
+<TestCase testID="labelChange_test3" keywords="[TabBar,ViewStack,label]" description="Change non-selected label on ViewStack container to verify TabBar updates - halo container" >
+    <setup>
+	<ResetComponent target="TC" className="Assets.TestComp" waitEvent="updateComplete" />
+        <SetProperty target="TC.tb" propertyName="dataProvider" valueExpression="value = FlexGlobals.topLevelApplication.TC.newVS as IList" waitTarget="TC.tb" waitEvent="updateComplete"/>
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addVB()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+        <RunCode code="addNav()" waitTarget="TC.tb.dataGroup" waitEvent="updateComplete" />
+    </setup>
+    <body>
+	<SetProperty target="TC.tb" propertyName="selectedIndex" value="1" waitTarget="TC.tb" waitEvent="updateComplete" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="Average Nav" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Average VBox" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="Average Nav" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Average VBox" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <SetProperty target="TC.newVS.getElementAt(0)" propertyName="label" value="i" waitTarget="TC.newVS" waitEvent="collectionChange" />
+
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(0)" propertyName="label" value="i" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(1)" propertyName="label" value="Average VBox" />
+    	<AssertPropertyValue target="TC.tb.dataGroup.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <AssertPropertyValue target="TC.newVS.getElementAt(0)" propertyName="label" value="i" />
+	<AssertPropertyValue target="TC.newVS.getElementAt(1)" propertyName="label" value="Average VBox" />
+        <AssertPropertyValue target="TC.newVS.getElementAt(2)" propertyName="label" value="Average Nav" />
+
+        <AssertPropertyValue target="TC.tb" propertyName="selectedIndex" value="1" />
+	<AssertPropertyValue target="TC.newVS" propertyName="selectedIndex" value="1" />
+
+        <CompareBitmap target="TC.tb" url="../integration/baselines/$testID.png" />
+
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

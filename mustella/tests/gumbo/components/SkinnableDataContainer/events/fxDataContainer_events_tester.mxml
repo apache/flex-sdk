@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/SkinnableDataContainer/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009"
+xmlns="*" testSWF="FxDataContainerBasic.mxml" >
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+
+            import mx.collections.ArrayCollection;
+            import mx.events.CollectionEventKind;
+            import mx.events.CollectionEvent;
+            import flash.events.Event;
+            import spark.components.*;
+            import spark.skins.spark.*;
+
+        ]]>
+    </fx:Script>
+
+    <testCases>
+
+
+<!-- rendererAdd -->
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_changingDataProvider" keywords="[FxDataContainer, event]" description="assert add events are thrown for each item when changing dataProviders">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0])}" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+        </setup>
+        <body>
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([1, 2, 3])}" />
+            <!-- Since itemRendererFunction now recycles renderers, changing dataProviders should create the minimum number of rendererAdd to handle new items -->
+            <AssertEvent eventName="rendererAdd" numExpectedEvents="2" eventClass="spark.events::RendererExistenceEvent" target="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_addingItems" keywords="[FxDataContainer, event]" description="assert add events are thrown when adding items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.addItem(5)" waitEvent="rendererAdd" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_addingItems_duplicates" keywords="[FxDataContainer, event]" description="assert add events are thrown when adding duplicate items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.addItem(0)" waitEvent="rendererAdd" waitTarget="dc" />
+            <RunCode code="application.dc.dataProvider.addItem(1)" waitEvent="rendererAdd" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_addingItemsAt" keywords="[FxDataContainer, event]" description="assert add events are thrown when adding items at">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.addItemAt(5, 1)" waitEvent="rendererAdd" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_itemRendererFunction" keywords="[FxDataContainer, event]" description="assert add events are thrown when adding items with an itemRendererFunction">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.addItem(5)" waitEvent="rendererAdd" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_sparkComponent" keywords="[FxDataContainer, event]" description="assert add events are thrown when adding a spark component">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.addItem(new Button())" waitEvent="rendererAdd" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererAdd_haloComponent" keywords="[FxDataContainer, event]" description="assert add events are thrown when adding a halo component">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.addItem(new Button())" waitEvent="rendererAdd" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+<!-- rendererRemove -->
+
+    <TestCase testID="FxDataContainer_event_rendererRemove_changingDataProvider" keywords="[FxDataContainer, event]" description="assert remove events are thrown for each item when changing dataProviders">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0,1,2])}" waitEvent="updateComplete" waitTarget="dc.dataGroup" />
+        </setup>
+        <body>
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([1])}" />
+            <!-- Since itemRendererFunction now recycles renderers, changing dataProviders should create the minimum number of rendererRemove events to handle new items -->
+            <AssertEvent eventName="rendererRemove" numExpectedEvents="2" eventClass="spark.events::RendererExistenceEvent" target="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererRemove_removingItems" keywords="[FxDataContainer, event]" description="assert remove events are thrown when removing items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererRemove_removingItems_duplicates" keywords="[FxDataContainer, event]" description="assert remove events are thrown when removing duplicate items">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererRemove_itemRendererFunction" keywords="[FxDataContainer, event]" description="assert remove events are thrown when removing items with an itemRendererFunction">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="itemRendererFunction" valueExpression="value=application.mixItemRendererFunction" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([0, 1])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererRemove_sparkComponent" keywords="[FxDataContainer, event]" description="assert remove events are thrown when removing a spark component">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([new Button()])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+    <TestCase testID="FxDataContainer_event_rendererRemove_haloComponent" keywords="[FxDataContainer, event]" description="assert remove events are thrown when removing a halo component">
+        <setup>
+            <ResetComponent target="dc" className="spark.components.SkinnableDataContainer" waitEvent="updateComplete" waitTarget="dc" />
+            <SetProperty target="dc" propertyName="dataProvider" value="{new ArrayCollection([new Button()])}" waitTarget="dc.dataGroup" waitEvent="updateComplete" />
+        </setup>
+        <body>
+            <RunCode code="application.dc.dataProvider.removeItemAt(0)" waitEvent="rendererRemove" waitTarget="dc" />
+        </body>
+    </TestCase>
+
+
+    </testCases>
+</UnitTester>

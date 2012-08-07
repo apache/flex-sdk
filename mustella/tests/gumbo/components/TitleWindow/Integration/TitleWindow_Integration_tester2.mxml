@@ -1,0 +1,138 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Integration/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic3.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import comps.*;
+        	import skins.*;
+        	
+        	public static function init(o:DisplayObject):void {}
+        	
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!--
+    test state/skin
+    -->
+    
+    <testCases>  
+    	
+	<TestCase testID="TitleWindow_state_inactive1" keywords="[TitleWindow,inactive]" description="Test a titleWindow is inactive">
+	    <setup>            
+	        <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowAtCreation,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>
+    		<DispatchMouseEvent type="click" target="twObject.moveArea" localX="5" localY="5"  />
+    		<Pause timeout="10"/>
+		<!-- twObject.twWindow should be in inactive state -->
+		<CompareBitmap target="twObject.twWindow" url="../Integration/Baselines/$testID_child_inactive.png" numColorVariances="15" maxColorVariance="20"/>
+		<Pause timeout="40"/>
+		<DispatchMouseEvent type="click" target="twObject.twWindow.moveArea" localX="5" localY="5"  />
+		<Pause timeout="10"/>
+		<CompareBitmap target="twObject.twWindow" url="../Integration/Baselines/$testID_child_active.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+      
+      <TestCase testID="TitleWindow_state_inactive2" keywords="[TitleWindow,inactive]" description="Test a titleWindow is inactive">
+	      <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBarLayout,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<DispatchMouseEvent type="mouseMove" target="" stageX="5" stageY="5"  />
+		<DispatchMouseEvent type="mouseDown" target="" stageX="5" stageY="5"  />
+		<DispatchMouseEvent type="mouseUp" target="" stageX="5" stageY="5"  />
+		<Pause timeout="10"/>
+      		<!-- twObject.twWindow should be in inactive state -->
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_inactive.png"  numColorVariances="10" maxColorVariance="20"/>
+      		
+      		<DispatchMouseEvent type="mouseMove" target="twObject.moveArea" localX="5" localY="5"  />
+		<DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="5" localY="5"  />
+		<DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5"   />
+      		<Pause timeout="10"/>
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_active.png" numColorVariances="15" maxColorVariance="20"/>
+                  </body>
+        </TestCase> 
+
+      <TestCase testID="TitleWindow_skin_state1" keywords="[TitleWindow,skin]" description="Test a titleWindow's skin from inactive to active state">
+	      <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowSkinned,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<DispatchMouseEvent type="mouseMove" target="" stageX="650" stageY="650"  />
+		<DispatchMouseEvent type="mouseDown" target="" stageX="650" stageY="650"  />
+		<DispatchMouseEvent type="mouseUp" target="" stageX="650" stageY="650"  />
+		<Pause timeout="10"/>
+      		<!-- twObject.twWindow should be in inactive state -->
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_inactive.png" numColorVariances="15" maxColorVariance="20"/>
+      		
+      		<DispatchMouseEvent type="mouseMove" target="twObject.moveArea" localX="5" localY="5"  />
+		<DispatchMouseEvent type="mouseDown" target="twObject.moveArea" localX="5" localY="5"  />
+		<DispatchMouseEvent type="mouseUp" target="twObject.moveArea" localX="5" localY="5"   />
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_active.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+     <TestCase testID="TitleWindow_skin_state2" keywords="[TitleWindow,skin]" description="Test a titleWindow's skin in state=disabled">
+	      <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowSkinned,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+      		<!-- twObject should be in active state -->
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_active.png" numColorVariances="15" maxColorVariance="20"/>
+      		<!-- set the titleWindow disabled -->
+      		<RunCode code="FlexGlobals.topLevelApplication.twObject.enabled=false" waitTarget="twObject" waitEvent="updateComplete"/>
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_disabled.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+      <TestCase testID="TitleWindow_skin_state3" keywords="[TitleWindow,skin]" description="Test a titleWindow's skin which is scrollable">
+	      <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowScroll,'scroll test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+      		<!-- twObject should show the scroller -->
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_scroll.png" numColorVariances="15" maxColorVariance="20"/>
+      		<Pause timeout="40"/>
+      		<RunCode code="MyTitleWindowSkin2(FlexGlobals.topLevelApplication.twObject.skin).scroller.horizontalScrollBar.changeValueByPage()" 
+      		waitEvent="valueCommit" waitTarget="twObject.skin.scroller.horizontalScrollBar"/>
+      		<Pause timeout="40"/>
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/horizonal_scroll.png" numColorVariances="15" maxColorVariance="20"/>
+      		<RunCode code="MyTitleWindowSkin2(FlexGlobals.topLevelApplication.twObject.skin).scroller.verticalScrollBar.changeValueByPage()" 
+      		waitEvent="valueCommit" waitTarget="twObject.skin.scroller.verticalScrollBar"/>
+      		<Pause timeout="40"/>
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/vertical_scroll.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+  
+      <TestCase testID="TitleWindow_skin_state4" keywords="[TitleWindow,skin]" description="Test a titleWindow's skin from inactive to active state">
+	     <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowControlBar,'state test')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<SetStyle target="twObject" styleName="skinClass" valueExpression="value=skins.MyTitleWindowSkin" waitEvent="updateComplete" />
+           
+      		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID.png" numColorVariances="15" maxColorVariance="20"/>
+   	    </body>
+        </TestCase>   		
+    </testCases>
+    
+</UnitTester>
+

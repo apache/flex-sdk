@@ -1,0 +1,103 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+	<s:layout>
+
+     		<s:VerticalLayout/>
+
+     	</s:layout>
+
+     
+
+		<s:Rect width="40" height="22" id="b1" >
+
+			 <s:fill>
+
+	                    <mx:SolidColor color="0xFF0000"/>
+
+	                </s:fill>
+
+        	</s:Rect>  
+
+
+
+		<s:Rect id="b2" >
+
+			 <s:fill>
+
+	                    <mx:SolidColor color="0xFF0000"/>
+
+	                </s:fill>
+
+        	</s:Rect>  
+
+
+
+		
+
+		<s:Path id="p1" data="M0 11 L14 0 L24 0 L40 11 L24 22 L12 22">
+
+			<s:fill>
+
+				<mx:SolidColor color="0x00FF00"/>
+
+			</s:fill>
+
+		</s:Path>
+
+		
+
+		<s:Ellipse id="e1" height="22" width="40">
+
+			<s:fill>
+
+				<mx:SolidColor color="0x0000FF"/>
+
+			</s:fill>
+
+		</s:Ellipse>
+
+		
+		<!--Stroke defaults to actual value of 0, but that is equivalent to stroke of 1 and scaleMode="none" on screen-->
+		<s:Line id="l1" height="21" width="39">
+
+			<s:stroke>
+
+				<mx:SolidColorStroke color="0xF000FF"/>
+
+			</s:stroke>
+
+		</s:Line>
+
+
+
+		<s:Line id="l2" xFrom="0" xTo="39" yFrom="0" yTo="21">
+
+			<s:stroke>
+
+				<mx:SolidColorStroke color="0x0F00FF"/>
+
+			</s:stroke>
+
+		</s:Line>
+
+		
+
+		<s:Line id="l3" xFrom="40" xTo="0" yFrom="22" yTo="0">
+
+		</s:Line>
+
+
+
+		<s:BitmapImage id="bg" width="40" height="22" source="@Embed('../../../../../../Assets/Images/smallgreenrect.jpg')"/>
+
+		
+
+		<s:RichText id="tg" height="23" width="40" >
+
+			<s:content>Goodbye</s:content>
+
+		</s:RichText>
+
+		
+
+</s:Group>
+

@@ -1,0 +1,172 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<s:Group id="testAGroup">
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+		<s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		<s:Ellipse width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Ellipse>
+		
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</s:Group>
+	
+	<s:VGroup id="testAVGroup">
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+		<s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		<s:Ellipse width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Ellipse>
+		
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</s:VGroup>	
+	
+	<s:HGroup id="testAHGroup">
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+		<s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		<s:Ellipse width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Ellipse>
+		
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</s:HGroup>		
+	
+	<s:SkinnableContainer id="testAFxContainer">
+		
+		<s:SkinnableContainer>
+			<mx:Button />
+			<s:Button />
+			<s:SkinnableContainer />
+			<s:Group />
+		</s:SkinnableContainer>
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+		<s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0xFF0000" /></s:fill></s:Rect>
+		<s:Ellipse width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Ellipse>
+		
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</s:SkinnableContainer>	
+	
+	<mx:Container id="testAContainer">
+		
+		<s:SkinnableContainer>
+			<mx:Button />
+			<s:Button />
+			<s:SkinnableContainer />
+			<s:Group />
+		</s:SkinnableContainer>
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+	
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</mx:Container>	
+
+	<mx:Panel id="testAPanel">
+		
+		<s:SkinnableContainer>
+			<mx:Button />
+			<s:Button />
+			<s:SkinnableContainer />
+			<s:Group />
+		</s:SkinnableContainer>
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+	
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</mx:Panel>	
+	
+	<mx:Canvas id="testACanvas">
+		
+		<s:SkinnableContainer>
+			<mx:Button />
+			<s:Button />
+			<s:SkinnableContainer />
+			<s:Group />
+		</s:SkinnableContainer>
+		
+		<mx:Button label="Button - Halo" />
+		<s:Button label="Button - Gumbo" />
+	
+		<s:Group width="11" />
+		
+		<s:DataGroup width="22" />
+		
+		<s:Group><mx:Button label="Halo button in subgroup" /></s:Group>
+		<s:Group><s:Button label="Spark button in subgroup" /></s:Group>
+		<s:Group><s:Rect width="100" height="10"><s:fill><mx:SolidColor color="0x00FF00" /></s:fill></s:Rect></s:Group>
+		
+		<s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group><s:Group>
+		<mx:Button label="Deep nested button" />
+		</s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group></s:Group>
+		
+	</mx:Canvas>
+
+</s:Group>

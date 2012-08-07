@@ -1,0 +1,99 @@
+<UnitTester    
+    testDir="gumbo/components/Panel/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="Panel_basic2.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+           
+    <testCases>    
+
+		<TestCase testID="Panel_Properties_maxSize" keywords="[Panel, Height, Width, Size]" description="Test specifying a max size for Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelMaxSize" className="Comps.CustomPanelMaxSize" waitEvent="updateComplete" waitTarget="myCustomPanelMaxSize"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myCustomPanelMaxSize" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>  
+                    
+		<TestCase testID="Panel_Properties_size" keywords="[Panel, Height, Width, Size]" description="Test specifying a size for Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelSize" className="Comps.CustomPanelSize" waitEvent="updateComplete" waitTarget="myCustomPanelSize"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myCustomPanelSize" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>       
+        
+		<TestCase testID="Panel_Properties_size_runTime" keywords="[Panel, Height, Width, Size]" description="Test specifying a size at runtime for Panel">
+            <setup>            
+                <ResetComponent target="myCustomPanelSize" className="Comps.CustomPanelSize" waitEvent="updateComplete" waitTarget="myCustomPanelSize"/>
+                <SetProperty target="myCustomPanelSize" propertyName="height" value="400" waitEvent="updateComplete" waitTarget="myCustomPanelSize"/>
+                <SetProperty target="myCustomPanelSize" propertyName="width" value="100" waitEvent="updateComplete" waitTarget="myCustomPanelSize"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="myCustomPanelSize" url="../Properties/Baselines/$testID.png" />
+            </body>
+        </TestCase>            
+        
+		<TestCase testID="Panel_Properties_minWidth" keywords="[Panel, Width, Size, minWidth]" description="Test specifying a minWidth for Panel">
+            <setup>            
+                <ResetComponent target="blankPanel" className="spark.components.Panel" waitEvent="updateComplete" waitTarget="blankPanel"/>
+                <SetProperty target="blankPanel" propertyName="minWidth" value="100" waitEvent="updateComplete" waitTarget="blankPanel"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="blankPanel" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_minHeight" keywords="[Panel, Height, Size, minHeight]" description="Test specifying a minHeight for Panel">
+            <setup>            
+                <ResetComponent target="blankPanel" className="spark.components.Panel" waitEvent="updateComplete" waitTarget="blankPanel"/>
+                <SetProperty target="blankPanel" propertyName="minHeight" value="100" waitEvent="updateComplete" waitTarget="blankPanel"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="blankPanel" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="Panel_Properties_minSize" keywords="[Panel, Width, Height, Size, minWidth, minHeight]" description="Test specifying a minWidth and minHeight for Panel">
+            <setup>            
+                <ResetComponent target="blankPanel" className="spark.components.Panel" waitEvent="updateComplete" waitTarget="blankPanel"/>
+                <SetProperty target="blankPanel" propertyName="minWidth" value="100" waitEvent="updateComplete" waitTarget="blankPanel"/>
+                <SetProperty target="blankPanel" propertyName="minHeight" value="100" waitEvent="updateComplete" waitTarget="blankPanel"/>
+            </setup>
+            <body>
+            	<CompareBitmap target="blankPanel" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>    
+        
+		<TestCase testID="Panel_Properties_default" keywords="[Panel, Default]" description="Test default Panel">
+            <setup>            
+                <ResetComponent target="blankPanel" className="spark.components.Panel" waitEvent="updateComplete" waitTarget="blankPanel"/>                
+            </setup>
+            <body>
+            	<AssertPropertyValue target="blankPanel" propertyName="width" value="131"/>
+            	<AssertPropertyValue target="blankPanel" propertyName="height" value="127"/>
+            	<CompareBitmap target="blankPanel" url="../Properties/Baselines/$testID.png" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>        
+           			       
+    </testCases>
+    
+</UnitTester>
+
+

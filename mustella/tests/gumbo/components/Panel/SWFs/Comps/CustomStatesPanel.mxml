@@ -1,0 +1,47 @@
+<s:Panel
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"    
+    width="75%" height="75%">
+
+    <s:states>
+    	<s:State name="state01" />
+    	<s:State name="state02" />
+	</s:states>
+
+
+	<mx:VBox horizontalCenter="0">	
+		<mx:Text id="sTXT" 
+			text.state01="State One" fontSize.state01="40" color.state01="0xFF0000"
+		    text.state02="State Two" fontSize.state02="24" color.state02="0x0000FF"/>	
+	</mx:VBox>
+
+	<mx:VBox verticalCenter="0" horizontalCenter="0" includeIn="state01">
+		<s:CheckBox id="sCB" label="Spark CheckBox"/>		
+		<s:NumericStepper id="sNS"/>		
+		<s:List id="sLST">
+			<s:dataProvider>
+				<s:ArrayList source="[One,Two,Three,Four,Five]"/>
+			</s:dataProvider>
+		</s:List>
+	</mx:VBox>
+	
+		
+	<mx:VBox verticalCenter="0" horizontalCenter="0" includeIn="state02">					
+		<s:HSlider id="sHS"/>				
+		<mx:Accordion id="sACRD" width="75%" height="200">
+			<mx:HBox label="Tab 1"><mx:Label text="Text on tab1"/></mx:HBox>
+			<mx:HBox label="Tab 2"><mx:Label text="Text on tab2"/></mx:HBox>
+			<mx:HBox label="Tab 3"><mx:Label text="Text on tab3"/></mx:HBox>
+   		</mx:Accordion>		   		
+		<mx:HBox>
+			<mx:RadioButton id="sRB1" groupName="rbg1" label="Option 1"/>
+			<mx:RadioButton id="sRB2" groupName="rbg1" label="Option 2"/>
+			<mx:RadioButton id="sRB3" groupName="rbg1" label="Option 3"/>
+		</mx:HBox>   		   		
+	</mx:VBox>	
+	
+	
+	
+
+</s:Panel>

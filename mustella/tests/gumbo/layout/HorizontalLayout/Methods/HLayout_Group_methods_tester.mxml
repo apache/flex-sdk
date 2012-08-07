@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/HorizontalLayout/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="HorizontalLayout_Group_main.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        [Bindable]
+		private var textString:String = new String("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis nisi. Duis at turpis. Sed hendrerit porttitor est. Ut et eros. Nullam risus lacus, semper ut, gravida vitae, tempus ac, ligula. Nulla mollis. Curabitur neque nibh, pretium quis, hendrerit sit amet, molestie non, sem. Pellentesque quis arcu quis odio hendrerit aliquam. Nam ligula. Phasellus a nisi eu justo pretium accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ac metus. Nulla dignissim elit id dolor. Curabitur elit. Phasellus tempus nisi sed eros. Fusce ac ipsum sed ligula volutpat molestie. ");
+		
+	]]>
+	</mx:Script>
+
+	<testCases>
+		<TestCase testID="HLayout_group_fractionOfElementInView_all" keywords="[HorizontalLayout,fractionOfElementInView]" description="Verify element in full view returns 1.0." >
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />   
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="myScroll.grp.hl"/>
+				<SetProperty propertyName="variableColumnWidth" value="false" target="myScroll.grp.hl"/>
+
+				<AssertPropertyValue propertyName="requestedColumnCount" value="-1" target="myScroll.grp.hl"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(0)" value="30" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(0)" value="50" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(1)" value="40" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addSparkBtn(application.myScroll.grp)"/>
+
+				<SetProperty propertyName="typicalLayoutElement" valueExpression="value=application.myScroll.grp.hl.target.getElementAt(1)" target="myScroll.grp.hl"/>
+
+				<RunCode code="application.addSimpleText(application.myScroll.grp)"/>
+				<SetStyle styleName="textAlign" target="myScroll.grp.getElementAt(3)" value="justify" />
+				<SetProperty propertyName="text" target="myScroll.grp.getElementAt(3)" value="{textString}" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(3)" value="190" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<RunCode code="application.addRect(application.myScroll.grp)"/>
+				<SetProperty propertyName="height" target="myScroll.grp.getElementAt(4)" value="60" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+				<SetProperty propertyName="width" target="myScroll.grp.getElementAt(4)" value="100" waitEvent="updateComplete" waitTarget="myScroll.grp"/>
+
+				<AssertMethodValue method="value=application.myScroll.grp.hl.fractionOfElementInView(0)" value="1.0" />
+			</body>
+        </TestCase>
+        
+		<TestCase testID="HLayout_group_fractionOfElementInView_partial" keywords="[HorizontalLayout,fractionOfElementInView]" description="Verify partially viewed element returns a fraction." >
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll.grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="grp.hl"/>
+				
+				<AssertPropertyValue propertyName="requestedColumnCount" value="-1" target="myScroll.grp.hl"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="30" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="40" waitEvent="updateComplete" waitTarget="grp"/>
+				
+				<SetProperty propertyName="width" value="60" target="grp" />
+				
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="80" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<AssertMethodValue method="value=application.grp.hl.fractionOfElementInView(1)" value="0.175" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HLayout_group_fractionOfElementInView_invalidIndex" keywords="[HorizontalLayout,fractionOfElementInView]" description="Should return 0 because index is invalid." >
+			<setup>
+				<ResetComponent target="myScroll" className="Assets.MyGroupScroller" waitEvent="updateComplete" />
+				<ResetComponent target="grp" className="Assets.MyGroup" waitEvent="updateComplete" />	
+				<SetProperty propertyName="visible" value="false" target="myScroll.grp"/>
+			</setup>
+			<body>
+				<SetProperty propertyName="clipAndEnableScrolling" value="true" target="grp.hl"/>
+
+				<AssertPropertyValue propertyName="requestedColumnCount" value="-1" target="myScroll.grp.hl"/>
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(0)" value="30" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(0)" value="140" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<SetProperty propertyName="height" value="60" target="grp" />
+
+				<RunCode code="application.addRect(application.grp)"/>
+				<SetProperty propertyName="height" target="grp.getElementAt(1)" value="60" waitEvent="updateComplete" waitTarget="grp"/>
+				<SetProperty propertyName="width" target="grp.getElementAt(1)" value="140" waitEvent="updateComplete" waitTarget="grp"/>
+
+				<AssertMethodValue method="value=application.grp.hl.fractionOfElementInView(3)" value="0.0" />
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

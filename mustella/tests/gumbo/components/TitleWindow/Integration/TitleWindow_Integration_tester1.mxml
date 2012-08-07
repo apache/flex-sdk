@@ -1,0 +1,184 @@
+<UnitTester    
+    testDir="gumbo/components/TitleWindow/Integration/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="TitleWindow_basic3.mxml">
+    
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	import mx.core.FlexGlobals;
+        	import spark.components.Button;
+        	import spark.components.TitleWindow;
+        	import flash.display.DisplayObject;
+        	import mx.managers.PopUpManager;
+        	import mx.events.FlexEvent;
+        	
+        	import comps.*;
+        	
+        	private var longTitle:String="Indicates whether the security restrictions would cause any display objects to be omitted from the list returned by calling the DisplayObjectContainer.getObjectsUnderPoint() method with the specified point point";
+        	public static function init(o:DisplayObject):void {}
+        	
+        	public var b:Button=new Button();
+        	public function addButton(t:TitleWindow):void
+        	{
+        		b.label="new button";
+        		var n:Number=t.numElements;
+        		t.addElementAt(b,n);
+        		t.addEventListener("add",addListener);
+        	}
+        	public function addListener(e:FlexEvent):void
+        	{
+        		e.currentTarget.removeEventListener("add", addListener);
+			dispatchEvent(new FlexEvent("addButtonComplete"));
+		
+        	}
+        ]]>
+    </fx:Script>
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    <!--
+        * test titleWindow containing a number of Halo and Spark components
+        * test titleWindowcontaining Form, FormItem, RadioButtonGroup, RadioButton, CheckBox, FxList, DataGrid, Graphic Elements (Rect, Ellipse)
+        * test titleWindow containing a png and jpg image
+        * test titleWindow containing a panel, another titleWindow popped up at creationComplete
+        * test titleWindow containing popups(alert, PopUpAnchor),verify they can be open/close, also with default popup location which is related to its parent titleWindow.
+        * test titleWindow containing popups, closing the titleWindow will not affect other popups.
+        * test more popups, re-parenting components.
+        * test creation through PopUpAnchor
+    -->
+    <testCases>    
+	<TestCase testID="TitleWindow_mixed_components1" keywords="[TitleWindow,contents]" description="Test a titleWindow containing mixed halo/spark components">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent5,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+    
+	<TestCase testID="TitleWindow_mixed_components2" keywords="[TitleWindow,contents]" description="Test a titleWindow containing mixed halo/spark components">
+            <setup>            
+		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+	    </setup>
+	    <body>
+	    	<Pause timeout="20"/>
+		<CompareBitmap target="twObject.myForm2" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+		
+            </body>
+        </TestCase> 
+  
+  	<TestCase testID="TitleWindow_mixed_components3" keywords="[TitleWindow,contents]" description="Test a titleWindow containing mixed halo/spark components">
+              <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  		<CompareBitmap target="twObject.myPanel" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+    	<TestCase testID="TitleWindow_mixed_components4" keywords="[TitleWindow,contents]" description="Test a titleWindow shows an Alert window">
+              <setup>            
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+  	    </setup>
+  	    <body>
+  	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.showAlert()" waitEvent="updateComplete" waitTarget="twObject.curAlert"/>
+  	    	<Pause timeout="40"/>
+  	    	<AssertPropertyValue target="twObject.curAlert.mx_internal:alertForm.mx_internal:buttons.0" propertyName="label" value="Cancel" />
+  	    	<DispatchKeyEvent key="SPACE" />
+		<AssertEvent target="twObject.curAlert" eventName="close" eventClass="mx.events::CloseEvent" />
+		<WaitForEffectsToEnd />
+            </body>
+        </TestCase> 
+  
+     	<TestCase testID="TitleWindow_mixed_components5" keywords="[TitleWindow,contents]" description="Test a titleWindow shows a titlewindow">
+               <setup>            
+   		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+   		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+   	    </setup>
+   	    <body>
+   	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.showTitleWindow()" waitEvent="TitleWindowComplete" waitTarget="twObject"/>
+   	    	<RunCode code="FlexGlobals.topLevelApplication.childWindowList.push(FlexGlobals.topLevelApplication.twObject.twWindow2)" />
+   	    	<CompareBitmap target="twObject.twWindow2" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+
+     	<TestCase testID="TitleWindow_mixed_components6" keywords="[TitleWindow,contents]" description="Test a titleWindow shows a popupAnchor">
+               <setup>            
+   		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+   		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowWithContent3,'window with content')" waitEvent="TitleWindowComplete" waitTarget=""/>
+   	    </setup>
+   	    <body>
+   	    	<RunCode code="FlexGlobals.topLevelApplication.twObject.showPopupAnchor()"  waitEvent="updateComplete" waitTarget="twObject.myForm" />
+   	    	<Pause timeout="100"/>
+   	    	<CompareBitmap target="twObject.myForm" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+     	<TestCase testID="TitleWindow_createPopUp_test1" keywords="[TitleWindow,contents]" description="Test a titleWindow created by PopUpManager.createPopUp">
+               <setup>            
+   		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+   		<RunCode code="FlexGlobals.topLevelApplication.twObject=TitleWindow(PopUpManager.createPopUp(DisplayObject(FlexGlobals.topLevelApplication),TitleWindowWithContent1))" />
+   	    	<RunCode code="FlexGlobals.topLevelApplication.childWindowList.push(FlexGlobals.topLevelApplication.twObject)"/>
+   	    </setup>
+   	    <body>
+   	    	<Pause timeout="400"/>
+   	    	<CompareBitmap target="twObject" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase>
+        
+        
+    	<TestCase testID="TitleWindow_popup_atCreation" keywords="[TitleWindow,contents]" description="Test a titleWindow pops another popus at creation">
+                <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowAtCreation,'two popups')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>
+    		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_parent.png" numColorVariances="15" maxColorVariance="20"/>
+    		<CompareBitmap target="twObject.twWindow" url="../Integration/Baselines/$testID_child.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+        <TestCase testID="TitleWindow_popup_atCreation2" keywords="[TitleWindow,contents]" description="Test a titleWindow pops another popus at creation">
+                <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowAtCreation,'two popups')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>
+    		<DispatchMouseClickEvent target="twObject.closeButton" localX="2" localY="2"  waitEvent="click" />
+		<AssertEvent target="twObject" eventName="close" eventClass="mx.events::CloseEvent" timeout="5000" />	
+    		<CompareBitmap target="twObject.twWindow" url="../Integration/Baselines/$testID.png" numColorVariances="10" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+
+        <TestCase testID="TitleWindow_popup_reparent" keywords="[TitleWindow,contents]" description="Test move contents among two titleWindows">
+                <setup>            
+    		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>
+    		<RunCode code="FlexGlobals.topLevelApplication.twObject=FlexGlobals.topLevelApplication.createTitleWindowByClass(TitleWindowAtCreation,'two popups')" waitEvent="TitleWindowComplete" waitTarget=""/>
+    	    </setup>
+    	    <body>
+    		<RunCode code="addButton(FlexGlobals.topLevelApplication.twObject)" waitEvent="elementAdd" waitTarget="twObject"/>
+    		
+    		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_addToParent.png" numColorVariances="10" maxColorVariance="20"/>
+    		
+    		<RunCode code="addButton(FlexGlobals.topLevelApplication.twObject.twWindow)" waitEvent="elementAdd" waitTarget="twObject.twWindow"/>
+		    		
+    		<CompareBitmap target="twObject.twWindow" url="../Integration/Baselines/$testID_addToChild.png" numColorVariances="15" maxColorVariance="20"/>
+    		<CompareBitmap target="twObject" url="../Integration/Baselines/$testID_removeChild.png" numColorVariances="15" maxColorVariance="20"/>
+            </body>
+        </TestCase> 
+        
+    </testCases>
+    
+</UnitTester>
+

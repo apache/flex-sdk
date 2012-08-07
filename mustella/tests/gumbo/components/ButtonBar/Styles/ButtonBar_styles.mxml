@@ -1,0 +1,1313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ButtonBar/Styles/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="ButtonBarApp2.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import Assets.*;
+        import mx.collections.*;
+        import spark.components.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+================================================================================
+fontFamily: Does not work; see bug SDK-18608
+================================================================================
+-->
+<TestCase testID="fontFamily_mxml_test1" keywords="[ButtonBar,fontFamily]" description="The fontFamily was set to arial in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontFamilyBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_mxml_test2" keywords="[ButtonBar,fontFamily]" description="The fontFamily was set to verdana in mxml." >
+    <body>
+        <CompareBitmap numColorVariances="8" maxColorVariance="100" url="../Styles/baselines/$testID.png" target="fontFamilyBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_test1" keywords="[ButtonBar,fontFamily]" description="The fontFamily is set to arial in as." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+        <SetStyle target="runtimeBB1" styleName="fontLookup" value="embeddedCFF" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_test2" keywords="[ButtonBar,fontFamily]" description="The fontFamily is set to verdana in as." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+        <SetStyle target="runtimeBB1" styleName="fontLookup" value="embeddedCFF" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArial" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="fontFamily" value="EmbeddedArno" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_css_test1" keywords="[ButtonBar,fontFamily]" description="The fontFamily is set to a css style, which is arial, in as." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" numColorVariances="5" maxColorVariance="10" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontFamily_as_css_test2" keywords="[ButtonBar,fontFamily]" description="The fontFamily is set to a css style, which is verdana, in as." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+fontSize: Does not work; see bug SDK-18603
+================================================================================
+-->
+<TestCase testID="fontSize_mxml_test1" keywords="[ButtonBar,fontSize]" description="The fontSize was set to 8 in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontSizeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_mxml_test2" keywords="[ButtonBar,fontSize]" description="The fontSize was set to 24 in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontSizeBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_test1" keywords="[ButtonBar,fontSize]" description="The fontSize is set to 8 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="fontSize" value="8" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_test2" keywords="[ButtonBar,fontSize]" description="The fontSize is set to 24 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="fontSize" value="24" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_css_test1" keywords="[ButtonBar,fontSize]" description="The fontSize is set to a css style, which is 8, in as." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontSize1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontSize_as_css_test2" keywords="[ButtonBar,fontSize]" description="The fontSize is set to a css style, which is 24, in as." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontSize2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+<!--
+================================================================================
+fontWeight
+================================================================================
+-->
+<TestCase testID="fontWeight_mxml_test1" keywords="[ButtonBar,fontWeight]" description="The fontWeight was set to bold in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontWeightBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_mxml_test2" keywords="[ButtonBar,fontWeight]" description="The fontWeight was set to normal in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="fontWeightBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_test1" keywords="[ButtonBar,fontWeight]" description="The fontWeight is set to bold at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_test2" keywords="[ButtonBar,fontWeight]" description="The fontWeight is set to normal at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="fontWeight" value="bold" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="fontWeight" value="normal" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_css_test1" keywords="[ButtonBar,fontWeight]" description="The fontWeight is set to a css style, which is bold, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontWeight1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="fontWeight_as_css_test2" keywords="[ButtonBar,fontWeight]" description="The fontWeight is set to a css style, which is normal, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontWeight1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontWeight2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+color
+================================================================================
+-->
+<TestCase testID="color_mxml_test1" keywords="[ButtonBar,color]" description="The color was set to 0xff0000 in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="colorBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="color_as_test1" keywords="[ButtonBar,color]" description="color is set to 0xff0000 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="color" value="0xff0000" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="color_as_css_test1" keywords="[ButtonBar,color]" description="color is set to a css style, which is 0xff0000, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="color1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+direction: Blocked by bug SDK-18610.  Need to set textAlign to see it.
+================================================================================
+-->
+<TestCase testID="direction_mxml_test1" keywords="[ButtonBar,direction]" description="The direction was set to rtl in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="directionBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_mxml_test2" keywords="[ButtonBar,direction]" description="The direction was set to ltr in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="directionBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_as_test1" keywords="[ButtonBar,direction]" description="direction is set to rtl at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac_hebrew" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1" />
+    </setup>
+    <body>
+        <!--SetStyle target="runtimeBB1" styleName="textAlign" value="left" /-->
+        <SetStyle target="runtimeBB1" styleName="direction" value="rtl" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="direction_as_test2" keywords="[ButtonBar,direction]" description="direction is set to ltr at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac_hebrew" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1" />
+    </setup>
+    <body>
+        <!--SetStyle target="runtimeBB1" styleName="textAlign" value="left" /-->
+        <SetStyle target="runtimeBB1" styleName="direction" value="ltr" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+
+
+
+
+<TestCase testID="direction_as_css_test1" keywords="[ButtonBar,direction]" description="direction is set to a css style, which is rtl, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac_hebrew" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1 direction1" waitEvent="updateComplete" />
+		<CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+
+
+
+
+
+
+
+<TestCase testID="direction_as_css_test2" keywords="[ButtonBar,direction]" description="direction is set to a css style, which is ltr, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac_hebrew" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="fontFamily1 direction2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+<!--
+================================================================================
+lineThrough
+================================================================================
+-->
+<TestCase testID="lineThrough_mxml_test1" keywords="[ButtonBar,lineThrough]" description="lineThrough was set to true in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="lineThroughBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_mxml_test2" keywords="[ButtonBar,lineThrough]" description="lineThrough was set to false in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="lineThroughBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_test1" keywords="[ButtonBar,lineThrough]" description="lineThrough is set to true at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="lineThrough" value="true" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_test2" keywords="[ButtonBar,lineThrough]" description="lineThrough is set to false at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="lineThrough" value="true" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="lineThrough" value="false" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_css_test1" keywords="[ButtonBar,lineThrough]" description="lineThrough is set to a css style, which is true, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="lineThrough1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="lineThrough_as_css_test2" keywords="[ButtonBar,lineThrough]" description="lineThrough is set to a css style, which is false, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="lineThrough1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="lineThrough2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+kerning
+================================================================================
+-->
+<TestCase testID="kerning_mxml_test1" keywords="[ButtonBar,kerning]" description="kerning was set to true in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="kerningBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_mxml_test2" keywords="[ButtonBar,kerning]" description="kerning was set to auto in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="kerningBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_mxml_test3" keywords="[ButtonBar,kerning]" description="kerning was set to off in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="kerningBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_test1" keywords="[ButtonBar,kerning]" description="kerning is set to true at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac2" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="kerning" value="off" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="kerning" value="on" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_test2" keywords="[ButtonBar,kerning]" description="kerning is set to auto at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac2" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="kerning" value="off" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="kerning" value="auto" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_test3" keywords="[ButtonBar,kerning]" description="kerning is set to off at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac2" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="kerning" value="off" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_css_test1" keywords="[ButtonBar,kerning]" description="kerning is set to a css style, which is on, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac2" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="kerning3" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="kerning1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_css_test2" keywords="[ButtonBar,kerning]" description="kerning is set to a css style, which is auto, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac2" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="kerning3" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="kerning2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="kerning_as_css_test3" keywords="[ButtonBar,kerning]" description="kerning is set to a css style, which is off, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac2" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="kerning3" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+textDecoration
+================================================================================
+-->
+<TestCase testID="textDecoration_mxml_test1" keywords="[ButtonBar,textDecoration]" description="textDecoration was set to underline in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="textDecorationBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_mxml_test2" keywords="[ButtonBar,textDecoration]" description="textDecoration was set to none in mxml." >
+    <body>
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="textDecorationBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_test1" keywords="[ButtonBar,textDecoration]" description="textDecoration is set to underline at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_test2" keywords="[ButtonBar,textDecoration]" description="textDecoration is set to none at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeBB1" styleName="textDecoration" value="underline" waitEvent="updateComplete" />
+        <SetStyle target="runtimeBB1" styleName="textDecoration" value="none" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_css_test1" keywords="[ButtonBar,textDecoration]" description="textDecoration is set to a css style, which is underline, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="textDecoration1" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="textDecoration_as_css_test2" keywords="[ButtonBar,textDecoration]" description="textDecoration is set to a css style, which is none, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeBB1" className="spark.components::ButtonBar" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="dataProvider" valueExpression="value=application.ac1" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="textDecoration1" waitEvent="updateComplete" />
+        <SetProperty target="runtimeBB1" propertyName="styleName" value="textDecoration2" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeBB1" />
+    </body>
+</TestCase>
+
+
+<!--
+================================================================================
+top
+================================================================================
+-->
+<TestCase testID="top_mxml_test1" keywords="[ButtonBar,top]" description="top was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="31" target="topCanvas1" />
+        <AssertPropertyValue propertyName="y" value="5" target="topBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_mxml_test2" keywords="[ButtonBar,top]" description="top was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="26" target="topCanvas2" />
+        <AssertPropertyValue propertyName="y" value="0" target="topBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_mxml_test3" keywords="[ButtonBar,top]" description="top was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="21" target="topCanvas3" />
+        <AssertPropertyValue propertyName="y" value="-5" target="topBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_test1" keywords="[ButtonBar,top]" description="top is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="top" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_test2" keywords="[ButtonBar,top]" description="top is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="top" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_test3" keywords="[ButtonBar,top]" description="top is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="top" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="-5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_css_test1" keywords="[ButtonBar,top]" description="top is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="top1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="y" value="5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_css_test2" keywords="[ButtonBar,top]" description="top is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="top2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="top_as_css_test3" keywords="[ButtonBar,top]" description="top is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="top3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="y" value="-5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+left - These tests test the width of a Canvas that has a ButtonBar in it. The width
+is calculated by:  215 (width of ButtonBar) + 2 (canvas border) + left
+================================================================================
+-->
+<TestCase testID="left_mxml_test1" keywords="[ButtonBar,left]" description="left was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="222" target="leftCanvas1" />
+        <AssertPropertyValue propertyName="x" value="5" target="leftBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_mxml_test2" keywords="[ButtonBar,left]" description="left was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="217" target="leftCanvas2" />
+        <AssertPropertyValue propertyName="x" value="0" target="leftBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_mxml_test3" keywords="[ButtonBar,left]" description="left was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="212" target="leftCanvas3" />
+        <AssertPropertyValue propertyName="x" value="-5" target="leftBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_test1" keywords="[ButtonBar,left]" description="left is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="left" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="222" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_test2" keywords="[ButtonBar,left]" description="left is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="left" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="217" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_test3" keywords="[ButtonBar,left]" description="left is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="left" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="212" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="-5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_css_test1" keywords="[ButtonBar,left]" description="left is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="left1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="237" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_css_test2" keywords="[ButtonBar,left]" description="left is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="left2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="left_as_css_test3" keywords="[ButtonBar,left]" description="left is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="left3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="227" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="-5" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+bottom - Tests check the height of the canvas that the ButtonBar is in and the y value of the ButtonBar.
+height values are 24 (height of ButtonBar) + 2 (borderThickness) + bottom (style)
+================================================================================
+-->
+<TestCase testID="bottom_mxml_test1" keywords="[ButtonBar,bottom]" description="bottom was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="31" target="bottomCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="bottomBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_mxml_test2" keywords="[ButtonBar,bottom]" description="bottom was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="26" target="bottomCanvas2" />
+        <AssertPropertyValue propertyName="y" value="0" target="bottomBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_mxml_test3" keywords="[ButtonBar,bottom]" description="bottom was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="height" value="21" target="bottomCanvas3" />
+        <AssertPropertyValue propertyName="y" value="0" target="bottomBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_test1" keywords="[ButtonBar,bottom]" description="bottom is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="bottom" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_test2" keywords="[ButtonBar,bottom]" description="bottom is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_test3" keywords="[ButtonBar,bottom]" description="bottom is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="bottom" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_css_test1" keywords="[ButtonBar,bottom]" description="bottom is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="bottom1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="31" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_css_test2" keywords="[ButtonBar,bottom]" description="bottom is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="bottom2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="26" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="bottom_as_css_test3" keywords="[ButtonBar,bottom]" description="bottom is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" target="runtimeCanvas1.runtimeBB3" value="24" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="bottom3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="21" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="height" value="24" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+right
+================================================================================
+-->
+<TestCase testID="right_mxml_test1" keywords="[ButtonBar,right]" description="right was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="222" target="rightCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="rightBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_mxml_test2" keywords="[ButtonBar,right]" description="right was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="217" target="rightCanvas2" />
+        <AssertPropertyValue propertyName="x" value="0" target="rightBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_mxml_test3" keywords="[ButtonBar,right]" description="right was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="width" value="212" target="rightCanvas3" />
+        <AssertPropertyValue propertyName="x" value="0" target="rightBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_test1" keywords="[ButtonBar,right]" description="right is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="right" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="222" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_test2" keywords="[ButtonBar,right]" description="right is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="right" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="217" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_test3" keywords="[ButtonBar,right]" description="right is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="215" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="right" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="212" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_css_test1" keywords="[ButtonBar,right]" description="right is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="right1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="237" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_css_test2" keywords="[ButtonBar,right]" description="right is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="right2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="right_as_css_test3" keywords="[ButtonBar,right]" description="right is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" target="runtimeCanvas1.runtimeBB3" value="230" waitTarget="runtimeCanvas1"
+             waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="right3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="227" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+top/bottom/left/right combinations
+================================================================================
+-->
+<TestCase testID="tblr_as_test1" keywords="[ButtonBar,right]" description="top and right are set to 5 and 10 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="top" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="right" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+
+<TestCase testID="tblr_as_test2" keywords="[ButtonBar,right]" description="top and bottom are set to 10 and 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="top" value="10" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="bottom" value="5" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+
+<TestCase testID="tblr_as_test3" keywords="[ButtonBar,right]" description="all are set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="top" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="bottom" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="left" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="right" value="5" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+verticalCenter - These tests test the position of a 24 px high ButtonBar in a 50 px high Canvas.
+================================================================================
+-->
+<TestCase testID="verticalCenter_mxml_test1" keywords="[ButtonBar,verticalCenter]" description="verticalCenter was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="y" value="18" target="verticalCenterBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_mxml_test2" keywords="[ButtonBar,verticalCenter]" description="verticalCenter was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="y" value="13" target="verticalCenterBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_mxml_test3" keywords="[ButtonBar,verticalCenter]" description="verticalCenter was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="y" value="8" target="verticalCenterBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_test1" keywords="[ButtonBar,verticalCenter]" description="verticalCenter is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="verticalCenter" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="10" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_test2" keywords="[ButtonBar,verticalCenter]" description="verticalCenter is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="verticalCenter" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="47" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_test3" keywords="[ButtonBar,verticalCenter]" description="verticalCenter is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="verticalCenter" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_css_test1" keywords="[ButtonBar,verticalCenter]" description="verticalCenter is set to a css style, which is 5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="verticalCenter1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="10" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_css_test2" keywords="[ButtonBar,verticalCenter]" description="verticalCenter is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="verticalCenter2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="height" value="47" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="verticalCenter_as_css_test3" keywords="[ButtonBar,verticalCenter]" description="verticalCenter is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="verticalCenter3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="height" value="45" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="height" value="57" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="y" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+horizontalCenter
+================================================================================
+-->
+<TestCase testID="horizontalCenter_mxml_test1" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter was set to 5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="x" value="20" target="horizontalCenterBB1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_mxml_test2" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter was set to 0 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="x" value="15" target="horizontalCenterBB2" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_mxml_test3" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter was set to -5 in mxml." >
+    <body>
+        <AssertPropertyValue propertyName="x" value="10" target="horizontalCenterBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_test1" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter is set to 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="220" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="horizontalCenter" value="5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="10" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_test2" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter is set to 0 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="220" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="horizontalCenter" value="0" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="222" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_test3" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter is set to -5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="220" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="horizontalCenter" value="-5" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+    <TestCase testID="horizontalCenter_as_css_test1" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter is set to a css style, which is 5, at runtime.  The container will be 12 larger. (5 for left side, 5 for right side, 2 for border)" >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="horizontalCenter1" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="242" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="10" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_css_test2" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter is set to a css style, which is 0, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="horizontalCenter2" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="width" value="232" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+
+<TestCase testID="horizontalCenter_as_css_test3" keywords="[ButtonBar,horizontalCenter]" description="horizontalCenter is set to a css style, which is -5, at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+        <SetProperty propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" waitTarget="runtimeCanvas1"
+            waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="runtimeCanvas1.runtimeBB3" propertyName="styleName" value="horizontalCenter3" waitEvent="updateComplete" />
+        <AssertPropertyValue propertyName="width" value="242" target="runtimeCanvas1" />
+        <AssertPropertyValue propertyName="width" value="230" target="runtimeCanvas1.runtimeBB3" />
+        <AssertPropertyValue propertyName="x" value="0" target="runtimeCanvas1.runtimeBB3" />
+    </body>
+</TestCase>
+
+<!--
+================================================================================
+vertical/horizontalCenter combinations
+================================================================================
+-->
+<TestCase testID="vhc_as_test1" keywords="[ButtonBar,verticalCenter]" description="vertical and horizontal center are set to 5 and 10 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="verticalCenter" value="5" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="horizontalCenter" value="10" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+
+<TestCase testID="vhc_as_test2" keywords="[ButtonBar,verticalCenter]" description="vertical and horizontal center are set to 10 and 5 at runtime." >
+    <setup>
+        <ResetComponent target="runtimeCanvas1" className="Assets::CustomFxButtonBar11" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="verticalCenter" value="10" waitEvent="updateComplete" />
+        <SetStyle target="runtimeCanvas1.runtimeBB3" styleName="horizontalCenter" value="5" waitEvent="updateComplete" />
+        <CompareBitmap url="../Styles/baselines/$testID.png" target="runtimeCanvas1" />
+    </body>
+</TestCase>
+<!--
+================================================================================
+baseline combinations
+================================================================================
+-->
+<TestCase testID="spark_baseline_75_mxml" keywords="[ButtonBar,baseline]"
+    description="Measure the position of a ButtonBar with baseline set to 70 inline in a Group." >
+    <body>
+        <AssertPropertyValue propertyName="y" target="baseline_buttonbar_mxml" value="55" />
+    </body>
+</TestCase>
+<TestCase testID="spark_baseline_zero" keywords="[ButtonBar,baseline]"
+    description="Measure the position of a ButtonBar with baseline set to 0 in a Group." >
+    <setup>
+        <ResetComponent target="baseline_buttonbar" className="Assets.CustomFxButtonBar3" waitEvent="updateComplete"
+            waitTarget="baseline_buttonbar"/>
+    </setup>
+    <body>
+        <SetStyle target="baseline_buttonbar" styleName="baseline" value="0" waitEvent="updateComplete" waitTarget="baseline_buttonbar"/>
+        <AssertPropertyValue propertyName="y" target="baseline_buttonbar" value="-15" />
+    </body>
+</TestCase>
+<TestCase testID="spark_baseline_25" keywords="[ButtonBar,baseline]"
+    description="Measure the position of a ButtonBar with baseline set to 25 in a Group." >
+    <setup>
+        <ResetComponent target="baseline_buttonbar" className="Assets.CustomFxButtonBar3" waitEvent="updateComplete"
+            waitTarget="baseline_buttonbar"/>
+    </setup>
+    <body>
+        <SetStyle target="baseline_buttonbar" styleName="baseline" value="25" waitEvent="updateComplete" waitTarget="baseline_buttonbar"/>
+        <AssertPropertyValue propertyName="y" target="baseline_buttonbar" value="10" />
+    </body>
+</TestCase>
+<TestCase testID="spark_baseline_neg5" keywords="[ButtonBar,baseline]"
+    description="Measure the position of a ButtonBar with baseline set to -5 in a Group." >
+    <setup>
+        <ResetComponent target="baseline_buttonbar" className="Assets.CustomFxButtonBar3" waitEvent="updateComplete"
+            waitTarget="baseline_buttonbar"/>
+    </setup>
+    <body>
+        <SetStyle target="baseline_buttonbar" styleName="baseline" value="-5" waitEvent="updateComplete" waitTarget="baseline_buttonbar"/>
+        <AssertPropertyValue propertyName="y" target="baseline_buttonbar" value="-20" />
+    </body>
+</TestCase>
+</testCases>
+</UnitTester>

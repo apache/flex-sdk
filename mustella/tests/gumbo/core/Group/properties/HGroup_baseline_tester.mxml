@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/Group/properties/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="HGroup_baseline_main.mxml">
+
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+	public static function init(o:DisplayObject):void { }
+	]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+	[Mixin]
+	]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+
+	import spark.layouts.*;
+      	import mx.controls.Label;
+      	import comps.*;
+      import spark.components.Group;
+	
+	]]>
+  </fx:Script>
+  <testCases>
+
+<!-- commenting out alignmentBaseline tests due to PARB decision to remove this property-->
+<!-- not deleting tests in case we want to add this back at some point-->
+
+<!--    <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_maxAscent" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline and alignmentBaseline to maxAscent">
+    	<setup>
+    	   	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+		<SetProperty propertyName="alignmentBaseline" value="maxAscent:-5" target="hg" waitEvent="updateComplete"/>
+		
+	</setup>
+    	<body>
+		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+	</body>
+    </TestCase>
+
+    <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_100" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline and alignmentBaseline to a number">
+    	<setup>
+    	   	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+		<SetProperty propertyName="alignmentBaseline" value="100" target="hg" waitEvent="updateComplete"/>
+		
+	</setup>
+    	<body>
+		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+	</body>
+    </TestCase>
+    <TestCase testID="HGroup_verticalAlign_top_alignmentBaseline_100" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign top and alignmentBaseline to a number">
+        <setup>
+        	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+    		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="top" target="hg"/>
+    		<SetProperty propertyName="alignmentBaseline" value="100" target="hg" waitEvent="updateComplete"/>
+    		
+    	</setup>
+        <body>
+    		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+    	</body>
+    </TestCase>
+    <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_100_paddingTop" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline, alignmentBaseline, and paddingTop">
+        <setup>
+        	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+    		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+    		<SetProperty propertyName="paddingTop" value="200" target="hg"/>
+    		<SetProperty propertyName="alignmentBaseline" value="100" target="hg" waitEvent="updateComplete"/>
+    		
+    	</setup>
+        <body>
+    		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+    	</body>
+    </TestCase>  
+     <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_100_change_200" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline and alignmentBaseline to a number">
+	<setup>
+		<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+		<SetProperty propertyName="alignmentBaseline" value="100" target="hg" waitEvent="updateComplete"/>
+
+	</setup>
+	<body>
+		<CompareBitmap url="../properties/baselines/$testID_1.png" target="" />
+		<SetProperty propertyName="alignmentBaseline" value="200" target="hg" waitEvent="updateComplete"/>
+		<CompareBitmap url="../properties/baselines/$testID_2.png" target="" />
+	</body>
+    </TestCase>
+    <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_100_paddingTop_paddingBottom" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline, alignmentBaseline, paddingTop, paddingBottom">
+            <setup>
+            	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+		<SetProperty propertyName="paddingTop" value="200" target="hg"/>
+		<SetProperty propertyName="paddingBottom" value="50" target="hg"/>
+		<SetProperty propertyName="alignmentBaseline" value="100" target="hg" waitEvent="updateComplete"/>
+            </setup>
+            <body>
+        	<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+      	    </body>
+       </TestCase>   
+       <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_25_percentHeight_elements_explicit_parent" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline, alignmentBaseline, percentHeight">
+       	     <setup>
+       		<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+       		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+       		<SetProperty propertyName="percentHeight" value="50" target="hg.cb"/>
+       		<SetProperty propertyName="percentHeight" value="30" target="hg.lbl"/>
+       		<SetProperty propertyName="percentHeight" value="100" target="hg.btn"/>
+       		<SetProperty propertyName="height" value="100" target="hg" />
+       		<SetProperty propertyName="alignmentBaseline" value="25" target="hg" waitEvent="updateComplete"/>
+       	     </setup>
+       	     <body>
+       		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+       	      </body>
+      </TestCase>  
+    <TestCase testID="HGroup_verticalAlign_baseline_alignmentBaseline_30_percentHeight_container_explicit_parent" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign baseline, alignmentBaseline, percentHeight">
+              <setup>
+              	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+  		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="verticalAlign" value="baseline" target="hg"/>
+  		<SetProperty propertyName="percentHeight" value="50" target="grp"/>
+  		<SetProperty propertyName="height" value="100" target="hg"/>
+  		<SetProperty propertyName="alignmentBaseline" value="30" target="hg" waitEvent="updateComplete"/>
+              </setup>
+              <body>
+          	<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+          	<SetProperty propertyName="percentHeight" value="100" target="grp" waitEvent="updateComplete"/>
+  		
+       	      </body>
+       </TestCase>  
+-->	
+  	  <TestCase testID="HGroup_baseline_baselinePositionElement" keywords="[HGroup, baselinePositionElement, alignmentBaseline]" description="Set HGroup baselinePositionElement">
+	        <setup>
+	        	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+	     		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+	     	</setup>
+	        <body>
+	        	<SetProperty propertyName="visible" value="false" target="hg"/>
+	        	<SetProperty propertyName="visible" value="true" target="hgb"/>
+	             	
+	             	<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+	        </body>
+	   </TestCase>  
+	   
+<!--	   <TestCase testID="HGroup_verticalAlign_top_change_baseline_runtime" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign top and alignmentBaseline to a number">
+	         <setup>
+	         	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+	     		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  			<SetProperty propertyName="verticalAlign" value="top" target="hg"/>
+	     		<SetProperty propertyName="alignmentBaseline" value="100" target="hg" waitEvent="updateComplete"/>
+	     		
+	     	</setup>
+	         <body>
+	         	<SetProperty propertyName="verticalAlign" value="baseline" target="hg" waitEvent="updateComplete"/>
+	     		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+	     	</body>
+    </TestCase>
+-->    
+       <TestCase testID="HGroup_verticalAlign_baseline_change_child_baseline" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign top and alignmentBaseline to a number">
+    	         <setup>
+    	         	<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+    	     		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  			<SetProperty propertyName="verticalAlign" value="baseline" target="hg" waitEvent="updateComplete"/>
+    	     		<SetProperty propertyName="baseline" value="30" target="hg.cb" waitEvent="updateComplete"/>
+    	     	</setup>
+    	         <body>
+    	     		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+    	     	</body>
+    </TestCase>
+    
+     <TestCase testID="HGroup_change_child_baseline_verticalAlign_baseline" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign top and alignmentBaseline to a number">
+	 <setup>
+		<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="baseline" value="30" target="hg.cb" waitEvent="updateComplete"/>
+		<SetProperty propertyName="verticalAlign" value="baseline" target="hg" waitEvent="updateComplete"/>
+	</setup>
+	 <body>
+		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+	</body>
+    </TestCase>
+      <TestCase testID="HGroup_baselinePositionElement_verticalAlign_baseline" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign top and alignmentBaseline to a number">
+    	 <setup>
+    		<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+    		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="baseline" value="30" target="hg.cb" waitEvent="updateComplete"/>
+    		<SetProperty propertyName="verticalAlign" value="baseline" target="hg" waitEvent="updateComplete"/>
+    		<SetProperty propertyName="baselinePositionElement" valueExpression="value=application.hg.cb" target="hg"/>
+  		<Pause timeout="200"/>
+    	</setup>
+    	 <body>
+    	 	<AssertPropertyValue propertyName="baselinePosition" target="hg" value="44.5" />
+    		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+    	</body>
+    </TestCase>
+    
+     <TestCase testID="HGroup_baselinePositionElement_verticalAlign_baseline_label" keywords="[HGroup, verticalAlign, alignmentBaseline]" description="Set HGroup verticalAlign top and alignmentBaseline to a number">
+	 <setup>
+		<ResetComponent target="hg" className="comps.HGroupItems" waitEvent="updateComplete" waitTarget="hg" />
+		<ResetComponent target="hgb" className="comps.HGroupItemsBaseline" waitEvent="updateComplete" waitTarget="hgb" />
+  		<SetProperty propertyName="baselinePositionElement" valueExpression="value=application.hg.lbl" target="hg"/>
+		<SetProperty propertyName="baseline" value="30" target="hg.lbl" waitEvent="updateComplete"/>
+		<SetProperty propertyName="verticalAlign" value="baseline" target="hg" waitEvent="updateComplete"/>
+	</setup>
+	 <body>
+		<AssertPropertyValue propertyName="baselinePosition" target="hg" value="44.5" />
+		<CompareBitmap url="../properties/baselines/$testID.png" target="" />
+	</body>
+    </TestCase>
+  </testCases>
+</UnitTester>

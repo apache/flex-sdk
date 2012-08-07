@@ -1,0 +1,80 @@
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:local="Comps.*"
+    backgroundColor="0xFFFFFF"
+    height="800" width="800">
+    
+	<fx:Style>		
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Regular.ttf");
+			fontFamily: MyVera;			
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Italic.ttf");
+			fontFamily: MyArial;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Open_Sans/OpenSans-Bold.ttf");
+			fontFamily: MyVera;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: MyArialHalo;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontFamily: MyArialHalo;
+			fontStyle: italic;
+			embedAsCFF: false;
+		}
+		
+		@font-face {
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontFamily: MyArialHalo;		
+			fontWeight: bold;
+			embedAsCFF: false;
+		}					
+			
+		mx|Button{
+			fontAntiAliasType: "normal";
+			fontFamily: MyArialHalo;
+			fontSize: 12;
+		}			
+		
+		s|Panel,		
+		s|Button{
+			fontAntiAliasType: "normal";
+			fontFamily: MyVera;
+			fontSize: 12;
+            fontLookup: "embeddedCFF";
+		}				
+	</fx:Style>    
+    
+    <s:Group id="myBrdGrp" width="400" height="400">
+		<s:BorderContainer id="myBorder" top="5" bottom="5" right="5" left="5" >
+			<local:CustomPanelPosition id="myCustomPanelPosition" />
+		</s:BorderContainer>
+	</s:Group>
+    
+	<s:Group id="myGrp" bottom="0" right="0">
+		<s:Panel id="myOutterPanel" title="Outter Panel" top="5" bottom="5" left="5" right="5" width="200" height="200">
+			<s:Panel id="myInnerPanel" title="Inner Panel"/>
+		</s:Panel>
+	</s:Group>    
+                        
+</s:Application>

@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout3D/properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="GraphicsLayout3D.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+        import comps.*;
+        public function setGroupMatrix():void
+        {
+            var m:Matrix3D = application.eg.getLayoutMatrix3D();
+            var m1:Matrix3D = application.eg.tg.getLayoutMatrix3D();
+            var m2:Matrix3D = application.eg.bg.getLayoutMatrix3D();
+            var m3:Matrix3D = application.eg.l2.getLayoutMatrix3D();
+            resetGroupMatrix();
+            application.eg.setLayoutMatrix3D(m, true);
+            application.eg.tg.setLayoutMatrix3D(m1, true);
+            application.eg.bg.setLayoutMatrix3D(m2, true);
+            application.eg.l2.setLayoutMatrix3D(m3, true);
+        }
+        public function resetGroupMatrix():void
+        {
+            var m3:Matrix3D = new Matrix3D();
+            m3.rawData=new Vector.<Number>([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+            application.eg.tg.setLayoutMatrix3D(m3, true)
+            application.eg.bg.setLayoutMatrix3D(m3, true)
+            application.eg.l2.setLayoutMatrix3D(m3, true)
+            application.eg.setLayoutMatrix3D(m3, true)
+        }
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_x_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="20" />
+                <SetProperty target="eg" propertyName="height" value="200" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_xy_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="x" value="20" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="20" />
+                <SetProperty target="eg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_xyz_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="x" value="20" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="y" value="20" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg" propertyName="height" value="240" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_xyz_rotation_xyz_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
+                <SetProperty target="eg" propertyName="height" value="240" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_xyz_rotation_scale_xyz_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleX" value="1.5" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleY" value="1.5" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleZ" value="1.3" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="15" ignoreMaxColorVariance="true"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_xyz_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg" propertyName="x" value="20" />
+                <SetProperty target="eg.bg" propertyName="y" value="20" />
+                <SetProperty target="eg.l2" propertyName="z" value="20" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="-90" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="-90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="-90" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleX" value="0.5" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleY" value="0.9" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleZ" value="1.5" />
+                 <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="15" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_transform_bitmap2" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg" propertyName="x" value="20" />
+                <SetProperty target="eg.tg" propertyName="y" value="20" />
+                <SetProperty target="eg.tg" propertyName="z" value="20" />
+                <SetProperty target="eg.tg" propertyName="transformX" value="20" />
+                <SetProperty target="eg.tg" propertyName="transformY" value="20" />
+                <SetProperty target="eg.tg" propertyName="transformZ" value="20" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="-90" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationY" value="-90" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationZ" value="-90" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleX" value="1.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleY" value="2.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleZ" value="1.5" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_transform_bitmap1" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.bg" propertyName="x" value="10" />
+                <SetProperty target="eg.bg" propertyName="y" value="10" />
+                <SetProperty target="eg.bg" propertyName="z" value="10" />
+                <SetProperty target="eg.bg" propertyName="transformX" value="20" />
+                <SetProperty target="eg.bg" propertyName="transformY" value="20" />
+                <SetProperty target="eg.bg" propertyName="transformZ" value="20" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationX" value="-90" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="-90" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationZ" value="-90" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleX" value="1.2" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleY" value="1.2" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleZ" value="1.2" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_transform_bitmap" keywords="[Layout3D,property,postLayoutTransformOffsets]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.l2" propertyName="x" value="20" />
+                <SetProperty target="eg.l2" propertyName="y" value="20" />
+                <SetProperty target="eg.l2" propertyName="z" value="20" />
+                <SetProperty target="eg.l2" propertyName="transformX" value="10" />
+                <SetProperty target="eg.l2" propertyName="transformY" value="10" />
+                <SetProperty target="eg.l2" propertyName="transformZ" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationX" value="90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationY" value="90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleX" value="0.5" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleY" value="1.5" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleZ" value="1.5" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+                 <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_x_layoutMatrix3D_bitmap" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="1" />
+                <SetProperty target="eg" propertyName="height" value="300" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_xy_layoutMatrix3D_bitmap" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="11" />
+                <SetProperty target="eg" propertyName="height" value="150" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_xyz_layoutMatrix3D_bitmap" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="x" value="2" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="y" value="2" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="1" />
+
+                <SetProperty target="eg" propertyName="height" value="140" waitEvent="updateComplete"/>
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_xyz_rotation_xyz_layoutMatrix3D_bitmap" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="1" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="1" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="1" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="9" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="9" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="9" />
+                <SetProperty target="eg" propertyName="height" value="140" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg"  />
+                <RunCode code="setGroupMatrix()" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg"  />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_xyz_rotation_scale_xyz_layoutMatrix3D_bitmap" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="0" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="0" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="11" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="11" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="13" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleX" value="1.3" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleY" value="0.6" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleZ" value="1.1" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+                <RunCode code="setGroupMatrix()" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_xyz_layoutMatrix3D_bitmap" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg" propertyName="x" value="20" />
+                <SetProperty target="eg.bg" propertyName="y" value="20" />
+                <SetProperty target="eg.l2" propertyName="z" value="20" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="1" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="9" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="-11" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="-13" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="-17" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleX" value="0.9" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleY" value="0.9" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleZ" value="0.9" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+                <RunCode code="setGroupMatrix()" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_transform_bitmap_layoutMatrix3D" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.tg" propertyName="x" value="20" />
+                <SetProperty target="eg.tg" propertyName="y" value="20" />
+                <SetProperty target="eg.tg" propertyName="z" value="20" />
+                <SetProperty target="eg.tg" propertyName="transformX" value="20.5" />
+                <SetProperty target="eg.tg" propertyName="transformY" value="20.5" />
+                <SetProperty target="eg.tg" propertyName="transformZ" value="20.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="x" value="10.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="y" value="10.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="z" value="10.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationX" value="-3" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationY" value="-1" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="rotationZ" value="-45" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleX" value="1.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleY" value="1.5" />
+                <SetProperty target="eg.tg.postLayoutTransformOffsets" propertyName="scaleZ" value="0.5" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+                <RunCode code="setGroupMatrix()" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_transform_layoutMatrix3D_bitmap6" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.bg" propertyName="x" value="11" />
+                <SetProperty target="eg.bg" propertyName="y" value="11" />
+                <SetProperty target="eg.bg" propertyName="z" value="11" />
+                <SetProperty target="eg.bg" propertyName="transformX" value="13" />
+                <SetProperty target="eg.bg" propertyName="transformY" value="13" />
+                <SetProperty target="eg.bg" propertyName="transformZ" value="13" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="x" value="-17" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="y" value="-17" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="z" value="-17" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationX" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationY" value="10" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="rotationZ" value="30" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleX" value="0.5" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleY" value="0.5" />
+                <SetProperty target="eg.bg.postLayoutTransformOffsets" propertyName="scaleZ" value="0.5" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+                <RunCode code="setGroupMatrix()" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Graphics_Layout3D_property_offsets_rotation_scale_transform_layoutMatrix3D_bitmap5" keywords="[Layout3D,property,layoutMatrix3D]" description="">
+            <setup>
+                <ResetComponent target="eg" className="comps.GraphicsGroup" waitEvent="updateComplete" />
+                <SetProperty target="eg.e1" propertyName="visible" value="false" />
+                <SetProperty target="eg.l1" propertyName="visible" value="false" />
+                <SetProperty target="eg.path1" propertyName="visible" value="false" />
+            </setup>
+            <body>
+                <SetProperty target="eg.l2" propertyName="x" value="19" />
+                <SetProperty target="eg.l2" propertyName="y" value="19" />
+                <SetProperty target="eg.l2" propertyName="z" value="19" />
+                <SetProperty target="eg.l2" propertyName="transformX" value="11" />
+                <SetProperty target="eg.l2" propertyName="transformY" value="-13" />
+                <SetProperty target="eg.l2" propertyName="transformZ" value="-17" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="x" value="13" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="y" value="13" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="z" value="13" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationX" value="-90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationY" value="-90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="rotationZ" value="90" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleX" value="1.7" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleY" value="2.7" />
+                <SetProperty target="eg.l2.postLayoutTransformOffsets" propertyName="scaleZ" value="1.7" />
+                <SetProperty target="eg" propertyName="height" value="180" waitEvent="updateComplete"/>
+
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+                <RunCode code="setGroupMatrix()" />
+                <CompareBitmap numColorVariances="7" maxColorVariance="20"  url="../properties/baselines/$testID.png" target="eg" />
+            </body>
+        </TestCase>
+
+
+    </testCases>
+
+</UnitTester>
+

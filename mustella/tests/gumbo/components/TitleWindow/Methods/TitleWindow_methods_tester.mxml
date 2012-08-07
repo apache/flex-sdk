@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/TitleWindow/Methods/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TitleWindow_basic2.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+    <mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+    </mx:Script>
+    <mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+    </mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+    <mx:Script>
+	<![CDATA[
+	 import mx.core.FlexGlobals;
+	 import spark.components.Button;
+	 import spark.components.TextInput;
+	 import spark.components.CheckBox;
+	 import spark.components.TextArea;
+	 import spark.components.TitleWindow;
+	 import mx.controls.DataGrid;
+	 import mx.controls.Label;
+	 import mx.core.IVisualElement;
+	 import flash.display.DisplayObject;
+	 import comps.*;
+	 import mx.collections.ArrayCollection;
+	 public var windowObj:TitleWindow;
+	 
+	 [Bindable]
+	 private var d:ArrayCollection=new ArrayCollection([{slno:"1",name:"Joseph",age:"23"},{slno:"2",name:"Jeena",age:"21"},{slno:"3",name:"Jerry",age:"4"}
+	 ,{slno:"4",name:"Tom",age:"1"},{slno:"5",name:"Rick",age:"12"},{slno:"6",name:"John",age:"52"}]);
+	   
+	 public function initTitleWindowObj():void
+	 {
+	 	windowObj=FlexGlobals.topLevelApplication.myWin;
+		windowObj.width=400;
+		windowObj.height=500;
+	 }
+	 public function addButtonForPlainTitleWindow():void
+	 {
+	 	var b:Button =new Button();
+	 	b.name="childButton2";
+	 	initTitleWindowObj();
+	 	windowObj.addElement(b);		
+	 }
+	 public function addTextInputForPlainTitleWindow():void
+	 {
+	 	var t:TextInput =new TextInput();
+	 	t.name="textInput2";
+	 	initTitleWindowObj();
+	 	windowObj.addElement(t);		
+	 }
+	 
+	 
+	 public function addCheckBox():void
+	 {
+	 	var checkBox:CheckBox=new CheckBox();
+	 	checkBox.name="checkBox11";
+	 	checkBox.label="available";
+	 	checkBox.y=10;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(checkBox);
+	 }
+	 public function addTextInput():void
+	 {
+	 	var ti:TextInput=new TextInput();
+	 	ti.name="textInput11";
+	 	ti.text="this is a test";
+	 	ti.y=100;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(ti);
+	 }
+
+	 public function addTextArea():void
+	 {
+	 	var ti:TextArea=new TextArea();
+	 	ti.name="textArea11";
+	 	ti.text="this is a test";
+	 	ti.y=100;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(ti);
+	 }
+	 
+	 public function addDatagrid():void
+	 {
+	 	var dg1:DataGrid=new DataGrid();
+	 	dg1.y=120;
+	 	dg1.name="dataGrid11";
+	 	dg1.dataProvider=d;
+	 	FlexGlobals.topLevelApplication.myWin.addElement(dg1);
+	 }
+
+	public function removeCheckBox():void
+	{
+		removeElementByClass(CheckBox);
+		
+	}
+	public function removeButton():void
+	{
+		
+		removeElementByClass(Button);
+	}
+	public function removeLabel():void
+	{
+		
+		removeElementByClass(spark.components.Label);
+	}
+	public function removeDataGrid():void
+	{
+		
+		removeElementByClass(DataGrid);
+	}	
+	
+	public function removeTextArea():void
+	{
+		
+		removeElementByClass(TextArea);
+	}
+	
+	public function removeElementByClass(classObj:Class):void
+	{
+		
+		var numElements:Number=5;//FlexGlobals.topLevelApplication.myWin.contentGroup.numElements;
+		var element:IVisualElement;
+		for (var i:Number=0;i<numElements;i++)
+		{
+			element=FlexGlobals.topLevelApplication.myWin.getElementAt(i);
+			if (element as classObj)
+			{
+				FlexGlobals.topLevelApplication.myWin.removeElementAt(i);
+				break;
+			}
+		}
+		
+	}
+
+	public function removeAllElements():void
+	{
+		
+		var numElements:Number=FlexGlobals.topLevelApplication.myWin.numElements;
+		var element:IVisualElement;
+		while(numElements>0)
+		{
+		    FlexGlobals.topLevelApplication.myWin.removeElementAt(0);
+		    numElements=FlexGlobals.topLevelApplication.myWin.numElements;
+		}
+	}
+	
+	
+	]]>
+    </mx:Script>
+
+	
+    <testCases>
+
+	<!--
+	========================================================
+	Test method addElement
+	========================================================
+	-->
+
+        <TestCase testID="method_addElement_test1" keywords="[TitleWindow,methods,addElement]" 
+        description="add an element to a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+
+	    <body>
+		<RunCode code="FlexGlobals.topLevelApplication.testAddElement()"/>
+		<Pause timeout="40"/>
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+		</body>
+        </TestCase>
+
+	<!--
+	========================================================
+	Test method addElementAt
+	========================================================
+	-->
+
+
+    	<TestCase testID="method_addElementAt_test1" keywords="[TitleWindow,methods,addElementAt]" 
+    	description="add an element at a valid index=0 for a TitleWindow">
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAt(0)" value="true" />
+		<Pause timeout="40"/>
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+		
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="method_addElementAt_test2" keywords="[TitleWindow,methods,addElementAt]" 
+	description="add an element at a valid index=2 for a TitleWindow">
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAt(2)" value="true" />
+		<Pause timeout="40"/>
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="7" maxColorVariance="20" />
+		<Pause timeout="20"/>
+	    </body>
+	</TestCase>
+
+
+	<TestCase testID="method_addElementAt_test3" keywords="[TitleWindow,methods,addElementAt,negative]" 
+	description="add an element at invalid index=-1 for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAtNegative(-1)" value="true" />
+		<!-- make sure the window has time to update added Element-->
+		<Pause timeout="40"/>
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="method_addElementAt_test4" keywords="[TitleWindow,methods,addElementAt,negative]" 
+	description="add an element at invalid index=9 for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testAddElementAtNegative(9)" value="true" />
+		<!-- make sure the window has time to update added Element-->
+		<SetProperty target="myWin" propertyName="width" value="300"  waitTarget="myWin" waitEvent="updateComplete"/>
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+	<!--
+	========================================================
+	Test method getElementAt
+	========================================================
+	-->
+
+	<TestCase testID="method_getElementAt_test1" keywords="[TitleWindow,methods,getElementAt]" 
+	description="get an element at a valid index=0 for a TitleWindow">
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(0)" value="true" />	    
+		</body>
+	</TestCase>
+
+
+
+	<TestCase testID="method_getElementAt_test2" keywords="[TitleWindow,methods,getElementAt]" 
+	description="get an element at a valid index=2 for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(2)" value="true" />	    
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="method_getElementAt_test3" keywords="[TitleWindow,methods,getElementAt]" 
+	description="get first element of a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetFirstButton()" value="true" />	   
+		</body>
+	</TestCase>
+
+
+
+
+	<TestCase testID="method_getElementAt_test4" keywords="[TitleWindow,methods,getElementAt,negative]" 
+	description="get an element at invalid index=-1 for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAtNegative(-1)" value="true" />	    
+		</body>
+	</TestCase>
+
+	<TestCase testID="method_getElementAt_test5" keywords="[TitleWindow,methods,getElementAt,negative]" 
+	description="get an element at invalid index=10 for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAtNegative(10)" value="true" />	    
+		</body>
+	</TestCase>
+
+	<!--
+	========================================================
+	Test method getElementIndex
+	========================================================
+	-->
+
+	<TestCase testID="method_getElementIndex_test1" keywords="[TitleWindow,methods,getElementIndex]" 
+	description="get an element by index for a TitleWindow">
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(0)" value="true" />	    
+		</body>
+	</TestCase>
+
+	<TestCase testID="method_getElementIndex_test2" keywords="[TitleWindow,methods,getElementIndex]" 
+	description="get an element by index for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementAt(2)" value="true" />	    
+		</body>
+	</TestCase>
+
+	<TestCase testID="method_getElementIndex_test3" keywords="[TitleWindow,methods,getElementIndex,negative ]" 
+	description="get an element by invalid index for a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testGetElementIndexNegative()" value="true" />	    
+		</body>
+	</TestCase>
+
+	    <!--
+	========================================================
+	Test method removeElement
+	========================================================
+	-->
+
+	<TestCase testID="method_removeElement_test1" keywords="[TitleWindow,methods,removeElement]" 
+	description="remove an element from window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElement()" value="true" />
+		<Pause timeout="20"/>
+		<!-- verify the element should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="method_removeElement_test2" keywords="[TitleWindow,methods,removeElement]" 
+	description="remove all elements from  a TitleWindow even the one added">
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElement2()" value="true" />
+		<!-- make sure the window has time to update added Element-->
+		<Pause timeout="20"/>
+		<!-- verify all elements should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="7" maxColorVariance="20"/>
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="method_removeElement_test3" keywords="[TitleWindow,methods,removeElement,negative]" 
+	description="remove the same elements twice from  a TitleWindow">
+
+	    <setup> 
+		    <RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementNegative()" value="true" />
+		    <!-- make sure the window has time to update added Element-->
+		    <Pause timeout="20"/>
+		   <!-- verify all elements should be removed, image comparision -->
+		    <CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="10" maxColorVariance="20" />	 
+		    <Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+
+	<TestCase testID="method_removeElement_test4" keywords="[TitleWindow,methods,removeElement,negative]" 
+	description="remove  an element not own from a TitleWindow">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementNegative2()" value="true" />
+		<!-- make sure the window has time to update added Element-->
+		<SetProperty target="myWin" propertyName="width" value="450"  waitTarget="myWin" waitEvent="updateComplete"/>
+		<Pause timeout="20"/>
+		<!-- image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="7" maxColorVariance="20" />
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	Test method removeElementAt
+	========================================================
+	-->
+
+	<TestCase testID="method_removeElementAt_test1" keywords="[TitleWindow,methods,removeElementAt]" 
+	description="remove a dropdown list from window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAt()" value="true" />
+		<!-- make sure the window has time to update added Element-->
+		<SetProperty target="myWin" propertyName="width" value="410"  waitTarget="myWin" waitEvent="updateComplete"/>
+		<Pause timeout="20"/>
+		<!-- verify the element should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="10" maxColorVariance="20" />	
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+	<TestCase testID="method_removeElementAt_test2" keywords="[TitleWindow,methods,removeElementAt]" 
+	description="remove all elements from window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAt2()" value="true" />
+		<!-- make sure the window has time to update added Element-->
+		<SetProperty target="myWin" propertyName="width" value="410"  waitTarget="myWin" waitEvent="updateComplete"/>
+		<Pause timeout="20"/>
+		<!-- verify the element should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="10" maxColorVariance="20" />	
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+
+
+	<TestCase testID="method_removeElementAt_test3" keywords="[TitleWindow,methods,removeElementAt,negative]" 
+	description="remove an invalid indexed element from a window ">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAtNegative(-1)" value="true" />
+		<Pause timeout="20"/>
+		<!-- verify the element should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="10" maxColorVariance="20" />
+		<Pause timeout="20"/>
+		</body>
+	</TestCase>
+
+
+	<TestCase testID="method_removeElementAt_test4" keywords="[TitleWindow,methods,removeElementAt,negative]" 
+	description="remove an invalid indexed element from a window ">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveElementAtNegative(-9)" value="true" />
+		<Pause timeout="20"/>
+		<!-- verify the element should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="7" maxColorVariance="20"/>
+		<Pause timeout="20"/>
+	    </body>
+	</TestCase>
+
+
+	<!--
+	========================================================
+	Test method removeAllElements
+	========================================================
+	-->
+
+	<TestCase testID="method_removeAllElements_test1" keywords="[TitleWindow,methods,removeAllElements]" 
+	description="remove all elements from window">
+
+	    <setup> 
+		<RunCode code="FlexGlobals.topLevelApplication.resetTitleWindow()" waitTarget="" waitEvent="TitleWindowComplete" />   
+	    </setup>
+	    <body>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.testRemoveAllElements()" value="" />
+		<!-- make sure the window has time to update added Element-->
+		<SetProperty target="myWin" propertyName="width" value="410"  waitTarget="myWin" waitEvent="updateComplete"/>
+		<Pause timeout="20"/>
+		<!-- verify all elements should be removed, image comparision -->
+		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="10" maxColorVariance="20" />
+		<Pause timeout="20"/>
+	    </body>
+	</TestCase>
+	<!--
+	========================================================
+	Test method addElement before window open
+	========================================================
+	-->
+        
+        <TestCase testID="addElement_beforeTitleWindowOpen_test1" keywords="[TitleWindow,methods,addElement]" 
+        description="add a button to an non opened TitleWindow">
+
+	    <setup> 
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+	    </setup>
+
+	    <body>
+		    <RunCode code="FlexGlobals.topLevelApplication.testAddElement()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />
+			<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('addElementTest')!=null" value="true" />
+		</body>
+        </TestCase>
+
+
+        <TestCase testID="addElement_beforeTitleWindowOpen_test2" keywords="[TitleWindow,methods,addElement]" 
+        description="add a textinput to an non opened TitleWindow">
+
+	    <setup> 
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+			<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+	    </setup>
+
+	    <body>
+		    <RunCode code="addTextInput()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" /> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('textInput11')!=null" value="true" />
+		</body>
+        </TestCase>
+      
+        <TestCase testID="addElement_beforeTitleWindowOpen_test3" keywords="[TitleWindow,methods,addElement]" 
+        description="add a textArea to an non opened TitleWindow">
+
+	    <setup> 
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+	    </setup>
+
+	    <body>
+		    <RunCode code="addTextArea()"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />
+			<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('textArea11')!=null" value="true" />
+		</body>
+        </TestCase>
+        
+ 
+         <TestCase testID="addElement_beforeTitleWindowOpen_test4" keywords="[TitleWindow,methods,addElement]" 
+         description="add a datagrid to an non opened TitleWindow">
+ 
+ 	    <setup> 
+ 		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+ 	    </setup>
+ 
+ 	    <body>
+ 		    <RunCode code="addDatagrid()"/>
+ 		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />  
+			<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('dataGrid11')!=null" value="true" />
+ 		</body>
+        </TestCase>
+ 
+          <TestCase testID="addElement_beforeTitleWindowOpen_test5" keywords="[TitleWindow,methods,addElement]" 
+          description="add a checkbox to an non opened TitleWindow">
+  
+  	    <setup> 
+  		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		    <RunCode code="addCheckBox()"/>
+  		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />  
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('checkBox11')!=null" value="true" />
+	    </body>
+        </TestCase>
+        
+  
+        <TestCase testID="addElement_beforeTitleWindowOpen_test6" keywords="[TitleWindow,methods,addElement]" 
+        description="add a button to an non opened, plain TitleWindow">
+
+	    <setup> 
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindow,'test1')"/>
+		    <RunCode code="addButtonForPlainTitleWindow()"/>
+	    </setup>
+
+	    <body>
+		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />
+		    <Pause timeout="20"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childButton2')!=null" value="true" />
+	    </body>
+        </TestCase>
+
+  
+        <TestCase testID="addElement_beforeTitleWindowOpen_test7" keywords="[TitleWindow,methods,addElement]" 
+        description="add a textInput to an non opened, plain TitleWindow">
+
+	    <setup> 
+		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>  
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindow,'test1')"/>
+		    <RunCode code="addTextInputForPlainTitleWindow()"/>
+	    </setup>
+
+	    <body>
+		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('textInput2')!=null" value="true" />
+	    </body>
+        </TestCase>
+        
+        
+	
+	    <!--
+	========================================================
+	Test method removeElement before window.open
+	========================================================
+	-->
+
+          <TestCase testID="removeElement_beforeTitleWindowOpen_test1" keywords="[TitleWindow,methods,removeElement]" 
+          description="remove a checkbox from an non opened TitleWindow">
+  
+  	    <setup> 
+  		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		    <RunCode code="removeCheckBox()"/>
+  		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />       	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('checkBox1')==null" value="true" />
+ 	            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('checkBox1')==null" value="true" />
+ 		
+ 	    </body>
+        </TestCase>
+
+    <TestCase testID="removeElement_beforeTitleWindowOpen_test2" keywords="[TitleWindow,methods,removeElement]" 
+          description="remove a Button from an non opened TitleWindow">
+  
+  	    <setup> 
+  		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		    <RunCode code="removeButton()"/>
+  		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childButton')==null" value="true" />
+ 	            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childButton')==null" value="true" />
+ 	    </body>
+        </TestCase>
+        
+	<TestCase testID="removeElement_beforeTitleWindowOpen_test3" keywords="[TitleWindow,methods,removeElement]" 
+          description="remove a Label from an non opened TitleWindow">
+  
+  	    <setup> 
+  		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		    <RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		    <RunCode code="removeLabel()"/>
+  		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />  				            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childLabel')==null" value="true" />
+ 	            <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('childLabel')==null" value="true" /> 
+ 	    </body>
+        </TestCase>
+        
+          <TestCase testID="removeElement_beforeTitleWindowOpen_test4" keywords="[TitleWindow,methods,removeElement]" 
+          description="remove a datagrid from an non opened TitleWindow">
+  
+  	    <setup> 
+  		    <RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+			<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		    <RunCode code="removeDataGrid()"/>
+  		    <RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />  
+  		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.getChildByName('datagrid1')==null" value="true" />
+ 		</body>
+        </TestCase>
+	<!--
+	========================================================
+	Test method removeAllElements
+	========================================================
+	-->
+          <TestCase testID="removeAllElement_beforeTitleWindowOpen_test1" keywords="[TitleWindow,methods,removeElement]" 
+          description="remove all elements from an non opened TitleWindow">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="removeAllElements()"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />   	            
+  		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myWin.contentGroup.numElements" value="0"/>
+	    </body>
+        </TestCase>
+        
+	<!-- 
+	========================================================
+	Test remove controlBar
+	========================================================
+	-->
+          <TestCase testID="removeControlBar_beforeTitleWindowOpen_test1" keywords="[TitleWindow,methods,add]" 
+          description="remove controlBar from an non opened TitleWindow">
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  	    <body>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.controlBarContent=null" />
+  		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />
+  		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"  numColorVariances="10" maxColorVariance="20" />
+	    </body>
+        </TestCase>	        
+
+	<!--
+	========================================================
+	Test add controlBar before popup shows up
+	========================================================
+	-->
+          <TestCase testID="addControlBar_beforeTitleWindowOpen_test1" keywords="[TitleWindow,methods,controlBar]" 
+          description="add a controBar to an non opened TitleWindow">
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowNoControlBar,'test1')"/>
+  	    </setup>
+  	    <body>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.controlBarContent=FlexGlobals.topLevelApplication.contentArray"/>
+  		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" /> 
+  		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+        </TestCase>	
+
+	<!--
+	========================================================
+	Test resize before popup shows up
+	========================================================
+	-->
+          <TestCase testID="resize_beforeTitleWindowOpen_test1" keywords="[TitleWindow,methods,resize]" 
+          description="remove a datagrid from an non opened TitleWindow">
+  
+  	    <setup> 
+  		<RunCode code="FlexGlobals.topLevelApplication.closePopUPs()"/>   
+		<RunCode code="FlexGlobals.topLevelApplication.myWin=FlexGlobals.topLevelApplication.createTitleWindowNoPopUp(TitleWindowWithContent4,'test1')"/>
+  	    </setup>
+  
+  	    <body>
+  		<RunCode code="FlexGlobals.topLevelApplication.myWin.width=300" />
+		<RunCode code="FlexGlobals.topLevelApplication.myWin.height=300" />
+  		<RunCode code="FlexGlobals.topLevelApplication.addPopUp(FlexGlobals.topLevelApplication.myWin)" waitTarget="" waitEvent="TitleWindowComplete" />   	           
+  		<CompareBitmap target="myWin" url="../methods/baselines/$testID.png"   numColorVariances="10" maxColorVariance="20"/>
+	    </body>
+        </TestCase>	
+					
+</testCases>
+
+</UnitTester>

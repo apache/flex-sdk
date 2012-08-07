@@ -1,0 +1,2957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/FTETextField/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FTETextField_main.mxml" xmlns:txt="flash.text.*">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+
+	<!--
+		config1 == single line of text; wordWrap:true; autoSize:none;
+		config2 == single line of text; wordWrap:true; autoSize:left;
+		config3 == single line of text; wordWrap:false; autoSize:none;
+		config4 == single line of text; wordWrap:false; autoSize:left;
+		config5 == mulitple lines of htmlText; wordWrap:true; autoSize:none;
+		config6 == mulitple lines of htmlText; wordWrap:true; autoSize:left;
+		config7 == mulitple lines of htmlText; wordWrap:false; autoSize:none;
+		config8 == mulitple lines of htmlText; wordWrap:false; autoSize:left;
+	-->
+
+
+	<fx:Script source="../SWFs/global.as" />
+	<fx:Script>
+		<![CDATA[
+			public const dummyTxt_br:String = "The quick brown fox\r jumps over the lazy dog.";
+		
+			public const htmlTxtIn:String = "<html><body><p><span>The quick brown fox jumps over the lazy dog.</span></p></body></html>";
+			public const htmlTxtOut:String = '<HTML><BODY><P ALIGN="left"><FONT FACE="Arial" SIZE="12" COLOR="#000000" LETTERSPACING="0" KERNING="1">The quick brown fox jumps over the lazy dog.</FONT></P></BODY></HTML>';
+		]]>
+	</fx:Script>
+	
+    <fx:Declarations>
+        <txt:TextFormat id="fmt_align_left" align="left" />
+        <txt:TextFormat id="fmt_align_center" align="center" />
+        <txt:TextFormat id="fmt_align_right" align="right" />
+        <txt:TextFormat id="fmt_align_justify" align="justify" />
+        <txt:TextFormat id="fmt_blockIndent_20" blockIndent="20" />
+        <txt:TextFormat id="fmt_bold_true" bold="true" />
+        <txt:TextFormat id="fmt_bold_false" bold="false" />
+        <txt:TextFormat id="fmt_bullet_true" bullet="true" />
+        <txt:TextFormat id="fmt_bullet_false" bullet="false" />
+        <txt:TextFormat id="fmt_color_0xRed" color="0xFF0000" />
+        <txt:TextFormat id="fmt_color_0xBlack" color="0x000000" />
+        <txt:TextFormat id="fmt_indent_20" indent="20" />
+        <txt:TextFormat id="fmt_indent_neg20" indent="-20" />
+        <txt:TextFormat id="fmt_italic_true" italic="true" />
+        <txt:TextFormat id="fmt_italic_false" italic="false" />
+        <txt:TextFormat id="fmt_kerning_true" kerning="true" />
+        <txt:TextFormat id="fmt_kerning_false" kerning="false" />
+        <txt:TextFormat id="fmt_kerning_1" kerning="1" />
+        <txt:TextFormat id="fmt_kerning_0" kerning="0" />
+        <txt:TextFormat id="fmt_leading_10" leading="10" />
+        <txt:TextFormat id="fmt_leading_neg10" leading="-10" />
+        <txt:TextFormat id="fmt_leftMargin_10" leftMargin="10" />
+        <txt:TextFormat id="fmt_letterSpacing_10" letterSpacing="10" />
+        <txt:TextFormat id="fmt_letterSpacing_neg5" letterSpacing="-5" />
+        <txt:TextFormat id="fmt_rightMargin_10" rightMargin="10" align="justify" />
+        <txt:TextFormat id="fmt_size_16" size="16" />
+        <txt:TextFormat id="fmt_tabStops_50_100_150" tabStops="50 100 150" />
+        <txt:TextFormat id="fmt_target" target="newWin" />
+        <txt:TextFormat id="fmt_underline_true" underline="true" />
+        <txt:TextFormat id="fmt_underline_false" underline="false" />
+        <txt:TextFormat id="fmt_url" url="http://www.adobe.com/" />
+    </fx:Declarations>
+
+	<testCases>
+
+		<!-- ********** ***** DEFAULTS ***** ********** -->
+		<TestCase testID="checkDefaultValues" description="Test default values for UIFTETextField" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="antiAliasType" value="null" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.NONE" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFFFFFF" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0x000000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="embedFonts" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="gridFitType" value="null" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="height" value="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="htmlText" value="" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="0" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="mouseWheelEnabled" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="multiline" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="selectable" value="false" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="sharpness" value="NaN" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textColor" value="0x000000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="0" />
+				<!-- <AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="14" /> -->
+				<AssertPropertyValue target="can.fteTxt" propertyName="thickness" value="NaN" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="type" valueExpression="value=TextFieldType.DYNAMIC" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="width" value="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="wordWrap" value="false" />
+			</body>
+		</TestCase>
+		<!-- ********** ***** DEFAULTS ***** ********** -->
+
+
+
+		<!-- ########## autoSize ########## -->
+		<TestCase testID="autoSize_left1" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left2" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left3" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left4" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left5" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left6" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left7" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="230" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="31" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="autoSize_left8" description="Test autoSize setter on a UIFTETextField" keywords="[FTETextField, autoSize, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<Pause timeout="100" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="autoSize" value="left" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="230" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="31" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="autoSize_foo_rte" description="Test autoSize setter on a UIFTETextField throws an RTE" keywords="[FTETextField, autoSize, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('autoSize', 'foo');" valueExpression="value='Parameter autoSize must be one of the accepted values.';" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## background ########## -->
+		<TestCase testID="background_true1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="background_true8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="background_false" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="false" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="background" value="false" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## backgroundColor ########## -->
+		<TestCase testID="backgroundColor_red1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_red8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="backgroundColor_0xBLACK" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0x000000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0x000000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="backgroundColor_0xRedGreenBlue" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="background" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0x00FF00" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="backgroundColor" value="0x0000FF" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="backgroundColor" value="0x0000FF" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+		<!-- ########## border ########## -->
+		<TestCase testID="border_true1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="border_true8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="true" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="border_false" description="Check default value of border on a UIFTETextField" keywords="[FTETextField, border, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="border" value="false" />
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="border" value="false" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+
+		<!-- ########## borderColor ########## -->
+		<TestCase testID="borderColor_red1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_red8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0xFF0000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_black1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, displayAsPassword,RTE, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0x000000" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0x000000" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+		<TestCase testID="borderColor_redGreenBlue" description="Check default value of borderColor on a UIFTETextField" keywords="[FTETextField, borderColor, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="border" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0x00FF00" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="borderColor" value="0x0000FF" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="borderColor" value="0x0000FF" />
+				<RunCode code="fixCanvasSize(10);" waitTarget="can" waitEvent="resize" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can" numColorVariances="7" maxColorVariance="12"/>
+			</body>
+		</TestCase>
+
+
+		<!-- ########## condenseWhite ########## -->
+		<TestCase testID="condenseWhite_false1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_false2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_false3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="condenseWhite_false4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="condenseWhite_false5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_false6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_false7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="condenseWhite_false8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="false" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="condenseWhite_true1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_true2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_true3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_true5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_true6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="condenseWhite_true7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<SetProperty target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, condenseWhiteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="condenseWhite" value="true" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## defaultTextFormat ########## -->
+		<TestCase testID="defaultTextFormat_null_rte" description="Make sure you get an RTE when setting null defaultTextFormat property on UIFTETextField" keywords="[FTETextField, defaultTextFormat, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('defaultTextFormat', null);" value="Parameter format must be non-null." />
+			</body>
+		</TestCase>
+
+		<!-- align=left -->
+		<TestCase testID="defaultTextFormat_align_left1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="defaultTextFormat_align_left1a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left2a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left3a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_left4a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_left);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- align=center -->
+		<TestCase testID="defaultTextFormat_align_center1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="defaultTextFormat_align_center1a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center2a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center3a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_center4a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_center);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- align=right -->
+		<TestCase testID="defaultTextFormat_align_right1" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right2" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right3" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right4" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right5" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right6" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right7" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right8" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="defaultTextFormat_align_right1a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right2a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right3a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_right4a" description="Check default value of background on a UIFTETextField throws an RTE" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_right);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+		
+		<!-- align=justify -->
+		<TestCase testID="defaultTextFormat_align_justify1" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify2" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify3" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify4" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify5" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify6" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify7" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify8" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="defaultTextFormat_align_justify1a" description="Test defaultTextFormat on FTETextField with align=justify + short text" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify2a" description="Test defaultTextFormat on FTETextField with align=justify + short text" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify3a" description="Test defaultTextFormat on FTETextField with align=justify + short text" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_align_justify4a" description="Test defaultTextFormat on FTETextField with align=justify + short text" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, 'qwerty', fmt_align_justify);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- blockIndent=20 -->
+		<TestCase testID="defaultTextFormat_blockIndent20_1" description="Test defaultTextFormat on FTETextField with blockIndent=20 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_blockIndent_20);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_blockIndent20_2" description="Test defaultTextFormat on FTETextField with blockIndent=20 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_blockIndent_20);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_blockIndent20_3" description="Test defaultTextFormat on FTETextField with blockIndent=20 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_blockIndent_20);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- bold=true -->
+		<TestCase testID="defaultTextFormat_bold_true1" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true2" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true3" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true4" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true5" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true6" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true7" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_true8" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+		<!-- bold=false -->
+		<TestCase testID="defaultTextFormat_bold_false1" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false2" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false3" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false4" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false5" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false6" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false7" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bold_false8" description="Test defaultTextFormat on FTETextField with align=justify" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_bold_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- bullet=true -->
+		<TestCase testID="defaultTextFormat_bullet_true1" description="Test defaultTextFormat on FTETextField with bold=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_bullet_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bullet_true2" description="Test defaultTextFormat on FTETextField with bold=true + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_bullet_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bullet_true3" description="Test defaultTextFormat on FTETextField with bold=true + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_bullet_true);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- bullet=false -->
+		<TestCase testID="defaultTextFormat_bullet_false1" description="Test defaultTextFormat on FTETextField with bold=false + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_bullet_false);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bullet_false2" description="Test defaultTextFormat on FTETextField with bold=false + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_bullet_false);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_bullet_false3" description="Test defaultTextFormat on FTETextField with bold=false + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_bullet_false);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- color=0xFF0000 -->
+		<TestCase testID="defaultTextFormat_color_red1" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red2" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red3" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red4" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red5" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red6" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red7" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_red8" description="Test defaultTextFormat on FTETextField with color=0xFF0000" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_color_0xRed);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+
+
+
+		<!-- color=0x000000 -->
+		<TestCase testID="defaultTextFormat_color_0xBlack1" description="Test defaultTextFormat on FTETextField with bold=false + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_color_0xBlack);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_0xBlack2" description="Test defaultTextFormat on FTETextField with bold=false + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_color_0xBlack);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_color_0xBlack3" description="Test defaultTextFormat on FTETextField with bold=false + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_color_0xBlack);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- indent=20 -->
+		<TestCase testID="defaultTextFormat_indent_20_1" description="Test defaultTextFormat on FTETextField with bold=false + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_indent_20);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_indent_20_2" description="Test defaultTextFormat on FTETextField with bold=false + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_indent_20);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_indent_20_3" description="Test defaultTextFormat on FTETextField with bold=false + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_indent_20);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- indent=-20 -->
+		<TestCase testID="defaultTextFormat_indent_neg20_1" description="Test defaultTextFormat on FTETextField with bold=false + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_indent_neg20);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_indent_neg20_2" description="Test defaultTextFormat on FTETextField with bold=false + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_indent_neg20);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_indent_neg20_3" description="Test defaultTextFormat on FTETextField with bold=false + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_indent_neg20);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+		<!-- italic=true -->
+		<TestCase testID="defaultTextFormat_italic_true1a" description="Test defaultTextFormat on FTETextField with bold=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_italic_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="defaultTextFormat_italic_true1" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true2" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true3" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true4" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true5" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true6" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true7" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_true8" description="Test defaultTextFormat on FTETextField with italic=true" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_true);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<!-- italic=false -->
+		<TestCase testID="defaultTextFormat_italic_false1" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false2" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false3" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false4" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt, dummyTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false5" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false6" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false7" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_italic_false8" description="Test defaultTextFormat on FTETextField with italic=false" keywords="[FTETextField, condenseWhite, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config8(FlexGlobals.topLevelApplication.can.fteTxt, dummyHTMLTxt, fmt_italic_false);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- kerning=true -->
+		<TestCase testID="defaultTextFormat_kerning_true1" description="Test defaultTextFormat on FTETextField with bold=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_true2" description="Test defaultTextFormat on FTETextField with bold=true + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_true3" description="Test defaultTextFormat on FTETextField with bold=true + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_true);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- kerning=false -->
+		<TestCase testID="defaultTextFormat_kerning_false1" description="Test defaultTextFormat on FTETextField with bold=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_false);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_false2" description="Test defaultTextFormat on FTETextField with bold=true + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_false);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_false3" description="Test defaultTextFormat on FTETextField with bold=true + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_false);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- kerning=1 -->
+		<TestCase testID="defaultTextFormat_kerning_1_1" description="Test defaultTextFormat on FTETextField with bold=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_1);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_1_2" description="Test defaultTextFormat on FTETextField with bold=true + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_1);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_1_3" description="Test defaultTextFormat on FTETextField with bold=true + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_1);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- kerning=0 -->
+		<TestCase testID="defaultTextFormat_kerning_0_1" description="Test defaultTextFormat on FTETextField with bold=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_0);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_0_2" description="Test defaultTextFormat on FTETextField with bold=true + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_0);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_kerning_0_3" description="Test defaultTextFormat on FTETextField with bold=true + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_kerning_0);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- leading=10 -->
+		<TestCase testID="defaultTextFormat_leading_10_1" description="Test defaultTextFormat on FTETextField with leading=10 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leading_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_leading_10_2" description="Test defaultTextFormat on FTETextField with leading=10 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leading_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_leading_10_3" description="Test defaultTextFormat on FTETextField with leading=10 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leading_10);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- leading=-10 -->
+		<TestCase testID="defaultTextFormat_leading_neg10_1" description="Test defaultTextFormat on FTETextField with leading=10 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leading_neg10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_leading_neg10_2" description="Test defaultTextFormat on FTETextField with leading=10 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leading_neg10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_leading_neg10_3" description="Test defaultTextFormat on FTETextField with leading=10 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leading_neg10);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- leftMargin=10 -->
+		<TestCase testID="defaultTextFormat_leftMargin_10_1" description="Test defaultTextFormat on FTETextField with leftMargin=10 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leftMargin_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_leftMargin_10_2" description="Test defaultTextFormat on FTETextField with leftMargin=10 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leftMargin_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_leftMargin_10_3" description="Test defaultTextFormat on FTETextField with leftMargin=10 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_leftMargin_10);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- letterSpacing=10 -->
+		<TestCase testID="defaultTextFormat_letterSpacing_10_1" description="Test defaultTextFormat on FTETextField with letterSpacing=10 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_letterSpacing_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_letterSpacing_10_2" description="Test defaultTextFormat on FTETextField with letterSpacing=10 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_letterSpacing_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_letterSpacing_10_3" description="Test defaultTextFormat on FTETextField with letterSpacing=10 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_letterSpacing_10);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- letterSpacing=-5 -->
+		<TestCase testID="defaultTextFormat_letterSpacing_neg5_1" description="Test defaultTextFormat on FTETextField with letterSpacing=-5 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_letterSpacing_neg5);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_letterSpacing_neg5_2" description="Test defaultTextFormat on FTETextField with letterSpacing=-5 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_letterSpacing_neg5);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_letterSpacing_neg5_3" description="Test defaultTextFormat on FTETextField with letterSpacing=-5 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_letterSpacing_neg5);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="false" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- rightMargin=10 -->
+		<TestCase testID="defaultTextFormat_rightMargin_10_1" description="Test defaultTextFormat on FTETextField with rightMargin=10 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_rightMargin_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_rightMargin_10_2" description="Test defaultTextFormat on FTETextField with rightMargin=10 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_rightMargin_10);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_rightMargin_10_3" description="Test defaultTextFormat on FTETextField with rightMargin=10 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_rightMargin_10);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- size=16 -->
+		<TestCase testID="defaultTextFormat_size_16_1" description="Test defaultTextFormat on FTETextField with size=16 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_size_16);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_size_16_2" description="Test defaultTextFormat on FTETextField with size=16 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_size_16);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_size_16_3" description="Test defaultTextFormat on FTETextField with size=16 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_size_16);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- target -->
+		<TestCase testID="defaultTextFormat_target_1" description="Test defaultTextFormat on FTETextField with size=16 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_target);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_target_2" description="Test defaultTextFormat on FTETextField with size=16 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_target);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_target_3" description="Test defaultTextFormat on FTETextField with size=16 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_target);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- underline=true -->
+		<TestCase testID="defaultTextFormat_underline_true1" description="Test defaultTextFormat on FTETextField with underline=true + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_underline_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_underline_true2" description="Test defaultTextFormat on FTETextField with underline=true + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_underline_true);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_underline_true3" description="Test defaultTextFormat on FTETextField with underline=true + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_underline_true);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- underline=false -->
+		<TestCase testID="defaultTextFormat_underline_false1" description="Test defaultTextFormat on FTETextField with underline=false + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_underline_false);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_underline_false2" description="Test defaultTextFormat on FTETextField with underline=false + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_underline_false);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_underline_false3" description="Test defaultTextFormat on FTETextField with underline=false + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_underline_false);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- url -->
+		<TestCase testID="defaultTextFormat_url_1" description="Test defaultTextFormat on FTETextField with size=16 + short text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_url);" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="querty" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_url_2" description="Test defaultTextFormat on FTETextField with size=16 + long text" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_url);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="defaultTextFormat_url_3" description="Test defaultTextFormat on FTETextField with size=16 + wordWrap=true" keywords="[FTETextField, defaultTextFormat, TextFormat, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt, fmt_url);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+<!--
+        <txt:TextFormat id="fmt_tabStops_50_100_150" tabStops="50 100 150" />
+-->
+
+
+
+		<!-- ########## direction ########## -->
+		<TestCase testID="direction_ltr" description="Test direction=ltr on UIFTETextField" keywords="[FTETextField, direction, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="direction" valueExpression="value=Direction.LTR" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_br" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="direction" value="ltr" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="direction_rtl" description="Test direction=rtl on UIFTETextField" keywords="[FTETextField, direction, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="direction" valueExpression="value=Direction.RTL" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_br" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="direction" value="rtl" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="direction_null_rte" description="Make sure you get an RTE when setting null direction property on UIFTETextField" keywords="[FTETextField, direction, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('direction', null);" value="Parameter direction must be one of the accepted values." />
+			</body>
+		</TestCase>
+		<TestCase testID="direction_foo_rte" description="Make sure you get an RTE when setting null direction property on UIFTETextField" keywords="[FTETextField, direction, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('direction', 'foo');" value="Parameter direction must be one of the accepted values." />
+			</body>
+		</TestCase>
+
+		<!-- ########## embedFonts ########## -->
+
+
+		<!-- ########## htmlText ########## -->
+		
+		<TestCase testID="htmlText_default" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_default" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="htmlText_null_rte" description="Make sure you get an RTE when setting null htmlText property on UIFTETextField" keywords="[FTETextField, htmlText, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('htmlText', null);" value="Parameter text must be non-null." />
+			</body>
+		</TestCase>
+
+		<TestCase testID="htmlText_setter_a" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_a" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_b" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_b" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_br" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_br" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt_br" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_font" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_font_color" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_font2" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_font_size" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_i" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_i" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_img" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_img" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<Pause timeout="1500" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="htmlText_setter_textformat_tabstops" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property, SDK-23501]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_textformat_tabstops" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt"/>
+			</body>
+		</TestCase>
+
+		
+		<TestCase testID="htmlText_setter_textformat_tabstops2" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property, SDK-23501]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_textformat_tabstops2" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt"/>
+			</body>
+		</TestCase>
+		<TestCase testID="htmlText_setter_textformat_tabstops3" description="Test htmlText on a UIFTETextField" keywords="[FTETextField, htmlText, property, SDK-23501]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="autoSize" valueExpression="value=TextFieldAutoSize.LEFT" />
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlText_textformat_tabstops3" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt"/>
+			</body>
+		</TestCase>
+
+
+		<TestCase testID="htmlText_get_text" description="Make sure you get an RTE when setting null text property on UIFTETextField" keywords="[FTETextField, text, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlTxtIn" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt;" />
+			</body>
+		</TestCase>
+
+
+
+		<!-- ########## length (read-only) - SEE textWidth/textHeight ########## -->
+
+
+		<!-- ########## numLines ########## -->
+		<TestCase testID="numLines_getter_text" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="numLines_getter_text_wordWrap" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true"/>
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4f" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="numLines_getter_htmlText_wordWrap2" description="Test numLines getter on a UIFTETextField throws an RTE" keywords="[FTETextField, numLines, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="wordWrap" value="true"/>
+				<SetProperty target="can.fteTxt" propertyName="htmlText" valueExpression="value=dummyHTMLTxt2" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="43" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="61" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<!-- ########## styleSheet ########## -->
+		<TestCase testID="styleSheet_general" description="test properties on styleSheet" keywords="[FTETextField, styleSheet, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initFTETextFieldStyleSheet(FlexGlobals.topLevelApplication.can.fteTxt,generalStyleSheet, setUpGeneralStyleSheet());" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true">
+					<ConditionalValue os="mac" />
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="styleSheet_para" description="test paragraph with StyleSheet class defined" keywords="[FTETextField, styleSheet, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initFTETextFieldStyleSheet(FlexGlobals.topLevelApplication.can.fteTxt,paraStyleSheet, setUpParaStyleSheet());" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true">
+					<ConditionalValue os="mac" />
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+		<TestCase testID="styleSheet_span" description="test span with StyleSheet class defined" keywords="[FTETextField, styleSheet, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initFTETextFieldStyleSheet(FlexGlobals.topLevelApplication.can.fteTxt,spanStyleSheet, setUpSpanStyleSheet());" />
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true">
+					<ConditionalValue os="mac" />
+				</CompareBitmap>
+
+			</body>
+		</TestCase>
+
+		<!-- ########## text ########## -->
+		<TestCase testID="text_null_rte" description="Make sure you get an RTE when setting null text property on UIFTETextField" keywords="[FTETextField, text, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+			</setup>
+			<body>
+				<AssertMethodValue method="value = safeSetter('text', null);" value="Parameter text must be non-null." />
+			</body>
+		</TestCase>
+		<TestCase testID="text_get_htmlText" description="Make sure you get an RTE when setting null text property on UIFTETextField" keywords="[FTETextField, text, rte, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value=dummyTxt" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="htmlText" valueExpression="value=htmlTxtOut;" />
+			</body>
+		</TestCase>
+
+
+		<!-- ########## textColor ########## -->
+		<TestCase testID="textColor_red1" description="Set the textColor to 0xFF0000" keywords="[FTETextField, textColor, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+				<SetProperty target="can.fteTxt" propertyName="textColor" value="0xFF0000" />
+				<SetProperty target="can.fteTxt" propertyName="text" value="#FF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="textColor" value="0xFF0000" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+
+		<TestCase testID="textColor_0xRedGreenBlue" description="Set the textColor to 0xFF0000" keywords="[FTETextField, textColor, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="textColor" value="0xFF0000" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="textColor" value="0x00FF00" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<SetProperty target="can.fteTxt" propertyName="textColor" value="0x0000FF" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="textColor" value="0x0000FF" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+
+		<!-- ########## textWidth / textHeight (read-only) ########## -->
+		<TestCase testID="textWidth1" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config1(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="textWidth2" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config2(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="91" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="60" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="textWidth3" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config3(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="textWidth4" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config4(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="1" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="274" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		<TestCase testID="textWidth5" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config5(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
+				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+		<TestCase testID="textWidth6" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config6(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="4" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="95" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="64" />
+				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+				
+			</body>
+		</TestCase>
+		<TestCase testID="textWidth7" description="Test textWidth/textHeight getter on a UIFTETextField" keywords="[FTETextField, textWidth, textHeight, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete" />
+				<RunCode code="config7(FlexGlobals.topLevelApplication.can.fteTxt);" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+			</setup>
+			<body>
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="44" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="numLines" value="2" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="228" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="34" />
+				<CompareBitmap url="../Properties/baselines/" target="can.fteTxt">
+					<ConditionalValue os="mac"/>
+				</CompareBitmap>
+			</body>
+		</TestCase>
+
+		<TestCase testID="textWidth_incremental" description="Make sure textWidth on a UIFTETextField" keywords="[FTETextField, textWidth, property]">
+			<setup>
+				<ResetComponent target="can" className="comps.FTECanvas" waitEvent="updateComplete"/>
+				<RunCode code="initTextField(FlexGlobals.topLevelApplication.can.fteTxt);" />
+			</setup>
+			<body>
+				<SetProperty target="can.fteTxt" propertyName="text" value="The" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="The" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="3" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="22" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+
+				<SetProperty target="can.fteTxt" propertyName="text" value="The quick" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="The quick" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="9" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="58" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+
+				<SetProperty target="can.fteTxt" propertyName="text" value="The quick brown" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" value="The quick brown" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="15" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="15" />
+				
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\nfox';" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\rfox';" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="19" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="99" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="30" />
+
+				<SetProperty target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\nfox jumps over the lazy dog';" waitTarget="can.fteTxt" waitEvent="enterFrame" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="text" valueExpression="value='The quick brown\rfox jumps over the lazy dog';" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="length" value="43" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textWidth" value="167" />
+				<AssertPropertyValue target="can.fteTxt" propertyName="textHeight" value="30" />
+
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="can.fteTxt" numColorVariances="35" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+	
+
+		<!-- ########## wordWrap ########## -->
+
+	</testCases>
+
+</UnitTester>

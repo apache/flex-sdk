@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/defaultButton/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="defaultButton_main.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			import flash.display.DisplayObject;
+			import flash.display.DisplayObjectContainer;
+			import flash.display.InteractiveObject;
+			import flash.events.KeyboardEvent;
+			import flash.events.Event;
+			import flash.events.FocusEvent;
+			import flash.text.TextField;
+			import flash.ui.Keyboard;
+			import flash.system.Capabilities;
+	
+			private function dispatchDown(actualTarget:Object):void{
+				var event:KeyboardEvent; // all keyboard events bubble
+				event = new KeyboardEvent("keyDown", true);
+				event.keyCode = 13; //enter
+				actualTarget.dispatchEvent(event);
+			}
+			
+			private function dispatchUp(actualTarget:Object):void{
+				var event:KeyboardEvent; // all keyboard events bubble
+				event = new KeyboardEvent("keyUp", true);
+				event.keyCode = 13; //enter
+				actualTarget.dispatchEvent(event);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<testCases>
+	
+		<!--****************-->
+		<!-- Test for Group -->
+		<!--****************-->
+		
+		<TestCase testID="ComboBox_noEdit_group_defaultButton" description="ComboBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, ComboBox, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="propertyChange" waitTarget="grp"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.combo" localX="26" localY="9" />
+				<Pause timeout="500"/>
+				<DispatchMouseClickEvent target="grp.combo" localX="26" localY="9"/>
+				<Pause timeout="500"/>
+
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.combo);dispatchUp(application.grp.combo)"/>
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxList_notEdit_group_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.fxlt" localX="20" localY="20" waitEvent="updateComplete" waitTarget="grp.fxlt"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.fxlt);dispatchUp(application.grp.fxlt)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxTextInput_group_defaultButton" description="FxTextInput fires defaultButton behavior" keywords="[defaultButton, FxTextInput, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.ti" localX="5" localY="5" waitEvent="focusIn" waitTarget="grp.ti"/>
+				<DispatchKeyEvent char="hello" waitTarget="grp.ti.skin.textDisplay" waitEvent="updateComplete" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.ti);dispatchUp(application.grp.ti)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxButton_group_defaultButton" description="FxButton should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, FxButton, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.pushBtn" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.pushBtn);dispatchUp(application.grp.pushBtn)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="HaloButton_group_defaultButton" description="HaloButton should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, HaloButton, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.haloBtn" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.haloBtn);dispatchUp(application.grp.haloBtn)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxCheckBox_group_defaultButton" description="FxCheckBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, FxCheckBox, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.cb" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.cb);dispatchUp(application.grp.cb)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="HaloCheckBox_group_defaultButton" description="HaloCheckBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, HaloCheckBox, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.halocb" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.halocb);dispatchUp(application.grp.halocb)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="FxRadioButton_group_defaultButton" description="FxRadioButton should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, FxRadioButton, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.s1" localX="5" localY="5" />
+				<DispatchKeyEvent key="DOWN"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.s1);dispatchUp(application.grp.s1)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+
+		<TestCase testID="ComboBox_Edit_group_defaultButton" description="ComboBox editable should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, ComboBox, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.editCombo" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.editCombo);dispatchUp(application.grp.editCombo)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+		<!-- to get around SDK-20171-->
+		<TestCase testID="DropDownList_group_defaultButton" description="DropDownList should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, DropDownList, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.editCombo" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.dropDown);dispatchUp(application.grp.dropDown)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_group_defaultButton" description="DataGrid should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, DataGrid, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.dg" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.dg);dispatchUp(application.grp.dg)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Halo_List_notEdit_group_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.lt" localX="5" localY="5" waitEvent="focusIn" waitTarget="grp.lt"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.lt);dispatchUp(application.grp.lt)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Halo_List_edit_group_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.editList" localX="5" localY="5" waitEvent="focusIn" waitTarget="grp.editList"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.editList);dispatchUp(application.grp.editList)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_edit_group_defaultButton" description="DataGrid editable should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, DataGrid, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="grp.editDG" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.grp.editDG);dispatchUp(application.grp.editDG)"/>
+				<AssertPropertyValue target="grp.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+		
+		<!--******************-->
+		<!-- Test for Panel -->
+		<!--******************-->		
+		
+		<TestCase testID="FxList_notEdit_FxPanel_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="show" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.fxlt" localX="20" localY="20" waitEvent="updateComplete" waitTarget="pan.btn"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.fxlt);dispatchUp(application.pan.fxlt)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_noEdit_FxPanel_defaultButton" description="ComboBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, ComboBox, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="propertyChange"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" />
+				<Pause timeout="500"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.combo" localX="26" localY="9"  />
+				<Pause timeout="500"/>
+				<DispatchMouseClickEvent target="pan.combo" localX="26" localY="9" />
+				<Pause timeout="500"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.combo);dispatchUp(application.pan.combo)"/>
+				<Pause timeout="500"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+		<TestCase testID="FxTextInput_FxPanel_defaultButton" description="FxTextInput fires defaultButton behavior" keywords="[defaultButton, FxTextInput, property]">
+			<setup>
+				<ResetComponent target="grp" className="comps.defGroup" waitEvent="updateComplete"/>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.ti" localX="5" localY="5" waitEvent="focusIn" waitTarget="pan.ti"/>
+				<DispatchKeyEvent char="hello" waitTarget="pan.ti.skin.textDisplay" waitEvent="updateComplete" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.ti);dispatchUp(application.pan.ti)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxButton_FxPanel_defaultButton" description="FxButton should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, FxButton, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.pushBtn" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.pushBtn);dispatchUp(application.pan.pushBtn)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HaloButton_FxPanel_defaultButton" description="HaloButton should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, HaloButton, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.haloBtn" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.haloBtn);dispatchUp(application.pan.haloBtn)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_FxPanel_defaultButton" description="FxCheckBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, FxCheckBox, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.cb" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.cb);dispatchUp(application.pan.cb)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HaloCheckBox_FxPanel_defaultButton" description="HaloCheckBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, HaloCheckBox, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>			
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.halocb" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.halocb);dispatchUp(application.pan.halocb)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_FxPanel_defaultButton" description="FxRadioButton should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, FxRadioButton, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp" />
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.s1" localX="5" localY="5" />
+				<DispatchKeyEvent key="DOWN"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.s1);dispatchUp(application.pan.s1)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Edit_FxPanel_defaultButton" description="ComboBox editable should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, ComboBox, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp" />
+				<SetProperty propertyName="visible" value="true" target="pan" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.editCombo" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.editCombo);dispatchUp(application.pan.editCombo)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<!-- to get around SDK-20171-->
+		<TestCase testID="DropDownList_FxPanel_defaultButton" description="DropDownList should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, DropDownList, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.editCombo" localX="5" localY="5" />
+				<DispatchKeyEvent key="TAB"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.dropDown);dispatchUp(application.pan.dropDown)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_FxPanel_defaultButton" description="DataGrid should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, DataGrid, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.dg" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.dg);dispatchUp(application.pan.dg)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Halo_List_notEdit_FxPanel_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.lt" localX="5" localY="5" waitEvent="focusIn" waitTarget="pan.lt"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.lt);dispatchUp(application.pan.lt)"/>
+				<!--<DispatchKeyEvent key="ENTER"/>-->
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Halo_List_edit_FxPanel_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.editList" localX="5" localY="5" waitEvent="focusIn" waitTarget="pan.editList"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.editList);dispatchUp(application.pan.editList)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_edit_FxPanel_defaultButton" description="DataGrid editable should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, DataGrid, property]">
+			<setup>
+				<ResetComponent target="pan" className="comps.defPanel" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="pan" waitEvent="updateComplete" waitTarget="pan"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="pan.editDG" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.pan.editDG);dispatchUp(application.pan.editDG)"/>
+				<AssertPropertyValue target="pan.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		
+		<!--*********************-->
+		<!--Tests for FxContainer-->
+		<!--*********************-->
+		<TestCase testID="FxList_notEdit_FxContainer_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="show" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.fxlt" localX="20" localY="20" waitEvent="updateComplete" waitTarget="cont.btn"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.fxlt);dispatchUp(application.cont.fxlt)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxTextInput_FxContainer_defaultButton" description="FxTextInput fires defaultButton behavior" keywords="[defaultButton, FxTextInput, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.ti" localX="5" localY="5" waitEvent="focusIn" waitTarget="cont.ti"/>
+				<DispatchKeyEvent char="hello" waitTarget="cont.ti.skin.textDisplay" waitEvent="updateComplete" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.ti);dispatchUp(application.cont.ti)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxButton_FxContainer_defaultButton" description="FxButton should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, FxButton, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.pushBtn" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.pushBtn);dispatchUp(application.cont.pushBtn)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HaloButton_FxContainer_defaultButton" description="HaloButton should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, HaloButton, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.haloBtn" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.haloBtn);dispatchUp(application.cont.haloBtn)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxCheckBox_FxContainer_defaultButton" description="FxCheckBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, FxCheckBox, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.cb" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.cb);dispatchUp(application.cont.cb)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="HaloCheckBox_FxContainer_defaultButton" description="HaloCheckBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, HaloCheckBox, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>			
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.halocb" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.halocb);dispatchUp(application.cont.halocb)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="FxRadioButton_FxContainer_defaultButton" description="FxRadioButton should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, FxRadioButton, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp" />
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.s1" localX="5" localY="5" />
+				<DispatchKeyEvent key="DOWN"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.s1);dispatchUp(application.cont.s1)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_noEdit_FxContainer_defaultButton" description="ComboBox should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, ComboBox, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.combo" localX="5" localY="5" />
+				<DispatchMouseClickEvent target="cont.combo" localX="5" localY="5" />
+
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.combo);dispatchUp(application.cont.combo)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Edit_FxContainer_defaultButton" description="ComboBox editable should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, ComboBox, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp" />
+				<SetProperty propertyName="visible" value="true" target="cont" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.editCombo" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.editCombo);dispatchUp(application.cont.editCombo)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<!-- to get around SDK-20171-->
+		<TestCase testID="DropDownList_FxContainer_defaultButton" description="DropDownList should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, DropDownList, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" />
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.editCombo" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.dropDown);dispatchUp(application.cont.dropDown)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_FxContainer_defaultButton" description="DataGrid should fire defaultButton behavior, defaultButton highlighted" keywords="[defaultButton, DataGrid, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.dg" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.dg);dispatchUp(application.cont.dg)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Halo_List_notEdit_FxContainer_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.lt" localX="5" localY="5" waitEvent="focusIn" waitTarget="cont.lt"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.lt);dispatchUp(application.cont.lt)"/>
+				<!--<DispatchKeyEvent key="ENTER"/>-->
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=" default"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="Halo_List_edit_FxContainer_defaultButton" description="Halo list not editable fires defaultButton behavior" keywords="[defaultButton, List, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.editList" localX="5" localY="5" waitEvent="focusIn" waitTarget="cont.editList"/>
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.editList);dispatchUp(application.cont.editList)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_edit_FxContainer_defaultButton" description="DataGrid editable should not fire defaultButton behavior, defaultButton not highlighted" keywords="[defaultButton, DataGrid, property]">
+			<setup>
+				<ResetComponent target="cont" className="comps.defContainer" waitEvent="updateComplete"/>
+				<SetProperty propertyName="visible" value="false" target="pan"/>
+				<SetProperty propertyName="visible" value="false" target="grp"/>
+				<SetProperty propertyName="visible" value="true" target="cont" waitEvent="updateComplete" waitTarget="cont"/>
+			</setup>
+			<body>
+				<DispatchMouseClickEvent target="cont.editDG" localX="5" localY="5" />
+				<!--Fake key event enter-->
+				<RunCode code="dispatchDown(application.cont.editDG);dispatchUp(application.cont.editDG)"/>
+				<AssertPropertyValue target="cont.lbl" propertyName="text" value=""/>
+			</body>
+		</TestCase>		
+	</testCases>
+</UnitTester>

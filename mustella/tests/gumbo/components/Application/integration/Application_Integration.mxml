@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Application/integration/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Application_Integration_App1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+
+	}
+
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import mx.controls.*;
+        import mx.core.FlexGlobals;
+        import mx.events.*;
+        import mx.managers.PopUpManager;
+
+        public var curAlert:mx.controls.Alert;
+
+	]]>
+	</mx:Script>
+
+<!--
+    Instead of ResetComponent on the application, just call removeAllElements().
+    We'll do all our component stuff in AS.
+    Yes, we're doing bitmap compares of the whole stage.  It's the Application class.
+    For the Alert tests, we do bitmap compares to make sure the background gets blurred.
+    AssertMethodValue is used instead of AssertPropertyValue consciously.
+-->
+
+	<testCases>
+
+		<TestCase testID="Application_Integration_MixedComponents" description="Create spark and halo components.  Look at it." keywords="[Application]">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.doManualReset(curAlert)" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.addMixedComponents()" waitTarget="skin" waitEvent="updateComplete" />                
+                
+                <CompareBitmap url="../Integration/baselines/" target="" >
+						<ConditionalValue os="mac" />
+				</CompareBitmap>	                              
+            </body>
+		</TestCase>
+
+		<TestCase testID="Application_Integration_AlertPosition1" description="Confirm the Alert position." keywords="[Application,Alert]">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.doManualReset()" />
+                <Pause timeout="200" />
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.addRectsAtCorners()" waitTarget="skin" waitEvent="updateComplete" />
+                <RunCode code="curAlert=Alert.show()" waitTarget="script:curAlert" />
+                <RunCode code="curAlert.height = 82" />
+                <RunCode code="curAlert.setStyle('headerHeight', 31)" waitTarget="script:curAlert" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value = Math.round(curAlert.x) == Math.round(400 - curAlert.width/2)" value="true" />
+                <AssertMethodValue method="value = Math.round(curAlert.y) == Math.round(300 - curAlert.height/2)" value="true" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" />
+            </body>
+		</TestCase>
+
+		<TestCase testID="Application_Integration_AlertPosition2" description="Confirm the Alert position after narrowing the app." keywords="[Application,Alert]">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.doManualReset(curAlert)" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.addRectsAtCorners()" waitTarget="skin" waitEvent="updateComplete" />
+                <SetProperty propertyName="width" value="300" waitTarget="skin" waitEvent="updateComplete" />
+                <SetProperty propertyName="height" value="300" waitTarget="skin" waitEvent="updateComplete" />
+                <RunCode code="curAlert=Alert.show('')" waitTarget="script:curAlert" />
+                <RunCode code="curAlert.height = 82" />
+                <RunCode code="curAlert.setStyle('headerHeight', 31)" waitTarget="script:curAlert" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value = Math.round(curAlert.x) == Math.round(150 - curAlert.width/2)" value="true" />
+                <AssertMethodValue method="value = Math.round(curAlert.y) == Math.round(150 - curAlert.height/2)" value="true" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" />
+            </body>
+		</TestCase>
+
+		<TestCase testID="Application_Integration_AlertPosition3" description="Confirm the Alert position after narrowing and widening the app." keywords="[Application,Alert]">
+            <setup>
+                <RunCode code="FlexGlobals.topLevelApplication.doManualReset(curAlert)" waitEvent="manualResetComplete" />
+            </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.addRectsAtCorners()" waitTarget="skin" waitEvent="updateComplete" />
+                <SetProperty propertyName="width" value="300" waitEvent="updateComplete" />
+                <SetProperty propertyName="height" value="300" waitEvent="updateComplete" />
+                <SetProperty propertyName="width" value="800" waitEvent="updateComplete" />
+                <SetProperty propertyName="height" value="600" waitEvent="updateComplete" />
+                <RunCode code="curAlert=Alert.show('')" waitTarget="script:curAlert" />
+                <RunCode code="curAlert.height = 82" />
+                <RunCode code="curAlert.setStyle('headerHeight', 31)" waitTarget="script:curAlert" waitEvent="updateComplete"/>
+                <WaitForEffectsToEnd />
+                <AssertMethodValue method="value = Math.round(curAlert.x) == Math.round(400 - curAlert.width/2)" value="true" />
+                <AssertMethodValue method="value = Math.round(curAlert.y) == Math.round(300 - curAlert.height/2)" value="true" />
+                <CompareBitmap url="../Integration/baselines/$testID.png" />
+            </body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

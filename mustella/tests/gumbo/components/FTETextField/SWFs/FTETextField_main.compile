@@ -1,0 +1,2 @@
+-theme+=${sdk.dir}/frameworks/projects/spark/MXFTEText.css
+-show-unused-type-selector-warnings=false

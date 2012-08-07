@@ -1,0 +1,58 @@
+<s:Group 
+xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:s="library://ns.adobe.com/flex/spark">
+
+
+    <!-- 
+    Custom component to support the testing of on-demand scrollbars.
+    
+    There are four different custom skins with different combinations
+    of factory and instance skin parts that go with this component to  
+    verify backward compatibility.
+    -->
+
+    <s:layout>
+        <s:HorizontalLayout />
+    </s:layout>
+    
+    <s:Scroller id="scroller1" width="70" height="70" skinClass="comps.ScrollBarCreationSkin1">
+        <s:Group>
+            <s:Rect width="300" height="300">
+                <s:fill>
+                    <s:SolidColor color="green" />
+                </s:fill>
+            </s:Rect>
+        </s:Group>
+    </s:Scroller>
+    
+    <s:Scroller id="scroller2" width="70" height="70" skinClass="comps.ScrollBarCreationSkin2">
+        <s:Group>
+            <s:Rect width="300" height="300">
+                <s:fill>
+                    <s:SolidColor color="green" />
+                </s:fill>
+            </s:Rect>
+        </s:Group>
+    </s:Scroller>
+    
+    <s:Scroller id="scroller3" width="70" height="70" skinClass="comps.ScrollBarCreationSkin3">
+        <s:Group>
+            <s:Rect width="300" height="300">
+                <s:fill>
+                    <s:SolidColor color="green" />
+                </s:fill>
+            </s:Rect>
+        </s:Group>
+    </s:Scroller>
+    
+    <s:Scroller id="scroller4" width="70" height="70" skinClass="comps.ScrollBarCreationSkin4">
+        <s:Group>
+            <s:Rect width="300" height="300">
+                <s:fill>
+                    <s:SolidColor color="green" />
+                </s:fill>
+            </s:Rect>
+        </s:Group>
+    </s:Scroller>
+
+</s:Group>

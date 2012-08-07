@@ -1,0 +1,35 @@
+<TextFlow xmlns="library://ns.adobe.com/flex/spark" 
+		  xmlns:fx="http://ns.adobe.com/mxml/2009">
+	<fx:Script>
+		<![CDATA[
+			private var _label:String;
+			private var _note:String;
+			
+			public function get label():String
+			{
+				return _label;
+			}
+			
+			public function set label(value:String):void
+			{
+				_label = value;
+			}
+			
+			public function get note():String
+			{
+				return _note;
+			}
+			
+			public function set note(value:String):void
+			{
+				_note = value;
+			}
+			
+		]]>
+	</fx:Script>
+	<list listStyleType="upperRoman" listStylePosition="inside">
+		<li>Item #1</li>
+		<li>Item #2</li>
+		<li>Item #3</li>
+	</list>
+</TextFlow>

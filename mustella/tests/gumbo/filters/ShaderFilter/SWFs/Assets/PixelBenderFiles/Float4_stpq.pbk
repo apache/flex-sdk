@@ -1,0 +1,28 @@
+<languageVersion : 1.0;>
+
+kernel Float4RedGreenBlueAlpha
+<   namespace : "testing";
+    vendor : "Apache";
+    version : 1;
+    description : "This accepts a float4 as a parameter, which sets s, t, p, and q (which should be red, green, blue, and alpha).";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float4 allFloats
+    <
+        minValue:float4(0,0,0,0);
+        maxValue:float4(1,1,1,1);
+        defaultValue:float4(0,0,0,1);
+    >;
+
+    void
+    evaluatePixel()
+    {
+        dst.s = sampleNearest(src, outCoord()).s + allFloats.s - sampleNearest(src, outCoord()).s;
+        dst.t = allFloats.t;
+        dst.p = allFloats.p;
+        dst.q = allFloats.q;
+    }
+}

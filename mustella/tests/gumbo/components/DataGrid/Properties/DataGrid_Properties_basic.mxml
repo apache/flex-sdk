@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Properties/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    
+    <fx:Script>
+        <![CDATA[
+            {
+                import mx.core.FlexGlobals;
+            }
+        ]]>
+    </fx:Script>    
+
+    <testCases>
+
+		<TestCase testID="DataGrid_Properties_addColumn1" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="updateComplete"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="7"/>
+
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_addColumn2" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="400" />
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="7"/>				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="400" />
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_addColumn3" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding columns that will require scroll bars to be added to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="9"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_addColumnFixedSize1" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="253" />
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addFixedSizeColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="7"/>								
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="353" />
+			</body>
+		</TestCase>	
+  		
+		<TestCase testID="DataGrid_Properties_addColumnFixedSize2" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="33"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="27"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.addFixedSizeColumnAt1()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="7"/>								
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="100"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="33"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(6).width" value="27"/>															
+			</body>
+		</TestCase>			
+				
+		<TestCase testID="DataGrid_Properties_caretRowIndex1" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="4" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="4"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="DataGrid_Properties_caretRowIndex2" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="20" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20)" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="20"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_caretRowIndex3" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myComp1.dataGrid1"/>
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myComp1.dataGrid1"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="myComp1.dataGrid1"/>												
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="3"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="0"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+	
+		<TestCase testID="DataGrid_Properties_caretRowIndex4" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<DispatchKeyEvent keys="[TAB]" waitEvent="focusIn" waitTarget="myComp1.dataGrid1"/>
+				<DispatchKeyEvent keys="[DOWN]" waitEvent="selectionChange" waitTarget="myComp1.dataGrid1"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN, UP]" ctrlKey="true" waitEvent="caretChange" waitTarget="myComp1.dataGrid1"/>												
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="2"/>		
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="0"/>
+			</body>
+		</TestCase>	
+
+		<TestCase testID="DataGrid_Properties_caretRowColumnIndex1" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>	
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="5" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="3" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="5"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="3"/>							
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_caretRowColumnIndex2" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<DispatchMouseClickEvent target="myComp1.dataGrid1" localX="10" localY="30" waitEvent="gridClick"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN]" ctrlKey="true" waitEvent="caretChange" waitTarget="myComp1.dataGrid1"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="3"/>				
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="0"/>
+			</body>
+		</TestCase>	
+		
+		<TestCase testID="DataGrid_Properties_caretRowColumnIndex3" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<DispatchMouseClickEvent target="myComp1.dataGrid1" localX="10" localY="30" waitEvent="gridClick"/>
+				<DispatchKeyEvent keys="[DOWN, DOWN, DOWN, RIGHT, RIGHT]" ctrlKey="true" waitEvent="caretChange" waitTarget="myComp1.dataGrid1"/>												
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="3"/>				
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="2"/>
+				
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_caretRowColumnIndex4" keywords="[DataGrid, Property, column, addItemAt]" description="Test adding a column to a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>	
+				<SetProperty target="myComp1.dataGrid1" propertyName="selectionMode" value="singleCell" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="20" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="5" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dataGrid1.ensureCellIsVisible(20,5)" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretRowIndex" value="20"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.grid" propertyName="caretColumnIndex" value="5"/>				
+			</body>
+		</TestCase>
+       
+		<TestCase testID="DataGrid_Properties_colWidth1" keywords="[DataGrid, Property, width]" description="Test the column width set proportionally of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>              
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="81"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="88"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="88"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="75"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="88"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="64"/>                           
+            </body>
+        </TestCase>      
+
+		<TestCase testID="DataGrid_Properties_colWidth2" keywords="[DataGrid, Property, width]" description="Test the column width set proportionally of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>              
+				<SetProperty target="myComp1.c1_1" propertyName="width" value="100" waitEvent="enterFrame" waitTarget="stage"/>
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                           
+            </setup>
+            <body>                    
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="100"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="84"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="84"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="71"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="84"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="61"/>                
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Properties_colWidth3" keywords="[DataGrid, Property, width]" description="Test the column width set proportionally of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>              
+				<SetProperty target="myComp1.c1_2" propertyName="width" value="100" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.c1_4" propertyName="width" value="50" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.c1_6" propertyName="width" value="50" waitEvent="enterFrame" waitTarget="stage"/>				
+            </setup>
+            <body>                    
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="90"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="100"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="97"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="50"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="97"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(5).width" value="50"/>                
+            </body>
+        </TestCase> 
+
+		<TestCase testID="DataGrid_Properties_colWidth4" keywords="[DataGrid, Property, width]" description="Test the column width set proportionally after a delete of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>              
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(2);" waitEvent="enterFrame" waitTarget="stage"/>							
+            </setup>
+            <body>                    
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(0).width" value="98"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(1).width" value="105"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(2).width" value="92"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(3).width" value="105"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getColumnBounds(4).width" value="84"/>
+			</body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Properties_dataChange1" keywords="[DataGrid, Property]" description="Test changing data at runtime on a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="110" waitEvent="enterFrame" waitTarget="stage"/>				
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase> 	
+		
+		<TestCase testID="DataGrid_Properties_dataChange2" keywords="[DataGrid, Property]" description="Test changing data at runtime on a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>						
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_dataChange3" keywords="[DataGrid, Property]" description="Test changing data at runtime on a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>										
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX'" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>				
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase> 		
+
+		<TestCase testID="DataGrid_Properties_defaultWidth" keywords="[DataGrid, Property, default, width]" description="Test the default width of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="253"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Properties_defaultHeight" keywords="[DataGrid, Property, default, height]" description="Test the default height of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="294"/>
+            </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Properties_height1" keywords="[DataGrid, Property, height]" description="Test the height of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="600" waitEvent="enterFrame" waitTarget="stage"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="600"/>
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Properties_height_width" keywords="[DataGrid, Property, height, width]" description="Test setting the height and width of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="550" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="450" waitEvent="enterFrame" waitTarget="stage"/>                
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="550"/>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="450"/>
+            </body>
+        </TestCase>  
+        
+		<TestCase testID="DataGrid_Properties_removeColumn1" keywords="[DataGrid, Property, column, removeItAt]" description="Test removing a column from a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(0)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="5"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>   
+		
+		<TestCase testID="DataGrid_Properties_removeColumn2" keywords="[DataGrid, Property, column, removeItemAt]" description="Test removing a column from a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="400" />
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(0)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="5"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="400" />
+			</body>
+		</TestCase>  
+		
+		<TestCase testID="DataGrid_Properties_removeColumn3" keywords="[DataGrid, Property, column, removeAll]" description="Test removing all columns from a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="400" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="400" />
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeAll()" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="0"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="400" />
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID.png"  numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>  
+
+		<TestCase testID="DataGrid_Properties_removeColumn4" keywords="[DataGrid, Property, column, removeAll]" description="Test removing columns that remove scroll bars from a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1" propertyName="width" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+			</setup>
+			<body>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="6"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="300" />				
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(1)" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.columns1.removeItemAt(1)" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1.columns" propertyName="length" value="4"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="400" />				
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="300" />
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="DataGrid_Properties_reparent" keywords="[DataGrid, Property, reparent]" description="Test reparenting a DataGrid">
+            <setup>
+                <ResetComponent target="myComp5" className="components.basicDG_reparent" waitEvent="updateComplete"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                
+            </setup>
+            <body>		
+            	<AssertMethodValue method="value=FlexGlobals.topLevelApplication.reparentDG()" value="true"/>
+            	<CompareBitmap target="myComp5" url="../Properties/Baselines/$testID.png"/>
+            </body>
+		</TestCase>          
+				
+		<TestCase testID="DataGrid_Properties_reqRowCol_default" keywords="[DataGrid, Property, requestedRow, requestedColumn]" description="Test requestedRows and requestedColumns on DataGrid, since default size kicks in, so rows/columns are based on default width/height">
+            <setup>
+                <ResetComponent target="myComp4" className="components.basicDG_wReqRowCol" waitEvent="updateComplete"/>
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                
+            </setup>
+            <body>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.grid.isCellVisible(1)" value="true" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.grid.isCellVisible(2)" value="false" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.grid.isCellVisible(0,1)" value="true" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.grid.isCellVisible(0,2)" value="false" />
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.grid.getColumnBounds(0).width" value="39"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.grid.getColumnBounds(1).width" value="46"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.width" value="89"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp4.dataGrid4.height" value="92"/>
+            </body>
+        </TestCase>		
+		
+		<TestCase testID="DataGrid_Properties_rowHeight1" keywords="[DataGrid, Property, rowHeight]" description="Test setting rowHeight of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="125" waitEvent="enterFrame" waitTarget="stage"/>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                                
+            </setup>
+            <body>
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="rowHeight" value="125"/>
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>                
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="300"/>				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0)" value="(x=0, y=0, w=81, h=125)"/>              
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,3)" value="(x=257, y=250, w=75, h=125)"/>              
+            </body>
+        </TestCase>
+        
+		<TestCase testID="DataGrid_Properties_rowHeightFixedDataChange" keywords="[DataGrid, Property, rowHeight]" description="Test setting rowHeight of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>  
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="125" waitEvent="enterFrame" waitTarget="stage"/>                  
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" />
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="rowHeight" value="125" />            				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="125"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(3).height" value="125"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>	  
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="125"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(3).height" value="125"/>
+            </body>
+        </TestCase>        
+
+		<TestCase testID="DataGrid_Properties_stateColumn" keywords="[DataGrid, Property, column, states]" description="Test columns assigned to states a custom DataGrid">			
+			<setup>
+				<ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+				<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>		
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" />
+				<SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>				
+				<SetProperty target="myComp1.dataGrid1" propertyName="columns" valueExpression="value=application.myComp1.columns2" waitEvent="enterFrame" waitTarget="stage"/>				
+			</setup>
+			<body>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_1.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myComp1" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_2.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+				<SetProperty target="myComp1" propertyName="currentState" value="state1" waitEvent="currentStateChange"/>
+				<CompareBitmap target="myComp1.dataGrid1" url="../Properties/Baselines/$testID_3.png" numColorVariances="15" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>	
+		        
+  		<TestCase testID="DataGrid_Properties_typicalItem_changedAtRuntime" keywords="[DataGrid, Property, typicalItem]" description="Test changing typicalItem at runtime on DataGrid">
+              <setup>
+                  <ResetComponent target="myComp2" className="components.basicDG_wTyp" waitEvent="updateComplete"/> 
+                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myComp2.changeTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myComp2.addTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+              </setup>
+              <body>
+                  <CompareBitmap target="myComp2.dataGrid2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+              </body>
+        </TestCase> 
+               
+  		<TestCase testID="DataGrid_Properties_typicalItem_changedAtRuntimeExpWidth" keywords="[DataGrid, Property, typicalItem]" description="Test changing typicalItem at runtime with a explicit width DataGrid">
+              <setup>
+                  <ResetComponent target="myComp2" className="components.basicDG_wTyp" waitEvent="updateComplete"/>  
+                  <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                  <SetProperty target="myComp2.dataGrid2" propertyName="width" value="300" waitEvent="enterFrame" waitTarget="stage"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myComp2.changeTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+                  <RunCode code="FlexGlobals.topLevelApplication.myComp2.addTypItem()" waitEvent="enterFrame" waitTarget="stage"/>
+              </setup>
+              <body>
+                  <CompareBitmap target="myComp2.dataGrid2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+              </body>
+        </TestCase>          
+
+		<TestCase testID="DataGrid_Properties_typicalItem_default" keywords="[DataGrid, Property, typicalItem]" description="Test typicalItem on DataGrid">
+            <setup>
+                <ResetComponent target="myComp2" className="components.basicDG_wTyp" waitEvent="updateComplete"/>  
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myComp2.dataGrid2" url="../Properties/Baselines/$testID.png" numColorVariances="20" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase> 
+        
+		<TestCase testID="DataGrid_Properties_typicalItem_reqRowCol_default" keywords="[DataGrid, Property, typicalItem, requestedRow, requestedColumn]" description="Test typicalItem with requestedRows and requestedColumns on DataGrid">
+            <setup>
+                <ResetComponent target="myComp3" className="components.basicDG_wTypReqRowCol" waitEvent="updateComplete"/>  
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+            </setup>
+            <body>
+                <CompareBitmap target="myComp3.dataGrid3" url="../Properties/Baselines/$testID.png"  numColorVariances="20" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>	
+			
+ 		<TestCase testID="DataGrid_Properties_variableRowHeight1" keywords="[DataGrid, Property, variableRowHeight]" description="Test setting variableRowHeight on a custom DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                 
+                 <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+                 <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                 <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                                
+             </setup>
+             <body>             	
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>                
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="300"/>				
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,2).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(1,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,0).height" value="27"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0).height" value="153"/>  
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,2).height" value="153"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(1,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,0).height" value="27"/>                
+             </body>
+        </TestCase>
+
+ 		<TestCase testID="DataGrid_Properties_variableRowHeight2" keywords="[DataGrid, Property, variableRowHeight]" description="Test setting variableRowHeight on a custom DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                                 
+				 <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+                 <SetProperty target="myComp1.dataGrid1" propertyName="height" value="300" waitEvent="enterFrame" waitTarget="stage"/>                                  
+             </setup>
+             <body>             	
+             	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>                
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="height" value="300"/>				
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,2).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(1,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,0).height" value="27"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(0,2).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(1,0).height" value="27"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getCellBounds(2,0).height" value="27"/>               
+             </body>
+        </TestCase>  
+        
+ 		<TestCase testID="DataGrid_Properties_variableRowHeightTrueRuntime1" keywords="[DataGrid, Property, variableRowHeight]" description="Test setting variableRowHeight on a custom DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>   
+                 <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+                 <SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="enterFrame" waitTarget="stage"/>                 
+             </setup>
+             <body>             	             	
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="27"/>                
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="459"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" />
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="27"/>                
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" />
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>                
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="459"/>
+             </body>
+        </TestCase>    
+        
+ 		<TestCase testID="DataGrid_Properties_variableRowHeightTrueRuntime2" keywords="[DataGrid, Property, variableRowHeight]" description="Test setting variableRowHeight on a custom DataGrid">
+             <setup>
+                 <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>   
+                 <SetProperty target="myComp1.dataGrid1" propertyName="height" value="400" waitEvent="updateComplete"/>                  
+             </setup>
+             <body>             	             	
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="27"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.getItemAt(0,0).country='USAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';" waitEvent="enterFrame" waitTarget="stage"/>
+				<RunCode code="FlexGlobals.topLevelApplication.myComp1.dp1.refresh()" waitEvent="enterFrame" waitTarget="stage"/>				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="27"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true" waitEvent="enterFrame" waitTarget="stage"/>
+				<AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="true"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="459"/>
+             </body>
+        </TestCase>        
+                                 
+		<TestCase testID="DataGrid_Properties_width1" keywords="[DataGrid, Property, width]" description="Test the width of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>                                                
+                <SetProperty target="myComp1.dataGrid1" propertyName="width" value="500" waitEvent="enterFrame" waitTarget="stage"/>
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="width" value="500"/>
+            </body>
+        </TestCase>       
+        
+		<TestCase testID="DataGrid_Properties_rowHeightRunTimeChange" keywords="[DataGrid, Property, rowHeight]" description="Test setting rowHeight of the custom DataGrid">
+            <setup>
+                <ResetComponent target="myComp1" className="components.basicDG" waitEvent="updateComplete" />                
+                <SetProperty target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false" waitEvent="enterFrame" waitTarget="stage"/>
+                <SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="125" waitEvent="enterFrame" waitTarget="stage"/>                  
+                <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>  
+            </setup>
+            <body>
+                <AssertPropertyValue target="myComp1.dataGrid1" propertyName="variableRowHeight" value="false"/>
+            	<AssertPropertyValue target="myComp1.dataGrid1" propertyName="rowHeight" value="125"/>            				
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="125"/>
+                <AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(3).height" value="125"/>
+				<SetProperty target="myComp1.dataGrid1" propertyName="rowHeight" value="60" waitEvent="enterFrame" waitTarget="stage"/>  				
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(0).height" value="60"/>
+				<AssertMethodValue method="value=FlexGlobals.topLevelApplication.myComp1.dataGrid1.grid.getRowBounds(3).height" value="60"/>
+            </body>
+        </TestCase>        
+        
+    </testCases>
+</UnitTester>

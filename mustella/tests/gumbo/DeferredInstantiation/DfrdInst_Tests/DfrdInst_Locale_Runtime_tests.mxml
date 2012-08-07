@@ -1,0 +1,37 @@
+<UnitTester testDir="gumbo/DeferredInstantiation/DfrdInst_Tests/" 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*" 
+    testSWF="DfrdInst_Locale_Runtime_basic.mxml">
+
+    <!-- Default code for all tests -->
+    <fx:Script>
+        <![CDATA[         
+        	public static function init(o:DisplayObject):void {}
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+    <![CDATA[
+        [Mixin]
+    ]]>
+    </fx:Metadata>
+    
+       
+    <testCases>
+
+		<TestCase testID="DfrdInst_Locale_Runtime_1" keywords="[Deferred, Instantiation, FxContainer, Locale, Runtime, Localization]" description="Test Deferred Instantiation with Runtime Localization" >
+            <setup>
+                <ResetComponent target="myLocaleIC_Runtime" className="comps.CustomICLocaleRuntime" waitEvent="updateComplete" />
+            </setup>
+            <body>              	            	
+            	<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="localeComboBox" />
+            	<DispatchKeyEvent key="DOWN" waitEvent="change" waitTarget="localeComboBox" />            	
+            	<AssertPropertyValue target="myLocaleIC_Runtime.myLabel" propertyName="text" value="English" />            	
+	   	    	<DispatchKeyEvent key="DOWN" waitEvent="change" waitTarget="localeComboBox" />
+            	<AssertPropertyValue target="myLocaleIC_Runtime.myLabel" propertyName="text" value="FlexSDKQa" />
+            </body>
+        </TestCase>         
+
+    </testCases>
+    
+</UnitTester>  

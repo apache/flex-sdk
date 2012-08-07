@@ -1,0 +1,46 @@
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+
+        <s:Path id="path1" data="M 40 140 L 160 140 C 70 0 10 80 75 90 Q -10 150 190 115">
+            <s:stroke>
+               <mx:SolidColorStroke color="0x660099" weight="5" />
+            </s:stroke>
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+         </s:Path>
+
+        <s:Ellipse id="e1" height="20" width="40" x="50">
+
+            <s:fill><mx:SolidColor color="0x0000FF"/></s:fill>
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+        </s:Ellipse>
+
+        <s:Line id="l1" height="21" width="39" x="50">
+        <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+            <s:stroke>
+
+                <mx:SolidColorStroke color="0xF000FF"/>
+
+            </s:stroke>
+
+        </s:Line>
+
+
+
+        <s:Line id="l2" xFrom="0" xTo="40" yFrom="0" yTo="20">
+            <s:stroke>
+
+                <mx:SolidColorStroke color="0x0F00FF"/>
+
+            </s:stroke>
+        <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+        </s:Line>
+
+
+        <s:BitmapImage id="bg" x="100" width="50" height="50" fillMode="repeat" source="@Embed('../../../../../Assets/Images/redrect.jpg')">
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+        </s:BitmapImage>
+        <s:RichText id="tg" height="40" width="100" y="50" x="50">
+            <s:content>This is TextGraphic</s:content>
+            <s:postLayoutTransformOffsets><mx:TransformOffsets /></s:postLayoutTransformOffsets>
+        </s:RichText>
+</s:Group>
+

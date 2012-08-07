@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Application backgroundColor="0xFFFFFF" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	xmlns:comps="comps.*"
+	width="800" height="700">
+
+	<fx:Style>
+	@namespace s "library://ns.adobe.com/flex/spark";
+	@namespace mx "library://ns.adobe.com/flex/mx";
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Bold.ttf");
+			fontWeight: bold;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face{
+			src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Italic.ttf");
+			fontStyle: italic;
+			fontFamily: ArialEmbedded;
+			embedAsCFF: true;
+
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+			fontFamily: ArnoEmbedded;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Bold.ttf");
+			fontFamily: ArnoEmbedded;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Italic.ttf");
+			fontFamily: ArnoEmbedded;
+			fontStyle: italic;
+			embedAsCFF: true;
+		}
+
+		@font-face {
+			src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-BoldItalic.ttf");
+			fontFamily: ArnoEmbedded;
+			fontStyle: italic;
+			fontWeight: bold;
+			embedAsCFF: true;
+		}
+
+		s|RichText {
+			fontAntiAliasType: "normal";
+			fontFamily: ArnoEmbedded;
+            fontLookup: "embeddedCFF";
+            fontSize: 16;
+		}
+
+		.paddedBox {
+			paddingLeft: 20;
+			paddingRight: 20;
+			paddingTop: 20;
+			paddingBottom: 20;
+			backgroundColor: #CCCCCC;
+			backgroundAlpha: 1.0;
+		}
+	</fx:Style>
+
+	<mx:VBox id="container" styleName="paddedBox">
+		<comps:TextGraphicBasic2 id="textGraphicComp" />
+	</mx:VBox>
+
+</mx:Application>

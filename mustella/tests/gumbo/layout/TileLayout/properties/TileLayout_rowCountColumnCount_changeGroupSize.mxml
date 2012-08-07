@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/TileLayout/properties/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="TileLayoutApp1.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+
+        import spark.layouts.*;
+
+	]]>
+	</mx:Script>
+
+	<testCases>
+
+<!--
+========================================================
+Test rowCount and columnCount by changing width/height
+with a static set of data.
+========================================================
+-->
+<TestCase testID="rowCountColumnCount_changeGroupSize_test1" keywords="[TileLayout,rowCount,columnCount]" description="3 columns, reduce width to fit only 2." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="108" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="2" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test2" keywords="[TileLayout,rowCount,columnCount]" description="3 columns, reduce width to fit only 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 5)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="51" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="5" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test3" keywords="[TileLayout,rowCount,columnCount]" description="3 items, rowCount=1, reduce width to fit only 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="53" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="52" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="51" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test4" keywords="[TileLayout,rowCount,columnCount]" description="3 items, rowCount=1, reduce width to fit only 1, then increase width to fit 3." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="requestedRowCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="51" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="165" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="3" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test5" keywords="[TileLayout,rowCount,columnCount]" description="6 items, reduce height to fit only 1 row." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="51" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="6" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test6" keywords="[TileLayout,rowCount,columnCount]" description="3 rows, orientation = columns, reduce height to fit only 2." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="108" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="2" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="5" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test7" keywords="[TileLayout,rowCount,columnCount]" description="3 rows, orientation = columns, reduce height to fit only 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 9)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 25)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 25)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="26" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="9" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test8" keywords="[TileLayout,rowCount,columnCount]" description="3 rows, orientation = columns, columnCount=1, reduce height to fit only 1." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="53" waitEvent="updateComplete" />        
+        <SetProperty target="box1.group1" propertyName="height" value="52" waitEvent="updateComplete" />        
+        <SetProperty target="box1.group1" propertyName="height" value="51" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test9" keywords="[TileLayout,rowCount,columnCount]" description="3 items, orientation = columns, columnCount=1, reduce/increase height." >
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <SetProperty target="box1.group1.layout" propertyName="requestedColumnCount" value="1" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 3)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="51" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="164" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="height" value="165" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="3" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+<TestCase testID="rowCountColumnCount_changeGroupSize_test10" keywords="[TileLayout,rowCount,columnCount]" description="6 columns, orientation = columns, reduce width to fit only 1 column." > 
+    <setup>
+        <ResetComponent target="box1" className="Assets::Box1" waitEvent="updateComplete" />
+    </setup>
+    <body>
+        <SetProperty target="box1.group1.layout" propertyName="orientation" value="columns" />
+        <RunCode code="application.addItemsToGroup(application.box1.group1, 6)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'width', 50)" />
+        <RunCode code="application.setPropsOnGroupElements(application.box1.group1, 'height', 50)" waitTarget="box1.group1" waitEvent="updateComplete" />
+        <SetProperty target="box1.group1" propertyName="width" value="51" waitEvent="updateComplete" />
+        <CompareBitmap url="../properties/baselines/$testID.png" target="box1" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="rowCount" value="6" />
+        <AssertPropertyValue target="box1.group1.layout" propertyName="columnCount" value="1" />
+    </body>
+</TestCase>
+
+	</testCases>
+</UnitTester>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+                width="1024" height="768">
+    
+    <!--
+        The following test creates a 100,000 row by 1,000 cell datagrid then
+        measures the time it takes to select the majority of the cells (mimics
+        SHIFT-SELECTION of 2nd and 2nd from last cell).  Should take no longer
+        than 1000 ms (1 second).
+    
+        After test runs, a selectionComplete event will be dispatched. At that 
+        time, selectionTime can be queried. The cumulative time to select is
+        returned in milliseconds.
+    -->
+    
+    <fx:Script>
+        <![CDATA[
+            import flash.events.TimerEvent;
+            import flash.utils.Timer;
+            import flash.utils.getTimer;
+            
+            import mx.core.mx_internal;
+            
+            import spark.components.gridClasses.GridColumn;
+            use namespace mx_internal;
+                        
+            private var startTime:uint = 0;
+            private var endTime:uint = 0;
+            
+            private const colCount:Number = 1000;
+            private const rowCount:Number = 100000;
+            
+            public var selectionTime:Number =0;
+            
+            private function configGrid():void
+            {
+                createColumns();
+                createDataSource();
+            }
+                        
+            private function createColumns():void
+            {
+                var ar:Array = new Array(colCount);
+                for (var i:int = 0; i < colCount; i++)
+                {
+                    var gc:GridColumn = new GridColumn()
+                    gc.dataField = "F" + i;
+                    gc.width = 40;
+                    ar[i] = gc;
+                }
+                var collection:ArrayCollection = new ArrayCollection(ar);
+                dg.columns = collection;
+            }
+            
+            private function createDataSource():void
+            {
+                var a:Array = new Array(rowCount);
+                for (var i:int = 0; i < rowCount; i++)
+                {
+                    var o:DataItem = new DataItem();
+                    o.row = i;
+                    a[i] = o;
+                }
+                ac.source = a;
+            }
+                
+            
+            public function startTest():void
+            {
+                // Initialize startTime
+                startTime = getTimer();
+                
+                // Select almost all rows (excluding first and last). Moves
+                // caret to end of selection.
+                 
+                 dg.selectCellRegion(1, 1, 1, 1);
+                
+                // Listen for when grid finishes rendering.
+                dg.grid.addEventListener("updateComplete", onGridUpdate);
+                 addEventListener("selectionComplete", getResults);
+            }                
+            
+            private function onGridUpdate(e:Event):void
+            {
+                // Remove our listener.
+                dg.grid.removeEventListener("updateComplete", onGridUpdate);
+                callLater( 
+		    function():void {
+			startTime = getTimer();
+			dg.selectCellRegion(1, 1, 99998, 998);
+			dg.grid.addEventListener("updateComplete", onGridFinalUpdate);
+		    } 
+                );
+               
+            }
+             private function onGridFinalUpdate(e:Event):void
+	                {
+	                    dg.grid.removeEventListener("updateComplete", onGridFinalUpdate);
+	                    
+	                    endTime = getTimer();
+	                    selectionTime = (endTime - startTime);
+	                    
+	                    // Report
+	                    dispatchEvent(new Event("selectionComplete"));
+	                    ti.text = "Time to select: " + selectionTime + " ms.";
+            }
+ 	    public function verifyCumulativeTime(delta:uint):String
+	    {
+		var errMsg:String="";
+		if (selectionTime<=0)
+			errMsg+="no cumulativeTime for the task, possible onDataGridUpdate isn't invoked";
+		else if (selectionTime>delta)
+			errMsg+="Time to finish the task is out of expectation: actual time="+selectionTime+"; expect time<="+delta;
+
+		return errMsg;
+	    }            
+            private function getResults(evt:Event):void {
+                lbl.text = verifyCumulativeTime(1000);
+            }
+        ]]>
+    </fx:Script>
+    <s:layout>
+        <s:VerticalLayout paddingBottom="2" paddingTop="2" paddingRight="2" paddingLeft="2"/>
+    </s:layout>
+    
+    <s:HGroup>
+        <s:TextInput id="ti"/>
+    </s:HGroup>
+    
+    <s:DataGrid id="dg" width="100%" height="100%" selectionMode="multipleCells" variableRowHeight="true" fontSize="9" initialize="configGrid()">
+        <s:dataProvider>
+            <s:ArrayCollection id="ac"/>
+        </s:dataProvider>
+    </s:DataGrid>
+      <s:Label id="lbl" fontSize="24" color="red"/> 
+</s:Application> 

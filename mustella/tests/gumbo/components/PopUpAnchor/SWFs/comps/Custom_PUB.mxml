@@ -1,0 +1,31 @@
+<s:Group 
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"		
+	xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    
+	<s:Button label="View Pics" rollOver="picPUA.displayPopUp = true"/>
+	
+	
+	<s:PopUpAnchor popUpPosition="left" bottom="0" id="picPUA">			
+		<mx:VBox>	
+			<s:Group width="215" height="215">
+				<s:Rect left="0" right="0" top="0" bottom="0">
+					<s:stroke>
+						<s:SolidColorStroke color="0x111111"/>
+					</s:stroke>
+				</s:Rect>
+				<s:Group left="5" right="5" top="5" bottom="5">
+					<s:layout><s:TileLayout/></s:layout>
+					<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />
+					<s:BitmapImage source="@Embed('../../../../../../Assets/Images/bluerect.jpg')" />
+					<s:BitmapImage source="@Embed('../../../../../../Assets/Images/bluerect.jpg')" />
+					<s:BitmapImage source="@Embed('../../../../../../Assets/Images/redrect.jpg')" />											
+				</s:Group>
+			</s:Group>
+			<s:Button label="close" click="picPUA.displayPopUp = false"/>
+		</mx:VBox>
+	</s:PopUpAnchor>
+	
+	
+</s:Group>

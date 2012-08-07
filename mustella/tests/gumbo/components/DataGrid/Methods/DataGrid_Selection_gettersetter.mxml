@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Methods/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_004.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import spark.components.Grid;
+			import spark.components.gridClasses.GridSelection;
+			import spark.components.gridClasses.GridSelectionMode;
+			import spark.components.gridClasses.GridColumn;
+			import spark.components.gridClasses.CellPosition;
+			import mx.utils.ObjectUtil;
+			import mx.collections.ArrayList;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			public var v:Vector.<CellPosition>=Vector.<CellPosition>([new CellPosition(1,3),
+										  new CellPosition(1,1),
+										  new CellPosition(2,2)]);
+		]]>
+	</fx:Script>	
+
+<!-- tests here are to verify setter/getter
+selectedIndex, selectedIndices, selectedCell, selectedCells, selectedItem, and selectedItems
+-->
+
+
+	<testCases>
+	    <TestCase testID="selectedCell_getter_test001" keywords="[selectedCell,getter ]" 
+			description="Test selectedCell set in mxml tag, verify it should return/select cell correctly">
+ 			<setup>
+	  		    <ResetComponent target="dg1" className="components.DataGrid_selectedCell"  waitEvent="updateComplete" />	
+	  		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCell.rowIndex" value="3" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCell.columnIndex" value="1" />
+			    <RunCode code="FlexGlobals.topLevelApplication.dg1.setSelectedCell(0,2)"  waitTarget="dg1" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCell.rowIndex" value="0" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCell.columnIndex" value="2" />
+			   
+			</body>
+	      </TestCase>
+	    <TestCase testID="selectedCell_setter_test001" keywords="[selectedCell,getter ]" 
+			description="Test set selectedCell to a new value, verify it should select cell correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg1" className="components.DataGrid_selectedCell"  waitEvent="updateComplete" />	
+	  		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <RunCode code="FlexGlobals.topLevelApplication.dg1.selectedCell=new CellPosition(2,3)"   waitTarget="dg1" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCell.rowIndex" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg1.selectedCell.columnIndex" value="3" />
+			   
+			</body>
+	      </TestCase>
+
+	    <TestCase testID="selectedCells_getter_test001" keywords="[selectedCells,getter ]" 
+			description="Test selectedCells set in mxml tag, verify it should return/select cell correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg2" className="components.DataGrid_selectedCells"  waitEvent="updateComplete" />	
+	  		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectedCells.length" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(1,2)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(3,4)" value="true" />
+			    <RunCode code="FlexGlobals.topLevelApplication.dg2.selectCellRegion(0,0,2,1)"  waitTarget="dg2" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectedCells.length" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(0,0)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(1,0)" value="true" />
+			    
+			</body>
+	      </TestCase>
+	    <TestCase testID="selectedCells_setter_test001" keywords="[selectedCells,getter ]" 
+			description="Test set selectedCells to a new value, verify it should select cell correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg2" className="components.DataGrid_selectedCells"  waitEvent="updateComplete" />
+	  		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <RunCode code="FlexGlobals.topLevelApplication.dg2.selectedCells=v"   waitTarget="dg2" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectedCells.length" value="3" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(1,3)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(1,1)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg2.selectionContainsCell(2,2)" value="true" />
+			</body>
+	      </TestCase>	      
+	    <TestCase testID="selectedIndex_getter_test001" keywords="[selectedIndex,getter ]" 
+			description="Test selectedIndex set in mxml tag, verify it should return/select row correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg3" className="components.DataGrid_selectedIndex"  waitEvent="updateComplete" />	
+	  		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg3.selectedIndex" value="2" />
+			   <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg3.setSelectedIndex(3)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg3.selectionContainsIndex(3)" value="true" />
+			</body>
+	      </TestCase>
+	    <TestCase testID="selectedIndex_setter_test001" keywords="[selectedIndex,setter ]" 
+			description="Test set selectedIndex, verify it should return/select row correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg3" className="components.DataGrid_selectedIndex"  waitEvent="updateComplete" />	
+	  		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <RunCode code="FlexGlobals.topLevelApplication.dg3.selectedIndex=3"  waitTarget="dg3" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg3.selectionContainsIndex(3)" value="true" />
+			</body>
+	      </TestCase>
+
+	    <TestCase testID="selectedIndices_getter_test001" keywords="[selectedIndices,getter ]" 
+			description="Test selectedIndices set in mxml tag, verify it should return/select rows correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg4" className="components.DataGrid_selectedIndices"  waitEvent="updateComplete" />
+	  		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices.length" value="3" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices[0]" value="1" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices[1]" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices[2]" value="3" />
+			    <RunCode code="FlexGlobals.topLevelApplication.dg4.selectIndices(2,3)"  waitTarget="dg4" waitEvent="enterFrame"/> 
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices.length" value="3" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices[0]" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices[1]" value="3" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices[2]" value="4" />			    
+			</body>
+	      </TestCase>
+	    <TestCase testID="selectedIndices_setter_test001" keywords="[selectedIndices,setter ]" 
+			description="Test set selectedIndices , verify it should return/select rows correctly">
+ 			<setup>
+	  		     <ResetComponent target="dg4" className="components.DataGrid_selectedIndices"  waitEvent="updateComplete" />
+	  		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  		</setup>
+			<body>		
+			    <RunCode code="FlexGlobals.topLevelApplication.dg4.selectedIndices=new &lt;int&gt;[2,5]"  waitTarget="dg4" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectionContainsIndex(2)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectionContainsIndex(5)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg4.selectedIndices.length" value="2" />
+			</body>
+	      </TestCase>
+	
+	    <TestCase testID="selectedItems_getter_test001" keywords="[selectedItems,getter ]" 
+			description="Test selectedItems set in mxml tag, verify it should return/select rows correctly">
+			
+			<body>	
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems.length" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems[0]" valueExpression="value=FlexGlobals.topLevelApplication.dg5.dataProvider.getItemAt(0)" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems[1]" valueExpression="value=FlexGlobals.topLevelApplication.dg5.dataProvider.getItemAt(19)" />
+			   
+			    <RunCode code="FlexGlobals.topLevelApplication.dg5.selectIndices(2,2)"  waitTarget="dg5" waitEvent="enterFrame"/> 
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems.length" value="2" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems[0]" valueExpression="value=FlexGlobals.topLevelApplication.dg5.dataProvider.getItemAt(2)" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems[1]" valueExpression="value=FlexGlobals.topLevelApplication.dg5.dataProvider.getItemAt(3)" />
+			    		    
+			</body>
+	      </TestCase>
+	    <TestCase testID="selectedItems_setter_test001" keywords="[selectedItems,setter ]" 
+			description="Test set selectedItems , verify it should return/select row correctly">
+ 			
+			<body>		
+			    <RunCode code="FlexGlobals.topLevelApplication.dg5.selectedItems=FlexGlobals.topLevelApplication.v"  waitTarget="dg5" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectionContainsIndex(2)" value="true" /> 
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectionContainsIndex(1)" value="true" />     
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectionContainsIndex(3)" value="true" />	    
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectionContainsIndex(4)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg5.selectedItems.length" value="4" />
+			</body>
+	      </TestCase>
+
+    	    <TestCase testID="selectedItem_getter_test001" keywords="[selectedItem,getter ]" 
+			description="Test selectedItem set in mxml tag, verify it should return/select rows correctly">
+ 			
+			<body>		
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg6.selectedItem" valueExpression="value=FlexGlobals.topLevelApplication.dg6.dataProvider.getItemAt(19)" />
+			    <RunCode code="FlexGlobals.topLevelApplication.dg6.setSelectedIndex(5)"  waitTarget="dg6" waitEvent="enterFrame"/> 
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg6.selectedItem" valueExpression="value=FlexGlobals.topLevelApplication.dg6.dataProvider.getItemAt(5)" />	    		    
+			</body>
+	      </TestCase>
+	    <TestCase testID="selectedItem_setter_test001" keywords="[selectedItem,setter ]" 
+			description="Test set selectedItem , verify it should return/select row correctly">
+ 			
+			<body>		
+			    <RunCode code="FlexGlobals.topLevelApplication.dg6.selectedItem=FlexGlobals.topLevelApplication.dg6.dataProvider.getItemAt(3)"  waitTarget="dg6" waitEvent="enterFrame"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg6.selectionContainsIndex(3)" value="true" />
+			</body>
+	      </TestCase>      
+	      
+	</testCases>
+</UnitTester>

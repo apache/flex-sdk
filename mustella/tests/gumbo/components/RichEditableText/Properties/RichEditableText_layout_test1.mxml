@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RichEditableText/Properties/" xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="*" testSWF="RichEditableText_Basic001.mxml">
+
+    <mx:Script>
+        <![CDATA[
+            public static function init(o:DisplayObject):void
+            {
+
+            }
+            
+            
+        ]]>
+    </mx:Script>
+
+    <mx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </mx:Metadata>
+
+    <!-- ################################################################## -->
+
+
+    <mx:Script>
+        <![CDATA[
+            import flash.text.engine.*;
+	    import flashx.textLayout.formats.*;
+	    import mx.core.FlexGlobals;
+	    import flash.ui.Mouse;
+	    import mx.managers.CursorManager;
+
+
+            public var singleLineText:String = "The fast brown fox jumped over the lazy dog.";
+            public var multiLineText:String = "The fast brown\nfox jumped over\nthe lazy dog.\nThe fast brown\nfox jumped over\nthe lazy dog.";
+            public var singleLineNumbers:String = "The fast brown fox jumped over the lazy dog. 1234567890";
+            public var ligatureLevelText:String = "fi fj fl ft ffi ffj ffl ct st Th";
+            public var hello:String = "Hello";
+            public var lorem:String = "Lorem ipkum dolor sit amet, consectetur adipiscing elit. Donec nec mauris. Curabitur nisl lorem, auctor in, condimentum sed, aliquam id, felis. \nSed bibendum, nisi nec pellentesque volutpat, neque metus consequat mi, quis molestie dolor lorem at nunc. Vestibulum quis dolor. Suspendisse eget sapien. Etiam in risus vel diam malesuada tincidunt. Sed orci dui, pellentesque vel, cursus vel, aliquam eu, erat. Donec eget purus eu diam porta lobortis. In nec neque. Vivamus nisi.";
+            public var lorem1:String = "The fast brown fox jumped over the lazy dog. 1234567890,Lorem ipkum dolor sit amet";
+        ]]>
+    </mx:Script>
+
+    <testCases>
+
+
+        <TestCase testID="RichEditableText_default1" description="autoresize, starts out very small if it has no text" keywords="[RichEditableText,AutoResize]">
+            <setup>
+                <ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="ret1" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret1" />
+            </body>
+        </TestCase>
+        
+	<TestCase testID="RichEditableText_default2" description="autoresize, width grows when more texts are input" keywords="[RichEditableText,AutoResize]">
+	    <setup>
+		<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="ret1" />
+		<DispatchKeyEvent char="this is a test" repeatCount="3" waitEvent="resize" waitTarget="ret1" />
+		<!-- reason to focus on other RET is to bypass caret in the test RET which causes mustella image comparision failure -->
+		<DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="ret2" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret1" />
+	    </body>
+        </TestCase>
+ 
+	<TestCase testID="RichEditableText_default3" description="autoresize, width grows when more texts are input" keywords="[RichEditableText,AutoResize]">
+	    <setup>
+		<ResetComponent target="ret4" className="spark.components.RichEditableText" waitTarget="ret4" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret4.setFocus()" waitEvent="focusIn" waitTarget="ret4"/>
+		<DispatchKeyEvent char="this is a test" waitEvent="resize" waitTarget="ret4" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret4" />
+	    </body>
+        </TestCase>
+        
+ 	<TestCase testID="RichEditableText_default4" description="autoresize, width grows, more text input, over maxWidth" keywords="[RichEditableText,AutoResize]">
+	    <setup>
+		<ResetComponent target="ret4" className="spark.components.RichEditableText" waitTarget="ret4" waitEvent="updateComplete" />
+		<SetStyle target="ret4" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.TO_FIT" />
+	    </setup>
+	    <body>
+	    	<RunCode code="FlexGlobals.topLevelApplication.ret4.setFocus()" waitEvent="focusIn" waitTarget="ret4"/>
+		<DispatchKeyEvent char="this is a test" repeatCount="5" waitEvent="resize" waitTarget="ret4" />
+		<RunCode code="CursorManager.hideCursor()"/>
+
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret4" />
+	    </body>
+        </TestCase>
+
+ 	<TestCase testID="RichEditableText_default5" description="autoresize, width grows, then make text is udpated to short words,verify the RichEditableText shrinks as well" keywords="[RichEditableText,AutoResize]">
+	    <setup>
+		<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+		<SetStyle target="ret1" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.TO_FIT"  />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<DispatchKeyEvent char="this is a test" repeatCount="1" waitEvent="resize" waitTarget="ret1" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.setFocus()" waitEvent="focusIn" waitTarget="ret2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_long.png" target="ret1" />
+		<SetProperty propertyName="text" target="ret1" value="test"  waitTarget="ret1" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_short.png" target="ret1" />
+	    </body>
+        </TestCase>
+        
+
+ 	<TestCase testID="RichEditableText_default6" description="autoresize, width grows,press enter, verify new line starts" keywords="[RichEditableText,AutoResize]">
+	    <setup>
+		<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+		<SetStyle target="ret1" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.TO_FIT"  />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<DispatchKeyEvent char="this is a test" repeatCount="1" waitEvent="resize" waitTarget="ret1" />
+		<DispatchKeyEvent keys="[ENTER,ENTER]"  waitTarget="ret1" />
+		<DispatchKeyEvent char="this is a test" repeatCount="1" waitEvent="resize" waitTarget="ret1" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.setFocus()" waitEvent="focusIn" waitTarget="ret2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret1" />
+	    </body>
+        </TestCase>
+        
+        
+        
+ 	<TestCase testID="RichEditableText_width1" description="width is set, later changed(large), verify text should be adjusted with new width" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+		<SetProperty propertyName="width" target="ret1" value="100"  waitTarget="ret1" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<DispatchKeyEvent char="this is a test" repeatCount="2" waitEvent="resize" waitTarget="ret1" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.setFocus()" waitEvent="focusIn" waitTarget="ret2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_width100.png" target="ret1" />
+		<SetProperty propertyName="width" target="ret1" value="200"  waitTarget="ret1" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_width200.png" target="ret1" />
+	    </body>
+        </TestCase>
+        
+
+        
+ 	<TestCase testID="RichEditableText_width2" description="width is set, later changed(smaller), verify text should be adjusted with new width" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret1" className="spark.components.RichEditableText" waitTarget="ret1" waitEvent="updateComplete" />
+		<SetProperty propertyName="width" target="ret1" value="250"  waitTarget="ret1" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret1.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<DispatchKeyEvent char="this is a test" repeatCount="5" waitEvent="resize" waitTarget="ret1" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.setFocus()" waitEvent="focusIn" waitTarget="ret2"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_width250.png" target="ret1" />
+		<SetProperty propertyName="width" target="ret1" value="150"  waitTarget="ret1" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_width150.png" target="ret1" />
+	    </body>
+        </TestCase>
+        
+        
+        
+           
+ 	<TestCase testID="RichEditableText_widthInChars1" description="widthInChars is set,verify width of the RichEditableText to be sufficient to display characters of text" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="10"  waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	    	<RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest" waitEvent="change" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+	    </body>
+        </TestCase>
+        
+ 	<TestCase testID="RichEditableText_widthInChars2" description="widthInChars is changed,verify texts inside RichEditableText are updated" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="10"  waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest"  repeatCount="8" waitEvent="resize" waitTarget="ret3" />
+		<Pause timeout="100"/>
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="40"  waitTarget="ret3" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_40.png" target="ret3" />
+	    </body>
+        </TestCase>        
+        
+ 	<TestCase testID="RichEditableText_widthInChars3" description="widthInChars is changed,verify texts inside RichEditableText are updated" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="40"  waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest"  repeatCount="8" waitEvent="change" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/RichEditableText_widthInChars2_40.png" target="ret3" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="10"  waitTarget="ret3" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+	    </body>
+        </TestCase>   
+        
+        
+ 	<TestCase testID="RichEditableText_widthInCharsFont1" description="widthInChars and fontSize are set,verify width of the RichEditableText to be sufficient to display characters of text" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetStyle target="ret3" styleName="fontSize" value="14" waitEvent="updateComplete" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="10"  waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest" waitEvent="change" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_font12.png" target="ret3" />
+		<SetStyle target="ret3" styleName="fontSize" value="24" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_font24.png" target="ret3" />
+	    </body>
+        </TestCase>
+        
+	<TestCase testID="RichEditableText_widthInCharsIgnored1" description="widthInChars,width are set,verify widthInChars will be ignored" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetStyle target="ret3" styleName="fontSize" value="14" waitEvent="updateComplete" />
+		<SetProperty target="ret3" propertyName="width" value="100" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="10"  waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest" waitEvent="change" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+		<AssertPropertyValue target="ret3" propertyName="width" value="100" />
+		<SetStyle target="ret3" styleName="fontSize" value="24" waitEvent="updateComplete" />
+		<AssertPropertyValue target="ret3" propertyName="width" value="100" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_font24.png" target="ret3" />
+	    </body>
+        </TestCase>
+
+        
+	<TestCase testID="RichEditableText_widthInCharsIgnored2" description="widthInChars,widthPercent are set,verify widthInChars will be ignored" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty target="ret3" propertyName="percentWidth" value="30" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty propertyName="widthInChars" target="ret3" value="10"  waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest" waitEvent="change" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+		<AssertPropertyValue target="ret3" propertyName="width" value="240" />
+	    </body>
+        </TestCase>
+        
+        
+        <!-- add tests: once other size property set, widthInChars, heightInLines are ignored -->
+	<TestCase testID="RichEditableText_heightInLinesIgnored1" description="heightInLines,height are set,verify heightInLine will be ignored" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+                <SetProperty target="ret3" propertyName="heightInLines" value="5" waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest"  repeatCount="8" waitEvent="resize" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.ret3.height&lt;100" value="true" />
+		<SetProperty target="ret3" propertyName="height" value="100" waitTarget="ret3" waitEvent="updateComplete" />
+		<AssertPropertyValue target="ret3" propertyName="height" value="100" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_ignored.png" target="ret3" />
+	        
+	    </body>
+        </TestCase>
+
+        
+	<TestCase testID="RichEditableText_heightInLinesIgnored2" description="heightInLines,heightPercent are set,verify heightInLine will be ignored" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret3" className="spark.components.RichEditableText" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty target="ret3" propertyName="percentHeight" value="30" waitTarget="ret3" waitEvent="updateComplete" />
+		<SetProperty target="ret3" propertyName="heightInLines" value="5" waitTarget="ret3" waitEvent="updateComplete" />
+	    </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.text=''"/>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret3.setFocus()" waitEvent="focusIn" waitTarget="ret3"/>
+		<DispatchKeyEvent char="thisistest"  repeatCount="5"  waitEvent="resize" waitTarget="ret3" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret1.setFocus()" waitEvent="focusIn" waitTarget="ret1"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret3" />
+		<AssertPropertyValue target="ret3" propertyName="height" value="180" />
+	    </body>
+        </TestCase>
+        
+        
+ 	<TestCase testID="RichEditableText_percentageWidth1" description="verify when percentWidth is set, RichEditableText size depends on its parent size" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="percentWidth" value="50" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=lorem;" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="vg1" propertyName="width" value="300" waitTarget="vg1" waitEvent="updateComplete" />
+		
+           </setup>
+	    <body>
+		<AssertPropertyValue target="ret2" propertyName="width" value="150" />
+	     	<AssertPropertyValue target="ret2" propertyName="height" value="329" />
+		<SetProperty target="vg1" propertyName="width" value="400" waitTarget="vg1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="ret2" propertyName="width" value="200" />
+		<AssertPropertyValue target="ret2" propertyName="height" value="243" />
+		<SetProperty target="vg1" propertyName="width" value="100" waitTarget="vg1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="ret2" propertyName="width" value="50" />
+		<AssertPropertyValue target="ret2" propertyName="height" value="1020" />
+	   </body>
+        </TestCase>
+        
+        
+        
+   	<TestCase testID="RichEditableText_height1" description="verify when height is set, text will scroll up when text inputs more than RichEditableText.height" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="height" value="150" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" waitEvent="updateComplete" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_150.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="height" value="250" waitTarget="ret2" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_250.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="height" value="100" waitTarget="ret2" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_100.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+ 	<TestCase testID="RichEditableText_percentageHeight1" description="verify when percentHeight is set, RichEditableText size depends on its parent size" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="percentHeight" value="50" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=lorem;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetProperty target="vg1" propertyName="height" value="300" waitTarget="vg1" waitEvent="updateComplete" />
+		
+           </setup>
+	    <body>
+	        <RunCode code="FlexGlobals.topLevelApplication.ret2.text=''" waitEvent="valueCommit" waitTarget="ret2"/>
+	        <AssertPropertyValue target="ret2" propertyName="height" value="150" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="vg1" propertyName="height" value="400" waitTarget="vg1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="ret2" propertyName="height" value="200" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_200.png" target="ret2" />
+		<SetProperty target="vg1" propertyName="height" value="200" waitTarget="vg1" waitEvent="updateComplete" />
+		<AssertPropertyValue target="ret2" propertyName="height" value="100" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_100.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+        
+        <!-- heighInLines -->
+        
+   	<TestCase testID="RichEditableText_heightInLines1" description="verify when heightInLine is set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="1" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="5" waitTarget="ret2" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_5.png" target="ret2" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+	    </body>
+        </TestCase>
+        
+   	<TestCase testID="RichEditableText_heightInLines2" description="verify when heightInLine is set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="3" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT"/>
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="2" waitTarget="ret2" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_2.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+   	<TestCase testID="RichEditableText_heightInLines3" description="verify when heightInLine, fontSize are set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="1" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetStyle target="ret3" styleName="fontSize" value="14" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="3" waitTarget="ret2"  />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_3.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+   	<TestCase testID="RichEditableText_heightInLines4" description="verify when heightInLine, fontSize are set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="3" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetStyle target="ret3" styleName="fontSize" value="15" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="5" waitTarget="ret2"  />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_5.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+   	<TestCase testID="RichEditableText_heightInLines5" description="verify when heightInLine, lineHeight are set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="3" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetStyle target="ret3" styleName="lineHeight" value="15" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="5" waitTarget="ret2"  />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_5.png" target="ret2" />
+	    </body>
+        </TestCase>
+
+   	<TestCase testID="RichEditableText_heightInLines6" description="verify when heightInLine, lineHeight are set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="3" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetStyle target="ret3" styleName="lineHeight" value="25" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="5" waitTarget="ret2"  />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_5.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+   	<TestCase testID="RichEditableText_heightInLines7" description="verify when heightInLine,fontSize, lineHeight are set,RichEditableText.height=measure in lines" keywords="[RichEditableText,Size]">
+	    <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="3" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetStyle target="ret3" styleName="fontSize" value="20" waitEvent="updateComplete" />
+		<SetStyle target="ret3" styleName="lineHeight" value="20" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+		<SetProperty target="ret2" propertyName="heightInLines" value="5" waitTarget="ret2"  />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_5.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+      <TestCase testID="RichEditableText_maxWidth1" description="verify when maxWidth is set,text can only go maxWidth wide, then go to next line" keywords="[RichEditableText,maxWidth]">
+	    <setup>
+		<SetProperty target="ret4" propertyName="maxWidth" value="200" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret4.text=''"/>
+		<SetProperty target="ret4" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret4" waitEvent="valueCommit" />
+		<SetStyle target="ret4" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT"  />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_200.png" target="ret4" />
+		<SetProperty target="ret4" propertyName="maxWidth" value="400" waitTarget="ret4"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_400.png" target="ret4" />
+	    </body>
+        </TestCase>  
+      <TestCase testID="RichEditableText_maxWidth2" description="verify when maxWidth is set,text can only go maxWidth wide, then go to next line" keywords="[RichEditableText,maxWidth]">
+	    <setup>
+		<SetProperty target="ret4" propertyName="maxWidth" value="100" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret4.text=''"/>
+		<SetProperty target="ret4" propertyName="text" valueExpression="value=lorem;" waitTarget="ret4" waitEvent="valueCommit" />
+		<SetStyle target="ret4" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT"  />
+           </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_100.png" target="ret4" />
+		<SetProperty target="ret4" propertyName="maxWidth" value="300" waitTarget="ret4"/>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID_300.png" target="ret4" />
+	    </body>
+        </TestCase>
+        
+        
+        
+        
+        
+        
+         <!-- constraints: left, right, top, bottom -->
+        <TestCase testID="RichEditableText_left_right_40" description="verify left, right constraints set" keywords="[RichEditableText,Size]">
+             <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="left" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="right" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT" />
+	    </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+        <TestCase testID="RichEditableText_top_bottom_50" description="verify top, bottom constraints set" keywords="[RichEditableText,Size]">
+             <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="top" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="bottom" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT"  />
+	    </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+
+        <TestCase testID="RichEditableText_constrains1" description="verify left, right, top, bottom all constraints set" keywords="[RichEditableText,Size]">
+             <setup>
+		<ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="left" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="right" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="top" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="bottom" value="40" waitTarget="ret2" waitEvent="updateComplete" />
+		<RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+		<SetProperty target="ret2" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+		<SetStyle target="ret2" styleName="lineBreak" valueExpression="value=flashx.textLayout.formats.LineBreak.EXPLICIT"/>
+	    </setup>
+	    <body>
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+	    </body>
+        </TestCase>
+        
+        
+         
+        <TestCase testID="RichEditableText_height_100_top_bottom" description="verify height, top, bottom are set" keywords="[RichEditableText, Size]">
+            <setup>
+                <ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+	        <SetProperty target="ret2" propertyName="text" valueExpression="value=singleLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+            </setup>
+            <body>
+                <SetProperty target="ret2" propertyName="height" value="100" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="top" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="bottom" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+            </body>
+        </TestCase>
+      <TestCase testID="RichEditableText_maxHeight_100_top_bottom" description="verify both maxWidth, top, bottom are set" keywords="[RichEditableText,Size]">
+            <setup>
+                <ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+                <SetProperty target="ret2" propertyName="text" valueExpression="value=singleLineText;" waitTarget="ret2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ret2" propertyName="maxHeight" value="100" waitTarget="ret2" waitEvent="updateComplete" />
+                <SetProperty target="ret2" propertyName="top" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+                <SetProperty target="ret2" propertyName="bottom" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+            </body>
+        </TestCase>
+        
+        <TestCase testID="RichEditableText_width_100_left_right" description="verify width, left, right are set" keywords="[RichEditableText, Size]">
+            <setup>
+                <ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+	        <SetProperty target="ret2" propertyName="text" valueExpression="value=singleLineText;" waitTarget="ret2" waitEvent="valueCommit" />
+            </setup>
+            <body>
+                <SetProperty target="ret2" propertyName="width" value="100" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="left" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+		<SetProperty target="ret2" propertyName="right" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+		<CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+            </body>
+        </TestCase>
+      <TestCase testID="RichEditableText_maxWidth_100_left_right" description="verify both maxWidth, left, right are set" keywords="[RichEditableText,Size]">
+            <setup>
+                <ResetComponent target="ret2" className="spark.components.RichEditableText" waitTarget="ret2" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret2.text=''"/>
+                <SetProperty target="ret2" propertyName="text" valueExpression="value=singleLineText;" waitTarget="ret2" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ret2" propertyName="maxWidth" value="100" waitTarget="ret2" waitEvent="updateComplete" />
+                <SetProperty target="ret2" propertyName="left" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+                <SetProperty target="ret2" propertyName="right" value="10" waitTarget="ret2" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret2" />
+            </body>
+        </TestCase>       
+          
+        <TestCase testID="RichEditableText_maxheight_100" description="" keywords="[RichEditableText,Size]">
+            <setup>
+                <ResetComponent target="ret5" className="comps.DefaultRET" waitTarget="ret5" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret5.text=''"/>
+                <SetProperty target="ret5" propertyName="text" valueExpression="value=multiLineText;" waitTarget="ret5" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="ret5" propertyName="maxHeight" value="100" waitTarget="ret5" waitEvent="updateComplete" />
+                <SetProperty target="ret5" propertyName="top" value="10" waitTarget="ret5" waitEvent="updateComplete" />
+                <SetProperty target="ret5" propertyName="bottom" value="10" waitTarget="ret5" waitEvent="updateComplete" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret5" />
+            </body>
+        </TestCase>
+        
+	<TestCase testID="RichEditableText_maxheight_change" description="" keywords="[RichEditableText,Size]">
+            <setup>
+                <ResetComponent target="ret5" className="comps.DefaultRET" waitTarget="ret5" waitEvent="updateComplete" />
+	   </setup>
+            <body>
+                <RunCode code="FlexGlobals.topLevelApplication.ret5.setFocus()" waitEvent="focusIn" waitTarget="ret5"/>
+	    	<DispatchKeyEvent char="thisistest"  waitEvent="enterFrame" waitTarget="stage" />
+	    	<DispatchKeyEvent keys="[ENTER,ENTER,ENTER,ENTER,ENTER,ENTER]"  />
+	    	<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	    	<DispatchKeyEvent char="last line"  waitEvent="change" waitTarget="ret5" />
+	    	
+		<AssertPropertyValue target="ret5" propertyName="height" value="99"/>
+                <SetProperty target="ret5" propertyName="maxHeight" value="100" waitTarget="ret5" waitEvent="updateComplete" />
+                <AssertPropertyValue target="ret5" propertyName="height" value="99"/>
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret5" />
+            </body>
+        </TestCase>
+        
+        
+        
+         <TestCase testID="RichEditableText_minHeight_change" description="" keywords="[RichEditableText,Size]">
+            <setup>
+                <ResetComponent target="ret6" className="comps.DefaultRET" waitTarget="ret6" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret6.text=''"/>
+                <SetProperty target="ret6" propertyName="text" value="test" waitTarget="ret6" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="ret6" propertyName="height" value="12" />
+                <SetProperty target="ret6" propertyName="minHeight" value="200" waitTarget="ret6" waitEvent="updateComplete" />
+                <AssertPropertyValue target="ret6" propertyName="height" value="200" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret6" />
+            </body>
+        </TestCase>
+        
+         <TestCase testID="RichEditableText_minWidth_change" description="" keywords="[RichEditableText,Size]">
+            <setup>
+                <ResetComponent target="ret7" className="comps.DefaultRET" waitTarget="ret7" waitEvent="updateComplete" />
+	        <RunCode code="FlexGlobals.topLevelApplication.ret7.text=''"/>
+                <SetProperty target="ret7" propertyName="text" value="test" waitTarget="ret7" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<AssertPropertyValue target="ret7" propertyName="width" value="24" />
+                <SetProperty target="ret7" propertyName="minWidth" value="200" waitTarget="ret7" waitEvent="updateComplete" />
+                <AssertPropertyValue target="ret7" propertyName="width" value="200" />
+                <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true" url="../Properties/baselines/$testID.png" target="ret7" />
+            </body>
+        </TestCase>
+        
+       
+  </testCases>
+</UnitTester>
+
+

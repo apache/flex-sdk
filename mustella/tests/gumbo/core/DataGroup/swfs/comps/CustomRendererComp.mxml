@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:m="http://ns.adobe.com/mxml/2009" 
+  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+  width="150" height="200" title="Custom Item Renderer">
+	<s:Group width="100%" >
+	<layout><s:VerticalLayout/></layout>
+		<itemRenderer>
+			<fx:Component>
+				<s:ItemRenderer autoDrawBackground="false">
+					<states>
+						<m:State name="normal" />
+						<m:State name="hovered" />
+					</states>
+					<s:Rect left="0" right="0" top="0" bottom="0">
+						<fill>
+							<mx:SolidColor color="0xFF0000" alpha="0" />
+						</fill>
+					</s:Rect>
+					<mx:Label text="{data.lastName}, {data.firstName}">
+						<mx:filters>
+							<mx:DropShadowFilter distance="1" blurX="2" blurY="2" alpha="0.5" />
+						</mx:filters>
+						<mx:filters.hovered>
+							<mx:DropShadowFilter distance="1" blurX="6" blurY="6" alpha="1" color="0xFF0000" />
+						</mx:filters.hovered>
+					
+					</mx:Label>
+				</s:ItemRenderer>
+			</fx:Component>
+		</itemRenderer>
+		<fx:Object firstName="GFirst" lastName="RLast" phone="415-555-1212" />
+		<fx:Object firstName="EFirst" lastName="GLast" phone="415-555-1212" />
+		<fx:Object firstName="CFirst" lastName="LLast" phone="415-555-1212" />
+		<fx:Object firstName="ChFirst" lastName="HLast" phone="415-555-1212" />
+	</s:Group>
+</mx:Panel>

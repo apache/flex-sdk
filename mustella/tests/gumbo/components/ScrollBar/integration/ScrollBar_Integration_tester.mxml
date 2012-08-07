@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ScrollBar/integration/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollbarFrenzy.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+
+
+
+    ]]>
+    </fx:Script>
+    <testCases>
+        <TestCase testID="Custom_ScrollBar_incrementButton_rotate" keywords="[ScrollBar,custom]" description="Checking Default Values">
+            <setup>
+            <ResetComponent target="myScrollBar" className="ScrollbarFrenzyComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            <RunCode code ="application.myScrollBar.cScroller.changeValueByStep()" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="rollOver"  target="myScrollBar.cScroller.incrementButton" localX="2" localY="2"  />
+            <DispatchMouseEvent type="mouseDown" target="myScrollBar.cScroller.incrementButton" localX="5" localY="5"  />
+            <DispatchMouseEvent type="mouseUp"   target="myScrollBar.cScroller.incrementButton" localX="5" localY="5" waitEvent="updateComplete" />
+
+            <CompareBitmap url="../integration/baselines/$testID.png" target="myScrollBar.panel" numColorVariances="20" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Custom_ScrollBar_incrementButton_resize" keywords="[ScrollBar,custom]" description="Checking Default Values">
+            <setup>
+            <ResetComponent target="myScrollBar" className="ScrollbarFrenzyComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            <DispatchMouseEvent type="rollOver"  target="myScrollBar.panelHeight.incrementButton" localX="2" localY="2"  />
+            <DispatchMouseEvent type="mouseDown" target="myScrollBar.panelHeight.incrementButton" localX="2" localY="2" waitEvent="buttonDown" />
+            <DispatchMouseEvent type="mouseUp"   target="myScrollBar.panelHeight.incrementButton" localX="2" localY="2" waitEvent="updateComplete" />
+            <DispatchMouseEvent type="rollOver"  target="myScrollBar.panelWidth.incrementButton" localX="2" localY="2"  />
+            <DispatchMouseEvent type="mouseDown" target="myScrollBar.panelWidth.incrementButton" localX="2" localY="2" waitEvent="buttonDown" />
+            <DispatchMouseEvent type="mouseUp"   target="myScrollBar.panelWidth.incrementButton" localX="2" localY="2" waitEvent="updateComplete" />
+
+            <CompareBitmap url="../integration/baselines/$testID.png" target="myScrollBar.panel" />
+            </body>
+        </TestCase>
+        <TestCase testID="Custom_ScrollBar_enabler" keywords="[ScrollBar,custom]" description="Checking Default Values">
+            <setup>
+            <ResetComponent target="myScrollBar" className="ScrollbarFrenzyComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty    target="myScrollBar.enabler" propertyName="selected"  value="false" waitEvent="updateComplete"/>
+
+            <CompareBitmap url="../integration/baselines/$testID.png" target="myScrollBar" />
+            </body>
+        </TestCase>
+        <TestCase testID="Custom_ScrollBar_track_change" keywords="[ScrollBar,custom]" description="Checking Default Values">
+            <setup>
+            <ResetComponent target="myScrollBar" className="ScrollbarFrenzyComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            <DispatchMouseEvent type="rollOver"  target="myScrollBar.cScroller.incrementButton" localX="2" localY="2"  />
+            <DispatchMouseEvent type="mouseDown" target="myScrollBar.cScroller.incrementButton" localX="2" localY="2" waitEvent="buttonDown" />
+            <DispatchMouseEvent type="mouseUp"   target="myScrollBar.cScroller.incrementButton" localX="2" localY="2" waitEvent="mouseUp"  />
+
+            <DispatchMouseEvent type="rollOver"  target="myScrollBar.panelHeight.track" localX="2" localY="50"  />
+            <DispatchMouseEvent type="mouseDown" target="myScrollBar.panelHeight.track" localX="2" localY="50" waitEvent="buttonDown" />
+            <DispatchMouseEvent type="mouseUp"   target="myScrollBar.panelHeight.track" localX="2" localY="50" waitEvent="mouseUp"   />
+
+            <DispatchMouseEvent type="rollOver"  target="myScrollBar.panelWidth.track" localX="50" localY="2"  />
+            <DispatchMouseEvent type="mouseDown" target="myScrollBar.panelWidth.track" localX="50" localY="2" waitEvent="buttonDown" />
+            <DispatchMouseEvent type="mouseUp"   target="myScrollBar.panelWidth.track" localX="50" localY="2" waitEvent="mouseUp"   />
+
+            <CompareBitmap url="../integration/baselines/$testID.png" target="myScrollBar" numColorVariances="20" ignoreMaxColorVariance="true" />
+            </body>
+        </TestCase>
+
+    </testCases>
+
+
+</UnitTester>

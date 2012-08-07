@@ -1,0 +1,16 @@
+<s:TitleWindow
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark" width="400" height="400">
+
+    <fx:Script>
+    	<![CDATA[
+    	
+    	]]>
+    </fx:Script>
+
+	<s:layout> <s:BasicLayout/> </s:layout>
+
+	<s:Button label="Button with size constraint" top="50" bottom="50" left="50" right="50"/>
+   	
+</s:TitleWindow>

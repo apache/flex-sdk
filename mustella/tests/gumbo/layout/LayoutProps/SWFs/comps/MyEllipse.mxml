@@ -1,0 +1,5 @@
+<s:Ellipse width="50" height="30" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  >
+	<s:fill>
+		<mx:SolidColor color="0xCC0000"/>
+	</s:fill>
+</s:Ellipse>

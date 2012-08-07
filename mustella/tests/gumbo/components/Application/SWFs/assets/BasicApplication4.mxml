@@ -1,0 +1,33 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" >
+
+<!-- Avoid text if at all possible. -->
+
+<s:layout>
+    <s:VerticalLayout/>
+</s:layout>
+
+<!-- baseColor, focusColor -->
+<mx:Box id="box1" width="50" height="50">
+    <s:Button id="btn1" width="40" height="40" />
+</mx:Box>
+
+<!-- contentBackgroundColor, selectionColor, symbolColor -->
+<s:TextArea id="ta1" width="100" height="60" />
+
+<!-- rollOverColor -->
+<mx:List id="list1" width="100" height="60">
+    <mx:itemRenderer>
+        <fx:Component>
+                <mx:Label text=""/>
+        </fx:Component>
+    </mx:itemRenderer>
+
+    <mx:dataProvider>
+        <s:ArrayList>
+            <fx:Object type="employee" firstName="Jane" lastName="White" />
+            <fx:Object type="employee" firstName="Bill" lastName="Jones" />
+        </s:ArrayList>
+    </mx:dataProvider>
+</mx:List>
+
+</s:Application>

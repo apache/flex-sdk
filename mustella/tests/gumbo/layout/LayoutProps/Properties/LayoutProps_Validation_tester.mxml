@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/layout/LayoutProps/Properties/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark" xmlns="*" testSWF="LayoutProps_Validation.mxml">
+
+        <!-- this set of lines form a template that must be in each unit test -->
+        <fx:Script>
+            <![CDATA[
+                  public static function init(o:DisplayObject):void {}
+            ]]>
+        </fx:Script>
+        <fx:Metadata>
+            <![CDATA[
+               [Mixin]
+               
+            ]]>
+        </fx:Metadata>
+        <!-- end of set of lines that must be in each unit test -->
+
+	<testCases>
+		<TestCase testID="Validation_measure_naturalHeight_layoutProps" keywords="[Validation, measure, layout]" description="Overwrote measure to set measuredX and measuredY to diff values, verify correct values">
+			<setup>
+				<ResetComponent target="di" className="comps.MyDiamond" waitEvent="updateComplete" waitTarget="di"/>
+				<SetProperty propertyName="naturalHeight" value="25" target="di" waitEvent="updateComplete" waitTarget="grp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="measuredX" target="di" value="-50" />
+				<AssertPropertyValue propertyName="measuredY" target="di" value="-12.5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Validation_measure_naturalWidth_layoutProps" keywords="[Validation, measure, layout]" description="Overwrote measure to set measuredX and measuredY to diff values, verify correct values">
+			<setup>
+				<ResetComponent target="di" className="comps.MyDiamond" waitEvent="updateComplete" waitTarget="di"/>
+				<SetProperty propertyName="naturalWidth" value="40" target="di" waitEvent="updateComplete" waitTarget="grp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="measuredX" target="di" value="-20" />
+				<AssertPropertyValue propertyName="measuredY" target="di" value="-50" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Validation_measure_naturalHeight_naturalWidth_layoutProps" keywords="[Validation, measure, layout]" description="Overwrote measure to set measuredX and measuredY to diff values, verify correct values">
+			<setup>
+				<ResetComponent target="di" className="comps.MyDiamond" waitEvent="updateComplete" waitTarget="di"/>
+				<SetProperty propertyName="naturalHeight" value="25" target="di" waitEvent="updateComplete" waitTarget="grp" />
+				<SetProperty propertyName="naturalWidth" value="40" target="di" waitEvent="updateComplete" waitTarget="grp" />
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="measuredX" target="di" value="-20" />
+				<AssertPropertyValue propertyName="measuredY" target="di" value="-12.5" />
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Validation_updateDisplayList_layoutProps" keywords="[Validation, updateDisplayList, layout]" description="Overwrote updateDisplayList to draw a diamond">
+			<setup>
+				<ResetComponent target="di" className="comps.MyDiamond" waitEvent="updateComplete" waitTarget="di"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Validation_invalidateDisplayList_false_layoutProps" keywords="[Validation, invalidateDisplayList, layout]" description="Do not call invalidateDisplayList verify center circle does not draw">
+			<setup>
+				<ResetComponent target="di" className="comps.MyDiamond" waitEvent="updateComplete" waitTarget="di"/>
+				<RunCode code="application.di.setDrawCircle(true, false)"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="drawCircle" target="di" value="true"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="Validation_invalidateDisplayList_true_layoutProps" keywords="[Validation, invalidateDisplayList, layout]" description="call invalidateDisplayList verify center circle does not draw">
+			<setup>
+				<ResetComponent target="di" className="comps.MyDiamond" waitEvent="updateComplete" waitTarget="di"/>
+				<RunCode code="application.di.setDrawCircle(true, true)" waitEvent="updateComplete" waitTarget="grp"/>
+			</setup>
+			<body>
+				<AssertPropertyValue propertyName="drawCircle" target="di" value="true"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="grp"/>
+			</body>
+		</TestCase>
+	</testCases>
+</UnitTester>

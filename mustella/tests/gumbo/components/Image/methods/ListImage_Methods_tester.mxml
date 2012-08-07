@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Image/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ListImageMain.mxml">
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+    <fx:Script>
+        <![CDATA[
+        public static function init(o:DisplayObject):void
+        {
+        }
+        ]]>
+    </fx:Script>
+
+    <fx:Metadata>
+        <![CDATA[
+            [Mixin]
+        ]]>
+    </fx:Metadata>
+    <!-- end of set of lines that must be in each unit test -->
+    <fx:Script>
+    <![CDATA[
+        import comps.*;
+     ]]>
+    </fx:Script>
+    <testCases>
+
+        <TestCase testID="ImageList_method_setItemAt" keywords="[List, method, setItemAt]" description="verify setItemAt() result">
+            <setup>
+                <ResetComponent target="hList" className="comps.HListComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <SetProperty target="hList" propertyName="selectedIndex" value="2" waitEvent="valueCommit" waitTarget="hList"/>
+                <RunCode code="application.hList.dataProvider.setItemAt(application.obj,2);" waitEvent="collectionChange"  waitTarget="hList.dataProvider" />
+                <Pause timeout="200"/>
+                <SetProperty target="hList" propertyName="height" value="210" waitEvent="updateComplete" waitTarget="hList"/>
+                <SetProperty target="hList" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="hList"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="hList" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ImageList_method_addItem" keywords="[List, method, addItem]" description="verify addItem() result">
+            <setup>
+                <ResetComponent target="hList" className="comps.HListComp" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <RunCode code="application.hList.dataProvider.addItem(application.obj);" waitEvent="collectionChange"  waitTarget="hList.dataProvider" />
+                <SetProperty target="hList" propertyName="selectedIndex" value="7" waitEvent="valueCommit" waitTarget="hList"/>
+                <Pause timeout="200"/>
+		<SetProperty target="hList" propertyName="height" value="210" waitEvent="updateComplete" waitTarget="hList"/>
+                <SetProperty target="hList" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="hList"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="hList" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ImageList_method_removeItem" keywords="[List, method, removeItem]" description="verify removeItem">
+            <setup>
+                <ResetComponent target="hList" className="comps.HListComp" waitEvent="updateComplete" />
+                <SetProperty target="hList" propertyName="width" value="500" waitEvent="updateComplete" />
+                <SetProperty target="hList" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.hList.dataProvider.removeItemAt(1);" waitEvent="updateComplete"  waitTarget="hList.dataGroup" />
+                <AssertPropertyValue target = "hList" propertyName="selectedIndex" value="-1" />
+                <Pause timeout="200"/>
+		<SetProperty target="hList" propertyName="height" value="210" waitEvent="updateComplete" waitTarget="hList"/>
+                <SetProperty target="hList" propertyName="width" value="300" waitEvent="updateComplete" waitTarget="hList"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="hList" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ImageList_method_removeItem_last" keywords="[List, method, removeItem]" description="remove last item">
+            <setup>
+                <ResetComponent target="hList" className="comps.HListComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <SetProperty target="hList" propertyName="selectedIndex" value="7" waitEvent="valueCommit" waitTarget="hList"/>
+                <RunCode code="application.hList.dataProvider.removeItemAt(7);" waitEvent="updateComplete"  waitTarget="hList.dataGroup" />
+                <AssertPropertyValue target = "hList" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="ImageList_method_arrayCollection_removeAll" keywords="[List, method, removeAll]" description="remove all items">
+            <setup>
+                <ResetComponent target="hList" className="comps.HListComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="hList" propertyName="selectedIndex" value="8" waitEvent="valueCommit" waitTarget="hList"/>
+                <RunCode code="application.hList.dataProvider.removeAll();" waitEvent="collectionChange"  waitTarget="hList.dataProvider" />
+                <AssertPropertyValue target = "hList" propertyName="selectedIndex" value="-1" />
+                <AssertPropertyValue target = "hList" propertyName="width" value="400" />
+                <AssertPropertyValue target = "hList" propertyName="height" value="200" />
+            </body>
+        </TestCase>
+        <TestCase testID="ImageVList_method_setItemAt" keywords="[List, method, setItemAt]" description="verify setItemAt() result">
+            <setup>
+                <ResetComponent target="vlist" className="comps.VListComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <SetProperty target="vlist.list" propertyName="selectedIndex" value="2" waitEvent="valueCommit" waitTarget="vlist.list"/>
+                <RunCode code="application.vlist.list.dataProvider.setItemAt(application.obj,2);" waitEvent="collectionChange"  waitTarget="vlist.list.dataProvider" />
+                <Pause timeout="100"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vlist.list" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ImageVList_method_addItem" keywords="[List, method, addItem]" description="verify addItem() result">
+            <setup>
+                <ResetComponent target="vlist" className="comps.VListComp" waitEvent="updateComplete" />
+
+            </setup>
+            <body>
+                <RunCode code="application.vlist.list.dataProvider.addItem(application.obj);" waitEvent="collectionChange"  waitTarget="vlist.list.dataProvider" />
+                <SetProperty target="vlist.list" propertyName="selectedIndex" value="7" waitEvent="valueCommit" waitTarget="vlist.list"/>
+                <Pause timeout="100"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vlist.list" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ImageVList_method_removeItem" keywords="[List, method, removeItem]" description="verify removeItem">
+            <setup>
+                <ResetComponent target="vlist" className="comps.VListComp" waitEvent="updateComplete" />
+                <SetProperty target="vlist.list" propertyName="width" value="500" waitEvent="updateComplete" />
+                <SetProperty target="vlist.list" propertyName="selectedIndex" value="1" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.vlist.list.dataProvider.removeItemAt(1);" waitEvent="updateComplete"  waitTarget="vlist.list.dataGroup" />
+                <AssertPropertyValue target = "vlist.list" propertyName="selectedIndex" value="-1" />
+                <Pause timeout="100"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vlist.list" numColorVariances="5" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="ImageVList_method_removeItem_last" keywords="[List, method, removeItem]" description="remove last item">
+            <setup>
+                <ResetComponent target="vlist" className="comps.VListComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <SetProperty target="vlist.list" propertyName="selectedIndex" value="8" waitEvent="valueCommit" waitTarget="vlist.list"/>
+                <RunCode code="application.vlist.list.dataProvider.removeItemAt(8);" waitEvent="updateComplete"  waitTarget="vlist.list.dataGroup" />
+                <AssertPropertyValue target = "vlist.list" propertyName="selectedIndex" value="-1" />
+            </body>
+        </TestCase>
+        <TestCase testID="ImageVList_method_arrayCollection_removeAll" keywords="[List, method, removeAll]" description="remove all items">
+            <setup>
+                <ResetComponent target="vlist" className="comps.VListComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <SetProperty target="vlist.list" propertyName="selectedIndex" value="8" waitEvent="valueCommit" waitTarget="vlist.list"/>
+                <RunCode code="application.vlist.list.dataProvider.removeAll();" waitEvent="collectionChange"  waitTarget="vlist.list.dataProvider" />
+                <AssertPropertyValue target = "vlist.list" propertyName="selectedIndex" value="-1" />
+                <AssertPropertyValue target = "vlist.list" propertyName="width" value="127" />
+                <AssertPropertyValue target = "vlist.list" propertyName="height" value="300" />
+            </body>
+        </TestCase>
+
+  </testCases>
+
+
+</UnitTester>

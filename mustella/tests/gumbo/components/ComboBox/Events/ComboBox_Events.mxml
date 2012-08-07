@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/ComboBox/Events/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="ComboBox_basic.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+			{
+				import mx.core.FlexGlobals;
+			}
+		]]>
+	</fx:Script>
+
+	<testCases>
+	
+		<TestCase testID="ComboBox_Events_keyboardValueCommit" keywords="[DropDownList, Event, valueCommit]" description="Test valueCommit Event from keyboard selection on DropDownList">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.setFocus()" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+				<DispatchKeyEvent key="DOWN"/>												
+				<AssertEvent target="mainGroup.myCB1" eventName="valueCommit" eventClass="mx.events::FlexEvent"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Events_keyboardChange" keywords="[DropDownList, Event, valueCommit]" description="Test change Event from keyboard selection on DropDownList">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.setFocus()" waitEvent="focusIn" waitTarget="mainGroup.myCB1"/>
+				<DispatchKeyEvent key="DOWN"/>																										
+				<AssertEvent target="mainGroup.myCB1" eventName="change" eventClass="spark.events::IndexChangeEvent"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="0"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Events_valueCommit" keywords="[DropDownList, Event, valueCommit]" description="Test valueCommit Event from mouse selection on DropDownList">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="rollOver" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
+			    <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
+				<DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="mouseUp" waitTarget="mainGroup.myCB1"/>							
+				<DispatchMouseClickEvent target="stage" stageX="140" stageY="135" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>				
+				<AssertEvent target="mainGroup.myCB1" eventName="valueCommit" eventClass="mx.events::FlexEvent"/>				
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ComboBox_Events_change" keywords="[DropDownList, Event, change]" description="Test change Event from mouse selection on DropDownList">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<DispatchMouseEvent type="rollOver" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="rollOver" waitTarget="mainGroup.myCB1"/>
+			    <DispatchMouseEvent type="mouseDown" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="mouseDown" waitTarget="mainGroup.myCB1"/>
+				<DispatchMouseEvent type="mouseUp" target="mainGroup.myCB1" localX="140" localY="10" waitEvent="mouseUp" waitTarget="mainGroup.myCB1"/>							
+				<DispatchMouseClickEvent target="stage" stageX="140" stageY="135" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedIndex" value="2"/>
+				<AssertPropertyValue target="mainGroup.myCB1" propertyName="selectedItem" value="Product C"/>				
+				<AssertEvent target="mainGroup.myCB1" eventName="change" eventClass="spark.events::IndexChangeEvent"/>				
+			</body>
+		</TestCase>		
+
+		<TestCase testID="ComboBox_Events_methodOpen" keywords="[ComboBox, Event, Open]" description="Test open Event from calling openDropDown method on ComboBox">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>
+				<AssertEvent target="mainGroup.myCB1" eventName="open" eventClass="spark.events::DropDownEvent"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="ComboBox_Events_methodClose" keywords="[ComboBox, Event, Close]" description="Test close Event from calling closeDropDown method on ComboBox">
+			<setup>
+				<ResetComponent target="mainGroup" className="basicGroupComp" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.openDropDown()" waitEvent="open" waitTarget="mainGroup.myCB1"/>
+				<RunCode code="FlexGlobals.topLevelApplication.mainGroup.myCB1.closeDropDown(false)" waitEvent="close" waitTarget="mainGroup.myCB1"/>
+				<AssertEvent target="mainGroup.myCB1" eventName="close" eventClass="spark.events::DropDownEvent"/>
+			</body>
+		</TestCase>
+
+	</testCases>
+</UnitTester>

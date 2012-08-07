@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/DataGrid/Integrations/"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns="*"
+    testSWF="DataGrid_basic_005.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}
+		]]>
+	</fx:Script>
+
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import spark.components.DataGrid;
+			import spark.components.gridClasses.GridSelection;
+			import spark.components.gridClasses.GridColumn;
+			import spark.components.gridClasses.GridSelectionMode;
+			import spark.events.GridSelectionEventKind;
+			import spark.events.GridSelectionEvent;
+			import mx.utils.ObjectUtil;
+			import mx.collections.ArrayList;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
+			import mx.collections.ArrayCollection;
+			public var widthVal:Number, heightVal:Number, rowHeightVal:Number;
+		
+			public var newItem:Object={index:123, firstName: "test", lastName: "tester", food: "bread", drink: "coke"};
+			public var updatedItem:Object={country:"P.R.CHINA",firstName:"TESTER",lastName:"TEST",
+							position:"KING",club:"Club", number:3};
+							
+							
+			public var selectAllEvent:GridSelectionEvent=new GridSelectionEvent(GridSelectionEventKind.SELECT_ALL,true,true,GridSelectionEventKind.SELECT_ALL);
+   
+			
+				
+		
+		]]>
+	</fx:Script>	
+
+<!-- tests here are mainly for layout, size measurement tests
+
+-->
+	<testCases>
+	    <TestCase testID="explicit_dgSize_no_columnWidth" keywords="[DataGrid,layout,columnWidth ]" 
+	        description="Test no typicalItem set, dataGrid has no explicit dataGrid.Width, verify columnWidth is based on dataGrid.width">
+	       	<setup>
+	 	     <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>		
+		 <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid2"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="explicit_columnWidth" keywords="[DataGrid,layout,columnWidth ]" 
+	        description="Test no typicalItem set, dataGrid has explicit dataGrid.Width and columnWidth, dataGrid.width=(all columns).width, verify columnWidth is used">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>		
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid.columns.getItemAt(0)).width" value="30"/>
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid.columns.getItemAt(1)).width" value="120"/>
+
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid.columns.getItemAt(2)).width" value="120"/>
+
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid.columns.getItemAt(3)).width" value="120"/>
+
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid.columns.getItemAt(4)).width" value="120"/>
+		</body>
+	    </TestCase>
+	    
+	    <TestCase testID="dgWidth_less_than_all_columnWidth" keywords="[DataGrid,layout,columnWidth ]" 
+	        description="Test no typicalItem set, dataGrid has explicit dataGrid.Width and columnWidth, dataGrid.width less than (all columns).width, verify columnWidth is used, dataGrid also has horizontalScrollingBar">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid3" className="components.DataGrid_size2" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid3" propertyName="height" value="200" waitEvent="updateComplete"/>				
+		
+	  	</setup>
+		<body>		
+		    
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid3"/>
+		    <!-- scroll to right side -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid3.ensureCellIsVisible(0,FlexGlobals.topLevelApplication.dataGrid3.columns.length-1)" waitEvent="enterFrame" waitTarget="dataGrid3" />
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_hscroll.png" target="dataGrid3"/>
+		   
+		</body>
+	    </TestCase>	    
+	    
+	    <TestCase testID="dgWidth_larger_than_all_columnWidth" keywords="[DataGrid,layout,columnWidth ]" 
+	        description="Test no typicalItem set, dataGrid has explicit dataGrid.Width and columnWidth, dataGrid.width larger than (all columns).width, verify columnWidth is used, dataGrid has extra gap for space not used by columns">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid4" className="components.DataGrid_comp6" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid4" propertyName="height" value="200" waitEvent="updateComplete"/>				
+		
+	  	</setup>
+		<body>		
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid4"/>
+		</body>
+	    </TestCase>	
+	    
+	    <TestCase testID="firstItem_requestRC_test001" keywords="[DataGrid,layout,requestedRows,requestedColumns ]" 
+		        description="Test no typicalItem set, dataGrid has no size set, size is based on dataProvider.getItemAt(0), requestedRowCount, and requestedColumnCount.">
+		       	<setup>
+		 	    <ResetComponent target="dataGrid5" className="components.DataGrid_size5" waitEvent="updateComplete" />
+		 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+			</setup>
+			<body>		
+			    <!-- code coverage test below -->
+			    <AssertPropertyValue target="dataGrid5" propertyName="requestedRowCount" value="5"/>
+			    <AssertPropertyValue target="dataGrid5" propertyName="requestedColumnCount" value="2"/>
+			    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid5.rowHeight)" />
+			    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid5.rowBackground)" />
+			    <!-- above code coverage test -->
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(4)" value="true" />
+		    	    <RunCode code="trace('cell 5 visiable?'+FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(5))"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(5)" value="false" />
+
+			    <RunCode code="trace('cell 1,3 visiable?'+FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,3))"/>
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,3)" value="false" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.isCellVisible(1,2)" value="true" />
+			    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.grid.getColumnBounds(1).width" value="50"/>
+			    <!-- code coverage test below -->
+			    <SetProperty target="dataGrid5" propertyName="requestedMaxRowCount" value="10"/>
+			    <AssertPropertyValue target="dataGrid5" propertyName="requestedMaxRowCount" value="10"/>
+			    <RunCode code="FlexGlobals.topLevelApplication.dataGrid5.itemEditor=new ClassFactory(spark.components.gridClasses.ComboBoxGridItemEditor)" />
+			    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid5.rowBackground)" />
+			     <SetProperty target="dataGrid5" propertyName="resizableColumns" value="true"/>
+			     <SetProperty target="dataGrid5" propertyName="sortableColumns" value="true"/>
+			     <SetProperty target="dataGrid5" propertyName="showDataTips" value="true"/>
+			     <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid5.dataTipField)" />
+			   
+			     <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid5.addSelectedCell(1,1)" value="true" />
+			    <SetProperty target="dataGrid5" propertyName="imeMode" valueExpression="value=flash.system.IMEConversionMode.CHINESE"/>
+			    <SetProperty target="dataGrid5" propertyName="rowBackground" valueExpression="value=FlexGlobals.topLevelApplication.MyRowBackGround" waitEvent="enterFrame" waitTarget="stage"/>
+			    <RunCode code="FlexGlobals.topLevelApplication.dataGrid5.dispatchEvent(selectAllEvent)" waitEvent="enterFrame" waitTarget="stage" />
+			    <!-- above code coverage test -->
+				
+			</body>
+	    </TestCase>	
+	    
+	    <TestCase testID="firstItem_requestRC_test002" keywords="[DataGrid,layout,requestedRows,requestedColumns ]" 
+	        description="Test no typicalItem set, dataGrid has no size set, size is based on dataProvider.getItemAt(0), requestedRowCount, and requestedColumnCount.">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid52" className="components.DataGrid_size52" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body><!-- this test differents above is the firstItem is different -->
+		   	
+		    <!-- make sure only 5 rows, two columns showing up -->
+		    
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(4)" value="true" />
+		    <RunCode code="trace('cell 5 visiable?'+FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(5))"/>
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(5)" value="false" />
+	  	   
+	  	    <RunCode code="trace('cell 1,3 visiable?'+FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(1,3))"/>
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(1,3)" value="false" />
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(1,2)" value="false" />
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.getColumnBounds(1).width" value="71"/>
+				
+	  	    
+	  	</body>
+	    </TestCase>	
+	    
+	    <TestCase testID="dgChange_lastItem_no_effect_test001" keywords="[DataGrid,layout,requestedRows,requestedColumns ]" 
+	        description="Test no typicalItem set, dataGrid has no size set, size is based on dataProvider.getItemAt(0), requestedRowCount,
+	        and requestedColumnCount, dataProvider change has no effect on size">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid52" className="components.DataGrid_size52" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		    <RunCode code="widthVal=FlexGlobals.topLevelApplication.dataGrid52.width"/>
+		    <RunCode code="heightVal=FlexGlobals.topLevelApplication.dataGrid52.height"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid52.addItem(110)" waitEvent="enterFrame" waitTarget="dataGrid52" />
+		     
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.width" valueExpression="value=widthVal"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.height" valueExpression="value=heightVal"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid52.dataProvider.removeItemAt(99)"  waitEvent="enterFrame" waitTarget="dataGrid52" />
+		     
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.width" valueExpression="value=widthVal"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.height" valueExpression="value=heightVal"/>
+		</body>
+	    </TestCase>		
+	    <TestCase testID="dgChange_firstItem_no_effect_test002" keywords="[DataGrid,layout,requestedRows,requestedColumns ]" 
+	        description="Test no typicalItem set, dataGrid has no size set,
+	        size is based on dataProvider.getItemAt(0), add/remove first item will not affect size">
+	       	<setup>
+	 	    <ResetComponent target="dg_default" className="components.DataGrid_size1" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		    <RunCode code="widthVal=FlexGlobals.topLevelApplication.dg_default.width"/>
+		    <RunCode code="heightVal=FlexGlobals.topLevelApplication.dg_default.height"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dg_default.addItem(0)"  waitEvent="enterFrame" waitTarget="dg_default" />
+		     
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_default.width" valueExpression="value=widthVal"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_default.height" valueExpression="value=heightVal"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dg_default.dataProvider.removeItemAt(0)"  waitEvent="enterFrame" waitTarget="dg_default" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_default.width" valueExpression="value=widthVal"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_default.height" valueExpression="value=heightVal"/>
+		    <!-- edit the first time, make the text longer, some column shorter -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dg_default.dataProvider.setItemAt(updatedItem,0)"  waitEvent="enterFrame" waitTarget="dg_default" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_default.width" valueExpression="value=widthVal"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dg_default.height" valueExpression="value=heightVal"/>
+		    
+		</body>
+	    </TestCase>	
+	    
+	    <TestCase testID="firstItem_requestMinRC_test001" keywords="[DataGrid,layout,getItemAt(0) ]" 
+	        description="Test no typicalItem set, dataGrid has no size set, requestedMinRowCount, and requestedMinColumnCount set,
+	        size is based on dataProvider.getItemAt(0), requestedMinRowCount, and requestedMinColumnCount">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid6" className="components.DataGrid_size6" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.grid.isCellVisible(9)" value="true" />
+		    <RunCode code="trace('cell 5 visiable?'+FlexGlobals.topLevelApplication.dataGrid6.grid.isCellVisible(10))"/>
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.grid.isCellVisible(10)" value="false" />
+	  	   
+	  	    <RunCode code="trace('cell 1,3 visiable?'+FlexGlobals.topLevelApplication.dataGrid6.grid.isCellVisible(1,4))"/>
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.grid.isCellVisible(1,4)" value="true" />
+	  	    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid6.grid.isCellVisible(1,0)" value="true" />
+	  	</body>
+	    </TestCase>	
+	    
+	    
+	    
+	    <TestCase testID="columnWidth_winOver_typicalItem_test001" keywords="[DataGrid,layout,typicalItem ]" 
+	        description="Test typicalItem set,columnWidth, columns are set, verify columnWidth is used">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid7" className="components.DataGrid_TypicalItem_comp2" waitEvent="updateComplete" />
+	  	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		    <!-- columnWidth explicitely set wins -->
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid7.columns.getItemAt(0)).width" value="80"/>
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid7.columns.getItemAt(1)).width" value="80"/>
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid7.columns.getItemAt(2)).width" value="80"/>
+		    <!-- set a new typicalItem, verify columnWidth, columns is updated -->
+		    <SetProperty target="dataGrid7" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid7.typicalItem2" waitEvent="enterFrame" waitTarget="dataGrid7"/>              
+        	    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid7.columns.getItemAt(0)).width" value="80"/>
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid7.columns.getItemAt(1)).width" value="80"/>
+		    <AssertMethodValue method="value=(GridColumn)(FlexGlobals.topLevelApplication.dataGrid7.columns.getItemAt(2)).width" value="80"/>
+
+		</body>
+	    </TestCase>	
+
+	    <TestCase testID="typicalItem_winOver_RequestRC_test001" keywords="[DataGrid,layout,typicalItem ]" 
+	        description="Test typicalItem set,requestedRows/columns are set, verify the measured size depends on the explicit columns">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid8" className="components.DataGrid_TypicalItem_comp1" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		    <!-- requestedColumnCount=1-->
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid8.grid.isCellVisible(1,0)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid8.grid.isCellVisible(1,1)" value="false" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid8.grid.isCellVisible(1,2)" value="false" />
+ 		    <!-- requestedRowCount =3 -->
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid8.grid.isCellVisible(2,0)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid8.grid.isCellVisible(3,0)" value="false" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid8.grid.isCellVisible(4,0)" value="false" />
+		  
+		   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid8"/>
+		</body>
+	    </TestCase>	
+	    
+	    <TestCase testID="typicalItem_winOver_RequestMInRC_test001" keywords="[DataGrid,layout,typicalItem ]" 
+	        description="Test typicalItem set,requestedMinRows/columns are set, verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid9" className="components.DataGrid_TypicalItem_comp3" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		<!-- code coverage test below -->
+		    <AssertPropertyValue target="dataGrid9" propertyName="requestedMinRowCount" value="3"/>
+		    <AssertPropertyValue target="dataGrid9" propertyName="requestedMinColumnCount" value="1"/>
+		    <AssertPropertyValue target="dataGrid9" propertyName="preserveSelection" value="true"/>
+		    <AssertPropertyValue target="dataGrid9" propertyName="resizableColumns" value="true"/>
+		    <AssertPropertyValue target="dataGrid9" propertyName="showDataTips" value="false"/>
+		    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid9.typicalItem)"/>
+		    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid9.itemRenderer)"/>
+		    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid9.itemEditorInstance)"/>
+		    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid9.dataTipFunction)"/>
+		    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid9.invalidateCell(0,0))"/>
+		    <RunCode code="trace(FlexGlobals.topLevelApplication.dataGrid9.invalidateTypicalItem())"/>
+		<!-- above code coverage test -->
+		   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid9"/>
+		</body>
+	    </TestCase>	
+	    <TestCase testID="typicalItem_winOver_RequestRCNeg1_test001" keywords="[DataGrid,layout,typicalItem ]" 
+	        description="Test typicalItem set,requestedRows/columns are set to -1, verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid10" className="components.DataGrid_TypicalItem_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid10.grid.isCellVisible(5)" value="true" />
+		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid10.grid.isCellVisible(5,2)" value="true" />
+		   <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid10.grid.isCellVisible(5,3)" value="false" />
+		   
+		   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid10"/>
+		</body>
+	    </TestCase>	
+
+	    <TestCase testID="typicalItem_winOver_RequestRCNeg1_test002" keywords="[DataGrid,layout,typicalItem, getter/setter ]" 
+	        description="Test typicalItem set,requestedRows/columns are set to -1, verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		    <AssertPropertyValue  target="dataGrid11" propertyName="typicalItem" value="null"/>	
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_noTypicalItem.png" target="dataGrid11"/>
+	 
+		    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem1" waitEvent="updateComplete"/>              
+        	    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid11"/>
+	
+		</body>
+	    </TestCase>	
+	    <TestCase testID="typicalItem_setter_smallWidth_test001" keywords="[DataGrid,layout,typicalItem, setter ]" 
+	        description="Test typicalItem set,which labels are short text, verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 	
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_notypicalItem.png" target="dataGrid11"/>
+	
+		    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem1" waitEvent="enterFrame" waitTarget="dataGrid11"/> 
+	            <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_typicalItem1.png" target="dataGrid11"/>		  
+        	    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem2"  waitEvent="enterFrame" waitTarget="dataGrid11"/> 
+        	     
+        	   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_typicalItem2.png" target="dataGrid11"/>
+	
+		</body>
+	    </TestCase>	
+	    <TestCase testID="typicalItem_setter_oneColumn_test001" keywords="[DataGrid,layout,typicalItem, setter ]" 
+	        description="Test typicalItem set,only has one column set, verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 			
+		    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem1" waitEvent="enterFrame" waitTarget="dataGrid11"/> 
+        	    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem3"  waitEvent="enterFrame" waitTarget="dataGrid11"/> 
+        	    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid11"/>
+		</body>
+	    </TestCase>	
+	    <TestCase testID="typicalItem_setter_nomatchingData_test001" keywords="[DataGrid,layout,typicalItem, setter ]" 
+	        description="Test typicalItem set,has a column without matching data , verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 			
+		    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem1" waitEvent="enterFrame" waitTarget="dataGrid11"/>               
+        	    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid11"/>
+		</body>
+	    </TestCase>	
+	    <TestCase testID="typicalItem_setter_noData_test001" keywords="[DataGrid,layout,typicalItem, setter ]" 
+	        description="Test typicalItem set,typicalItem has no property, means no column, verify the measured size depends on the typicalItem">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 			
+		    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem1" waitEvent="enterFrame" waitTarget="dataGrid11"/> 
+        	    <SetProperty target="dataGrid11" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid11.typicalItem5" waitEvent="enterFrame" waitTarget="dataGrid11"/> 
+        	   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid11"/>
+	
+		</body>
+	    </TestCase>
+
+	    <TestCase testID="requestedRCs_Neg1_test001" keywords="[DataGrid,layout,requestedRows/requestedColumns ]" 
+	        description="Test no typicalItem set,requestedRows/columns are set to -1, verify all rows/columns should show">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 			 
+        	   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid11"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="requestedRCs_Neg1_addItem_test001" keywords="[DataGrid,layout,requestedRows/requestedColumns ]" 
+	        description="Test no typicalItem set,requestedRows/columns are set to -1, add a row, verify dataGrid size is changed">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 	
+		    <!-- get the size for the last row -->
+		    <RunCode code="widthVal=FlexGlobals.topLevelApplication.dataGrid11.width"/>
+		    <RunCode code="heightVal=FlexGlobals.topLevelApplication.dataGrid11.height"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid11.addOneItem()" waitEvent="enterFrame" waitTarget="dataGrid11"/>
+		     
+		    <RunCode code="rowHeightVal=FlexGlobals.topLevelApplication.dataGrid11.grid.getCellBounds(FlexGlobals.topLevelApplication.dataGrid11.dataProvider.length-1,0).height"/>
+		    <RunCode code="trace('rheight='+rowHeightVal)" />
+		    <!-- width not changed, but height should change -->
+		    <AssertMethodValue method="value=(FlexGlobals.topLevelApplication.dataGrid11.width-widthVal)" value="0"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid11.height-heightVal" valueExpression="value=rowHeightVal"/>
+       		</body>
+	    </TestCase>
+	    <TestCase testID="requestedRCs_Neg1_removeItem_test001" keywords="[DataGrid,layout,requestedRows/requestedColumns ]" 
+	        description="Test no typicalItem set,requestedRows/columns are set to -1, remove a row, verify dataGrid size is changed">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid11" className="components.DataGrid_size7" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 	
+		     <RunCode code="widthVal=FlexGlobals.topLevelApplication.dataGrid11.width"/>
+		    <RunCode code="heightVal=FlexGlobals.topLevelApplication.dataGrid11.height"/>
+		    <RunCode code="rowHeightVal=FlexGlobals.topLevelApplication.dataGrid11.grid.getCellBounds(0,0).height"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid11.dataProvider.removeItemAt(0)"  waitEvent="enterFrame" waitTarget="dataGrid11"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid11.width-widthVal" value="0"/>
+		    <AssertMethodValue method="value=heightVal-FlexGlobals.topLevelApplication.dataGrid11.height" valueExpression="value=rowHeightVal"/>
+       		</body>
+	    </TestCase>
+	    <TestCase testID="itemRenderer_row_invisible_test001" keywords="[DataGrid,ItemRenderer ]" 
+	        description="Test itemRenderer is set, verify itemRenderer size is expected, also getItemRenderer() to a row not in view area is ok">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 	
+		    <RunCode code="FlexGlobals.topLevelApplication.setRenderOnColumnIndex(9)" waitEvent="enterFrame" waitTarget="dataGrid"/>
+            	     
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.checkIR(FlexGlobals.topLevelApplication.dataGrid,2,1)" value=""/>
+		    <!-- make sure getItemRenderer not in current view ok -->
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.grid.getItemRendererAt(20,1).df.selectedDate" valueExpression="value=new Date(2010,8,10)"/>
+       		    <!-- check the image with such render -->
+       		    <SetProperty target="dataGrid" propertyName="height" value="150" waitEvent="updateComplete" waitTarget="dataGrid"/> 
+        	   
+       		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+	
+       		</body>
+	    </TestCase>
+ 	    <TestCase testID="isCellVisible_test001" keywords="[DataGrid,Grid,isCellVisible ]" 
+	        description="Test isCellVisible()">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid52" className="components.DataGrid_size52" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>
+		    <!-- todo: enable the test till requestColumnCount bug is fixed -->
+		    <!-- make sure only 5 rows, two columns showing up -->
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(0,0)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(6,0)" value="false" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(0,3)" value="false" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(9,4)" value="false" />
+		    <RunCode code="trace('1')"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid52.ensureCellIsVisible(9,4)"  waitEvent="enterFrame" waitTarget="dataGrid52"/> 
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(9,4)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(0,0)" value="false" />
+
+		    <RunCode code="trace('2')"/>
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid52.setFocus()" waitEvent="focusIn" waitTarget="dataGrid52"/>
+		    <DispatchKeyEvent keys="[HOME]" waitTarget="dataGrid52"  waitEvent="enterFrame"   />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(0,0)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(3)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(9)" value="false" />
+
+		    <RunCode code="trace('3')"/>
+		    <DispatchKeyEvent keys="[END]" waitTarget="dataGrid52"  waitEvent="enterFrame"   />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(99)" value="true" />
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(99,4)" value="true" />
+
+		     <RunCode code="trace('4')"/>
+		     <!-- remove last column -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid52.columns.removeItemAt(4)"  waitEvent="enterFrame" waitTarget="dataGrid52"/>
+
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(99,4)" value="false" />
+		     <RunCode code="trace('5')"/>
+		    <!-- add one column -->
+		    <RunCode code="FlexGlobals.topLevelApplication.insertColumns(FlexGlobals.topLevelApplication.dataGrid52,4,1)"  waitEvent="enterFrame" waitTarget="dataGrid52"/>
+
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid52.grid.isCellVisible(0,4)" value="false" />
+		</body>
+	    </TestCase>
+	    <TestCase testID="invalidateCell_rowIndex_negOne" keywords="[DataGrid,method,invalidateCell ]" 
+	        description="Test invalidateCell(-1,cellIndex),verify all column cells for the cellIndex should be updated">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.updateItems(-1,1)" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <!-- bug: need call refresh
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid.dataProvider.refresh()" />
+		    -->
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+	    <TestCase testID="invalidateCell_cellIndex_negOne" keywords="[DataGrid,method,invalidateCell ]" 
+	        description="Test invalidateCell(rowIndex,-1),verify the whole row should be updated">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.updateItems(2,-1)" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+
+	    <TestCase testID="invalidateCell_other_args" keywords="[DataGrid,method,invalidateCell ]" 
+	        description="Test invalidateCell(rowIndex,cellIndex),verify the cell should be updated">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.getPartialDataGridData(6)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body>		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.updateItems(2,2)" value="null"/>
+		     <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.updateItems(3,1)" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.invalidateCell(999,1)" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.invalidateCell(2,10)" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+		  
+		</body>
+	    </TestCase>
+	    <TestCase testID="invalidateCell_show_hide_scrollbar" keywords="[DataGrid,method,invalidateCell ]" 
+	        description="Test invalidateCell(rowIndex, cellIndex),verify the scrollbar should show/hide">
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.getPartialDataGridData(12)" waitEvent="updateComplete"/>								
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <SetStyle target="dataGrid2" styleName="lineBreak" value="explicit" waitEvent="enterFrame" waitTarget="stage" />
+				
+	  	</setup>
+		<body>		
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setNewRenderer()" waitEvent="enterFrame" waitTarget="stage"/>
+		    
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_newRenderer.png" target="dataGrid2"/>
+		   
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.updateItems(2,2,'long long long long long value')" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_long.png" target="dataGrid2"/>
+		    
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.updateItems(2,2,'short')" value="null"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_short.png" target="dataGrid2"/>
+		    
+		</body>
+	    </TestCase>
+   <TestCase testID="sparkSort_arrayList_test001" keywords="[DataGrid, Sortable, dataProvider]" description="verify sorting on dataProvider is a list, verify sort works as expected">
+	       <setup>
+		 <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	 <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp5"  waitEvent="enterFrame" waitTarget="stage"/>
+		 <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns1"  waitEvent="enterFrame" waitTarget="stage"/>
+		 <SetProperty target="dataGrid2" propertyName="height" value="150"   waitEvent="updateComplete"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       </setup>
+	       <body>
+
+		<!-- run sort on columns-->
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.applySortOnList((GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1))).dataField)"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<CompareBitmap url="../Integrations/baselines/$testID_firstName.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid2" />	
+
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.applySortOnList((GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(2))).dataField)"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<CompareBitmap url="../Integrations/baselines/$testID_lastName.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid2" />	
+
+	      </body>
+	</TestCase>   
+	
+	
+	
+	
+        <TestCase testID="sparkSort_xmlColl_test001" keywords="[DataGrid, Sortable, dataProvider]" description="verify sorting on dataProvider is a list, verify sort works as expected">
+	       <setup>
+		 <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	 	 <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.createXMLListCollection(100)"  waitEvent="enterFrame" waitTarget="stage"/>
+		 <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns2"  waitEvent="enterFrame" waitTarget="stage"/>
+		 <SetProperty target="dataGrid2" propertyName="height" value="150"   waitEvent="updateComplete"/>
+		 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       </setup>
+	       <body>
+
+		<!-- run sort on columns-->
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.applySortOnList((GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(1))).dataField)"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<CompareBitmap url="../Integrations/baselines/$testID_firstName.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid2" />	
+
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.applySortOnList((GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(2))).dataField)"/>
+		<WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		<CompareBitmap url="../Integrations/baselines/$testID_lastName.png" numColorVariances="20" maxColorVariance="20"  target="dataGrid2" />	
+	      </body>
+	</TestCase> 
+	<!-- regression 28640 -->
+        <TestCase testID="listCollection_getItemIndex_afterSort" keywords="[DataGrid, Sortable, dataProvider]" description="verify sorting on dataProvider is a list, verify sort works as expected">
+	       <setup>
+		 <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	 <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	       </setup>
+	       <body>
+
+		<!-- run sort on columns: address which is object -->
+		<RunCode code="FlexGlobals.topLevelApplication.dataGrid2.sortArrayCollection(FlexGlobals.topLevelApplication.dataGrid2.dp5,(GridColumn(FlexGlobals.topLevelApplication.dataGrid2.columns.getItemAt(3))).dataField)"/>
+		<AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.testObj1Index()" value="-1"/>
+		</body>
+	</TestCase> 
+	
+	    <TestCase testID="invalidateTypicalItem_update_test001" keywords="[DataGrid,layout,typicalItem ]" 
+	        description="Test when typicalItem is updated, verify that invalidateTypicalItem() should be called">
+		<setup>
+	 	    <ResetComponent target="dataGrid10" className="components.DataGrid_TypicalItem_comp4" waitEvent="updateComplete" />
+	 	    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+	  	</setup>
+		<body> 
+		   <SetProperty target="dataGrid10" propertyName="variableRowHeight" value="true"  waitEvent="enterFrame" waitTarget="stage"/>
+		 
+		   <SetProperty target="dataGrid10" propertyName="typicalItem" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid10.typicalItem2"  waitEvent="enterFrame" waitTarget="stage"/>
+		   <!-- verify the datagrid should be updated -->
+		   <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid10"/>
+		</body>
+	    </TestCase>	
+	    <TestCase testID="invalidateCell_dataIconChange" keywords="[DataGrid,method,invalidateCell ]" 
+	        description="Test when a cell has icon/image is updated,verify call invalidateCell() should cause the cell updated" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.columns3"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dp3"   waitEvent="enterFrame" waitTarget="stage"/>								
+		   
+		    <SetProperty target="dataGrid" propertyName="height" value="250"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.updateIcon(2,0,'../../../../../Assets/Images/smallpurplerect.jpg')" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>
+    	    <TestCase testID="invalidateCell_rendererChange" keywords="[DataGrid,method,invalidateCell ]" 
+	        description="Test when a cell has icon/image is updated,verify call invalidateCell() should cause the cell updated" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid" className="components.DataGrid_comp4" waitEvent="updateComplete" />
+	 	    <SetProperty target="dataGrid" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.columns3"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid.dp3"   waitEvent="enterFrame" waitTarget="stage"/>								
+		   
+		    <SetProperty target="dataGrid" propertyName="height" value="250"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>		
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid.updateCellData(2,4,true)" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid"/>
+		</body>
+	    </TestCase>	    	    
+
+    	    <TestCase testID="labelFunction_test" keywords="[DataGrid,GridColumn,labelFunction ]" 
+	        description="Test set up a new labelFunction, so the column renderer will call labelFunction to get the label" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    
+	 	    <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns4"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid" propertyName="height" value="200"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>		
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid2"/>
+		</body>
+	    </TestCase>	    	    
+    	    <TestCase testID="dataFormatter_test" keywords="[DataGrid,GridColumn,formatterFunction ]" 
+	        description="Test set up a new labelFunction, so the column renderer will call labelFunction to get the label" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp5"   waitEvent="enterFrame" waitTarget="stage"/>								
+	 	    <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns5"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid2" propertyName="height" value="200"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>	
+		    <!-- show formatter -->
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid2"/>
+		</body>
+	    </TestCase>
+    	    <TestCase testID="complex_dataField_sort_test" keywords="[DataGrid,GridColumn,formatterFunction ]" 
+	        description="Test set up a new labelFunction, so the column renderer will call labelFunction to get the label" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dp5"   waitEvent="enterFrame" waitTarget="stage"/>								
+	 	    <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns5"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid2" propertyName="height" value="250"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>	
+		    <!-- click header on 2nd columnIndex -->
+		    <DispatchMouseClickEvent target="dataGrid2.columnHeaderGroup" localX="310" localY="10" waitEvent="click" waitTarget="dataGrid2"/>
+ 		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+                    <!-- verify the data is sorted -->
+ 		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid2"/>
+	
+ 		</body>
+	    </TestCase>	    
+    	    <TestCase testID="itemRendererFunction_differentRenderer_test" keywords="[DataGrid,GridColumn,itemRendererFunction ]" 
+	        description="Test set up itemRendererFunction for a GridColumn, so the column renderer for the same column displays differently" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns4"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dpDataCollection"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid2" propertyName="height" value="300"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>	
+		    <!-- set itemRendererFunction -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c4_2.itemRendererFunction=FlexGlobals.topLevelApplication.dataGrid2.myItemRendererFunction;"   waitEvent="enterFrame" waitTarget="stage"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid2"/>
+		    <!-- edit the value, so renderer is updated -->
+		    <SetProperty target="dataGrid2" propertyName="editable" value="true"   waitEvent="enterFrame" waitTarget="stage"/>	
+		    <!-- edit the num  so renderer should be updated   -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.setFocus()" waitEvent="focusIn" waitTarget="dataGrid2"/>
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		    <DispatchKeyEvent keys="[F2]" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchKeyEvent char="500"  />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_checkBoxRenderer.png" target="dataGrid2"/>
+		    
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		    <DispatchKeyEvent keys="[F2]" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchKeyEvent char="700"  />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_labelRenderer.png" target="dataGrid2"/>
+		    
+		    <AssertMethodValue method="value=FlexGlobals.topLevelApplication.dataGrid2.setSelectedCell(0,2)" value="true"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="1"/>
+
+		    <DispatchKeyEvent keys="[F2]" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchKeyEvent char="100"  />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <DispatchKeyEvent keys="[ENTER]"  ctrlKey="true" shiftKey="true" waitEvent="enterFrame" waitTarget="stage" />
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_dropListRenderer.png" target="dataGrid2"/>
+		   
+		   
+		</body>
+	    </TestCase>	  	    
+	    <!-- regression SDK-29214, the following case differents above is above using cellEditing to update item value, here calls invalidateCell -->
+    	    <TestCase testID="itemRenderer_update_test" keywords="[DataGrid,GridColumn,itemRendererFunction ]" 
+	        description="Test set up itemRendererFunction for a GridColumn, verify column value is updated, renderer is updated too" >
+	       	<setup>
+	 	    <ResetComponent target="dataGrid2" className="components.DataGrid_comp5" waitEvent="updateComplete" />
+	 	    <SetProperty target="dataGrid2" propertyName="columns" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.columns4"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <SetProperty target="dataGrid2" propertyName="dataProvider" valueExpression="value=FlexGlobals.topLevelApplication.dataGrid2.dpDataCollection"   waitEvent="enterFrame" waitTarget="stage"/>								
+		    <!-- set itemRendererFunction -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.c4_2.itemRendererFunction=FlexGlobals.topLevelApplication.dataGrid2.myItemRendererFunction;"   waitEvent="enterFrame" waitTarget="stage"/>
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/>
+		    <SetProperty target="dataGrid2" propertyName="height" value="300"   waitEvent="updateComplete"/>
+	  	</setup>
+		<body>	
+		    
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID.png" target="dataGrid2"/>
+		    <!-- edit the num  so renderer should be updated   -->
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.updateItems(0,2,500)"  waitEvent="enterFrame" waitTarget="stage" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_checkBoxRenderer.png" target="dataGrid2"/>
+		    
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.updateItems(0,2,700)"  waitEvent="enterFrame" waitTarget="stage" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_labelRenderer.png" target="dataGrid2"/>
+		    
+		    <RunCode code="FlexGlobals.topLevelApplication.dataGrid2.updateItems(0,2,100)"  waitEvent="enterFrame" waitTarget="stage" />
+		    <WaitForEvent target="stage" eventName="enterFrame" numExpectedEvents="2"/> 
+		    <CompareBitmap   numColorVariances="20" ignoreMaxColorVariance="true"  url="../Integrations/Baselines/$testID_dropListRenderer.png" target="dataGrid2"/>
+		   
+		   
+		</body>
+	    </TestCase>	  
+	    
+	</testCases>
+</UnitTester>

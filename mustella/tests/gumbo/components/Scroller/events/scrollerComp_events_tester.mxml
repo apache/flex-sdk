@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/components/Scroller/events/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="ScrollerBasicComp.mxml">
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import comps.*;
+
+import spark.layouts.*;
+
+        import mx.collections.ArrayCollection;
+
+
+
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="ScrollerComp_event_viewport_DataGroup_page" keywords="[Scroller, event,viewport,DataGroup]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc2" propertyName="height"  value="250" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc2" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc2" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc2.skin" waitEvent="updateComplete" />
+
+                <SetProperty    target="sc2" propertyName="width"   value="100" waitEvent="updateComplete"/>
+
+            <DispatchMouseEvent type="rollOver"  target="sc2.verticalScrollBar.track" localX="3" localY="185"  />
+
+            <DispatchMouseEvent type="mouseDown" target="sc2.verticalScrollBar.track" localX="3" localY="185" waitEvent="mouseDown" waitTarget="sc2.verticalScrollBar"/>
+
+            <DispatchMouseEvent type="mouseUp"   target="sc2.verticalScrollBar.track" localX="3" localY="185" waitEvent="updateComplete" waitTarget="sc2.verticalScrollBar" />
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="value"    value="250" />
+
+            <AssertPropertyValue target="sc2.verticalScrollBar" propertyName="maximum"    value="446" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_event_viewport_HGroup" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth - application.sc1.horizontalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+            <DispatchMouseEvent type="rollOver"  target="sc1.horizontalScrollBar.track" localX="3" localY="2"  />
+	    <Pause timeout="20"/>
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+            <Pause timeout="20"/>
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="updateComplete"  />
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="2098" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_event_viewport_HGroup_contentWidth" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth - application.sc1.horizontalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="width"   value="300" waitEvent="updateComplete"/>
+
+            <DispatchMouseEvent type="rollOver"  target="sc1.horizontalScrollBar.track" localX="3" localY="2"  />
+	    <Pause timeout="20"/>
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+	    <Pause timeout="20"/>
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar"/>
+	    <Pause timeout="100"/>
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+	    <Pause timeout="20"/>
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar"/>
+	    <Pause timeout="100"/>
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+	    <Pause timeout="20"/>
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="3" localY="2" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar"/>
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="1570" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_event_viewport_VGroup_contentHeight" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="400" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="150" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.VGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="verticalScrollPosition"  valueExpression="value=application.sc1.viewport.contentHeight - application.sc1.verticalScrollBar.pageSize" />
+            <SetProperty    target="sc1" propertyName="height"   value="150" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="180" waitEvent="updateComplete"/>
+
+                <DispatchMouseEvent type="rollOver"  target="sc1.verticalScrollBar.track" localX="3" localY="55"  />
+
+            <DispatchMouseEvent type="mouseDown" target="sc1.verticalScrollBar.track" localX="3" localY="55" waitEvent="mouseDown" waitTarget="sc1.verticalScrollBar"/>
+
+            <DispatchMouseEvent type="mouseUp"   target="sc1.verticalScrollBar.track" localX="3" localY="55" waitEvent="updateComplete" />
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="value"    value="276" />
+
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="maximum"    value="681" />
+
+            <AssertPropertyValue target="sc1.verticalScrollBar" propertyName="pageSize"    value="150" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_contentWidth" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1.viewport" propertyName="horizontalScrollPosition"  valueExpression="value=application.sc1.viewport.contentWidth - application.sc1.horizontalScrollBar.pageSize" />
+
+            <SetProperty    target="sc1" propertyName="height"   value="80" waitEvent="updateComplete"/>
+
+                <DispatchMouseEvent type="rollOver"  target="sc1.horizontalScrollBar.track" localX="15" localY="3"  />
+
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.track" localX="15" localY="3" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="15" localY="3" waitEvent="updateComplete"  />
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="138" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="326" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="pageSize" value="200" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_page" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"   value="80" waitEvent="updateComplete"/>
+
+                <DispatchMouseEvent type="rollOver"  target="sc1.horizontalScrollBar.track" localX="150" localY="3"  />
+
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.track" localX="150" localY="3" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.track" localX="150" localY="3" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar" />
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="198" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="326" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="pageSize" value="200" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_page_AS" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"   value="80" waitEvent="updateComplete"/>
+
+                <RunCode code="application.sc1.horizontalScrollBar.changeValueByPage()" waitEvent="valueCommit" waitTarget="sc1.horizontalScrollBar"/>
+		<Pause timeout="100"/>
+                <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="198" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="maximum"  value="326" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="pageSize" value="200" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_step" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+                <DispatchMouseEvent type="rollOver"  target="sc1.horizontalScrollBar.incrementButton" localX="3" localY="3"  />
+
+            <DispatchMouseEvent type="mouseDown" target="sc1.horizontalScrollBar.incrementButton" localX="3" localY="3" waitEvent="mouseDown" waitTarget="sc1.horizontalScrollBar"/>
+
+            <DispatchMouseEvent type="mouseUp"   target="sc1.horizontalScrollBar.incrementButton" localX="3" localY="3" waitEvent="mouseUp" waitTarget="sc1.horizontalScrollBar" />
+	    <Pause timeout="100"/>
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="198" />
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="stepSize"  value="1" />
+
+            <AssertPropertyValue target="sc1.viewport" propertyName="horizontalScrollPosition" value="198" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_noscrollbar" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="700" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <AssertPropertyValue target = "sc1.horizontalScrollBar" propertyName="visible" value="false" />
+
+           </body>
+
+        </TestCase>
+
+
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_scrollbar_on" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+
+            <SetProperty    target="sc1" propertyName="height"  value="50" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="500" waitEvent="updateComplete"/>
+
+            <SetStyle    target="sc1" styleName="horizontalScrollPolicy"   value="on" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <AssertPropertyValue target = "sc1.horizontalScrollBar" propertyName="visible" value="true" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_abc_step_keyboard" keywords="[Scroller, event,viewport]" description="">
+
+           <setup>
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <SetProperty    target="sc4" propertyName="height"  value="50" waitEvent="updateComplete"/>
+            <SetProperty    target="sc4" propertyName="width"   value="200" waitEvent="updateComplete"/>
+
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc4" propertyName="viewport" valueExpression="value= (new comps.ABCComp)" waitTarget="sc4.skin" waitEvent="updateComplete" />
+
+            <DispatchKeyEvent keys="[TAB]" waitTarget="sc4" waitEvent="focusIn" />
+
+            <DispatchKeyEvent key="RIGHT" />
+	    <Pause timeout="100"/>
+                    <AssertPropertyValue target="sc4.horizontalScrollBar" propertyName="value"    value="13" />
+
+            <AssertPropertyValue target="sc4.horizontalScrollBar" propertyName="stepSize"  value="1" />
+
+            <AssertPropertyValue target="sc4.viewport" propertyName="horizontalScrollPosition" value="13" />
+
+           </body>
+
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_DataGroup_step_keyboard" keywords="[Scroller, event,viewport,DataGroup]" description="">
+           <setup>
+
+            <SetProperty    target="sc4" propertyName="height"  value="250" waitEvent="updateComplete"/>
+            <SetProperty    target="sc4" propertyName="width"   value="250" waitEvent="updateComplete"/>
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+            <ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+            </setup>
+           <body>
+            <SetProperty target="sc4" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc4.skin"  waitEvent="updateComplete"/>
+            <SetProperty    target="sc1" propertyName="width"   value="100" waitEvent="updateComplete" />
+             <DispatchKeyEvent keys="[TAB]" waitTarget="sc4" waitEvent="focusIn" />
+             <DispatchKeyEvent key="DOWN" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
+
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="250" />
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="maximum"   value="446" />
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="stepSize"  value="1" />
+             <DispatchKeyEvent key="END" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
+
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="446" />
+             <DispatchKeyEvent key="UP" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
+
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="196" />
+             <DispatchKeyEvent key="HOME" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
+
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="0" />
+             <DispatchKeyEvent key="PAGE_DOWN" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
+
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="250" />
+
+             <DispatchKeyEvent key="PAGE_UP" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar"/>
+
+             <AssertPropertyValue target="sc4.verticalScrollBar" propertyName="value"     value="0" />
+           </body>
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_GraphicsGroup_step_keyboard" keywords="[Scroller, event,viewport,keyBoard]" description="">
+           <setup>
+
+            	<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+            	<ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+            	<ResetComponent target="sc3" className="spark.components.Scroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<SetProperty target="sc4" propertyName="viewport" valueExpression="value= (new comps.GraphicsCompTwoScrollBars)" waitTarget="sc4.skin" waitEvent="updateComplete"/>
+                <SetProperty    target="sc4" propertyName="width"   value="100" waitEvent="updateComplete" />
+                <DispatchKeyEvent keys="[TAB]" waitTarget="sc4" waitEvent="focusIn" />
+                <DispatchKeyEvent keys="[DOWN]" waitEvent="updateComplete" waitTarget="sc4.verticalScrollBar" />
+
+                <DispatchKeyEvent keys="[RIGHT]" waitEvent="updateComplete" waitTarget="sc4.horizontalScrollBar" />
+                <DispatchKeyEvent keys="[RIGHT,LEFT,HOME,END,PAGE_DOWN,PAGE_UP,END]" waitEvent="updateComplete" waitTarget="sc4.horizontalScrollBar" />
+                <Pause timeout="100"/>
+                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" />
+
+           </body>
+        </TestCase>
+
+        <TestCase testID="ScrollerComp_event_viewport_mouseWheel" keywords="[Scroller, event,viewport,mouseWheel]" description="">
+           <setup>
+
+            	<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+            	<ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+            	<ResetComponent target="sc4" className="spark.components.Scroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<SetProperty target="sc4" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc4.skin" waitEvent="updateComplete"/>
+                <SetProperty    target="sc4" propertyName="width"   value="100" waitEvent="updateComplete" />
+                <SetProperty    target="sc4" propertyName="height"   value="200" waitEvent="updateComplete" />
+
+                <DispatchMouseEvent type="mouseOver" target="sc4" localX="20" localY="10"  waitEvent="mouseOver" waitTarget="sc4"/>
+                <DispatchMouseEvent type="mouseWheel" target="sc4" localX="20" localY="40" delta="-3" waitEvent="change" waitTarget="sc4.verticalScrollBar"/>
+                <Pause timeout="100"/>
+                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" />
+
+           </body>
+        </TestCase>
+
+       <TestCase testID="ScrollerComp_event_viewport_mouseWheel1" keywords="[Scroller, event,viewport,mouseWheel]" description="">
+           <setup>
+
+            	<ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+            	<ResetComponent target="sc2" className="spark.components.Scroller" waitEvent="updateComplete" />
+            	<ResetComponent target="sc4" className="spark.components.Scroller" waitEvent="updateComplete" />
+            </setup>
+            <body>
+            	<SetProperty target="sc4" propertyName="viewport" valueExpression="value= (new comps.DataGroupAbcComp)" waitTarget="sc4.skin" waitEvent="updateComplete"/>
+                <SetProperty    target="sc4" propertyName="width"   value="100" waitEvent="updateComplete" />
+                <SetProperty    target="sc4" propertyName="height"   value="200" waitEvent="updateComplete" />
+
+                <DispatchMouseEvent type="mouseOver" target="sc4" localX="20" localY="5"  waitEvent="mouseOver" waitTarget="sc4"/>
+                <DispatchMouseClickEvent  target="sc4" localX="20" localY="5"  />
+                <DispatchMouseEvent type="mouseWheel" target="sc4" localX="20" localY="10" delta="-1" waitEvent="mouseWheel" waitTarget="sc4"/>
+                <Pause timeout="100"/>
+                <CompareBitmap url="../events/baselines/$testID.png" target="sc4" />
+
+           </body>
+        </TestCase>
+
+
+        <TestCase testID="HScrollerComp_mouseWheel" keywords="[Scroller, method,viewport]" description="">
+
+           <setup>
+
+            <ResetComponent target="sc1" className="spark.components.Scroller" waitEvent="updateComplete" />
+	    <SetStyle target="sc1" styleName="skinClass" valueExpression="value=comps.HScrollerSkin" waitEvent="updateComplete" />
+            <SetProperty    target="sc1" propertyName="height"  value="100" waitEvent="updateComplete"/>
+
+            <SetProperty    target="sc1" propertyName="width"   value="250" waitEvent="updateComplete"/>
+	    <SetStyle target="sc1.horizontalScrollBar" styleName="smoothScrolling" value="true"   />
+            </setup>
+
+           <body>
+
+            <SetProperty target="sc1" propertyName="viewport" valueExpression="value= (new comps.HGroupButtonsComp)" waitTarget="sc1.skin" waitEvent="updateComplete" />
+
+            <DispatchMouseEvent type="mouseOver" target="sc1" localX="20" localY="5"  waitEvent="mouseOver" />
+            <DispatchMouseClickEvent  target="sc1" localX="20" localY="5"  />
+            <DispatchMouseEvent type="mouseWheel" target="sc1" localX="20" localY="10" delta="-1" waitEvent="mouseWheel" />
+            <Pause timeout="100"/>
+
+            <AssertPropertyValue target="sc1.horizontalScrollBar" propertyName="value"    value="72" />
+
+           </body>
+
+        </TestCase>
+        <TestCase testID="ScrollerComp_mouseWheel_preventDefault" keywords="[Scroller, event,viewport,mouseWheel]" description="">
+             <body>
+                <DispatchMouseEvent type="mouseOver" target="sc6.verticalScrollBar" localX="5" localY="10"  waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseWheel" target="sc6.verticalScrollBar" localX="5" localY="40" delta="-3" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="sc6.verticalScrollBar" propertyName="value"    value="0" />
+
+           </body>
+        </TestCase>
+        <TestCase testID="ScrollerComp_mouseWheel_preventDefault2" keywords="[Scroller, event,viewport,mouseWheel]" description="">
+             <body>
+                <DispatchMouseEvent type="mouseOver" target="sc6" localX="95" localY="10"  waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseWheel" target="sc6" localX="95" localY="40" delta="-10" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="sc6.verticalScrollBar" propertyName="value"    value="0" />
+
+           </body>
+        </TestCase>
+       <TestCase testID="ScrollerComp_mouseWheel_customDelta" keywords="[Scroller, event,viewport,mouseWheel]" description="">
+             <body>
+                <DispatchMouseEvent type="mouseOver" target="sc7.verticalScrollBar" localX="5" localY="10"  waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseWheel" target="sc7.verticalScrollBar" localX="5" localY="40" delta="-3" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="sc7.verticalScrollBar" propertyName="value"    value="322" />
+
+           </body>
+        </TestCase>
+        <TestCase testID="ScrollerComp_mouseWheel_customDelta2" keywords="[Scroller, event,viewport,mouseWheel]" description="">
+             <body>
+                <DispatchMouseEvent type="mouseOver" target="sc7" localX="95" localY="10"  waitEvent="mouseOver" />
+                <DispatchMouseEvent type="mouseWheel" target="sc7" localX="95" localY="40" delta="-5" />
+                <Pause timeout="100"/>
+                <AssertPropertyValue target="sc7.verticalScrollBar" propertyName="value"    value="862" />
+
+           </body>
+        </TestCase>
+</testCases>
+
+
+
+</UnitTester>
+

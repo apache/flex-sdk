@@ -1,0 +1,25 @@
+<s:Ellipse xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Script>
+    <![CDATA[
+
+        public function set color1(val:uint):void{
+            RadialGradient(this.fill).entries[0].color = val;
+            RadialGradient(this.fill).entries[1].color = val;
+        }
+
+    ]]>
+    </fx:Script>
+
+    <s:stroke>
+        <mx:SolidColorStroke color="0x000000" weight="2"/>
+    </s:stroke>
+    <s:fill>
+        <mx:RadialGradient>
+            <mx:entries>
+                <mx:GradientEntry color="0" ratio="0" alpha="1"/>
+                <mx:GradientEntry color="0" ratio="1" alpha="1"/>
+            </mx:entries>
+        </mx:RadialGradient>
+    </s:fill>
+</s:Ellipse>

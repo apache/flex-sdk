@@ -1,0 +1,29 @@
+<s:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" 
+xmlns:s="library://ns.adobe.com/flex/spark"  variableRowHeight="true" showDataTips="true" 
+selectionMode="singleCell" height="250" width="170" creationComplete="init()">
+        <fx:Script>
+			<![CDATA[
+			
+				import mx.managers.ToolTipManager;
+			
+				private function init():void {
+					ToolTipManager.showDelay = 0;		
+			}
+			]]>
+	</fx:Script>
+	<s:dataProvider>
+		<s:ArrayList>
+			<s:DataItem xbool="The 1 string in this column ends up wrapped and out of sight"/>
+			<s:DataItem xbool="The 2 2222222222222222222222222222222222222222222222222222"/>
+			<s:DataItem xbool="The 3 333333333333333333333333333333333333333333333333333333"/>
+			<s:DataItem xbool="The 4 44444444444444444444444444444444444444444444444444444"/>
+			<s:DataItem xbool="The 5 5555555555555555555555555555555555555555555555555555"/>
+		</s:ArrayList>
+	</s:dataProvider>
+	<s:columns>
+		<s:ArrayList>
+			<s:GridColumn width="50" dataField="xbool"/>
+			<s:GridColumn width="100" dataField="no data"/>
+		</s:ArrayList>
+	</s:columns>
+</s:DataGrid>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<mx:Tree   xmlns:mx="http://www.adobe.com/2006/mxml" showRoot="false" dataProvider="{addXMLData()}" labelField   = "@label"
+width="200" height="200"
+dropEnabled="true" dragEnabled="true" allowMultipleSelection="true">
+
+<mx:Script>
+<![CDATA[
+	import mx.collections.XMLListCollection;
+	private function addXMLData():XMLListCollection
+	{
+
+		var xlc1:XMLListCollection = new XMLListCollection(new XMLList(treeXMLEmptyBranches));
+		return xlc1;
+
+	}
+]]>
+</mx:Script>
+
+	<mx:XML id="treeXMLEmptyBranches">
+		<node label="rootnode">
+			<node label="Containers">
+			    <node label="DividedBoxClasses">
+					<node label="BoxDivider" data="BoxDivider.as" />
+			    </node>
+			    <node label="GridClasses">
+				     <node label="empty branch2" isBranch="true"/>
+					<node label="GridRow" data="GridRow.as" />
+					<node label="GridItem" data="GridItem.as" />
+			    </node>
+			</node>
+			<node label="Printing">
+				<node label="PrintJob" data="PrintJob.as" />
+				<node label="PrintJob1" data="PrintJob1.as" />
+				<node label="PrintTree" data="PrintTree.as" />
+			</node>
+			<node label="empty branch1" isBranch="true"/>
+		</node>
+	</mx:XML>
+
+
+</mx:Tree>

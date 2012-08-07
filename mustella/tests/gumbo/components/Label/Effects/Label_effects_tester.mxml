@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/Label/Effects/"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" testSWF="Label_effect1.mxml">
+
+	
+<!-- this set of lines form a template that must be in each unit test -->
+	
+<mx:Script>
+	<![CDATA[
+	public static function init(o:DisplayObject):void
+	{
+	}
+	]]>
+	</mx:Script>
+	<mx:Metadata>
+	<![CDATA[
+		[Mixin]
+	]]>
+	</mx:Metadata>
+	<!-- end of set of lines that must be in each unit test -->
+
+	<mx:Script>
+	<![CDATA[
+	import mx.core.FlexGlobals;
+	]]>
+	</mx:Script>
+
+	
+<testCases>
+
+
+<!--
+========================================================
+Test rollOverEffect
+========================================================
+-->
+
+<TestCase testID="effect_rollOver_test1" keywords="[Label, effects,rollOverEffect]" description="check rollOverEffect" >
+    <setup>
+        <SetStyle target="myLabel" styleName="rollOverEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myLabel"/>
+					
+		
+    </setup>
+    <body>    
+        <DispatchMouseEvent target="myLabel" localX="30" localY="20" type="rollOver"/>
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myLabel" timeout="2000" />
+        <AssertEvent target="myLabel" eventName="rollOverEffect" eventClass="flash.events::Event" />
+  
+    </body>
+</TestCase>
+
+<TestCase testID="effect_rollOver_test2" keywords="[RichText, effects,rollOverEffect]" description="check rollOverEffect" >
+    <setup>
+        <SetStyle target="myRichText" styleName="rollOverEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myRichText"/>
+					
+		
+    </setup>
+    <body>    
+        <DispatchMouseEvent target="myRichText" localX="30" localY="20" type="rollOver"/>
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myRichText" timeout="2000" />
+        <AssertEvent target="myRichText" eventName="rollOverEffect" eventClass="flash.events::Event" />
+  
+    </body>
+</TestCase>
+
+<TestCase testID="effect_rollOver_test3" keywords="[RichEditableText, effects,rollOverEffect]" description="check rollOverEffect" >
+    <setup>
+        <SetStyle target="myEditableText" styleName="rollOverEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myEditableText"/>
+					
+		
+    </setup>
+    <body>    
+        <DispatchMouseEvent target="myEditableText" localX="30" localY="20" type="rollOver"/>
+        <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myEditableText" timeout="2000" />
+        <AssertEvent target="myEditableText" eventName="rollOverEffect" eventClass="flash.events::Event" />
+  
+    </body>
+</TestCase>
+
+<!--
+========================================================
+Test focusInEffect
+========================================================
+-->
+
+ 
+<TestCase testID="effect_focusIn_test1" keywords="[Label,effects,focusInEffect]" description="check focusInEffect" >
+    <setup>
+        <SetStyle target="myEditableText" styleName="focusInEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myEditableText"/>
+						
+		
+    </setup>
+    <body>    
+    	<DispatchKeyEvent keys="[TAB]" waitTarget="myEditableText"  />
+    	<WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myEditableText" timeout="2000" />
+        <AssertEvent target="myEditableText" eventName="focusInEffect" eventClass="flash.events::Event" />
+    </body>
+</TestCase>
+
+<!--
+========================================================
+Test resizeEffect
+========================================================
+-->
+
+<TestCase testID="effect_resize_test1" keywords="[Label,effects,resizeEffect]" description="check  resizeEffect" >
+    <setup>
+        <SetStyle target="myLabel" styleName="resizeEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myLabel"/>
+						
+		
+    </setup>
+    <body>    
+        <SetProperty target="myLabel" propertyName="width" value="200" waitTarget="myLabel" waitEvent="updateComplete"/>
+       <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myLabel" timeout="2000" />
+       <AssertEvent target="myLabel" eventName="resizeEffect" eventClass="flash.events::Event" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="effect_resize_test2" keywords="[Label,effects,resizeEffect]" description="check  resizeEffect" >
+    <setup>
+        <SetStyle target="myRichText" styleName="resizeEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myRichText"/>
+						
+		
+    </setup>
+    <body>    
+        <SetProperty target="myRichText" propertyName="width" value="200" waitTarget="myRichText" waitEvent="updateComplete"/>
+       <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myRichText" timeout="2000" />
+       <AssertEvent target="myRichText" eventName="resizeEffect" eventClass="flash.events::Event" />
+        
+    </body>
+</TestCase>
+
+<TestCase testID="effect_resize_test3" keywords="[Label,effects,resizeEffect]" description="check  resizeEffect" >
+    <setup>
+        <SetStyle target="myEditableText" styleName="resizeEffect" value="FlexGlobals.topLevelApplication.zoomIn" waitEvent="updateComplete" waitTarget="myEditableText"/>
+						
+		
+    </setup>
+    <body>    
+        <SetProperty target="myEditableText" propertyName="width" value="200" waitTarget="myEditableText" waitEvent="updateComplete"/>
+       <WaitForEvent numExpectedEvents="-1" eventName="effectStart" target="myEditableText" timeout="2000" />
+       <AssertEvent target="myEditableText" eventName="resizeEffect" eventClass="flash.events::Event" />
+        
+    </body>
+</TestCase>
+
+</testCases>
+
+</UnitTester>

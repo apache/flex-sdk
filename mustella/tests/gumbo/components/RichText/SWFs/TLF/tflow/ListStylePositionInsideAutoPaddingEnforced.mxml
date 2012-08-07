@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<TextFlow xmlns="library://ns.adobe.com/flex/spark" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			private var _label:String;
+			private var _note:String;
+			
+			public function get label():String
+			{
+				return _label;
+			}
+			
+			public function set label(value:String):void
+			{
+				_label = value;
+			}
+			
+			public function get note():String
+			{
+				return _note;
+			}
+			
+			public function set note(value:String):void
+			{
+				_note = value;
+			}
+			
+		]]>
+	</fx:Script>
+		<list listStyleType="lowerAlpha" listStylePosition="inside">
+			<li><p><span> alpha</span></p></li>
+			<li><p><span> bravo</span></p></li>
+			<li><p><span> charlie</span></p></li>
+			<li><p><span> delta</span></p></li>
+			<li><p><span> echo</span></p></li>
+			<li><p><span> foxtrot</span></p></li>
+			<li><p><span> golf</span></p></li>
+			<li><p><span> hotel</span></p></li>
+			<li><p><span> india</span></p></li>
+			<li><p><span> juliet</span></p></li>
+			<li><p><span> kilo</span></p></li>
+			<li><p><span> lime</span></p></li>
+			<li><p><span> mike</span></p></li>
+			<li><p><span> november</span></p></li>
+			<li><p><span> oscar</span></p></li>
+			<li><p><span> papa</span></p></li>
+			<li><p><span> quebec</span></p></li>
+			<li><p><span> romeo</span></p></li>
+			<li><p><span> sierra</span></p></li>
+			<li><p><span> tango</span></p></li>
+			<li><p><span> uniform</span></p></li>
+			<li><p><span> victor</span></p></li>
+			<li><p><span> whisky</span></p></li>
+			<li><p><span> x-ray</span></p></li>
+			<li><p><span> yankee</span></p></li>
+			<li><p><span> zulu</span></p></li>
+	</list>
+</TextFlow>

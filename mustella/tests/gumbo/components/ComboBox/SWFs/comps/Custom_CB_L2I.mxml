@@ -1,0 +1,37 @@
+<s:ComboBox 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"     
+    xmlns:s="library://ns.adobe.com/flex/spark"    
+    width="150"
+    height="24"
+    color="0xFF0000"    
+    dataProvider="{complexDP}" 
+    labelToItemFunction="{myLabelToItemFunction}"
+    selectedIndex="0" 
+    labelField="ingredient">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection; 
+            
+            [Bindable]
+            public var complexDP:ArrayCollection = new ArrayCollection(
+                [
+                	{ingredient:"Salmon", category:"meat"}, 
+                	{ingredient:"Potato", category:"starch"}, 
+                	{ingredient:"Cucumber", category:"vegetable"}, 
+                    {ingredient:"Steak", category:"meat"}, 
+                    {ingredient:"Rice", category:"starch"}, 
+                    {ingredient:"Cumin", category:"spice"}
+				]
+                
+            );
+            
+            private function myLabelToItemFunction(input:String):*
+            {
+                return {ingredient:input, category:"mystery"};
+            }
+            
+        ]]>
+    </fx:Script>
+	
+</s:ComboBox>

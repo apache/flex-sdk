@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/components/RadioButton/styles/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="FxRadioButtonStyles.mxml">
+	<!-- this set of lines form a template that must be in each unit test -->
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	
+	<!-- end of set of lines that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+import spark.components.RadioButton;
+
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+		
+		@font-face {
+		    src: url("../../../../../Assets/Fonts/Lobster_Two/LobsterTwo-Regular.ttf");
+		    fontFamily: "ArnoProRegEmbedded";
+		    embedAsCFF: true;
+		}
+		
+		@font-face {
+		    src: url("../../../../../Assets/Fonts/PT_Serif/PT_Serif-Web-Regular.ttf");
+		    fontFamily: "Helvetica";
+		    embedAsCFF: true;
+		}
+	    .myStyle{
+	        color: #FF0000
+	    }
+	
+	    .myStyle2{
+	        color: #0000FF
+	    }
+	</fx:Style>
+
+	<testCases>
+		
+		<TestCase testID="alignmentBaseline_default_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="useDominantBaseline" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="alignmentBaseline_roman_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="alignmentBaseline_ideographicTop_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ideographicTop" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ideographicTop" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="alignmentBaseline_ideographicCenter_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ideographicCenter" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ideographicCenter" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="alignmentBaseline_ideographicBottom_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ideographicBottom" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ideographicBottom" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="alignmentBaseline_descent_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="descent" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="descent" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="alignmentBaseline_ascent_RadioButton" description="default alignmentBaseline FxRadioButton" keywords="[FxRadioButton, alignmentBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="alignmentBaseline" value="ascent" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="alignmentBaseline" value="ascent" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="baselineShift_default_RadioButton" description="default baselineShift FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="baselineShift" value="0" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="baselineShift_50_RadioButton" description="50 baselineShift FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="height" value="100" target="rb1"/>
+				<SetStyle styleName="baselineShift" value="50" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="baselineShift" value="50" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="baselineShift_neg50_RadioButton" description="neg50 baselineShift FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="height" value="100" target="rb1"/>
+				<SetStyle styleName="baselineShift" value="-50" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="baselineShift" value="-50" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="breakOpportunity_default_RadioButton" description="default breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="auto" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="breakOpportunity_all_RadioButton" description="all breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="rb1"/>
+				<SetProperty propertyName="height" value="100" target="rb1"/>
+				<SetStyle styleName="breakOpportunity" value="all" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="all" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="breakOpportunity_any_RadioButton" description="any breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="rb1"/>
+				<SetProperty propertyName="height" value="100" target="rb1"/>
+				<SetStyle styleName="breakOpportunity" value="any" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="any" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="breakOpportunity_none_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="rb1"/>
+				<SetStyle styleName="breakOpportunity" value="none" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="breakOpportunity" value="none" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cffHinting_default_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cffHinting" value="horizontalStem" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="cffHinting_none_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty propertyName="width" value="100" target="rb1"/>
+				<SetStyle styleName="cffHinting" value="none" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="cffHinting" value="none" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="color_default_FxRadioButton" description="set color of RadioButton to red" keywords="[FxRadioButton, color, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="color default label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>		
+		
+		<TestCase testID="color_red_FxRadioButton" description="set color of RadioButton to red" keywords="[FxRadioButton, color, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="color" value="red"/>
+				<SetProperty target="rb1" propertyName="label" value="color red label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="color_green_FxRadioButton" description="set color of RadioButton to green" keywords="[FxRadioButton, color, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="color" value="0x00FF00"/>
+				<SetProperty target="rb1" propertyName="label" value="color green label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="color_blue_FxRadioButton" description="set color of RadioButton to blue" keywords="[FxRadioButton, color, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="color" value="#0000FF"/>
+				<SetProperty target="rb1" propertyName="label" value="color blue label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="digitCase_default_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle target="rb1" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="rb1" styleName="fontLookup" value="embeddedCFF"/>
+            			<SetProperty target="rb1" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitCase" value="default" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="digitCase_lining_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="digitCase" value="lining" target="rb1"/>
+				<SetStyle target="rb1" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="rb1" styleName="fontLookup" value="embeddedCFF"/>
+            			<SetProperty target="rb1" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitCase" value="lining" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="digitCase_oldStyle_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="digitCase" value="oldStyle" target="rb1"/>
+				<SetStyle target="rb1" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="rb1" styleName="fontLookup" value="embeddedCFF"/>
+        			<SetProperty target="rb1" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitCase" value="oldStyle" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="digitWidth_default_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetProperty target="rb1" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitWidth" value="default" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="digitWidth_tabular_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle target="rb1" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="rb1" styleName="fontLookup" value="embeddedCFF"/>
+        			<SetStyle styleName="digitWidth" value="tabular" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitWidth" value="tabular" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="digitWidth_proportional_RadioButton" description="none breakOpportunity FxRadioButton" keywords="[FxRadioButton, baselineShift, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle target="rb1" styleName="fontFamily" value="ArnoProRegEmbedded"/>
+				<SetStyle target="rb1" styleName="fontLookup" value="embeddedCFF"/>
+        			<SetStyle styleName="digitWidth" value="proportional" target="rb1"/>
+        			<SetProperty target="rb1" propertyName="label" value="0123456789" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="digitWidth" value="proportional" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="dominantBaseline_default_RadioButton" description="default dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="auto" target="rb1"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="dominantBaseline_roman_RadioButton" description="default dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="roman" target="rb1"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="roman" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="dominantBaseline_ideographicTop_RadioButton" description="ideographicTop dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ideographicTop" target="rb1"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ideographicTop" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+				
+		<TestCase testID="dominantBaseline_ideographicCenter_RadioButton" description="ideographicCenter dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ideographicCenter" target="rb1"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ideographicCenter" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dominantBaseline_ideographicBottom_RadioButton" description="ideographicBottom dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ideographicBottom" target="rb1"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ideographicBottom" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dominantBaseline_descent_RadioButton" description="descent dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="descent" target="rb1"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="descent" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="dominantBaseline_ascent_RadioButton" description="ascent dominantBaseline FxRadioButton" keywords="[FxRadioButton, dominantBaseline, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete"/>
+				<SetStyle styleName="dominantBaseline" value="ascent" target="rb1"/>
+				<SetStyle styleName="alignmentBaseline" value="roman" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue styleName="dominantBaseline" value="ascent" target="rb1"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontFamily_myArial_FxRadioButton" description="default fontFamily is myArial" keywords="[FxRadioButton, fontFamily, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="fontFamily" value="myArial"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontLookup_embedded_FxRadioButton" description="fontLookup is embedded" keywords="[FxRadioButton, fontFamily, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="fontLookup" value="embeddedCFF"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontLookup_device_FxRadioButton" description="fontLookup is device" keywords="[FxRadioButton, fontFamily, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="Times New Roman" target="rb1"/>
+				<SetStyle styleName="fontLookup" value="device" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="fontLookup" value="device"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_16_FxRadioButton" description="set fontSize of RadioButton to 16" keywords="[FxRadioButton, fontSize, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="fontSize" value="16"/>
+				<SetProperty target="rb1" propertyName="label" value="fontSize 16 label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_default_FxRadioButton" description="set fontSize of RadioButton to 16" keywords="[FxRadioButton, fontSize, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="fontSize default label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>	
+				<AssertStyleValue target="rb1" styleName="fontSize" value="12"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontSize_6_FxRadioButton" description="set fontSize of RadioButton to 16" keywords="[FxRadioButton, fontSize, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="fontSize" value="6"/>
+				<SetProperty target="rb1" propertyName="label" value="fontSize 6 label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="fontSize_40_FxRadioButton" description="set fontSize of RadioButton to 16" keywords="[FxRadioButton, fontSize, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="fontSize" value="40"/>
+				<SetProperty target="rb1" propertyName="label" value="fontSize 40 label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="fontStyle_default_FxRadioButton" description="fontStyle default FxRadioButton" keywords="[FxRadioButton, fontStyle, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="fontStyle" value="normal"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontStyle_italic_FxRadioButton" description="fontStyle default FxRadioButton" keywords="[FxRadioButton, fontStyle, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontStyle" value="italic" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="fontStyle" value="italic"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>	
+			</body>
+		</TestCase>
+
+		<TestCase testID="fontWeight_bold_RadioButton" description="fontWeight bold RadioButton" keywords="[FxRadioButton, fontWeight, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="fontWeight" value="bold"/>
+				<SetProperty target="rb1" propertyName="label" value="fontWeight bold label" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>		
+		</TestCase>
+		
+		<TestCase testID="fontWeight_normal_RadioButton" description="fontWeight bold RadioButton" keywords="[FxRadioButton, fontWeight, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="fontWeight normal label" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="fontWeight" value="normal"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>		
+		</TestCase>
+
+		<TestCase testID="justificationRule_default_FxRadioButton" description="justificationRule default FxRadioButton" keywords="[FxRadioButton, justificationRule, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="justificationRule" value="auto"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="justificationStyle_default_FxRadioButton" description="justificationRule default FxRadioButton" keywords="[FxRadioButton, justificationRule, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="justificationRule" value="eastAsian" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox, jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="justificationStyle" value="auto"/>
+			</body>
+		</TestCase>
+		
+		
+		<TestCase testID="kerning_default_FxRadioButton" description="kerning default FxRadioButton" keywords="[FxRadioButton, kerning, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="kerning" value="default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="kerning_off_FxRadioButton" description="kerning off FxRadioButton" keywords="[FxRadioButton, kerning, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="kerning" value="off" target="rb1"/>
+				<SetStyle styleName="fontFamily" value="Helvetica" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="VA rn" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="kerning" value="off"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="kerning_auto_FxRadioButton" description="kerning auto FxRadioButton" keywords="[FxRadioButton, kerning, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="kerning" value="auto" target="rb1"/>
+				<SetStyle styleName="fontFamily" value="Helvetica" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="VA rn" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="kerning" value="auto"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="ligatureLevel_default_FxRadioButton" description="ligatureLevel default FxRadioButton" keywords="[FxRadioButton, ligatureLevel, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="ligatureLevel" value="common"/>
+			</body>
+		</TestCase>
+	
+		<TestCase testID="lineThrough_default_FxRadioButton" description="default value of lineThrough FxRadioButton" keywords="[FxRadioButton, lineThrough, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="lineThrough label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="lineThrough" value="false"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="lineThrough_true_FxRadioButton" description="set value of lineThrough true FxRadioButton" keywords="[FxRadioButton, lineThrough, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="lineThrough" value="true" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="lineThrough label" waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		<!-- These padding* tests are all failing due to SDK-18313-->
+		
+		<TestCase testID="paddingTop_default_FxRadioButton" description="paddingTop default FxRadioButton" keywords="[FxRadioButton, paddingTop, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingTop" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingTop_100_FxRadioButton" description="paddingTop 100 FxRadioButton" keywords="[FxRadioButton, paddingTop, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingTop" value="100" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingTop" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingTop_1000_FxRadioButton" description="paddingTop 1000 FxRadioButton" keywords="[FxRadioButton, paddingTop, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingTop" value="1000" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingTop" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingBottom_default_FxRadioButton" description="paddingBottom default FxRadioButton" keywords="[FxRadioButton, paddingBottom, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingBottom" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingBottom_100_FxRadioButton" description="paddingBottom 100 FxRadioButton" keywords="[FxRadioButton, paddingBottom, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingBottom" value="100" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingBottom" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingBottom_1000_FxRadioButton" description="paddingBottom 1000 FxRadioButton" keywords="[FxRadioButton, paddingBottom, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingBottom" value="1000" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingBottom" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingLeft_default_FxRadioButton" description="paddingLeft default FxRadioButton" keywords="[FxRadioButton, paddingLeft, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingLeft" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingLeft_100_FxRadioButton" description="paddingLeft 100 FxRadioButton" keywords="[FxRadioButton, paddingLeft, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingLeft" value="100" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingLeft" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingLeft_1000_FxRadioButton" description="paddingLeft 1000 FxRadioButton" keywords="[FxRadioButton, paddingLeft, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingLeft" value="1000" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingLeft" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingRight_default_FxRadioButton" description="paddingRight default FxRadioButton" keywords="[FxRadioButton, paddingRight, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingRight" value="0"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="paddingRight_100_FxRadioButton" description="paddingRight 100 FxRadioButton" keywords="[FxRadioButton, paddingRight, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingRight" value="100" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingRight" value="100"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="paddingRight_1000_FxRadioButton" description="paddingRight 1000 FxRadioButton" keywords="[FxRadioButton, paddingRight, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="paddingRight" value="1000" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="paddingRight" value="1000"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+			
+		<TestCase testID="renderingMode_default_FxRadioButton" description="renderingMode default FxRadioButton" keywords="[FxRadioButton, renderingMode, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="renderingMode" value="cff"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="renderingMode_normal_FxRadioButton" description="renderingMode normal FxRadioButton" keywords="[FxRadioButton, renderingMode, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="renderingMode" value="normal" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="renderingMode" value="normal"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="tabStops_default_FxRadioButton" description="tabStops default FxRadioButton" keywords="[FxRadioButton, tabStops, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="tabStops" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textAlpha_default_FxRadioButton" description="textAlpha default FxRadioButton" keywords="[FxRadioButton, textAlpha, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="textAlpha" value="1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textAlpha_0_FxRadioButton" description="textAlpha 0 FxRadioButton" keywords="[FxRadioButton, textAlpha, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="textAlpha" value="0" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="textAlpha" value="0"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textAlpha_0point5_FxRadioButton" description="textAlpha 0.5 FxRadioButton" keywords="[FxRadioButton, textAlpha, style]">
+			<setup>	
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="textAlpha" value="0.5" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="textAlpha" value="0.5"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textDecoration_default_FxRadioButton" description="textDecoration default FxRadioButton" keywords="[FxRadioButton, textDecoration, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="textDecoration" value="none"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="textDecoration_underline_FxRadioButton" description="textDecoration underline FxRadioButton" keywords="[FxRadioButton, textDecoration, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="textDecoration" value="underline" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="textDecoration" value="underline"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="textRotation_default_FxRadioButton" description="textRotation auto default FxRadioButton" keywords="[FxRadioButton, textRotation, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="textRotation" value="auto"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="tracking_default_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="tracking" value="null"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="tracking_10_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="tracking" value="10" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="tracking" value="10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="tracking_50_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="tracking" value="50" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="tracking" value="50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="tracking_neg10_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="tracking" value="-10" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="tracking" value="-10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="tracking_neg50_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="tracking" value="-50" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="tracking" value="-50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="trackingLeft_default_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="trackingLeft" value="0"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="trackingLeft_neg10_FxRadioButton" description="trackingLeft neg10 FxRadioButton" keywords="[FxRadioButton, trackingLeft, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="width" value="100"/>
+				<SetProperty target="rb1" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="trackingLeft" value="-10" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="trackingLeft" value="-10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="trackingLeft_neg50_FxRadioButton" description="trackingLeft neg50 FxRadioButton" keywords="[FxRadioButton, trackingLeft, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="width" value="100"/>
+				<SetProperty target="rb1" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="trackingLeft" value="-50" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="trackingLeft" value="-50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>		
+
+		<TestCase testID="trackingRight_default_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="trackingRight" value="0"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="trackingRight_neg10_FxRadioButton" description="trackingRight neg10 FxRadioButton" keywords="[FxRadioButton, trackingRight, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="width" value="100"/>
+				<SetProperty target="rb1" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="trackingRight" value="-10" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="trackingRight" value="-10"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+
+		<TestCase testID="trackingRight_neg50_FxRadioButton" description="trackingRight neg50 FxRadioButton" keywords="[FxRadioButton, trackingRight, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="width" value="100"/>
+				<SetProperty target="rb1" propertyName="height" value="100"/>
+				<SetStyle styleName="lineBreak" value="toFit" target="rb1"/>
+				<SetStyle styleName="kerning" value="on" target="rb1"/>
+				<SetStyle styleName="trackingRight" value="-50" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="trackingRight" value="-50"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>			
+		
+		<TestCase testID="typographicCase_default_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="default"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="typographicCase_title_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="rb1"/>
+				<SetStyle styleName="typographicCase" value="title" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="title"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="typographicCase_caps_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="rb1"/>
+				<SetStyle styleName="typographicCase" value="caps" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="caps"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="typographicCase_smallCaps_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="rb1"/>
+				<SetStyle styleName="typographicCase" value="smallCaps" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="smallCaps"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="typographicCase_upperCase_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="rb1"/>
+				<SetStyle styleName="typographicCase" value="uppercase" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="uppercase"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="typographicCase_lowerCase_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="rb1"/>
+				<SetStyle styleName="typographicCase" value="lowercase" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="lowercase"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="typographicCase_capsAndSmallCaps_FxRadioButton" description="tracking default FxRadioButton" keywords="[FxRadioButton, tracking, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle styleName="fontFamily" value="ArnoProRegEmbedded" target="rb1"/>
+				<SetStyle styleName="typographicCase" value="capsAndSmallCaps" target="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="The quick brown fox jumps over the lazy dog." waitEvent="updateComplete" waitTarget="rb1"/>				
+			</setup>
+			<body>
+				<AssertStyleValue target="rb1" styleName="typographicCase" value="capsAndSmallCaps"/>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		
+		<TestCase testID="verticalAlign_top_RadioButton" description="verticalAlign top RadioButton" keywords="[FxRadioButton, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="verticalAlign" value="top"/>
+				<SetProperty target="rb1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="verticalAlign top label" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="verticalAlign_bottom_RadioButton" description="verticalAlign bottom RadioButton" keywords="[FxRadioButton, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="verticalAlign" value="bottom"/>
+				<SetProperty target="rb1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="verticalAlign bottom label" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>
+		</TestCase>
+		<TestCase testID="verticalAlign_middle_RadioButton" description="verticalAlign middle RadioButton" keywords="[FxRadioButton, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="verticalAlign" value="middle"/>
+				<SetProperty target="rb1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="verticalAlign middle label" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>		
+		</TestCase>
+		<TestCase testID="verticalAlign_justify_RadioButton" description="verticalAlign justify RadioButton" keywords="[FxRadioButton, verticalAlign, style]">
+			<setup>
+				<ResetComponent target="rb1" className="spark.components.RadioButton" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetStyle target="rb1" styleName="verticalAlign" value="justify"/>
+				<SetProperty target="rb1" propertyName="height" value="70" waitEvent="updateComplete" waitTarget="rb1"/>
+				<SetProperty target="rb1" propertyName="label" value="verticalAlign justify label" waitEvent="updateComplete" waitTarget="rb1"/>
+			</setup>
+			<body>
+				<CompareBitmap url="../styles/baselines/$testID.png" target="rb1"/>
+			</body>		
+		</TestCase>
+	</testCases>
+</UnitTester>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<UnitTester testDir="gumbo/layout3D/methods/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns="*" testSWF="Layout3DListIcons.mxml">
+
+
+
+
+
+
+
+    <!-- this set of lines form a template that must be in each unit test -->
+
+
+
+    <fx:Script>
+
+        <![CDATA[
+
+        public static function init(o:DisplayObject):void
+
+        {
+
+        }
+
+        ]]>
+
+    </fx:Script>
+
+
+
+    <fx:Metadata>
+
+        <![CDATA[
+
+            [Mixin]
+
+        ]]>
+
+    </fx:Metadata>
+
+    <!-- end of set of lines that must be in each unit test -->
+
+    <fx:Script>
+
+    <![CDATA[
+
+        import comps.*;
+        import mx.geom.TransformOffsets;
+        import spark.components.supportClasses.ItemRenderer;
+        public var iRenderer:spark.components.supportClasses.ItemRenderer;
+        import mx.core.mx_internal;
+        use namespace mx_internal;
+    ]]>
+
+    </fx:Script>
+
+    <testCases>
+
+        <TestCase testID="Layout3D_method_transformAround_icons_0" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,0),new Vector3D(0.5,0.5,1),new Vector3D(10,10,10))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+
+         <TestCase testID="Layout3D_method_transformAround_icons_0_mac" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,0),new Vector3D(0.5,0.5,1),new Vector3D(10,10,10))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_icons1" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,1.5),new Vector3D(30,10,0))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_method_transformAround_icons1_mac" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,1.5),new Vector3D(30,10,0))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_method_transformAround_icons2" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1,1.2,2),new Vector3D(30,30,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/" target="vg" numColorVariances="5" maxColorVariance="5">
+                    <ConditionalValue os="mac" />
+                </CompareBitmap>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_method_transformAround_icons_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="-5" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="-5" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="-5" />
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+               <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+
+                <TestCase testID="Layout3D_method_transformAround_icons_offsets_rotation_mac" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="-5" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="-5" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="-5" />
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="3" waitEvent="updateComplete"/>
+               <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_method_transformAround_icons1_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="9" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="9" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="9" />
+                <RunCode code="application.icons.transformAround(new Vector3D(10,10,10),new Vector3D(1.2,1.2,1.2),new Vector3D(10,10,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="4" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/" target="vg" numColorVariances="10" maxColorVariance="5">
+                    <ConditionalValue os="mac" />
+                </CompareBitmap>
+
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_icons2_offsets_rotation" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="-10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="-10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
+                <RunCode code="application.icons.transformAround(new Vector3D(20,20,0),new Vector3D(1.5,1.5,1.5),new Vector3D(10,10,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
+
+            </body>
+        </TestCase>
+
+		<TestCase testID="Layout3D_method_transformAround_icons2_offsets_rotation_mac" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets();"/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="-10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationY" value="-10" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
+                <RunCode code="application.icons.transformAround(new Vector3D(20,20,0),new Vector3D(1.5,1.5,1.5),new Vector3D(10,10,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5" />
+
+            </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_method_transformAround_iconRenderer_0" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                <RunCode code="iRenderer.transformAround(new Vector3D(10,10,0),new Vector3D(1.5,1.5,1),new Vector3D(10,10,10))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_iconRenderer_1" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="iRenderer=application.getItemRenderer(1);" />
+                <RunCode code="iRenderer.transformAround(new Vector3D(10,10,0),new Vector3D(1.5,1.5,1.5),new Vector3D(0,0,30))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" />
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_iconRenderer_2" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="iRenderer=application.getItemRenderer(7);" />
+                <RunCode code="iRenderer.transformAround(new Vector3D(0,10,0),new Vector3D(2,1,1),new Vector3D(1,1,10))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="7" waitEvent="updateComplete"/>
+                <SetProperty target="icons" propertyName="width" value="300" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_iconRenderer_3" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                <RunCode code="iRenderer.transformAround(new Vector3D(0,0,-45),new Vector3D(1.5,1.5,1),new Vector3D(10,10,0))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="8" ignoreMaxColorVariance="true"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformAround_iconRenderer_4" keywords="[Layout3D,method,transformAround]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                <RunCode code="iRenderer.transformAround(new Vector3D(10,10,30),new Vector3D(1.2,1.5,1),new Vector3D(-10,-10,-10))" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="1" waitEvent="updateComplete"/>
+                <!--SetStyle target="vg" styleName="color" value="0x66CC44" waitEvent="updateComplete" /-->
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_offsets_rotation_iconRenderer_1" keywords="[Layout3D,method,rotation]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+             </setup>
+            <body>
+                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="x" value="10" />
+                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="y" value="10" />
+                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="z" value="10" />
+                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationX" value="-10" />
+                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationY" value="-10" />
+                <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
+                <SetProperty target="icons" propertyName="selectedIndex" value="0" waitEvent="updateComplete"/>
+                <CompareBitmap url="../methods/baselines/$testID.png" target="vg" numColorVariances="5" maxColorVariance="5"/>
+            </body>
+        </TestCase>
+
+
+        <TestCase testID="Layout3D_method_transformOffsets_is3D_false" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="false" />
+             </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformOffsets_is3D_true" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="10" />
+                <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="true" />
+             </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transformOffsets_is3D_false_rotationZ" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
+                <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="false" />
+             </body>
+        </TestCase>
+        <TestCase testID="Layout3D_method_transform_is3D_false_true" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                 <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="10" />
+                 <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="true" />
+                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="0" />
+                 <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="false" />
+             </body>
+        </TestCase>
+
+        <TestCase testID="Layout3D_offsets_is3D_parent_true_child_false" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationX" value="10" />
+                <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="true" />
+                <AssertMethodValue method="value=iRenderer.postLayoutTransformOffsets.mx_internal::is3D" value="false" />
+
+             </body>
+        </TestCase>
+        <TestCase testID="Layout3D_offsets_is3D_parent_false_child_true" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                 <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                 <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                 <SetProperty target="icons.postLayoutTransformOffsets" propertyName="rotationZ" value="10" />
+                 <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationX" value="10" />
+                 <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="false" />
+                 <AssertMethodValue method="value=iRenderer.postLayoutTransformOffsets.mx_internal::is3D" value="true" />
+             </body>
+        </TestCase>
+        <TestCase testID="Layout3D_offsets_is3D_parent_true_child_true" keywords="[Layout3D,method,is3D]" description="">
+            <setup>
+                 <ResetComponent target="icons" className="comps.ListIconsComp" waitEvent="updateComplete" />
+            </setup>
+            <body>
+                 <RunCode code="application.icons.postLayoutTransformOffsets = new TransformOffsets(); "/>
+                 <RunCode code="iRenderer=application.getItemRenderer(0);iRenderer.postLayoutTransformOffsets=new TransformOffsets()" />
+                 <SetProperty target="icons" propertyName="depth" value="10" />
+                 <SetProperty target="script:iRenderer.postLayoutTransformOffsets" propertyName="rotationX" value="10" />
+                 <AssertMethodValue method="value=application.icons.postLayoutTransformOffsets.mx_internal::is3D" value="false" />
+                 <AssertMethodValue method="value=iRenderer.postLayoutTransformOffsets.mx_internal::is3D" value="true" />
+             </body>
+        </TestCase>
+    </testCases>
+
+</UnitTester>
+

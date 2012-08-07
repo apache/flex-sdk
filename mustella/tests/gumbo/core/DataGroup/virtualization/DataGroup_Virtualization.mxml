@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DataGroup/virtualization/"  xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DataGroupVirtual.mxml">
+
+	<!-- this set of lines form a template that must be in each unit test -->
+
+	<fx:Script>
+		<![CDATA[
+		public static function init(o:DisplayObject):void
+		{
+		}			
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+		<![CDATA[
+			[Mixin]
+		]]>
+	</fx:Metadata>	
+	<!-- end of set of lines that must be in each unit test -->
+	<fx:Script>
+	<![CDATA[
+		import comps.*;
+		import spark.layouts.*;
+		import spark.components.DataGroup;
+		import mx.collections.ArrayCollection;
+		import spark.skins.spark.DefaultItemRenderer;
+		import spark.skins.spark.DefaultComplexItemRenderer;
+		
+		import mx.controls.Button;
+		import spark.components.Button;
+
+		public var smallItemArray:Array = [ 
+									{myItemIndex: 0, majorAxis: 'vertical', minorSize: 100, majorSize: 10}, 
+									{myItemIndex: 1, majorAxis: 'vertical', minorSize: 100, majorSize: 100}, 
+									{myItemIndex: 2, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 
+									{myItemIndex: 3, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 
+									{myItemIndex: 4, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 
+									{myItemIndex: 5, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 	
+									{myItemIndex: 6, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 
+									{myItemIndex: 7, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 	
+									{myItemIndex: 8, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 
+									{myItemIndex: 9, majorAxis: 'vertical', minorSize: 100, majorSize: 24}, 	
+								  ];
+	
+		
+	]]>
+	</fx:Script>
+	<testCases>
+	
+<!-- 
+
+========================
+
+	DataGroup Virtualization Testing
+	
+	This folder is intended to contain the core of the new DataGroup tests written to test virtualization.  
+	There are also test files in each folder with _virtual appended to them that are the virtualized 
+	equivalents of a subset of those DataGroup tests that already existed.
+		
+	
+========================
+
+-->
+
+<!--
+
+LinearLayoutVector Class:
+
+-->
+
+	<TestCase testID="DataGroup_virtualization_linearLayoutVector" keywords="[DataGroup, virtualization, linearLayoutVector]" description="perform some basic tests on the LinearLayoutVector class">
+		<body>
+			<AssertMethodValue method="value=application.runLinearLayoutVectorTests();" value="{true}" />
+		</body>
+	</TestCase>
+
+<!--
+
+DataGroup Class:
+
+typicalItem:Object
+ + check default value is null
+ + set to first/middle/last item in dataProvider check the scrollers resize correctly (contentHeight)
+ + set this to an item not in the dataProvider
+ + set typicalItem to: data item, halo component, spark component
+ + set this property and check that typicalLayoutElement gets set properly
+ + test a typicalItem that is too small/accurate/too big ensure it changes contentHeight
+ 
+-->
+	
+
+	<TestCase testID="DataGroup_virtualization_typicalItem_default" keywords="[DataGroup, virtualization]" description="check default value of typicalItem is null">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="typicalItem" valueExpression="value=null" />
+		</body>
+	</TestCase>	
+
+	<TestCase testID="DataGroup_virtualization_typicalItem_default_2" keywords="[DataGroup, virtualization]" description="should be the first item after a dataProvider is supplied">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.typicalItem.myItemIndex" value="0" />
+			<AssertMethodValue method="value=application.group1.typicalItem.minorSize" value="100" />
+			<AssertMethodValue method="value=application.group1.typicalItem.majorSize" value="24" />
+		</body>
+	</TestCase>	
+		
+	<TestCase testID="DataGroup_virtualization_typicalItem_toTypicalLayoutElement" keywords="[DataGroup, virtualization]" description="check that typicalLayoutElement gets set when typicalItem is set">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'vertical', minorSize: 100, majorSize: 24}" waitTarget="group1" waitEvent="updateComplete" />			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.typicalLayoutElement.width" value="100" />
+			<AssertMethodValue method="value=application.group1.layout.typicalLayoutElement.height" value="24" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_typicalItem_spark" keywords="[DataGroup, virtualization]" description="check that typicalItem can be set to a spark button">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value=new spark.components.Button()" waitTarget="group1" waitEvent="updateComplete" />			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=(application.group1.typicalItem is spark.components.Button)" value="true" />
+		</body>
+	</TestCase>					
+
+	<TestCase testID="DataGroup_virtualization_typicalItem_halo" keywords="[DataGroup, virtualization]" description="check that typicalItem can be set to a halo button">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value=new mx.controls.Button()" waitTarget="group1" waitEvent="updateComplete" />			
+		</setup>
+		<body>
+			<AssertMethodValue method="value=(application.group1.typicalItem is mx.controls.Button)" value="true" />
+		</body>
+	</TestCase>					
+
+	<TestCase testID="DataGroup_virtualization_typicalItem_estimate" keywords="[DataGroup, virtualization]" description="check that changing the typicalItem changes contentSize estimates">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'vertical', minorSize:100, majorSize:24}" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="294" />
+
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'vertical', minorSize:100, majorSize:1}" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="87" />
+						
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value={myItemIndex: -1, majorAxis: 'vertical', minorSize:100, majorSize:100}" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="978" />
+
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_typicalItem_inDP" keywords="[DataGroup, virtualization]" description="check that the typicalItem can be set to data items in the dataProvider">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection(smallItemArray)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value=application.group1.dataProvider.getItemAt(2)" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="356" />
+
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value=application.group1.dataProvider.getItemAt(1)" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="964" />
+						
+			<SetProperty target="group1" propertyName="typicalItem" valueExpression="value=application.group1.dataProvider.getItemAt(0)" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertPropertyValue target="group1" propertyName="contentHeight" value="244" />
+
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_typicalItem_inDP.png" target="" timeout="2000" />
+		</body>
+	</TestCase>				
+	
+		
+<!--
+
+LayoutBase Class:
+
+typicalLayoutElement:IVisualElement
+ + test this with variableRowHeight set to true/false
+ + specify a rowHeight with VRH true/false, check this is correct
+ + specify no rowHeight with VRH true/false, check this is first item
+ + check default is null when there is no first item
+ + test default typicalLayoutElement goes to the first item when not specified
+-->		
+	
+	<TestCase testID="DataGroup_virtualization_typicalLayoutElement_default" keywords="[DataGroup, virtualization]" description="check default null when no dataProvider set">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=(application.group1.layout.typicalLayoutElement == null)" value="true" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_typicalLayoutElement_default_2" keywords="[DataGroup, virtualization]" description="check default value of typicalLayoutElement is the first item">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection(smallItemArray)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=(application.group1.layout.typicalLayoutElement.height == 10)" value="true" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_typicalLayoutElement_fixedRowHeight" keywords="[DataGroup, virtualization]" description="check typicalLayoutElement is the size of first item">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.variableRowHeight = false" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection(smallItemArray)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.typicalLayoutElement.height" value="10" />
+		</body>
+	</TestCase>		
+	
+	<TestCase testID="DataGroup_virtualization_typicalLayoutElement_fixedRowHeight_set" keywords="[DataGroup, virtualization]" description="check typicalLayoutElement is the size of fixed size">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="height" value="30" waitTarget="group1" waitEvent="updateComplete" />			
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.variableRowHeight = false" />
+			<AssertMethodValue method="application.group1.layout.rowHeight = 40" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection(smallItemArray)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.layout.typicalLayoutElement.height" value="10" />
+		</body>
+	</TestCase>	
+	
+	<TestCase testID="DataGroup_virtualization_dataProviderChange" keywords="[DataGroup, virtualization]" description="check no RTE happens when changing from empty dp to another dp (SDK-19421)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />		
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([])" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection(smallItemArray)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(0).myItemIndex" value="0" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(1).myItemIndex" value="1" />
+			<AssertMethodValue method="value=application.group1.dataProvider.getItemAt(2).myItemIndex" value="2" />						
+		</body>
+	</TestCase>	
+	
+
+	<TestCase testID="DataGroup_virtualization_layer" keywords="[DataGroup, virtualization]" description="check no RTE on layer change (SDK-20141)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(100, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value= new ClassFactory(VirtualizationItemRendererDataAware)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" waitTarget="group1" waitEvent="updateComplete" />
+			<DispatchMouseEvent target="group1" localX="15" localY="1" type="rollOver"/>	
+			<DispatchMouseEvent target="group1" localX="15" localY="3" type="mouseOver" />	
+			<Pause timeout="400" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="300" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_layer.png" target="" timeout="2000" />
+		</body>
+	</TestCase>		
+	
+
+	<TestCase testID="DataGroup_virtualization_defaultItemRenderer" keywords="[DataGroup, virtualization]" description="check DefaultItemRenderer works with virtualization (SDK-20586)">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty target="group1" propertyName="width"  value="100" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="height"  value="300" waitTarget="group1"  waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling"  value="true" waitTarget="group1"  waitEvent="updateComplete" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value= new ClassFactory(DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />			
+			
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1,2,3,4,5])" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue target="group1" propertyName="width" value="100" />
+			<AssertPropertyValue target="group1" propertyName="height" value="300" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_defaultItemRenderer.png" target="" timeout="2000" />
+		</body>
+	</TestCase>			
+	
+	<TestCase testID="DataGroup_virtualization_SDK21030" keywords="[DataGroup, virtualization, regression]" description="regression test for SDK-21030">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(comps.RichEditableTextRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_SDK21030.png" target="group1" />
+		</body>
+	</TestCase>	
+				
+	<TestCase testID="DataGroup_virtualization_SDK21030_nonvirtual" keywords="[DataGroup, virtualization, regression]" description="non-virtual regression test for SDK-21030">
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(comps.RichEditableTextRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_SDK21030_nonvirtual.png" target="group1" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_customLayout_evenOdd" keywords="[DataGroup, virtualization, custom layout]" description="use a custom layout where indices aren't contiguous">
+		<!-- bugs>
+			<Bug bugID="SDK-24052" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty propertyName="rendererAddCounter" value="0" />
+			<RunCode code="application.group1.addEventListener('rendererAdd', application.updateRendererCounter)"/>
+			<SetProperty target="group1" propertyName="typicalItem" value="0" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new EvenOddLayout()" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="200" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="true" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(comps.EvenOddRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(10000)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="rendererAddCounter" value="4" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="2100" waitEvent="propertyChange" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="8" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="4200" waitEvent="propertyChange" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="8" />
+			<SetProperty target="group1" propertyName="horizontalScrollPosition" value="10000" waitEvent="propertyChange" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="8" />
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_customLayout_evenOdd.png" target="" />
+		</body>
+	</TestCase>		
+
+	<TestCase testID="DataGroup_virtualization_reuseRenderersOnSwap" keywords="[DataGroup, virtualization, custom layout]" description="renderers should be reused when swapping dataProvider">
+		<!-- bugs>
+			<Bug bugID="SDK-23228" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty propertyName="rendererAddCounter" value="0" />
+			<RunCode code="application.group1.addEventListener('rendererAdd', application.updateRendererCounter)"/>
+			<SetProperty target="group1" propertyName="typicalItem" value="0" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="100" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="true" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(5000)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="rendererAddCounter" value="4" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(10000)" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="4" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(2)" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="4" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=null" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="4" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(1000)" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="8" />
+		</body>
+	</TestCase>
+	
+	<TestCase testID="DataGroup_virtualization_reuseRenderersOnSwap_function" keywords="[DataGroup, virtualization]" description="renderers shouldn't be reused when swapping dataProvider when an itemRendererFunction is defined">
+		<!-- bugs>
+			<Bug bugID="SDK-25412" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<SetProperty propertyName="rendererAddCounter" value="0" />
+			<RunCode code="application.group1.addEventListener('rendererAdd', application.updateRendererCounter)"/>
+			<SetProperty target="group1" propertyName="typicalItem" value="0" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="layout" valueExpression="value=new VerticalLayout()" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="clipAndEnableScrolling" value="true" />
+			<SetProperty target="group1" propertyName="width" value="100" />
+			<SetProperty target="group1" propertyName="height" value="100" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1.layout" propertyName="useVirtualLayout" value="true" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=function(item:*):IFactory{return new ClassFactory(spark.skins.spark.DefaultItemRenderer)}" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(5000)" waitTarget="group1" waitEvent="updateComplete" />
+		</setup>
+		<body>
+			<AssertPropertyValue propertyName="rendererAddCounter" value="4" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(10000)" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="8" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(2)" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="10" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=null" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="10" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createEvenOddItems(1000)" waitEvent="updateComplete" />
+			<AssertPropertyValue propertyName="rendererAddCounter" value="14" />
+		</body>
+	</TestCase>
+	
+		<TestCase testID="DataGroup_virtualization_SDK25605" keywords="[DataGroup, virtualization, regression]" description="regression test for SDK-25605">
+		<!-- bugs>
+			<Bug bugID="SDK-25605" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(comps.PreferredSizeRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=new ArrayCollection([1,2,3])" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<DispatchMouseEvent target="group1" type="rollOver" localX="2" localY="23" waitEvent="rollOver" />
+			<DispatchMouseEvent target="group1" type="mouseOver" localX="2" localY="23" waitEvent="mouseOver" />
+			<DispatchMouseEvent target="group1" type="mouseMove" localX="2" localY="23" waitEvent="mouseMove" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_SDK25605.png" target="group1" />
+		</body>
+	</TestCase>	
+			
+	<TestCase testID="DataGroup_virtualization_SDK27326" keywords="[DataGroup, virtualization, regression]" description="regression test for SDK-27326">
+		<!-- bugs>
+			<Bug bugID="SDK-27326" />
+		</bugs-->
+		<setup>
+			<ResetComponent target="group1" className="spark.components.DataGroup" waitEvent="updateComplete" waitTarget="group1" />
+			<AssertMethodValue method="value=application.setupVerticalVirtualizationTest(application.group1)" value="true" />
+			<AssertMethodValue method="application.group1.layout.useVirtualLayout = true" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="itemRendererFunction" valueExpression="value=null" />
+			<SetProperty target="group1" propertyName="itemRenderer" valueExpression="value=new ClassFactory(spark.skins.spark.DefaultItemRenderer)" waitTarget="group1" waitEvent="updateComplete" />
+			<SetProperty target="group1" propertyName="dataProvider" valueExpression="value=application.createIdenticalItems(10, 100, 24, 'vertical')" waitTarget="group1" waitEvent="updateComplete" />
+			
+			<RunCode code="application.setLayoutAndRenderer(application.group1)" waitEvent="updateComplete" waitTarget="group1" />
+		</setup>
+		<body>
+			<CompareBitmap url="../virtualization/baselines/datagroup_virtualization_SDK27326.png" target="group1" />
+		</body>
+	</TestCase>		
+	
+</testCases>
+
+</UnitTester>

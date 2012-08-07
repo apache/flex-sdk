@@ -1,0 +1,30 @@
+<s:Panel 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"		
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    width="300" height="400" 
+    title="Custom Panel">
+            
+    <s:Group id="pupGroup">
+		<s:transitions>
+			<mx:Transition fromState="*" toState="*">
+				<mx:Sequence>
+					<mx:Zoom target="{panelPUA.popUp}" duration="500"/>
+				</mx:Sequence>
+			</mx:Transition> 
+		</s:transitions>					
+
+		<s:Button id="pupOpenBtn" label="Open Panel" click="panelPUA.displayPopUp=true"/>
+
+		<s:PopUpAnchor id="panelPUA" left="0" bottom="0" popUpPosition="below" styleName="popUpPanel" height="150" width="100">
+
+			<s:Panel id="pupPanel" width="100%" height="100%">
+				<s:layout><s:VerticalLayout/></s:layout>
+				<s:NumericStepper id="pupNS" height="23"/>							
+				<s:Button id="pupExitBtn" label="EXIT" click="panelPUA.displayPopUp=false"/>		
+			</s:Panel>
+
+		</s:PopUpAnchor>		
+	</s:Group>
+	
+</s:Panel>

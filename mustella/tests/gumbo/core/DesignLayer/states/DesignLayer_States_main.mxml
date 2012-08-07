@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<UnitTester testDir="gumbo/core/DesignLayer/states/" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark"  xmlns:m="http://ns.adobe.com/mxml/2009" xmlns="*" testSWF="DesignLayerBasic.mxml">
+  <!-- this set of lines form a template that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+      public static function init(o:DisplayObject):void { }
+    ]]>
+  </fx:Script>
+  <fx:Metadata>
+    <![CDATA[
+      [Mixin]
+    ]]>
+  </fx:Metadata>
+  <!-- end of set of lines that must be in each unit test -->
+  <fx:Script>
+    <![CDATA[
+    ]]>
+  </fx:Script>
+  <testCases>
+
+<!-- 
+
+DesignLayer States Testing
+==========================
+
++ change alpha between states
++ change visible between states
++ change an IVisualElement's designLayer property between states
++ use includeIn on an element and check it picks up the alpha of the DesignLayer
+
+-->
+
+<TestCase testID="DesignLayer_States_changeAlpha_1" keywords="[DesignLayer, states, alpha]" description="change alpha across states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeAlphaAcrossStates" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeAlpha_point5" keywords="[DesignLayer, states, alpha]" description="change alpha across states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeAlphaAcrossStates" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeAlpha_0" keywords="[DesignLayer, states, alpha]" description="change alpha across states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state3" waitEvent="currentStateChange" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeAlphaAcrossStates" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeVisible_false" keywords="[DesignLayer, states, visible]" description="change visible across states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.d2" propertyName="visible" value="false" />
+		<AssertPropertyValue target="statesGroup.vet2A" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2B" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2C" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2D" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2E" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2F" propertyName="visible" value="true" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeVisibleAcrossStates" />
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeVisible_true" keywords="[DesignLayer, states, visible]" description="change visible across states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.d2" propertyName="visible" value="false" />
+		<AssertPropertyValue target="statesGroup.vet2A" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2B" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2C" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2D" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2E" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2F" propertyName="visible" value="true" />
+		
+		<SetProperty target="statesGroup" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.d2" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2A" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2B" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2C" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2D" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2E" propertyName="visible" value="true" />
+		<AssertPropertyValue target="statesGroup.vet2F" propertyName="visible" value="true" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeVisibleAcrossStates" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeParent_point9" keywords="[DesignLayer, states, parent]" description="change designLayer of a IVE across different states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.vet3A.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3B.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3C.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3D.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3E.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3F.designLayer" propertyName="id" value="designLayer1" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeParentAcrossStates" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeParent_point5" keywords="[DesignLayer, states, parent]" description="change designLayer of a IVE across different states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state1" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.vet3A.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3B.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3C.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3D.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3E.designLayer" propertyName="id" value="designLayer1" />
+		<AssertPropertyValue target="statesGroup.vet3F.designLayer" propertyName="id" value="designLayer1" />
+		<SetProperty target="statesGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.vet3A.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3B.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3C.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3D.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3E.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3F.designLayer" propertyName="id" value="designLayer2" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeParentAcrossStates" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_changeParent_point1" keywords="[DesignLayer, states, parent]" description="change designLayer of a IVE across different states">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="state2" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.vet3A.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3B.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3C.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3D.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3E.designLayer" propertyName="id" value="designLayer2" />
+		<AssertPropertyValue target="statesGroup.vet3F.designLayer" propertyName="id" value="designLayer2" />
+		<SetProperty target="statesGroup" propertyName="currentState" value="state3" waitEvent="currentStateChange" />
+		<AssertPropertyValue target="statesGroup.vet3A.designLayer" propertyName="id" value="designLayer3" />
+		<AssertPropertyValue target="statesGroup.vet3B.designLayer" propertyName="id" value="designLayer3" />
+		<AssertPropertyValue target="statesGroup.vet3C.designLayer" propertyName="id" value="designLayer3" />
+		<AssertPropertyValue target="statesGroup.vet3D.designLayer" propertyName="id" value="designLayer3" />
+		<AssertPropertyValue target="statesGroup.vet3E.designLayer" propertyName="id" value="designLayer3" />
+		<AssertPropertyValue target="statesGroup.vet3F.designLayer" propertyName="id" value="designLayer3" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeParentAcrossStates" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+<TestCase testID="DesignLayer_States_includeIn" keywords="[DesignLayer, states, includeIn]" description="include an IVE and check it picks up the alpha of the DL">
+	<setup>
+		<ResetComponent target="statesGroup" className="comps.StatesGroup" waitEvent="updateComplete" />
+	</setup>
+	<body>
+		<SetProperty target="statesGroup" propertyName="currentState" value="includeInState" waitEvent="currentStateChange" />
+		<CompareBitmap url="../states/baselines/$testID.png" target="statesGroup.changeIncludeIn" numColorVariances="5" ignoreMaxColorVariance="true"/>
+	</body>
+</TestCase>
+
+
+
+  </testCases>
+</UnitTester>
